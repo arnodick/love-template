@@ -58,6 +58,8 @@ function love.draw(dt)
 		love.graphics.clear() --cleans that messy ol canvas all up, makes it all fresh and new and good you know
 		love.graphics.translate(-Camera.x+love.math.random(Camera.shake/2),-Camera.y)
 		if State == Enums.states.game then
+			love.graphics.setColor(Palette[7])
+			love.graphics.print("GAME",Game.width/2,Game.height/2)
 			for i,v in ipairs(Actors) do
 				actor.draw(v)
 			end

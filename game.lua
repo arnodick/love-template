@@ -12,7 +12,7 @@ local function make(tw,th,gw,gh,sp)
 	Enums = LIP.load("ini/enums.ini")
 
 	--global variables
-	State,Timer=game.init(0)--need use init here so there is State variable to go into changestate below
+	State,Timer=game.init(3)--need use init here so there is State variable to go into changestate below
 
 	game.graphics(tw,th,gw,gh)
 
@@ -35,12 +35,16 @@ local function init(s)
 
 	Actors={}
 	Menus={}
+	Pause = 0
 	return s,0
 end
 
 local function changestate(s)
 	State,Timer=game.init(s)
 	menu.make(s)
+	if State==Enums.states.game then
+		Player=actor.make(Enums.actors.player,0,320,240)
+	end
 	local settings={}
 	return settings
 end

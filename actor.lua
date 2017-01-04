@@ -15,17 +15,23 @@ local function make(t,st,x,y,c,d,vel,...)
 	a.delete=false
 	a.flags = 0x0
 	--a.flags = actor.setflags( 0x0, Enums.flags.gravity,Enums.flags.explosive,Enums.flags.ground_delta)
-	_G[Enums.actornames[a.t]]["make"](a,...)
+	if _G[Enums.actornames[a.t]]["make"] then
+		_G[Enums.actornames[a.t]]["make"](a,...)
+	end
 	table.insert(Actors,a)
 	return a
 end
 
 local function control(a,gs)
-	_G[Enums.actornames[a.t]]["control"](a)
+	if _G[Enums.actornames[a.t]]["control"] then
+		_G[Enums.actornames[a.t]]["control"](a)
+	end
 end
 
 local function draw(a)
-	_G[Enums.actornames[a.t]]["draw"](a)
+	if _G[Enums.actornames[a.t]]["draw"] then
+		_G[Enums.actornames[a.t]]["draw"](a)
+	end
 end
 
 local function damage(a,d)
