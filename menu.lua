@@ -1,13 +1,17 @@
 local function make(t)
 	local m={}
 	m.t=t
-	_G[Enums.statenames[m.t]]["make"](m)
+	if _G[Enums.statenames[m.t]]["make"] then
+		_G[Enums.statenames[m.t]]["make"](m)
+	end
 	table.insert(Menus,m)
 	return m
 end
 
 local function control(m)
-	_G[Enums.statenames[m.t]]["control"](m)
+	if _G[Enums.statenames[m.t]]["control"] then
+		_G[Enums.statenames[m.t]]["control"](m)
+	end
 end
 
 local function keypressed(m,key)
@@ -17,7 +21,9 @@ local function keypressed(m,key)
 end
 
 local function draw(m)
-	_G[Enums.statenames[m.t]]["draw"](m)
+	if _G[Enums.statenames[m.t]]["draw"] then
+		_G[Enums.statenames[m.t]]["draw"](m)
+	end
 end
 
 return

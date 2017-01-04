@@ -21,11 +21,11 @@ local function make(t,st,x,y,c,d,vel,...)
 end
 
 local function control(a,gs)
-
+	_G[Enums.actornames[a.t]]["control"](a)
 end
 
 local function draw(a)
-
+	_G[Enums.actornames[a.t]]["draw"](a)
 end
 
 local function damage(a,d)
