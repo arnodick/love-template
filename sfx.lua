@@ -7,14 +7,27 @@ local function load()
 			local filename = filedata:getFilename() --get the sound file's name
 			local varname = string.gsub(filename, ".wav", "")
 			if filedata:getExtension() == "wav" then --if it's a .wav, add to SFX (maybe make this flexible for other sound files ie mp3)
-				SFX[varname] = love.audio.newSource("sfx/"..filename)
+				SFX[varname] = love.audio.newSource("sfx/"..filename,"static")
 			end
 		end
 	end
 	return SFX
 end
 
+local function play(index,interrupt)
+	interrupt = interrupt or true
+	source = SFX[tostring(index)]
+	if source~=nil then
+		if interrupt then
+			love.audio.stop(source)
+		end
+		source:setPitch(Game.speed)
+		love.audio.play(source)
+	end
+end
+
 return
 {
 	load = load,
+	play = play,
 }
