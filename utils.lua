@@ -35,6 +35,18 @@ local function getfiles(dir,ext)
 	return filelist
 end
 
+local function filterfiles(folder,ext)
+	local files = love.filesystem.getDirectoryItems(folder)
+	for i=#files,1,-1 do
+		local filedata = love.filesystem.newFileData("code", files[i])
+		local filename = filedata:getFilename()
+		if filedata:getExtension() ~= ext then
+			table.remove(files,i)
+		end
+	end
+	return files
+end
+
 local function counterincrement(a,i)
 	--THIS FUNCTION INTENTIONALLY HAS SIDE EFFECTS
 	local name=Enums.actornames[a.t]
@@ -65,6 +77,7 @@ math.clamp = clamp
 math.choose = choose
 math.randomfraction = randomfraction
 love.filesystem.getfiles = getfiles
+love.filesystem.filterfiles = filterfiles
 love.graphics.drawbox = drawbox
 
 return

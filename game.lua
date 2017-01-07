@@ -72,8 +72,10 @@ local function graphics(tw,th,gw,gh)
 
 	Spritesheet={}
 	Quads={}
-	for a=1,2 do
-		local ss,qs = sprites.load("gfx/sprites"..a..".png",tw*a,th*a)
+	local files = love.filesystem.filterfiles("gfx","png")
+
+	for a=1,#files do
+		local ss,qs = sprites.load("gfx/"..files[a],tw*a,th*a)
 		table.insert(Spritesheet,ss)
 		table.insert(Quads,qs)
 	end
