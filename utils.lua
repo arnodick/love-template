@@ -1,6 +1,6 @@
-local function clamp(v,mi,ma,h)
-	h=h or true
-	if h then
+local function clamp(v,mi,ma,wrap)
+	wrap=wrap or false
+	if not wrap then
 		if v<mi then v=mi
 		elseif v>ma then v=ma
 		end
