@@ -3,7 +3,7 @@ libraries.load()
 SFX = sfx.load()
 
 function love.load()
-	Game = game.make(8,8,640,480,1)
+	Game = game.make(8,8,320,240,1)
 end
 
 function love.keypressed(key,scancode,isrepeat)

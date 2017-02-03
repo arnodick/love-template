@@ -23,6 +23,10 @@ local function make(t,st,x,y,c,d,vel,...)
 end
 
 local function control(a,gs)
+	if a.controller then
+		controller.update(a.controller,a.ct)
+	end
+
 	if _G[Enums.actornames[a.t]]["control"] then
 		_G[Enums.actornames[a.t]]["control"](a)
 	end
@@ -95,14 +99,6 @@ local function setflags(bytes,...)
 	return bytes
 end
 
-local function makehitbox(a,x,y,w,h)
-	a.hitbox={}
-	a.hitbox.x=x
-	a.hitbox.y=y
-	a.hitbox.w=w
-	a.hitbox.h=h
-end
-
 local function makeanim(a,speed,frames)
 	--sets actor to have an animation
 	--speed is how many steps it takes for animation to cycle (higher number is slower animation)
@@ -117,7 +113,6 @@ return
 	make = make,
 	control = control,
 	draw = draw,
-	makehitbox = makehitbox,
 	makeanim = makeanim,
 	collision = collision,
 	damage = damage,

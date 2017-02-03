@@ -33,6 +33,9 @@ local function init(s)
 	--initialize actor and menu tables
 	Camera=camera.make(0,0)
 
+	Joysticks=love.joystick.getJoysticks()
+	Joystick=Joysticks[1]
+
 	Actors={}
 	Menus={}
 	Pause = 0
@@ -43,7 +46,7 @@ local function changestate(s)
 	State,Timer=game.init(s)
 	menu.make(s)
 	if State==Enums.states.game then
-		Player=actor.make(Enums.actors.player,0,320,240)
+		Player=actor.make(Enums.actors.player,0,160,120)
 	end
 	local settings={}
 	return settings
