@@ -1,16 +1,14 @@
 local function make(a,ct)
 	a.ct=ct
-	a.controller={{0,true},{0,true},{0,true},{0,false},{0,false},{0,true},{false,true},{false,true}}
+	a.controller={0,0,0,0,0,0,false,false}
 end
 
 local function update(c,ct)
 	for i=1,#c do
-		if c[i][2] then
-			if type(c[i][1])=="number" then
-				c[i][1]=0
-			elseif type(c[i][1])=="boolean" then
-				c[i][1]=false
-			end
+		if type(c[i])=="number" then
+			c[i]=0
+		elseif type(c[i])=="boolean" then
+			c[i]=false
 		end
 	end
 

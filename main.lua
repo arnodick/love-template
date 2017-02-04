@@ -57,9 +57,7 @@ function love.draw(dt)
 	love.graphics.setCanvas(Canvas.game) --sets drawing to the 320x240 canvas
 		love.graphics.clear() --cleans that messy ol canvas all up, makes it all fresh and new and good you know
 		love.graphics.translate(-Camera.x+love.math.random(Camera.shake/2),-Camera.y)
-		if State == Enums.states.game then
-			love.graphics.setColor(Palette[7])
-			love.graphics.print("GAME",Game.width/2,Game.height/2)
+		if State==Enums.states.game then
 			for i,v in ipairs(Actors) do
 				actor.draw(v)
 			end
@@ -70,9 +68,9 @@ function love.draw(dt)
 	love.graphics.setCanvas() --sets drawing back to screen
 
 	love.graphics.origin()
-	love.graphics.setShader(Shader)
+	--love.graphics.setShader(Shader)
 	love.graphics.draw(Canvas.game,Screen.xoff,Screen.yoff,0,Screen.scale,Screen.scale) --just like draws everything to the screen or whatever
-	love.graphics.setShader()
+	--love.graphics.setShader()
 
 	if DebugMode then
 		love.graphics.setCanvas(Canvas.debug) --sets drawing to the 1280 x 960 debug canvas

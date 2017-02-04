@@ -1,30 +1,30 @@
 local function control(c)
 	local deadzone=0.25
 
-	c[Enums.buttons.leftstickhorizontal][1],
-	c[Enums.buttons.leftstickvertical][1],
-	c[Enums.buttons.lefttrigger][1],
-	c[Enums.buttons.rightstickhorizontal][1],
-	c[Enums.buttons.rightstickvertical][1],
-	c[Enums.buttons.righttrigger][1]=Joystick:getAxes()
+	c[Enums.buttons.leftstickhorizontal],
+	c[Enums.buttons.leftstickvertical],
+	c[Enums.buttons.lefttrigger],
+	c[Enums.buttons.rightstickhorizontal],
+	c[Enums.buttons.rightstickvertical],
+	c[Enums.buttons.righttrigger]=Joystick:getAxes()
 
-	for i=1,6 do
-		if c[i][2] then
-			if c[i][1]>0 and c[i][1]<deadzone then
-				c[i][1]=0
-			end
+---[[
+	for i=1,2 do
+		if c[i]>0 and c[i]<deadzone then
+			c[i]=0
+		end
 
-			if c[i][1]<0 and c[i][1]>-deadzone then
-				c[i][1]=0
-			end
+		if c[i]<0 and c[i]>-deadzone then
+			c[i]=0
 		end
 	end
+--]]
 
-	if Joystick:isDown(3) then
-		c[Enums.buttons.button1][1]=true
+	if Joystick:isDown(3) or c[Enums.buttons.righttrigger]>0 then
+		c[Enums.buttons.button1]=true
 	end
 	if Joystick:isDown(1) then
-		c[Enums.buttons.button2][1]=true
+		c[Enums.buttons.button2]=true
 	end
 end
 

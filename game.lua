@@ -10,6 +10,8 @@ local function make(tw,th,gw,gh,sp)
 
 	--enumerators
 	Enums = LIP.load("ini/enums.ini")
+	Guntypes = LIP.load("ini/guntypes.ini")
+--Bullettypes = LIP.load("ini/bullettypes.ini")
 
 	--global variables
 	State,Timer=game.init(3)--need use init here so there is State variable to go into changestate below

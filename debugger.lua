@@ -11,12 +11,17 @@ local function update()
 	table.insert(debuglist,"player vel:"..Player.vel)
 	table.insert(debuglist,"camx:"..Camera.x)
 	table.insert(debuglist,"camy:"..Camera.y)
-
+	if Actors[2] then
+	table.insert(debuglist,Actors[2].x)
+	table.insert(debuglist,Actors[2].y)
+	end
+--[[
 	local axes={Joystick:getAxes()}
 	table.insert(debuglist,"joy axes:"..#axes)
 	for i=1,#axes do
 		table.insert(debuglist,"axis"..i..":"..axes[i])
 	end
+--]]
 
 	return debuglist
 end
