@@ -30,11 +30,18 @@ local function control(a,gs)
 	if _G[Enums.actornames[a.t]]["control"] then
 		_G[Enums.actornames[a.t]]["control"](a)
 	end
+
+	if a.gun then
+		gun.control(a.gun,gs,a,a.controller[Enums.buttons.rightstickhorizontal][1],a.controller[Enums.buttons.rightstickvertical][1],a.controller[Enums.buttons.button1][1])
+	end
 end
 
 local function draw(a)
 	if _G[Enums.actornames[a.t]]["draw"] then
 		_G[Enums.actornames[a.t]]["draw"](a)
+	end
+	if a.gun then
+		gun.draw(a.gun)
 	end
 end
 

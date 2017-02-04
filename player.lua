@@ -1,10 +1,11 @@
 local function make(a)
 	controller.make(a,Enums.controltypes.gamepad)
+	gun.make(a,-0.79,7,0.012,-math.pi,0)
 end
 
 local function control(a)
-	a.x = a.x + a.controller[Enums.buttons.horizontal]
-	a.y = a.y + a.controller[Enums.buttons.vertical]
+	a.x = a.x + a.controller[Enums.buttons.leftstickhorizontal][1]
+	a.y = a.y + a.controller[Enums.buttons.leftstickvertical][1]
 end
 
 local function hitground(a)
