@@ -1,5 +1,5 @@
 libraries = require("libraries")
-libraries.load()
+libraries.load("")
 SFX = sfx.load()
 
 function love.load()
