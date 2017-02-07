@@ -13,7 +13,17 @@ local function load(spr, tw, th)
 	return spritesheet, quads
 end
 
-local function draw(ss,qd,x,y,w,h)
+local function draw(a)
+	if a.spr then
+		local anim=0
+		if a.anim then
+			anim=math.floor((Timer/a.anim.speed)%a.anim.frames)
+		end
+		love.graphics.draw(Spritesheet[a.size],Quads[a.size][a.spr+anim],a.x,a.y,0,1,1,(a.size*Game.tile.width)/2,(a.size*Game.tile.height)/2)
+	end
+end
+
+local function batchdraw(ss,qd,x,y,w,h)
 	w=w or 1
 	h=h or 1
 	for b=0,h-1 do
@@ -27,4 +37,5 @@ return
 {
 	load = load,
 	draw = draw,
+	batchdraw = batchdraw,
 }

@@ -27,14 +27,14 @@ local function control(a,gs)
 		controller.update(a.controller,a.ct)
 	end
 
+	if _G[Enums.actornames[a.t]]["control"] then
+		_G[Enums.actornames[a.t]]["control"](a)
+	end
+
 	a.vec[1] = math.cos(a.d)
 	a.vec[2] = math.sin(a.d)
 	a.x = a.x + a.vec[1]*a.vel*gs
 	a.y = a.y - a.vec[2]*a.vel*gs
-
-	if _G[Enums.actornames[a.t]]["control"] then
-		_G[Enums.actornames[a.t]]["control"](a)
-	end
 
 	if a.gun then
 		gun.control(a.gun,gs,a,a.controller[Enums.buttons.rightstickhorizontal],a.controller[Enums.buttons.rightstickvertical],a.controller[Enums.buttons.button1])
@@ -44,12 +44,16 @@ end
 local function draw(a)
 	love.graphics.setColor(Palette[a.c])
 
+	sprites.draw(a)
+
 	if _G[Enums.actornames[a.t]]["draw"] then
 		_G[Enums.actornames[a.t]]["draw"](a)
 	end
+
 	if a.gun then
 		gun.draw(a.gun)
 	end
+
 	love.graphics.setColor(Palette[Enums.colours.pure_white])
 end
 
@@ -114,21 +118,11 @@ local function setflags(bytes,...)
 	return bytes
 end
 
-local function makeanim(a,speed,frames)
-	--sets actor to have an animation
-	--speed is how many steps it takes for animation to cycle (higher number is slower animation)
-	--frames is how many frames are in the animation
-	a.anim={}
-	a.anim.speed=speed
-	a.anim.frames=frames
-end
-
 return
 {
 	make = make,
 	control = control,
 	draw = draw,
-	makeanim = makeanim,
 	collision = collision,
 	damage = damage,
 	impulse = impulse,

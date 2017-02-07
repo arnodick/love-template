@@ -1,4 +1,5 @@
-local function make(a,spr,size,hp)
+local function make(a,spr,size,hp,ct)
+	--TODO do these with ini files like Guntypes
 	a.spr=spr
 	a.size=size
 	a.hp=hp
@@ -7,6 +8,10 @@ local function make(a,spr,size,hp)
 	a.hittime=6
 	a.hitcolour=7
 	a.flags = actor.setflags(a.flags, Enums.flags.damageable, Enums.flags.explodable)
+	--TODO even enemy should be a flag?
+	if ct then--TODO make these flags?
+		controller.make(a,ct)
+	end
 	if _G[Enums.enemynames[a.st]]["make"] then
 		_G[Enums.enemynames[a.st]]["make"](a)
 	end

@@ -25,6 +25,8 @@ end
 function love.update(dt)
 	local gs=Game.speed
 	local timerspeed=gs
+	--TODO make this a dynamic function chooser
+	--game.control(state)
 	if State == Enums.states.game then
 		if Pause <= 0 then
 			for i,v in ipairs(Actors) do

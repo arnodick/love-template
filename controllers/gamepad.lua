@@ -1,5 +1,6 @@
 local function control(c)
 	local deadzone=0.25
+	local e=Enums.buttons
 
 	c[Enums.buttons.leftstickhorizontal],
 	c[Enums.buttons.leftstickvertical],
@@ -26,6 +27,11 @@ local function control(c)
 	if Joystick:isDown(1) then
 		c[Enums.buttons.button2]=true
 	end
+---[[
+
+	--a.x = a.x + a.controller[e.leftstickhorizontal]
+	--a.y = a.y + a.controller[e.leftstickvertical]
+--]]
 end
 
 return

@@ -40,15 +40,18 @@ local function init(s)
 
 	Actors={}
 	Menus={}
-	Pause = 0
+	Pause=0
 	return s,0
 end
 
 local function changestate(s)
 	State,Timer=game.init(s)
 	menu.make(s)
+
+	--TODO dynamic function thing here too
 	if State==Enums.states.game then
-		Player=actor.make(Enums.actors.player,0,160,120)
+		local e=Enums
+		Player=actor.make(e.actors.friend,e.friends.scientist,160,120,e.colours.pure_white,0,0,81,1,8,e.controltypes.gamepad)--TODO change controltypes to contollers
 	end
 	local settings={}
 	return settings
