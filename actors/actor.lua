@@ -23,9 +23,7 @@ local function make(t,st,x,y,c,d,vel,...)
 end
 
 local function control(a,gs)
-	if a.controller then
-		controller.update(a.controller,a.ct)
-	end
+	controller.update(a,gs)
 
 	if _G[Enums.actornames[a.t]]["control"] then
 		_G[Enums.actornames[a.t]]["control"](a)
@@ -35,10 +33,6 @@ local function control(a,gs)
 	a.vec[2] = math.sin(a.d)
 	a.x = a.x + a.vec[1]*a.vel*gs
 	a.y = a.y - a.vec[2]*a.vel*gs
-
-	if a.gun then
-		gun.control(a.gun,gs,a,a.controller[Enums.buttons.rightstickhorizontal],a.controller[Enums.buttons.rightstickvertical],a.controller[Enums.buttons.button1])
-	end
 end
 
 local function draw(a)

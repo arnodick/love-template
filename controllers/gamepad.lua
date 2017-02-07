@@ -1,15 +1,15 @@
-local function control(c)
+local function control(a,gs)
 	local deadzone=0.25
+	local c={0,0,0,0,0,0,false,false}
 	local e=Enums.buttons
 
-	c[Enums.buttons.leftstickhorizontal],
-	c[Enums.buttons.leftstickvertical],
-	c[Enums.buttons.lefttrigger],
-	c[Enums.buttons.rightstickhorizontal],
-	c[Enums.buttons.rightstickvertical],
-	c[Enums.buttons.righttrigger]=Joystick:getAxes()
+	c[e.leftstickhorizontal],
+	c[e.leftstickvertical],
+	c[e.lefttrigger],
+	c[e.rightstickhorizontal],
+	c[e.rightstickvertical],
+	c[e.righttrigger]=Joystick:getAxes()
 
----[[
 	for i=1,2 do
 		if c[i]>0 and c[i]<deadzone then
 			c[i]=0
@@ -19,19 +19,21 @@ local function control(c)
 			c[i]=0
 		end
 	end
---]]
+
+	Game.speed=(c[e.lefttrigger]+1)/2
+	a.d=vector.direction(c[e.leftstickhorizontal],-c[e.leftstickvertical])
+	a.vel=vector.length(c[e.leftstickhorizontal],c[e.leftstickvertical])
 
 	if Joystick:isDown(3) or c[Enums.buttons.righttrigger]>0 then
-		c[Enums.buttons.button1]=true
+		c[e.button1]=true
 	end
 	if Joystick:isDown(1) then
-		c[Enums.buttons.button2]=true
+		c[e.button2]=true
 	end
----[[
 
-	--a.x = a.x + a.controller[e.leftstickhorizontal]
-	--a.y = a.y + a.controller[e.leftstickvertical]
---]]
+	if a.gun then
+		gun.control(a.gun,gs,a,c[e.rightstickhorizontal],c[e.rightstickvertical],c[e.button1])
+	end
 end
 
 return
