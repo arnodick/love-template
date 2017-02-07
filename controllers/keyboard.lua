@@ -1,23 +1,30 @@
-local function control(c)
+local function control(a)
+	local c={0,0,0,0,0,0,false,false}
+	local e=Enums.buttons
+
 	if love.keyboard.isDown('left') then
-		c[1]=-1
+		c[e.leftstickhorizontal]=-1
 	elseif love.keyboard.isDown('right') then
-		c[1]=1
+		c[e.leftstickhorizontal]=1
 	end
 
 	if love.keyboard.isDown('up') then
-		c[2]=-1
+		c[e.leftstickvertical]=-1
 	elseif love.keyboard.isDown('down') then
-		c[2]=1
+		c[e.leftstickvertical]=1
 	end
 
 	if love.keyboard.isDown('z') then
-		c[3]=true
+		c[e.button1]=true
 	end
 
 	if love.keyboard.isDown('x') then
-		c[4]=true
+		c[e.lefttrigger]=1
+	else
+		c[e.lefttrigger]=-1
 	end
+	
+	return c
 end
 
 return

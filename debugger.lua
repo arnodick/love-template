@@ -1,6 +1,7 @@
 local function update()
 	local debuglist={}
 	table.insert(debuglist,Timer)
+	table.insert(debuglist,Game.speed)
 	table.insert(debuglist,"FPS:"..love.timer.getFPS())
 	table.insert(debuglist,"Actors:"..#Actors)
 	table.insert(debuglist,"player x:"..Player.x)

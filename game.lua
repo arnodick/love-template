@@ -51,7 +51,7 @@ local function changestate(s)
 	--TODO dynamic function thing here too
 	if State==Enums.states.game then
 		local e=Enums
-		Player=actor.make(e.actors.friend,e.friends.scientist,160,120,e.colours.pure_white,0,0,81,1,8,e.controllers.gamepad)
+		Player=actor.make(e.actors.friend,e.friends.scientist,160,120,e.colours.pure_white,0,0,81,1,8,e.controllers.keyboard)
 	end
 	local settings={}
 	return settings
