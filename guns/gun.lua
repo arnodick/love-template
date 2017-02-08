@@ -1,4 +1,4 @@
-local function make(a,t,angle,len,speed,anglemin,anglemax)
+local function make(a,t,angle,len,speed,anglemin,anglemax,bc)
 	a.gun={}
 	a.gun.t=t
 	a.gun.angle=angle
@@ -7,6 +7,8 @@ local function make(a,t,angle,len,speed,anglemin,anglemax)
 	a.gun.speed=speed
 	a.gun.anglemin=anglemin
 	a.gun.anglemax=anglemax
+	a.gun.bc=bc
+	a.gun.c=a.cinit
 	a.gun.x=0
 	a.gun.y=0
 	a.gun.xs=0
@@ -16,8 +18,7 @@ local function make(a,t,angle,len,speed,anglemin,anglemax)
 end
 
 local function control(g,gs,a,vx,vy,shoot)
-	--g.angle=math.clamp(g.angle+dir*g.speed*math.pi*2,g.anglemin,g.anglemax)
-	
+	local e=Enums
 	g.angle=vector.direction(vx,vy)
 	g.vec[1]=math.cos(g.angle)
 	g.vec[2]=math.sin(g.angle)
@@ -35,27 +36,28 @@ local function control(g,gs,a,vx,vy,shoot)
 	g.x=a.x+g.vec[1]*g.len
 	g.y=a.y+g.vec[2]*g.len
 
+	--TODO dynamicalize this
 	if g.delta<=0 then
 		if shoot then
 			local guntype=Guntypes[g.t]
-			--sfx.play(guntype.snd)
-			g.len=1
+			sfx.play(guntype.snd)
+			--g.len=1
 			--gun specific controls
 			if guntype.proj==4 or guntype.proj==5 then
 				--lazer
 				local dist=100
 				actor.make(Enums.actors.projectile,guntype.proj,g.x+g.vec[1]*dist,g.y+g.vec[2]*dist,Enums.colours.pure_white,g.angle,0,a.t,g.x,g.y,g.angle)
 			else
-				--local bvel=math.sqrt( (g.vec[1]*guntype.vel+a.vec[1]*a.vel)^2+(g.vec[2]*guntype.vel+a.vec[2]*a.vel)^2 )
 				local bvel=guntype.vel
 				for b=1,guntype.num do
 					local rand = love.math.random(-guntype.acc/2*100,guntype.acc/2*100)/50*math.pi
-					actor.make(Enums.actors.projectile,guntype.proj,g.x,g.y,Enums.colours.blue,-g.angle+rand,bvel+math.randomfraction(1),a.t)
+					actor.make(Enums.actors.projectile,guntype.proj,g.x,g.y,g.bc,-g.angle+rand,bvel+math.randomfraction(0.5),a.t)
 				end
 				if g.angle>-0.5*math.pi then
 					g.angle = g.angle - guntype.rec*math.pi--*2
 				end
 			end
+			actor.make(e.actors.effect,e.effects.cloud,g.x,g.y,e.colours.dark_gray,-g.angle+math.randomfraction(1)-0.5,math.randomfraction(1),6)
 			g.delta=guntype.rof
 		end
 	else 
@@ -69,6 +71,8 @@ local function control(g,gs,a,vx,vy,shoot)
 end
 
 local function draw(g)
+	--love.graphics.setColor(Palette[Enums.colours.red])
+	love.graphics.setColor(Palette[g.c])
 	love.graphics.line(g.xs,g.ys,g.x,g.y)
 end
 

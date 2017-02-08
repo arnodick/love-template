@@ -24,19 +24,15 @@ end
 
 function love.update(dt)
 	local gs=Game.speed
-	local timerspeed=gs
 	--TODO make this a dynamic function chooser
 	--game.control(state)
 	if State == Enums.states.game then
-		if Pause <= 0 then
-			for i,v in ipairs(Actors) do
-				actor.control(v,gs)
-			end
-			camera.control(Camera,Player)
-		else
-			Pause = Pause - gs
-			timerspeed=0
+
+		for i,v in ipairs(Actors) do
+			actor.control(v,gs)
+			Game.speed=math.clamp(Player.vel,0.1,1)
 		end
+		camera.control(Camera,Player,gs)
 		
 		if DebugMode then
 			DebugList = debugger.update()
@@ -52,7 +48,7 @@ function love.update(dt)
 		end
 	end
 
-	Timer = Timer + timerspeed
+	Timer = Timer + gs
 end
 
 function love.draw(dt)

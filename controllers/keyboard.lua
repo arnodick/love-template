@@ -1,5 +1,5 @@
 local function control(a)
-	local c={0,0,0,0,0,0,false,false}
+	local c=controller.make()
 	local e=Enums.buttons
 
 	if love.keyboard.isDown('left') then

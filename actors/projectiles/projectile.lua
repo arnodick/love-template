@@ -1,5 +1,5 @@
 local function make(a)
-	a.tail={a.x,a.y}
+	a.angle=-a.d
 	if _G[Enums.projectilenames[a.st]]["make"] then
 		_G[Enums.projectilenames[a.st]]["make"](a)
 	end

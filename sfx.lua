@@ -21,7 +21,7 @@ local function play(index,interrupt)
 		if interrupt then
 			love.audio.stop(source)
 		end
-		source:setPitch(Game.speed)
+		source:setPitch(Game.speed+math.randomfraction(0.2)-0.1)
 		love.audio.play(source)
 	end
 end

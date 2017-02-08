@@ -7,8 +7,10 @@ local function make(x,y)
 	return c
 end
 
-local function control(c,t)
-
+local function control(c,t,gs)
+	if c.shake>0 then
+		c.shake = c.shake - gs
+	end
 end
 
 return

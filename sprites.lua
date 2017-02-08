@@ -19,7 +19,7 @@ local function draw(a)
 		if a.anim then
 			anim=math.floor((Timer/a.anim.speed)%a.anim.frames)
 		end
-		love.graphics.draw(Spritesheet[a.size],Quads[a.size][a.spr+anim],a.x,a.y,0,1,1,(a.size*Game.tile.width)/2,(a.size*Game.tile.height)/2)
+		love.graphics.draw(Spritesheet[a.size],Quads[a.size][a.spr+anim],a.x,a.y,a.angle,1,1,(a.size*Game.tile.width)/2,(a.size*Game.tile.height)/2)
 	end
 end
 

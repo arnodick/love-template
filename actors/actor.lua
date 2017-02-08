@@ -4,13 +4,15 @@ local function make(t,st,x,y,c,d,vel,...)
 	a.st=st
 	a.x=x
 	a.y=y
-	a.c=c or Enums.colours.red
+	a.cinit=c or Enums.colours.red 
+	a.c=a.cinit
 	a.d=d or 0
 	a.vel=vel or 0
 	a.vec={math.cos(a.d),math.sin(a.d)}
+	a.angle=0
 	a.delta=Timer
 	a.accel=0.08
-	a.decel=0.02
+	a.decel=0
 	a.maxvel=5
 	a.delete=false
 	a.flags = 0x0
@@ -29,10 +31,36 @@ local function control(a,gs)
 		_G[Enums.actornames[a.t]]["control"](a)
 	end
 
+	if a.anglespeed then
+		a.angle = a.angle + a.anglespeed*a.vec[1]*math.pi*2*gs
+	end
+
+	if a.hit then
+		if a.hit>0 then
+			a.hit=a.hit-gs
+		else
+			a.c=a.cinit --TODO make this an init value
+		end
+	end
+
 	a.vec[1] = math.cos(a.d)
 	a.vec[2] = math.sin(a.d)
 	a.x = a.x + a.vec[1]*a.vel*gs
 	a.y = a.y - a.vec[2]*a.vel*gs
+
+	if a.vel>0 then
+		if a.vel<a.decel then
+			a.vel = 0
+		else
+			a.vel = a.vel - a.decel*gs
+		end
+	elseif a.vel<0 then
+		if a.vel>-a.decel then
+			a.vel = 0
+		else
+			a.vel = a.vel + a.decel*gs
+		end
+	end
 end
 
 local function draw(a)
@@ -48,11 +76,53 @@ local function draw(a)
 		gun.draw(a.gun)
 	end
 
+	if a.x<-10
+	or a.x>330
+	or a.y>250
+	or a.y<-10 then
+		if not actor.getflag(a.flags,Enums.flags.persistent) then
+			a.delete=true
+	 	end
+	end
+
 	love.graphics.setColor(Palette[Enums.colours.pure_white])
 end
 
 local function damage(a,d)
+	local e=Enums
+	if not a.delete then
+		sfx.play(a.hitsfx)
 
+		if actor.getflag(a.flags,Enums.flags.damageable) then
+			a.hp = a.hp - d-- or 3
+			for i=1,8 do
+				actor.make(e.actors.effect,e.effects.spark,a.x,a.y)
+			end
+			--TODO dynamicalize damage function for each actor?
+			if a.ct==e.controllers.gamepad then
+				Camera.shake=20
+			end
+			if a.hittime then
+				if a.hit<a.hittime then
+					a.hit=a.hittime
+				end
+				a.c=a.hitcolour
+			end
+			if a.hp<1 then
+				sfx.play(a.deathsnd)
+				a.delete=true
+				Score=Score+1
+				if actor.getflag(a.flags,Enums.flags.explosive) then
+					actor.make(e.actors.effect,e.effects.explosion,a.x,a.y,Enums.colours.white,0,0,20*(a.size))
+				end
+				--HACK TO GET ENEMIES TO SPAWN
+				if a.ct==Enums.controllers.enemy then
+					actor.make(e.actors.character,e.characters.scientist,math.random(320),math.random(240),e.colours.dark_green,0,0,49,1,8,e.controllers.enemy)
+				end
+
+			end
+		end
+	end
 end
 
 local function impulse(a,dir,vel,glitch)
@@ -72,12 +142,12 @@ local function impulse(a,dir,vel,glitch)
 	return vector.direction(outx,outy), outvel
 end
 
-local function collision(a,enemy)
+local function collision(x,y,enemy)
 	if enemy.hitbox then
-		if a.x>enemy.x+enemy.hitbox.x then
-		if a.x<enemy.x+enemy.hitbox.x+enemy.hitbox.w then
-		if a.y>enemy.y+enemy.hitbox.y then
-		if a.y<enemy.y+enemy.hitbox.y+enemy.hitbox.h then
+		if x>enemy.x+enemy.hitbox.x then
+		if x<enemy.x+enemy.hitbox.x+enemy.hitbox.w then
+		if y>enemy.y+enemy.hitbox.y then
+		if y<enemy.y+enemy.hitbox.y+enemy.hitbox.h then
 			return true
 		end
 		end

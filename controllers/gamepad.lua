@@ -1,7 +1,7 @@
 local function control(a)
-	local deadzone=0.25
-	local c={0,0,0,0,0,0,false,false}
+	local c=controller.make()
 	local e=Enums.buttons
+	local deadzone=0.25
 
 	c[e.leftstickhorizontal],
 	c[e.leftstickvertical],

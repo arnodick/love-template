@@ -10,7 +10,6 @@ local function update(a,gs)
 			c=_G[Enums.controllernames[a.ct]]["control"](a,gs)
 		end
 
-		Game.speed=(c[e.lefttrigger]+1)/2
 		a.d=vector.direction(c[e.leftstickhorizontal],-c[e.leftstickvertical])
 		a.vel=vector.length(c[e.leftstickhorizontal],c[e.leftstickvertical])
 
