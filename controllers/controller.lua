@@ -1,15 +1,20 @@
-local function make()
-	return {0,0,0,0,0,0,false,false}
+local function make(a,ct)
+	a.ct=ct
+	a.controller={0,0,0,0,0,0,false,false}
+	if _G[Enums.controllernames[a.ct]]["make"] then
+		_G[Enums.controllernames[a.ct]]["make"](a)
+	end
 end
 
 local function update(a,gs)
-	if a.ct then
-		local c={}
+	if a.controller then
 		local e=Enums.buttons
+
 		if _G[Enums.controllernames[a.ct]]["control"] then
-			c=_G[Enums.controllernames[a.ct]]["control"](a,gs)
+			_G[Enums.controllernames[a.ct]]["control"](a)
 		end
 
+		local c=a.controller
 		a.d=vector.direction(c[e.leftstickhorizontal],-c[e.leftstickvertical])
 		a.vel=vector.length(c[e.leftstickhorizontal],c[e.leftstickvertical])
 

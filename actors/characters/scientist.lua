@@ -5,7 +5,6 @@ local function make(a)
 	end
 	gun.make(a,1,-0.79,9,0.012,-math.pi,0,c)
 	animation.make(a,10,2)
-	a.move=math.choose(-1,1)
 end
 
 local function control(a)

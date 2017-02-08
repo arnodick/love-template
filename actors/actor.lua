@@ -111,7 +111,7 @@ local function damage(a,d)
 			if a.hp<1 then
 				sfx.play(a.deathsnd)
 				a.delete=true
-				Score=Score+1
+				Game.settings.score=Game.settings.score+1
 				if actor.getflag(a.flags,Enums.flags.explosive) then
 					actor.make(e.actors.effect,e.effects.explosion,a.x,a.y,Enums.colours.white,0,0,20*(a.size))
 				end

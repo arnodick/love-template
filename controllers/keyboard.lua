@@ -1,6 +1,6 @@
 local function control(a)
-	local c=controller.make()
 	local e=Enums.buttons
+	local c=a.controller
 
 	if love.keyboard.isDown('left') then
 		c[e.leftstickhorizontal]=-1
@@ -16,6 +16,8 @@ local function control(a)
 
 	if love.keyboard.isDown('z') then
 		c[e.button1]=true
+	else
+		c[e.button1]=false
 	end
 
 	if love.keyboard.isDown('x') then
@@ -23,8 +25,6 @@ local function control(a)
 	else
 		c[e.lefttrigger]=-1
 	end
-	
-	return c
 end
 
 return

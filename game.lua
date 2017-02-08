@@ -45,19 +45,19 @@ local function init(s)
 end
 
 local function changestate(s)
+	local e=Enums
 	State,Timer=game.init(s)
 	menu.make(s)
-
+	
+	local settings={}
 	--TODO dynamic function thing here too
 	if State==Enums.states.game then
-		Score=0
-		local e=Enums
+		settings.score=0
 		Player=actor.make(e.actors.character,e.characters.scientist,160,120,e.colours.dark_blue,0,0,81,1,8,e.controllers.gamepad)
 		for a=1,5 do
 			actor.make(e.actors.character,e.characters.scientist,math.random(320),math.random(240),e.colours.dark_green,0,0,49,1,8,e.controllers.enemy)
 		end
 	end
-	local settings={}
 	return settings
 end
 

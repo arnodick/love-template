@@ -4,7 +4,7 @@ local function make(a,spr,size,hp,ct)
 	a.size=size or 1
 	a.hp=hp or 1
 	if ct then
-		a.ct=ct
+		controller.make(a,ct)
 	end
 	a.hit=0
 	a.hitsfx=5

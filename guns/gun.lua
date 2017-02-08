@@ -71,7 +71,6 @@ local function control(g,gs,a,vx,vy,shoot)
 end
 
 local function draw(g)
-	--love.graphics.setColor(Palette[Enums.colours.red])
 	love.graphics.setColor(Palette[g.c])
 	love.graphics.line(g.xs,g.ys,g.x,g.y)
 end

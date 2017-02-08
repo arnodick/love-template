@@ -1,6 +1,6 @@
 local function control(a)
-	local c=controller.make()
 	local e=Enums.buttons
+	local c=a.controller
 	local deadzone=0.25
 
 	c[e.leftstickhorizontal],
@@ -22,12 +22,12 @@ local function control(a)
 
 	if Joystick:isDown(3) or c[e.righttrigger]>0 then
 		c[e.button1]=true
+	else
+		c[e.button1]=false
 	end
 	if Joystick:isDown(1) then
 		c[e.button2]=true
 	end
-
-	return c
 end
 
 return
