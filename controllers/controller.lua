@@ -1,6 +1,6 @@
 local function make(a,ct)
 	a.ct=ct
-	a.controller={0,0,0,0,0,0,false,false}
+	a.controller={0,0,0,0,false,false}
 	if _G[Enums.controllernames[a.ct]]["make"] then
 		_G[Enums.controllernames[a.ct]]["make"](a)
 	end
@@ -8,18 +8,18 @@ end
 
 local function update(a,gs)
 	if a.controller then
-		local e=Enums.buttons
+		local e=Enums.commands
 
 		if _G[Enums.controllernames[a.ct]]["control"] then
 			_G[Enums.controllernames[a.ct]]["control"](a)
 		end
 
 		local c=a.controller
-		a.d=vector.direction(c[e.leftstickhorizontal],-c[e.leftstickvertical])
-		a.vel=vector.length(c[e.leftstickhorizontal],c[e.leftstickvertical])
+		a.d=vector.direction(c[e.movehorizontal],-c[e.movevertical])
+		a.vel=vector.length(c[e.movehorizontal],c[e.movevertical])
 
 		if a.gun then
-			gun.control(a.gun,gs,a,c[e.rightstickhorizontal],c[e.rightstickvertical],c[e.button1])
+			gun.control(a.gun,gs,a,c[e.aimhorizontal],c[e.aimvertical],c[e.shoot])
 		end
 	end
 end

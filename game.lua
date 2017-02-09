@@ -19,6 +19,9 @@ local function make(tw,th,gw,gh,sp)
 
 	game.graphics(tw,th,gw,gh)
 
+	love.audio.setDistanceModel("exponent")
+	love.audio.setOrientation(0,0,-1,0,1,0)
+
 	--Game object
 	local g={}
 	g.tile={}
@@ -37,7 +40,6 @@ local function init(s)
 	Camera=camera.make(0,0)
 
 	Joysticks=love.joystick.getJoysticks()
-	Joystick=Joysticks[1]
 
 	Actors={}
 	Menus={}
@@ -53,7 +55,11 @@ local function changestate(s)
 	--TODO dynamic function thing here too
 	if State==Enums.states.game then
 		settings.score=0
-		Player=actor.make(e.actors.character,e.characters.scientist,160,120,e.colours.dark_blue,0,0,81,1,8,e.controllers.gamepad)
+		local playercontroller=e.controllers.keyboard
+		if #Joysticks>0 then
+			playercontroller=e.controllers.gamepad
+		end
+		Player=actor.make(e.actors.character,e.characters.scientist,160,120,e.colours.dark_blue,0,0,81,1,8,playercontroller)
 		for a=1,5 do
 			actor.make(e.actors.character,e.characters.scientist,math.random(320),math.random(240),e.colours.dark_green,0,0,49,1,8,e.controllers.enemy)
 		end

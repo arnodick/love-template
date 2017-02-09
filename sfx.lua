@@ -5,23 +5,28 @@ local function load()
 		if love.filesystem.isFile("sfx/"..files[i]) then --if it isn't a directory
 			local filedata = love.filesystem.newFileData("sound", files[i])
 			local filename = filedata:getFilename() --get the sound file's name
-			local varname = string.gsub(filename, ".wav", "")
-			if filedata:getExtension() == "wav" then --if it's a .wav, add to SFX (maybe make this flexible for other sound files ie mp3)
-				SFX[varname] = love.audio.newSource("sfx/"..filename,"static")
+			--local varname = string.gsub(filename, ".ogg", "")
+			local varname = tostring(i)
+			if filedata:getExtension() == "ogg" then --if it's a .ogg, add to SFX (maybe make this flexible for other sound files ie mp3)
+				--SFX[varname] = love.audio.newSource("sfx/"..filename,"static")
+				SFX[varname] = filename
 			end
 		end
 	end
 	return SFX
 end
 
-local function play(index,interrupt)
+local function play(index,x,y,interrupt)
 	interrupt = interrupt or true
-	source = SFX[tostring(index)]
+	local source = love.audio.newSource("sfx/"..SFX[tostring(index)],"static")
 	if source~=nil then
-		if interrupt then
-			love.audio.stop(source)
-		end
+		--if interrupt then
+		--	love.audio.stop(source)
+		--end
 		source:setPitch(Game.speed+math.randomfraction(0.2)-0.1)
+		source:setRelative(false)
+		source:setPosition(x,y,0)
+		source:setRolloff(0.05)
 		love.audio.play(source)
 	end
 end

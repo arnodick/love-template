@@ -7,7 +7,7 @@ local function make(a,spr,size,hp,ct)
 		controller.make(a,ct)
 	end
 	a.hit=0
-	a.hitsfx=5
+	a.hitsfx=3
 	a.hittime=6
 	a.hitcolour=7
 	a.flags = actor.setflags(a.flags, Enums.flags.damageable, Enums.flags.explodable, Enums.flags.shootable, Enums.flags.explosive)

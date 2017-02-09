@@ -40,7 +40,7 @@ local function control(g,gs,a,vx,vy,shoot)
 	if g.delta<=0 then
 		if shoot then
 			local guntype=Guntypes[g.t]
-			sfx.play(guntype.snd)
+			sfx.play(guntype.snd,g.x,g.y)
 			--g.len=1
 			--gun specific controls
 			if guntype.proj==4 or guntype.proj==5 then

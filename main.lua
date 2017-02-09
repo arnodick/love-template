@@ -33,6 +33,7 @@ function love.update(dt)
 			Game.speed=math.clamp(Player.vel,0.1,1)
 		end
 		camera.control(Camera,Player,gs)
+		love.audio.setPosition(Player.x,Player.y,0)
 		
 		if DebugMode then
 			DebugList = debugger.update()

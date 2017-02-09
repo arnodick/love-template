@@ -1,5 +1,5 @@
 local function make(a,size)
-	sfx.play(2)
+	sfx.play(1,a.x,a.y)
 	a.r=0
 	a.size=size or 20
 	a.flags=actor.setflags(a.flags, Enums.flags.gravity,Enums.flags.ground_delta)

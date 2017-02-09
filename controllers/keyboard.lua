@@ -1,29 +1,33 @@
 local function control(a)
-	local e=Enums.buttons
+	local e=Enums.commands
 	local c=a.controller
 
-	if love.keyboard.isDown('left') then
-		c[e.leftstickhorizontal]=-1
-	elseif love.keyboard.isDown('right') then
-		c[e.leftstickhorizontal]=1
+	if love.keyboard.isDown('left') or love.keyboard.isDown('a') then
+		c[e.movehorizontal]=-1
+	elseif love.keyboard.isDown('right') or love.keyboard.isDown('d')  then
+		c[e.movehorizontal]=1
+	else
+		c[e.movehorizontal]=0
 	end
 
-	if love.keyboard.isDown('up') then
-		c[e.leftstickvertical]=-1
-	elseif love.keyboard.isDown('down') then
-		c[e.leftstickvertical]=1
+	if love.keyboard.isDown('up') or love.keyboard.isDown('w') then
+		c[e.movevertical]=-1
+	elseif love.keyboard.isDown('down') or love.keyboard.isDown('s') then
+		c[e.movevertical]=1
+	else
+		c[e.movevertical]=0
 	end
 
 	if love.keyboard.isDown('z') then
-		c[e.button1]=true
+		c[e.shoot]=true
 	else
-		c[e.button1]=false
+		c[e.shoot]=false
 	end
 
 	if love.keyboard.isDown('x') then
-		c[e.lefttrigger]=1
+		c[e.powerup]=true
 	else
-		c[e.lefttrigger]=-1
+		c[e.powerup]=false
 	end
 end
 

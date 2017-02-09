@@ -91,7 +91,7 @@ end
 local function damage(a,d)
 	local e=Enums
 	if not a.delete then
-		sfx.play(a.hitsfx)
+		sfx.play(a.hitsfx,a.x,a.y)
 
 		if actor.getflag(a.flags,Enums.flags.damageable) then
 			a.hp = a.hp - d-- or 3
@@ -109,7 +109,7 @@ local function damage(a,d)
 				a.c=a.hitcolour
 			end
 			if a.hp<1 then
-				sfx.play(a.deathsnd)
+				--sfx.play(a.deathsnd,a.x,a.y)
 				a.delete=true
 				Game.settings.score=Game.settings.score+1
 				if actor.getflag(a.flags,Enums.flags.explosive) then
