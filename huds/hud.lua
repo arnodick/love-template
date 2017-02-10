@@ -4,8 +4,8 @@ local function make(t)
 	if _G[Enums.statenames[m.t]]["make"] then
 		_G[Enums.statenames[m.t]]["make"](m)
 	end
-	table.insert(Menus,m)
-	return m
+	table.insert(Huds,m)
+	--return m
 end
 
 local function control(m)

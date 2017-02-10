@@ -23,14 +23,23 @@ local function update()
 end
 
 local function draw(debuglist)
-	love.graphics.setFont(FontDebug)
-	love.graphics.setColor(Palette[11])
-	love.graphics.print("DEBUG",130,0)
-	for i,v in ipairs(debuglist) do
-		love.graphics.print(v,10,10+FontDebug:getHeight()*i)
+	if DebugMode then
+		love.graphics.setCanvas(Canvas.debug) --sets drawing to the 1280 x 960 debug canvas
+		love.graphics.clear() --cleans that messy ol canvas all up, makes it all fresh and new and good you know
+
+		love.graphics.setFont(FontDebug)
+		love.graphics.setColor(Palette[11])
+		love.graphics.print("DEBUG",130,0)
+		for i,v in ipairs(debuglist) do
+			love.graphics.print(v,10,10+FontDebug:getHeight()*i)
+		end
+		love.graphics.setColor(Palette[16]) --sets draw colour back to normal
+		love.graphics.setFont(Font)
+
+		love.graphics.setCanvas() --sets drawing back to screen
+		love.graphics.origin()
+		love.graphics.draw(Canvas.debug,0,0,0,1,1) --just like draws everything to the screen or whatever
 	end
-	love.graphics.setColor(Palette[16]) --sets draw colour back to normal
-	love.graphics.setFont(Font)
 end
 
 return

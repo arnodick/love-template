@@ -39,7 +39,7 @@ local function control(a,gs)
 		if a.hit>0 then
 			a.hit=a.hit-gs
 		else
-			a.c=a.cinit --TODO make this an init value
+			a.c=a.cinit
 		end
 	end
 
@@ -124,7 +124,7 @@ local function damage(a,d)
 				if actor.getflag(a.flags,Enums.flags.explosive) then
 					actor.make(e.actors.effect,e.effects.explosion,a.x,a.y,Enums.colours.white,0,0,20*(a.size))
 				end
-				--HACK TO GET ENEMIES TO SPAWN
+				--HACK TO GET ENEMIES TO SPAWN TODO get rid of this
 				if a.ct==Enums.controllers.enemy then
 					actor.make(e.actors.character,e.characters.snake,math.random(320),math.random(240),e.colours.dark_green,0,0,49,1,8,e.controllers.enemy)
 				end
@@ -184,7 +184,6 @@ local function setflags(bytes,...)
 	--returns updated flags
 	local flags={...}
 	for a=1,#flags do
-		--print(flags[a])
 		local flag = 2^(flags[a]-1) --converts flag position to its actual hex number value (ie: f 1 = 1, f 2 = 2, f 3 = 4, f 4 = 8 etc.)
 		bytes=bit.bxor(bytes,flag)
 	end

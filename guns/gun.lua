@@ -1,13 +1,12 @@
-local function make(a,t,angle,len,speed,anglemin,anglemax,bc)
+local function make(a,t,len,anglemin,anglemax,bc)
 	a.gun={}
 	a.gun.t=t
-	a.gun.angle=angle
 	a.gun.leninit=len
 	a.gun.len=len
-	a.gun.speed=speed
 	a.gun.anglemin=anglemin
 	a.gun.anglemax=anglemax
 	a.gun.bc=bc
+	a.gun.angle=-0.79
 	a.gun.c=a.cinit
 	a.gun.x=0
 	a.gun.y=0

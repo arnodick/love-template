@@ -3,7 +3,7 @@ local function make(a)
 	a.hitsfx=3
 	a.hittime=6
 	a.hitcolour=7
-	gun.make(a,1,-0.79,9,0.012,-math.pi,0,Enums.colours.green)
+	gun.make(a,1,9,-math.pi,0,Enums.colours.green)
 	animation.make(a,10,2)
 end
 

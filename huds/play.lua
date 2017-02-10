@@ -14,7 +14,9 @@ end
 
 local function keypressed(i,key)
 	if key=='space' then
-		Game.settings=game.changestate(Enums.states.game)
+		if Player.hp<=0 then
+			Game.settings=game.changestate(Enums.states.play)
+		end
 	end
 end
 

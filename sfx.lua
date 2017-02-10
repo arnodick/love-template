@@ -8,8 +8,8 @@ local function load(positional)
 			local ext = filedata:getExtension()
 			local varname = string.gsub(filename, "."..ext, "")
 			if ext == "ogg" or ext == "wav" then --if it's a .ogg, add to SFX (maybe make this flexible for other sound files ie mp3)
-				--SFX[varname] = love.audio.newSource("sfx/"..filename,"static")
-				SFX[varname] = filename
+				SFX[varname] = love.audio.newSource("sfx/"..filename,"static")
+				--SFX[varname] = filename
 			end
 		end
 	end
@@ -22,13 +22,13 @@ local function load(positional)
 end
 
 local function play(index,x,y)
-	--interrupt = interrupt or true
-	local source = love.audio.newSource("sfx/"..SFX[tostring(index)],"static")
-	--local source = SFX[tostring(index)]
+	interrupt = interrupt or true
+	local source = SFX[tostring(index)]
+	--local source = love.audio.newSource("sfx/"..SFX[tostring(index)],"static")
 	if source~=nil then
-		--if interrupt then
-		--	love.audio.stop(source)
-		--end
+		if interrupt then
+			love.audio.stop(source)
+		end
 		if x~=nil and y~=nil and SFX.positional then
 			source:setRelative(false)
 			source:setPosition(x,y,0)

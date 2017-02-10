@@ -1,5 +1,4 @@
 local function make(a,spr,size,hp,ct)
-	--TODO do these with ini files like Guntypes
 	a.spr=spr or 1
 	a.size=size or 1
 	a.hp=hp or 1

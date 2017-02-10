@@ -18,7 +18,6 @@ local function control(a,gs)
 		end
 --[[
 		for i,t in ipairs(Actors) do
-			--TODO make Effects a type, put if a.t==Enums.actortypes.effect here
 			local dist = math.abs(vector.distance(t.x,t.y,a.x,a.y))
 			if dist<1 then dist=1 end
 			if dist<a.r then

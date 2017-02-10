@@ -24,7 +24,7 @@ local function update(a,gs)
 	end
 end
 
-return--TODO add all local function to a table and return the unpacked table?
+return
 {
 	make = make,
 	update = update,

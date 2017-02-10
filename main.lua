@@ -6,11 +6,11 @@ function love.load()
 end
 
 function love.keypressed(key,scancode,isrepeat)
-	for i,v in ipairs(Menus) do
-		menu.keypressed(v,key)
+	for i,v in ipairs(Huds) do
+		hud.keypressed(v,key)
 	end
 	if key == 'escape' then
-		--TODO going to have to put escape in menu scpecific code like hud etc to make pause menu pop up and go away
+		--TODO going to have to put escape in hud specific code like hud etc to make pause hud pop up and go away
 		love.event.quit()
 	elseif key == '`' then
 		DebugMode = not DebugMode
@@ -22,57 +22,15 @@ function love.keypressed(key,scancode,isrepeat)
 end
 
 function love.update(dt)
-	local gs=Game.speed
-	--TODO make this a dynamic function chooser
-	--game.control(state)
-	if State == Enums.states.game then
-		for i,v in ipairs(Actors) do
-			actor.control(v,gs)
-		end
-		camera.control(Camera,Player,gs)
-		
-		if DebugMode then
-			DebugList = debugger.update()
-		end
-	end
-	for i,v in ipairs(Menus) do
-		menu.control(v)
-	end
+	local gs = Game.speed
 
-	for i,v in ipairs(Actors) do
-		if v.delete==true then
-			table.remove(Actors,i)
-		end
-	end
+	game.control(State,gs)
 
 	Timer = Timer + gs
 end
 
 function love.draw(dt)
-	love.graphics.setCanvas(Canvas.game) --sets drawing to the 320x240 canvas
-		love.graphics.clear() --cleans that messy ol canvas all up, makes it all fresh and new and good you know
-		love.graphics.translate(-Camera.x+love.math.random(Camera.shake/2),-Camera.y)
-		if State==Enums.states.game then
-			for i,v in ipairs(Actors) do
-				actor.draw(v)
-			end
-		end
-		for i,v in ipairs(Menus) do
-			menu.draw(v)
-		end
-	love.graphics.setCanvas() --sets drawing back to screen
+	game.draw(State)
 
-	love.graphics.origin()
-	--love.graphics.setShader(Shader)
-	love.graphics.draw(Canvas.game,Screen.xoff,Screen.yoff,0,Screen.scale,Screen.scale) --just like draws everything to the screen or whatever
-	--love.graphics.setShader()
-
-	if DebugMode then
-		love.graphics.setCanvas(Canvas.debug) --sets drawing to the 1280 x 960 debug canvas
-		love.graphics.clear() --cleans that messy ol canvas all up, makes it all fresh and new and good you know
-		debugger.draw(DebugList)
-		love.graphics.setCanvas() --sets drawing back to screen
-		love.graphics.origin()
-		love.graphics.draw(Canvas.debug,0,0,0,1,1) --just like draws everything to the screen or whatever
-	end
+	debugger.draw(DebugList)
 end

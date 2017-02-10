@@ -18,7 +18,7 @@ local function make(tw,th,gw,gh,sp)
 	Bullettypes = LIP.load("ini/bullettypes.ini")
 
 	--global variables
-	State,Timer=game.init(3)--need to use init here so there is State variable to go into changestate below
+	State,Timer=game.init(Enums.states.intro)--need to use init here so there is State variable to go into changestate below
 
 	game.graphics(tw,th,gw,gh)
 
@@ -34,24 +34,66 @@ local function make(tw,th,gw,gh,sp)
 	return g
 end
 
+local function control(s,gs)
+	if s == Enums.states.play then
+		for i,v in ipairs(Actors) do
+			actor.control(v,gs)
+		end
+
+		camera.control(Camera,Player,gs)
+		
+		for i,v in ipairs(Actors) do
+			if v.delete==true then
+				table.remove(Actors,i)
+			end
+		end
+
+		if DebugMode then
+			DebugList = debugger.update()
+		end
+	end
+	for i,v in ipairs(Huds) do
+		hud.control(v)
+	end
+end
+
+local function draw(s)
+	love.graphics.setCanvas(Canvas.game) --sets drawing to the 320x240 canvas
+		love.graphics.clear() --cleans that messy ol canvas all up, makes it all fresh and new and good you know
+		love.graphics.translate(-Camera.x+love.math.random(Camera.shake/2),-Camera.y)
+		if s == Enums.states.play then
+			for i,v in ipairs(Actors) do
+				actor.draw(v)
+			end
+		end
+		for i,v in ipairs(Huds) do
+			hud.draw(v)
+		end
+	love.graphics.setCanvas() --sets drawing back to screen
+
+	love.graphics.origin()
+	--love.graphics.setShader(Shader)
+	love.graphics.draw(Canvas.game,Screen.xoff,Screen.yoff,0,Screen.scale,Screen.scale) --just like draws everything to the screen or whatever
+	--love.graphics.setShader()
+end
+
 local function init(s)
 	--returns the basic game global variables
-	--initialize actor and menu tables
+	--initialize actor and hud tables
 	Camera=camera.make(0,0)
 
 	Actors={}
-	Menus={}
+	Huds={}
 	return s,0
 end
 
 local function changestate(s)
 	local e=Enums
 	State,Timer=game.init(s)
-	menu.make(s)
+	hud.make(s)
 	
 	local settings={}
-	--TODO dynamic function thing here too
-	if State==Enums.states.game then
+	if State==Enums.states.play then
 		settings.score=0
 		local playercontroller=e.controllers.keyboard
 		if #Joysticks>0 then
@@ -108,6 +150,8 @@ end
 return
 {
 	make = make,
+	control = control,
+	draw = draw,
 	init = init,
 	changestate = changestate,
 	graphics = graphics,
