@@ -26,16 +26,10 @@ function love.update(dt)
 	--TODO make this a dynamic function chooser
 	--game.control(state)
 	if State == Enums.states.game then
-
 		for i,v in ipairs(Actors) do
 			actor.control(v,gs)
-			Game.speed=math.clamp(Player.vel,0.1,1)
 		end
 		camera.control(Camera,Player,gs)
-
-		if SFX.positonal then
-			love.audio.setPosition(Player.x,Player.y,0)
-		end
 		
 		if DebugMode then
 			DebugList = debugger.update()

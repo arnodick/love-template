@@ -6,10 +6,6 @@ local function make(a,spr,size,hp,ct)
 	if ct then
 		controller.make(a,ct)
 	end
-	a.hit=0
-	a.hitsfx=3
-	a.hittime=6
-	a.hitcolour=7
 	a.flags = actor.setflags(a.flags, Enums.flags.damageable, Enums.flags.explodable, Enums.flags.shootable, Enums.flags.explosive)
 	hitbox.make(a,-4,-4,8,8)
 	if _G[Enums.characternames[a.st]]["make"] then

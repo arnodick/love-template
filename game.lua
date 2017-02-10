@@ -6,8 +6,9 @@ local function make(tw,th,gw,gh,sp)
 	love.math.setRandomSeed(os.time())
 	DebugMode=false
 	DebugList={}
-	love.keyboard.setKeyRepeat(false)
 
+	love.keyboard.setKeyRepeat(false)
+	Joysticks=love.joystick.getJoysticks()
 	SFX = sfx.load(false)
 
 	--enumerators
@@ -38,8 +39,6 @@ local function init(s)
 	--initialize actor and menu tables
 	Camera=camera.make(0,0)
 
-	Joysticks=love.joystick.getJoysticks()
-
 	Actors={}
 	Menus={}
 	return s,0
@@ -58,9 +57,9 @@ local function changestate(s)
 		if #Joysticks>0 then
 			playercontroller=e.controllers.gamepad
 		end
-		Player=actor.make(e.actors.character,e.characters.scientist,160,120,e.colours.dark_blue,0,0,81,1,8,playercontroller)
+		Player=actor.make(e.actors.character,e.characters.player,160,120,e.colours.dark_blue,0,0,81,1,8,playercontroller)
 		for a=1,5 do
-			actor.make(e.actors.character,e.characters.scientist,math.random(320),math.random(240),e.colours.dark_green,0,0,49,1,8,e.controllers.enemy)
+			actor.make(e.actors.character,e.characters.snake,math.random(320),math.random(240),e.colours.dark_green,0,0,49,1,8,e.controllers.enemy)
 		end
 	end
 	return settings

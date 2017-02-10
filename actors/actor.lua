@@ -61,6 +61,15 @@ local function control(a,gs)
 			a.vel = a.vel + a.decel*gs
 		end
 	end
+
+	if a.x<-10
+	or a.x>330
+	or a.y>250
+	or a.y<-10 then
+		if not actor.getflag(a.flags,Enums.flags.persistent) then
+			a.delete=true
+	 	end
+	end
 end
 
 local function draw(a)
@@ -76,13 +85,13 @@ local function draw(a)
 		gun.draw(a.gun)
 	end
 
-	if a.x<-10
-	or a.x>330
-	or a.y>250
-	or a.y<-10 then
-		if not actor.getflag(a.flags,Enums.flags.persistent) then
-			a.delete=true
-	 	end
+	if DebugMode then
+		if a.hitbox then
+			love.graphics.setColor(Palette[Enums.colours.blue])
+			love.graphics.rectangle("line",a.x+a.hitbox.x,a.y+a.hitbox.y,a.hitbox.w,a.hitbox.h)
+		end
+		love.graphics.setColor(Palette[Enums.colours.blue])
+		love.graphics.points(a.x,a.y)
 	end
 
 	love.graphics.setColor(Palette[Enums.colours.pure_white])
@@ -117,7 +126,7 @@ local function damage(a,d)
 				end
 				--HACK TO GET ENEMIES TO SPAWN
 				if a.ct==Enums.controllers.enemy then
-					actor.make(e.actors.character,e.characters.scientist,math.random(320),math.random(240),e.colours.dark_green,0,0,49,1,8,e.controllers.enemy)
+					actor.make(e.actors.character,e.characters.snake,math.random(320),math.random(240),e.colours.dark_green,0,0,49,1,8,e.controllers.enemy)
 				end
 
 			end
