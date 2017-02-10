@@ -8,6 +8,8 @@ local function make(tw,th,gw,gh,sp)
 	DebugList={}
 	love.keyboard.setKeyRepeat(false)
 
+	SFX = sfx.load(false)
+
 	--enumerators
 	--TODO do this dynamically
 	Enums = LIP.load("ini/enums.ini")
@@ -15,12 +17,9 @@ local function make(tw,th,gw,gh,sp)
 	Bullettypes = LIP.load("ini/bullettypes.ini")
 
 	--global variables
-	State,Timer=game.init(3)--need use init here so there is State variable to go into changestate below
+	State,Timer=game.init(3)--need to use init here so there is State variable to go into changestate below
 
 	game.graphics(tw,th,gw,gh)
-
-	love.audio.setDistanceModel("exponent")
-	love.audio.setOrientation(0,0,-1,0,1,0)
 
 	--Game object
 	local g={}

@@ -1,6 +1,5 @@
 libraries = require("libraries")
 libraries.load("")
-SFX = sfx.load()
 
 function love.load()
 	Game = game.make(8,8,320,240,1)
@@ -33,7 +32,10 @@ function love.update(dt)
 			Game.speed=math.clamp(Player.vel,0.1,1)
 		end
 		camera.control(Camera,Player,gs)
-		love.audio.setPosition(Player.x,Player.y,0)
+
+		if SFX.positonal then
+			love.audio.setPosition(Player.x,Player.y,0)
+		end
 		
 		if DebugMode then
 			DebugList = debugger.update()
