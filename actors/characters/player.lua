@@ -14,18 +14,19 @@ local function control(a)
 	end
 end
 
-local function hitground(a)
-
-end
 
 local function draw(a)
 
+end
+
+local function dead(a)
+	scores.save()
 end
 
 return
 {
 	make = make,
 	control = control,
-	hitground = hitground,
 	draw = draw,
+	dead = dead,
 }

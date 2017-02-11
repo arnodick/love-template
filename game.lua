@@ -93,7 +93,9 @@ local function changestate(s)
 	hud.make(s)
 	
 	local settings={}
-	if State==Enums.states.play then
+	if State==e.states.title then
+		settings.scores=scores.load()
+	elseif State==e.states.play then
 		settings.score=0
 		local playercontroller=e.controllers.keyboard
 		if #Joysticks>0 then

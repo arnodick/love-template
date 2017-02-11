@@ -18,18 +18,20 @@ local function control(a)
 	end
 end
 
-local function hitground(a)
-
-end
-
 local function draw(a)
 	--love.graphics.points(a.x,a.y)
+end
+
+local function dead(a)
+	if _G[Enums.characternames[a.st]]["dead"] then
+		_G[Enums.characternames[a.st]]["dead"](a)
+	end
 end
 
 return
 {
 	make = make,
 	control = control,
-	hitground = hitground,
 	draw = draw,
+	dead = dead,
 }

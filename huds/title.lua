@@ -14,7 +14,12 @@ local function keypressed(t,key)
 end
 
 local function draw(t)
-	love.graphics.print("TITLE",Game.width/2,Game.height/2)
+	local g=love.graphics
+	local scores=Game.settings.scores
+	g.print("TITLE",Game.width/2,Game.height/2)
+	for i=1,#scores.high do
+		g.print(scores.high[i],Game.width/2,Game.height/2+10*i)
+	end
 end
 
 return

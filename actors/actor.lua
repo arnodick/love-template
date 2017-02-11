@@ -120,7 +120,11 @@ local function damage(a,d)
 			if a.hp<1 then
 				--sfx.play(a.deathsnd,a.x,a.y)
 				a.delete=true
-				Game.settings.score=Game.settings.score+1
+				if a.st~=Enums.characters.player then
+					if Player.hp>0 then
+						Game.settings.score=Game.settings.score+1
+					end
+				end
 				if actor.getflag(a.flags,Enums.flags.explosive) then
 					actor.make(e.actors.effect,e.effects.explosion,a.x,a.y,Enums.colours.white,0,0,20*(a.size))
 				end
@@ -128,7 +132,9 @@ local function damage(a,d)
 				if a.ct==Enums.controllers.enemy then
 					actor.make(e.actors.character,e.characters.snake,math.random(320),math.random(240),e.colours.dark_green,0,0,49,1,8,e.controllers.enemy)
 				end
-
+				if _G[Enums.actornames[a.t]]["dead"] then
+					_G[Enums.actornames[a.t]]["dead"](a)
+				end
 			end
 		end
 	end
