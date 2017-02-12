@@ -1,19 +1,25 @@
 local function make(a,t,len,anglemin,anglemax,bc)
-	a.gun={}
-	a.gun.t=t
-	a.gun.leninit=len
-	a.gun.len=len
-	a.gun.anglemin=anglemin
-	a.gun.anglemax=anglemax
-	a.gun.bc=bc
-	a.gun.angle=-0.79
-	a.gun.c=a.cinit
-	a.gun.x=0
-	a.gun.y=0
-	a.gun.xs=0
-	a.gun.ys=0
-	a.gun.vec={0,0}
-	a.gun.delta=0
+	local g={}
+	g={}
+	g.t=t
+	g.leninit=len
+	g.len=len
+	g.anglemin=anglemin
+	g.anglemax=anglemax
+	g.bc=bc
+	g.angle=-0.79
+	g.c=a.cinit
+	g.x=0
+	g.y=0
+	g.xs=0
+	g.ys=0
+	g.vec={0,0}
+	g.delta=0
+	if _G[Enums.gunnames[g.t]]["make"] then
+		_G[Enums.gunnames[g.t]]["make"](g)
+	end
+	a.gun=g
+	--TODO make gun first, THEN add it to caharacter's weapon slot
 end
 
 local function control(g,gs,a,vx,vy,shoot)
@@ -35,29 +41,16 @@ local function control(g,gs,a,vx,vy,shoot)
 	g.x=a.x+g.vec[1]*g.len
 	g.y=a.y+g.vec[2]*g.len
 
-	--TODO dynamicalize this
 	if g.delta<=0 then
 		if shoot then
-			local guntype=Guntypes[g.t]
-			sfx.play(guntype.snd,g.x,g.y)
-			--g.len=1
-			--gun specific controls
-			if guntype.proj==4 or guntype.proj==5 then
-				--lazer
-				local dist=100
-				actor.make(Enums.actors.projectile,guntype.proj,g.x+g.vec[1]*dist,g.y+g.vec[2]*dist,Enums.colours.pure_white,g.angle,0,a.t,g.x,g.y,g.angle)
-			else
-				local bvel=guntype.vel
-				for b=1,guntype.num do
-					local rand = love.math.random(-guntype.acc/2*100,guntype.acc/2*100)/50*math.pi
-					actor.make(Enums.actors.projectile,guntype.proj,g.x,g.y,g.bc,-g.angle+rand,bvel+math.randomfraction(0.5),a.t)
-				end
-				if g.angle>-0.5*math.pi then
-					g.angle = g.angle - guntype.rec*math.pi--*2
-				end
+			sfx.play(g.snd,g.x,g.y)
+
+			if _G[Enums.gunnames[g.t]]["shoot"] then
+				_G[Enums.gunnames[g.t]]["shoot"](g,gs)
 			end
+
 			actor.make(e.actors.effect,e.effects.cloud,g.x,g.y,e.colours.dark_gray,-g.angle+math.randomfraction(1)-0.5,math.randomfraction(1),6)
-			g.delta=guntype.rof
+			g.delta=g.rof
 		end
 	else 
 		g.delta = g.delta - 1*gs

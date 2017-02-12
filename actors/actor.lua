@@ -11,9 +11,6 @@ local function make(t,st,x,y,c,d,vel,...)
 	a.vec={math.cos(a.d),math.sin(a.d)}
 	a.angle=0
 	a.delta=Timer
-	a.accel=0.08
-	a.decel=0
-	a.maxvel=5
 	a.delete=false
 	a.flags = 0x0
 	--a.flags = actor.setflags( 0x0, Enums.flags.gravity,Enums.flags.explosive,Enums.flags.ground_delta)
@@ -28,7 +25,7 @@ local function control(a,gs)
 	controller.update(a,gs)
 
 	if _G[Enums.actornames[a.t]]["control"] then
-		_G[Enums.actornames[a.t]]["control"](a)
+		_G[Enums.actornames[a.t]]["control"](a,gs)
 	end
 
 	if a.anglespeed then
@@ -48,17 +45,19 @@ local function control(a,gs)
 	a.x = a.x + a.vec[1]*a.vel*gs
 	a.y = a.y - a.vec[2]*a.vel*gs
 
-	if a.vel>0 then
-		if a.vel<a.decel then
-			a.vel = 0
-		else
-			a.vel = a.vel - a.decel*gs
-		end
-	elseif a.vel<0 then
-		if a.vel>-a.decel then
-			a.vel = 0
-		else
-			a.vel = a.vel + a.decel*gs
+	if a.decel then
+		if a.vel>0 then
+			if a.vel<a.decel then
+				a.vel = 0
+			else
+				a.vel = a.vel - a.decel*gs
+			end
+		elseif a.vel<0 then
+			if a.vel>-a.decel then
+				a.vel = 0
+			else
+				a.vel = a.vel + a.decel*gs
+			end
 		end
 	end
 

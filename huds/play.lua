@@ -27,8 +27,9 @@ local function draw(h)
 
 	love.graphics.print("hp:"..Player.hp,Camera.x+h.hp.x,Camera.y+h.hp.y)
 	if Player.hp <= 0 then
-		love.graphics.print("YOU DIED",Camera.x+140,Camera.y+50)
-		love.graphics.print("PRESS SPACE",Camera.x+140,Camera.y+80)
+		love.graphics.print("YOU DIED",Camera.x+140,Camera.y+20)
+		love.graphics.print("PRESS SPACE",Camera.x+135,Camera.y+50)
+		scores.draw(Camera.x+150,Camera.y+70)
 	end
 
 	--love.graphics.setColor(Palette[Enums.colours.pure_white])

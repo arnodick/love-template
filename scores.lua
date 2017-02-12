@@ -1,8 +1,15 @@
 local function load()
 	if not love.filesystem.exists("scores.ini") then
+		local h={}
+		local n={}
+		for i=1,8 do
+			table.insert(h,0)
+			table.insert(n,"ABC")
+		end
 		local scores=
 		{
-			high={0,0,0,0,0,0,0,0}
+			high=h,
+			names=n
 		}
 		
 		LIP.save("scores.ini",scores)
@@ -12,32 +19,51 @@ end
 
 local function save()
 	local scores=scores.load()
+	local s={}
+	for j=1,#scores.high do
+		table.insert(s,{scores.names[j],scores.high[j]})
+	end
 	local score=Game.settings.score
+	table.insert(s,{"ASH",score})
+
 	local function scoresort(a,b)
-		if a>b then
+		if a[2]>b[2] then
 			return true
 		else
 			return false
 		end
 	end
-	table.insert(scores.high,score)
-	table.sort(scores.high,scoresort)
-	for i=#scores.high,1,-1 do
+
+	table.sort(s,scoresort)
+	for i=#s,1,-1 do
 		if i>8 then
-			table.remove(scores.high,i)
+			table.remove(s,i)
 		end
 	end
-	LIP.save("scores.ini",scores)
---[[
-	if Game.settings.score > scores.high[1] then
-		scores.high[1] = Game.settings.score
-		LIP.save("scores.ini",scores)
+
+	scores.high={}
+	scores.names={}
+	for k=1,#s do
+		scores.names[k]=s[k][1]
+		scores.high[k]=s[k][2]
 	end
---]]
+
+	Game.settings.scores=scores
+	LIP.save("scores.ini",scores)
+end
+
+local function draw(x,y)
+	local g=love.graphics
+	local s=Game.settings.scores
+	for i=1,#s.high do
+		g.print(s.names[i],x-10,y+10*i)
+		g.print(s.high[i],x+10,y+10*i)
+	end
 end
 
 return
 {
 	load = load,
 	save = save,
+	draw = draw,
 }

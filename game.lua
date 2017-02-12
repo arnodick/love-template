@@ -14,7 +14,6 @@ local function make(tw,th,gw,gh,sp)
 	--enumerators
 	--TODO do this dynamically
 	Enums = LIP.load("ini/enums.ini")
-	Guntypes = LIP.load("ini/guntypes.ini")
 	Bullettypes = LIP.load("ini/bullettypes.ini")
 
 	--global variables
@@ -105,6 +104,7 @@ local function changestate(s)
 		for a=1,5 do
 			actor.make(e.actors.character,e.characters.snake,math.random(320),math.random(240),e.colours.dark_green,0,0,49,1,8,e.controllers.enemy)
 		end
+		actor.make(e.actors.character,e.characters.mushroom,math.random(320),math.random(240),e.colours.dark_green,0,0,97,1,8,e.controllers.enemy)
 	end
 	return settings
 end

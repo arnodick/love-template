@@ -1,7 +1,6 @@
-local function make(a)
-	a.angle=-a.d
+local function make(a,...)
 	if _G[Enums.projectilenames[a.st]]["make"] then
-		_G[Enums.projectilenames[a.st]]["make"](a)
+		_G[Enums.projectilenames[a.st]]["make"](a,...)
 	end
 end
 

@@ -1,6 +1,7 @@
 local function make(a)
 	a.spr=65
 	a.size=1
+	a.angle=-a.d
 end
 
 local function control(a)

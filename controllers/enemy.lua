@@ -17,7 +17,7 @@ local function control(a)
 	elseif a.x>=320 then
 		c[e.movehorizontal]=-1
 	end
-	if love.math.random(20)==1 then
+	if love.math.random(20)==1 or a.st==Enums.characters.mushroom then
 		c[e.shoot]=true
 	else
 		c[e.shoot]=false

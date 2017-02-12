@@ -5,7 +5,6 @@ local function make(t)
 		_G[Enums.statenames[m.t]]["make"](m)
 	end
 	table.insert(Huds,m)
-	--return m
 end
 
 local function control(m)
