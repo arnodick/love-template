@@ -5,12 +5,13 @@ local function make(a)
 end
 
 local function control(a)
+	local dam=1
 	for i,enemy in ipairs(Actors) do
 		if actor.getflag(enemy.flags,Enums.flags.shootable) then
 			if not enemy.delete then
 				if actor.collision(a.x,a.y,enemy) then
 					a.delete=true
-					actor.damage(enemy,Bullettypes[a.st].dam)
+					actor.damage(enemy,dam)
 				end
 			end
 		end

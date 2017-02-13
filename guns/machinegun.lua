@@ -4,7 +4,6 @@ local function make(g)
 	g.num=1
 	g.acc=0.015
 	g.snd=2
-	g.rec=0.02
 	g.proj=1
 end
 

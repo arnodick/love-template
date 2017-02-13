@@ -14,7 +14,6 @@ local function make(tw,th,gw,gh,sp)
 	--enumerators
 	--TODO do this dynamically
 	Enums = LIP.load("ini/enums.ini")
-	Bullettypes = LIP.load("ini/bullettypes.ini")
 
 	--global variables
 	State,Timer=game.init(Enums.states.intro)--need to use init here so there is State variable to go into changestate below

@@ -3,7 +3,6 @@ local function make(a)
 	a.d=math.randomfraction(math.pi*2)
 	a.vel=love.math.random(3,4)
 	a.decel=0.05
-	a.flags = actor.setflags( a.flags, Enums.flags.gravity)
 end
 
 local function control(a)

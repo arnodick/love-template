@@ -5,6 +5,7 @@ local function make(a,gx,gy,ga)
 end
 
 local function control(a,gs)
+	local dam=0
 	for i,enemy in ipairs(Actors) do
 		if actor.getflag(enemy.flags,Enums.flags.shootable) then
 			if not enemy.delete then
@@ -12,7 +13,7 @@ local function control(a,gs)
 				--TODO: fix this so that it doesnt jump from 0 to 1 when you try to check if ld is > gun angle
 				if ld>a.ga-0.02*math.pi*2 and ld<a.ga+0.02*math.pi*2 then
 					local dist=200
-					actor.damage(enemy,Bullettypes[a.st].dam)
+					actor.damage(enemy,0)
 				end
 			end
 		end
