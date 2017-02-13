@@ -1,6 +1,7 @@
-local function make(a,size)
-	a.c=Enums.colours.indigo
-	a.size=size or 4
+local function make(a,c,size)
+	a.cinit=c or Enums.colours.indigo
+	a.c=a.cinit
+	a.size=size or 6
 	a.angle=-a.d
 	a.anglespeed=0.02
 	a.pointdirs={}

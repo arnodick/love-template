@@ -1,5 +1,7 @@
-local function make(a,size)
+local function make(a,c,size)
 	sfx.play(1,a.x,a.y)
+	a.cinit=c or Enums.colours.white
+	a.c=a.cinit
 	a.size=size or 20
 	a.r=0
 	a.flags=actor.setflags(a.flags, Enums.flags.gravity,Enums.flags.ground_delta)
@@ -14,23 +16,8 @@ local function control(a,gs)
 			local s = math.randomfraction(a.size/2)
 			local dir = math.randomfraction(math.pi*2)
 			local d = math.randomfraction(math.pi*2)
-			actor.make(Enums.actors.effect,Enums.effects.cloud,a.x+math.cos(dir)*s,a.y+math.sin(dir)*s,d,math.randomfraction(0.5),Enums.colours.dark_gray,6)
+			actor.make(Enums.actors.effect,Enums.effects.cloud,a.x+math.cos(dir)*s,a.y+math.sin(dir)*s,d,math.randomfraction(0.5))
 		end
---[[
-		for i,t in ipairs(Actors) do
-			local dist = math.abs(vector.distance(t.x,t.y,a.x,a.y))
-			if dist<1 then dist=1 end
-			if dist<a.r then
-				if t.t==Enums.actors.effect then
-					local vecx,vecy=vector.components(a.x,a.y,t.x,t.y)
-					t.d,t.vel = actor.impulse( t,vector.direction(vecx,vecy),(a.r/(dist*2)),true )
-				end
-				if actor.getflag(t.flags,Enums.flags.explodable) then
-					actor.damage(t,1)
-				end
-			end
-		end
---]]
 		a.delete=true
 	end
 end

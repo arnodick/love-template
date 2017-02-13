@@ -1,6 +1,4 @@
-local function make(a,c,...)
-	a.cinit=c or Enums.colours.red 
-	a.c=a.cinit
+local function make(a,...)
 	if _G[Enums.effectnames[a.st]]["make"] then
 		_G[Enums.effectnames[a.st]]["make"](a,...)
 	end
