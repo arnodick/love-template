@@ -18,7 +18,7 @@ local function shoot(g)
 	if lx>=Game.width then lx=Game.width-1 end
 	if ly<=0 then ly=1 end
 	if ly>=Game.height then ly=Game.height-1 end
-	actor.make(Enums.actors.projectile,g.proj,lx,ly,Enums.colours.pure_white,g.angle,0,g.x,g.y,g.angle)
+	actor.make(Enums.actors.projectile,g.proj,lx,ly,g.angle,0,Enums.colours.pure_white,g.x,g.y,g.angle)
 end
 
 return

@@ -1,11 +1,9 @@
-local function make(t,st,x,y,c,d,vel,...)
+local function make(t,st,x,y,d,vel,...)
 	local a={}
 	a.t=t
 	a.st=st
-	a.x=x
-	a.y=y
-	a.cinit=c or Enums.colours.red 
-	a.c=a.cinit
+	a.x=x or love.math.random(320)
+	a.y=y or love.math.random(240)
 	a.d=d or 0
 	a.vel=vel or 0
 	a.vec={math.cos(a.d),math.sin(a.d)}
@@ -125,11 +123,13 @@ local function damage(a,d)
 					end
 				end
 				if actor.getflag(a.flags,Enums.flags.explosive) then
-					actor.make(e.actors.effect,e.effects.explosion,a.x,a.y,Enums.colours.white,0,0,20*(a.size))
+					--actor.make(e.actors.effect,e.effects.explosion,a.x,a.y,Enums.colours.white,0,0,20*(a.size))
+					actor.make(e.actors.effect,e.effects.explosion,a.x,a.y,0,0,e.colours.white,20*(a.size))
 				end
 				--HACK TO GET ENEMIES TO SPAWN TODO get rid of this
 				if a.ct==Enums.controllers.enemy then
-					actor.make(e.actors.character,e.characters.snake,math.random(320),math.random(240),e.colours.dark_green,0,0,49,1,8,e.controllers.enemy)
+					--actor.make(e.actors.character,e.characters.snake,math.random(320),math.random(240),e.colours.dark_green,0,0,49,1,8,e.controllers.enemy)
+					actor.make(e.actors.character,e.characters.snake)
 				end
 				if _G[Enums.actornames[a.t]]["dead"] then
 					_G[Enums.actornames[a.t]]["dead"](a)

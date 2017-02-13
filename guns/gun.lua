@@ -49,7 +49,7 @@ local function control(g,gs,a,vx,vy,shoot)
 				_G[Enums.gunnames[g.t]]["shoot"](g,gs)
 			end
 
-			actor.make(e.actors.effect,e.effects.cloud,g.x,g.y,e.colours.dark_gray,-g.angle+math.randomfraction(1)-0.5,math.randomfraction(1),6)
+			actor.make(e.actors.effect,e.effects.cloud,g.x,g.y,-g.angle+math.randomfraction(1)-0.5,math.randomfraction(1),e.colours.dark_gray,6)
 			g.delta=g.rof
 		end
 	else 

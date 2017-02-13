@@ -1,7 +1,7 @@
 local function make(a,size)
 	sfx.play(1,a.x,a.y)
-	a.r=0
 	a.size=size or 20
+	a.r=0
 	a.flags=actor.setflags(a.flags, Enums.flags.gravity,Enums.flags.ground_delta)
 	Camera.shake=a.size
 end
@@ -14,7 +14,7 @@ local function control(a,gs)
 			local s = math.randomfraction(a.size/2)
 			local dir = math.randomfraction(math.pi*2)
 			local d = math.randomfraction(math.pi*2)
-			actor.make(Enums.actors.effect,Enums.effects.cloud,a.x+math.cos(dir)*s,a.y+math.sin(dir)*s,Enums.colours.dark_gray,d,math.randomfraction(0.5),6)
+			actor.make(Enums.actors.effect,Enums.effects.cloud,a.x+math.cos(dir)*s,a.y+math.sin(dir)*s,d,math.randomfraction(0.5),Enums.colours.dark_gray,6)
 		end
 --[[
 		for i,t in ipairs(Actors) do

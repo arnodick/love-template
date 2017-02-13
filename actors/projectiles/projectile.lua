@@ -1,4 +1,6 @@
-local function make(a,...)
+local function make(a,c,...)
+	a.cinit=c or Enums.colours.red
+	a.c=a.cinit
 	if _G[Enums.projectilenames[a.st]]["make"] then
 		_G[Enums.projectilenames[a.st]]["make"](a,...)
 	end

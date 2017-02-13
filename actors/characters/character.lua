@@ -1,14 +1,8 @@
-local function make(a,spr,size,hp,ct)
-	a.spr=spr or 1
-	a.size=size or 1
-	a.hp=hp or 1
-	if ct then
-		controller.make(a,ct)
-	end
-	a.flags = actor.setflags(a.flags, Enums.flags.damageable, Enums.flags.explodable, Enums.flags.shootable, Enums.flags.explosive)
+local function make(a,...)
+	a.flags = actor.setflags(a.flags, Enums.flags.damageable, Enums.flags.shootable, Enums.flags.explosive)
 	hitbox.make(a,-4,-4,8,8)
 	if _G[Enums.characternames[a.st]]["make"] then
-		_G[Enums.characternames[a.st]]["make"](a)
+		_G[Enums.characternames[a.st]]["make"](a,...)
 	end
 end
 

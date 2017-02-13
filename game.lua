@@ -99,11 +99,11 @@ local function changestate(s)
 		if #Joysticks>0 then
 			playercontroller=e.controllers.gamepad
 		end
-		Player=actor.make(e.actors.character,e.characters.player,160,120,e.colours.dark_blue,0,0,81,1,8,playercontroller)
+		Player=actor.make(e.actors.character,e.characters.player,160,120)
 		for a=1,5 do
-			actor.make(e.actors.character,e.characters.snake,math.random(320),math.random(240),e.colours.dark_green,0,0,49,1,8,e.controllers.enemy)
+			actor.make(e.actors.character,e.characters.snake)
 		end
-		actor.make(e.actors.character,e.characters.mushroom,math.random(320),math.random(240),e.colours.dark_green,0,0,97,1,8,e.controllers.enemy)
+		--actor.make(e.actors.character,e.characters.mushroom)
 	end
 	return settings
 end

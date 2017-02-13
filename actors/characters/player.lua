@@ -1,4 +1,15 @@
-local function make(a)
+local function make(a,c,size,spr,hp,ct)
+	local e=Enums
+	local playercontroller=e.controllers.keyboard
+	if #Joysticks>0 then
+		playercontroller=e.controllers.gamepad
+	end
+	a.cinit=c or e.colours.dark_blue
+	a.c=a.cinit
+	a.size=size or 1
+	a.spr=spr or 81
+	a.hp=hp or 8
+	controller.make(a,playercontroller)
 	a.hit=0
 	a.hitsfx=3
 	a.hittime=6
