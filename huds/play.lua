@@ -32,7 +32,7 @@ local function draw(h)
 		scores.draw(Camera.x+150,Camera.y+70)
 	end
 
-	--love.graphics.setColor(Palette[Enums.colours.pure_white])
+	love.graphics.setColor(Palette[Enums.colours.pure_white])
 end
 
 return

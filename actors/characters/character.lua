@@ -13,7 +13,7 @@ local function control(a)
 end
 
 local function draw(a)
-	--love.graphics.points(a.x,a.y)
+
 end
 
 local function dead(a)

@@ -11,7 +11,6 @@ local function make(t,st,x,y,d,vel,...)
 	a.delta=Timer
 	a.delete=false
 	a.flags = 0x0
-	--a.flags = actor.setflags( 0x0, Enums.flags.gravity,Enums.flags.explosive,Enums.flags.ground_delta)
 	if _G[Enums.actornames[a.t]]["make"] then
 		_G[Enums.actornames[a.t]]["make"](a,...)
 	end
@@ -78,9 +77,7 @@ local function draw(a)
 		_G[Enums.actornames[a.t]]["draw"](a)
 	end
 
-	if a.gun then
-		gun.draw(a.gun)
-	end
+	gun.draw(a.gun)
 
 	if DebugMode then
 		if a.hitbox then

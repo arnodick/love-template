@@ -23,7 +23,7 @@ local function hitground(a)
 end
 
 local function draw(a)
-	--love.graphics.points(a.x,a.y)
+
 end
 
 return
