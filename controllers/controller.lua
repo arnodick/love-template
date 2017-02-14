@@ -1,8 +1,10 @@
-local function make(a,ct)
-	a.ct=ct
+local function make(a,...)
+	a.ct={...}
 	a.controller={0,0,0,0,false,false}
-	if _G[Enums.controllernames[a.ct]]["make"] then
-		_G[Enums.controllernames[a.ct]]["make"](a)
+	for i=1,#a.ct do
+		if _G[Enums.controllernames[a.ct[i]]]["make"] then
+			_G[Enums.controllernames[a.ct[i]]]["make"](a)
+		end
 	end
 end
 
@@ -10,8 +12,10 @@ local function update(a,gs)
 	if a.controller then
 		local e=Enums.commands
 
-		if _G[Enums.controllernames[a.ct]]["control"] then
-			_G[Enums.controllernames[a.ct]]["control"](a)
+		for i=1,#a.ct do
+			if _G[Enums.controllernames[a.ct[i]]]["control"] then
+				_G[Enums.controllernames[a.ct[i]]]["control"](a)
+			end
 		end
 
 		local c=a.controller

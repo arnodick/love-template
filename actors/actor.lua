@@ -97,13 +97,12 @@ local function damage(a,d)
 		sfx.play(a.hitsfx,a.x,a.y)
 
 		if actor.getflag(a.flags,Enums.flags.damageable) then
-			a.hp = a.hp - d-- or 3
+			a.hp = a.hp - d
+			if _G[Enums.actornames[a.t]]["damage"] then
+				_G[Enums.actornames[a.t]]["damage"](a)
+			end
 			for i=1,8 do
 				actor.make(e.actors.effect,e.effects.spark,a.x,a.y)
-			end
-			--TODO dynamicalize damage function for each actor?
-			if a.ct==e.controllers.gamepad then
-				Camera.shake=20
 			end
 			if a.hittime then
 				if a.hit<a.hittime then
@@ -123,9 +122,9 @@ local function damage(a,d)
 					actor.make(e.actors.effect,e.effects.explosion,a.x,a.y,0,0,e.colours.white,20*(a.size))
 				end
 				--HACK TO GET ENEMIES TO SPAWN TODO get rid of this
-				if a.ct==Enums.controllers.enemy then
+				--if a.ct==Enums.controllers.enemy then
 					actor.make(e.actors.character,e.characters.snake)
-				end
+				--end
 				if _G[Enums.actornames[a.t]]["dead"] then
 					_G[Enums.actornames[a.t]]["dead"](a)
 				end

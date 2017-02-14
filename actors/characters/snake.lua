@@ -1,11 +1,13 @@
 local function make(a,c,size,spr,hp,ct)
 	local e=Enums
+	local ec=Enums.controllers
 	a.cinit=c or e.colours.dark_green
 	a.c=a.cinit
 	a.size=size or 1
 	a.spr=spr or 49
 	a.hp=hp or 8
-	controller.make(a,ct or e.controllers.enemy)
+	--controller.make(a,ct or e.controllers.enemy)
+	controller.make(a,ec.collide_reverse,ec.shoot_accurate)
 	a.hit=0
 	a.hitsfx=3
 	a.hittime=6

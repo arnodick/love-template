@@ -30,6 +30,10 @@ local function draw(a)
 
 end
 
+local function damage(a)
+	Camera.shake=20
+end
+
 local function dead(a)
 	scores.save()
 end
@@ -39,5 +43,6 @@ return
 	make = make,
 	control = control,
 	draw = draw,
+	damage = damage,
 	dead = dead,
 }

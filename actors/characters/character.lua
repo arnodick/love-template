@@ -16,6 +16,12 @@ local function draw(a)
 
 end
 
+local function damage(a)
+	if _G[Enums.characternames[a.st]]["damage"] then
+		_G[Enums.characternames[a.st]]["damage"](a)
+	end
+end
+
 local function dead(a)
 	if _G[Enums.characternames[a.st]]["dead"] then
 		_G[Enums.characternames[a.st]]["dead"](a)
@@ -27,5 +33,6 @@ return
 	make = make,
 	control = control,
 	draw = draw,
+	damage = damage,
 	dead = dead,
 }
