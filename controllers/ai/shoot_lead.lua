@@ -7,11 +7,13 @@ local function control(a)
 	c[e.aimhorizontal]=math.cos(dir)
 	c[e.aimvertical]=math.sin(dir)
 
+--[[
 	if love.math.random(20)==1 or a.st==Enums.characters.mushroom then
 		c[e.shoot]=true
 	else
 		c[e.shoot]=false
 	end
+--]]
 end
 
 return

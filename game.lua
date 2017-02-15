@@ -95,15 +95,17 @@ local function changestate(s)
 		settings.scores=scores.load()
 	elseif State==e.states.play then
 		settings.score=0
+--[[
 		local playercontroller=e.controllers.keyboard
 		if #Joysticks>0 then
 			playercontroller=e.controllers.gamepad
 		end
+--]]
 		Player=actor.make(e.actors.character,e.characters.player,160,120)
 		for a=1,5 do
 			actor.make(e.actors.character,e.characters.snake)
 		end
-		--actor.make(e.actors.character,e.characters.mushroom)
+		actor.make(e.actors.character,e.characters.mushroom)
 	end
 	return settings
 end

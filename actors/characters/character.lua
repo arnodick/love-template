@@ -13,7 +13,9 @@ local function control(a)
 end
 
 local function draw(a)
-
+	if _G[Enums.characternames[a.st]]["draw"] then
+		_G[Enums.characternames[a.st]]["draw"](a)
+	end
 end
 
 local function damage(a)
