@@ -39,8 +39,35 @@ local function control(a,gs)
 
 	a.vec[1] = math.cos(a.d)
 	a.vec[2] = math.sin(a.d)
-	a.x = a.x + a.vec[1]*a.vel*gs
-	a.y = a.y - a.vec[2]*a.vel*gs
+	--a.x = a.x + a.vec[1]*a.vel*gs
+	--a.y = a.y - a.vec[2]*a.vel*gs
+---[[
+	
+	--local xcell,ycell=math.floor(a.x/tw),math.floor(a.y/th)
+	--local xcelldest,ycelldest=math.floor(xdest/tw),math.floor(ydest/th)
+	local xcell,ycell=map.getcell(Game.settings.map,a.x,a.y)
+	local xdest,ydest=a.x + a.vec[1]*a.vel*gs,a.y - a.vec[2]*a.vel*gs
+	local xcelldest,ycelldest=map.getcell(Game.settings.map,xdest,ydest)
+	
+	local xmapcell=Game.settings.map[ycell][xcelldest]
+	local ymapcell=Game.settings.map[ycelldest][xcell]
+	local collx,colly=false,false
+	if not flags.get(xmapcell,Enums.flags.solid,16) then
+		a.x = xdest
+	else
+		collx=true
+	end
+	if not flags.get(ymapcell,Enums.flags.solid,16) then
+		a.y = ydest
+	else
+		colly=true
+	end
+--]]
+	if collx or colly then
+		if _G[Enums.actornames[a.t]]["collision"] then
+			_G[Enums.actornames[a.t]]["collision"](a,collx,colly)
+		end
+	end
 
 	if a.decel then
 		if a.vel>0 then
@@ -62,7 +89,7 @@ local function control(a,gs)
 	or a.x>330
 	or a.y>250
 	or a.y<-10 then
-		if not actor.getflag(a.flags,Enums.flags.persistent) then
+		if not flags.get(a.flags,Enums.flags.persistent) then
 			a.delete=true
 	 	end
 	end
@@ -96,7 +123,7 @@ local function damage(a,d)
 	if not a.delete then
 		sfx.play(a.hitsfx,a.x,a.y)
 
-		if actor.getflag(a.flags,Enums.flags.damageable) then
+		if flags.get(a.flags,Enums.flags.damageable) then
 			a.hp = a.hp - d
 			if _G[Enums.actornames[a.t]]["damage"] then
 				_G[Enums.actornames[a.t]]["damage"](a)
@@ -118,7 +145,7 @@ local function damage(a,d)
 						Game.settings.score=Game.settings.score+1
 					end
 				end
-				if actor.getflag(a.flags,Enums.flags.explosive) then
+				if flags.get(a.flags,Enums.flags.explosive) then
 					actor.make(e.actors.effect,e.effects.explosion,a.x,a.y,0,0,e.colours.white,20*(a.size))
 				end
 				--HACK TO GET ENEMIES TO SPAWN TODO get rid of this
@@ -165,30 +192,6 @@ local function collision(x,y,enemy)
 	return false
 end
 
-local function getflag(bytes,f)
-	--takes an actor's hex flags attribute and an integer flag position
-	--returns true if that flag position is set
-	local flag = 2^(f-1) --converts flag position to its actual hex number value (ie: f 1 = 1, f 2 = 2, f 3 = 4, f 4 = 8 etc.)
-	if bit.band(bytes,flag) == flag then --checks if flag f is set in actor's flags. ignores other flags.
-		return true
-	else
-		return false
-	end
-end
-
-local function setflags(bytes,...)
-	--takes an actor's hex flag attribute and a table of flag positions
-	--SWITCHES the bit pointed to by each flag position
-	--doesn't just turn ON bits, can turn OFF a bit by using a flag position that has already been set in the byte
-	--returns updated flags
-	local flags={...}
-	for a=1,#flags do
-		local flag = 2^(flags[a]-1) --converts flag position to its actual hex number value (ie: f 1 = 1, f 2 = 2, f 3 = 4, f 4 = 8 etc.)
-		bytes=bit.bxor(bytes,flag)
-	end
-	return bytes
-end
-
 return
 {
 	make = make,
@@ -197,6 +200,4 @@ return
 	collision = collision,
 	damage = damage,
 	impulse = impulse,
-	getflag = getflag,
-	setflags = setflags,
 }

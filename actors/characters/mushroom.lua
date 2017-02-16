@@ -6,7 +6,6 @@ local function make(a,c,size,spr,hp,ct)
 	a.size=size or 1
 	a.spr=spr or 97
 	a.hp=hp or 8
-	--controller.make(a,ct or e.controllers.enemy)
 	controller.make(a,ec.target_avoid,ec.shoot_lead)
 	a.hit=0
 	a.hitsfx=3

@@ -2,7 +2,7 @@ local function control(a)
 	local e=Enums.commands
 	local c=a.controller
 
-	local dir=vector.direction(vector.components(a.x,a.y,Cursor.x,Cursor.y))
+	local dir=vector.direction(vector.components(a.x,a.y,a.cursor.x,a.cursor.y))
 	c[e.aimhorizontal]=math.cos(dir)
 	c[e.aimvertical]=math.sin(dir)
 

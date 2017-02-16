@@ -60,6 +60,7 @@ local function draw(s)
 		love.graphics.clear() --cleans that messy ol canvas all up, makes it all fresh and new and good you know
 		love.graphics.translate(-Camera.x+love.math.random(Camera.shake/2),-Camera.y)
 		if s == Enums.states.play then
+			map.draw(Game.settings.map)
 			for i,v in ipairs(Actors) do
 				actor.draw(v)
 			end
@@ -95,17 +96,15 @@ local function changestate(s)
 		settings.scores=scores.load()
 	elseif State==e.states.play then
 		settings.score=0
---[[
-		local playercontroller=e.controllers.keyboard
-		if #Joysticks>0 then
-			playercontroller=e.controllers.gamepad
-		end
---]]
+		local mw,mh=Game.width/Game.tile.width,Game.height/Game.tile.height
+		settings.map=map.generate(mw+2,mh+2)
+		--textfile.save(settings.map,"test.txt")
+		--map.out(settings.map)
 		Player=actor.make(e.actors.character,e.characters.player,160,120)
 		for a=1,5 do
 			actor.make(e.actors.character,e.characters.snake)
 		end
-		actor.make(e.actors.character,e.characters.mushroom)
+		--actor.make(e.actors.character,e.characters.mushroom)
 	end
 	return settings
 end

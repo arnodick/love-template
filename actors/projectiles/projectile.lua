@@ -12,15 +12,15 @@ local function control(a,gs)
 	end
 end
 
-local function hitground(a)
-	if _G[Enums.projectilenames[a.st]]["hitground"] then
-		_G[Enums.projectilenames[a.st]]["hitground"](a)
-	end
-end
-
 local function draw(a)
 	if _G[Enums.projectilenames[a.st]]["draw"] then
 		_G[Enums.projectilenames[a.st]]["draw"](a)
+	end
+end
+
+local function collision(a)
+	if _G[Enums.projectilenames[a.st]]["collision"] then
+		_G[Enums.projectilenames[a.st]]["collision"](a)
 	end
 end
 
@@ -28,6 +28,6 @@ return
 {
 	make = make,
 	control = control,
-	hitground = hitground,
 	draw = draw,
+	collision = collision,
 }

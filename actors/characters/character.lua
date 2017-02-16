@@ -1,5 +1,5 @@
 local function make(a,...)
-	a.flags = actor.setflags(a.flags, Enums.flags.damageable, Enums.flags.shootable, Enums.flags.explosive)
+	a.flags = flags.set(a.flags, Enums.flags.damageable, Enums.flags.shootable, Enums.flags.explosive)
 	hitbox.make(a,-4,-4,8,8)
 	if _G[Enums.characternames[a.st]]["make"] then
 		_G[Enums.characternames[a.st]]["make"](a,...)
@@ -15,6 +15,12 @@ end
 local function draw(a)
 	if _G[Enums.characternames[a.st]]["draw"] then
 		_G[Enums.characternames[a.st]]["draw"](a)
+	end
+end
+
+local function collision(a)
+	if _G[Enums.characternames[a.st]]["collision"] then
+		_G[Enums.characternames[a.st]]["collision"](a)
 	end
 end
 
@@ -35,6 +41,7 @@ return
 	make = make,
 	control = control,
 	draw = draw,
+	collision = collision,
 	damage = damage,
 	dead = dead,
 }

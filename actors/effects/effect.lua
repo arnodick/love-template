@@ -16,10 +16,9 @@ local function draw(a)
 	end
 end
 
-
-local function hitground(a)
-	if _G[Enums.effectnames[a.st]]["hitground"] then
-		_G[Enums.effectnames[a.st]]["hitground"](a)
+local function collision(a,collx,colly)
+	if _G[Enums.effectnames[a.st]]["collision"] then
+		_G[Enums.effectnames[a.st]]["collision"](a,collx,colly)
 	end
 end
 
@@ -28,5 +27,5 @@ return
 	make = make,
 	control = control,
 	draw = draw,
-	hitground = hitground,
+	collision = collision,
 }
