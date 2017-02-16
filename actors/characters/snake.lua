@@ -6,7 +6,8 @@ local function make(a,c,size,spr,hp,ct)
 	a.size=size or 1
 	a.spr=spr or 49
 	a.hp=hp or 8
-	controller.make(a,ec.collide_reverse,ec.shoot_accurate)
+	--controller.make(a,ec.collide_reverse,ec.shoot_accurate)
+	controller.make(a,ec.shoot_accurate)
 	a.hit=0
 	a.hitsfx=3
 	a.hittime=6
@@ -14,10 +15,13 @@ local function make(a,c,size,spr,hp,ct)
 	a.target=Player
 	gun.make(a,1,9,-math.pi,0,Enums.colours.green)
 	animation.make(a,10,2)
+	a.flags=flags.set(a.flags,Enums.flags.bouncy)
+	a.d=math.choose(math.pi)
+	a.vel=1
 end
 
 local function control(a)
-	
+	a.vel=1
 end
 
 local function hitground(a)

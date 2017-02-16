@@ -16,9 +16,9 @@ local function draw(a)
 	end
 end
 
-local function collision(a,collx,colly)
+local function collision(a)
 	if _G[Enums.effectnames[a.st]]["collision"] then
-		_G[Enums.effectnames[a.st]]["collision"](a,collx,colly)
+		_G[Enums.effectnames[a.st]]["collision"](a)
 	end
 end
 

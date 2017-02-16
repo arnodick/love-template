@@ -17,10 +17,11 @@ local function update(a,gs)
 				_G[Enums.controllernames[a.ct[i]]]["control"](a)
 			end
 		end
-
+---[[
 		local c=a.controller
-		a.d=vector.direction(c[e.movehorizontal],-c[e.movevertical])
-		a.vel=vector.length(c[e.movehorizontal],c[e.movevertical])
+		--a.d=vector.direction(c[e.movehorizontal],-c[e.movevertical])
+		--a.vel=vector.length(c[e.movehorizontal],c[e.movevertical])
+--]]
 
 		if a.gun then
 			gun.control(a.gun,gs,a,c[e.aimhorizontal],c[e.aimvertical],c[e.shoot])

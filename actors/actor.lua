@@ -65,7 +65,17 @@ local function control(a,gs)
 --]]
 	if collx or colly then
 		if _G[Enums.actornames[a.t]]["collision"] then
-			_G[Enums.actornames[a.t]]["collision"](a,collx,colly)
+			_G[Enums.actornames[a.t]]["collision"](a)
+		end
+		if flags.get(a.flags,Enums.flags.bouncy) then
+			if collx then
+				a.vec[1]=-a.vec[1]
+				a.d=vector.direction(a.vec[1],a.vec[2])
+			end
+			if colly then
+				a.vec[2]=-a.vec[2]
+				a.d=vector.direction(a.vec[1],a.vec[2])
+			end
 		end
 	end
 

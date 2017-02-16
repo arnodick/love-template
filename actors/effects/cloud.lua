@@ -9,7 +9,7 @@ local function make(a,c,size)
 		table.insert(a.pointdirs, math.randomfraction(math.pi/2) + (math.pi/2)*i )
 	end
 	a.r=size
-	a.flags = flags.set(a.flags, Enums.flags.gravity,Enums.flags.ground_delta,Enums.flags.bouncy)
+	a.flags=flags.set(a.flags,Enums.flags.bouncy)
 end
 
 local function control(a)

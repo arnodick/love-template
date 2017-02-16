@@ -13,6 +13,8 @@ local function control(a)
 		c[e.movehorizontal]=0
 		c[e.movevertical]=0
 	end
+	a.d=vector.direction(c[e.movehorizontal],-c[e.movevertical])
+	a.vel=vector.length(c[e.movehorizontal],c[e.movevertical])
 end
 
 return

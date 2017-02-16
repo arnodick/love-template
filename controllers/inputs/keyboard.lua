@@ -29,6 +29,8 @@ local function control(a)
 	else
 		c[e.powerup]=false
 	end
+	a.d=vector.direction(c[e.movehorizontal],-c[e.movevertical])
+	a.vel=vector.length(c[e.movehorizontal],c[e.movevertical])
 end
 
 return
