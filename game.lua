@@ -58,7 +58,7 @@ end
 local function draw(s)
 	love.graphics.setCanvas(Canvas.game) --sets drawing to the 320x240 canvas
 		love.graphics.clear() --cleans that messy ol canvas all up, makes it all fresh and new and good you know
-		love.graphics.translate(-Camera.x+love.math.random(Camera.shake/2),-Camera.y)
+		--love.graphics.translate(-Camera.x+love.math.random(Camera.shake/2),-Camera.y)
 		if s == Enums.states.play then
 			map.draw(Game.settings.map)
 			for i,v in ipairs(Actors) do
@@ -72,6 +72,8 @@ local function draw(s)
 
 	love.graphics.origin()
 	--love.graphics.setShader(Shader)
+	love.graphics.translate(-Camera.x+(love.math.random(Camera.shake/2))*Screen.scale,-Camera.y)
+	love.graphics.draw(Canvas.buffer,Screen.xoff,Screen.yoff,0,Screen.scale,Screen.scale)
 	love.graphics.draw(Canvas.game,Screen.xoff,Screen.yoff,0,Screen.scale,Screen.scale) --just like draws everything to the screen or whatever
 	--love.graphics.setShader()
 end
@@ -95,6 +97,8 @@ local function changestate(s)
 	if State==e.states.title then
 		settings.scores=scores.load()
 	elseif State==e.states.play then
+		love.graphics.setCanvas(Canvas.buffer)
+		love.graphics.clear()
 		settings.score=0
 		local mw,mh=Game.width/Game.tile.width,Game.height/Game.tile.height
 		settings.map=map.generate(mw+2,mh+2)
@@ -146,6 +150,7 @@ local function graphics(tw,th,gw,gh)
 
 	Canvas = {}
 	Canvas.game = love.graphics.newCanvas(gw,gh) --sets width and height of fictional retro video game (320x240)
+	Canvas.buffer = love.graphics.newCanvas(gw,gh)
 	Canvas.debug = love.graphics.newCanvas(Screen.width,Screen.height) --sets width and height of debug overlay (size of window)
 end
 

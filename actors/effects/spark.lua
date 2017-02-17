@@ -7,13 +7,18 @@ local function make(a,c)
 end
 
 local function control(a)
-	if a.vel<0 then
+	if a.vel<=0 then
 		a.delete=true
 	end
 end
 
 local function draw(a)
 	love.graphics.points(a.x,a.y)
+	if a.vel<=0 then
+		love.graphics.setCanvas(Canvas.buffer)
+			love.graphics.points(a.x,a.y)
+		love.graphics.setCanvas(Canvas.game)
+	end
 end
 
 return

@@ -21,7 +21,13 @@ local function make(a,c,size,spr,hp,ct)
 end
 
 local function control(a)
-	a.vel=1
+	if Player.hp<=0 then
+		for i,v in ipairs(Actors) do
+			if v.t==Enums.actors.character then
+				a.target=v
+			end
+		end
+	end
 end
 
 local function hitground(a)
