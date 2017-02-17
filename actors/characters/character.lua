@@ -31,6 +31,15 @@ local function damage(a)
 end
 
 local function dead(a)
+	--for i=1,20 do
+		local e=Enums
+		local body=actor.make(e.actors.effect,e.effects.spark,a.x,a.y)
+		body.decel=0.1
+		--local body=Actors[#Actors]
+		local tw,th=Game.tile.width,Game.tile.height
+		local imgdata=Canvas.game:newImageData(a.x-tw/2,a.y-th/2,tw,th)--TODO this crashes if it goes off canvas. clamp it
+		body.image=love.graphics.newImage(imgdata)
+	--end
 	if _G[Enums.characternames[a.st]]["dead"] then
 		_G[Enums.characternames[a.st]]["dead"](a)
 	end

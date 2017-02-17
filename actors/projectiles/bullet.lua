@@ -19,7 +19,13 @@ local function control(a)
 end
 
 local function draw(a)
-	
+		--love.graphics.setColor(Palette[Enums.colours.green])
+		--love.graphics.draw(Spritesheet[a.size],Quads[a.size][a.spr],a.x,a.y,a.angle,1.2,1.2,(a.size*Game.tile.width)/2,(a.size*Game.tile.height)/2)
+end
+
+local function predraw(a)
+		--love.graphics.setColor(Palette[Enums.colours.dark_green])
+		--love.graphics.draw(Spritesheet[a.size],Quads[a.size][a.spr],a.x,a.y,a.angle,1.8,1.8,(a.size*Game.tile.width)/2,(a.size*Game.tile.height)/2)
 end
 
 local function collision(a)
@@ -31,5 +37,6 @@ return
 	make = make,
 	control = control,
 	draw = draw,
+	predraw = predraw,
 	collision = collision,
 }

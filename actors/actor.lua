@@ -84,13 +84,13 @@ local function control(a,gs)
 			if a.vel<a.decel then
 				a.vel = 0
 			else
-				a.vel = a.vel - a.decel*gs
+				a.vel = a.vel - a.decel*gs*(Timer-a.delta)/2
 			end
 		elseif a.vel<0 then
 			if a.vel>-a.decel then
 				a.vel = 0
 			else
-				a.vel = a.vel + a.decel*gs
+				a.vel = a.vel + a.decel*gs*(Timer-a.delta)/2
 			end
 		end
 	end
@@ -106,8 +106,11 @@ local function control(a,gs)
 end
 
 local function draw(a)
-	love.graphics.setColor(Palette[a.c])
+	if _G[Enums.actornames[a.t]]["predraw"] then
+		_G[Enums.actornames[a.t]]["predraw"](a)
+	end	
 
+	love.graphics.setColor(Palette[a.c])
 	sprites.draw(a)
 
 	if _G[Enums.actornames[a.t]]["draw"] then
@@ -119,7 +122,8 @@ local function draw(a)
 	if DebugMode then
 		if a.hitbox then
 			love.graphics.setColor(Palette[Enums.colours.blue])
-			love.graphics.rectangle("line",a.x+a.hitbox.x,a.y+a.hitbox.y,a.hitbox.w,a.hitbox.h)
+			--love.graphics.rectangle("line",a.x+a.hitbox.x,a.y+a.hitbox.y,a.hitbox.w,a.hitbox.h)
+			love.graphics.circle("line",a.x,a.y,a.hitbox.w/2)
 		end
 		love.graphics.setColor(Palette[Enums.colours.blue])
 		love.graphics.points(a.x,a.y)
@@ -138,7 +142,8 @@ local function damage(a,d)
 			if _G[Enums.actornames[a.t]]["damage"] then
 				_G[Enums.actornames[a.t]]["damage"](a)
 			end
-			for i=1,8 do
+			--for i=1,8 do
+			for i=1,4 do
 				actor.make(e.actors.effect,e.effects.spark,a.x,a.y)
 			end
 			if a.hittime then
@@ -188,6 +193,13 @@ local function impulse(a,dir,vel,glitch)
 end
 
 local function collision(x,y,enemy)
+	local dist=vector.distance(enemy.x,enemy.y,x,y)
+	if dist<enemy.hitbox.w/2 then
+		return true
+	else
+		return false
+	end
+--[[
 	if enemy.hitbox then
 		if x>enemy.x+enemy.hitbox.x then
 		if x<enemy.x+enemy.hitbox.x+enemy.hitbox.w then
@@ -200,6 +212,7 @@ local function collision(x,y,enemy)
 		end
 	end
 	return false
+--]]
 end
 
 return

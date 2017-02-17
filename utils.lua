@@ -73,12 +73,28 @@ local function drawbox(x,y,w,a)
 	end
 end
 
+local function printborder(text,x,y,c1,c2)
+	--local coords={}
+	--local print=love.graphics.print
+	for xoff=0,1 do
+		for yoff=1,1 do
+			--table.insert(coords,{x,y})
+			love.graphics.setColor(Palette[c2])
+			love.graphics.print(text,x+xoff,y+yoff)
+			love.graphics.setColor(Palette[c1])
+			love.graphics.print(text,x,y)
+		end
+	end
+	love.graphics.setColor(Palette[Enums.colours.white])
+end
+
 math.clamp = clamp
 math.choose = choose
 math.randomfraction = randomfraction
 love.filesystem.getfiles = getfiles
 love.filesystem.filterfiles = filterfiles
 love.graphics.drawbox = drawbox
+love.graphics.printborder = printborder
 
 return
 {

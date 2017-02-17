@@ -18,6 +18,12 @@ local function draw(a)
 	end
 end
 
+local function predraw(a)
+	if _G[Enums.projectilenames[a.st]]["predraw"] then
+		_G[Enums.projectilenames[a.st]]["predraw"](a)
+	end
+end
+
 local function collision(a)
 	if _G[Enums.projectilenames[a.st]]["collision"] then
 		_G[Enums.projectilenames[a.st]]["collision"](a)
@@ -29,5 +35,6 @@ return
 	make = make,
 	control = control,
 	draw = draw,
+	predraw = predraw,
 	collision = collision,
 }

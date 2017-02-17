@@ -39,6 +39,7 @@ local function damage(a)
 end
 
 local function dead(a)
+	Game.speed=math.randomfraction(0.2)+0.25
 	scores.save()
 end
 

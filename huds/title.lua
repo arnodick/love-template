@@ -15,7 +15,7 @@ end
 
 local function draw(t)
 	love.graphics.print("TITLE",Game.width/2,Game.height/2)
-	scores.draw(Game.width/2,Game.height/2)
+	scores.draw(Game.width/2,Game.height/2,Enums.colours.white,Enums.colours.yellow)
 end
 
 return
