@@ -2,7 +2,7 @@ local function make(a,c)
 	a.c=c or Enums.colours.orange
 	a.d=math.randomfraction(math.pi*2)
 	--a.vel=math.randomfraction(2)+2
-	a.vel=math.randomfraction(8)+4
+	a.vel=math.randomfraction(4)+4
 	a.decel=0.05
 	a.anglespeed=(a.vec[1]+math.choose(0,0,3,8))*(a.vel/60)
 	a.len=math.randomfraction(1)+1

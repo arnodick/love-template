@@ -29,17 +29,18 @@ local function control(a)
 	end
 end
 
-
 local function draw(a)
 	cursor.draw(a.cursor)
 end
 
 local function damage(a)
+	Screen.pixeltrans=true
 	Camera.shake=20
 end
 
 local function dead(a)
 	Game.speed=math.randomfraction(0.2)+0.25
+	--Game.speed=1
 	scores.save()
 end
 

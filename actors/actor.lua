@@ -84,13 +84,13 @@ local function control(a,gs)
 			if a.vel<a.decel then
 				a.vel = 0
 			else
-				a.vel = a.vel - a.decel*gs*(Timer-a.delta)/2
+				a.vel = a.vel - a.decel*gs*(Timer-a.delta)/4
 			end
 		elseif a.vel<0 then
 			if a.vel>-a.decel then
 				a.vel = 0
 			else
-				a.vel = a.vel + a.decel*gs*(Timer-a.delta)/2
+				a.vel = a.vel + a.decel*gs*(Timer-a.delta)/4
 			end
 		end
 	end
