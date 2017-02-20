@@ -14,7 +14,7 @@ local function make(a,c,size,spr,hp,ct)
 	a.spr=spr or 81
 	a.hp=hp or 8
 	a.hit=0
-	a.hitsfx=3
+	a.hitsfx=4
 	a.hittime=6
 	a.hitcolour=7
 	gun.make(a,1,9,-math.pi,0,Enums.colours.dark_purple)
@@ -35,6 +35,7 @@ end
 
 local function damage(a)
 	Screen.pixeltrans=true
+	Screen.pixelscale=0.1
 	Camera.shake=20
 end
 

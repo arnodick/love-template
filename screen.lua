@@ -5,7 +5,8 @@ local function update(gw,gh)
 	s.xoff=(s.width-gw*s.scale)/2
 	s.yoff=s.height%gh/2
 	s.pixelscale=1
-	s.pixelscalerate=-0.1
+	s.pixelscalerateinit=0.1
+	s.pixelscalerate=s.pixelscalerateinit
 	s.pixelscalemin=0.1
 	s.pixeltrans=false
 	return s
@@ -24,16 +25,16 @@ local function control(s)
 		love.graphics.draw(Canvas.buffer,s.xoff,s.yoff,0,s.scale,s.scale)
 		love.graphics.draw(tempcanvas,s.xoff,s.yoff,0,s.scale*1/s.pixelscale,s.scale*1/s.pixelscale) --just like draws everything to the screen or whatever
 		love.graphics.origin()
-		s.pixelscale=s.pixelscale+s.pixelscalerate
+		s.pixelscale=s.pixelscale+s.pixelscalerate*Game.speed
 		if s.pixelscalerate<0 then
 			if s.pixelscale<=s.pixelscalemin then
 				s.pixelscale=s.pixelscalemin
-				s.pixelscalerate=s.pixelscalerate*-1
+				s.pixelscalerate=s.pixelscalerate*-0.1
 			end
 		else
 			if s.pixelscale>=1 then
 				s.pixelscale=1
-				s.pixelscalerate=s.pixelscalerate*-1
+				s.pixelscalerate=s.pixelscalerateinit
 				s.pixeltrans=false
 			end
 		end

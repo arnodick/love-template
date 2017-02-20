@@ -34,7 +34,8 @@ local function play(index,x,y)
 			source:setPosition(x,y,0)
 			source:setRolloff(0.05)
 		end
-		source:setPitch(Game.speed+math.randomfraction(0.2)-0.1)
+		local pitch=math.clamp(Game.speed,0.2,1)
+		source:setPitch(pitch+math.randomfraction(0.2)-0.1)
 		love.audio.play(source)
 	end
 end
