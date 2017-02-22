@@ -15,12 +15,43 @@ local function make(tw,th,gw,gh,sp)
 	--TODO do this dynamically
 	Enums = LIP.load("ini/enums.ini")
 	Testenums = enums.load("","actors","controllers","guns")
+--[[
+	for i,v in pairs(Testenums.controllers) do
+		--print(Testenums.controllers)
+		print(v)
+		if type(v)=="table" then
+			for j,k in pairs(v) do
+				print(j)
+			end
+		end
+	end
+--]]
+---[[
+	function iterate(table,space)
+		for i,v in pairs(table) do
+			print(space..i.." = "..tostring(v))
+			if type(v)=="table" then
+				iterate(v,space.." ")
+			end
+		end
+	end
+	iterate(Testenums,"")
+--[[
 	for i,v in pairs(Testenums) do
 		print(i)
 		for k,j in pairs(v) do
-			print(" "..j.." "..k)
+			if type(j)~="table" then
+				print(" "..j.." "..k)
+			else
+				for l,m in pairs(j) do
+					if type(m)~="table" then
+						print(" "..m.." "..l)
+					end
+				end
+			end
 		end
 	end
+--]]
 --[[
 	for i=1,#Testenums["guns"] do
 		print(Testenums["guns"][i])
