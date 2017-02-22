@@ -14,6 +14,31 @@ local function make(tw,th,gw,gh,sp)
 	--enumerators
 	--TODO do this dynamically
 	Enums = LIP.load("ini/enums.ini")
+	Testenums = enums.load("","actors","controllers","guns")
+	for i,v in pairs(Testenums) do
+		print(i)
+		for k,j in pairs(v) do
+			print(" "..j.." "..k)
+		end
+	end
+--[[
+	for i=1,#Testenums["guns"] do
+		print(Testenums["guns"][i])
+	end
+	for i=1,#Testenums["controllers"] do
+		print(Testenums["controllers"][i])
+	end
+	for i=1,#Testenums["actors"] do
+		print(Testenums["actors"][i])
+	end
+--]]
+--[[
+	for i=1,#Testenums do
+		for j=1,#Testenums[i] do
+			print(Testenums[i][j])
+		end
+	end
+-]]
 
 	--global variables
 	State,Timer=game.init(Enums.states.intro)--need to use init here so there is State variable to go into changestate below
