@@ -15,7 +15,7 @@ local function load(dir,...)
 			local filename = filedata:getFilename()
 			local enumdir=false
 			for j=1,#dirstoread do
-				if dir==dirstoread[j] or dir~="" then
+				if dir~="" or dir==dirstoread[j] then
 					enumdir=true
 				end
 			end
@@ -23,12 +23,13 @@ local function load(dir,...)
 				local enumname=string.gsub(filename, ".*/", "")
 				enumname=string.gsub(enumname, ".lua", "")
 				table.insert(e,enumname)
+				e[enumname]=#e
 			end
 		elseif love.filesystem.isDirectory(fileordir) then
 			local enumname=string.gsub(fileordir, ".*/", "")
 			local enumdir=false
 			for j=1,#dirstoread do
-				if enumname==dirstoread[j] or dir~="" then
+				if dir~="" or enumname==dirstoread[j] then
 					enumdir=true
 				end
 			end
