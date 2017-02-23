@@ -17,7 +17,7 @@ local function make(a,c,size,spr,hp,ct)
 	a.hitsfx=4
 	a.hittime=6
 	a.hitcolour=7
-	gun.make(a,1,9,-math.pi,0,Enums.colours.dark_purple)
+	gun.make(a,Enums.guns.machinegun,9,-math.pi,0,Enums.colours.dark_purple)
 	animation.make(a,10,2)
 end
 

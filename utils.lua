@@ -47,22 +47,6 @@ local function filterfiles(folder,ext)
 	return files
 end
 
-local function counterincrement(a,i)
-	--THIS FUNCTION INTENTIONALLY HAS SIDE EFFECTS
-	local name=Enums.actornames[a.t]
-	if Counters then
-		if Counters[name] then
-			Counters[name] = math.clamp(Counters[name]+i,0,99)
-			if name=="enemy" then
-				local enemyname=Enums.enemynames[a.st]
-				if Counters[enemyname] then
-					Counters[enemyname] = math.clamp(Counters[enemyname]+i,0,99)
-				end
-			end
-		end
-	end
-end
-
 local function randomfraction(n)
 	return love.math.random(n*10000)/10000
 end
@@ -98,5 +82,5 @@ love.graphics.printborder = printborder
 
 return
 {
-	counterincrement = counterincrement,
+	
 }

@@ -15,8 +15,8 @@ local function make(a,t,len,anglemin,anglemax,bc)
 	g.ys=0
 	g.vec={0,0}
 	g.delta=0
-	if _G[Enums.gunnames[g.t]]["make"] then
-		_G[Enums.gunnames[g.t]]["make"](g)
+	if _G[Enums.guns[g.t]]["make"] then
+		_G[Enums.guns[g.t]]["make"](g)
 	end
 	a.gun=g
 	--TODO make gun first, THEN add it to character's weapon slot
@@ -45,11 +45,11 @@ local function control(g,gs,a,vx,vy,shoot)
 		if shoot then
 			sfx.play(g.snd,g.x,g.y)
 
-			if _G[Enums.gunnames[g.t]]["shoot"] then
-				_G[Enums.gunnames[g.t]]["shoot"](g,gs)
+			if _G[Enums.guns[g.t]]["shoot"] then
+				_G[Enums.guns[g.t]]["shoot"](g,gs)
 			end
 
-			actor.make(e.actors.effect,e.effects.cloud,g.x,g.y,-g.angle+math.randomfraction(1)-0.5,math.randomfraction(1))
+			actor.make(e.actors.effect,e.actors.effects.cloud,g.x,g.y,-g.angle+math.randomfraction(1)-0.5,math.randomfraction(1))
 			g.delta=g.rof
 		end
 	else 

@@ -13,63 +13,20 @@ local function make(tw,th,gw,gh,sp)
 
 	--enumerators
 	--TODO do this dynamically
-	Enums = LIP.load("ini/enums.ini")
-	Testenums = enums.load("","actors","controllers","guns")
---[[
-	for i,v in pairs(Testenums.controllers) do
-		--print(Testenums.controllers)
-		print(v)
-		if type(v)=="table" then
-			for j,k in pairs(v) do
-				print(j)
-			end
-		end
-	end
---]]
----[[
-	function iterate(table,space)
+	--Enums = LIP.load("ini/enums.ini")
+	--Enums = enums.load("","actors","controllers","guns")
+	Enums = enums.load("","actors","guns")
+	--Testenums = enums.load("","actors","controllers","guns")
+
+	function printtable(table,space)
 		for i,v in pairs(table) do
 			print(space..i.." = "..tostring(v))
 			if type(v)=="table" then
-				iterate(v,space.." ")
+				printtable(v,space.." ")
 			end
 		end
 	end
-	iterate(Testenums,"")
---[[
-	for i,v in pairs(Testenums) do
-		print(i)
-		for k,j in pairs(v) do
-			if type(j)~="table" then
-				print(" "..j.." "..k)
-			else
-				for l,m in pairs(j) do
-					if type(m)~="table" then
-						print(" "..m.." "..l)
-					end
-				end
-			end
-		end
-	end
---]]
---[[
-	for i=1,#Testenums["guns"] do
-		print(Testenums["guns"][i])
-	end
-	for i=1,#Testenums["controllers"] do
-		print(Testenums["controllers"][i])
-	end
-	for i=1,#Testenums["actors"] do
-		print(Testenums["actors"][i])
-	end
---]]
---[[
-	for i=1,#Testenums do
-		for j=1,#Testenums[i] do
-			print(Testenums[i][j])
-		end
-	end
--]]
+	printtable(Enums,"")
 
 	--global variables
 	State,Timer=game.init(Enums.states.intro)--need to use init here so there is State variable to go into changestate below
@@ -140,6 +97,7 @@ end
 
 local function changestate(s)
 	local e=Enums
+	local ea=e.actors
 	State,Timer=game.init(s)
 	hud.make(s)
 	
@@ -154,9 +112,9 @@ local function changestate(s)
 		settings.map=map.generate(mw+2,mh+2)
 		--textfile.save(settings.map,"test.txt")
 		--map.out(settings.map)
-		Player=actor.make(e.actors.character,e.characters.player,160,120)
+		Player=actor.make(ea.character,ea.characters.player,160,120)
 		for a=1,5 do
-			actor.make(e.actors.character,e.characters.snake)
+			actor.make(ea.character,ea.characters.snake)
 		end
 		--actor.make(e.actors.character,e.characters.mushroom)
 	end

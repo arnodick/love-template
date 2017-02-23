@@ -1,39 +1,39 @@
 local function make(a,...)
 	a.flags = flags.set(a.flags, Enums.flags.damageable, Enums.flags.shootable, Enums.flags.explosive)
 	hitbox.make(a,-4,-4,8,8)
-	if _G[Enums.characternames[a.st]]["make"] then
-		_G[Enums.characternames[a.st]]["make"](a,...)
+	if _G[Enums.actors.characters[a.st]]["make"] then
+		_G[Enums.actors.characters[a.st]]["make"](a,...)
 	end
 end
 
 local function control(a)
-	if _G[Enums.characternames[a.st]]["control"] then
-		_G[Enums.characternames[a.st]]["control"](a)
+	if _G[Enums.actors.characters[a.st]]["control"] then
+		_G[Enums.actors.characters[a.st]]["control"](a)
 	end
 end
 
 local function draw(a)
-	if _G[Enums.characternames[a.st]]["draw"] then
-		_G[Enums.characternames[a.st]]["draw"](a)
+	if _G[Enums.actors.characters[a.st]]["draw"] then
+		_G[Enums.actors.characters[a.st]]["draw"](a)
 	end
 end
 
 local function collision(a)
-	if _G[Enums.characternames[a.st]]["collision"] then
-		_G[Enums.characternames[a.st]]["collision"](a)
+	if _G[Enums.actors.characters[a.st]]["collision"] then
+		_G[Enums.actors.characters[a.st]]["collision"](a)
 	end
 end
 
 local function damage(a)
-	if _G[Enums.characternames[a.st]]["damage"] then
-		_G[Enums.characternames[a.st]]["damage"](a)
+	if _G[Enums.actors.characters[a.st]]["damage"] then
+		_G[Enums.actors.characters[a.st]]["damage"](a)
 	end
 end
 
 local function dead(a)
 	--for i=1,20 do
 		local e=Enums
-		local body=actor.make(e.actors.effect,e.effects.spark,a.x,a.y)
+		local body=actor.make(e.actors.effect,e.actors.effects.spark,a.x,a.y)
 		body.decel=0.1
 		local dir=math.randomfraction(math.pi*2)
 		--local body=Actors[#Actors]
@@ -60,15 +60,15 @@ local function dead(a)
 			body.image=love.graphics.newImage(imgdata)
 			body.d=dir
 
-			local body2=actor.make(e.actors.effect,e.effects.spark,a.x,a.y)
+			local body2=actor.make(e.actors.effect,e.actors.effects.spark,a.x,a.y)
 			body2.decel=0.1
 			local imgdata2=Canvas.game:newImageData(ix+tw/2,iy,tw/2,th)--TODO this crashes if it goes off canvas. clamp it
 			body2.image=love.graphics.newImage(imgdata2)
 			body2.d=dir+math.randomfraction(0.5)-0.25
 		end
 	--end
-	if _G[Enums.characternames[a.st]]["dead"] then
-		_G[Enums.characternames[a.st]]["dead"](a)
+	if _G[Enums.actors.characters[a.st]]["dead"] then
+		_G[Enums.actors.characters[a.st]]["dead"](a)
 	end
 end
 

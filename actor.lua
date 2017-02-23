@@ -11,8 +11,8 @@ local function make(t,st,x,y,d,vel,...)
 	a.delta=Timer
 	a.delete=false
 	a.flags = 0x0
-	if _G[Enums.actornames[a.t]]["make"] then
-		_G[Enums.actornames[a.t]]["make"](a,...)
+	if _G[Enums.actors[a.t]]["make"] then
+		_G[Enums.actors[a.t]]["make"](a,...)
 	end
 	table.insert(Actors,a)
 	return a
@@ -21,8 +21,8 @@ end
 local function control(a,gs)
 	controller.update(a,gs)
 
-	if _G[Enums.actornames[a.t]]["control"] then
-		_G[Enums.actornames[a.t]]["control"](a,gs)
+	if _G[Enums.actors[a.t]]["control"] then
+		_G[Enums.actors[a.t]]["control"](a,gs)
 	end
 
 	if a.anglespeed then
@@ -64,8 +64,8 @@ local function control(a,gs)
 	end
 --]]
 	if collx or colly then
-		if _G[Enums.actornames[a.t]]["collision"] then
-			_G[Enums.actornames[a.t]]["collision"](a)
+		if _G[Enums.actors[a.t]]["collision"] then
+			_G[Enums.actors[a.t]]["collision"](a)
 		end
 		if flags.get(a.flags,Enums.flags.bouncy) then
 			if collx then
@@ -106,15 +106,15 @@ local function control(a,gs)
 end
 
 local function draw(a)
-	if _G[Enums.actornames[a.t]]["predraw"] then
-		_G[Enums.actornames[a.t]]["predraw"](a)
+	if _G[Enums.actors[a.t]]["predraw"] then
+		_G[Enums.actors[a.t]]["predraw"](a)
 	end	
 
 	love.graphics.setColor(Palette[a.c])
 	sprites.draw(a)
 
-	if _G[Enums.actornames[a.t]]["draw"] then
-		_G[Enums.actornames[a.t]]["draw"](a)
+	if _G[Enums.actors[a.t]]["draw"] then
+		_G[Enums.actors[a.t]]["draw"](a)
 	end
 
 	gun.draw(a.gun)
@@ -139,12 +139,12 @@ local function damage(a,d)
 
 		if flags.get(a.flags,Enums.flags.damageable) then
 			a.hp = a.hp - d
-			if _G[Enums.actornames[a.t]]["damage"] then
-				_G[Enums.actornames[a.t]]["damage"](a)
+			if _G[Enums.actors[a.t]]["damage"] then
+				_G[Enums.actors[a.t]]["damage"](a)
 			end
 			--for i=1,8 do
 			for i=1,4 do
-				actor.make(e.actors.effect,e.effects.spark,a.x,a.y)
+				actor.make(e.actors.effect,e.actors.effects.spark,a.x,a.y)
 			end
 			if a.hittime then
 				if a.hit<a.hittime then
@@ -155,20 +155,20 @@ local function damage(a,d)
 			if a.hp<1 then
 				--sfx.play(a.deathsnd,a.x,a.y)
 				a.delete=true
-				if a.st~=Enums.characters.player then
+				if a.st~=Enums.actors.characters.player then
 					if Player.hp>0 then
 						Game.settings.score=Game.settings.score+1
 					end
 				end
 				if flags.get(a.flags,Enums.flags.explosive) then
-					actor.make(e.actors.effect,e.effects.explosion,a.x,a.y,0,0,e.colours.white,20*(a.size))
+					actor.make(e.actors.effect,e.actors.effects.explosion,a.x,a.y,0,0,e.colours.white,20*(a.size))
 				end
 				--HACK TO GET ENEMIES TO SPAWN TODO get rid of this
 				--if a.ct==Enums.controllers.enemy then
-					actor.make(e.actors.character,e.characters.snake)
+					actor.make(e.actors.character,e.actors.characters.snake)
 				--end
-				if _G[Enums.actornames[a.t]]["dead"] then
-					_G[Enums.actornames[a.t]]["dead"](a)
+				if _G[Enums.actors[a.t]]["dead"] then
+					_G[Enums.actors[a.t]]["dead"](a)
 				end
 			end
 		end

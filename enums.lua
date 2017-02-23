@@ -1,7 +1,7 @@
 local function load(dir,...)
 	local e={}
 	if dir=="" then
-		--e=LIP.load("ini/enums.ini")
+		e=LIP.load("ini/enums.ini")
 	end
 	local dirstoread={...}
 	local filesindir = love.filesystem.getDirectoryItems(dir)

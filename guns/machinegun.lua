@@ -4,7 +4,7 @@ local function make(g)
 	g.num=1
 	g.acc=0.015
 	g.snd=2
-	g.proj=1
+	g.proj=Enums.actors.projectiles.bullet
 end
 
 local function draw(g)
