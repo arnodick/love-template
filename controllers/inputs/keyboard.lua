@@ -3,34 +3,34 @@ local function control(a)
 	local c=a.controller
 
 	if love.keyboard.isDown('left') or love.keyboard.isDown('a') then
-		c[e.movehorizontal]=-1
+		c.movehorizontal=-1
 	elseif love.keyboard.isDown('right') or love.keyboard.isDown('d')  then
-		c[e.movehorizontal]=1
+		c.movehorizontal=1
 	else
-		c[e.movehorizontal]=0
+		c.movehorizontal=0
 	end
 
 	if love.keyboard.isDown('up') or love.keyboard.isDown('w') then
-		c[e.movevertical]=-1
+		c.movevertical=-1
 	elseif love.keyboard.isDown('down') or love.keyboard.isDown('s') then
-		c[e.movevertical]=1
+		c.movevertical=1
 	else
-		c[e.movevertical]=0
+		c.movevertical=0
 	end
 
 	if love.keyboard.isDown('z') then
-		c[e.shoot]=true
+		c.shoot=true
 	else
-		c[e.shoot]=false
+		c.shoot=false
 	end
 
 	if love.keyboard.isDown('x') then
-		c[e.powerup]=true
+		c.powerup=true
 	else
-		c[e.powerup]=false
+		c.powerup=false
 	end
-	a.d=vector.direction(c[e.movehorizontal],-c[e.movevertical])
-	a.vel=vector.length(c[e.movehorizontal],c[e.movevertical])
+	a.d=vector.direction(c.movehorizontal,-c.movevertical)
+	a.vel=vector.length(c.movehorizontal,c.movevertical)
 end
 
 return

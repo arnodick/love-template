@@ -4,13 +4,13 @@ local function control(a)
 
 	--TODO make this a general target, rather than specifically Player
 	local dir=vector.direction(vector.components(a.x,a.y,a.target.x,a.target.y))
-	c[e.aimhorizontal]=math.cos(dir)
-	c[e.aimvertical]=math.sin(dir)
+	c.aimhorizontal=math.cos(dir)
+	c.aimvertical=math.sin(dir)
 
 	if love.math.random(20)==1 or a.st==Enums.actors.characters.mushroom then
-		c[e.shoot]=true
+		c.shoot=true
 	else
-		c[e.shoot]=false
+		c.shoot=false
 	end
 end
 

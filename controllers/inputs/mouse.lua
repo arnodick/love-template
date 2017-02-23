@@ -3,18 +3,18 @@ local function control(a)
 	local c=a.controller
 
 	local dir=vector.direction(vector.components(a.x,a.y,a.cursor.x,a.cursor.y))
-	c[e.aimhorizontal]=math.cos(dir)
-	c[e.aimvertical]=math.sin(dir)
+	c.aimhorizontal=math.cos(dir)
+	c.aimvertical=math.sin(dir)
 
 	if love.mouse.isDown(1) then
-		c[e.shoot]=true
+		c.shoot=true
 	else
-		c[e.shoot]=false
+		c.shoot=false
 	end
 	if love.mouse.isDown(2) then
-		c[e.powerup]=true
+		c.powerup=true
 	else
-		c[e.powerup]=false
+		c.powerup=false
 	end
 end
 

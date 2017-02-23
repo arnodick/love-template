@@ -4,33 +4,34 @@ local function control(a)
 	local j=Joysticks[1]
 	local deadzone=0.25
 
-	c[e.movehorizontal]=j:getGamepadAxis("leftx")
-	c[e.movevertical]=j:getGamepadAxis("lefty")
-	c[e.aimhorizontal]=j:getGamepadAxis("rightx")
-	c[e.aimvertical]=j:getGamepadAxis("righty")
+	c.movehorizontal=j:getGamepadAxis("leftx")
+	c.movevertical=j:getGamepadAxis("lefty")
+	c.aimhorizontal=j:getGamepadAxis("rightx")
+	c.aimvertical=j:getGamepadAxis("righty")
 
-	for i=1,2 do
-		if c[i]>0 and c[i]<deadzone then
-			c[i]=0
+	local axes={"movehorizontal","movevertical"}
+	for i=1,#axes do
+		if c[axes[i]]>0 and c[axes[i]]<deadzone then
+			c[axes[i]]=0
 		end
 
-		if c[i]<0 and c[i]>-deadzone then
-			c[i]=0
+		if c[axes[i]]<0 and c[axes[i]]>-deadzone then
+			c[axes[i]]=0
 		end
 	end
 
 	if j:isDown(3) or j:getGamepadAxis("triggerright")>0 then
-		c[e.shoot]=true
+		c.shoot=true
 	else
-		c[e.shoot]=false
+		c.shoot=false
 	end
 	if j:isDown(1) or j:getGamepadAxis("triggerleft")>0 then
-		c[e.powerup]=true
+		c.powerup=true
 	else
-		c[e.powerup]=false
+		c.powerup=false
 	end
-	a.d=vector.direction(c[e.movehorizontal],-c[e.movevertical])
-	a.vel=vector.length(c[e.movehorizontal],c[e.movevertical])
+	a.d=vector.direction(c.movehorizontal,-c.movevertical)
+	a.vel=vector.length(c.movehorizontal,c.movevertical)
 end
 
 return
