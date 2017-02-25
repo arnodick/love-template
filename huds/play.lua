@@ -6,6 +6,9 @@ local function make(hud)
 	hud.score={}
 	hud.score.x=12
 	hud.score.y=6
+	hud.coins={}
+	hud.coins.x=120
+	hud.coins.y=6
 	hud.hp={}
 	hud.hp.x=240
 	hud.hp.y=6
@@ -30,7 +33,7 @@ local function draw(h)
 	love.graphics.setColor(Palette[h.c])
 	
 	love.graphics.print("score:"..Game.settings.score,Camera.x+h.score.x,Camera.y+h.score.y)
-
+	love.graphics.print("coins:"..Player.coin,Camera.x+h.coins.x,Camera.y+h.coins.y)
 	love.graphics.print("hp:"..Player.hp,Camera.x+h.hp.x,Camera.y+h.hp.y)
 	if Player.hp <= 0 then
 		--love.graphics.print("YOU DIED",Camera.x+140,Camera.y+20)

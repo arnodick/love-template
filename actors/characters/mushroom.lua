@@ -14,6 +14,7 @@ local function make(a,c,size,spr,hp,ct)
 	a.target=Player
 	gun.make(a,Enums.guns.lazer,9,-math.pi,0,Enums.colours.green)
 	animation.make(a,10,2)
+	a.flags=flags.set(a.flags,e.flags.enemy)
 end
 
 local function control(a)

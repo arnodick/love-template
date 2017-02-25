@@ -12,21 +12,8 @@ local function make(tw,th,gw,gh,sp)
 	SFX = sfx.load(false)
 
 	--enumerators
-	--TODO do this dynamically
-	--Enums = LIP.load("ini/enums.ini")
-	--Enums = enums.load("","actors","controllers","guns")
-	Enums = enums.load("","actors","guns")
-	--Testenums = enums.load("","actors","controllers","guns")
-
-	function printtable(table,space)
-		for i,v in pairs(table) do
-			print(space..i.." = "..tostring(v))
-			if type(v)=="table" then
-				printtable(v,space.." ")
-			end
-		end
-	end
-	printtable(Enums,"")
+	Enums = enums.load("","actors","guns","levels")
+	debugger.printtable(Enums,"")
 
 	--global variables
 	State,Timer=game.init(Enums.states.intro)--need to use init here so there is State variable to go into changestate below
@@ -47,6 +34,8 @@ end
 
 local function control(s,gs)
 	if s == Enums.states.play then
+		Game.settings.counters.enemies=0
+
 		for i,v in ipairs(Actors) do
 			actor.control(v,gs)
 		end
@@ -58,6 +47,8 @@ local function control(s,gs)
 				table.remove(Actors,i)
 			end
 		end
+
+		level.control(Game.settings.levelcurrent)
 
 		if DebugMode then
 			DebugList = debugger.update()
@@ -100,6 +91,14 @@ local function changestate(s)
 	local ea=e.actors
 	State,Timer=game.init(s)
 	hud.make(s)
+
+	local Leveldata={}
+	local level1={}
+	level1.t=1
+	level1.enemies={ea.characters.snake,ea.characters.snake,ea.characters.snake,ea.characters.snake,ea.characters.snake,ea.characters.snake,ea.characters.snake,ea.characters.snake,ea.characters.snake,ea.characters.mushroom}
+	level1.enemies.max=5
+	level1.enemies.spawntimer=0
+	table.insert(Leveldata,level1)
 	
 	local settings={}
 	if State==e.states.title then
@@ -108,15 +107,23 @@ local function changestate(s)
 		love.graphics.setCanvas(Canvas.buffer)
 		love.graphics.clear()
 		settings.score=0
+		settings.counters=counters.make()
+
 		local mw,mh=Game.width/Game.tile.width,Game.height/Game.tile.height
 		settings.map=map.generate(mw+2,mh+2)
-		--textfile.save(settings.map,"test.txt")
-		--map.out(settings.map)
+
 		Player=actor.make(ea.character,ea.characters.player,160,120)
+
+		settings.level=1
+		settings.levels=Leveldata--TODO load from ini here?
+		settings.levelcurrent=level.make(settings.level,settings.levels)
+		debugger.printtable(settings.levelcurrent,"")
+		
+--[[
 		for a=1,5 do
 			actor.make(ea.character,ea.characters.snake)
 		end
-		--actor.make(e.actors.character,e.characters.mushroom)
+--]]
 	end
 	return settings
 end

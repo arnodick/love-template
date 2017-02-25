@@ -33,7 +33,7 @@ end
 local function dead(a)
 	--for i=1,20 do
 		local e=Enums
-		local body=actor.make(e.actors.effect,e.actors.effects.spark,a.x,a.y)
+		local body=actor.make(e.actors.effect,e.actors.effects.debris,a.x,a.y)
 		body.decel=0.1
 		local dir=math.randomfraction(math.pi*2)
 		--local body=Actors[#Actors]
@@ -60,7 +60,7 @@ local function dead(a)
 			body.image=love.graphics.newImage(imgdata)
 			body.d=dir
 
-			local body2=actor.make(e.actors.effect,e.actors.effects.spark,a.x,a.y)
+			local body2=actor.make(e.actors.effect,e.actors.effects.debris,a.x,a.y)
 			body2.decel=0.1
 			local imgdata2=Canvas.game:newImageData(ix+tw/2,iy,tw/2,th)--TODO this crashes if it goes off canvas. clamp it
 			body2.image=love.graphics.newImage(imgdata2)

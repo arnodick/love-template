@@ -19,6 +19,7 @@ local function make(t,st,x,y,d,vel,...)
 end
 
 local function control(a,gs)
+	counters.update(Game.settings.counters,a)
 	controller.update(a,gs)
 
 	if _G[Enums.actors[a.t]]["control"] then
@@ -26,6 +27,23 @@ local function control(a,gs)
 	end
 
 	if a.anglespeed then
+		if a.anglespeeddecel then --TODO make this into a function
+			if a.anglespeed>0 then
+				if a.anglespeed<a.anglespeeddecel then
+					a.anglespeed = 0
+					a.anglespeeddecel = 0
+				else
+					a.anglespeed = a.anglespeed - a.anglespeeddecel
+				end
+			elseif a.anglespeed<0 then
+				if a.anglespeed>-a.anglespeeddecel then
+					a.anglespeed = 0
+					a.anglespeeddecel = 0
+				else
+					a.anglespeed = a.anglespeed + a.anglespeeddecel
+				end
+			end
+		end
 		a.angle = a.angle + a.anglespeed*a.vec[1]*math.pi*2*gs
 	end
 
@@ -81,14 +99,17 @@ local function control(a,gs)
 
 	if a.decel then
 		if a.vel>0 then
-			if a.vel<a.decel then
+			--TODO make decelinit and set decel to it here, so forever moving coins doesn't happen
+			if a.vel<=a.decel then
 				a.vel = 0
+				a.decel = 0
 			else
 				a.vel = a.vel - a.decel*gs*(Timer-a.delta)/4
 			end
 		elseif a.vel<0 then
-			if a.vel>-a.decel then
+			if a.vel>=-a.decel then
 				a.vel = 0
+				a.decel = 0
 			else
 				a.vel = a.vel + a.decel*gs*(Timer-a.delta)/4
 			end
@@ -144,7 +165,7 @@ local function damage(a,d)
 			end
 			--for i=1,8 do
 			for i=1,4 do
-				actor.make(e.actors.effect,e.actors.effects.spark,a.x,a.y)
+				actor.make(e.actors.effect,e.actors.effects.debris,a.x,a.y)
 			end
 			if a.hittime then
 				if a.hit<a.hittime then
@@ -163,10 +184,7 @@ local function damage(a,d)
 				if flags.get(a.flags,Enums.flags.explosive) then
 					actor.make(e.actors.effect,e.actors.effects.explosion,a.x,a.y,0,0,e.colours.white,20*(a.size))
 				end
-				--HACK TO GET ENEMIES TO SPAWN TODO get rid of this
-				--if a.ct==Enums.controllers.enemy then
-					actor.make(e.actors.character,e.actors.characters.snake)
-				--end
+
 				if _G[Enums.actors[a.t]]["dead"] then
 					_G[Enums.actors[a.t]]["dead"](a)
 				end
