@@ -4,9 +4,9 @@ local function make(a,...)
 	end
 end
 
-local function control(a)
+local function control(a,gs)
 	if _G[Enums.actors.effects[a.st]]["control"] then
-		_G[Enums.actors.effects[a.st]]["control"](a)
+		_G[Enums.actors.effects[a.st]]["control"](a,gs)
 	end
 end
 
