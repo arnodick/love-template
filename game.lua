@@ -10,10 +10,11 @@ local function make(tw,th,gw,gh,sp)
 	love.keyboard.setKeyRepeat(false)
 	Joysticks=love.joystick.getJoysticks()
 	SFX = sfx.load(false)
+	debugger.printtable(SFX,"")
 
 	--enumerators
 	Enums = enums.load("","actors","guns","levels")
-	debugger.printtable(Enums,"")
+	--debugger.printtable(Enums,"")
 
 	--global variables
 	State,Timer=game.init(Enums.states.intro)--need to use init here so there is State variable to go into changestate below
@@ -35,6 +36,14 @@ end
 local function control(s,gs)
 	if s == Enums.states.play then
 		Game.settings.counters.enemies=0
+
+		for i,v in pairs(SFX.sources) do
+			--if v:type()=="Source" then
+			--if type(v)~="boolean" and type(v)~="table" then
+				local pitch=math.clamp(gs,0.2,1)
+				v:setPitch(pitch+SFX.pitchoffs[i])
+			--end
+		end
 
 		for i,v in ipairs(Actors) do
 			actor.control(v,gs)

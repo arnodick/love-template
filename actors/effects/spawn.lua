@@ -6,10 +6,19 @@ local function make(a,c)
 	a.vel=0
 	a.size=60
 	a.flags=flags.set(a.flags,Enums.flags.enemy)
+	a.sfx=false
 end
 
 local function control(a,gs)
 	local ea=Enums.actors
+
+	if a.sfx==false then
+		if Timer-a.delta>=20 then
+			sfx.play(9)
+			a.sfx=true
+		end
+	end
+
 	a.size=a.size-gs
 	if a.size<=0 then
 		actor.make(ea.character,Game.settings.levelcurrent.enemies[1],a.x,a.y)
