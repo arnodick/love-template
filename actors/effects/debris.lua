@@ -38,14 +38,6 @@ local function draw(a)
 			love.graphics.setCanvas(Canvas.game)
 		end
 	end
---[[
-	love.graphics.points(a.x,a.y)
-	if a.vel<=0 then
-		love.graphics.setCanvas(Canvas.buffer)
-			love.graphics.points(a.x,a.y)
-		love.graphics.setCanvas(Canvas.game)
-	end
---]]
 end
 
 return

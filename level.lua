@@ -17,7 +17,7 @@ local function control(l)
 	local enemycount=Game.settings.counters.enemies
 	
 	if enemycount<l.enemies.max then
-		actor.make(Enums.actors.effect,Enums.actors.effects.spawn)
+		--actor.make(Enums.actors.effect,Enums.actors.effects.spawn)
 	end
 
 	if _G[Enums.levels[l.t]]["control"] then
