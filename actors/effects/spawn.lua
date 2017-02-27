@@ -21,10 +21,10 @@ local function control(a,gs)
 
 	a.size=a.size-gs
 	if a.size<=0 then
-		actor.make(ea.character,Game.settings.levelcurrent.enemies[1],a.x,a.y)
-		for i=1,20 do
-			--actor.make(ea.effect,ea.effects.cloud,a.x,a.y,math.randomfraction(math.pi*2),math.randomfraction(1))
+		local l=Game.settings.levelcurrent
 
+		actor.make(ea.character,l.enemies[(Game.settings.score-1)%(#l.enemies)+1],a.x,a.y)
+		for i=1,20 do
 			local spark=actor.make(ea.effect,ea.effects.spark,a.x,a.y)
 			spark.c=Enums.colours.dark_blue
 		end

@@ -18,14 +18,8 @@ local function control(l)
 	
 	if enemycount<l.enemies.max then
 		actor.make(Enums.actors.effect,Enums.actors.effects.spawn)
-		--actor.make(Enums.actors.character,l.enemies[1])
---[[
-		if #l.enemies>0 then
-			actor.make(Enums.actors.character,l.enemies[1])--TODO make level.spawnenemy or something
-			table.remove(l.enemies,1)
-		end
---]]
 	end
+
 	if _G[Enums.levels[l.t]]["control"] then
 		_G[Enums.levels[l.t]]["control"](l,gs)
 	end

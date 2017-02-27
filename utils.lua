@@ -51,6 +51,14 @@ local function randomfraction(n)
 	return love.math.random(n*10000)/10000
 end
 
+local function snap(v,range,snapto)
+	if v-range<=snapto+range then
+		return snapto
+	else
+		return v
+	end
+end
+
 local function drawbox(x,y,w,a)
 	for i=0,3 do
 		love.graphics.line(x+math.cos(a+i*0.25*math.pi*2)*w/2,y+math.sin(a+i*0.25*math.pi*2)*w/2,x+math.cos(a+(i+1)*0.25*math.pi*2)*w/2,y+math.sin(a+(i+1)*0.25*math.pi*2)*w/2)
@@ -75,6 +83,7 @@ end
 math.clamp = clamp
 math.choose = choose
 math.randomfraction = randomfraction
+math.snap = snap
 love.filesystem.getfiles = getfiles
 love.filesystem.filterfiles = filterfiles
 love.graphics.drawbox = drawbox

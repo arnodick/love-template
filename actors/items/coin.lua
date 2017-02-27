@@ -7,7 +7,8 @@ local function make(a,c,size,spr)
 
 	a.d=math.randomfraction(math.pi*2)
 	a.vel=math.randomfraction(4)+4
-	a.decel=0.05
+	a.decelinit=0.05
+	a.decel=a.decelinit
 	a.anglespeed=(a.vec[1]+math.choose(0,0,3,4))*(a.vel/60)
 	a.anglespeeddecel=0.05
 	a.deltimer=0
@@ -28,6 +29,8 @@ local function control(a,gs)
 			vy=-vy
 			a.d=vector.direction(vx,vy)
 			a.vel=5/dist
+		else
+			a.decel=a.decelinit
 		end
 	end
 	if Timer-a.delta>=120 then

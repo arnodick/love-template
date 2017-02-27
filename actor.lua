@@ -100,14 +100,14 @@ local function control(a,gs)
 	if a.decel then
 		if a.vel>0 then
 			--TODO make decelinit and set decel to it here, so forever moving coins doesn't happen
-			if a.vel<=a.decel then
+			if a.vel<=a.decel*(Timer-a.delta)/4 then
 				a.vel = 0
 				a.decel = 0
 			else
 				a.vel = a.vel - a.decel*gs*(Timer-a.delta)/4
 			end
 		elseif a.vel<0 then
-			if a.vel>=-a.decel then
+			if a.vel>=-a.decel*(Timer-a.delta)/4 then
 				a.vel = 0
 				a.decel = 0
 			else

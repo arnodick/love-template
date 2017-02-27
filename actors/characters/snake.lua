@@ -22,8 +22,10 @@ end
 local function control(a)
 	if Player.hp<=0 then
 		for i,v in ipairs(Actors) do
-			if v.t==Enums.actors.character then
-				a.target=v
+			if flags.get(v.flags,Enums.flags.enemy) then
+				if v~=a then
+					a.target=v
+				end
 			end
 		end
 	end

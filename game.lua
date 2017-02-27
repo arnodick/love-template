@@ -94,14 +94,6 @@ local function changestate(s)
 	local ea=e.actors
 	State,Timer=game.init(s)
 	hud.make(s)
-
-	local Leveldata={}
-	local level1={}
-	level1.t=1
-	level1.enemies={ea.characters.snake,ea.characters.snake,ea.characters.snake,ea.characters.snake,ea.characters.snake,ea.characters.snake,ea.characters.snake,ea.characters.snake,ea.characters.snake,ea.characters.mushroom}
-	level1.enemies.max=5
-	level1.enemies.spawntimer=0
-	table.insert(Leveldata,level1)
 	
 	local settings={}
 	if State==e.states.title then
@@ -115,12 +107,11 @@ local function changestate(s)
 		local mw,mh=Game.width/Game.tile.width,Game.height/Game.tile.height
 		settings.map=map.generate(mw+2,mh+2)
 
-		Player=actor.make(ea.character,ea.characters.player,160,120)
+		Player=actor.make(ea.character,ea.characters.player,Game.width/2,Game.height/2)
 
 		settings.level=1
-		settings.levels=Leveldata--TODO load from ini here?
-		settings.levelcurrent=level.make(settings.level,settings.levels)
-		debugger.printtable(settings.levelcurrent,"")
+		settings.levelcurrent=level.make(settings.level,Levels)
+		--debugger.printtable(settings.levelcurrent,"")
 		
 --[[
 		for a=1,5 do

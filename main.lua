@@ -3,6 +3,19 @@ libraries.load("")
 
 function love.load()
 	Game = game.make(8,8,320,240,1)
+
+	local ea=Enums.actors
+	local leveldata={}
+	local level1={}
+	level1.t=1
+	level1.enemies={ea.characters.snake,ea.characters.snake,ea.characters.snake,ea.characters.snake,ea.characters.snake,ea.characters.snake,ea.characters.snake,ea.characters.snake,ea.characters.snake,ea.characters.mushroom}
+	level1.enemies.max=5
+	table.insert(leveldata,level1)
+
+	Levels = leveldata--TODO load from ini here?
+
+	local testlevel=LIP.load("ini/level1.ini")
+	debugger.printtable(testlevel,"")
 end
 
 function love.keypressed(key,scancode,isrepeat)
