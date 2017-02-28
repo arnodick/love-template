@@ -110,6 +110,7 @@ local function changestate(s)
 
 		settings.level=1
 		settings.levelcurrent=level.make(Levels[settings.level])
+		--settings.levelcurrent=level.make(Levels.store)
 		--debugger.printtable(settings.levelcurrent)
 	end
 	return settings
