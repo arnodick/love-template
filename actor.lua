@@ -177,11 +177,13 @@ local function damage(a,d)
 				--sfx.play(a.deathsnd,a.x,a.y)
 				a.delete=true
 				--if a.st~=Enums.actors.characters.player then
-				if not flags.get(a.flags,Enums.flags.player) then
-					if Player.hp>0 then
-						Game.settings.score=Game.settings.score+1
+				--if not flags.get(a.flags,Enums.flags.player) then
+				if Player.hp>0 then
+					if a.value then
+						Game.settings.score=Game.settings.score+a.value
 					end
 				end
+				--end
 				if flags.get(a.flags,Enums.flags.explosive) then
 					actor.make(e.actors.effect,e.actors.effects.explosion,a.x,a.y,0,0,e.colours.white,20*(a.size))
 				end

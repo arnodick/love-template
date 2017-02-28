@@ -12,6 +12,7 @@ local function make(a,c,size,spr,hp,ct)
 	a.hittime=6
 	a.hitcolour=7
 	a.target=Player
+	a.value=1
 	gun.make(a,Enums.guns.machinegun,9,-math.pi,0,Enums.colours.green)
 	animation.make(a,10,2)
 	a.flags=flags.set(a.flags,e.flags.bouncy,e.flags.enemy)
