@@ -7,15 +7,25 @@ function love.load()
 	local ea=Enums.actors
 	local leveldata={}
 	local level1={}
-	level1.t=1
-	level1.enemies={ea.characters.snake,ea.characters.snake,ea.characters.snake,ea.characters.snake,ea.characters.snake,ea.characters.snake,ea.characters.snake,ea.characters.snake,ea.characters.snake,ea.characters.mushroom}
+	level1.t=Enums.levels.arena
+	level1.enemies={ea.characters.snake,ea.characters.mushroom,ea.characters.snake,ea.characters.snake,ea.characters.snake,ea.characters.snake,ea.characters.snake,ea.characters.snake,ea.characters.snake,ea.characters.snake}
 	level1.enemies.max=5
+	level1.c={32,51,123,120}
 	table.insert(leveldata,level1)
 
-	Levels = leveldata--TODO load from ini here?
+	local store={}
+	store.t=Enums.levels.store
+	store.enemies={ea.characters.mushroom}
+	store.enemies.max=1
+	store.c={247,15,2,120}
 
-	local testlevel=LIP.load("ini/level1.ini")
-	debugger.printtable(testlevel,"")
+	leveldata.store=store
+
+	Levels = leveldata--TODO load from ini here?
+	debugger.printtable(Levels,"")
+
+	--local testlevel=LIP.load("ini/level1.ini")
+	--debugger.printtable(testlevel,"")
 end
 
 function love.keypressed(key,scancode,isrepeat)

@@ -20,6 +20,7 @@ local function make(a,c,size,spr,hp,ct)
 	gun.make(a,Enums.guns.machinegun,9,-math.pi,0,Enums.colours.dark_purple)
 	a.coin=0
 	animation.make(a,10,2)
+	a.flags=flags.set(a.flags,e.flags.player)
 end
 
 local function control(a)

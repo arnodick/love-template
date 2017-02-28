@@ -41,25 +41,14 @@ end
 local function draw(m)
 	local tw,th=Game.tile.width,Game.tile.height
 	--love.graphics.setColor(Palette[Enums.colours.dark_blue])
-	love.graphics.setColor(32,51,123,120)
+	--love.graphics.setColor(32,51,123,120)
+	love.graphics.setColor(Game.settings.levelcurrent.c)
 	for y=1,#m-1 do
 		love.graphics.line(0,y*th+1,Game.width,y*th+1)
 	end
 	for x=1,#m[1]-1 do
 		love.graphics.line(x*tw+1,0,x*tw+1,Game.height)
 	end
-	--for x=1,#m[y] do
-		
-	--end
-	--draws the map, YO
---[[
-	for b=1,#m do
-		for a=1,#m[b] do
-			--love.graphics.draw( Spritesheet, Quads[ bit.band(m[b][a] - 1, 0x0000ffff) ],(a-1)*TileW,(b-1)*TileH) --bitwise AND is to get just the rightmost 16 bits (non-flag integer)
-			love.graphics.print(m[b][a],(a-1)*TileW,(b-1)*TileH) --bitwise AND is to get just the rightmost 16 bits (non-flag integer)
-		end
-	end
---]]
 end
 
 return

@@ -2,10 +2,11 @@ local function load(l)
 
 end
 
-local function make(num,levels)
+local function make(lload)
 	local l={}
-	local lload=levels[num]
+	--local lload=levels[num]
 	l.t=lload.t
+	l.c=lload.c
 	l.enemies=lload.enemies
 	if _G[Enums.levels[l.t]]["make"] then
 		_G[Enums.levels[l.t]]["make"](l,gs)
@@ -17,7 +18,7 @@ local function control(l)
 	local enemycount=Game.settings.counters.enemies
 	
 	if enemycount<l.enemies.max then
-		--actor.make(Enums.actors.effect,Enums.actors.effects.spawn)
+		actor.make(Enums.actors.effect,Enums.actors.effects.spawn)
 	end
 
 	if _G[Enums.levels[l.t]]["control"] then

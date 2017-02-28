@@ -6,7 +6,8 @@ local function make(a,c,size,spr,hp,ct)
 	a.size=size or 1
 	a.spr=spr or 97
 	a.hp=hp or 8
-	controller.make(a,ec.target_avoid,ec.shoot_lead)
+	--controller.make(a,ec.target_avoid,ec.shoot_lead)
+	--controller.make(a,ec.target_avoid)
 	a.hit=0
 	a.hitsfx=3
 	a.hittime=6
@@ -21,18 +22,15 @@ local function control(a)
 	
 end
 
-local function hitground(a)
-
-end
-
-local function draw(a)
-
+local function dead(a)
+	local ea=Enums.actors
+	local port=actor.make(ea.effect,ea.effects.portal,a.x,a.y)
+	port.level=Levels.store
 end
 
 return
 {
 	make = make,
 	control = control,
-	hitground = hitground,
-	draw = draw,
+	dead = dead,
 }

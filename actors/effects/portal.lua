@@ -4,6 +4,8 @@ local function make(a,c,size)
 	a.sizeinit=size or 20
 	a.size=a.sizeinit
 	a.anglespeed=0.01
+	--a.level=Levels.store
+	a.level=Levels[Game.settings.level+1]
 end
 
 local function control(a,gs)
@@ -27,8 +29,24 @@ local function control(a,gs)
 	local imgdata=Canvas.buffer:newImageData(ix,iy,tw,th)
 
 	imgdata:mapPixel(pixelmaps.sparkle)
+	imgdata:mapPixel(pixelmaps.crush)
 
 	a.image=love.graphics.newImage(imgdata)
+
+	local dist=vector.distance(a.x,a.y,Player.x,Player.y)
+	if dist<20 then
+		for i,v in pairs(Actors) do
+			if flags.get(v.flags,Enums.flags.enemy) then
+				actor.damage(v,v.hp)
+			elseif not flags.get(v.flags,Enums.flags.player) then
+				if v.t~=Enums.actors.effect then
+					v.delete=true
+				end
+			end
+		end
+		Game.settings.levelcurrent=level.make(a.level)
+		a.delete=true --TODO maybe give this a VERY low chance of not happening?
+	end
 end
 
 local function draw(a)

@@ -176,7 +176,8 @@ local function damage(a,d)
 			if a.hp<1 then
 				--sfx.play(a.deathsnd,a.x,a.y)
 				a.delete=true
-				if a.st~=Enums.actors.characters.player then
+				--if a.st~=Enums.actors.characters.player then
+				if not flags.get(a.flags,Enums.flags.player) then
 					if Player.hp>0 then
 						Game.settings.score=Game.settings.score+1
 					end

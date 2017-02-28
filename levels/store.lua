@@ -5,6 +5,7 @@ local function make(l)
 	for i=1,l.enemies.max do
 		actor.make(ea.character,l.enemies[1])
 	end
+	actor.make(ea.effect,ea.effects.wiper,0,5)
 --]]
 end
 

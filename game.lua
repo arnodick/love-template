@@ -110,7 +110,8 @@ local function changestate(s)
 		Player=actor.make(ea.character,ea.characters.player,Game.width/2,Game.height/2)
 
 		settings.level=1
-		settings.levelcurrent=level.make(settings.level,Levels)
+		--settings.levelcurrent=level.make(settings.level,Levels)
+		settings.levelcurrent=level.make(Levels[settings.level])
 		--debugger.printtable(settings.levelcurrent,"")
 		
 --[[
