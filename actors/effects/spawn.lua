@@ -5,7 +5,7 @@ local function make(a,c)
 	a.d=0
 	a.vel=0
 	a.size=60
-	a.flags=flags.set(a.flags,Enums.flags.enemy)
+	a.flags=flags.set(a.flags,Enums.flags.enemy)--NOTE this is to make sure a bazillion spawns don't... spawn
 	a.sfx=false
 	local l=Game.settings.levelcurrent
 	a.enemyspawn=(Game.settings.score-1)%(#l.enemies)+1
@@ -25,7 +25,9 @@ local function control(a,gs)
 	if a.size<=0 then
 		local l=Game.settings.levelcurrent
 
-		actor.make(ea.character,l.enemies[a.enemyspawn],a.x,a.y)
+		if l.enemies[a.enemyspawn] then
+			actor.make(ea.character,l.enemies[a.enemyspawn],a.x,a.y)
+		end
 		for i=1,20 do
 			local spark=actor.make(ea.effect,ea.effects.spark,a.x,a.y)
 			spark.c=Enums.colours.dark_blue

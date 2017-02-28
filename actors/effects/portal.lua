@@ -6,6 +6,7 @@ local function make(a,c,size)
 	a.anglespeed=0.01
 	--a.level=Levels.store
 	a.level=Levels[Game.settings.level+1]
+	a.flags=flags.set(a.flags,Enums.flags.persistent)
 end
 
 local function control(a,gs)
@@ -38,10 +39,10 @@ local function control(a,gs)
 		for i,v in pairs(Actors) do
 			if flags.get(v.flags,Enums.flags.enemy) then
 				actor.damage(v,v.hp)
-			elseif not flags.get(v.flags,Enums.flags.player) then
-				if v.t~=Enums.actors.effect then
-					v.delete=true
-				end
+			--elseif not flags.get(v.flags,Enums.flags.player) then
+			--	if v.t~=Enums.actors.effect then
+			elseif not flags.get(v.flags,Enums.flags.persistent) then
+				v.delete=true
 			end
 		end
 		Game.settings.levelcurrent=level.make(a.level)
