@@ -13,6 +13,13 @@ function love.load()
 	level1.c={32,51,123,120}
 	table.insert(leveldata,level1)
 
+	local level2={}
+	level2.t=Enums.levels.arena
+	level2.enemies={ea.characters.snake}
+	level2.enemies.max=1
+	level2.c={0,144,61}
+	table.insert(leveldata,level1)
+
 	local store={}
 	store.t=Enums.levels.store
 	store.enemies={ea.characters.mushroom}
