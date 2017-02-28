@@ -8,10 +8,15 @@ local function control(a)
 		c.movehorizontal=-math.cos(dir)
 		c.movevertical=-math.sin(dir)
 	else
-		--c.movehorizontal=math.randomfraction(2)-1
-		--c.movevertical=math.randomfraction(2)-1
-		c.movehorizontal=0
-		c.movevertical=0
+		local x,y=love.math.random(Game.width),love.math.random(Game.height)
+		local movedist=vector.distance(x,y,a.target.x,a.target.y)
+		while movedist<150 do
+			x,y=love.math.random(Game.width),love.math.random(Game.height)
+			movedist=vector.distance(x,y,a.target.x,a.target.y)
+		end
+		local movedir=vector.direction(vector.components(a.x,a.y,x,y))
+		c.movehorizontal=math.cos(movedir)
+		c.movevertical=math.sin(movedir)
 	end
 	a.d=vector.direction(c.movehorizontal,-c.movevertical)
 	a.vel=vector.length(c.movehorizontal,c.movevertical)

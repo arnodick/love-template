@@ -40,9 +40,12 @@ end
 
 local function draw(m)
 	local tw,th=Game.tile.width,Game.tile.height
-	--love.graphics.setColor(Palette[Enums.colours.dark_blue])
-	--love.graphics.setColor(32,51,123,120)
-	love.graphics.setColor(Game.settings.levelcurrent.c)
+	--love.graphics.setColor(Game.settings.levelcurrent.c)
+	local c=Palette[Game.settings.levelcurrent.c]
+	local r=c[1]
+	local g=c[2]
+	local b=c[3]
+	love.graphics.setColor(r,g,b,120)
 	for y=1,#m-1 do
 		love.graphics.line(0,y*th+1,Game.width,y*th+1)
 	end

@@ -1,18 +1,19 @@
 local function make(a,c,size,spr,hp,ct)
 	local e=Enums
 	local ec=Enums.controllers
-	a.cinit=c or e.colours.dark_green
+	a.cinit=c or e.colours.brown
 	a.c=a.cinit
 	a.size=size or 1
 	a.spr=spr or 97
 	a.hp=hp or 8
 	--controller.make(a,ec.target_avoid,ec.shoot_lead)
-	--controller.make(a,ec.target_avoid)
+	controller.make(a,ec.target_avoid)
 	a.hit=0
 	a.hitsfx=3
 	a.hittime=6
 	a.hitcolour=7
 	a.target=Player
+	a.movetarget={0,0}
 	gun.make(a,Enums.guns.lazer,9,-math.pi,0,Enums.colours.green)
 	animation.make(a,10,2)
 	a.flags=flags.set(a.flags,e.flags.enemy)

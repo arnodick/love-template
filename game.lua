@@ -10,11 +10,10 @@ local function make(tw,th,gw,gh,sp)
 	love.keyboard.setKeyRepeat(false)
 	Joysticks=love.joystick.getJoysticks()
 	SFX = sfx.load(false,true)
-	debugger.printtable(SFX,"")
 
 	--enumerators
 	Enums = enums.load("","actors","guns","levels")
-	--debugger.printtable(Enums,"")
+	--debugger.printtable(Enums)
 
 	--global variables
 	State,Timer=game.init(Enums.states.intro)--need to use init here so there is State variable to go into changestate below
@@ -110,15 +109,8 @@ local function changestate(s)
 		Player=actor.make(ea.character,ea.characters.player,Game.width/2,Game.height/2)
 
 		settings.level=1
-		--settings.levelcurrent=level.make(settings.level,Levels)
 		settings.levelcurrent=level.make(Levels[settings.level])
-		--debugger.printtable(settings.levelcurrent,"")
-		
---[[
-		for a=1,5 do
-			actor.make(ea.character,ea.characters.snake)
-		end
---]]
+		--debugger.printtable(settings.levelcurrent)
 	end
 	return settings
 end

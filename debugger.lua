@@ -47,6 +47,7 @@ local function draw(debuglist)
 end
 
 local function printtable(table,space)
+	space=space or ""
 	for i,v in pairs(table) do
 		print(space..i.." = "..tostring(v))
 		if type(v)=="table" then
