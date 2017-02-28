@@ -1,7 +1,7 @@
 local function make(a,c,size,spr,hp,ct)
 	local e=Enums
 	local ec=Enums.controllers
-	a.cinit=c or e.colours.brown
+	a.cinit=c or e.colours.yellow
 	a.c=a.cinit
 	a.size=size or 1
 	a.spr=spr or 97
@@ -14,7 +14,7 @@ local function make(a,c,size,spr,hp,ct)
 	a.hitcolour=7
 	a.target=Player
 	a.movetarget={0,0}
-	gun.make(a,Enums.guns.lazer,9,-math.pi,0,Enums.colours.green)
+	--gun.make(a,Enums.guns.lazer,9,-math.pi,0,Enums.colours.green)
 	animation.make(a,10,2)
 	a.flags=flags.set(a.flags,e.flags.enemy)
 end
@@ -25,7 +25,7 @@ end
 
 local function dead(a)
 	local ea=Enums.actors
-	local port=actor.make(ea.effect,ea.effects.portal,a.x,a.y)
+	local port=actor.make(ea.effect,ea.effects.portal,math.floor(a.x),math.floor(a.y))
 	port.level=Levels.store
 end
 
