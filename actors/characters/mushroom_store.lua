@@ -21,26 +21,21 @@ local function make(a,c,size,spr,hp,ct)
 end
 
 local function control(a)
+	local dist=vector.distance(a.x,a.y,Player.x,Player.y)
+	local c=Enums.colours
 
+	if dist<30 then
+		if not a.menu then
+			a.menu=menu.make(a.x,a.y-40,50,50,{""},c.orange,c.dark_green,c.indigo,c.dark_purple)
+		end
+	elseif a.menu then
+		a.menu=nil
+	end
 end
 
 local function draw(a)
-	local dist=vector.distance(a.x,a.y,Player.x,Player.y)
-	if dist<30 then
-		--Enums.colours.white,Enums.colours.yellow
-		local c=Enums.colours
-		local g=love.graphics
-		local s=Game.settings.scores
-
-	--TODO make this into menu library
-		local xoff,yoff,h=-25,-65,50
-		g.setColor(Palette[c.dark_purple])
-		g.rectangle("fill",a.x+xoff+1,a.y+yoff+1,52,h+2)
-		g.setColor(Palette[c.black])
-		g.rectangle("fill",a.x+xoff,a.y+yoff,50,h)
-		g.setColor(Palette[c.indigo])
-		g.rectangle("line",a.x+xoff,a.y+yoff,51,h+1)
-		g.print("u will buy",a.x+xoff/2,a.y+yoff/2)
+	if a.menu then
+		menu.draw(a.menu)
 	end
 end
 

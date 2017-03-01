@@ -56,6 +56,9 @@ local function control(s,gs)
 			DebugList = debugger.update()
 		end
 	end
+	for i,v in ipairs(Menus) do
+		menu.control(v)
+	end
 	for i,v in ipairs(Huds) do
 		hud.control(v)
 	end
@@ -69,6 +72,9 @@ local function draw(s)
 			for i,v in ipairs(Actors) do
 				actor.draw(v)
 			end
+		end
+		for i,v in ipairs(Menus) do
+			menu.draw(v)
 		end
 		for i,v in ipairs(Huds) do
 			hud.draw(v)
@@ -84,6 +90,7 @@ local function init(s)
 	Camera=camera.make(0,0)
 
 	Actors={}
+	Menus={}
 	Huds={}
 	return s,0
 end
