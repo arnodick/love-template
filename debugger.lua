@@ -14,6 +14,7 @@ local function update()
 	table.insert(debuglist,"player vx:"..Player.vec[1])
 	table.insert(debuglist,"player vy:"..Player.vec[2])
 	table.insert(debuglist,"player vel:"..Player.vel)
+	table.insert(debuglist,"player gun angle:"..Player.gun.angle)
 	table.insert(debuglist,"camx:"..Camera.x)
 	table.insert(debuglist,"camy:"..Camera.y)
 	if #Joysticks>0 then

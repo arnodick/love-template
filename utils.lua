@@ -65,16 +65,16 @@ local function drawbox(x,y,w,a)
 	end
 end
 
-local function printborder(text,x,y,c1,c2)
-	--local coords={}
-	--local print=love.graphics.print
+local function printborder(text,x,y,c1,c2,limit)
+	limit=limit or Game.width - x
 	for xoff=0,1 do
 		for yoff=1,1 do
 			--table.insert(coords,{x,y})
 			love.graphics.setColor(Palette[c2])
-			love.graphics.print(text,x+xoff,y+yoff)
+			--love.graphics.print(text,x+xoff,y+yoff)
+			love.graphics.printf(text,x+xoff,y+yoff,limit,"left")
 			love.graphics.setColor(Palette[c1])
-			love.graphics.print(text,x,y)
+			love.graphics.printf(text,x,y,limit,"left")
 		end
 	end
 	love.graphics.setColor(Palette[Enums.colours.white])

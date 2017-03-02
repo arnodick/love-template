@@ -11,8 +11,12 @@ local function make(a,t,len,anglemin,anglemax,bc)
 	g.c=a.cinit
 	g.x=0
 	g.y=0
+	g.mx=0
+	g.my=0
 	g.xs=0
 	g.ys=0
+	g.tx=0
+	g.ty=0
 	g.vec={0,0}
 	g.delta=0
 	if _G[Enums.guns[g.t]]["make"] then
@@ -38,8 +42,19 @@ local function control(g,gs,a,vx,vy,shoot)
 
 	g.xs=a.x+hack
 	g.ys=a.y
+	--g.mx=a.x+g.vec[1]*g.len/2
+	--g.my=a.y+g.vec[2]*g.len/2
+	if g.angle<0 then
+		g.mx=a.x+6
+		g.my=a.y-6-math.floor((Timer/a.anim.speed)%a.anim.frames)*4
+	else
+		g.mx=a.x+6
+		g.my=a.y+6+math.floor((Timer/a.anim.speed)%a.anim.frames)*4
+	end
 	g.x=a.x+g.vec[1]*g.len
 	g.y=a.y+g.vec[2]*g.len
+	g.tx=a.x+4
+	g.ty=a.y
 
 	if g.delta<=0 then
 		if shoot then
@@ -60,7 +75,10 @@ end
 local function draw(g)
 	if g then
 		love.graphics.setColor(Palette[g.c])
-		love.graphics.line(g.xs,g.ys,g.x,g.y)
+		--love.graphics.line(g.mx,g.my,g.x,g.y)
+		--love.graphics.line(g.tx,g.ty,g.mx,g.my)
+		local curve=love.math.newBezierCurve(g.tx,g.ty,g.mx,g.my,g.x,g.y)
+		love.graphics.line(curve:render(2))
 	end
 end
 

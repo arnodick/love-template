@@ -135,7 +135,7 @@ local function graphics(tw,th,gw,gh)
 	Font = love.graphics.newFont("fonts/pico8.ttf",8)
 	FontDebug = love.graphics.newFont("fonts/lucon.ttf",20)
 	Font:setFilter("nearest","nearest",0) --clean TEXT scaling
-	Font:setLineHeight(1.1)
+	Font:setLineHeight(1.8)
 	love.graphics.setFont(Font)
 
 	Palettes = palette.load(unpack(love.filesystem.getfiles("palettes","ini")))

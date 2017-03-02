@@ -26,7 +26,7 @@ local function control(a)
 
 	if dist<30 then
 		if not a.menu then
-			a.menu=menu.make(a.x,a.y-40,50,50,{""},c.orange,c.dark_green,c.indigo,c.dark_purple)
+			a.menu=menu.make(a.x,a.y-38,50,50,{"what you buy do you want to buy the powerup ?"},c.orange,c.dark_green,c.indigo,c.dark_purple)
 		end
 	elseif a.menu then
 		a.menu=nil
