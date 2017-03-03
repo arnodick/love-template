@@ -44,12 +44,13 @@ local function control(g,gs,a,vx,vy,shoot)
 	g.ys=a.y
 	--g.mx=a.x+g.vec[1]*g.len/2
 	--g.my=a.y+g.vec[2]*g.len/2
-	if g.angle<0 then
-		g.mx=a.x+6
+	g.mx=a.x+8
+	if math.abs(g.angle)<1 then
+		g.my=a.y
+	elseif g.angle<0 then
 		g.my=a.y-6-math.floor((Timer/a.anim.speed)%a.anim.frames)*4
 	else
-		g.mx=a.x+6
-		g.my=a.y+6+math.floor((Timer/a.anim.speed)%a.anim.frames)*4
+		g.my=a.y+8+math.floor((Timer/a.anim.speed)%a.anim.frames)*4
 	end
 	g.x=a.x+g.vec[1]*g.len
 	g.y=a.y+g.vec[2]*g.len

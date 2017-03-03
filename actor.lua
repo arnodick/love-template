@@ -215,7 +215,7 @@ end
 
 local function collision(x,y,enemy)
 	local dist=vector.distance(enemy.x,enemy.y,x,y)
-	if dist<enemy.hitbox.w/2 then
+	if dist<enemy.hitbox.w/2 then--TODO put failsafe here?
 		return true
 	else
 		return false
