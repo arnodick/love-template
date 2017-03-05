@@ -1,5 +1,4 @@
 local function make(a,...)
-	--a.controller={0,0,0,0,false,false}
 	local c={}
 	c.movehorizontal=0
 	c.movevertical=0
@@ -31,7 +30,6 @@ local function update(a,gs)
 
 		local c=a.controller
 		if a.gun then
-			--gun.control(a.gun,gs,a,c[e.aimhorizontal],c[e.aimvertical],c[e.shoot])
 			gun.control(a.gun,gs,a,c.aimhorizontal,c.aimvertical,c.shoot)
 		end
 	end
