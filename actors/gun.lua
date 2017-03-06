@@ -1,37 +1,36 @@
---local function make(a,t,len,anglemin,anglemax,bc)
 local function make(g,gc,bc,...)
 	local ea=Enums.actors
-	--g.d=0
-	--g.vel=0
 	g.c=gc
 	g.bc=bc
-	--g.c=Enums.colours.dark_purple
 	g.leninit=len or 9
 	g.len=g.leninit
 	g.anglemin=-math.pi
 	g.anglemax=0
 	g.angle=-0.79
-	--g.x=0
-	--g.y=0
-	g.mx=0
-	g.my=0
+	g.mx=g.x-math.cos(g.angle+0.1)*g.len/2
+	g.my=g.y-math.sin(g.angle+0.1)*g.len/2
 	g.xs=0
 	g.ys=0
-	g.tx=0
-	g.ty=0
-	--g.vec={0,0}
+	g.tx=g.x-math.cos(g.angle)*g.len
+	g.ty=g.y-math.sin(g.angle)*g.len
+	g.getsfx=10
+--g.decel=0.1
 	g.delta=0--NOTE need this bc actor.make sets delta to Timer, so any actor not spawning at Timer==0 can't shoot
-	--if _G[ea.guns[g.t]]["make"] then
 	if _G[ea.guns[g.st]]["make"] then
-		--_G[ea.guns[g.t]]["make"](g)
 		_G[ea.guns[g.st]]["make"](g)
 	end
 	return g
-	--a.gun=g
 end
 
-local function control(g,gs)
-
+local function control(a,gs)
+	if not Player.gun then
+		if actor.collision(a.x,a.y,Player) then	
+			if a.getsfx then
+				sfx.play(a.getsfx)
+			end
+			Player.gun=a
+		end
+	end
 end
 
 local function use(g,gs,a,vx,vy,shoot)
@@ -69,9 +68,7 @@ local function use(g,gs,a,vx,vy,shoot)
 		if shoot then
 			sfx.play(g.snd,g.x,g.y)
 
-			--if _G[Enums.guns[g.t]]["shoot"] then
 			if _G[e.actors.guns[g.st]]["shoot"] then
-				--_G[Enums.guns[g.t]]["shoot"](g,gs)
 				_G[e.actors.guns[g.st]]["shoot"](g,gs)
 			end
 

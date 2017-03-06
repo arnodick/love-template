@@ -13,7 +13,6 @@ local function make(a,c,size,spr,hp,ct)
 	a.hitcolour=7
 	a.target=Player
 	a.value=1
-	--gun.make(a,Enums.guns.machinegun,9,-math.pi,0,Enums.colours.green)
 	a.gun=actor.make(e.actors.gun,e.actors.guns.machinegun,a.x,a.y,0,0,a.cinit,Enums.colours.green)
 	animation.make(a,10,2)
 	a.flags=flags.set(a.flags,e.flags.bouncy,e.flags.enemy)
@@ -43,7 +42,7 @@ end
 
 local function dead(a)
 	local ea=Enums.actors
-	actor.make(ea.item,ea.items.coin,a.x,a.y)
+	actor.make(ea.collectible,ea.collectibles.coin,a.x,a.y)
 end
 
 return

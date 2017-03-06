@@ -28,9 +28,7 @@ local function update(a,gs)
 			end
 		end
 
-		--local c=a.controller
 		if a.gun then
-			--gun.control(a.gun,gs,a,c.aimhorizontal,c.aimvertical,c.shoot)
 			gun.use(a.gun,gs,a,c.aimhorizontal,c.aimvertical,c.shoot)
 		end
 	end

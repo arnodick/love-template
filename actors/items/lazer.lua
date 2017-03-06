@@ -1,5 +1,5 @@
 local function make(g)
-	g.vel=0
+	g.projvel=0
 	g.rof=1
 	g.num=1
 	g.acc=0

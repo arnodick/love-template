@@ -42,7 +42,7 @@ end
 local function dead(a)
 	local ea=Enums.actors
 	for i=1,3 do
-		actor.make(ea.item,ea.items.coin,a.x,a.y)
+		actor.make(ea.collectible,ea.collectibles.coin,a.x,a.y)
 	end
 end
 
