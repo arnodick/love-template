@@ -28,8 +28,8 @@ local function update(a,gs)
 			end
 		end
 
-		if a.item then
-			item.use(a.item,gs,a,c.aimhorizontal,c.aimvertical,c.shoot)
+		if a.inv then
+			item.use(a.inv,gs,a,c.aimhorizontal,c.aimvertical,c.shoot)
 		end
 	end
 end

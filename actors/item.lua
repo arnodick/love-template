@@ -23,12 +23,12 @@ local function make(g,gc,bc,...)
 end
 
 local function control(a,gs)
-	if not Player.item then
+	if not Player.inv then
 		if actor.collision(a.x,a.y,Player) then	
 			if a.getsfx then
 				sfx.play(a.getsfx)
 			end
-			Player.item=a
+			Player.inv=a
 		end
 	end
 end
