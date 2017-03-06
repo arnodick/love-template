@@ -14,8 +14,8 @@ local function update()
 	table.insert(debuglist,"player vx:"..Player.vec[1])
 	table.insert(debuglist,"player vy:"..Player.vec[2])
 	table.insert(debuglist,"player vel:"..Player.vel)
-	if Player.inv then
-	table.insert(debuglist,"player item angle:"..Player.inv.angle)
+	if Player.inv[1] then
+	table.insert(debuglist,"player item angle:"..Player.inv[1].angle)
 	end
 	table.insert(debuglist,"camx:"..Camera.x)
 	table.insert(debuglist,"camy:"..Camera.y)

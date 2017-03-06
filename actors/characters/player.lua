@@ -18,6 +18,7 @@ local function make(a,c,size,spr,hp,ct)
 	a.hitsfx=4
 	a.hittime=6
 	a.hitcolour=7
+	a.inv={}
 	actor.make(ea.item,ea.items.machinegun,a.x-10,a.y,0,0,a.cinit,e.colours.dark_purple)
 	a.coin=0
 	animation.make(a,10,2)
