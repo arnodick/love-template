@@ -12,7 +12,7 @@ local function make(tw,th,gw,gh,sp)
 	SFX = sfx.load(false,true)
 
 	--enumerators
-	Enums = enums.load("","actors","guns","levels")
+	Enums = enums.load("","actors","levels")
 	--debugger.printtable(Enums)
 
 	--global variables
@@ -46,6 +46,9 @@ local function control(s,gs)
 		
 		for i,v in ipairs(Actors) do
 			if v.delete==true then
+				if v.gun then
+					v.gun.delete=true
+				end
 				table.remove(Actors,i)
 			end
 		end

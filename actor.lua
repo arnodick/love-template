@@ -138,7 +138,7 @@ local function draw(a)
 		_G[Enums.actors[a.t]]["draw"](a)
 	end
 
-	gun.draw(a.gun)
+	--gun.draw(a.gun)
 
 	if DebugMode then
 		if a.hitbox then

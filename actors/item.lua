@@ -29,5 +29,6 @@ return
 {
 	make = make,
 	control = control,
+	use = use,
 	draw = draw,
 }

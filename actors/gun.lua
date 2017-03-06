@@ -1,32 +1,40 @@
-local function make(a,t,len,anglemin,anglemax,bc)
-	local g={}
-	g={}
-	g.t=t
-	g.leninit=len
-	g.len=len
-	g.anglemin=anglemin
-	g.anglemax=anglemax
+--local function make(a,t,len,anglemin,anglemax,bc)
+local function make(g,gc,bc,...)
+	local ea=Enums.actors
+	--g.d=0
+	--g.vel=0
+	g.c=gc
 	g.bc=bc
+	--g.c=Enums.colours.dark_purple
+	g.leninit=len or 9
+	g.len=g.leninit
+	g.anglemin=-math.pi
+	g.anglemax=0
 	g.angle=-0.79
-	g.c=a.cinit
-	g.x=0
-	g.y=0
+	--g.x=0
+	--g.y=0
 	g.mx=0
 	g.my=0
 	g.xs=0
 	g.ys=0
 	g.tx=0
 	g.ty=0
-	g.vec={0,0}
-	g.delta=0
-	if _G[Enums.guns[g.t]]["make"] then
-		_G[Enums.guns[g.t]]["make"](g)
+	--g.vec={0,0}
+	g.delta=0--NOTE need this bc actor.make sets delta to Timer, so any actor not spawning at Timer==0 can't shoot
+	--if _G[ea.guns[g.t]]["make"] then
+	if _G[ea.guns[g.st]]["make"] then
+		--_G[ea.guns[g.t]]["make"](g)
+		_G[ea.guns[g.st]]["make"](g)
 	end
-	a.gun=g
-	--TODO make gun first, THEN add it to character's weapon slot
+	return g
+	--a.gun=g
 end
 
-local function control(g,gs,a,vx,vy,shoot)
+local function control(g,gs)
+
+end
+
+local function use(g,gs,a,vx,vy,shoot)
 	local e=Enums
 	g.angle=vector.direction(vx,vy)
 	g.vec[1]=math.cos(g.angle)
@@ -61,8 +69,10 @@ local function control(g,gs,a,vx,vy,shoot)
 		if shoot then
 			sfx.play(g.snd,g.x,g.y)
 
-			if _G[Enums.guns[g.t]]["shoot"] then
-				_G[Enums.guns[g.t]]["shoot"](g,gs)
+			--if _G[Enums.guns[g.t]]["shoot"] then
+			if _G[e.actors.guns[g.st]]["shoot"] then
+				--_G[Enums.guns[g.t]]["shoot"](g,gs)
+				_G[e.actors.guns[g.st]]["shoot"](g,gs)
 			end
 
 			actor.make(e.actors.effect,e.actors.effects.cloud,g.x,g.y,-g.angle+math.randomfraction(1)-0.5,math.randomfraction(1))
@@ -87,6 +97,7 @@ return
 {
 	make = make,
 	control = control,
+	use = use,
 	draw = draw,
 
 }
