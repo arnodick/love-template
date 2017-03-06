@@ -16,19 +16,19 @@ local function make(g,gc,bc,...)
 	g.getsfx=10
 --g.decel=0.1
 	g.delta=0--NOTE need this bc actor.make sets delta to Timer, so any actor not spawning at Timer==0 can't shoot
-	if _G[ea.guns[g.st]]["make"] then
-		_G[ea.guns[g.st]]["make"](g)
+	if _G[ea.items[g.st]]["make"] then
+		_G[ea.items[g.st]]["make"](g)
 	end
 	return g
 end
 
 local function control(a,gs)
-	if not Player.gun then
+	if not Player.item then
 		if actor.collision(a.x,a.y,Player) then	
 			if a.getsfx then
 				sfx.play(a.getsfx)
 			end
-			Player.gun=a
+			Player.item=a
 		end
 	end
 end
@@ -68,8 +68,8 @@ local function use(g,gs,a,vx,vy,shoot)
 		if shoot then
 			sfx.play(g.snd,g.x,g.y)
 
-			if _G[e.actors.guns[g.st]]["shoot"] then
-				_G[e.actors.guns[g.st]]["shoot"](g,gs)
+			if _G[e.actors.items[g.st]]["shoot"] then
+				_G[e.actors.items[g.st]]["shoot"](g,gs)
 			end
 
 			actor.make(e.actors.effect,e.actors.effects.cloud,g.x,g.y,-g.angle+math.randomfraction(1)-0.5,math.randomfraction(1))

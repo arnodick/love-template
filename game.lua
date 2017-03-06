@@ -46,8 +46,8 @@ local function control(s,gs)
 		
 		for i,v in ipairs(Actors) do
 			if v.delete==true then
-				if v.gun then
-					v.gun.delete=true
+				if v.item then
+					v.item.delete=true
 				end
 				table.remove(Actors,i)
 			end

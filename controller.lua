@@ -28,8 +28,8 @@ local function update(a,gs)
 			end
 		end
 
-		if a.gun then
-			gun.use(a.gun,gs,a,c.aimhorizontal,c.aimvertical,c.shoot)
+		if a.item then
+			item.use(a.item,gs,a,c.aimhorizontal,c.aimvertical,c.shoot)
 		end
 	end
 end

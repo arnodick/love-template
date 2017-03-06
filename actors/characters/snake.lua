@@ -13,7 +13,7 @@ local function make(a,c,size,spr,hp,ct)
 	a.hitcolour=7
 	a.target=Player
 	a.value=1
-	a.gun=actor.make(e.actors.gun,e.actors.guns.machinegun,a.x,a.y,0,0,a.cinit,Enums.colours.green)
+	a.item=actor.make(e.actors.item,e.actors.items.machinegun,a.x,a.y,0,0,a.cinit,Enums.colours.green)
 	animation.make(a,10,2)
 	a.flags=flags.set(a.flags,e.flags.bouncy,e.flags.enemy)
 	a.d=math.choose(math.pi)
