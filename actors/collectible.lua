@@ -6,13 +6,17 @@ end
 
 local function control(a,gs)
 	local ea=Enums.actors
-	if actor.collision(a.x,a.y,Player) then	
-		Player[ea.collectibles[a.st]] = Player[ea.collectibles[a.st]] + 1
-		if a.getsfx then
-			sfx.play(a.getsfx)
+	if not flags.get(a.flags,Enums.flags.shopitem) then
+		if actor.collision(a.x,a.y,Player) then	
+			Player[ea.collectibles[a.st]] = Player[ea.collectibles[a.st]] + a.value
+			if a.getsfx then
+				sfx.play(a.getsfx)
+			end
+			actor.make(ea.effect,ea.effects.collectibleget,a.x,a.y,math.pi/2,1,Enums.colours.pure_white,1,a.sprinit)
+			a.delete=true
 		end
-		actor.make(ea.effect,ea.effects.collectibleget,a.x,a.y,math.pi/2,1,Enums.colours.pure_white,1,a.sprinit)
-		a.delete=true
+	else
+		
 	end
 	if _G[ea.collectibles[a.st]]["control"] then
 		_G[ea.collectibles[a.st]]["control"](a,gs)
@@ -20,6 +24,9 @@ local function control(a,gs)
 end
 
 local function draw(a)
+	if flags.get(a.flags,Enums.flags.shopitem) then
+		love.graphics.print("$ 1",a.x,a.y-10)
+	end
 	if _G[Enums.actors.collectibles[a.st]]["draw"] then
 		_G[Enums.actors.collectibles[a.st]]["draw"](a)
 	end

@@ -14,6 +14,7 @@ local function make(a,c,size,spr)
 	a.deltimer=0
 	a.getsfx=6
 	a.follow=false
+	a.value=1
 	a.flags=flags.set(a.flags,Enums.flags.bouncy)
 end
 

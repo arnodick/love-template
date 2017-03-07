@@ -135,7 +135,8 @@ local function graphics(tw,th,gw,gh)
 	love.graphics.setBlendMode("alpha")
 	love.mouse.setVisible(false)
 
-	Font = love.graphics.newFont("fonts/pico8.ttf",8)
+	--Font = love.graphics.newFont("fonts/pico8.ttf",8)
+	Font = love.graphics.newFont("fonts/Kongtext Regular.ttf",8)
 	FontDebug = love.graphics.newFont("fonts/lucon.ttf",20)
 	Font:setFilter("nearest","nearest",0) --clean TEXT scaling
 	Font:setLineHeight(1.8)
