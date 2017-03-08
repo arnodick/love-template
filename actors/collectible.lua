@@ -16,7 +16,26 @@ local function control(a,gs)
 			a.delete=true
 		end
 	else
-		
+		if vector.distance(a.x,a.y,Player.x,Player.y)<30 then
+			if math.floor(Timer)%10==0 then
+				if a.spr then
+					a.spr=nil
+				else
+					a.spr=a.sprinit
+				end
+			end
+			if Player.controller.powerup then
+				if Player.coin>=a.cost then
+					a.flags=flags.set(a.flags,Enums.flags.shopitem)
+					a.menu=nil
+					Player.coin=Player.coin-a.cost
+				else
+					sfx.play(11)
+				end
+			end
+		else
+			a.spr=a.sprinit
+		end
 	end
 	if _G[ea.collectibles[a.st]]["control"] then
 		_G[ea.collectibles[a.st]]["control"](a,gs)

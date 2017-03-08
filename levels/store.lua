@@ -6,7 +6,7 @@ local function make(l)
 	port.c=Enums.colours.red
 	local i1=actor.make(ea.collectible,ea.collectibles.hp,Game.width/2-40,Game.height/2-40)
 	i1.flags=flags.set(i1.flags,Enums.flags.shopitem)
-	i1.menu=menu.make(i1.x,i1.y,24,24,"$1",ec.white,ec.dark_gray,ec.white,ec.dark_gray)
+	i1.menu=menu.make(i1.x,i1.y,24,24,"$"..i1.cost,ec.white,ec.dark_gray,ec.white,ec.dark_gray)
 end
 
 local function control(l)

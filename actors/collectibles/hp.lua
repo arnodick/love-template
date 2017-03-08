@@ -6,6 +6,7 @@ local function make(a,c,size,spr)
 	a.sprinit=a.spr
 
 	a.getsfx=6
+	a.cost=2
 	a.value=4
 end
 

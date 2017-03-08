@@ -26,8 +26,14 @@ local function make(a,c,size,spr,hp,ct)
 end
 
 local function control(a)
-	Game.speed=math.clamp(a.vel,0.1,1)
+	if Game.settings.levelcurrent.t==Enums.levels.store then--TODO make this a level value (level.time = time slow or not)
+		Game.speed=1
+	else
+		Game.speed=math.clamp(a.vel,0.1,1)
+	end
 	cursor.update(a.cursor)
+	--if a.controller.powerup then	
+	--end
 	if SFX.positonal then
 		love.audio.setPosition(a.x,a.y,0)
 	end
