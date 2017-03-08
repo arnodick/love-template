@@ -32,8 +32,12 @@ local function draw(m)
 	g.rectangle("line",m.x-m.w/2,m.y-m.h/2,m.w,m.h)
 
 	--g.print("u will buy",a.x+xoff/2,a.y+yoff/2)
-	for i=1,#m.text do
-		g.printborder(m.text[i],m.x-m.w/2,m.y-m.h/2+10*i,m.c1,m.c2,m.w)
+	if type(text)=="table" then
+		for i=1,#m.text do
+			g.printborder(m.text[i],m.x-m.w/2,m.y-m.h/2+10*i,m.c1,m.c2,m.w)
+		end
+	else
+		g.printborder(m.text,m.x-m.w/2,m.y-m.h/2,m.c1,m.c2,m.w)
 	end
 
 	if Debugmode then

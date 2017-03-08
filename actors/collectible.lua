@@ -23,10 +23,18 @@ local function control(a,gs)
 	end
 end
 
-local function draw(a)
-	if flags.get(a.flags,Enums.flags.shopitem) then
-		love.graphics.print("$ 1",a.x,a.y-10)
+local function predraw(a)
+	if a.menu then
+		menu.draw(a.menu)
 	end
+end
+
+local function draw(a)
+	--local lg=love.graphics
+	--if flags.get(a.flags,Enums.flags.shopitem) then
+	--	lg.setColor(Palette[Enums.colours.white])
+	--	lg.printf("$1",a.x-10,a.y-16,20,"center")
+	--end
 	if _G[Enums.actors.collectibles[a.st]]["draw"] then
 		_G[Enums.actors.collectibles[a.st]]["draw"](a)
 	end
@@ -36,6 +44,6 @@ return
 {
 	make = make,
 	control = control,
-	use = use,
+	predraw = predraw,
 	draw = draw,
 }

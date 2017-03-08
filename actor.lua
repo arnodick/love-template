@@ -129,7 +129,7 @@ end
 local function draw(a)
 	if _G[Enums.actors[a.t]]["predraw"] then
 		_G[Enums.actors[a.t]]["predraw"](a)
-	end	
+	end
 
 	love.graphics.setColor(Palette[a.c])
 	sprites.draw(a)
