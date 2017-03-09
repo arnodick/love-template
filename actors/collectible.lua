@@ -7,6 +7,9 @@ end
 local function control(a,gs)
 	local ea=Enums.actors
 	if not flags.get(a.flags,Enums.flags.shopitem) then
+		if not a.spr then
+			a.spr=a.sprinit
+		end
 		if actor.collision(a.x,a.y,Player) then	
 			Player[ea.collectibles[a.st]] = Player[ea.collectibles[a.st]] + a.value
 			if a.getsfx then
@@ -17,7 +20,7 @@ local function control(a,gs)
 		end
 	else
 		if vector.distance(a.x,a.y,Player.x,Player.y)<30 then
-			sprites.blink(a,8)
+			sprites.blink(a,24)
 			if Player.controller.powerup then
 				if Player.coin>=a.cost then
 					a.flags=flags.set(a.flags,Enums.flags.shopitem)

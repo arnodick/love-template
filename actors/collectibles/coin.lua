@@ -36,7 +36,11 @@ local function control(a,gs)
 	end
 	if Timer-a.delta>=120 then
 		a.deltimer = a.deltimer+gs
-		sprites.blink(a,math.ceil(600/a.deltimer))
+		if a.deltimer<=80 then
+			sprites.blink(a,14)
+		else
+			sprites.blink(a,6)
+		end
 		if a.deltimer>=120 then
 			if a.vel==0 then
 				sfx.play(7)

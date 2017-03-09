@@ -34,9 +34,9 @@ local function control(a)
 end
 
 local function draw(a)
-	--if a.menu then
-	--	menu.draw(a.menu)
-	--end
+	if a.menu then
+		menu.draw(a.menu)
+	end
 end
 
 local function dead(a)
