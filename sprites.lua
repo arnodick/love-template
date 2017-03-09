@@ -27,6 +27,16 @@ local function draw(a)
 	end
 end
 
+local function blink(a,spd)
+	if math.floor(Timer/spd)%2==0 then
+		if a.spr then
+			a.spr=nil
+		end
+	else
+		a.spr=a.sprinit
+	end
+end
+
 local function batchdraw(ss,qd,x,y,w,h)
 	w=w or 1
 	h=h or 1
@@ -41,5 +51,6 @@ return
 {
 	load = load,
 	draw = draw,
+	blink = blink,
 	batchdraw = batchdraw,
 }

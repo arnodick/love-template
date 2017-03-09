@@ -17,13 +17,7 @@ local function control(a,gs)
 		end
 	else
 		if vector.distance(a.x,a.y,Player.x,Player.y)<30 then
-			if math.floor(Timer)%10==0 then
-				if a.spr then
-					a.spr=nil
-				else
-					a.spr=a.sprinit
-				end
-			end
+			sprites.blink(a,8)
 			if Player.controller.powerup then
 				if Player.coin>=a.cost then
 					a.flags=flags.set(a.flags,Enums.flags.shopitem)
