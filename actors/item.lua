@@ -23,6 +23,7 @@ local function make(g,gc,bc,...)
 end
 
 local function control(a,gs)
+	local e=Enums
 	if #Player.inv<1 then
 		if actor.collision(a.x,a.y,Player) then	
 			if a.getsfx then
@@ -30,6 +31,9 @@ local function control(a,gs)
 			end
 			table.insert(Player.inv,a)
 		end
+	end
+	if _G[e.actors.items[a.st]]["control"] then
+		_G[e.actors.items[a.st]]["control"](a,gs)
 	end
 end
 

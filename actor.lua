@@ -233,6 +233,67 @@ local function collision(x,y,enemy)
 --]]
 end
 
+local function corpse(a,tw,th,hack)
+	local e=Enums
+	local dir=math.randomfraction(math.pi*2)
+	--local tw,th=iw,ih
+	local ix,iy=a.x-tw/2,a.y-th/2
+	local ix2,iy2=ix+tw,iy+th
+	if ix<0 then ix=0 end
+	if iy<0 then iy=0 end
+	if ix2>Game.width then
+		local diff=ix2-Game.width
+		tw=tw-diff
+	end
+	if iy2>Game.height then
+		local diff=iy2-Game.height
+		th=th-diff
+	end
+	
+	local body=actor.make(e.actors.effect,e.actors.effects.debris,a.x,a.y)
+	body.decel=0.1
+	if not hack then
+		local choice=math.choose(1,2)
+		if choice==1 then
+			local imgdata=Canvas.game:newImageData(ix,iy,tw,th)--TODO this crashes if it goes off canvas. clamp it
+			body.image=love.graphics.newImage(imgdata)
+		else
+			local imgdata=Canvas.game:newImageData(ix,iy,tw/2,th)--TODO this crashes if it goes off canvas. clamp it
+			body.image=love.graphics.newImage(imgdata)
+			body.d=dir
+
+			local body2=actor.make(e.actors.effect,e.actors.effects.debris,a.x,a.y)
+			body2.decel=0.1
+			local imgdata2=Canvas.game:newImageData(ix+tw/2,iy,tw/2,th)--TODO this crashes if it goes off canvas. clamp it
+			body2.image=love.graphics.newImage(imgdata2)
+			body2.d=dir+math.randomfraction(0.5)-0.25
+		end
+	else
+		body.decel=0.2
+		local imgdata=Canvas.game:newImageData(ix,iy,tw/2,th/2)
+		body.image=love.graphics.newImage(imgdata)
+		body.d=math.randomfraction(math.pi*2)
+
+		local body2=actor.make(e.actors.effect,e.actors.effects.debris,a.x,a.y)
+		body2.decel=0.2
+		local imgdata2=Canvas.game:newImageData(ix+tw/2,iy+th/2,tw/2,th/2)--TODO this crashes if it goes off canvas. clamp it
+		body2.image=love.graphics.newImage(imgdata2)
+		body2.d=math.randomfraction(math.pi*2)
+
+		local body3=actor.make(e.actors.effect,e.actors.effects.debris,a.x,a.y)
+		body3.decel=0.2
+		local imgdata3=Canvas.game:newImageData(ix+tw/2,iy,tw/2,th/2)--TODO this crashes if it goes off canvas. clamp it
+		body3.image=love.graphics.newImage(imgdata3)
+		body3.d=math.randomfraction(math.pi*2)
+
+		local body4=actor.make(e.actors.effect,e.actors.effects.debris,a.x,a.y)
+		body4.decel=0.2
+		local imgdata4=Canvas.game:newImageData(ix,iy,tw/2,th/2)--TODO this crashes if it goes off canvas. clamp it
+		body4.image=love.graphics.newImage(imgdata4)
+		body4.d=math.randomfraction(math.pi*2)
+	end
+end
+
 return
 {
 	make = make,
@@ -241,4 +302,5 @@ return
 	collision = collision,
 	damage = damage,
 	impulse = impulse,
+	corpse = corpse,
 }

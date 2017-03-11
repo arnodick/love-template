@@ -24,6 +24,8 @@ local function control(a,gs)
 			if Player.controller.powerup then
 				if Player.coin>=a.cost then
 					a.flags=flags.set(a.flags,Enums.flags.shopitem)
+					actor.corpse(a.menu,a.menu.w+1,a.menu.h+1,true)
+					actor.make(ea.effect,ea.effects.explosion,a.x,a.y,0,0,Enums.colours.white,40)
 					a.menu=nil
 					Player.coin=Player.coin-a.cost
 				else
