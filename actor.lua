@@ -19,6 +19,7 @@ local function make(t,st,x,y,d,vel,...)
 end
 
 local function control(a,gs)
+	local ea=Enums.actors
 	counters.update(Game.settings.counters,a)
 	controller.update(a,gs)
 
@@ -112,6 +113,25 @@ local function control(a,gs)
 		end
 	end
 
+	if flags.get(a.flags,Enums.flags.shopitem) then
+		if vector.distance(a.x,a.y,Player.x,Player.y)<30 then
+			sprites.blink(a,24)
+			if Player.controller.powerup then
+				if Player.coin>=a.cost then
+					a.flags=flags.set(a.flags,Enums.flags.shopitem)
+					actor.corpse(a.menu,a.menu.w+1,a.menu.h+1,true)
+					actor.make(ea.effect,ea.effects.explosion,a.x,a.y,0,0,Enums.colours.white,40)
+					a.menu=nil
+					Player.coin=Player.coin-a.cost
+				else
+					sfx.play(11)
+				end
+			end
+		else
+			a.spr=a.sprinit
+		end
+	end
+
 	if _G[Enums.actors[a.t]]["control"] then
 		_G[Enums.actors[a.t]]["control"](a,gs)
 	end
@@ -127,6 +147,9 @@ local function control(a,gs)
 end
 
 local function draw(a)
+	if a.menu then
+		menu.draw(a.menu)
+	end
 	if _G[Enums.actors[a.t]]["predraw"] then
 		_G[Enums.actors[a.t]]["predraw"](a)
 	end
