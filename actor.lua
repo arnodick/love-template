@@ -23,6 +23,10 @@ local function control(a,gs)
 	counters.update(Game.settings.counters,a)
 	controller.update(a,gs)
 
+	if _G[Enums.actors[a.t]]["control"] then
+		_G[Enums.actors[a.t]]["control"](a,gs)
+	end
+
 	if a.anglespeed then
 		if a.anglespeeddecel then --TODO make this into a function
 			if a.anglespeed>0 then
@@ -132,8 +136,9 @@ local function control(a,gs)
 		end
 	end
 
-	if _G[Enums.actors[a.t]]["control"] then
-		_G[Enums.actors[a.t]]["control"](a,gs)
+	if a.tail then
+		local c=a.controller
+		tail.control(a.tail,gs,a,c.aimhorizontal,c.aimvertical)
 	end
 
 	if a.x<-10
@@ -159,6 +164,10 @@ local function draw(a)
 
 	if _G[Enums.actors[a.t]]["draw"] then
 		_G[Enums.actors[a.t]]["draw"](a)
+	end
+
+	if a.tail then
+		tail.draw(a.tail)
 	end
 
 	if DebugMode then
