@@ -30,7 +30,7 @@ local function update(a,gs)
 
 		if a.inv then
 			if #a.inv>0 then
-				item.use(a.inv[1],gs,a,c.aimhorizontal,c.aimvertical,c.shoot)
+				item.use(a.inv[a.inv.i],gs,a,c.aimhorizontal,c.aimvertical,c.shoot)
 			end
 		end
 	end

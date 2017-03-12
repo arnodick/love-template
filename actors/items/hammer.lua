@@ -1,11 +1,12 @@
 local function make(g)
 	g.size=1
-	g.spr=145
+	g.sprinit=145
+	g.spr=g.sprinit
 	g.rof=4
 	g.snd=2
 	g.spd=2
 
-	g.cost=8
+	g.cost=7
 	hitbox.make(g,-4,-4,8,8)
 end
 

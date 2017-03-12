@@ -1,6 +1,6 @@
 local function make(g,gc,bc,shopitem,...)
 	local ea=Enums.actors
-	local ea=Enums.colours
+	local ec=Enums.colours
 	g.c=gc
 	g.bc=bc
 	g.leninit=len or 9
@@ -25,11 +25,13 @@ end
 
 local function control(a,gs)
 	local e=Enums
-	if #Player.inv<1 then
+	--if #Player.inv<1 then
+	if Player.controller.powerup then --or #Player.inv<1 then
 		if actor.collision(a.x,a.y,Player) then	
 			if a.getsfx then
 				sfx.play(a.getsfx)
 			end
+			table.remove(Player.inv,1)
 			table.insert(Player.inv,a)
 		end
 	end

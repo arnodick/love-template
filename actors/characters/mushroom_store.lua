@@ -13,7 +13,7 @@ local function make(a,c,size,spr,hp,ct)
 	a.hitcolour=7
 	a.target={}
 	a.target.x=Game.width/2
-	a.target.y=Game.height/3
+	a.target.y=Game.height/2
 	a.speed=2
 
 	animation.make(a,10,2)

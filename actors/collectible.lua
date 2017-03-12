@@ -12,6 +12,11 @@ local function control(a,gs)
 		end
 		if actor.collision(a.x,a.y,Player) then	
 			Player[ea.collectibles[a.st]] = Player[ea.collectibles[a.st]] + a.value
+			for i,v in pairs(Actors) do
+				if v.t==ea.collectible then
+					v.delta=Timer
+				end
+			end
 			if a.getsfx then
 				sfx.play(a.getsfx)
 			end
@@ -19,22 +24,7 @@ local function control(a,gs)
 			a.delete=true
 		end
 	else
-		if vector.distance(a.x,a.y,Player.x,Player.y)<30 then
-			sprites.blink(a,24)
-			if Player.controller.powerup then
-				if Player.coin>=a.cost then
-					a.flags=flags.set(a.flags,Enums.flags.shopitem)
-					actor.corpse(a.menu,a.menu.w+1,a.menu.h+1,true)
-					actor.make(ea.effect,ea.effects.explosion,a.x,a.y,0,0,Enums.colours.white,40)
-					a.menu=nil
-					Player.coin=Player.coin-a.cost
-				else
-					sfx.play(11)
-				end
-			end
-		else
-			a.spr=a.sprinit
-		end
+
 	end
 	if _G[ea.collectibles[a.st]]["control"] then
 		_G[ea.collectibles[a.st]]["control"](a,gs)
@@ -42,9 +32,7 @@ local function control(a,gs)
 end
 
 local function predraw(a)
-	if a.menu then
-		menu.draw(a.menu)
-	end
+
 end
 
 local function draw(a)

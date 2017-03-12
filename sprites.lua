@@ -13,6 +13,10 @@ local function load(spr, tw, th)
 	return spritesheet, quads
 end
 
+local function make(a)
+--TODO this sprinit
+end
+
 local function draw(a)
 	if a.spr then
 		local anim=0
