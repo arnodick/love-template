@@ -26,12 +26,14 @@ end
 local function control(a,gs)
 	local e=Enums
 	--if #Player.inv<1 then
-	if Player.controller.powerup then --or #Player.inv<1 then
-		if actor.collision(a.x,a.y,Player) then	
+	if actor.collision(a.x,a.y,Player) then	
+		if Player.controller.powerup or #Player.inv<1 then
 			if a.getsfx then
 				sfx.play(a.getsfx)
 			end
-			table.remove(Player.inv,1)
+			if #Player.inv>0 then
+				table.remove(Player.inv,1)
+			end
 			table.insert(Player.inv,a)
 		end
 	end

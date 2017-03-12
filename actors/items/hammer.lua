@@ -6,12 +6,17 @@ local function make(g)
 	g.snd=2
 	g.spd=2
 
-	g.cost=7
+	g.cost=3
 	hitbox.make(g,-4,-4,8,8)
 end
 
 local function control(g)
 	local ea=Enums.actors
+	if not flags.get(g.flags,Enums.flags.shopitem) then
+		if not g.spr then
+			g.spr=g.sprinit
+		end
+	end
 	for i,v in pairs(Actors) do
 		if v.t==Enums.actors.projectile then
 			if actor.collision(v.x,v.y,g) then
