@@ -1,5 +1,6 @@
-local function make(g,gc,bc,...)
+local function make(g,gc,bc,shopitem,...)
 	local ea=Enums.actors
+	local ea=Enums.colours
 	g.c=gc
 	g.bc=bc
 	g.leninit=len or 9
@@ -13,6 +14,9 @@ local function make(g,gc,bc,...)
 	g.ty=g.y-math.sin(g.angle)*g.len
 	g.getsfx=10
 	g.delta=0--NOTE need this bc actor.make sets delta to Timer, so any actor not spawning at Timer==0 can't shoot
+	if shopitem then
+		g.flags=flags.set(g.flags,Enums.flags.shopitem)
+	end
 	if _G[ea.items[g.st]]["make"] then
 		_G[ea.items[g.st]]["make"](g)
 	end

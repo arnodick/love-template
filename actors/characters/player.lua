@@ -20,8 +20,8 @@ local function make(a,c,size,spr,hp,ct)
 	a.hitcolour=7
 	tail.make(a,a.cinit,9)
 	a.inv={}
-	--actor.make(ea.item,ea.items.machinegun,a.x,a.y,0,0,a.cinit,e.colours.dark_purple)
-	actor.make(ea.item,ea.items.hammer,a.x,a.y,0,0,e.colours.dark_purple,a.cinit)
+	actor.make(ea.item,ea.items.machinegun,a.x,a.y,0,0,a.cinit,e.colours.dark_purple)
+	--actor.make(ea.item,ea.items.hammer,a.x,a.y,0,0,e.colours.dark_purple,a.cinit)
 	a.coin=0
 	animation.make(a,10,2)
 	a.flags=flags.set(a.flags,e.flags.persistent)

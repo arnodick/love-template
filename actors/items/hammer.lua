@@ -4,6 +4,8 @@ local function make(g)
 	g.rof=4
 	g.snd=2
 	g.spd=2
+
+	g.cost=8
 	hitbox.make(g,-4,-4,8,8)
 end
 
