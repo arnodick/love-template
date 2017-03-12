@@ -13,6 +13,7 @@ local function make(a,c,size,spr,hp,ct)
 	a.hitcolour=7
 	a.target=Player
 	a.value=1
+	tail.make(a,a.cinit,9)
 	a.inv={}
 	table.insert(a.inv,actor.make(e.actors.item,e.actors.items.machinegun,a.x,a.y,0,0,a.cinit,Enums.colours.green))
 	animation.make(a,10,2)

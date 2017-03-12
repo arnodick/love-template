@@ -22,10 +22,6 @@ local function control(a,gs)
 	counters.update(Game.settings.counters,a)
 	controller.update(a,gs)
 
-	if _G[Enums.actors[a.t]]["control"] then
-		_G[Enums.actors[a.t]]["control"](a,gs)
-	end
-
 	if a.anglespeed then
 		if a.anglespeeddecel then --TODO make this into a function
 			if a.anglespeed>0 then
@@ -114,6 +110,10 @@ local function control(a,gs)
 				a.vel = a.vel + a.decel*gs*(Timer-a.delta)/4
 			end
 		end
+	end
+
+	if _G[Enums.actors[a.t]]["control"] then
+		_G[Enums.actors[a.t]]["control"](a,gs)
 	end
 
 	if a.x<-10

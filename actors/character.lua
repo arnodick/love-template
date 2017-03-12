@@ -6,13 +6,20 @@ local function make(a,...)
 	end
 end
 
-local function control(a)
+local function control(a,gs)
+	if a.tail then
+		local c=a.controller
+		tail.control(a.tail,gs,a,c.aimhorizontal,c.aimvertical)
+	end
 	if _G[Enums.actors.characters[a.st]]["control"] then
 		_G[Enums.actors.characters[a.st]]["control"](a)
 	end
 end
 
 local function draw(a)
+	if a.tail then
+		tail.draw(a.tail)
+	end
 	if _G[Enums.actors.characters[a.st]]["draw"] then
 		_G[Enums.actors.characters[a.st]]["draw"](a)
 	end

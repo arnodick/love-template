@@ -1,6 +1,7 @@
 local function make(g)
 	g.size=1
 	g.spr=145
+	g.rof=4
 	g.snd=2
 	g.spd=2
 	hitbox.make(g,-4,-4,8,8)
