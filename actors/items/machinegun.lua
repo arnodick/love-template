@@ -1,4 +1,7 @@
 local function make(g)
+	g.size=1
+	g.sprinit=161
+	g.spr=g.sprinit
 	g.projvel=1.5
 	g.rof=4
 	g.num=1

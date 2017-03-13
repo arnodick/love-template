@@ -31,10 +31,7 @@ local function control(a,gs)
 			if a.getsfx then
 				sfx.play(a.getsfx)
 			end
-			if #Player.inv>0 then
-				table.remove(Player.inv,1)
-			end
-			table.insert(Player.inv,a)
+			table.insert(Player.inv,1,a)
 		end
 	end
 	if _G[e.actors.items[a.st]]["control"] then

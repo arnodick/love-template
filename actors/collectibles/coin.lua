@@ -11,6 +11,8 @@ local function make(a,c,size,spr)
 	a.decel=a.decelinit
 	a.anglespeed=(a.vec[1]+math.choose(0,0,3,4))*(a.vel/60)
 	a.anglespeeddecel=0.05
+	a.scalex=1
+	a.scaley=1
 	a.deltimer=0
 	a.getsfx=6
 	a.follow=false
@@ -23,13 +25,19 @@ local function control(a,gs)
 	if a.vel<=0 then
 		a.follow=true
 	end
+	if a.scalex>1 then
+		a.scalex=a.scalex-0.1*gs
+	end
+	if a.scaley>1 then
+		a.scaley=a.scaley-0.1*gs
+	end
 	if a.follow then
 		local dist=vector.distance(a.x,a.y,Player.x,Player.y)
 		if dist<30 then
 			local vx,vy=vector.components(a.x,a.y,Player.x,Player.y)
 			vy=-vy
 			a.d=vector.direction(vx,vy)
-			a.vel=5/dist
+			a.vel=8/dist
 		else
 			a.decel=a.decelinit
 		end

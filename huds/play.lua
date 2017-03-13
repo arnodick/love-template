@@ -22,7 +22,7 @@ local function keypressed(i,key)
 	if key=='space' then
 		if Player.hp<=0 then
 			Game.settings=game.changestate(Enums.states.play)
-		else
+		--else
 			--Screen.pixeltrans=true
 		end
 	end
@@ -35,6 +35,14 @@ local function draw(h)
 	love.graphics.print("score:"..Game.settings.score,Camera.x+h.score.x,Camera.y+h.score.y)
 	love.graphics.print("coins:"..Player.coin,Camera.x+h.coins.x,Camera.y+h.coins.y)
 	love.graphics.print("hp:"..Player.hp,Camera.x+h.hp.x,Camera.y+h.hp.y)
+	for i=1,Player.inv.max do
+		local x,y=Game.width/2+40-i*20,20
+		love.graphics.rectangle("line",x,y,15,15)
+		if Player.inv[i] then
+			local a=Player.inv[i]
+			love.graphics.draw(Spritesheet[a.size],Quads[a.size][a.spr],x+7,y+7,a.angle,1,1,(a.size*Game.tile.width)/2,(a.size*Game.tile.height)/2)
+		end
+	end
 	if Player.hp <= 0 then
 		--love.graphics.print("YOU DIED",Camera.x+140,Camera.y+20)
 		love.graphics.printborder("YOU DIED",Camera.x+140,Camera.y+20,colours.white,h.c)

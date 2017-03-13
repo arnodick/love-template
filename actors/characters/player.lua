@@ -22,7 +22,7 @@ local function make(a,c,size,spr,hp,ct)
 	a.inv={}
 	a.inv.i=1
 	a.inv.max=2
-	actor.make(ea.item,ea.items.machinegun,a.x,a.y,0,0,a.cinit,e.colours.dark_purple)
+	actor.make(ea.item,ea.items.machinegun,a.x,a.y,0,0,e.colours.dark_purple,e.colours.dark_purple)
 	--actor.make(ea.item,ea.items.hammer,a.x,a.y,0,0,e.colours.dark_purple,a.cinit)
 	a.coin=0
 	animation.make(a,10,2)
@@ -34,6 +34,13 @@ local function control(a)
 		Game.speed=1
 	else
 		Game.speed=math.clamp(a.vel,0.1,1)
+	end
+	if a.controller.powerup then
+		if #a.inv>1 then
+			local temp=a.inv[1]
+			table.remove(a.inv,1)
+			table.insert(a.inv,temp)
+		end
 	end
 	cursor.update(a.cursor)
 	--if a.controller.powerup then	

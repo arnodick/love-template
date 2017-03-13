@@ -14,6 +14,9 @@ local function control(a,gs)
 			Player[ea.collectibles[a.st]] = Player[ea.collectibles[a.st]] + a.value
 			for i,v in pairs(Actors) do
 				if v.t==ea.collectible then
+					v.scalex=4
+					v.scaley=4
+					v.deltimer=0
 					v.delta=Timer
 				end
 			end
