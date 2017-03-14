@@ -1,5 +1,5 @@
 local function make(a,c,size,spr)
-	a.cinit=c or Enums.colours.pure_white
+	a.cinit=c or EC.pure_white
 	a.c=a.cinit
 	a.size=size or 1
 	a.spr=spr or 113
@@ -53,7 +53,7 @@ local function control(a,gs)
 			if a.vel==0 then
 				sfx.play(7)
 				for i=1,20 do
-					actor.make(e.actors.effect,e.actors.effects.cloud,a.x,a.y,math.randomfraction(math.pi*2),math.randomfraction(1))
+					actor.make(EA.effect,EA.effects.cloud,a.x,a.y,math.randomfraction(math.pi*2),math.randomfraction(1))
 				end
 				a.delete=true
 			end

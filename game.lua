@@ -100,7 +100,6 @@ end
 
 local function changestate(s)
 	local e=Enums
-	local ea=e.actors
 	State,Timer=game.init(s)
 	hud.make(s)
 	
@@ -116,7 +115,7 @@ local function changestate(s)
 		local mw,mh=Game.width/Game.tile.width,Game.height/Game.tile.height
 		settings.map=map.generate(mw+2,mh+2)
 
-		Player=actor.make(ea.character,ea.characters.player,Game.width/2,Game.height/2)
+		Player=actor.make(EA.character,EA.characters.player,Game.width/2,Game.height/2)
 
 		settings.level=1
 		settings.levelcurrent=level.make(Levels[settings.level])

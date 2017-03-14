@@ -1,7 +1,7 @@
 local function make(a,c,size,spr,hp,ct)
 	local e=Enums
 	local ec=Enums.controllers
-	a.cinit=c or e.colours.red
+	a.cinit=c or EC.red
 	a.c=a.cinit
 	a.size=size or 1
 	a.spr=spr or 49
@@ -40,9 +40,8 @@ local function draw(a)
 end
 
 local function dead(a)
-	local ea=Enums.actors
 	for i=1,3 do
-		actor.make(ea.collectible,ea.collectibles.coin,a.x,a.y)
+		actor.make(EA.collectible,EA.collectibles.coin,a.x,a.y)
 	end
 end
 

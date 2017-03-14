@@ -1,7 +1,7 @@
 local function make(a,c,size,spr,hp,ct)
 	local e=Enums
 	local ec=Enums.controllers
-	a.cinit=c or e.colours.yellow
+	a.cinit=c or EC.yellow
 	a.c=a.cinit
 	a.size=size or 1
 	a.spr=spr or 97
@@ -25,8 +25,7 @@ local function control(a)
 end
 
 local function dead(a)
-	local ea=Enums.actors
-	local port=actor.make(ea.effect,ea.effects.portal,math.floor(a.x),math.floor(a.y))
+	local port=actor.make(EA.effect,EA.effects.portal,math.floor(a.x),math.floor(a.y))
 	port.level=Levels.store
 end
 

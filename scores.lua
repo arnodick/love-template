@@ -53,16 +53,15 @@ local function save()
 end
 
 local function draw(x,y,c1,c2)
-	local c=Enums.colours
 	local g=love.graphics
 	local s=Game.settings.scores
 
 --TODO make this into menu library
-	g.setColor(Palette[c.dark_purple])
+	g.setColor(Palette[EC.dark_purple])
 	g.rectangle("fill",x-20+1,y+1,52,102)
-	g.setColor(Palette[c.black])
+	g.setColor(Palette[EC.black])
 	g.rectangle("fill",x-20,y,50,100)
-	g.setColor(Palette[c.indigo])
+	g.setColor(Palette[EC.indigo])
 	g.rectangle("line",x-20,y,51,101)
 
 	for i=1,#s.high do

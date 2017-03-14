@@ -1,5 +1,5 @@
 local function make(a,c,size)
-	a.cinit=c or Enums.colours.indigo
+	a.cinit=c or EC.indigo
 	a.c=a.cinit
 	a.size=size or 6
 	a.angle=-a.d
@@ -28,9 +28,9 @@ local function draw(a)
 	end
 	love.graphics.polygon("fill",points)
 	if DebugMode then
-		love.graphics.setColor(Palette[Enums.colours.green])
+		love.graphics.setColor(Palette[EC.green])
 		love.graphics.points(a.x,a.y)
-		love.graphics.setColor(Palette[Enums.colours.red])
+		love.graphics.setColor(Palette[EC.red])
 		for i=1,#points,2 do
 			love.graphics.points(points[i],points[i+1])
 		end

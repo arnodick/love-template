@@ -1,7 +1,7 @@
 local function make(a,c,size,spr,hp,ct)
 	local e=Enums
 	local ec=Enums.controllers
-	a.cinit=c or e.colours.dark_green
+	a.cinit=c or EC.dark_green
 	a.c=a.cinit
 	a.size=size or 1
 	a.spr=spr or 49
@@ -15,7 +15,7 @@ local function make(a,c,size,spr,hp,ct)
 	a.value=1
 	tail.make(a,a.cinit,9)
 	a.inv={}
-	table.insert(a.inv,actor.make(e.actors.item,e.actors.items.machinegun,a.x,a.y,0,0,a.cinit,Enums.colours.green))
+	table.insert(a.inv,actor.make(EA.item,EA.items.machinegun,a.x,a.y,0,0,a.cinit,EC.green))
 	animation.make(a,10,2)
 	a.flags=flags.set(a.flags,e.flags.bouncy,e.flags.enemy)
 	a.d=math.choose(math.pi)
@@ -43,8 +43,7 @@ local function draw(a)
 end
 
 local function dead(a)
-	local ea=Enums.actors
-	actor.make(ea.collectible,ea.collectibles.coin,a.x,a.y)
+	actor.make(EA.collectible,EA.collectibles.coin,a.x,a.y)
 end
 
 return

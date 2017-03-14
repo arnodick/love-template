@@ -4,7 +4,7 @@ local function make(a)
 	a.num=1
 	a.acc=0
 	a.snd=25
-	a.proj=Enums.actors.projectiles.beam
+	a.proj=EA.projectiles.beam
 end
 
 local function draw(a)
@@ -18,7 +18,7 @@ local function shoot(a)
 	if lx>=Game.width then lx=Game.width-1 end
 	if ly<=0 then ly=1 end
 	if ly>=Game.height then ly=Game.height-1 end
-	actor.make(Enums.actors.projectile,a.proj,lx,ly,a.angle,0,Enums.colours.pure_white,a.x,a.y,a.angle)
+	actor.make(EA.projectile,a.proj,lx,ly,a.angle,0,EC.pure_white,a.x,a.y,a.angle)
 end
 
 return

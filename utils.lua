@@ -77,7 +77,7 @@ local function printborder(text,x,y,c1,c2,limit)
 			love.graphics.printf(text,x,y,limit,"left")
 		end
 	end
-	love.graphics.setColor(Palette[Enums.colours.white])
+	love.graphics.setColor(Palette[EC.white])
 end
 
 math.clamp = clamp

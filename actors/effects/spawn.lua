@@ -1,7 +1,7 @@
 local function make(a,c)
 	a.x=love.math.random(320)
 	a.y=love.math.random(240)
-	a.c=Enums.colours.blue
+	a.c=EC.blue
 	a.d=0
 	a.vel=0
 	a.size=60
@@ -12,8 +12,6 @@ local function make(a,c)
 end
 
 local function control(a,gs)
-	local ea=Enums.actors
-
 	if a.sfx==false then
 		if Timer-a.delta>=20 then
 			sfx.play(9)
@@ -26,11 +24,11 @@ local function control(a,gs)
 		local l=Game.settings.levelcurrent
 
 		if l.enemies[a.enemyspawn] then
-			actor.make(ea.character,l.enemies[a.enemyspawn],a.x,a.y)
+			actor.make(EA.character,l.enemies[a.enemyspawn],a.x,a.y)
 		end
 		for i=1,20 do
-			local spark=actor.make(ea.effect,ea.effects.spark,a.x,a.y)
-			spark.c=Enums.colours.dark_blue
+			local spark=actor.make(EA.effect,EA.effects.spark,a.x,a.y)
+			spark.c=EC.dark_blue
 		end
 		a.delete=true
 	end

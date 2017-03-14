@@ -1,5 +1,5 @@
 local function make(a,c)
-	a.c=c or Enums.colours.orange
+	a.c=c or EC.orange
 	a.d=math.randomfraction(math.pi*2)
 	--a.vel=math.randomfraction(2)+2
 	a.vel=math.randomfraction(4)+4

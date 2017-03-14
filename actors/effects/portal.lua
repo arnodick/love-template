@@ -1,5 +1,5 @@
 local function make(a,c,size)
-	a.cinit=c or Enums.colours.dark_purple
+	a.cinit=c or EC.dark_purple
 	a.c=a.cinit
 	a.sizeinit=size or 20
 	a.size=a.sizeinit
@@ -51,7 +51,7 @@ end
 
 local function draw(a)
 	love.graphics.setCanvas(Canvas.buffer)
-		love.graphics.setColor(Palette[Enums.colours.pure_white])
+		love.graphics.setColor(Palette[EC.pure_white])
 		love.graphics.draw(a.image,a.x,a.y,0,1,1,a.sizeinit,a.sizeinit)
 		love.graphics.setColor(Palette[a.c])
 		local curve=love.math.newBezierCurve(a.x,a.y,a.x+math.cos(a.angle)*a.size/2,a.y+math.sin(a.angle)/2*a.size,a.x+math.cos(a.angle-1)*a.size,a.y+math.sin(a.angle-1)*a.size)

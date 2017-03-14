@@ -1,21 +1,20 @@
 local function make(a,...)
-	if _G[Enums.actors.collectibles[a.st]]["make"] then
-		_G[Enums.actors.collectibles[a.st]]["make"](a,...)
+	if _G[EA.collectibles[a.st]]["make"] then
+		_G[EA.collectibles[a.st]]["make"](a,...)
 	end
 end
 
 local function control(a,gs)
-	local ea=Enums.actors
 	if not flags.get(a.flags,Enums.flags.shopitem) then
 		if not a.spr then
 			a.spr=a.sprinit
 		end
 		if actor.collision(a.x,a.y,Player) then
-			if Player[ea.collectibles[a.st]] then
-				Player[ea.collectibles[a.st]] = Player[ea.collectibles[a.st]] + a.value
+			if Player[EA.collectibles[a.st]] then
+				Player[EA.collectibles[a.st]] = Player[EA.collectibles[a.st]] + a.value
 			end
 			for i,v in pairs(Actors) do
-				if v.t==ea.collectible then
+				if v.t==EA.collectible then
 					v.scalex=4
 					v.scaley=4
 					v.deltimer=0
@@ -25,17 +24,17 @@ local function control(a,gs)
 			if a.getsfx then
 				sfx.play(a.getsfx)
 			end
-			actor.make(ea.effect,ea.effects.collectibleget,a.x,a.y,math.pi/2,1,Enums.colours.pure_white,1,a.sprinit)
-			if _G[ea.collectibles[a.st]]["get"] then
-				_G[ea.collectibles[a.st]]["get"](a,gs)
+			actor.make(EA.effect,EA.effects.collectibleget,a.x,a.y,math.pi/2,1,EC.pure_white,1,a.sprinit)
+			if _G[EA.collectibles[a.st]]["get"] then
+				_G[EA.collectibles[a.st]]["get"](a,gs)
 			end
 			a.delete=true
 		end
 	else
 
 	end
-	if _G[ea.collectibles[a.st]]["control"] then
-		_G[ea.collectibles[a.st]]["control"](a,gs)
+	if _G[EA.collectibles[a.st]]["control"] then
+		_G[EA.collectibles[a.st]]["control"](a,gs)
 	end
 end
 
@@ -46,11 +45,11 @@ end
 local function draw(a)
 	--local lg=love.graphics
 	--if flags.get(a.flags,Enums.flags.shopitem) then
-	--	lg.setColor(Palette[Enums.colours.white])
+	--	lg.setColor(Palette[EC.white])
 	--	lg.printf("$1",a.x-10,a.y-16,20,"center")
 	--end
-	if _G[Enums.actors.collectibles[a.st]]["draw"] then
-		_G[Enums.actors.collectibles[a.st]]["draw"](a)
+	if _G[EA.collectibles[a.st]]["draw"] then
+		_G[EA.collectibles[a.st]]["draw"](a)
 	end
 end
 

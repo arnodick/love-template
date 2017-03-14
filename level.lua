@@ -27,15 +27,14 @@ local function make(lload)
 	for i,v in pairs(lload.enemies) do
 		print(i.." = "..v)
 		if type(i)=="number" then
-			l.enemies[i]=Enums.actors.characters[v]
+			l.enemies[i]=EA.characters[v]
 		else
 			l.enemies[i]=v
 		end
 	end
 
-	local ea=Enums.actors
 	for i=1,l.enemies.max do
-		actor.make(ea.character,l.enemies[1])
+		actor.make(EA.character,l.enemies[1])
 	end
 	if _G[Enums.levels[l.t]]["make"] then
 		_G[Enums.levels[l.t]]["make"](l,gs)
@@ -47,7 +46,7 @@ local function control(l)
 	local enemycount=Game.settings.counters.enemies
 	
 	if enemycount<l.enemies.max then
-		actor.make(Enums.actors.effect,Enums.actors.effects.spawn)
+		actor.make(EA.effect,EA.effects.spawn)
 	end
 
 	if _G[Enums.levels[l.t]]["control"] then

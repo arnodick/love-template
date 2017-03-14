@@ -20,7 +20,6 @@ end
 local function update(a,gs)
 	local c=a.controller
 	if c then
-		local e=Enums.commands
 
 		for i=1,#c.ct do
 			if _G[Enums.controllernames[c.ct[i]]]["control"] then

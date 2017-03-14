@@ -1,6 +1,4 @@
 local function make(a,gc,bc,shopitem,...)
-	local ea=Enums.actors
-	local ec=Enums.colours
 	a.c=gc
 	a.bc=bc
 	a.leninit=len or 9
@@ -17,15 +15,13 @@ local function make(a,gc,bc,shopitem,...)
 	if shopitem then
 		a.flags=flags.set(a.flags,Enums.flags.shopitem)
 	end
-	if _G[ea.items[a.st]]["make"] then
-		_G[ea.items[a.st]]["make"](a)
+	if _G[EA.items[a.st]]["make"] then
+		_G[EA.items[a.st]]["make"](a)
 	end
 	return a
 end
 
 local function control(a,gs)
-	local e=Enums
-	--if #Player.inv<1 then
 	if actor.collision(a.x,a.y,Player) then	
 		if Player.controller.powerup or #Player.inv<1 then
 			if a.getsfx then
@@ -34,13 +30,12 @@ local function control(a,gs)
 			table.insert(Player.inv,1,a)
 		end
 	end
-	if _G[e.actors.items[a.st]]["control"] then
-		_G[e.actors.items[a.st]]["control"](a,gs)
+	if _G[EA.items[a.st]]["control"] then
+		_G[EA.items[a.st]]["control"](a,gs)
 	end
 end
 
 local function use(a,gs,user,vx,vy,shoot)
-	local e=Enums
 	a.angle=vector.direction(vx,vy)
 	a.vec[1]=math.cos(a.angle)
 	a.vec[2]=math.sin(a.angle)
@@ -52,11 +47,11 @@ local function use(a,gs,user,vx,vy,shoot)
 		if shoot then
 			sfx.play(a.snd,a.x,a.y)
 
-			if _G[e.actors.items[a.st]]["shoot"] then
-				_G[e.actors.items[a.st]]["shoot"](a,gs)
+			if _G[EA.items[a.st]]["shoot"] then
+				_G[EA.items[a.st]]["shoot"](a,gs)
 			end
 
-			actor.make(e.actors.effect,e.actors.effects.cloud,a.x,a.y,-a.angle+math.randomfraction(1)-0.5,math.randomfraction(1))
+			actor.make(EA.effect,EA.effects.cloud,a.x,a.y,-a.angle+math.randomfraction(1)-0.5,math.randomfraction(1))
 			a.delta=a.rof
 		end
 	else 
@@ -65,8 +60,8 @@ local function use(a,gs,user,vx,vy,shoot)
 end
 
 local function draw(a)
-	if _G[Enums.actors.items[a.st]]["draw"] then
-		_G[Enums.actors.items[a.st]]["draw"](a,gs)
+	if _G[EA.items[a.st]]["draw"] then
+		_G[EA.items[a.st]]["draw"](a,gs)
 	end
 end
 

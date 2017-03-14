@@ -1,6 +1,5 @@
 local function make(a,c,size,spr,hp,ct)
 	local e=Enums
-	local ea=e.actors
 
 	if #Joysticks>0 then
 		controller.make(a,e.controllers.gamepad)
@@ -9,7 +8,7 @@ local function make(a,c,size,spr,hp,ct)
 		controller.make(a,e.controllers.keyboard,e.controllers.mouse)
 	end
 
-	a.cinit=c or e.colours.dark_blue
+	a.cinit=c or EC.dark_blue
 	a.c=a.cinit
 	a.size=size or 1
 	a.spr=spr or 81
@@ -22,8 +21,8 @@ local function make(a,c,size,spr,hp,ct)
 	a.inv={}
 	a.inv.i=1
 	a.inv.max=2
-	actor.make(ea.item,ea.items.machinegun,a.x,a.y,0,0,e.colours.dark_purple,e.colours.dark_purple)
-	--actor.make(ea.item,ea.items.hammer,a.x,a.y,0,0,e.colours.dark_purple,a.cinit)
+	actor.make(EA.item,EA.items.machinegun,a.x,a.y,0,0,EC.dark_purple,EC.dark_purple)
+	--actor.make(EA.item,EA.items.hammer,a.x,a.y,0,0,EC.dark_purple,a.cinit)
 	a.coin=0
 	animation.make(a,10,2)
 	a.flags=flags.set(a.flags,e.flags.persistent)

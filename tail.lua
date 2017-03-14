@@ -16,7 +16,6 @@ local function make(a,c,len)
 end
 
 local function control(t,gs,a,vx,vy)
-	local e=Enums
 	t.angle=vector.direction(vx,vy)
 	t.vec[1]=math.cos(t.angle)
 	t.vec[2]=math.sin(t.angle)

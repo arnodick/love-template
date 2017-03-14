@@ -1,5 +1,5 @@
 local function make(a,c,size,spr)
-	a.cinit=c or Enums.colours.blue
+	a.cinit=c or EC.blue
 	a.c=a.cinit
 	a.size=size or 1
 	a.spr=spr or 177
@@ -14,9 +14,8 @@ local function control(a,gs)
 end
 
 local function get(a)
-	local ea=Enums.actors
-	local port=actor.make(ea.effect,ea.effects.portal,Game.width/2,Game.height/2+40)
-	port.c=Enums.colours.red
+	local port=actor.make(EA.effect,EA.effects.portal,Game.width/2,Game.height/2+40)
+	port.c=EC.red
 end
 
 return

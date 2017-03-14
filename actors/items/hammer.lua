@@ -11,17 +11,16 @@ local function make(a)
 end
 
 local function control(a)
-	local ea=Enums.actors
 	if not flags.get(a.flags,Enums.flags.shopitem) then
 		if not a.spr then
 			a.spr=a.sprinit
 		end
 	end
 	for i,v in pairs(Actors) do
-		if v.t==Enums.actors.projectile then
+		if v.t==EA.projectile then
 			if actor.collision(v.x,v.y,a) then
 			for i=1,20 do
-				local spark=actor.make(ea.effect,ea.effects.spark,v.x,v.y)
+				local spark=actor.make(EA.effect,EA.effects.spark,v.x,v.y)
 					spark.c=v.cinit
    				end
 				v.delete=true

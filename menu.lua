@@ -19,7 +19,6 @@ local function control(m)
 end
 
 local function draw(m)
-	local c=Enums.colours
 	local lg=love.graphics
 
 	local alpha=230
@@ -27,7 +26,7 @@ local function draw(m)
 	lg.setColor(r,g,b,alpha)
 	lg.rectangle("fill",m.x-m.w/2+1,m.y-m.h/2+1,m.w+1,m.h+1)--TODO floor these suckas
 
-	lg.setColor(Palette[c.black])
+	lg.setColor(Palette[EC.black])
 	lg.rectangle("fill",m.x-m.w/2,m.y-m.h/2,m.w,m.h)
 
 	lg.setColor(Palette[m.bc1])
@@ -43,7 +42,7 @@ local function draw(m)
 	end
 
 	if Debugmode then
-		lg.setColor(Palette[c.red])
+		lg.setColor(Palette[EC.red])
 		lg.points(a.x,a.y)
 	end
 end

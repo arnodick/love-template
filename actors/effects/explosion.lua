@@ -1,6 +1,6 @@
 local function make(a,c,size)
 	sfx.play(1,a.x,a.y)
-	a.cinit=c or Enums.colours.white
+	a.cinit=c or EC.white
 	a.c=a.cinit
 	a.size=size or 20
 	a.r=0
@@ -16,7 +16,7 @@ local function control(a,gs)
 			local s = math.randomfraction(a.size/2)
 			local dir = math.randomfraction(math.pi*2)
 			local d = math.randomfraction(math.pi*2)
-			actor.make(Enums.actors.effect,Enums.actors.effects.cloud,a.x+math.cos(dir)*s,a.y+math.sin(dir)*s,d,math.randomfraction(0.5))
+			actor.make(EA.effect,EA.effects.cloud,a.x+math.cos(dir)*s,a.y+math.sin(dir)*s,d,math.randomfraction(0.5))
 		end
 		a.delete=true
 	end

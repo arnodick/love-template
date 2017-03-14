@@ -6,7 +6,6 @@ local function load(dir,...)
 	local dirstoread={...}
 	local filesindir = love.filesystem.getDirectoryItems(dir)
 	for i,fileordir in pairs(filesindir) do
-		--print("filename "..fileordir)
 		if dir~="" then --just to make subfolders have the proper syntax
 			fileordir=dir.."/"..fileordir
 		end
@@ -38,6 +37,8 @@ local function load(dir,...)
 			end
 		end
 	end
+	EA=e.actors
+	EC=e.colours
 	return e
 end
 
