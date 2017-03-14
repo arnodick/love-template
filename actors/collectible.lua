@@ -10,8 +10,10 @@ local function control(a,gs)
 		if not a.spr then
 			a.spr=a.sprinit
 		end
-		if actor.collision(a.x,a.y,Player) then	
-			Player[ea.collectibles[a.st]] = Player[ea.collectibles[a.st]] + a.value
+		if actor.collision(a.x,a.y,Player) then
+			if Player[ea.collectibles[a.st]] then
+				Player[ea.collectibles[a.st]] = Player[ea.collectibles[a.st]] + a.value
+			end
 			for i,v in pairs(Actors) do
 				if v.t==ea.collectible then
 					v.scalex=4
@@ -24,6 +26,9 @@ local function control(a,gs)
 				sfx.play(a.getsfx)
 			end
 			actor.make(ea.effect,ea.effects.collectibleget,a.x,a.y,math.pi/2,1,Enums.colours.pure_white,1,a.sprinit)
+			if _G[ea.collectibles[a.st]]["get"] then
+				_G[ea.collectibles[a.st]]["get"](a,gs)
+			end
 			a.delete=true
 		end
 	else
