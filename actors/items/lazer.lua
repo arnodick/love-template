@@ -1,24 +1,24 @@
-local function make(g)
-	g.projvel=0
-	g.rof=1
-	g.num=1
-	g.acc=0
-	g.snd=25
-	g.proj=Enums.actors.projectiles.beam
+local function make(a)
+	a.projvel=0
+	a.rof=1
+	a.num=1
+	a.acc=0
+	a.snd=25
+	a.proj=Enums.actors.projectiles.beam
 end
 
-local function draw(g)
+local function draw(a)
 
 end
 
-local function shoot(g)
+local function shoot(a)
 	local dist=300
-	local lx,ly=g.x+g.vec[1]*dist,g.y+g.vec[2]*dist
+	local lx,ly=a.x+a.vec[1]*dist,a.y+a.vec[2]*dist
 	if lx<=0 then lx=1 end
 	if lx>=Game.width then lx=Game.width-1 end
 	if ly<=0 then ly=1 end
 	if ly>=Game.height then ly=Game.height-1 end
-	actor.make(Enums.actors.projectile,g.proj,lx,ly,g.angle,0,Enums.colours.pure_white,g.x,g.y,g.angle)
+	actor.make(Enums.actors.projectile,a.proj,lx,ly,a.angle,0,Enums.colours.pure_white,a.x,a.y,a.angle)
 end
 
 return

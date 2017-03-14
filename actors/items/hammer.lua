@@ -1,26 +1,26 @@
-local function make(g)
-	g.size=1
-	g.sprinit=145
-	g.spr=g.sprinit
-	g.rof=4
-	g.snd=2
-	g.spd=2
+local function make(a)
+	a.size=1
+	a.sprinit=145
+	a.spr=a.sprinit
+	a.rof=4
+	a.snd=2
+	a.spd=2
 
-	g.cost=3
-	hitbox.make(g,-4,-4,8,8)
+	a.cost=3
+	hitbox.make(a,-4,-4,8,8)
 end
 
-local function control(g)
+local function control(a)
 	local ea=Enums.actors
-	if not flags.get(g.flags,Enums.flags.shopitem) then
-		if not g.spr then
-			g.spr=g.sprinit
+	if not flags.get(a.flags,Enums.flags.shopitem) then
+		if not a.spr then
+			a.spr=a.sprinit
 		end
 	end
 	for i,v in pairs(Actors) do
 		if v.t==Enums.actors.projectile then
-			if actor.collision(v.x,v.y,g) then
-		for i=1,20 do
+			if actor.collision(v.x,v.y,a) then
+			for i=1,20 do
 				local spark=actor.make(ea.effect,ea.effects.spark,v.x,v.y)
 					spark.c=v.cinit
    				end
@@ -30,11 +30,11 @@ local function control(g)
 	end
 end
 
-local function draw(g)
+local function draw(a)
 	
 end
 
-local function shoot(g)
+local function shoot(a)
 	
 end
 
