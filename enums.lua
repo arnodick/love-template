@@ -37,8 +37,6 @@ local function load(dir,...)
 			end
 		end
 	end
-	EA=e.actors
-	EC=e.colours
 	return e
 end
 

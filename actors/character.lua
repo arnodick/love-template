@@ -1,6 +1,6 @@
 local function make(a,...)
 	a.flags = flags.set(a.flags, Enums.flags.damageable, Enums.flags.shootable, Enums.flags.explosive)
-	hitbox.make(a,-4,-4,8,8)
+	hitradius.make(a,4)
 	if _G[EA.characters[a.st]]["make"] then
 		_G[EA.characters[a.st]]["make"](a,...)
 	end

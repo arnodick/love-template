@@ -170,12 +170,12 @@ local function draw(a)
 	end
 
 	if DebugMode then
-		if a.hitbox then
-			love.graphics.setColor(Palette[EC.blue])
-			--love.graphics.rectangle("line",a.x+a.hitbox.x,a.y+a.hitbox.y,a.hitbox.w,a.hitbox.h)
-			love.graphics.circle("line",a.x,a.y,a.hitbox.w/2)
-		end
 		love.graphics.setColor(Palette[EC.blue])
+		if a.hitradius then
+			love.graphics.circle("line",a.x,a.y,a.hitradius.r)
+		elseif a.hitbox then
+			love.graphics.rectangle("line",a.x+a.hitbox.x,a.y+a.hitbox.y,a.hitbox.w,a.hitbox.h)
+		end
 		love.graphics.points(a.x,a.y)
 	end
 
@@ -242,13 +242,13 @@ end
 
 local function collision(x,y,enemy)
 	local dist=vector.distance(enemy.x,enemy.y,x,y)
-	if dist<enemy.hitbox.w/2 then--TODO put failsafe here?
-		return true
-	else
-		return false
-	end
---[[
-	if enemy.hitbox then
+	if enemy.hitradius then
+		if dist<enemy.hitradius.r then
+			return true
+		else
+			return false
+		end
+	elseif enemy.hitbox then
 		if x>enemy.x+enemy.hitbox.x then
 		if x<enemy.x+enemy.hitbox.x+enemy.hitbox.w then
 		if y>enemy.y+enemy.hitbox.y then
@@ -265,9 +265,9 @@ end
 
 local function corpse(a,tw,th,hack)
 	local dir=math.randomfraction(math.pi*2)
-	--local tw,th=iw,ih
 	local ix,iy=a.x-tw/2,a.y-th/2
 	local ix2,iy2=ix+tw,iy+th
+
 	if ix<0 then ix=0 end
 	if iy<0 then iy=0 end
 	if ix2>Game.width then

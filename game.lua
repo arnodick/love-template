@@ -11,9 +11,9 @@ local function make(tw,th,gw,gh,sp)
 	Joysticks=love.joystick.getJoysticks()
 	SFX = sfx.load(false,true)
 
-	--enumerators
+	--enumerators and constants
 	Enums = enums.load("","actors","levels")
-	--debugger.printtable(Enums)
+	constants.init(Enums)
 
 	--global variables
 	State,Timer=game.init(Enums.states.intro)--need to use init here so there is State variable to go into changestate below
@@ -89,7 +89,7 @@ end
 
 local function init(s)
 	--returns the basic game global variables
-	--initialize actor and hud tables
+	--initialize actor, menu and hud tables
 	Camera=camera.make(0,0)
 
 	Actors={}

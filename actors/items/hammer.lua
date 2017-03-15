@@ -7,7 +7,7 @@ local function make(a)
 	a.spd=2
 
 	a.cost=3
-	hitbox.make(a,-4,-4,8,8)
+	hitradius.make(a,4)
 end
 
 local function control(a)
