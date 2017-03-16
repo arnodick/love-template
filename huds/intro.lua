@@ -13,7 +13,7 @@ local function keypressed(i,key)
 end
 
 local function draw(i)
-	love.graphics.print("INTRO",Game.width/2,Game.height/2)
+	LG.print("INTRO",Game.width/2,Game.height/2)
 end
 
 return

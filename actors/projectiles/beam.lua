@@ -28,7 +28,7 @@ local function draw(a)
 	local dir=vector.direction(vector.components(a.gx,a.gy,a.x,a.y))
 	for i=10,dist,5 do
 		local x,y=a.gx+math.cos(dir)*i,a.gy+math.sin(dir)*i
-		love.graphics.circle("fill",x,y,6)
+		LG.circle("fill",x,y,6)
 	end
 end
 

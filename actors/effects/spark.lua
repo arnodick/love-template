@@ -13,11 +13,11 @@ local function control(a)
 end
 
 local function draw(a)
-	love.graphics.points(a.x,a.y)
+	LG.points(a.x,a.y)
 	if a.vel<=0 then
-		love.graphics.setCanvas(Canvas.buffer)
-			love.graphics.points(a.x,a.y)
-		love.graphics.setCanvas(Canvas.game)
+		LG.setCanvas(Canvas.buffer)
+			LG.points(a.x,a.y)
+		LG.setCanvas(Canvas.game)
 	end
 end
 

@@ -21,7 +21,13 @@ local function make(a,c,size,spr,hp,ct)
 end
 
 local function control(a)
-	
+	--a.scalex=a.hp/4
+	--a.scaley=a.hp/4
+	--a.speed=4/a.hp
+	if love.math.random(10000)==1 then
+		local smolhp=actor.make(EA.collectible,EA.collectibles.hp,a.x,a.y,0,0,EC.red,1,129)
+		smolhp.value=1
+	end
 end
 
 local function dead(a)

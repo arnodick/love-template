@@ -53,22 +53,21 @@ local function save()
 end
 
 local function draw(x,y,c1,c2)
-	local g=love.graphics
 	local s=Game.settings.scores
 
 --TODO make this into menu library
-	g.setColor(Palette[EC.dark_purple])
-	g.rectangle("fill",x-20+1,y+1,52,102)
-	g.setColor(Palette[EC.black])
-	g.rectangle("fill",x-20,y,50,100)
-	g.setColor(Palette[EC.indigo])
-	g.rectangle("line",x-20,y,51,101)
+	LG.setColor(Palette[EC.dark_purple])
+	LG.rectangle("fill",x-20+1,y+1,52,102)
+	LG.setColor(Palette[EC.black])
+	LG.rectangle("fill",x-20,y,50,100)
+	LG.setColor(Palette[EC.indigo])
+	LG.rectangle("line",x-20,y,51,101)
 
 	for i=1,#s.high do
-		--g.print(s.names[i],x-10,y+10*i)
-		--g.print(s.high[i],x+10,y+10*i)
-		g.printborder(s.names[i],x-10,y+10*i,c1,c2)
-		g.printborder(s.high[i],x+10,y+10*i,c1,c2)
+		--LG.print(s.names[i],x-10,y+10*i)
+		--LG.print(s.high[i],x+10,y+10*i)
+		LG.printborder(s.names[i],x-10,y+10*i,c1,c2)
+		LG.printborder(s.high[i],x+10,y+10*i,c1,c2)
 	end
 end
 

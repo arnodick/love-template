@@ -35,7 +35,7 @@ local function control(a,gs)
 end
 
 local function draw(a)
-	love.graphics.rectangle("line",a.x-a.size/2,a.y-a.size/2,a.size,a.size)
+	LG.rectangle("line",a.x-a.size/2,a.y-a.size/2,a.size,a.size)
 end
 
 return

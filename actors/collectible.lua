@@ -15,10 +15,12 @@ local function control(a,gs)
 			end
 			for i,v in pairs(Actors) do
 				if v.t==EA.collectible then
-					v.scalex=4
-					v.scaley=4
-					v.deltimer=0
-					v.delta=Timer
+					if v.st==EA.collectibles.coin then
+						v.scalex=4
+						v.scaley=4
+						v.deltimer=0
+						v.delta=Timer
+					end
 				end
 			end
 			if a.getsfx then
@@ -43,11 +45,6 @@ local function predraw(a)
 end
 
 local function draw(a)
-	--local lg=love.graphics
-	--if flags.get(a.flags,Enums.flags.shopitem) then
-	--	lg.setColor(Palette[EC.white])
-	--	lg.printf("$1",a.x-10,a.y-16,20,"center")
-	--end
 	if _G[EA.collectibles[a.st]]["draw"] then
 		_G[EA.collectibles[a.st]]["draw"](a)
 	end

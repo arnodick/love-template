@@ -68,8 +68,8 @@ local function control(s,gs)
 end
 
 local function draw(s)
-	love.graphics.setCanvas(Canvas.game) --sets drawing to the 320x240 canvas
-		love.graphics.clear() --cleans that messy ol canvas all up, makes it all fresh and new and good you know
+	LG.setCanvas(Canvas.game) --sets drawing to the 320x240 canvas
+		LG.clear() --cleans that messy ol canvas all up, makes it all fresh and new and good you know
 		if s == Enums.states.play then
 			map.draw(Game.settings.map)
 			for i,v in ipairs(Actors) do
@@ -82,7 +82,7 @@ local function draw(s)
 		for i,v in ipairs(Huds) do
 			hud.draw(v)
 		end
-	love.graphics.setCanvas() --sets drawing back to screen
+	LG.setCanvas() --sets drawing back to screen
 
 	screen.control(Screen)
 end
@@ -107,8 +107,8 @@ local function changestate(s)
 	if State==e.states.title then
 		settings.scores=scores.load()
 	elseif State==e.states.play then
-		love.graphics.setCanvas(Canvas.buffer)
-		love.graphics.clear()
+		LG.setCanvas(Canvas.buffer)
+		LG.clear()
 		settings.score=0
 		settings.counters=counters.make()
 
@@ -128,18 +128,18 @@ end
 local function graphics(tw,th,gw,gh)
 	--just to declutter load function
 	--graphics settings and asset inits
-	love.graphics.setDefaultFilter("nearest","nearest",1) --clean SPRITE scaling
-	love.graphics.setLineWidth(1)
-	love.graphics.setLineStyle("rough") --clean SHAPE scaling
-	love.graphics.setBlendMode("alpha")
+	LG.setDefaultFilter("nearest","nearest",1) --clean SPRITE scaling
+	LG.setLineWidth(1)
+	LG.setLineStyle("rough") --clean SHAPE scaling
+	LG.setBlendMode("alpha")
 	love.mouse.setVisible(false)
 
-	--Font = love.graphics.newFont("fonts/pico8.ttf",8)
-	Font = love.graphics.newFont("fonts/Kongtext Regular.ttf",8)
-	FontDebug = love.graphics.newFont("fonts/lucon.ttf",20)
+	--Font = LG.newFont("fonts/pico8.ttf",8)
+	Font = LG.newFont("fonts/Kongtext Regular.ttf",8)
+	FontDebug = LG.newFont("fonts/lucon.ttf",20)
 	Font:setFilter("nearest","nearest",0) --clean TEXT scaling
 	Font:setLineHeight(1.8)
-	love.graphics.setFont(Font)
+	LG.setFont(Font)
 
 	Palettes = palette.load(unpack(love.filesystem.getfiles("palettes","ini")))
 	Palette={}
@@ -162,9 +162,9 @@ local function graphics(tw,th,gw,gh)
 	Screen = screen.update(gw,gh)
 
 	Canvas = {}
-	Canvas.game = love.graphics.newCanvas(gw,gh) --sets width and height of fictional retro video game (320x240)
-	Canvas.buffer = love.graphics.newCanvas(gw,gh)
-	Canvas.debug = love.graphics.newCanvas(Screen.width,Screen.height) --sets width and height of debug overlay (size of window)
+	Canvas.game = LG.newCanvas(gw,gh) --sets width and height of fictional retro video game (320x240)
+	Canvas.buffer = LG.newCanvas(gw,gh)
+	Canvas.debug = LG.newCanvas(Screen.width,Screen.height) --sets width and height of debug overlay (size of window)
 end
 
 return

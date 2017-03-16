@@ -23,10 +23,10 @@ local function control(a,gs)
 end
 
 local function draw(a)
-	love.graphics.circle("fill",a.x,a.y,a.r,16)
+	LG.circle("fill",a.x,a.y,a.r,16)
 	if DebugMode then
-		love.graphics.setColor(Palette[11])
-		love.graphics.circle("line",a.x,a.y,a.r)
+		LG.setColor(Palette[11])
+		LG.circle("line",a.x,a.y,a.r)
 	end
 end
 

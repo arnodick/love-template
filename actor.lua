@@ -158,7 +158,7 @@ local function draw(a)
 		_G[EA[a.t]]["predraw"](a)
 	end
 
-	love.graphics.setColor(Palette[a.c])
+	LG.setColor(Palette[a.c])
 	sprites.draw(a)
 
 	if _G[EA[a.t]]["draw"] then
@@ -170,16 +170,16 @@ local function draw(a)
 	end
 
 	if DebugMode then
-		love.graphics.setColor(Palette[EC.blue])
+		LG.setColor(Palette[EC.blue])
 		if a.hitradius then
-			love.graphics.circle("line",a.x,a.y,a.hitradius.r)
+			LG.circle("line",a.x,a.y,a.hitradius.r)
 		elseif a.hitbox then
-			love.graphics.rectangle("line",a.x+a.hitbox.x,a.y+a.hitbox.y,a.hitbox.w,a.hitbox.h)
+			LG.rectangle("line",a.x+a.hitbox.x,a.y+a.hitbox.y,a.hitbox.w,a.hitbox.h)
 		end
-		love.graphics.points(a.x,a.y)
+		LG.points(a.x,a.y)
 	end
 
-	love.graphics.setColor(Palette[EC.pure_white])
+	LG.setColor(Palette[EC.pure_white])
 end
 
 local function damage(a,d)
@@ -285,40 +285,40 @@ local function corpse(a,tw,th,hack)
 		local choice=math.choose(1,2)
 		if choice==1 then
 			local imgdata=Canvas.game:newImageData(ix,iy,tw,th)--TODO this crashes if it goes off canvas. clamp it
-			body.image=love.graphics.newImage(imgdata)
+			body.image=LG.newImage(imgdata)
 		else
 			local imgdata=Canvas.game:newImageData(ix,iy,tw/2,th)--TODO this crashes if it goes off canvas. clamp it
-			body.image=love.graphics.newImage(imgdata)
+			body.image=LG.newImage(imgdata)
 			body.d=dir
 
 			local body2=actor.make(EA.effect,EA.effects.debris,a.x,a.y)
 			body2.decel=0.1
 			local imgdata2=Canvas.game:newImageData(ix+tw/2,iy,tw/2,th)--TODO this crashes if it goes off canvas. clamp it
-			body2.image=love.graphics.newImage(imgdata2)
+			body2.image=LG.newImage(imgdata2)
 			body2.d=dir+math.randomfraction(0.5)-0.25
 		end
 	else
 		body.decel=0.2
 		local imgdata=Canvas.game:newImageData(ix,iy,tw/2,th/2)
-		body.image=love.graphics.newImage(imgdata)
+		body.image=LG.newImage(imgdata)
 		body.d=math.randomfraction(math.pi*2)
 
 		local body2=actor.make(EA.effect,EA.effects.debris,a.x,a.y)
 		body2.decel=0.2
 		local imgdata2=Canvas.game:newImageData(ix+tw/2,iy+th/2,tw/2,th/2)--TODO this crashes if it goes off canvas. clamp it
-		body2.image=love.graphics.newImage(imgdata2)
+		body2.image=LG.newImage(imgdata2)
 		body2.d=math.randomfraction(math.pi*2)
 
 		local body3=actor.make(EA.effect,EA.effects.debris,a.x,a.y)
 		body3.decel=0.2
 		local imgdata3=Canvas.game:newImageData(ix+tw/2,iy,tw/2,th/2)--TODO this crashes if it goes off canvas. clamp it
-		body3.image=love.graphics.newImage(imgdata3)
+		body3.image=LG.newImage(imgdata3)
 		body3.d=math.randomfraction(math.pi*2)
 
 		local body4=actor.make(EA.effect,EA.effects.debris,a.x,a.y)
 		body4.decel=0.2
 		local imgdata4=Canvas.game:newImageData(ix,iy,tw/2,th/2)--TODO this crashes if it goes off canvas. clamp it
-		body4.image=love.graphics.newImage(imgdata4)
+		body4.image=LG.newImage(imgdata4)
 		body4.d=math.randomfraction(math.pi*2)
 	end
 end

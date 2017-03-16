@@ -61,7 +61,7 @@ end
 
 local function drawbox(x,y,w,a)
 	for i=0,3 do
-		love.graphics.line(x+math.cos(a+i*0.25*math.pi*2)*w/2,y+math.sin(a+i*0.25*math.pi*2)*w/2,x+math.cos(a+(i+1)*0.25*math.pi*2)*w/2,y+math.sin(a+(i+1)*0.25*math.pi*2)*w/2)
+		LG.line(x+math.cos(a+i*0.25*math.pi*2)*w/2,y+math.sin(a+i*0.25*math.pi*2)*w/2,x+math.cos(a+(i+1)*0.25*math.pi*2)*w/2,y+math.sin(a+(i+1)*0.25*math.pi*2)*w/2)
 	end
 end
 
@@ -70,14 +70,14 @@ local function printborder(text,x,y,c1,c2,limit)
 	for xoff=0,1 do
 		for yoff=1,1 do
 			--table.insert(coords,{x,y})
-			love.graphics.setColor(Palette[c2])
-			--love.graphics.print(text,x+xoff,y+yoff)
-			love.graphics.printf(text,x+xoff,y+yoff,limit,"left")
-			love.graphics.setColor(Palette[c1])
-			love.graphics.printf(text,x,y,limit,"left")
+			LG.setColor(Palette[c2])
+			--LG.print(text,x+xoff,y+yoff)
+			LG.printf(text,x+xoff,y+yoff,limit,"left")
+			LG.setColor(Palette[c1])
+			LG.printf(text,x,y,limit,"left")
 		end
 	end
-	love.graphics.setColor(Palette[EC.white])
+	LG.setColor(Palette[EC.white])
 end
 
 math.clamp = clamp

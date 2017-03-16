@@ -14,7 +14,7 @@ local function keypressed(t,key)
 end
 
 local function draw(t)
-	love.graphics.print("TITLE",Game.width/2,Game.height/2)
+	LG.print("TITLE",Game.width/2,Game.height/2)
 	scores.draw(Game.width/2,Game.height/2,EC.white,EC.yellow)
 end
 

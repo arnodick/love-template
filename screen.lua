@@ -1,6 +1,6 @@
 local function update(gw,gh)
 	local s={}
-	s.width,s.height=love.graphics.getDimensions()
+	s.width,s.height=LG.getDimensions()
 	s.scale=math.floor(s.height/gh)
 	s.xoff=(s.width-gw*s.scale)/2
 	s.yoff=s.height%gh/2
@@ -14,17 +14,17 @@ end
 
 local function control(s)
 	if s.pixeltrans then
-		local tempcanvas=love.graphics.newCanvas(Game.width*s.pixelscale,Game.height*s.pixelscale)
-		love.graphics.setCanvas(tempcanvas)
-			love.graphics.draw(Canvas.game,0,0,0,s.pixelscale,s.pixelscale)
-		love.graphics.setCanvas()
+		local tempcanvas=LG.newCanvas(Game.width*s.pixelscale,Game.height*s.pixelscale)
+		LG.setCanvas(tempcanvas)
+			LG.draw(Canvas.game,0,0,0,s.pixelscale,s.pixelscale)
+		LG.setCanvas()
 
-		--love.graphics.setShader(Shader)
+		--LG.setShader(Shader)
 
-		love.graphics.translate(-Camera.x+(love.math.random(Camera.shake/2))*s.scale,-Camera.y)
-		love.graphics.draw(Canvas.buffer,s.xoff,s.yoff,0,s.scale,s.scale)
-		love.graphics.draw(tempcanvas,s.xoff,s.yoff,0,s.scale*1/s.pixelscale,s.scale*1/s.pixelscale) --just like draws everything to the screen or whatever
-		love.graphics.origin()
+		LG.translate(-Camera.x+(love.math.random(Camera.shake/2))*s.scale,-Camera.y)
+		LG.draw(Canvas.buffer,s.xoff,s.yoff,0,s.scale,s.scale)
+		LG.draw(tempcanvas,s.xoff,s.yoff,0,s.scale*1/s.pixelscale,s.scale*1/s.pixelscale) --just like draws everything to the screen or whatever
+		LG.origin()
 		s.pixelscale=s.pixelscale+s.pixelscalerate*Game.speed
 		if s.pixelscalerate<0 then
 			if s.pixelscale<=s.pixelscalemin then
@@ -38,16 +38,16 @@ local function control(s)
 				s.pixeltrans=false
 			end
 		end
-		--love.graphics.setShader()
+		--LG.setShader()
 	else
-		--love.graphics.setShader(Shader)
+		--LG.setShader(Shader)
 
-		love.graphics.translate(-Camera.x+(love.math.random(Camera.shake/2))*s.scale,-Camera.y)
-		love.graphics.draw(Canvas.buffer,s.xoff,s.yoff,0,s.scale,s.scale)
-		love.graphics.draw(Canvas.game,s.xoff,s.yoff,0,s.scale,s.scale) --just like draws everything to the screen or whatever
-		love.graphics.origin()
+		LG.translate(-Camera.x+(love.math.random(Camera.shake/2))*s.scale,-Camera.y)
+		LG.draw(Canvas.buffer,s.xoff,s.yoff,0,s.scale,s.scale)
+		LG.draw(Canvas.game,s.xoff,s.yoff,0,s.scale,s.scale) --just like draws everything to the screen or whatever
+		LG.origin()
 
-		--love.graphics.setShader()
+		--LG.setShader()
 	end
 end
 

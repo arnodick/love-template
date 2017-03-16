@@ -43,9 +43,9 @@ local function control(t,gs,a,vx,vy)
 end
 
 local function draw(t)
-	love.graphics.setColor(Palette[t.c])
+	LG.setColor(Palette[t.c])
 	local curve=love.math.newBezierCurve(t.sx,t.sy,t.mx,t.my,t.x,t.y)
-	love.graphics.line(curve:render(2))
+	LG.line(curve:render(2))
 end
 
 return

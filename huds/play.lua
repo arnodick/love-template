@@ -29,27 +29,27 @@ local function keypressed(i,key)
 end
 
 local function draw(h)
-	love.graphics.setColor(Palette[h.c])
+	LG.setColor(Palette[h.c])
 	
-	love.graphics.print("score:"..Game.settings.score,Camera.x+h.score.x,Camera.y+h.score.y)
-	love.graphics.print("coins:"..Player.coin,Camera.x+h.coins.x,Camera.y+h.coins.y)
-	love.graphics.print("hp:"..Player.hp,Camera.x+h.hp.x,Camera.y+h.hp.y)
+	LG.print("score:"..Game.settings.score,Camera.x+h.score.x,Camera.y+h.score.y)
+	LG.print("coins:"..Player.coin,Camera.x+h.coins.x,Camera.y+h.coins.y)
+	LG.print("hp:"..Player.hp,Camera.x+h.hp.x,Camera.y+h.hp.y)
 	for i=1,Player.inv.max do
 		local x,y=Game.width/2+40-i*20,20
-		love.graphics.rectangle("line",x,y,15,15)
+		LG.rectangle("line",x,y,15,15)
 		if Player.inv[i] then
 			local a=Player.inv[i]
-			love.graphics.draw(Spritesheet[a.size],Quads[a.size][a.spr],x+7,y+7,a.angle,1,1,(a.size*Game.tile.width)/2,(a.size*Game.tile.height)/2)
+			LG.draw(Spritesheet[a.size],Quads[a.size][a.spr],x+7,y+7,a.angle,1,1,(a.size*Game.tile.width)/2,(a.size*Game.tile.height)/2)
 		end
 	end
 	if Player.hp <= 0 then
-		--love.graphics.print("YOU DIED",Camera.x+140,Camera.y+20)
-		love.graphics.printborder("YOU DIED",Camera.x+140,Camera.y+20,EC.white,h.c)
-		love.graphics.print("PRESS SPACE",Camera.x+135,Camera.y+50)
+		--LG.print("YOU DIED",Camera.x+140,Camera.y+20)
+		LG.printborder("YOU DIED",Camera.x+140,Camera.y+20,EC.white,h.c)
+		LG.print("PRESS SPACE",Camera.x+135,Camera.y+50)
 		scores.draw(Camera.x+150,Camera.y+70,h.c,h.c2)
 	end
 
-	love.graphics.setColor(Palette[EC.pure_white])
+	LG.setColor(Palette[EC.pure_white])
 end
 
 return

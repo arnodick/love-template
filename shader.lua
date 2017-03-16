@@ -1,7 +1,7 @@
 local function make()
 	ShaderTimer = 0
 
- 	return love.graphics.newShader
+ 	return LG.newShader
 	[[
 	extern number red;
 	extern number green;

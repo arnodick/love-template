@@ -26,13 +26,13 @@ local function draw(a)
 		table.insert(points,a.x+math.cos(a.pointdirs[i]+a.angle)*a.r)
 		table.insert(points,a.y+math.sin(a.pointdirs[i]+a.angle)*a.r/2.5)
 	end
-	love.graphics.polygon("fill",points)
+	LG.polygon("fill",points)
 	if DebugMode then
-		love.graphics.setColor(Palette[EC.green])
-		love.graphics.points(a.x,a.y)
-		love.graphics.setColor(Palette[EC.red])
+		LG.setColor(Palette[EC.green])
+		LG.points(a.x,a.y)
+		LG.setColor(Palette[EC.red])
 		for i=1,#points,2 do
-			love.graphics.points(points[i],points[i+1])
+			LG.points(points[i],points[i+1])
 		end
 	end
 end

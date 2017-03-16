@@ -19,31 +19,29 @@ local function control(m)
 end
 
 local function draw(m)
-	local lg=love.graphics
-
 	local alpha=230
 	local r,g,b=unpack(Palette[m.bc2])
-	lg.setColor(r,g,b,alpha)
-	lg.rectangle("fill",m.x-m.w/2+1,m.y-m.h/2+1,m.w+1,m.h+1)--TODO floor these suckas
 
-	lg.setColor(Palette[EC.black])
-	lg.rectangle("fill",m.x-m.w/2,m.y-m.h/2,m.w,m.h)
+	LG.setColor(r,g,b,alpha)
+	LG.rectangle("fill",m.x-m.w/2+1,m.y-m.h/2+1,m.w+1,m.h+1)--TODO floor these suckas
 
-	lg.setColor(Palette[m.bc1])
-	lg.rectangle("line",m.x-m.w/2,m.y-m.h/2,m.w,m.h)
+	LG.setColor(Palette[EC.black])
+	LG.rectangle("fill",m.x-m.w/2,m.y-m.h/2,m.w,m.h)
 
-	--g.print("u will buy",a.x+xoff/2,a.y+yoff/2)
+	LG.setColor(Palette[m.bc1])
+	LG.rectangle("line",m.x-m.w/2,m.y-m.h/2,m.w,m.h)
+
 	if type(text)=="table" then
 		for i=1,#m.text do
-			lg.printborder(m.text[i],m.x-m.w/2,m.y-m.h/2+10*i,m.c1,m.c2,m.w)
+			LG.printborder(m.text[i],m.x-m.w/2,m.y-m.h/2+10*i,m.c1,m.c2,m.w)
 		end
 	else
-		lg.printborder(m.text,m.x-m.w/2,m.y-m.h/2,m.c1,m.c2,m.w)
+		LG.printborder(m.text,m.x-m.w/2,m.y-m.h/2,m.c1,m.c2,m.w)
 	end
 
 	if Debugmode then
-		lg.setColor(Palette[EC.red])
-		lg.points(a.x,a.y)
+		LG.setColor(Palette[EC.red])
+		LG.points(a.x,a.y)
 	end
 end
 

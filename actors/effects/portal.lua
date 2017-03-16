@@ -32,7 +32,7 @@ local function control(a,gs)
 	imgdata:mapPixel(pixelmaps.sparkle)
 	imgdata:mapPixel(pixelmaps.crush)
 
-	a.image=love.graphics.newImage(imgdata)
+	a.image=LG.newImage(imgdata)
 
 	local dist=vector.distance(a.x,a.y,Player.x,Player.y)
 	if dist<20 then
@@ -50,15 +50,15 @@ local function control(a,gs)
 end
 
 local function draw(a)
-	love.graphics.setCanvas(Canvas.buffer)
-		love.graphics.setColor(Palette[EC.pure_white])
-		love.graphics.draw(a.image,a.x,a.y,0,1,1,a.sizeinit,a.sizeinit)
-		love.graphics.setColor(Palette[a.c])
+	LG.setCanvas(Canvas.buffer)
+		LG.setColor(Palette[EC.pure_white])
+		LG.draw(a.image,a.x,a.y,0,1,1,a.sizeinit,a.sizeinit)
+		LG.setColor(Palette[a.c])
 		local curve=love.math.newBezierCurve(a.x,a.y,a.x+math.cos(a.angle)*a.size/2,a.y+math.sin(a.angle)/2*a.size,a.x+math.cos(a.angle-1)*a.size,a.y+math.sin(a.angle-1)*a.size)
 		local curve2=love.math.newBezierCurve(a.x,a.y,a.x-math.cos(a.angle)*a.size/2,a.y-math.sin(a.angle)/2*a.size,a.x-math.cos(a.angle-1)*a.size,a.y-math.sin(a.angle-1)*a.size)
-		love.graphics.line(curve:render(2))
-		love.graphics.line(curve2:render(2))
-	love.graphics.setCanvas(Canvas.game)
+		LG.line(curve:render(2))
+		LG.line(curve2:render(2))
+	LG.setCanvas(Canvas.game)
 end
 
 return
