@@ -13,6 +13,7 @@ local function make(tw,th,gw,gh,sp)
 
 	--enumerators and constants
 	Enums = enums.load("","actors","levels")
+	debugger.printtable(Enums)
 	constants.init(Enums)
 
 	--global variables

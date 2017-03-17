@@ -22,9 +22,11 @@ local function control(a,gs)
 	counters.update(Game.settings.counters,a)
 	controller.update(a,gs)
 
-	if _G[EA[a.t]]["control"] then
-		_G[EA[a.t]]["control"](a,gs)
-	end
+	actor.calltype(a,gs,debug.getinfo(1,"n").name)
+
+--	if _G[EA[a.t]]["control"] then
+--		_G[EA[a.t]]["control"](a,gs)
+--	end
 
 	if a.anglespeed then
 		if a.anglespeeddecel then --TODO make this into a function
@@ -323,6 +325,12 @@ local function corpse(a,tw,th,hack)
 	end
 end
 
+local function calltype(a,gs,fn)
+	if _G[EA[a.t]][fn] then
+		_G[EA[a.t]][fn](a,gs)
+	end
+end
+
 return
 {
 	make = make,
@@ -332,4 +340,5 @@ return
 	damage = damage,
 	impulse = impulse,
 	corpse = corpse,
+	calltype = calltype,
 }
