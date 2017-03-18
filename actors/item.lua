@@ -27,6 +27,7 @@ local function control(a,gs)
 			if a.getsfx then
 				sfx.play(a.getsfx)
 			end
+			a.flags=flags.set(a.flags,Enums.flags.persistent)
 			table.insert(Player.inv,1,a)
 		end
 	end
@@ -35,13 +36,20 @@ local function control(a,gs)
 	end
 end
 
+local function carry(a,user)
+	a.x=user.tail.x
+	a.y=user.tail.y
+end
+
 local function use(a,gs,user,vx,vy,shoot)
 	a.angle=vector.direction(vx,vy)
 	a.vec[1]=math.cos(a.angle)
 	a.vec[2]=math.sin(a.angle)
 
-	a.x=user.x+a.vec[1]*a.len
-	a.y=user.y+a.vec[2]*a.len
+--[[
+	a.x=user.tail.x
+	a.y=user.tail.y
+--]]
 
 	if a.delta<=0 then
 		if shoot then
@@ -69,6 +77,7 @@ return
 {
 	make = make,
 	control = control,
+	carry = carry,
 	use = use,
 	draw = draw,
 }

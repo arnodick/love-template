@@ -20,9 +20,12 @@ local function make(a,c,size,spr,hp,ct)
 	a.flags=flags.set(a.flags,e.flags.bouncy,e.flags.enemy)
 	a.d=math.choose(math.pi)
 	a.vel=1
+	a.rage=0
 end
 
 local function control(a)
+	a.rage=math.floor(Game.settings.score/5)
+	a.c=a.cinit+a.rage
 	if Player.hp<=0 then
 		for i,v in ipairs(Actors) do
 			if flags.get(v.flags,Enums.flags.enemy) then

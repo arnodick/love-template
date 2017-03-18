@@ -7,7 +7,7 @@ local function control(a)
 	c.aimhorizontal=math.cos(dir)
 	c.aimvertical=math.sin(dir)
 
-	if love.math.random(20)==1 then--or a.st==EA.characters.mushroom then
+	if love.math.random(40-(a.rage*10))==1 then
 		c.shoot=true
 	else
 		c.shoot=false
