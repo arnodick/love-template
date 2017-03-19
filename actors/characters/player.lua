@@ -29,10 +29,14 @@ local function make(a,c,size,spr,hp,ct)
 end
 
 local function control(a)
-	if Game.settings.levelcurrent.t==Enums.levels.store then--TODO make this a level value (level.time = time slow or not)
-		Game.speed=1
+	if Game.pause then
+		Game.speed=0
 	else
-		Game.speed=math.clamp(a.vel,0.1,1)
+		if Game.settings.levelcurrent.t==Enums.levels.store then--TODO make this a level value (level.time = time slow or not)
+			Game.speed=1
+		else
+			Game.speed=math.clamp(a.vel,0.1,1)
+		end
 	end
 	if a.controller.powerup then
 		if #a.inv>1 then

@@ -19,6 +19,12 @@ local function keypressed(m,key)
 	end
 end
 
+local function gamepadpressed(m,button)
+	if _G[Enums.statenames[m.t]]["gamepadpressed"] then
+		_G[Enums.statenames[m.t]]["gamepadpressed"](m,button)
+	end
+end
+
 local function draw(m)
 	if _G[Enums.statenames[m.t]]["draw"] then
 		_G[Enums.statenames[m.t]]["draw"](m)
@@ -30,5 +36,6 @@ return
 	make = make,
 	control = control,
 	keypressed = keypressed,
+	gamepadpressed = gamepadpressed,
 	draw = draw,
 }

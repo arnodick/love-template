@@ -19,6 +19,8 @@ local function update()
 	end
 	table.insert(debuglist,"camx:"..Camera.x)
 	table.insert(debuglist,"camy:"..Camera.y)
+	table.insert(debuglist,"pause: "..tostring(Game.pause))
+--[[
 	if #Joysticks>0 then
 		local axes={Joysticks[1]:getAxes()}
 		table.insert(debuglist,"joy axes:"..#axes)
@@ -26,6 +28,7 @@ local function update()
 			table.insert(debuglist,"axis"..i..":"..axes[i])
 		end
 	end
+--]]
 	return debuglist
 end
 

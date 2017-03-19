@@ -29,6 +29,7 @@ local function make(tw,th,gw,gh,sp)
 	g.width=gw
 	g.height=gh
 	g.speed=sp
+	g.pause=false
 	g.settings=game.changestate(State)
 	return g
 end
@@ -39,8 +40,10 @@ local function control(s,gs)
 
 		sfx.update(SFX,gs)
 
-		for i,v in ipairs(Actors) do
-			actor.control(v,gs)
+		if not Game.pause then
+			for i,v in ipairs(Actors) do
+				actor.control(v,gs)
+			end
 		end
 
 		camera.control(Camera,Player,gs)

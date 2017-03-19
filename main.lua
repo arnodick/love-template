@@ -23,6 +23,12 @@ function love.keypressed(key,scancode,isrepeat)
 	end
 end
 
+function love.gamepadpressed(joystick,button)
+	for i,v in ipairs(Huds) do
+		hud.gamepadpressed(v,button)
+	end
+end
+
 function love.update(dt)
 	local gs = Game.speed
 

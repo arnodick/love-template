@@ -28,6 +28,12 @@ local function keypressed(i,key)
 	end
 end
 
+local function gamepadpressed(i,button)
+	if button=="start" then
+		Game.pause = not Game.pause
+	end
+end
+
 local function draw(h)
 	LG.setColor(Palette[h.c])
 	
@@ -42,8 +48,12 @@ local function draw(h)
 			LG.draw(Spritesheet[a.size],Quads[a.size][a.spr],x+7,y+7,a.angle,1,1,(a.size*Game.tile.width)/2,(a.size*Game.tile.height)/2)
 		end
 	end
+
+	if Game.pause then
+		LG.printborder("PAUSE",Camera.x+140,Camera.y+Game.height/2,EC.white,h.c)
+	end
+
 	if Player.hp <= 0 then
-		--LG.print("YOU DIED",Camera.x+140,Camera.y+20)
 		LG.printborder("YOU DIED",Camera.x+140,Camera.y+20,EC.white,h.c)
 		LG.print("PRESS SPACE",Camera.x+135,Camera.y+50)
 		scores.draw(Camera.x+150,Camera.y+70,h.c,h.c2)
@@ -57,5 +67,6 @@ return
 	make = make,
 	control = control,
 	keypressed = keypressed,
+	gamepadpressed = gamepadpressed,
 	draw = draw,
 }
