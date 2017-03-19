@@ -17,9 +17,12 @@ local function update()
 	if Player.inv[1] then
 	table.insert(debuglist,"player item angle:"..Player.inv[1].angle)
 	end
-	table.insert(debuglist,"camx:"..Camera.x)
-	table.insert(debuglist,"camy:"..Camera.y)
+	--table.insert(debuglist,"camx:"..Camera.x)
+	--table.insert(debuglist,"camy:"..Camera.y)
 	table.insert(debuglist,"pause: "..tostring(Game.pause))
+	for i,v in pairs(Counters) do
+		table.insert(debuglist,i.." count: "..#Counters[i])
+	end
 --[[
 	if #Joysticks>0 then
 		local axes={Joysticks[1]:getAxes()}

@@ -25,7 +25,6 @@ local function make(lload)
 	l.c=lload.values.c
 	l.enemies={}
 	for i,v in pairs(lload.enemies) do
-		print(i.." = "..v)
 		if type(i)=="number" then
 			l.enemies[i]=EA.characters[v]
 		else
@@ -43,11 +42,13 @@ local function make(lload)
 end
 
 local function control(l)
-	local enemycount=Game.settings.counters.enemies
+---[[
+	local enemycount=#Counters.enemy
 	
 	if enemycount<l.enemies.max then
 		actor.make(EA.effect,EA.effects.spawn)
 	end
+--]]
 
 	if _G[Enums.levels[l.t]]["control"] then
 		_G[Enums.levels[l.t]]["control"](l,gs)

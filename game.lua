@@ -13,7 +13,7 @@ local function make(tw,th,gw,gh,sp)
 
 	--enumerators and constants
 	Enums = enums.load("","actors","levels")
-	debugger.printtable(Enums)
+	--debugger.printtable(Enums)
 	constants.init(Enums)
 
 	--global variables
@@ -31,13 +31,13 @@ local function make(tw,th,gw,gh,sp)
 	g.speed=sp
 	g.pause=false
 	g.settings=game.changestate(State)
+	Counters=counters.init()
+	debugger.printtable(Counters)
 	return g
 end
 
 local function control(s,gs)
 	if s == Enums.states.play then
-		Game.settings.counters.enemies=0
-
 		sfx.update(SFX,gs)
 
 		if not Game.pause then
@@ -53,6 +53,21 @@ local function control(s,gs)
 				if v.inv then
 					v.inv[1].delete=true
 				end
+
+				for j,k in pairs(Counters[EA[v.t]]) do
+					if k==v then
+						table.remove(Counters[EA[v.t]],j)
+					end
+				end
+
+				if flags.get(v.flags,Enums.flags.enemy) then
+					for j,k in pairs(Counters.enemy) do
+						if k==v then
+							table.remove(Counters.enemy,j)
+						end
+					end
+				end
+
 				table.remove(Actors,i)
 			end
 		end
@@ -106,15 +121,16 @@ local function changestate(s)
 	local e=Enums
 	State,Timer=game.init(s)
 	hud.make(s)
+	Counters=counters.init()
 	
 	local settings={}
+
 	if State==e.states.title then
 		settings.scores=scores.load()
 	elseif State==e.states.play then
 		LG.setCanvas(Canvas.buffer)
 		LG.clear()
 		settings.score=0
-		settings.counters=counters.make()
 
 		local mw,mh=Game.width/Game.tile.width,Game.height/Game.tile.height
 		settings.map=map.generate(mw+2,mh+2)

@@ -1,17 +1,31 @@
-local function make()
+local function init()
 	local c={}
-	c.enemies=0
+	for i=1,#Enums.actors do
+		c[EA[i]]={}
+	end
+	c.enemy={}
 	return c
 end
 
 local function update(c,a)
+	table.insert(c[EA[a.t]],a)
 	if flags.get(a.flags,Enums.flags.enemy) then
-		c.enemies=c.enemies+1
+		table.insert(c.enemy,a)
 	end
 end
 
+--[[
+local function update(c,a)
+
+	if flags.get(a.flags,Enums.flags.enemy) then
+		c.enemies=c.enemies+1
+	end
+
+end
+--]]
+
 return
 {
-	make = make,
+	init = init,
 	update = update,
 }

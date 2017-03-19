@@ -14,12 +14,12 @@ local function make(t,st,x,y,d,vel,...)
 	if _G[EA[a.t]]["make"] then
 		_G[EA[a.t]]["make"](a,...)
 	end
+	counters.update(Counters,a)
 	table.insert(Actors,a)
 	return a
 end
 
 local function control(a,gs)
-	counters.update(Game.settings.counters,a)
 	controller.update(a,gs)
 
 	--actor.calltype(a,gs,debug.getinfo(1,"n").name)
