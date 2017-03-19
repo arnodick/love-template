@@ -1,4 +1,5 @@
 local function make(t,st,x,y,d,vel,...)
+	--if not (t==EA.effect and #Actors>3000) then --TODO figure out how to do this without checking the existence of each returned actor
 	local a={}
 	a.t=t
 	a.st=st
@@ -14,9 +15,10 @@ local function make(t,st,x,y,d,vel,...)
 	if _G[EA[a.t]]["make"] then
 		_G[EA[a.t]]["make"](a,...)
 	end
-	counters.update(Counters,a)
+	counters.update(Counters,a,1)
 	table.insert(Actors,a)
 	return a
+	--end
 end
 
 local function control(a,gs)

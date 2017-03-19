@@ -20,7 +20,7 @@ end
 
 local function control(a)
 	if actor.collision(a.x,a.y,a.target) then
-		actor.damage(a.target,3)
+		actor.damage(a.target,8)
 		actor.damage(a,a.hp)
 	end
 	if Player.hp<=0 then

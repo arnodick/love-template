@@ -30,7 +30,7 @@ local function make(tw,th,gw,gh,sp)
 	g.height=gh
 	g.speed=sp
 	g.pause=false
-	g.settings=game.changestate(State)
+	g.settings=game.changestate(State)--TODO: input game into this
 	Counters=counters.init()
 	debugger.printtable(Counters)
 	return g
@@ -53,21 +53,7 @@ local function control(s,gs)
 				if v.inv then
 					v.inv[1].delete=true
 				end
-
-				for j,k in pairs(Counters[EA[v.t]]) do
-					if k==v then
-						table.remove(Counters[EA[v.t]],j)
-					end
-				end
-
-				if flags.get(v.flags,Enums.flags.enemy) then
-					for j,k in pairs(Counters.enemy) do
-						if k==v then
-							table.remove(Counters.enemy,j)
-						end
-					end
-				end
-
+				counters.update(Counters,v,-1)
 				table.remove(Actors,i)
 			end
 		end
@@ -106,12 +92,13 @@ local function draw(s)
 	screen.control(Screen)
 end
 
-local function init(s)
+local function init(s)--TODO input Game into this? maybe make it load its values from an ini file
+--TODO maybe load instead of init?
 	--returns the basic game global variables
 	--initialize actor, menu and hud tables
 	Camera=camera.make(0,0)
-
-	Actors={}
+	Actors={}--TODO: maybe all these go into Game.? so: Game.actors Game.menus etc. also Game.camera
+	--Game.menus={}
 	Menus={}
 	Huds={}
 	return s,0

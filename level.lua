@@ -43,7 +43,7 @@ end
 
 local function control(l)
 ---[[
-	local enemycount=#Counters.enemy
+	local enemycount=Counters.enemy
 	
 	if enemycount<l.enemies.max then
 		actor.make(EA.effect,EA.effects.spawn)

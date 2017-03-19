@@ -3,7 +3,7 @@ libraries.load("")
 
 function love.load()
 	Game = game.make(8,8,320,240,1)
-	Levels=level.load("levels/inis")
+	Levels=level.load("levels/inis")--TODO put this in Game.levels
 	--debugger.printtable(Levels)
 end
 
@@ -32,9 +32,11 @@ end
 function love.update(dt)
 	local gs = Game.speed
 
-	game.control(State,gs)
+	game.control(State,gs)--TODO: input game into this. State should be part of game? once Game is self-contained, can make different games and switch to them?
 
-	Timer = Timer + gs
+	if not Game.pause then
+		Timer = Timer + gs
+	end
 end
 
 function love.draw(dt)

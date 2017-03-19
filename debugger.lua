@@ -21,7 +21,8 @@ local function update()
 	--table.insert(debuglist,"camy:"..Camera.y)
 	table.insert(debuglist,"pause: "..tostring(Game.pause))
 	for i,v in pairs(Counters) do
-		table.insert(debuglist,i.." count: "..#Counters[i])
+		--table.insert(debuglist,i.." count: "..#Counters[i])
+		table.insert(debuglist,i.." count: "..Counters[i])
 	end
 --[[
 	if #Joysticks>0 then
