@@ -30,17 +30,11 @@ function love.gamepadpressed(joystick,button)
 end
 
 function love.update(dt)
-	local gs = Game.speed
-
-	game.control(State,gs)--TODO: input game into this. State should be part of game? once Game is self-contained, can make different games and switch to them?
-
-	if not Game.pause then
-		Timer = Timer + gs
-	end
+	game.control(Game,State)--TODO: input game into this. State should be part of game? once Game is self-contained, can make different games and switch to them?
 end
 
 function love.draw(dt)
-	game.draw(State)
+	game.draw(Game,State)
 
 	debugger.draw(DebugList)
 end

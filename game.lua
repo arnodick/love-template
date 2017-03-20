@@ -36,17 +36,17 @@ local function make(tw,th,gw,gh,sp)
 	return g
 end
 
-local function control(s,gs)
+local function control(g,s)
 	if s == Enums.states.play then
-		sfx.update(SFX,gs)
+		sfx.update(SFX,g.speed)
 
-		if not Game.pause then
+		if not g.pause then
 			for i,v in ipairs(Actors) do
-				actor.control(v,gs)
+				actor.control(v,g.speed)
 			end
 		end
 
-		camera.control(Camera,Player,gs)
+		camera.control(Camera,Player,g.speed)
 		
 		for i,v in ipairs(Actors) do
 			if v.delete==true then
@@ -58,7 +58,7 @@ local function control(s,gs)
 			end
 		end
 
-		level.control(Game.settings.levelcurrent)
+		level.control(g.settings.levelcurrent)
 
 		if DebugMode then
 			DebugList = debugger.update()
@@ -70,13 +70,16 @@ local function control(s,gs)
 	for i,v in ipairs(Huds) do
 		hud.control(v)
 	end
+	if not g.pause then
+		Timer = Timer + g.speed
+	end
 end
 
-local function draw(s)
+local function draw(g,s)
 	LG.setCanvas(Canvas.game) --sets drawing to the 320x240 canvas
 		LG.clear() --cleans that messy ol canvas all up, makes it all fresh and new and good you know
 		if s == Enums.states.play then
-			map.draw(Game.settings.map)
+			map.draw(g.settings.map)
 			for i,v in ipairs(Actors) do
 				actor.draw(v)
 			end
