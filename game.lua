@@ -16,13 +16,14 @@ local function make(tw,th,gw,gh,sp)
 	debugger.printtable(Enums)
 	constants.init(Enums)
 
+	local g={}
+
 	--global variables
-	State,Timer=game.init(Enums.states.intro)--need to use init here so there is State variable to go into changestate below
+	State,Timer=game.init(g,Enums.states.intro)--need to use init here so there is State variable to go into changestate below
 
 	game.graphics(tw,th,gw,gh)
 
 	--Game object
-	local g={}
 	g.tile={}
 	g.tile.width=tw
 	g.tile.height=th
@@ -97,7 +98,7 @@ local function draw(g,s)
 	screen.control(Screen)
 end
 
-local function init(s)--TODO input Game into this? maybe make it load its values from an ini file
+local function init(g,s)
 --TODO maybe load instead of init?
 	--returns the basic game global variables
 	--initialize actor, menu and hud tables
@@ -111,7 +112,7 @@ end
 
 local function changestate(g,s)
 	local e=Enums
-	State,Timer=game.init(s)
+	State,Timer=game.init(g,s)
 	hud.make(s)
 	Counters=counters.init()
 
