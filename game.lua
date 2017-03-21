@@ -81,7 +81,7 @@ local function draw(g,s)
 	LG.setCanvas(Canvas.game) --sets drawing to the 320x240 canvas
 		LG.clear() --cleans that messy ol canvas all up, makes it all fresh and new and good you know
 		if s == Enums.states.play then
-			map.draw(g.settings.map)
+			map.draw(g.map)
 			for i,v in ipairs(Actors) do
 				actor.draw(v)
 			end
@@ -114,23 +114,21 @@ local function changestate(g,s)
 	State,Timer=game.init(s)
 	hud.make(s)
 	Counters=counters.init()
-	
-	g.settings={}
 
 	if State==e.states.title then
-		g.settings.scores=scores.load()
+		g.scores=scores.load()
 	elseif State==e.states.play then
 		LG.setCanvas(Canvas.buffer)
 		LG.clear()
-		g.settings.score=0
+		g.score=0
 
 		local mw,mh=g.width/g.tile.width,g.height/g.tile.height
-		g.settings.map=map.generate(mw+2,mh+2)
+		g.map=map.generate(mw+2,mh+2)
 
 		Player=actor.make(EA.character,EA.characters.player,g.width/2,g.height/2)
 
-		g.settings.level=1
-		g.levels.current=level.make(g.levels[g.settings.level])
+		g.level=1
+		g.levels.current=level.make(g.levels[g.level])
 	end
 end
 

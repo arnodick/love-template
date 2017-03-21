@@ -4,7 +4,7 @@ local function make(a,c,size)
 	a.sizeinit=size or 20
 	a.size=a.sizeinit
 	a.anglespeed=0.01
-	a.level=Game.levels[Game.settings.level+1]
+	a.level=Game.levels[Game.level+1]
 	a.flags=flags.set(a.flags,Enums.flags.persistent)
 end
 

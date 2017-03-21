@@ -23,7 +23,7 @@ local function save()
 	for j=1,#scores.high do
 		table.insert(s,{scores.names[j],scores.high[j]})
 	end
-	local score=Game.settings.score
+	local score=Game.score
 	table.insert(s,{"ASH",score})
 
 	local function scoresort(a,b)
@@ -48,12 +48,12 @@ local function save()
 		scores.high[k]=s[k][2]
 	end
 
-	Game.settings.scores=scores
+	Game.scores=scores
 	LIP.save("scores.ini",scores)
 end
 
 local function draw(x,y,c1,c2)
-	local s=Game.settings.scores
+	local s=Game.scores
 
 --TODO make this into menu library
 	LG.setColor(Palette[EC.dark_purple])

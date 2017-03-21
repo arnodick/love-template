@@ -67,12 +67,12 @@ local function control(a,gs)
 	
 	--local xcell,ycell=math.floor(a.x/tw),math.floor(a.y/th)
 	--local xcelldest,ycelldest=math.floor(xdest/tw),math.floor(ydest/th)
-	local xcell,ycell=map.getcell(Game.settings.map,a.x,a.y)
+	local xcell,ycell=map.getcell(Game.map,a.x,a.y)
 	local xdest,ydest=a.x + a.vec[1]*a.vel*gs,a.y - a.vec[2]*a.vel*gs
-	local xcelldest,ycelldest=map.getcell(Game.settings.map,xdest,ydest)
+	local xcelldest,ycelldest=map.getcell(Game.map,xdest,ydest)
 	
-	local xmapcell=Game.settings.map[ycell][xcelldest]
-	local ymapcell=Game.settings.map[ycelldest][xcell]
+	local xmapcell=Game.map[ycell][xcelldest]
+	local ymapcell=Game.map[ycelldest][xcell]
 	local collx,colly=false,false
 	if not flags.get(xmapcell,Enums.flags.solid,16) then
 		a.x = xdest
@@ -216,7 +216,7 @@ local function damage(a,d)
 
 				if Player.hp>0 then
 					if a.value then
-						Game.settings.score=Game.settings.score+a.value
+						Game.score=Game.score+a.value
 					end
 				end
 

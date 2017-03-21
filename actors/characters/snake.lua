@@ -24,7 +24,7 @@ local function make(a,c,size,spr,hp,ct)
 end
 
 local function control(a)
-	a.rage=math.floor(Game.settings.score/5)
+	a.rage=math.floor(Game.score/5)
 	a.c=a.cinit+a.rage
 	if Player.hp<=0 then
 		for i,v in ipairs(Actors) do

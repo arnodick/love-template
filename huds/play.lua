@@ -37,7 +37,7 @@ end
 local function draw(h)
 	LG.setColor(Palette[h.c])
 	
-	LG.print("score:"..Game.settings.score,Camera.x+h.score.x,Camera.y+h.score.y)
+	LG.print("score:"..Game.score,Camera.x+h.score.x,Camera.y+h.score.y)
 	LG.print("coins:"..Player.coin,Camera.x+h.coins.x,Camera.y+h.coins.y)
 	LG.print("hp:"..Player.hp,Camera.x+h.hp.x,Camera.y+h.hp.y)
 	for i=1,Player.inv.max do
