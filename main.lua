@@ -3,8 +3,6 @@ libraries.load("")
 
 function love.load()
 	Game = game.make(8,8,320,240,1)
-	Levels=level.load("levels/inis")--TODO put this in Game.levels
-	--debugger.printtable(Levels)
 end
 
 function love.keypressed(key,scancode,isrepeat)

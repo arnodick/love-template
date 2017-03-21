@@ -17,7 +17,7 @@ local function make(a,c,size,spr,hp,ct)
 	animation.make(a,10,2)
 	a.flags=flags.set(a.flags,e.flags.enemy)
 
-	Game.settings.levelcurrent.enemies.max=Game.settings.levelcurrent.enemies.max+1
+	Game.levels.current.enemies.max=Game.levels.current.enemies.max+1
 end
 
 local function control(a)
@@ -34,7 +34,7 @@ end
 
 local function dead(a)
 	local port=actor.make(EA.effect,EA.effects.portal,math.floor(a.x),math.floor(a.y))
-	port.level=Levels.store
+	port.level=Game.levels.store
 end
 
 return

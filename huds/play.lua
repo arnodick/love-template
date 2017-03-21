@@ -21,7 +21,7 @@ end
 local function keypressed(i,key)
 	if key=='space' then
 		if Player.hp<=0 then
-			Game.settings=game.changestate(Enums.states.play)
+			game.changestate(Game,Enums.states.play)
 		--else
 			--Screen.pixeltrans=true
 		end

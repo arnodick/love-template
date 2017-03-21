@@ -40,8 +40,7 @@ end
 
 local function draw(m)
 	local tw,th=Game.tile.width,Game.tile.height
-	--LG.setColor(Game.settings.levelcurrent.c)
-	local c=Palette[Game.settings.levelcurrent.c]
+	local c=Palette[Game.levels.current.c]
 	local r=c[1]
 	local g=c[2]
 	local b=c[3]

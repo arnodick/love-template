@@ -9,13 +9,13 @@ end
 
 local function keypressed(t,key)
 	if key=="space" then
-		Game.settings=game.changestate(Enums.states.play)
+		game.changestate(Game,Enums.states.play)
 	end
 end
 
 local function gamepadpressed(i,button)
 	if button=="start" then
-		Game.settings=game.changestate(Enums.states.play)
+		game.changestate(Game,Enums.states.play)
 	end
 end
 

@@ -4,8 +4,7 @@ local function make(a,c,size)
 	a.sizeinit=size or 20
 	a.size=a.sizeinit
 	a.anglespeed=0.01
-	--a.level=Levels.store
-	a.level=Levels[Game.settings.level+1]
+	a.level=Game.levels[Game.settings.level+1]
 	a.flags=flags.set(a.flags,Enums.flags.persistent)
 end
 
@@ -47,7 +46,7 @@ local function control(a,gs)
 				v.delete=true
 			end
 		end
-		Game.settings.levelcurrent=level.make(a.level)
+		Game.levels.current=level.make(a.level)
 		a.delete=true --TODO maybe give this a VERY low chance of not happening?
 	end
 end

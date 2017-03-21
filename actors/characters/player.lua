@@ -32,7 +32,7 @@ local function control(a)
 	if Game.pause then
 		Game.speed=0
 	else
-		if Game.settings.levelcurrent.t==Enums.levels.store then--TODO make this a level value (level.time = time slow or not)
+		if Game.levels.current.t==Enums.levels.store then--TODO make this a level value (level.time = time slow or not)
 			Game.speed=1
 		else
 			Game.speed=math.clamp(a.vel,0.1,1)

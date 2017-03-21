@@ -30,9 +30,11 @@ local function make(tw,th,gw,gh,sp)
 	g.height=gh
 	g.speed=sp
 	g.pause=false
-	g.settings=game.changestate(State)--TODO: input game into this
+	game.changestate(g,State)
 	Counters=counters.init()
-	debugger.printtable(Counters)
+	--debugger.printtable(Counters)
+	g.levels=level.load("levels/inis")
+	--debugger.printtable(Game.levels)
 	return g
 end
 
@@ -58,7 +60,7 @@ local function control(g,s)
 			end
 		end
 
-		level.control(g.settings.levelcurrent)
+		level.control(g.levels.current)
 
 		if DebugMode then
 			DebugList = debugger.update()
@@ -107,32 +109,29 @@ local function init(s)--TODO input Game into this? maybe make it load its values
 	return s,0
 end
 
-local function changestate(s)
+local function changestate(g,s)
 	local e=Enums
 	State,Timer=game.init(s)
 	hud.make(s)
 	Counters=counters.init()
 	
-	local settings={}
+	g.settings={}
 
 	if State==e.states.title then
-		settings.scores=scores.load()
+		g.settings.scores=scores.load()
 	elseif State==e.states.play then
 		LG.setCanvas(Canvas.buffer)
 		LG.clear()
-		settings.score=0
+		g.settings.score=0
 
-		local mw,mh=Game.width/Game.tile.width,Game.height/Game.tile.height
-		settings.map=map.generate(mw+2,mh+2)
+		local mw,mh=g.width/g.tile.width,g.height/g.tile.height
+		g.settings.map=map.generate(mw+2,mh+2)
 
-		Player=actor.make(EA.character,EA.characters.player,Game.width/2,Game.height/2)
+		Player=actor.make(EA.character,EA.characters.player,g.width/2,g.height/2)
 
-		settings.level=1
-		settings.levelcurrent=level.make(Levels[settings.level])
-		--settings.levelcurrent=level.make(Levels.store)
-		--debugger.printtable(settings.levelcurrent)
+		g.settings.level=1
+		g.levels.current=level.make(g.levels[g.settings.level])
 	end
-	return settings
 end
 
 local function graphics(tw,th,gw,gh)

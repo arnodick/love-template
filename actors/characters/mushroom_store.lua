@@ -40,7 +40,7 @@ end
 
 local function dead(a)
 	local port=actor.make(EA.effect,EA.effects.portal,math.floor(a.x),math.floor(a.y))
-	port.level=Levels.store
+	port.level=Game.levels.store
 end
 
 return
