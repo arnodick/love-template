@@ -19,7 +19,7 @@ local function control(a,gs)
 						v.scalex=4
 						v.scaley=4
 						v.deltimer=0
-						v.delta=Timer
+						v.delta=Game.timer
 					end
 				end
 			end

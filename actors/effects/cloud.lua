@@ -13,7 +13,7 @@ local function make(a,c,size)
 end
 
 local function control(a)
-	local delta=Timer-a.delta
+	local delta=Game.timer-a.delta
 	a.r=a.size-delta/5
 	if a.r<1 then
 		a.delete=true

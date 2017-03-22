@@ -21,7 +21,7 @@ local function draw(a)
 	if a.spr then
 		local anim=0
 		if a.anim then
-			anim=math.floor((Timer/a.anim.speed)%a.anim.frames)
+			anim=math.floor((Game.timer/a.anim.speed)%a.anim.frames)
 		end
 		local scalex,scaley=1,1
 		if a.scalex then scalex=a.scalex end
@@ -32,7 +32,7 @@ local function draw(a)
 end
 
 local function blink(a,spd)
-	if math.floor(Timer/spd)%2==0 then
+	if math.floor(Game.timer/spd)%2==0 then
 		if a.spr then
 			a.spr=nil
 		end

@@ -2,7 +2,7 @@ libraries = require("libraries")
 libraries.load("")
 
 function love.load()
-	Game = game.make(8,8,320,240,1)
+	Game = game.make(8,8,320,240,1)--TODO this is where load from ini or whatever will happen. or rather, laod from type! g.t=Enums.games.PROTOSNAKE
 end
 
 function love.keypressed(key,scancode,isrepeat)
@@ -28,11 +28,11 @@ function love.gamepadpressed(joystick,button)
 end
 
 function love.update(dt)
-	game.control(Game,State)--TODO: input game into this. State should be part of game? once Game is self-contained, can make different games and switch to them?
+	game.control(Game)--TODO: input game into this. once Game is self-contained, can make different games and switch to them?
 end
 
 function love.draw(dt)
-	game.draw(Game,State)
+	game.draw(Game)
 
 	debugger.draw(DebugList)
 end

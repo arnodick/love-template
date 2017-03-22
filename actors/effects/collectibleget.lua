@@ -6,8 +6,8 @@ local function make(a,c,size,spr)
 end
 
 local function control(a)
-	a.scalex=math.sin(Timer)
-	if Timer-a.delta>=30 then
+	a.scalex=math.sin(Game.timer)
+	if Game.timer-a.delta>=30 then
 		sfx.play(8)
 		for i=1,20 do
 			actor.make(EA.effect,EA.effects.spark,a.x,a.y)

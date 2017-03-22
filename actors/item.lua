@@ -11,7 +11,7 @@ local function make(a,gc,bc,shopitem,...)
 	a.tx=a.x-math.cos(a.angle)*a.len
 	a.ty=a.y-math.sin(a.angle)*a.len
 	a.getsfx=10
-	a.delta=0--NOTE need this bc actor.make sets delta to Timer, so any actor not spawning at Timer==0 can't shoot
+	a.delta=0--NOTE need this bc actor.make sets delta to Game.timer, so any actor not spawning at Game.timer==0 can't shoot
 	if shopitem then
 		a.flags=flags.set(a.flags,Enums.flags.shopitem)
 	end

@@ -42,7 +42,7 @@ local function control(a,gs)
 			a.decel=a.decelinit
 		end
 	end
-	if Timer-a.delta>=120 then
+	if Game.timer-a.delta>=120 then
 		a.deltimer = a.deltimer+gs
 		if a.deltimer<=80 then
 			sprites.blink(a,14)

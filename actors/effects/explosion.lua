@@ -9,7 +9,7 @@ local function make(a,c,size)
 end
 
 local function control(a,gs)
-	local delta = (Timer-a.delta)
+	local delta = (Game.timer-a.delta)
 	a.r = a.size*(delta/6)
 	if a.r>=a.size then
 		for j=1,6*a.size do

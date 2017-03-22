@@ -11,7 +11,7 @@ local function make(tw,th,gw,gh,sp)
 	Joysticks=love.joystick.getJoysticks()
 	SFX = sfx.load(false,true)
 
-	--enumerators and constants
+	--enumerators and constants TODO maybe this can happen in libraries load?
 	Enums = enums.load("","actors","levels")
 	debugger.printtable(Enums)
 	constants.init(Enums)
@@ -19,7 +19,7 @@ local function make(tw,th,gw,gh,sp)
 	local g={}
 
 	--global variables
-	State,Timer=game.init(g,Enums.states.intro)--need to use init here so there is State variable to go into changestate below
+	game.init(g,Enums.states.intro)--need to use init here so there is g.state variable to go into changestate below
 
 	game.graphics(tw,th,gw,gh)
 
@@ -31,7 +31,7 @@ local function make(tw,th,gw,gh,sp)
 	g.height=gh
 	g.speed=sp
 	g.pause=false
-	game.changestate(g,State)
+	game.changestate(g,g.state)
 	Counters=counters.init()
 	--debugger.printtable(Counters)
 	g.levels=level.load("levels/inis")
@@ -39,8 +39,8 @@ local function make(tw,th,gw,gh,sp)
 	return g
 end
 
-local function control(g,s)
-	if s == Enums.states.play then
+local function control(g)
+	if g.state==Enums.states.play then
 		sfx.update(SFX,g.speed)
 
 		if not g.pause then
@@ -74,14 +74,14 @@ local function control(g,s)
 		hud.control(v)
 	end
 	if not g.pause then
-		Timer = Timer + g.speed
+		g.timer = g.timer + g.speed
 	end
 end
 
-local function draw(g,s)
-	LG.setCanvas(Canvas.game) --sets drawing to the 320x240 canvas
+local function draw(g)
+	LG.setCanvas(Canvas.game) --sets drawing to the 320x240 canvas --TODO make canvas part of Game
 		LG.clear() --cleans that messy ol canvas all up, makes it all fresh and new and good you know
-		if s == Enums.states.play then
+		if g.state==Enums.states.play then
 			map.draw(g.map)
 			for i,v in ipairs(Actors) do
 				actor.draw(v)
@@ -102,23 +102,26 @@ local function init(g,s)
 --TODO maybe load instead of init?
 	--returns the basic game global variables
 	--initialize actor, menu and hud tables
+	g.state=s
+	g.timer=0
 	Camera=camera.make(0,0)
 	Actors={}--TODO: maybe all these go into Game.? so: Game.actors Game.menus etc. also Game.camera
-	--Game.menus={}
+	--Game.menus={} __--*U*--__ YOUR GOING DOWN GLOBAL
+	--              |||     |||
 	Menus={}
 	Huds={}
-	return s,0
 end
 
 local function changestate(g,s)
 	local e=Enums
-	State,Timer=game.init(g,s)
+	game.init(g,s)
 	hud.make(s)
 	Counters=counters.init()
 
-	if State==e.states.title then
+	--TODO call specific state's code here? _G style ALSO state a function IN game, so game.state.change, game.state.
+	if g.state==e.states.title then
 		g.scores=scores.load()
-	elseif State==e.states.play then
+	elseif g.state==e.states.play then
 		LG.setCanvas(Canvas.buffer)
 		LG.clear()
 		g.score=0

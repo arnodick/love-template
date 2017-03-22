@@ -18,7 +18,7 @@ local function control(a,gs)
 			end
 		end
 	end
-	if Timer-a.delta>=gs*3 then
+	if Game.timer-a.delta>=gs*3 then
 		a.delete=true
 	end
 end

@@ -13,7 +13,7 @@ end
 
 local function control(a,gs)
 	if a.sfx==false then
-		if Timer-a.delta>=20 then
+		if Game.timer-a.delta>=20 then
 			sfx.play(9)
 			a.sfx=true
 		end
