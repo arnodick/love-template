@@ -1,21 +1,4 @@
 local function make(tw,th,gw,gh,sp)
---makes game object thing
-
-	--game initialization stuff (just boring stuff you need to maek Video Game)
-	--love.math.setRandomSeed(1)
-	love.math.setRandomSeed(os.time())
-	DebugMode=false
-	DebugList={}
-
-	love.keyboard.setKeyRepeat(false)
-	Joysticks=love.joystick.getJoysticks()
-	SFX = sfx.load(false,true)
-
-	--enumerators and constants TODO maybe this can happen in libraries load?
-	Enums = enums.load("","actors","levels")
-	debugger.printtable(Enums)
-	constants.init(Enums)
-
 	local g={}--Game object
 	g.tile={}
 	g.tile.width=tw

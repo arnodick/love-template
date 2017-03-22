@@ -37,10 +37,23 @@ local function load(dir,...)
 			end
 		end
 	end
+	--debugger.printtable(e)
+	enums.constants(e)
 	return e
+end
+
+local function constants(e) --NOTE this function has side effects! makes global variables
+	if e.actors then
+		EA=e.actors
+	end
+	if e.colours then
+		EC=e.colours
+	end
+	LG=love.graphics
 end
 
 return
 {
 	load = load,
+	constants = constants,
 }

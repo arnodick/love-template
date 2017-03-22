@@ -347,5 +347,5 @@ return
 	damage = damage,
 	impulse = impulse,
 	corpse = corpse,
-	calltype = calltype,
+	--calltype = calltype,
 }

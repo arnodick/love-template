@@ -1,5 +1,16 @@
+--loads all the .lua libraries
 libraries = require("libraries")
 libraries.load("")
+--enumerators and constants
+Enums = enums.load("","actors","levels")
+--game initialization stuff (just boring stuff you need to maek Video Game)
+--love.math.setRandomSeed(1)
+love.math.setRandomSeed(os.time())
+DebugMode=false
+DebugList={}
+love.keyboard.setKeyRepeat(false)
+Joysticks=love.joystick.getJoysticks()
+SFX = sfx.load(false,true)
 
 function love.load()
 	Game = game.make(8,8,320,240,1)--TODO this is where load from ini or whatever will happen. or rather, laod from type! g.t=Enums.games.PROTOSNAKE
