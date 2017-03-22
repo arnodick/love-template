@@ -10,7 +10,7 @@ local function make(x,y,w,h,text,c1,c2,bc1,bc2)
 	m.c2=c2
 	m.bc1=bc1
 	m.bc2=bc2
-	--table.insert(Menus,m)
+	--table.insert(Game.menus,m)
 	return m
 end
 

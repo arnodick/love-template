@@ -3,7 +3,7 @@ local function update()
 	table.insert(debuglist,Game.timer)
 	table.insert(debuglist,Game.speed)
 	table.insert(debuglist,"FPS:"..love.timer.getFPS())
-	table.insert(debuglist,"Actors:"..#Actors)
+	table.insert(debuglist,"Actors:"..#Game.actors)
 	table.insert(debuglist,"Level:"..Game.level)
 	table.insert(debuglist,"player x:"..Player.x)
 	table.insert(debuglist,"player y:"..Player.y)
@@ -17,12 +17,12 @@ local function update()
 	if Player.inv[1] then
 	table.insert(debuglist,"player item angle:"..Player.inv[1].angle)
 	end
-	--table.insert(debuglist,"camx:"..Camera.x)
-	--table.insert(debuglist,"camy:"..Camera.y)
+	--table.insert(debuglist,"camx:"..Game.camera.x)
+	--table.insert(debuglist,"camy:"..Game.camera.y)
 	table.insert(debuglist,"pause: "..tostring(Game.pause))
-	for i,v in pairs(Counters) do
-		--table.insert(debuglist,i.." count: "..#Counters[i])
-		table.insert(debuglist,i.." count: "..Counters[i])
+	for i,v in pairs(Game.counters) do
+		--table.insert(debuglist,i.." count: "..#Game.counters[i])
+		table.insert(debuglist,i.." count: "..Game.counters[i])
 	end
 --[[
 	if #Joysticks>0 then

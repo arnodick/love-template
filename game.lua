@@ -16,14 +16,7 @@ local function make(tw,th,gw,gh,sp)
 	debugger.printtable(Enums)
 	constants.init(Enums)
 
-	local g={}
-
-	--global variables
-	game.init(g,Enums.states.intro)--need to use init here so there is g.state variable to go into changestate below
-
-	game.graphics(tw,th,gw,gh)
-
-	--Game object
+	local g={}--Game object
 	g.tile={}
 	g.tile.width=tw
 	g.tile.height=th
@@ -31,11 +24,12 @@ local function make(tw,th,gw,gh,sp)
 	g.height=gh
 	g.speed=sp
 	g.pause=false
-	game.changestate(g,g.state)
-	Counters=counters.init()
-	--debugger.printtable(Counters)
+
+	game.graphics(tw,th,gw,gh)
 	g.levels=level.load("levels/inis")
-	--debugger.printtable(Game.levels)
+	--debugger.printtable(g.levels)
+
+	game.changestate(g,Enums.states.intro)
 	return g
 end
 
@@ -44,20 +38,20 @@ local function control(g)
 		sfx.update(SFX,g.speed)
 
 		if not g.pause then
-			for i,v in ipairs(Actors) do
+			for i,v in ipairs(g.actors) do
 				actor.control(v,g.speed)
 			end
 		end
 
-		camera.control(Camera,Player,g.speed)
+		camera.control(g.camera,Player,g.speed)
 		
-		for i,v in ipairs(Actors) do
+		for i,v in ipairs(g.actors) do
 			if v.delete==true then
 				if v.inv then
 					v.inv[1].delete=true
 				end
-				counters.update(Counters,v,-1)
-				table.remove(Actors,i)
+				counters.update(g.counters,v,-1)
+				table.remove(g.actors,i)
 			end
 		end
 
@@ -67,10 +61,10 @@ local function control(g)
 			DebugList = debugger.update()
 		end
 	end
-	for i,v in ipairs(Menus) do
+	for i,v in ipairs(g.menus) do
 		menu.control(v)
 	end
-	for i,v in ipairs(Huds) do
+	for i,v in ipairs(g.huds) do
 		hud.control(v)
 	end
 	if not g.pause then
@@ -83,14 +77,14 @@ local function draw(g)
 		LG.clear() --cleans that messy ol canvas all up, makes it all fresh and new and good you know
 		if g.state==Enums.states.play then
 			map.draw(g.map)
-			for i,v in ipairs(Actors) do
+			for i,v in ipairs(g.actors) do
 				actor.draw(v)
 			end
 		end
-		for i,v in ipairs(Menus) do
+		for i,v in ipairs(g.menus) do
 			menu.draw(v)
 		end
-		for i,v in ipairs(Huds) do
+		for i,v in ipairs(g.huds) do
 			hud.draw(v)
 		end
 	LG.setCanvas() --sets drawing back to screen
@@ -98,25 +92,17 @@ local function draw(g)
 	screen.control(Screen)
 end
 
-local function init(g,s)
---TODO maybe load instead of init?
-	--returns the basic game global variables
-	--initialize actor, menu and hud tables
-	g.state=s
-	g.timer=0
-	Camera=camera.make(0,0)
-	Actors={}--TODO: maybe all these go into Game.? so: Game.actors Game.menus etc. also Game.camera
-	--Game.menus={} __--*U*--__ YOUR GOING DOWN GLOBAL
-	--              |||     |||
-	Menus={}
-	Huds={}
-end
-
 local function changestate(g,s)
 	local e=Enums
-	game.init(g,s)
-	hud.make(s)
-	Counters=counters.init()
+	--initializes game's state, timer, camera, actor, menu and hud tables
+	g.state=s
+	g.timer=0
+	g.camera=camera.make(0,0)
+	g.actors={}
+	g.menus={}
+	g.huds={}
+	table.insert(g.huds,hud.make(s))
+	g.counters=counters.init()
 
 	--TODO call specific state's code here? _G style ALSO state a function IN game, so game.state.change, game.state.
 	if g.state==e.states.title then

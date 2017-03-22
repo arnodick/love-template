@@ -24,7 +24,7 @@ local function control(a)
 		actor.damage(a,a.hp)
 	end
 	if Player.hp<=0 then
-		for i,v in ipairs(Actors) do
+		for i,v in ipairs(Game.actors) do
 			if flags.get(v.flags,Enums.flags.enemy) then
 				if v~=a then
 					a.target=v

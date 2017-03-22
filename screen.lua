@@ -21,7 +21,7 @@ local function control(s)
 
 		--LG.setShader(Shader)
 
-		LG.translate(-Camera.x+(love.math.random(Camera.shake/2))*s.scale,-Camera.y)
+		LG.translate(-Game.camera.x+(love.math.random(Game.camera.shake/2))*s.scale,-Game.camera.y)
 		LG.draw(Canvas.buffer,s.xoff,s.yoff,0,s.scale,s.scale)
 		LG.draw(tempcanvas,s.xoff,s.yoff,0,s.scale*1/s.pixelscale,s.scale*1/s.pixelscale) --just like draws everything to the screen or whatever
 		LG.origin()
@@ -42,7 +42,7 @@ local function control(s)
 	else
 		--LG.setShader(Shader)
 
-		LG.translate(-Camera.x+(love.math.random(Camera.shake/2))*s.scale,-Camera.y)
+		LG.translate(-Game.camera.x+(love.math.random(Game.camera.shake/2))*s.scale,-Game.camera.y)
 		LG.draw(Canvas.buffer,s.xoff,s.yoff,0,s.scale,s.scale)
 		LG.draw(Canvas.game,s.xoff,s.yoff,0,s.scale,s.scale) --just like draws everything to the screen or whatever
 		LG.origin()

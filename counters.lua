@@ -43,16 +43,16 @@ local function update(c,a,amount)
 
 
 	--TABLE COUNTER DECREMENT
-	for j,k in pairs(Counters[ EA[v.t] ]) do
+	for j,k in pairs(c[ EA[v.t] ]) do
 		if k==v then
-			table.remove(Counters[ EA[v.t] ],j)
+			table.remove(c[ EA[v.t] ],j)
 		end
 	end
 
 	if flags.get(v.flags,Enums.flags.enemy) then
-		for j,k in pairs(Counters.enemy) do
+		for j,k in pairs(c.enemy) do
 			if k==v then
-				table.remove(Counters.enemy,j)
+				table.remove(c.enemy,j)
 			end
 		end
 	end

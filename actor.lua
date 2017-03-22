@@ -1,5 +1,5 @@
 local function make(t,st,x,y,d,vel,...)
-	--if not (t==EA.effect and #Actors>3000) then --TODO figure out how to do this without checking the existence of each returned actor
+	--if not (t==EA.effect and #Game.actors>3000) then --TODO figure out how to do this without checking the existence of each returned actor
 	local a={}
 	a.t=t
 	a.st=st
@@ -15,8 +15,8 @@ local function make(t,st,x,y,d,vel,...)
 	if _G[EA[a.t]]["make"] then
 		_G[EA[a.t]]["make"](a,...)
 	end
-	counters.update(Counters,a,1)
-	table.insert(Actors,a)
+	counters.update(Game.counters,a,1)
+	table.insert(Game.actors,a)
 	return a
 	--end
 end
@@ -293,16 +293,16 @@ local function corpse(a,tw,th,hack)
 	if not hack then
 		local choice=math.choose(1,2)
 		if choice==1 then
-			local imgdata=Canvas.game:newImageData(ix,iy,tw,th)--TODO this crashes if it goes off canvas. clamp it
+			local imgdata=Canvas.game:newImageData(ix,iy,tw,th)
 			body.image=LG.newImage(imgdata)
 		else
-			local imgdata=Canvas.game:newImageData(ix,iy,tw/2,th)--TODO this crashes if it goes off canvas. clamp it
+			local imgdata=Canvas.game:newImageData(ix,iy,tw/2,th)
 			body.image=LG.newImage(imgdata)
 			body.d=dir
 
 			local body2=actor.make(EA.effect,EA.effects.debris,a.x,a.y)
 			body2.decel=0.1
-			local imgdata2=Canvas.game:newImageData(ix+tw/2,iy,tw/2,th)--TODO this crashes if it goes off canvas. clamp it
+			local imgdata2=Canvas.game:newImageData(ix+tw/2,iy,tw/2,th)
 			body2.image=LG.newImage(imgdata2)
 			body2.d=dir+math.randomfraction(0.5)-0.25
 		end
@@ -314,19 +314,19 @@ local function corpse(a,tw,th,hack)
 
 		local body2=actor.make(EA.effect,EA.effects.debris,a.x,a.y)
 		body2.decel=0.2
-		local imgdata2=Canvas.game:newImageData(ix+tw/2,iy+th/2,tw/2,th/2)--TODO this crashes if it goes off canvas. clamp it
+		local imgdata2=Canvas.game:newImageData(ix+tw/2,iy+th/2,tw/2,th/2)
 		body2.image=LG.newImage(imgdata2)
 		body2.d=math.randomfraction(math.pi*2)
 
 		local body3=actor.make(EA.effect,EA.effects.debris,a.x,a.y)
 		body3.decel=0.2
-		local imgdata3=Canvas.game:newImageData(ix+tw/2,iy,tw/2,th/2)--TODO this crashes if it goes off canvas. clamp it
+		local imgdata3=Canvas.game:newImageData(ix+tw/2,iy,tw/2,th/2)
 		body3.image=LG.newImage(imgdata3)
 		body3.d=math.randomfraction(math.pi*2)
 
 		local body4=actor.make(EA.effect,EA.effects.debris,a.x,a.y)
 		body4.decel=0.2
-		local imgdata4=Canvas.game:newImageData(ix,iy,tw/2,th/2)--TODO this crashes if it goes off canvas. clamp it
+		local imgdata4=Canvas.game:newImageData(ix,iy,tw/2,th/2)
 		body4.image=LG.newImage(imgdata4)
 		body4.d=math.randomfraction(math.pi*2)
 	end

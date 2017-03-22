@@ -4,7 +4,7 @@ end
 
 local function control(a)
 	local dam=1
-	for i,enemy in ipairs(Actors) do
+	for i,enemy in ipairs(Game.actors) do
 		if flags.get(enemy.flags,Enums.flags.shootable) then
 			if not enemy.delete then
 				if actor.collision(a.x,a.y,enemy) then

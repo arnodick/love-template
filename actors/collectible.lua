@@ -13,7 +13,7 @@ local function control(a,gs)
 			if Player[EA.collectibles[a.st]] then
 				Player[EA.collectibles[a.st]] = Player[EA.collectibles[a.st]] + a.value
 			end
-			for i,v in pairs(Actors) do
+			for i,v in pairs(Game.actors) do
 				if v.t==EA.collectible then
 					if v.st==EA.collectibles.coin then
 						v.scalex=4

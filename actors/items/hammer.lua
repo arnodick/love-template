@@ -16,7 +16,7 @@ local function control(a)
 			a.spr=a.sprinit
 		end
 	end
-	for i,v in pairs(Actors) do
+	for i,v in pairs(Game.actors) do
 		if v.t==EA.projectile then
 			if actor.collision(v.x,v.y,a) then
 			for i=1,20 do

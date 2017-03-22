@@ -6,7 +6,7 @@ function love.load()
 end
 
 function love.keypressed(key,scancode,isrepeat)
-	for i,v in ipairs(Huds) do
+	for i,v in ipairs(Game.huds) do
 		hud.keypressed(v,key)
 	end
 	if key == 'escape' then
@@ -22,13 +22,13 @@ function love.keypressed(key,scancode,isrepeat)
 end
 
 function love.gamepadpressed(joystick,button)
-	for i,v in ipairs(Huds) do
+	for i,v in ipairs(Game.huds) do
 		hud.gamepadpressed(v,button)
 	end
 end
 
 function love.update(dt)
-	game.control(Game)--TODO: input game into this. once Game is self-contained, can make different games and switch to them?
+	game.control(Game)
 end
 
 function love.draw(dt)

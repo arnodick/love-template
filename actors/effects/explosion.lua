@@ -5,7 +5,7 @@ local function make(a,c,size)
 	a.size=size or 20
 	a.r=0
 	a.flags=flags.set(a.flags, Enums.flags.gravity,Enums.flags.ground_delta)
-	Camera.shake=a.size
+	Game.camera.shake=a.size
 end
 
 local function control(a,gs)

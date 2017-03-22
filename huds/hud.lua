@@ -1,10 +1,10 @@
 local function make(t)
-	local m={}
+	local m={}--TODO change this to another letter
 	m.t=t
 	if _G[Enums.statenames[m.t]]["make"] then
 		_G[Enums.statenames[m.t]]["make"](m)
 	end
-	table.insert(Huds,m)
+	return m
 end
 
 local function control(m)

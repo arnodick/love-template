@@ -60,7 +60,7 @@ end
 local function damage(a)
 	Screen.pixeltrans=true
 	Screen.pixelscale=0.1
-	Camera.shake=20
+	Game.camera.shake=20
 end
 
 local function dead(a)

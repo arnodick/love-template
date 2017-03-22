@@ -37,9 +37,9 @@ end
 local function draw(h)
 	LG.setColor(Palette[h.c])
 	
-	LG.print("score:"..Game.score,Camera.x+h.score.x,Camera.y+h.score.y)
-	LG.print("coins:"..Player.coin,Camera.x+h.coins.x,Camera.y+h.coins.y)
-	LG.print("hp:"..Player.hp,Camera.x+h.hp.x,Camera.y+h.hp.y)
+	LG.print("score:"..Game.score,Game.camera.x+h.score.x,Game.camera.y+h.score.y)
+	LG.print("coins:"..Player.coin,Game.camera.x+h.coins.x,Game.camera.y+h.coins.y)
+	LG.print("hp:"..Player.hp,Game.camera.x+h.hp.x,Game.camera.y+h.hp.y)
 	for i=1,Player.inv.max do
 		local x,y=Game.width/2+40-i*20,20
 		LG.rectangle("line",x,y,15,15)
@@ -50,13 +50,13 @@ local function draw(h)
 	end
 
 	if Game.pause then
-		LG.printborder("PAUSE",Camera.x+140,Camera.y+Game.height/2,EC.white,h.c)
+		LG.printborder("PAUSE",Game.camera.x+140,Game.camera.y+Game.height/2,EC.white,h.c)
 	end
 
 	if Player.hp <= 0 then
-		LG.printborder("YOU DIED",Camera.x+140,Camera.y+20,EC.white,h.c)
-		LG.print("PRESS SPACE",Camera.x+135,Camera.y+50)
-		scores.draw(Camera.x+150,Camera.y+70,h.c,h.c2)
+		LG.printborder("YOU DIED",Game.camera.x+140,Game.camera.y+20,EC.white,h.c)
+		LG.print("PRESS SPACE",Game.camera.x+135,Game.camera.y+50)
+		scores.draw(Game.camera.x+150,Game.camera.y+70,h.c,h.c2)
 	end
 
 	LG.setColor(Palette[EC.pure_white])
