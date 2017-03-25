@@ -27,7 +27,7 @@ local function draw(a)
 		table.insert(points,a.y+math.sin(a.pointdirs[i]+a.angle)*a.r/2.5)
 	end
 	LG.polygon("fill",points)
-	if DebugMode then
+	if Debugger.debugging then
 		LG.setColor(Palette[EC.green])
 		LG.points(a.x,a.y)
 		LG.setColor(Palette[EC.red])

@@ -24,7 +24,7 @@ end
 
 local function draw(a)
 	LG.circle("fill",a.x,a.y,a.r,16)
-	if DebugMode then
+	if Debugger.debugging then
 		LG.setColor(Palette[11])
 		LG.circle("line",a.x,a.y,a.r)
 	end

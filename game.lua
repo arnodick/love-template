@@ -8,7 +8,7 @@ local function make(tw,th,gw,gh,sp)
 	g.speed=sp
 	g.pause=false
 
-	game.graphics(tw,th,gw,gh)
+	game.graphics(g,tw,th,gw,gh)
 	g.levels=level.load("levels/inis")
 	--debugger.printtable(g.levels)
 
@@ -39,10 +39,6 @@ local function control(g)
 		end
 
 		level.control(g.levels.current)
-
-		if DebugMode then
-			DebugList = debugger.update()
-		end
 	end
 	for i,v in ipairs(g.menus) do
 		menu.control(v)
@@ -50,7 +46,7 @@ local function control(g)
 	for i,v in ipairs(g.huds) do
 		hud.control(v)
 	end
-	if not g.pause then
+	if not g.pause then --TODO figure out why pause is necessary
 		g.timer = g.timer + g.speed
 	end
 end
@@ -105,7 +101,7 @@ local function changestate(g,s)
 	end
 end
 
-local function graphics(tw,th,gw,gh)
+local function graphics(g,tw,th,gw,gh)
 	--just to declutter load function
 	--graphics settings and asset inits
 	LG.setDefaultFilter("nearest","nearest",1) --clean SPRITE scaling
@@ -144,7 +140,6 @@ local function graphics(tw,th,gw,gh)
 	Canvas = {}
 	Canvas.game = LG.newCanvas(gw,gh) --sets width and height of fictional retro video game (320x240)
 	Canvas.buffer = LG.newCanvas(gw,gh)
-	Canvas.debug = LG.newCanvas(Screen.width,Screen.height) --sets width and height of debug overlay (size of window)
 end
 
 return

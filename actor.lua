@@ -178,7 +178,7 @@ local function draw(a)
 		tail.draw(a.tail)
 	end
 
-	if DebugMode then
+	if Debugger.debugging then
 		LG.setColor(Palette[EC.blue])
 		if a.hitradius then
 			LG.circle("line",a.x,a.y,a.hitradius.r)

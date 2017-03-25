@@ -6,8 +6,7 @@ Enums = enums.load("","actors","levels")
 --game initialization stuff (just boring stuff you need to maek Video Game)
 --love.math.setRandomSeed(1)
 love.math.setRandomSeed(os.time())
-DebugMode=false
-DebugList={}
+Debugger=debugger.make()
 love.keyboard.setKeyRepeat(false)
 Joysticks=love.joystick.getJoysticks()
 SFX = sfx.load(false,true)
@@ -24,11 +23,11 @@ function love.keypressed(key,scancode,isrepeat)
 		--TODO going to have to put escape in hud specific code like hud etc to make pause hud pop up and go away
 		love.event.quit()
 	elseif key == '`' then
-		DebugMode = not DebugMode
+		Debugger.debugging = not Debugger.debugging
 	elseif key == 'f' then
 		love.window.setFullscreen(not love.window.getFullscreen())
 		Screen = screen.update(Game.width,Game.height)
-		Canvas.debug = LG.newCanvas(Screen.width,Screen.height) --sets width and height of debug overlay (size of window)
+		Debugger.canvas = LG.newCanvas(Screen.width,Screen.height) --sets width and height of debug overlay (size of window)
 	end
 end
 
@@ -40,10 +39,12 @@ end
 
 function love.update(dt)
 	game.control(Game)
+
+	debugger.update(Debugger)
 end
 
 function love.draw(dt)
 	game.draw(Game)
 
-	debugger.draw(DebugList)
+	debugger.draw(Debugger)
 end
