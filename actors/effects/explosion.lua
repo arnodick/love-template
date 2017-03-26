@@ -4,7 +4,7 @@ local function make(a,c,size)
 	a.c=a.cinit
 	a.size=size or 20
 	a.r=0
-	a.flags=flags.set(a.flags, Enums.flags.gravity,Enums.flags.ground_delta)
+	a.flags=flags.set(a.flags, EF.gravity,EF.ground_delta)
 	Game.camera.shake=a.size
 end
 

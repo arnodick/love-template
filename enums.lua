@@ -49,6 +49,9 @@ local function constants(e) --NOTE this function has side effects! makes global 
 	if e.colours then
 		EC=e.colours
 	end
+	if e.flags then
+		EF=e.flags
+	end
 	LG=love.graphics
 end
 

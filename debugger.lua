@@ -2,6 +2,7 @@ local function make()
 	local d={}
 	d.debugging=false
 	d.debuglist={}
+	d.font = LG.newFont("fonts/lucon.ttf",20)
 	d.canvas=LG.newCanvas(LG.getDimensions()) --sets width and height of debug overlay (size of window)
 	return d
 end
@@ -51,14 +52,14 @@ local function draw(d)
 		LG.setCanvas(d.canvas) --sets drawing to the 1280 x 960 debug canvas
 		LG.clear() --cleans that messy ol canvas all up, makes it all fresh and new and good you know
 
-		LG.setFont(FontDebug)
+		LG.setFont(d.font)
 		LG.setColor(Palette[11])
 		LG.print("DEBUG",130,0)
 		for i,v in ipairs(d.debuglist) do
-			LG.print(v,10,10+FontDebug:getHeight()*i)
+			LG.print(v,10,10+d.font:getHeight()*i)
 		end
 		LG.setColor(Palette[16]) --sets draw colour back to normal
-		LG.setFont(Font)
+		LG.setFont(Game.font)
 
 		LG.setCanvas() --sets drawing back to screen
 		LG.origin()

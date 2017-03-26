@@ -31,13 +31,13 @@ local function update(c,a,amount)
 	c[EA[a.t]]=c[EA[a.t]]+amount
 	local typename=EA[a.t].."s"
 	c[EA[typename][a.st]]=c[EA[typename][a.st]]+amount
-	if flags.get(a.flags,Enums.flags.enemy) then
+	if flags.get(a.flags,EF.enemy) then
 		c.enemy=c.enemy+amount
 	end
 --[[
 	--TABLE COUNTER INCREMENT
 	table.insert(c[ EA[a.t] ],a)
-	if flags.get(a.flags,Enums.flags.enemy) then
+	if flags.get(a.flags,EF.enemy) then
 		table.insert(c.enemy,a)
 	end
 
@@ -49,7 +49,7 @@ local function update(c,a,amount)
 		end
 	end
 
-	if flags.get(v.flags,Enums.flags.enemy) then
+	if flags.get(v.flags,EF.enemy) then
 		for j,k in pairs(c.enemy) do
 			if k==v then
 				table.remove(c.enemy,j)

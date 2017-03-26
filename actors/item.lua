@@ -13,7 +13,7 @@ local function make(a,gc,bc,shopitem,...)
 	a.getsfx=10
 	a.delta=0--NOTE need this bc actor.make sets delta to Game.timer, so any actor not spawning at Game.timer==0 can't shoot
 	if shopitem then
-		a.flags=flags.set(a.flags,Enums.flags.shopitem)
+		a.flags=flags.set(a.flags,EF.shopitem)
 	end
 	if _G[EA.items[a.st]]["make"] then
 		_G[EA.items[a.st]]["make"](a)
@@ -27,7 +27,7 @@ local function control(a,gs)
 			if a.getsfx then
 				sfx.play(a.getsfx)
 			end
-			a.flags=flags.set(a.flags,Enums.flags.persistent)
+			a.flags=flags.set(a.flags,EF.persistent)
 			table.insert(Player.inv,1,a)
 		end
 	end

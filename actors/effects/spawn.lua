@@ -5,7 +5,7 @@ local function make(a,c)
 	a.d=0
 	a.vel=0
 	a.size=60
-	a.flags=flags.set(a.flags,Enums.flags.enemy)--NOTE this is to make sure a bazillion spawns don't... spawn
+	a.flags=flags.set(a.flags,EF.enemy)--NOTE this is to make sure a bazillion spawns don't... spawn
 	a.sfx=false
 	local l=Game.levels.current
 	a.enemyspawn=(Game.score-1)%(#l.enemies)+1

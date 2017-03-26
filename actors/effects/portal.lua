@@ -5,7 +5,7 @@ local function make(a,c,size)
 	a.size=a.sizeinit
 	a.anglespeed=0.01
 	a.level=Game.levels[Game.level+1]
-	a.flags=flags.set(a.flags,Enums.flags.persistent)
+	a.flags=flags.set(a.flags,EF.persistent)
 end
 
 local function control(a,gs)
@@ -36,13 +36,13 @@ local function control(a,gs)
 	local dist=vector.distance(a.x,a.y,Player.x,Player.y)
 	if dist<20 then
 		for i,v in pairs(Game.actors) do
-			if flags.get(v.flags,Enums.flags.enemy) then
+			if flags.get(v.flags,EF.enemy) then
 				v.value=0
 				actor.damage(v,v.hp)
 			--elseif v.t==EA.collectible then
 			--	v.x=Player.x
 			--	v.y=Player.y
-			elseif not flags.get(v.flags,Enums.flags.persistent) then
+			elseif not flags.get(v.flags,EF.persistent) then
 				v.delete=true
 			end
 		end

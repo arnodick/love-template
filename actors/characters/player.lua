@@ -25,10 +25,12 @@ local function make(a,c,size,spr,hp,ct)
 	--actor.make(EA.item,EA.items.hammer,a.x,a.y,0,0,EC.dark_purple,a.cinit)
 	a.coin=0
 	animation.make(a,10,2)
+	--animation.make(a,2,32) --SWEET GLITCH ANIMATION
 	a.flags=flags.set(a.flags,e.flags.persistent)
 end
 
 local function control(a)
+	--a.cinit=math.floor((Game.timer/2)%16)+1 --SWEET COLOUR CYCLE
 	if Game.pause then
 		Game.speed=0
 	else

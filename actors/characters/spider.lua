@@ -3,8 +3,8 @@ local function make(a,c,size,spr,hp,ct)
 	local ec=Enums.controllers
 	a.cinit=c or EC.red
 	a.c=a.cinit
-	a.size=size or 1
-	a.spr=spr or 49
+	a.size=size or 2
+	a.spr=spr or 8
 	a.hp=hp or 32
 	controller.make(a,ec.target_charge)
 	a.hit=0
@@ -14,7 +14,8 @@ local function make(a,c,size,spr,hp,ct)
 	a.target=Player
 	a.value=1
 	a.speed=1.5
-	animation.make(a,10,2)
+	animation.make(a,6,2)
+	hitradius.make(a,8)
 	a.flags=flags.set(a.flags,e.flags.enemy)
 end
 
@@ -25,7 +26,7 @@ local function control(a)
 	end
 	if Player.hp<=0 then
 		for i,v in ipairs(Game.actors) do
-			if flags.get(v.flags,Enums.flags.enemy) then
+			if flags.get(v.flags,EF.enemy) then
 				if v~=a then
 					a.target=v
 				end

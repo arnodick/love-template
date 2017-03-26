@@ -110,12 +110,11 @@ local function graphics(g,tw,th,gw,gh)
 	LG.setBlendMode("alpha")
 	love.mouse.setVisible(false)
 
-	--Font = LG.newFont("fonts/pico8.ttf",8)
-	Font = LG.newFont("fonts/Kongtext Regular.ttf",8)
-	FontDebug = LG.newFont("fonts/lucon.ttf",20)
-	Font:setFilter("nearest","nearest",0) --clean TEXT scaling
-	Font:setLineHeight(1.8)
-	LG.setFont(Font)
+	--g.font = LG.newFont("fonts/pico8.ttf",8)
+	g.font = LG.newFont("fonts/Kongtext Regular.ttf",8)
+	g.font:setFilter("nearest","nearest",0) --clean TEXT scaling
+	g.font:setLineHeight(1.8)
+	LG.setFont(g.font)
 
 	Palettes = palette.load(unpack(love.filesystem.getfiles("palettes","ini")))
 	Palette={}

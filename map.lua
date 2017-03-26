@@ -4,7 +4,7 @@ local function generate(w,h)
 		table.insert(m,{})
 		for x=1,w do
 			if x==1 or x==w or y==1 or y==h then
-				local f=Enums.flags.solid
+				local f=EF.solid
 				f=bit.lshift(f,16)
 				table.insert(m[y],f)
 			else

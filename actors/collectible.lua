@@ -5,7 +5,7 @@ local function make(a,...)
 end
 
 local function control(a,gs)
-	if not flags.get(a.flags,Enums.flags.shopitem) then
+	if not flags.get(a.flags,EF.shopitem) then
 		if not a.spr then
 			a.spr=a.sprinit
 		end

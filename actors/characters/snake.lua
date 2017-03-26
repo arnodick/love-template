@@ -28,7 +28,7 @@ local function control(a)
 	a.c=a.cinit+a.rage
 	if Player.hp<=0 then
 		for i,v in ipairs(Game.actors) do
-			if flags.get(v.flags,Enums.flags.enemy) then
+			if flags.get(v.flags,EF.enemy) then
 				if v~=a then
 					a.target=v
 				end

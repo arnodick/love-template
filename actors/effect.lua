@@ -1,5 +1,5 @@
 local function make(a,...)
-	a.flags=flags.set(a.flags,Enums.flags.persistent)
+	a.flags=flags.set(a.flags,EF.persistent)
 	if _G[EA.effects[a.st]]["make"] then
 		_G[EA.effects[a.st]]["make"](a,...)
 	end

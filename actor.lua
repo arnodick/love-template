@@ -16,6 +16,9 @@ local function make(t,st,x,y,d,vel,...)
 		_G[EA[a.t]]["make"](a,...)
 	end
 	counters.update(Game.counters,a,1)
+	if flags.get(a.flags,EF.queue) then
+		--Game.actors[ EA[a.t].."s" ][ EA[a.t].."s" ]={}
+	end
 	table.insert(Game.actors,a)
 	return a
 	--end
@@ -74,12 +77,12 @@ local function control(a,gs)
 	local xmapcell=Game.map[ycell][xcelldest]
 	local ymapcell=Game.map[ycelldest][xcell]
 	local collx,colly=false,false
-	if not flags.get(xmapcell,Enums.flags.solid,16) then
+	if not flags.get(xmapcell,EF.solid,16) then
 		a.x = xdest
 	else
 		collx=true
 	end
-	if not flags.get(ymapcell,Enums.flags.solid,16) then
+	if not flags.get(ymapcell,EF.solid,16) then
 		a.y = ydest
 	else
 		colly=true
@@ -89,7 +92,7 @@ local function control(a,gs)
 		if _G[EA[a.t]]["collision"] then
 			_G[EA[a.t]]["collision"](a)
 		end
-		if flags.get(a.flags,Enums.flags.bouncy) then
+		if flags.get(a.flags,EF.bouncy) then
 			if collx then
 				a.vec[1]=-a.vec[1]
 				a.d=vector.direction(a.vec[1],a.vec[2])
@@ -120,12 +123,12 @@ local function control(a,gs)
 		end
 	end
 
-	if flags.get(a.flags,Enums.flags.shopitem) then
+	if flags.get(a.flags,EF.shopitem) then
 		if vector.distance(a.x,a.y,Player.x,Player.y)<30 then
 			sprites.blink(a,24)
 			if Player.controller.powerup then
 				if Player.coin>=a.cost then
-					a.flags=flags.set(a.flags,Enums.flags.shopitem)
+					a.flags=flags.set(a.flags,EF.shopitem)
 					actor.corpse(a.menu,a.menu.w+1,a.menu.h+1,true)
 					actor.make(EA.effect,EA.effects.explosion,a.x,a.y,0,0,EC.white,40)
 					a.menu=nil
@@ -153,7 +156,7 @@ local function control(a,gs)
 	or a.x>330
 	or a.y>250
 	or a.y<-10 then
-		if not flags.get(a.flags,Enums.flags.persistent) then
+		if not flags.get(a.flags,EF.persistent) then
 			a.delete=true
 	 	end
 	end
@@ -195,7 +198,7 @@ local function damage(a,d)
 	if not a.delete then
 		sfx.play(a.hitsfx,a.x,a.y)
 
-		if flags.get(a.flags,Enums.flags.damageable) then
+		if flags.get(a.flags,EF.damageable) then
 			a.hp = a.hp - d
 			if _G[EA[a.t]]["damage"] then
 				_G[EA[a.t]]["damage"](a)
@@ -220,7 +223,7 @@ local function damage(a,d)
 					end
 				end
 
-				if flags.get(a.flags,Enums.flags.explosive) then
+				if flags.get(a.flags,EF.explosive) then
 					actor.make(EA.effect,EA.effects.explosion,a.x,a.y,0,0,EC.white,20*(a.size))
 				end
 
@@ -249,7 +252,7 @@ local function impulse(a,dir,vel,glitch)
 	return vector.direction(outx,outy), outvel
 end
 
-local function collision(x,y,enemy)
+local function collision(x,y,enemy)--TODO something other than enemy here?
 	local dist=vector.distance(enemy.x,enemy.y,x,y)
 	if enemy.hitradius then
 		if dist<enemy.hitradius.r then
