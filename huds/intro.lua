@@ -34,15 +34,16 @@ local function draw(i)
 	local mid=iw/2
 	
 	for x = iw-1,0,-1 do
-		local xoff=math.floor(x-mid)
+		local xoff=x-mid
 	    for y = ih-1,0,-1  do
-			local ynorm=y/ih
+			local ynorm=(y-1)/ih
 			local xoffsquish=xoff*ynorm
-			local xsquish=math.clamp(xoffsquish+mid,0,iw)
+			local xsquish=math.clamp(mid+xoffsquish,0,iw)
 			local r,g,b,a = imgdata:getPixel(x,y)
 			--imgdata:setPixel(math.min(x+10,imgdata:getWidth()-1),y,r,g,b,a)
 			--imgdata:setPixel(math.min(xsquish,iw-1),y,r,g,b,a)
 			--imgdata:setPixel(xsquish,imgdata:getWidth()-1,y,r,g,b,a)
+			--imgdata:setPixel(xsquish,y,r,g,b,a)
 			imgdata:setPixel(xsquish,y,r,g,b,a)
 	    end
 	end
