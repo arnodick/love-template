@@ -10,7 +10,8 @@ local function make(x,y,w,h,text,c1,c2,bc1,bc2)
 	m.c2=c2
 	m.bc1=bc1
 	m.bc2=bc2
-	m.font=LG.newFont("fonts/pico8.ttf",8)--TODO make fonts an array in game, then menu can select from them
+	--m.font=LG.newFont("fonts/pico8.ttf",8)--TODO make fonts an array in game, then menu can select from them
+	m.font=LG.newFont("fonts/Kongtext Regular.ttf",8)--TODO make fonts an array in game, then menu can select from them
 	--table.insert(Game.menus,m)
 	return m
 end

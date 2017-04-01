@@ -25,6 +25,9 @@ local function keypressed(i,key)
 		--else
 			--Screen.pixeltrans=true
 		end
+	elseif key=='escape' then
+		--TODO going to have to put escape in hud specific code like hud etc to make pause hud pop up and go away
+		game.changestate(Game,Enums.states.title)
 	end
 end
 

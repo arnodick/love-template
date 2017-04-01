@@ -19,10 +19,13 @@ function love.keypressed(key,scancode,isrepeat)
 	for i,v in ipairs(Game.huds) do
 		hud.keypressed(v,key)
 	end
+--[[
 	if key == 'escape' then
 		--TODO going to have to put escape in hud specific code like hud etc to make pause hud pop up and go away
 		love.event.quit()
-	elseif key == '`' then
+	else
+--]]
+	if key == '`' then
 		Debugger.debugging = not Debugger.debugging
 	elseif key == 'f' then
 		love.window.setFullscreen(not love.window.getFullscreen())

@@ -46,7 +46,11 @@ local function control(a,gs)
 				v.delete=true
 			end
 		end
-		Game.levels.current=level.make(a.level)
+		Game.levels.current=level.make(a.level)--TODO make level.change function
+		Game.ease=true--TODO make easing function for this. works on any number
+		local maxdist=vector.distance(0,0,Game.width,Game.height)
+		Game.speed=0.01
+
 		a.delete=true --TODO maybe give this a VERY low chance of not happening?
 	end
 end

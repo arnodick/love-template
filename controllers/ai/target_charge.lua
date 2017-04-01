@@ -16,6 +16,7 @@ local function control(a)
 		a.movetarget={}
 		a.movetarget.x=math.clamp(a.x+math.cos(dir)*dist,0,Game.width)
 		a.movetarget.y=math.clamp(a.y+math.sin(dir)*dist,0,Game.height)
+		sfx.play(12)
 	end
 	a.d=vector.direction(c.movehorizontal,-c.movevertical)
 	a.vel=vector.length(c.movehorizontal,c.movevertical)*a.speed--TODO put speed in main actor stuff

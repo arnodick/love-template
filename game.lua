@@ -76,6 +76,7 @@ local function changestate(g,s)
 	--initializes game's state, timer, camera, actor, menu and hud tables
 	g.state=s
 	g.timer=0
+	g.speed=1
 	g.camera=camera.make(0,0)
 	g.actors={}
 	g.menus={}
@@ -111,7 +112,7 @@ local function graphics(g,tw,th,gw,gh)
 	love.mouse.setVisible(false)
 
 	--g.font = LG.newFont("fonts/pico8.ttf",8)
-	g.font = LG.newFont("fonts/Kongtext Regular.ttf",8)
+	g.font=LG.newFont("fonts/Kongtext Regular.ttf",8)
 	g.font:setFilter("nearest","nearest",0) --clean TEXT scaling
 	g.font:setLineHeight(1.8)
 	LG.setFont(g.font)

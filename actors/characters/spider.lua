@@ -5,7 +5,7 @@ local function make(a,c,size,spr,hp,ct)
 	a.c=a.cinit
 	a.size=size or 2
 	a.spr=spr or 8
-	a.hp=hp or 32
+	a.hp=hp or 50
 	controller.make(a,ec.target_charge)
 	a.hit=0
 	a.hitsfx=3

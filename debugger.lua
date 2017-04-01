@@ -14,7 +14,10 @@ local function update(d)
 		table.insert(debuglist,Game.speed)
 		table.insert(debuglist,"FPS:"..love.timer.getFPS())
 		table.insert(debuglist,"Actors:"..#Game.actors)
+		if Game.level then
 		table.insert(debuglist,"Level:"..Game.level)
+		end
+		if Player then
 		table.insert(debuglist,"player x:"..Player.x)
 		table.insert(debuglist,"player y:"..Player.y)
 		local xc,yc=map.getcell(Game.map,Player.x,Player.y)
@@ -26,6 +29,7 @@ local function update(d)
 		table.insert(debuglist,"player vel:"..Player.vel)
 		if Player.inv[1] then
 		table.insert(debuglist,"player item angle:"..Player.inv[1].angle)
+		end
 		end
 		--table.insert(debuglist,"camx:"..Game.camera.x)
 		--table.insert(debuglist,"camy:"..Game.camera.y)
