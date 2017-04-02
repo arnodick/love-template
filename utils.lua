@@ -17,6 +17,28 @@ local function choose(...)
 	return arg[love.math.random(#arg)]
 end
 
+local function ease(value,rate,targetvalue)
+	--value = value + (targetvalue - value)*rate
+---[[
+	if value>=targetvalue then
+		if value<=rate then
+			value = targetvalue
+			rate = 0
+		else
+			value = value - rate
+		end
+	elseif value<targetvalue then
+		if value>=-rate then
+			value = targetvalue
+			rate = 0
+		else
+			value = value + rate
+		end
+	end
+--]]
+	return value,rate
+end
+
 --loads a bunch of files that share an extension from a specific directory
 --returns a table with all the directory/filenames of those files
 --NOTE: unpack() the output to use it as an argument in another function
@@ -82,6 +104,7 @@ end
 
 math.clamp = clamp
 math.choose = choose
+math.ease = ease
 math.randomfraction = randomfraction
 math.snap = snap
 love.filesystem.getfiles = getfiles

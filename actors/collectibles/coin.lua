@@ -10,7 +10,7 @@ local function make(a,c,size,spr)
 	a.decelinit=0.05
 	a.decel=a.decelinit
 	a.anglespeed=(a.vec[1]+math.choose(0,0,3,4))*(a.vel/60)
-	a.anglespeeddecel=0.05
+	a.anglespeeddecel=0.01
 	a.scalex=1
 	a.scaley=1
 	a.deltimer=0

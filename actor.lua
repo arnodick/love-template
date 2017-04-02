@@ -34,22 +34,8 @@ local function control(a,gs)
 	end
 
 	if a.anglespeed then
-		if a.anglespeeddecel then --TODO make this into a function
-			if a.anglespeed>0 then
-				if a.anglespeed<a.anglespeeddecel then
-					a.anglespeed = 0
-					a.anglespeeddecel = 0
-				else
-					a.anglespeed = a.anglespeed - a.anglespeeddecel
-				end
-			elseif a.anglespeed<0 then
-				if a.anglespeed>-a.anglespeeddecel then
-					a.anglespeed = 0
-					a.anglespeeddecel = 0
-				else
-					a.anglespeed = a.anglespeed + a.anglespeeddecel
-				end
-			end
+		if a.anglespeeddecel then
+			a.anglespeed,a.anglespeeddecel=math.ease(a.anglespeed,a.anglespeeddecel,0)
 		end
 		a.angle = a.angle + a.anglespeed*a.vec[1]*math.pi*2*gs
 	end
@@ -105,6 +91,8 @@ local function control(a,gs)
 	end
 
 	if a.decel then
+		--a.vel,a.decel=math.ease(a.vel,a.decel*(Game.timer-a.delta)/4,0)
+---[[
 		if a.vel>0 then
 			--TODO make decelinit and set decel to it here, so forever moving coins doesn't happen
 			if a.vel<=a.decel*(Game.timer-a.delta)/4 then
@@ -121,6 +109,7 @@ local function control(a,gs)
 				a.vel = a.vel + a.decel*gs*(Game.timer-a.delta)/4
 			end
 		end
+--]]
 	end
 
 	if flags.get(a.flags,EF.shopitem) then
