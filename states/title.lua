@@ -1,33 +1,33 @@
-local function make(t)
-	t.canvas=LG.newCanvas(640,480)
+local function make(s)
+	s.canvas=LG.newCanvas(640,480)
 	--i.imgdata=love.image.newImageData(i.canvas:getWidth()-1,i.canvas:getHeight()-1)
-	t.font=LG.newFont("fonts/Kongtext Regular.ttf",64)
+	s.font=LG.newFont("fonts/Kongtext Regular.ttf",64)
 end
 
 
-local function control(g,t)
+local function control(g,s)
 	if Game.timer>=330 then
-		game.changestate(Game,Enums.states.intro)
+		game.changestate(g,Enums.states.intro)
 	end
 end
 
-local function keypressed(t,key)
+local function keypressed(g,s,key)
 	if key=="space" then
-		game.changestate(Game,Enums.states.play)
+		game.changestate(g,Enums.states.play)
 	elseif key=='escape' then
-		game.changestate(Game,Enums.states.intro)
+		game.changestate(g,Enums.states.intro)
 	end
 end
 
-local function gamepadpressed(i,button)
+local function gamepadpressed(g,s,button)
 	if button=="start" then
-		game.changestate(Game,Enums.states.play)
+		game.changestate(g,Enums.states.play)
 	end
 end
 
-local function draw(g,t)
-	LG.setCanvas(t.canvas)
-		LG.setFont(t.font)
+local function draw(g,s)
+	LG.setCanvas(s.canvas)
+		LG.setFont(s.font)
 		LG.setColor(Palette[EC.dark_purple])
 		LG.printf("PROTO\nSNAKE",0,20,Game.width,"center")
 		LG.setFont(Game.font)
@@ -36,11 +36,11 @@ local function draw(g,t)
 	LG.setCanvas()
 	--scores.draw(Game.width/2,Game.height/2,EC.white,EC.yellow)
 
-	local imgdata=t.canvas:newImageData(0,0,t.canvas:getWidth()-1,t.canvas:getHeight()-1)
+	local imgdata=s.canvas:newImageData(0,0,s.canvas:getWidth()-1,s.canvas:getHeight()-1)
 	imgdata:mapPixel(pixelmaps.sparkle)
 	imgdata:mapPixel(pixelmaps.crush)
 	local image=LG.newImage(imgdata)
-	--t.imgdata:mapPixel(pixelmaps.sparkle)
+	--s.imgdata:mapPixel(pixelmaps.sparkle)
 	love.graphics.draw(image,Screen.xoff,Screen.yoff,0,Screen.scale,Screen.scale,0,0,0,0)
 end
 

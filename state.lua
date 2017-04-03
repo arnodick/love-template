@@ -1,33 +1,33 @@
 local function make(t)
-	local m={}--TODO change this to another letter
-	m.t=t
-	if _G[Enums.states[m.t]]["make"] then
-		_G[Enums.states[m.t]]["make"](m)
+	local s={}--TODO change this to another letter
+	s.t=t
+	if _G[Enums.states[s.t]]["make"] then
+		_G[Enums.states[s.t]]["make"](s)
 	end
-	return m
+	return s
 end
 
-local function control(g,m)
-	if _G[Enums.states[m.t]]["control"] then
-		_G[Enums.states[m.t]]["control"](g,m)
-	end
-end
-
-local function keypressed(m,key)
-	if _G[Enums.states[m.t]]["keypressed"] then
-		_G[Enums.states[m.t]]["keypressed"](m,key)
+local function control(g,s)
+	if _G[Enums.states[s.t]]["control"] then
+		_G[Enums.states[s.t]]["control"](g,s)
 	end
 end
 
-local function gamepadpressed(m,button)
-	if _G[Enums.states[m.t]]["gamepadpressed"] then
-		_G[Enums.states[m.t]]["gamepadpressed"](m,button)
+local function keypressed(g,s,key)
+	if _G[Enums.states[s.t]]["keypressed"] then
+		_G[Enums.states[s.t]]["keypressed"](g,s,key)
 	end
 end
 
-local function draw(g,m)
-	if _G[Enums.states[m.t]]["draw"] then
-		_G[Enums.states[m.t]]["draw"](g,m)
+local function gamepadpressed(g,s,button)
+	if _G[Enums.states[s.t]]["gamepadpressed"] then
+		_G[Enums.states[s.t]]["gamepadpressed"](g,s,button)
+	end
+end
+
+local function draw(g,s)
+	if _G[Enums.states[s.t]]["draw"] then
+		_G[Enums.states[s.t]]["draw"](g,s)
 	end
 end
 
