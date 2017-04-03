@@ -5,7 +5,7 @@ local function make(t)
 end
 
 
-local function control(t)
+local function control(g,t)
 	if Game.timer>=330 then
 		game.changestate(Game,Enums.states.intro)
 	end

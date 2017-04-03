@@ -17,34 +17,11 @@ local function make(tw,th,gw,gh,sp)
 end
 
 local function control(g)
-	if g.state==Enums.states.play then
-		sfx.update(SFX,g.speed)
-
-		if not g.pause then
-			for i,v in ipairs(g.actors) do
-				actor.control(v,g.speed)
-			end
-		end
-
-		camera.control(g.camera,Player,g.speed)
-		
-		for i,v in ipairs(g.actors) do
-			if v.delete==true then
-				if v.inv then
-					v.inv[1].delete=true
-				end
-				counters.update(g.counters,v,-1)
-				table.remove(g.actors,i)
-			end
-		end
-
-		level.control(g.levels.current)
-	end
 	for i,v in ipairs(g.menus) do
 		menu.control(v)
 	end
 	for i,v in ipairs(g.states) do
-		state.control(v)
+		state.control(g,v)
 	end
 	if not g.pause then --TODO figure out why pause is necessary
 		g.timer = g.timer + g.speed

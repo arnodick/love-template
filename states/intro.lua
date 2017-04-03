@@ -4,7 +4,7 @@ local function make(i)
 	i.font=LG.newFont("fonts/Kongtext Regular.ttf",32)
 end
 
-local function control()
+local function control(g,i)
 	if Game.timer>2500 then
 		game.changestate(Game,Enums.states.title)
 	end

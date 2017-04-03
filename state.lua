@@ -7,9 +7,9 @@ local function make(t)
 	return m
 end
 
-local function control(m)
+local function control(g,m)
 	if _G[Enums.states[m.t]]["control"] then
-		_G[Enums.states[m.t]]["control"](m)
+		_G[Enums.states[m.t]]["control"](g,m)
 	end
 end
 

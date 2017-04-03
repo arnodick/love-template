@@ -14,8 +14,28 @@ local function make(s)
 	s.hp.y=6
 end
 
-local function control(h)
+local function control(g,h)
+	sfx.update(SFX,g.speed)
 
+	if not g.pause then
+		for i,v in ipairs(g.actors) do
+			actor.control(v,g.speed)
+		end
+	end
+
+	camera.control(g.camera,Player,g.speed)
+	
+	for i,v in ipairs(g.actors) do
+		if v.delete==true then
+			if v.inv then
+				v.inv[1].delete=true
+			end
+			counters.update(g.counters,v,-1)
+			table.remove(g.actors,i)
+		end
+	end
+
+	level.control(g.levels.current)
 end
 
 local function keypressed(i,key)
