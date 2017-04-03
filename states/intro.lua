@@ -6,13 +6,17 @@ end
 
 local function control(g,s)
 	if g.timer>2500 then
-		game.changestate(g,Enums.states.title)
+		game.state.change(g,Enums.states.title)
 	end
+end
+
+local function change(g,s)
+
 end
 
 local function keypressed(g,s,key)
 	if key=="space" then
-		game.changestate(g,Enums.states.title)
+		game.state.change(g,Enums.states.title)
 	elseif key == 'escape' then
 		love.event.quit()
 	end
@@ -20,7 +24,7 @@ end
 
 local function gamepadpressed(g,s,button)
 	if button=="start" then
-		game.changestate(g,Enums.states.title)
+		game.state.change(g,Enums.states.title)
 	end
 end
 
@@ -59,6 +63,7 @@ return
 {
 	make = make,
 	control = control,
+	change = change,
 	keypressed = keypressed,
 	gamepadpressed = gamepadpressed,
 	draw = draw,

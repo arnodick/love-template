@@ -1,9 +1,10 @@
 --loads all the .lua libraries
 libraries = require("libraries")
 libraries.load("")
+game.state=state--NOTE just a hacky way to make state functions part of game function table
 --enumerators and constants
 Enums = enums.load("","actors","levels","states")
-debugger.printtable(Enums)
+--debugger.printtable(Enums)
 --game initialization stuff (just boring stuff you need to maek Video Game)
 --love.math.setRandomSeed(1)
 love.math.setRandomSeed(os.time())

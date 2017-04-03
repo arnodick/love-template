@@ -12,7 +12,7 @@ local function make(tw,th,gw,gh,sp)
 	g.levels=level.load("levels/inis")
 	--debugger.printtable(g.levels)
 
-	game.changestate(g,Enums.states.intro)
+	game.state.change(g,Enums.states.intro)
 	return g
 end
 
@@ -42,6 +42,7 @@ local function draw(g)
 	screen.control(Screen)
 end
 
+--[[
 local function changestate(g,s)
 	local e=Enums
 	--initializes game's state, timer, camera, actor, menu and state tables
@@ -72,6 +73,7 @@ local function changestate(g,s)
 		g.levels.current=level.make(g.levels[g.level])
 	end
 end
+--]]
 
 local function graphics(g,tw,th,gw,gh)
 	--just to declutter load function
@@ -119,6 +121,6 @@ return
 	control = control,
 	draw = draw,
 	init = init,
-	changestate = changestate,
+	--changestate = changestate,
 	graphics = graphics,
 }

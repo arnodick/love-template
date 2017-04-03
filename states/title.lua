@@ -7,21 +7,25 @@ end
 
 local function control(g,s)
 	if Game.timer>=330 then
-		game.changestate(g,Enums.states.intro)
+		game.state.change(g,Enums.states.intro)
 	end
+end
+
+local function change(g,s)
+	g.scores=scores.load()
 end
 
 local function keypressed(g,s,key)
 	if key=="space" then
-		game.changestate(g,Enums.states.play)
+		game.state.change(g,Enums.states.play)
 	elseif key=='escape' then
-		game.changestate(g,Enums.states.intro)
+		game.state.change(g,Enums.states.intro)
 	end
 end
 
 local function gamepadpressed(g,s,button)
 	if button=="start" then
-		game.changestate(g,Enums.states.play)
+		game.state.change(g,Enums.states.play)
 	end
 end
 
@@ -48,6 +52,7 @@ return
 {
 	make = make,
 	control = control,
+	change = change,
 	keypressed = keypressed,
 	gamepadpressed = gamepadpressed,
 	draw = draw,
