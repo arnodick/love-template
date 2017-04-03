@@ -52,7 +52,7 @@ local function changestate(g,s)
 	g.actors={}
 	g.menus={}
 	g.states={}
-	table.insert(g.states,state.make(s))
+	table.insert(g.states,state.make(s))--TODO can probably do away with state table, just one Game.state variable?
 	g.counters=counters.init()
 
 	--TODO call specific state's code here? _G style ALSO state a function IN game, so game.state.change, game.state.
