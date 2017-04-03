@@ -37,7 +37,6 @@ local function load(dir,...)
 			end
 		end
 	end
-	--debugger.printtable(e)
 	enums.constants(e)
 	return e
 end

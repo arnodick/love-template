@@ -43,8 +43,8 @@ local function control(g)
 	for i,v in ipairs(g.menus) do
 		menu.control(v)
 	end
-	for i,v in ipairs(g.huds) do
-		hud.control(v)
+	for i,v in ipairs(g.states) do
+		state.control(v)
 	end
 	if not g.pause then --TODO figure out why pause is necessary
 		g.timer = g.timer + g.speed
@@ -54,17 +54,11 @@ end
 local function draw(g)
 	LG.setCanvas(Canvas.game) --sets drawing to the 320x240 canvas --TODO make canvas part of Game
 		LG.clear() --cleans that messy ol canvas all up, makes it all fresh and new and good you know
-		if g.state==Enums.states.play then
-			map.draw(g.map)
-			for i,v in ipairs(g.actors) do
-				actor.draw(v)
-			end
-		end
 		for i,v in ipairs(g.menus) do
 			menu.draw(v)
 		end
-		for i,v in ipairs(g.huds) do
-			hud.draw(v)
+		for i,v in ipairs(g.states) do
+			state.draw(g,v)
 		end
 	LG.setCanvas() --sets drawing back to screen
 
@@ -73,15 +67,15 @@ end
 
 local function changestate(g,s)
 	local e=Enums
-	--initializes game's state, timer, camera, actor, menu and hud tables
+	--initializes game's state, timer, camera, actor, menu and state tables
 	g.state=s
 	g.timer=0
 	g.speed=1
 	g.camera=camera.make(0,0)
 	g.actors={}
 	g.menus={}
-	g.huds={}
-	table.insert(g.huds,hud.make(s))
+	g.states={}
+	table.insert(g.states,state.make(s))
 	g.counters=counters.init()
 
 	--TODO call specific state's code here? _G style ALSO state a function IN game, so game.state.change, game.state.

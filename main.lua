@@ -2,7 +2,8 @@
 libraries = require("libraries")
 libraries.load("")
 --enumerators and constants
-Enums = enums.load("","actors","levels")
+Enums = enums.load("","actors","levels","states")
+debugger.printtable(Enums)
 --game initialization stuff (just boring stuff you need to maek Video Game)
 --love.math.setRandomSeed(1)
 love.math.setRandomSeed(os.time())
@@ -16,15 +17,9 @@ function love.load()
 end
 
 function love.keypressed(key,scancode,isrepeat)
-	for i,v in ipairs(Game.huds) do
-		hud.keypressed(v,key)
+	for i,v in ipairs(Game.states) do
+		state.keypressed(v,key)
 	end
---[[
-	if key == 'escape' then
-		--TODO going to have to put escape in hud specific code like hud etc to make pause hud pop up and go away
-		love.event.quit()
-	else
---]]
 	if key == '`' then
 		Debugger.debugging = not Debugger.debugging
 	elseif key == 'f' then
@@ -35,8 +30,8 @@ function love.keypressed(key,scancode,isrepeat)
 end
 
 function love.gamepadpressed(joystick,button)
-	for i,v in ipairs(Game.huds) do
-		hud.gamepadpressed(v,button)
+	for i,v in ipairs(Game.states) do
+		state.gamepadpressed(v,button)
 	end
 end
 
