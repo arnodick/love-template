@@ -4,7 +4,7 @@ local function make(s)
 	s.font=LG.newFont("fonts/Kongtext Regular.ttf",32)
 end
 
-local function control(g,s)
+local function control(g)
 	if g.timer>2500 then
 		game.state.change(g,Enums.states.title)
 	end
@@ -14,7 +14,7 @@ local function change(g,s)
 
 end
 
-local function keypressed(g,s,key)
+local function keypressed(g,key)
 	if key=="space" then
 		game.state.change(g,Enums.states.title)
 	elseif key == 'escape' then
@@ -22,13 +22,14 @@ local function keypressed(g,s,key)
 	end
 end
 
-local function gamepadpressed(g,s,button)
+local function gamepadpressed(g,button)
 	if button=="start" then
 		game.state.change(g,Enums.states.title)
 	end
 end
 
-local function draw(g,s)
+local function draw(g)
+	local s=g.states
 	LG.setCanvas(s.canvas)
 		LG.clear()
 		LG.setFont(s.font)

@@ -20,9 +20,9 @@ local function control(g)
 	for i,v in ipairs(g.menus) do
 		menu.control(v)
 	end
-	for i,v in ipairs(g.states) do
-		state.control(g,v)
-	end
+	
+	game.state.control(g)
+
 	if not g.pause then --TODO figure out why pause is necessary
 		g.timer = g.timer + g.speed
 	end
@@ -34,46 +34,13 @@ local function draw(g)
 		for i,v in ipairs(g.menus) do
 			menu.draw(v)
 		end
-		for i,v in ipairs(g.states) do
-			state.draw(g,v)
-		end
+
+		game.state.draw(g)
+
 	LG.setCanvas() --sets drawing back to screen
 
 	screen.control(Screen)
 end
-
---[[
-local function changestate(g,s)
-	local e=Enums
-	--initializes game's state, timer, camera, actor, menu and state tables
-	g.state=s
-	g.timer=0
-	g.speed=1
-	g.camera=camera.make(0,0)
-	g.actors={}
-	g.menus={}
-	g.states={}
-	table.insert(g.states,state.make(s))--TODO can probably do away with state table, just one Game.state variable?
-	g.counters=counters.init()
-
-	--TODO call specific state's code here? _G style ALSO state a function IN game, so game.state.change, game.state.
-	if g.state==e.states.title then
-		g.scores=scores.load()
-	elseif g.state==e.states.play then
-		LG.setCanvas(Canvas.buffer)
-		LG.clear()
-		g.score=0
-
-		local mw,mh=g.width/g.tile.width,g.height/g.tile.height
-		g.map=map.generate(mw+2,mh+2)
-
-		Player=actor.make(EA.character,EA.characters.player,g.width/2,g.height/2)
-
-		g.level=1
-		g.levels.current=level.make(g.levels[g.level])
-	end
-end
---]]
 
 local function graphics(g,tw,th,gw,gh)
 	--just to declutter load function

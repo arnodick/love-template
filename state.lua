@@ -7,9 +7,9 @@ local function make(t)
 	return s
 end
 
-local function control(g,s)
-	if _G[Enums.states[s.t]]["control"] then
-		_G[Enums.states[s.t]]["control"](g,s)
+local function control(g)
+	if _G[Enums.states[g.states.t]]["control"] then
+		_G[Enums.states[g.states.t]]["control"](g)
 	end
 end
 
@@ -22,28 +22,30 @@ local function change(g,s)
 	g.camera=camera.make(0,0)
 	g.actors={}
 	g.menus={}
-	g.states={}
-	table.insert(g.states,state.make(s))--TODO can probably do away with state table, just one Game.state variable?
+	g.states=state.make(s)
 	g.counters=counters.init()
 
-	if _G[Enums.states[s.t]]["change"] then
-		_G[Enums.states[s.t]]["change"](g,s)
+	if _G[Enums.states[s]]["change"] then
+		_G[Enums.states[s]]["change"](g,s)
 	end
 end
 
-local function keypressed(g,s,key)
+local function keypressed(g,key)
+	local s=g.states
 	if _G[Enums.states[s.t]]["keypressed"] then
-		_G[Enums.states[s.t]]["keypressed"](g,s,key)
+		_G[Enums.states[s.t]]["keypressed"](g,key)
 	end
 end
 
-local function gamepadpressed(g,s,button)
+local function gamepadpressed(g,button)
+	local s=g.states
 	if _G[Enums.states[s.t]]["gamepadpressed"] then
-		_G[Enums.states[s.t]]["gamepadpressed"](g,s,button)
+		_G[Enums.states[s.t]]["gamepadpressed"](g,button)
 	end
 end
 
 local function draw(g,s)
+	local s=g.states
 	if _G[Enums.states[s.t]]["draw"] then
 		_G[Enums.states[s.t]]["draw"](g,s)
 	end

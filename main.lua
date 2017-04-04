@@ -18,9 +18,8 @@ function love.load()
 end
 
 function love.keypressed(key,scancode,isrepeat)
-	for i,v in ipairs(Game.states) do
-		state.keypressed(Game,v,key)
-	end
+	state.keypressed(Game,key)
+
 	if key == '`' then
 		Debugger.debugging = not Debugger.debugging
 	elseif key == 'f' then
@@ -31,9 +30,7 @@ function love.keypressed(key,scancode,isrepeat)
 end
 
 function love.gamepadpressed(joystick,button)
-	for i,v in ipairs(Game.states) do
-		state.gamepadpressed(Game,v,button)
-	end
+	state.gamepadpressed(Game,button)
 end
 
 function love.update(dt)

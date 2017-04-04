@@ -5,8 +5,8 @@ local function make(s)
 end
 
 
-local function control(g,s)
-	if Game.timer>=330 then
+local function control(g)
+	if g.timer>=330 then
 		game.state.change(g,Enums.states.intro)
 	end
 end
@@ -15,7 +15,7 @@ local function change(g,s)
 	g.scores=scores.load()
 end
 
-local function keypressed(g,s,key)
+local function keypressed(g,key)
 	if key=="space" then
 		game.state.change(g,Enums.states.play)
 	elseif key=='escape' then
@@ -23,13 +23,14 @@ local function keypressed(g,s,key)
 	end
 end
 
-local function gamepadpressed(g,s,button)
+local function gamepadpressed(g,button)
 	if button=="start" then
 		game.state.change(g,Enums.states.play)
 	end
 end
 
-local function draw(g,s)
+local function draw(g)
+	local s=g.states
 	LG.setCanvas(s.canvas)
 		LG.setFont(s.font)
 		LG.setColor(Palette[EC.dark_purple])

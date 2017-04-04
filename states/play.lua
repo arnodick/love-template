@@ -14,7 +14,7 @@ local function make(s)
 	s.hp.y=6
 end
 
-local function control(g,s)
+local function control(g)
 	sfx.update(SFX,g.speed)
 
 	if not g.pause then
@@ -52,7 +52,7 @@ local function change(g,s)
 	g.levels.current=level.make(g.levels[g.level])
 end
 
-local function keypressed(g,s,key)
+local function keypressed(g,key)
 	if key=='space' then
 		if Player.hp<=0 then
 			game.state.change(g,Enums.states.play)
@@ -64,13 +64,14 @@ local function keypressed(g,s,key)
 	end
 end
 
-local function gamepadpressed(g,s,button)
+local function gamepadpressed(g,button)
 	if button=="start" then
 		g.pause = not g.pause
 	end
 end
 
-local function draw(g,s)
+local function draw(g)
+	local s=g.states
 	map.draw(g.map)
 	for i,v in ipairs(g.actors) do
 		actor.draw(v)
@@ -78,26 +79,26 @@ local function draw(g,s)
 
 	LG.setColor(Palette[s.c])
 	
-	LG.print("score:"..Game.score,Game.camera.x+s.score.x,Game.camera.y+s.score.y)
-	LG.print("coins:"..Player.coin,Game.camera.x+s.coins.x,Game.camera.y+s.coins.y)
-	LG.print("hp:"..Player.hp,Game.camera.x+s.hp.x,Game.camera.y+s.hp.y)
+	LG.print("score:"..g.score,g.camera.x+s.score.x,g.camera.y+s.score.y)
+	LG.print("coins:"..Player.coin,g.camera.x+s.coins.x,g.camera.y+s.coins.y)
+	LG.print("hp:"..Player.hp,g.camera.x+s.hp.x,g.camera.y+s.hp.y)
 	for i=1,Player.inv.max do
-		local x,y=Game.width/2+40-i*20,20
+		local x,y=g.width/2+40-i*20,20
 		LG.rectangle("line",x,y,15,15)
 		if Player.inv[i] then
 			local a=Player.inv[i]
-			LG.draw(Spritesheet[a.size],Quads[a.size][a.spr],x+7,y+7,a.angle,1,1,(a.size*Game.tile.width)/2,(a.size*Game.tile.height)/2)
+			LG.draw(Spritesheet[a.size],Quads[a.size][a.spr],x+7,y+7,a.angle,1,1,(a.size*g.tile.width)/2,(a.size*g.tile.height)/2)
 		end
 	end
 
-	if Game.pause then
-		LG.printborder("PAUSE",Game.camera.x+140,Game.camera.y+Game.height/2,EC.white,s.c)
+	if g.pause then
+		LG.printborder("PAUSE",g.camera.x+140,g.camera.y+g.height/2,EC.white,s.c)
 	end
 
 	if Player.hp <= 0 then
-		LG.printborder("YOU DIED",Game.camera.x+140,Game.camera.y+20,EC.white,s.c)
-		LG.print("PRESS SPACE",Game.camera.x+135,Game.camera.y+50)
-		scores.draw(Game.camera.x+150,Game.camera.y+70,s.c,s.c2)
+		LG.printborder("YOU DIED",g.camera.x+140,g.camera.y+20,EC.white,s.c)
+		LG.print("PRESS SPACE",g.camera.x+135,g.camera.y+50)
+		scores.draw(g.camera.x+150,g.camera.y+70,s.c,s.c2)
 	end
 
 	LG.setColor(Palette[EC.pure_white])
