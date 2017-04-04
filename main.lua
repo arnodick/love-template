@@ -18,7 +18,7 @@ function love.load()
 end
 
 function love.keypressed(key,scancode,isrepeat)
-	state.keypressed(Game,key)
+	game.keypressed(Game,key)
 
 	if key == '`' then
 		Debugger.debugging = not Debugger.debugging
@@ -30,7 +30,7 @@ function love.keypressed(key,scancode,isrepeat)
 end
 
 function love.gamepadpressed(joystick,button)
-	state.gamepadpressed(Game,button)
+	game.gamepadpressed(Game,button)
 end
 
 function love.update(dt)

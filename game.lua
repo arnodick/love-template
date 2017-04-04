@@ -28,6 +28,14 @@ local function control(g)
 	end
 end
 
+local function keypressed(g,key,scancode,isrepeat)
+	state.keypressed(g,key)
+end
+
+local function gamepadpressed(g,button)
+	state.gamepadpressed(g,button)
+end
+
 local function draw(g)
 	LG.setCanvas(Canvas.game) --sets drawing to the 320x240 canvas --TODO make canvas part of Game
 		LG.clear() --cleans that messy ol canvas all up, makes it all fresh and new and good you know
@@ -86,8 +94,9 @@ return
 {
 	make = make,
 	control = control,
+	keypressed = keypressed,
+	gamepadpressed = gamepadpressed,
 	draw = draw,
 	init = init,
-	--changestate = changestate,
 	graphics = graphics,
 }
