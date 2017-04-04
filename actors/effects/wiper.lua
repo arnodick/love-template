@@ -6,10 +6,10 @@ end
 
 local function draw(a)
 	LG.line(a.x,0,a.x,Game.height)
-	LG.setCanvas(Canvas.buffer)
+	LG.setCanvas(Game.canvas.buffer)
 		LG.setColor(Palette[EC.black])
 		LG.line(a.x,0,a.x,Game.height)
-	LG.setCanvas(Canvas.game)
+	LG.setCanvas(Game.canvas.game)
 end
 
 local function collision(a)

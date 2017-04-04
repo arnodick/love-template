@@ -1,7 +1,6 @@
-local function make(s)
-	s.canvas=LG.newCanvas(640,480)
+local function make(g)
 	--i.imgdata=love.image.newImageData(i.canvas:getWidth()-1,i.canvas:getHeight()-1)
-	s.font=LG.newFont("fonts/Kongtext Regular.ttf",64)
+	g.states.font=LG.newFont("fonts/Kongtext Regular.ttf",64)
 end
 
 
@@ -31,7 +30,7 @@ end
 
 local function draw(g)
 	local s=g.states
-	LG.setCanvas(s.canvas)
+	LG.setCanvas(g.canvas.game)
 		LG.setFont(s.font)
 		LG.setColor(Palette[EC.dark_purple])
 		LG.printf("PROTO\nSNAKE",0,20,Game.width,"center")
@@ -41,7 +40,7 @@ local function draw(g)
 	LG.setCanvas()
 	--scores.draw(Game.width/2,Game.height/2,EC.white,EC.yellow)
 
-	local imgdata=s.canvas:newImageData(0,0,s.canvas:getWidth()-1,s.canvas:getHeight()-1)
+	local imgdata=g.canvas.game:newImageData(0,0,g.canvas.game:getWidth()-1,g.canvas.game:getHeight()-1)
 	imgdata:mapPixel(pixelmaps.sparkle)
 	imgdata:mapPixel(pixelmaps.crush)
 	local image=LG.newImage(imgdata)

@@ -20,7 +20,7 @@ local function control(g)
 	for i,v in ipairs(g.menus) do
 		menu.control(v)
 	end
-	
+
 	game.state.control(g)
 
 	if not g.pause then --TODO figure out why pause is necessary
@@ -37,7 +37,7 @@ local function gamepadpressed(g,button)
 end
 
 local function draw(g)
-	LG.setCanvas(Canvas.game) --sets drawing to the 320x240 canvas --TODO make canvas part of Game
+	LG.setCanvas(g.canvas.game) --sets drawing to the 320x240 canvas --TODO make canvas part of Game
 		LG.clear() --cleans that messy ol canvas all up, makes it all fresh and new and good you know
 		for i,v in ipairs(g.menus) do
 			menu.draw(v)
@@ -85,9 +85,9 @@ local function graphics(g,tw,th,gw,gh)
 
 	Screen = screen.update(gw,gh)
 
-	Canvas = {}
-	Canvas.game = LG.newCanvas(gw,gh) --sets width and height of fictional retro video game (320x240)
-	Canvas.buffer = LG.newCanvas(gw,gh)
+	g.canvas = {}
+	g.canvas.game = LG.newCanvas(gw,gh) --sets width and height of fictional retro video game (320x240)
+	g.canvas.buffer = LG.newCanvas(gw,gh)
 end
 
 return

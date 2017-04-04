@@ -26,7 +26,7 @@ local function control(a,gs)
 			th=th-diff
 		end
 
-	local imgdata=Canvas.buffer:newImageData(ix,iy,tw,th)
+	local imgdata=Game.canvas.buffer:newImageData(ix,iy,tw,th)
 
 	imgdata:mapPixel(pixelmaps.sparkle)
 	imgdata:mapPixel(pixelmaps.crush)
@@ -56,7 +56,7 @@ local function control(a,gs)
 end
 
 local function draw(a)
-	LG.setCanvas(Canvas.buffer)
+	LG.setCanvas(Game.canvas.buffer)
 		LG.setColor(Palette[EC.pure_white])
 		LG.draw(a.image,a.x,a.y,0,1,1,a.sizeinit,a.sizeinit)
 		LG.setColor(Palette[a.c])
@@ -64,7 +64,7 @@ local function draw(a)
 		local curve2=love.math.newBezierCurve(a.x,a.y,a.x-math.cos(a.angle)*a.size/2,a.y-math.sin(a.angle)/2*a.size,a.x-math.cos(a.angle-1)*a.size,a.y-math.sin(a.angle-1)*a.size)
 		LG.line(curve:render(2))
 		LG.line(curve2:render(2))
-	LG.setCanvas(Canvas.game)
+	LG.setCanvas(Game.canvas.game)
 end
 
 return

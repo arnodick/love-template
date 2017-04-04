@@ -1,15 +1,16 @@
-local function make(t)
-	local s={}--TODO change this to another letter
-	s.t=t
-	if _G[Enums.states[s.t]]["make"] then
-		_G[Enums.states[s.t]]["make"](s)
+local function make(g,t)
+	g.states={}
+	g.states.t=t
+	if _G[Enums.states[g.states.t]]["make"] then
+		_G[Enums.states[g.states.t]]["make"](g)
 	end
 	return s
 end
 
 local function control(g)
-	if _G[Enums.states[g.states.t]]["control"] then
-		_G[Enums.states[g.states.t]]["control"](g)
+	local s=g.states
+	if _G[Enums.states[s.t]]["control"] then
+		_G[Enums.states[s.t]]["control"](g)
 	end
 end
 
@@ -22,7 +23,7 @@ local function change(g,s)
 	g.camera=camera.make(0,0)
 	g.actors={}
 	g.menus={}
-	g.states=state.make(s)
+	state.make(g,s)
 	g.counters=counters.init()
 
 	if _G[Enums.states[s]]["change"] then
@@ -44,10 +45,10 @@ local function gamepadpressed(g,button)
 	end
 end
 
-local function draw(g,s)
+local function draw(g)
 	local s=g.states
 	if _G[Enums.states[s.t]]["draw"] then
-		_G[Enums.states[s.t]]["draw"](g,s)
+		_G[Enums.states[s.t]]["draw"](g)
 	end
 end
 

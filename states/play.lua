@@ -1,17 +1,17 @@
-local function make(s)
-	s.c=EC.orange
-	s.c2=EC.dark_green
-	--s.c=love.math.random(#Palette)
-	--s.c2=love.math.random(#Palette)
-	s.score={}
-	s.score.x=12
-	s.score.y=6
-	s.coins={}
-	s.coins.x=120
-	s.coins.y=6
-	s.hp={}
-	s.hp.x=240
-	s.hp.y=6
+local function make(g)
+	g.states.c=EC.orange
+	g.states.c2=EC.dark_green
+	--g.states.c=love.math.random(#Palette)
+	--g.states.c2=love.math.random(#Palette)
+	g.states.score={}
+	g.states.score.x=12
+	g.states.score.y=6
+	g.states.coins={}
+	g.states.coins.x=120
+	g.states.coins.y=6
+	g.states.hp={}
+	g.states.hp.x=240
+	g.states.hp.y=6
 end
 
 local function control(g)
@@ -39,7 +39,7 @@ local function control(g)
 end
 
 local function change(g,s)
-	LG.setCanvas(Canvas.buffer)
+	LG.setCanvas(g.canvas.buffer)
 	LG.clear()
 	g.score=0
 
@@ -72,6 +72,7 @@ end
 
 local function draw(g)
 	local s=g.states
+
 	map.draw(g.map)
 	for i,v in ipairs(g.actors) do
 		actor.draw(v)

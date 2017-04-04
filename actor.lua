@@ -50,12 +50,7 @@ local function control(a,gs)
 
 	a.vec[1] = math.cos(a.d)
 	a.vec[2] = math.sin(a.d)
-	--a.x = a.x + a.vec[1]*a.vel*gs
-	--a.y = a.y - a.vec[2]*a.vel*gs
----[[
-	
-	--local xcell,ycell=math.floor(a.x/tw),math.floor(a.y/th)
-	--local xcelldest,ycelldest=math.floor(xdest/tw),math.floor(ydest/th)
+
 	local xcell,ycell=map.getcell(Game.map,a.x,a.y)
 	local xdest,ydest=a.x + a.vec[1]*a.vel*gs,a.y - a.vec[2]*a.vel*gs
 	local xcelldest,ycelldest=map.getcell(Game.map,xdest,ydest)
@@ -73,7 +68,7 @@ local function control(a,gs)
 	else
 		colly=true
 	end
---]]
+
 	if collx or colly then
 		if _G[EA[a.t]]["collision"] then
 			_G[EA[a.t]]["collision"](a)
@@ -261,7 +256,6 @@ local function collision(x,y,enemy)--TODO something other than enemy here?
 		end
 	end
 	return false
---]]
 end
 
 local function corpse(a,tw,th,hack)
@@ -285,40 +279,40 @@ local function corpse(a,tw,th,hack)
 	if not hack then
 		local choice=math.choose(1,2)
 		if choice==1 then
-			local imgdata=Canvas.game:newImageData(ix,iy,tw,th)
+			local imgdata=Game.canvas.game:newImageData(ix,iy,tw,th)
 			body.image=LG.newImage(imgdata)
 		else
-			local imgdata=Canvas.game:newImageData(ix,iy,tw/2,th)
+			local imgdata=Game.canvas.game:newImageData(ix,iy,tw/2,th)
 			body.image=LG.newImage(imgdata)
 			body.d=dir
 
 			local body2=actor.make(EA.effect,EA.effects.debris,a.x,a.y)
 			body2.decel=0.1
-			local imgdata2=Canvas.game:newImageData(ix+tw/2,iy,tw/2,th)
+			local imgdata2=Game.canvas.game:newImageData(ix+tw/2,iy,tw/2,th)
 			body2.image=LG.newImage(imgdata2)
 			body2.d=dir+math.randomfraction(0.5)-0.25
 		end
 	else
 		body.decel=0.2
-		local imgdata=Canvas.game:newImageData(ix,iy,tw/2,th/2)
+		local imgdata=Game.canvas.game:newImageData(ix,iy,tw/2,th/2)
 		body.image=LG.newImage(imgdata)
 		body.d=math.randomfraction(math.pi*2)
 
 		local body2=actor.make(EA.effect,EA.effects.debris,a.x,a.y)
 		body2.decel=0.2
-		local imgdata2=Canvas.game:newImageData(ix+tw/2,iy+th/2,tw/2,th/2)
+		local imgdata2=Game.canvas.game:newImageData(ix+tw/2,iy+th/2,tw/2,th/2)
 		body2.image=LG.newImage(imgdata2)
 		body2.d=math.randomfraction(math.pi*2)
 
 		local body3=actor.make(EA.effect,EA.effects.debris,a.x,a.y)
 		body3.decel=0.2
-		local imgdata3=Canvas.game:newImageData(ix+tw/2,iy,tw/2,th/2)
+		local imgdata3=Game.canvas.game:newImageData(ix+tw/2,iy,tw/2,th/2)
 		body3.image=LG.newImage(imgdata3)
 		body3.d=math.randomfraction(math.pi*2)
 
 		local body4=actor.make(EA.effect,EA.effects.debris,a.x,a.y)
 		body4.decel=0.2
-		local imgdata4=Canvas.game:newImageData(ix,iy,tw/2,th/2)
+		local imgdata4=Game.canvas.game:newImageData(ix,iy,tw/2,th/2)
 		body4.image=LG.newImage(imgdata4)
 		body4.d=math.randomfraction(math.pi*2)
 	end
