@@ -43,10 +43,10 @@ local function control(s)
 		--LG.setShader(Shader)
 
 		LG.translate(-Game.camera.x+(love.math.random(Game.camera.shake/2))*s.scale,-Game.camera.y)
-		if Game.state==Enums.states.play then
+
 		LG.draw(Game.canvas.buffer,s.xoff,s.yoff,0,s.scale,s.scale)
 		LG.draw(Game.canvas.game,s.xoff,s.yoff,0,s.scale,s.scale) --just like draws everything to the screen or whatever
-		end
+
 		LG.origin()
 
 		--LG.setShader()

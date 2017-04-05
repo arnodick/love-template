@@ -1,6 +1,6 @@
 local function make(g)
 	--i.imgdata=love.image.newImageData(i.canvas:getWidth()-1,i.canvas:getHeight()-1)
-	g.states.font=LG.newFont("fonts/Kongtext Regular.ttf",64)
+	g.state.font=LG.newFont("fonts/Kongtext Regular.ttf",64)
 end
 
 
@@ -29,7 +29,7 @@ local function gamepadpressed(g,button)
 end
 
 local function draw(g)
-	local s=g.states
+	local s=g.state
 	LG.setCanvas(g.canvas.game)
 		LG.setFont(s.font)
 		LG.setColor(Palette[EC.dark_purple])

@@ -1,7 +1,7 @@
 local function make(g)
-	g.states.canvas=LG.newCanvas(640,480)
-	g.states.imgdata=love.image.newImageData(g.states.canvas:getWidth()-1,g.states.canvas:getHeight()-1)
-	g.states.font=LG.newFont("fonts/Kongtext Regular.ttf",32)
+	g.state.canvas=LG.newCanvas(640,480)
+	g.state.imgdata=love.image.newImageData(g.state.canvas:getWidth()-1,g.state.canvas:getHeight()-1)
+	g.state.font=LG.newFont("fonts/Kongtext Regular.ttf",32)
 end
 
 local function control(g)
@@ -29,8 +29,8 @@ local function gamepadpressed(g,button)
 end
 
 local function draw(g)
-	local s=g.states
-	LG.setCanvas(g.states.canvas)
+	local s=g.state
+	LG.setCanvas(g.state.canvas)
 		LG.clear()
 		LG.setFont(s.font)
 		LG.setColor(Palette[EC.dark_purple])
@@ -39,8 +39,8 @@ local function draw(g)
 		LG.setFont(Game.font)
 	LG.setCanvas()
 
-	local cw,ch=g.states.canvas:getWidth(),g.states.canvas:getHeight()
-	local imgdata=g.states.canvas:newImageData(0,0,cw-1,ch-1)
+	local cw,ch=g.state.canvas:getWidth(),g.state.canvas:getHeight()
+	local imgdata=g.state.canvas:newImageData(0,0,cw-1,ch-1)
 	imgdata:mapPixel(pixelmaps.crush)
 	local iw,ih=imgdata:getWidth(),imgdata:getHeight()
 	local mid=math.floor(iw/2)
