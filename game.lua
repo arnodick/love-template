@@ -37,7 +37,7 @@ local function gamepadpressed(g,button)
 end
 
 local function draw(g)
-	LG.setCanvas(g.canvas.game) --sets drawing to the 320x240 canvas --TODO make canvas part of Game
+	LG.setCanvas(g.canvas.main) --sets drawing to the primary canvas that refreshes every frame
 		LG.clear() --cleans that messy ol canvas all up, makes it all fresh and new and good you know
 		for i,v in ipairs(g.menus) do
 			menu.draw(v)
@@ -86,8 +86,9 @@ local function graphics(g,tw,th,gw,gh)
 	Screen = screen.update(gw,gh)
 
 	g.canvas = {}
-	g.canvas.game = LG.newCanvas(gw,gh) --sets width and height of fictional retro video game (320x240)
-	g.canvas.buffer = LG.newCanvas(gw,gh)
+	g.canvas.buffer = LG.newCanvas(gw,gh) --offscreen buffer, to draw , modify, then draw to main canvas
+	g.canvas.static = LG.newCanvas(gw,gh) --this canvas doesn't clear every frame, so anything drawn to it stays
+	g.canvas.main = LG.newCanvas(gw,gh) --this canvas refreshes every frame, and is where most of the drawing happens
 end
 
 return

@@ -8,6 +8,10 @@ local function make(g,t)--initializes game's state, timer, camera, actor, menu a
 	g.actors={}
 	g.menus={}
 	g.counters=counters.init()
+	for i,v in pairs(g.canvas) do
+		LG.setCanvas(v)
+		LG.clear()
+	end
 	if _G[e.states[g.state.t]]["make"] then
 		_G[e.states[g.state.t]]["make"](g)
 	end

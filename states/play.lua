@@ -13,8 +13,8 @@ local function make(g)
 	g.state.hp.x=240
 	g.state.hp.y=6
 
-	LG.setCanvas(g.canvas.buffer)
-	LG.clear()
+	--LG.setCanvas(g.canvas.static)
+	--LG.clear()
 	g.score=0
 
 	local mw,mh=g.width/g.tile.width,g.height/g.tile.height

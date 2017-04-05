@@ -16,13 +16,13 @@ local function control(s)
 	if s.pixeltrans then
 		local tempcanvas=LG.newCanvas(Game.width*s.pixelscale,Game.height*s.pixelscale)
 		LG.setCanvas(tempcanvas)
-			LG.draw(Game.canvas.game,0,0,0,s.pixelscale,s.pixelscale)
+			LG.draw(Game.canvas.main,0,0,0,s.pixelscale,s.pixelscale)
 		LG.setCanvas()
 
 		--LG.setShader(Shader)
 
 		LG.translate(-Game.camera.x+(love.math.random(Game.camera.shake/2))*s.scale,-Game.camera.y)
-		LG.draw(Game.canvas.buffer,s.xoff,s.yoff,0,s.scale,s.scale)
+		LG.draw(Game.canvas.static,s.xoff,s.yoff,0,s.scale,s.scale)
 		LG.draw(tempcanvas,s.xoff,s.yoff,0,s.scale*1/s.pixelscale,s.scale*1/s.pixelscale) --just like draws everything to the screen or whatever
 		LG.origin()
 		s.pixelscale=s.pixelscale+s.pixelscalerate*Game.speed
@@ -44,8 +44,8 @@ local function control(s)
 
 		LG.translate(-Game.camera.x+(love.math.random(Game.camera.shake/2))*s.scale,-Game.camera.y)
 
-		LG.draw(Game.canvas.buffer,s.xoff,s.yoff,0,s.scale,s.scale)
-		LG.draw(Game.canvas.game,s.xoff,s.yoff,0,s.scale,s.scale) --just like draws everything to the screen or whatever
+		LG.draw(Game.canvas.static,s.xoff,s.yoff,0,s.scale,s.scale)
+		LG.draw(Game.canvas.main,s.xoff,s.yoff,0,s.scale,s.scale) --just like draws everything to the screen or whatever
 
 		LG.origin()
 
