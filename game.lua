@@ -12,7 +12,7 @@ local function make(tw,th,gw,gh,sp)
 	g.levels=level.load("levels/inis")
 	--debugger.printtable(g.levels)
 
-	game.state.change(g,Enums.states.intro)
+	game.state.make(g,Enums.states.intro)
 	return g
 end
 
@@ -29,11 +29,11 @@ local function control(g)
 end
 
 local function keypressed(g,key,scancode,isrepeat)
-	state.keypressed(g,key)
+	game.state.keypressed(g,key)
 end
 
 local function gamepadpressed(g,button)
-	state.gamepadpressed(g,button)
+	game.state.gamepadpressed(g,button)
 end
 
 local function draw(g)

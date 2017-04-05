@@ -12,6 +12,18 @@ local function make(g)
 	g.state.hp={}
 	g.state.hp.x=240
 	g.state.hp.y=6
+
+	LG.setCanvas(g.canvas.buffer)
+	LG.clear()
+	g.score=0
+
+	local mw,mh=g.width/g.tile.width,g.height/g.tile.height
+	g.map=map.generate(mw+2,mh+2)
+
+	Player=actor.make(EA.character,EA.characters.player,g.width/2,g.height/2)
+
+	g.level=1
+	g.levels.current=level.make(g.levels[g.level])
 end
 
 local function control(g)
@@ -38,29 +50,15 @@ local function control(g)
 	level.control(g.levels.current)
 end
 
-local function change(g,s)
-	LG.setCanvas(g.canvas.buffer)
-	LG.clear()
-	g.score=0
-
-	local mw,mh=g.width/g.tile.width,g.height/g.tile.height
-	g.map=map.generate(mw+2,mh+2)
-
-	Player=actor.make(EA.character,EA.characters.player,g.width/2,g.height/2)
-
-	g.level=1
-	g.levels.current=level.make(g.levels[g.level])
-end
-
 local function keypressed(g,key)
 	if key=='space' then
 		if Player.hp<=0 then
-			game.state.change(g,Enums.states.play)
+			game.state.make(g,Enums.states.play)
 		--else
 			--Screen.pixeltrans=true
 		end
 	elseif key=='escape' then
-		game.state.change(g,Enums.states.title)
+		game.state.make(g,Enums.states.title)
 	end
 end
 
@@ -109,7 +107,6 @@ return
 {
 	make = make,
 	control = control,
-	change = change,
 	keypressed = keypressed,
 	gamepadpressed = gamepadpressed,
 	draw = draw,
