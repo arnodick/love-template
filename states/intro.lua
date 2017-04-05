@@ -1,5 +1,6 @@
 local function make(g)
-	g.states.imgdata=love.image.newImageData(g.canvas.game:getWidth()-1,g.canvas.game:getHeight()-1)
+	g.states.canvas=LG.newCanvas(640,480)
+	g.states.imgdata=love.image.newImageData(g.states.canvas:getWidth()-1,g.states.canvas:getHeight()-1)
 	g.states.font=LG.newFont("fonts/Kongtext Regular.ttf",32)
 end
 
@@ -29,7 +30,7 @@ end
 
 local function draw(g)
 	local s=g.states
-	LG.setCanvas(g.canvas.game)
+	LG.setCanvas(g.states.canvas)
 		LG.clear()
 		LG.setFont(s.font)
 		LG.setColor(Palette[EC.dark_purple])
@@ -38,8 +39,8 @@ local function draw(g)
 		LG.setFont(Game.font)
 	LG.setCanvas()
 
-	local cw,ch=g.canvas.game:getWidth(),g.canvas.game:getHeight()
-	local imgdata=g.canvas.game:newImageData(0,0,cw-1,ch-1)
+	local cw,ch=g.states.canvas:getWidth(),g.states.canvas:getHeight()
+	local imgdata=g.states.canvas:newImageData(0,0,cw-1,ch-1)
 	imgdata:mapPixel(pixelmaps.crush)
 	local iw,ih=imgdata:getWidth(),imgdata:getHeight()
 	local mid=math.floor(iw/2)
