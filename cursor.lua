@@ -16,7 +16,7 @@ local function draw(cursor,snap)
 	if cursor then
 		local xoff,yoff=Game.tile.width/2,Game.tile.height/2
 		LG.rectangle("line",cursor.x-xoff,cursor.y-yoff,Game.tile.width,Game.tile.height)
-		LG.setColor(Palette[EC.pure_white])
+		LG.setColor(Game.palette[EC.pure_white])
 	end
 end
 

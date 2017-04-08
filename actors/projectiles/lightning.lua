@@ -17,7 +17,7 @@ local function control(a)
 end
 
 local function draw(a)
-		--LG.setColor(Palette[EC.green])
+		--LG.setColor(Game.palette[EC.green])
 		--LG.draw(Spritesheet[a.size],Quads[a.size][a.spr],a.x,a.y,a.angle,1.2,1.2,(a.size*Game.tile.width)/2,(a.size*Game.tile.height)/2)
 end
 

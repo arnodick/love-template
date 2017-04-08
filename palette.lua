@@ -10,7 +10,7 @@ local function load(...)
 end
 
 local function colourswap(c1,c2)
-	Palette[c1]=Palettes[Palettes.i][c2]
+	Game.palette[c1]=Game.palettes[Game.palettes.i][c2]
 end
 
 local function generate()

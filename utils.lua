@@ -92,14 +92,14 @@ local function printborder(text,x,y,c1,c2,limit)
 	for xoff=0,1 do
 		for yoff=1,1 do
 			--table.insert(coords,{x,y})
-			LG.setColor(Palette[c2])
+			LG.setColor(Game.palette[c2])
 			--LG.print(text,x+xoff,y+yoff)
 			LG.printf(text,x+xoff,y+yoff,limit,"left")
-			LG.setColor(Palette[c1])
+			LG.setColor(Game.palette[c1])
 			LG.printf(text,x,y,limit,"left")
 		end
 	end
-	LG.setColor(Palette[EC.white])
+	LG.setColor(Game.palette[EC.white])
 end
 
 math.clamp = clamp

@@ -23,15 +23,15 @@ end
 local function draw(m)
 	LG.setFont(m.font)
 	local alpha=230
-	local r,g,b=unpack(Palette[m.bc2])
+	local r,g,b=unpack(Game.palette[m.bc2])
 
 	LG.setColor(r,g,b,alpha)
 	LG.rectangle("fill",m.x-m.w/2+1,m.y-m.h/2+1,m.w+1,m.h+1)--TODO floor these suckas
 
-	LG.setColor(Palette[EC.black])
+	LG.setColor(Game.palette[EC.black])
 	LG.rectangle("fill",m.x-m.w/2,m.y-m.h/2,m.w,m.h)
 
-	LG.setColor(Palette[m.bc1])
+	LG.setColor(Game.palette[m.bc1])
 	LG.rectangle("line",m.x-m.w/2,m.y-m.h/2,m.w,m.h)
 
 	if type(text)=="table" then
@@ -44,7 +44,7 @@ local function draw(m)
 	LG.setFont(Game.font)
 
 	if Debugmode then
-		LG.setColor(Palette[EC.red])
+		LG.setColor(Game.palette[EC.red])
 		LG.points(a.x,a.y)
 	end
 end

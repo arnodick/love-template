@@ -57,12 +57,12 @@ local function draw(d)
 		LG.clear() --cleans that messy ol canvas all up, makes it all fresh and new and good you know
 
 		LG.setFont(d.font)
-		LG.setColor(Palette[11])
+		LG.setColor(Game.palette[11])
 		LG.print("DEBUG",130,0)
 		for i,v in ipairs(d.debuglist) do
 			LG.print(v,10,10+d.font:getHeight()*i)
 		end
-		LG.setColor(Palette[16]) --sets draw colour back to normal
+		LG.setColor(Game.palette[16]) --sets draw colour back to normal
 		LG.setFont(Game.font)
 
 		LG.setCanvas() --sets drawing back to screen

@@ -56,11 +56,11 @@ local function draw(x,y,c1,c2)
 	local s=Game.scores
 
 --TODO make this into menu library
-	LG.setColor(Palette[EC.dark_purple])
+	LG.setColor(Game.palette[EC.dark_purple])
 	LG.rectangle("fill",x-20+1,y+1,52,102)
-	LG.setColor(Palette[EC.black])
+	LG.setColor(Game.palette[EC.black])
 	LG.rectangle("fill",x-20,y,50,100)
-	LG.setColor(Palette[EC.indigo])
+	LG.setColor(Game.palette[EC.indigo])
 	LG.rectangle("line",x-20,y,51,101)
 
 	for i=1,#s.high do

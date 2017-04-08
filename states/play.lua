@@ -1,8 +1,8 @@
 local function make(g)
 	g.state.c=EC.orange
 	g.state.c2=EC.dark_green
-	--g.state.c=love.math.random(#Palette)
-	--g.state.c2=love.math.random(#Palette)
+	--g.state.c=love.math.random(#g.palette)
+	--g.state.c2=love.math.random(#g.palette)
 	g.state.score={}
 	g.state.score.x=12
 	g.state.score.y=6
@@ -74,7 +74,7 @@ local function draw(g)
 		actor.draw(v)
 	end
 
-	LG.setColor(Palette[s.c])
+	LG.setColor(g.palette[s.c])
 	
 	LG.print("score:"..g.score,g.camera.x+s.score.x,g.camera.y+s.score.y)
 	LG.print("coins:"..Player.coin,g.camera.x+s.coins.x,g.camera.y+s.coins.y)
@@ -98,7 +98,7 @@ local function draw(g)
 		scores.draw(g.camera.x+150,g.camera.y+70,s.c,s.c2)
 	end
 
-	LG.setColor(Palette[EC.pure_white])
+	LG.setColor(g.palette[EC.pure_white])
 end
 
 return

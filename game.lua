@@ -65,10 +65,10 @@ local function graphics(g,tw,th,gw,gh)
 	g.font:setLineHeight(1.8)
 	LG.setFont(g.font)
 
-	Palettes = palette.load(unpack(love.filesystem.getfiles("palettes","ini")))
-	Palette={}
+	g.palettes = palette.load(unpack(love.filesystem.getfiles("palettes","ini")))
+	g.palette={}
 	for a=0,16 do
-		Palette[a]=Palettes[Palettes.i][a]
+		g.palette[a]=g.palettes[g.palettes.i][a]
 	end
 
 	Spritesheet={}

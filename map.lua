@@ -40,7 +40,7 @@ end
 
 local function draw(m)
 	local tw,th=Game.tile.width,Game.tile.height
-	local c=Palette[Game.levels.current.c]
+	local c=Game.palette[Game.levels.current.c]
 	local r=c[1]
 	local g=c[2]
 	local b=c[3]

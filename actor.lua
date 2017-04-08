@@ -154,7 +154,7 @@ local function draw(a)
 		_G[EA[a.t]]["predraw"](a)
 	end
 
-	LG.setColor(Palette[a.c])
+	LG.setColor(Game.palette[a.c])
 	sprites.draw(a)
 
 	if _G[EA[a.t]]["draw"] then
@@ -166,7 +166,7 @@ local function draw(a)
 	end
 
 	if Debugger.debugging then
-		LG.setColor(Palette[EC.blue])
+		LG.setColor(Game.palette[EC.blue])
 		if a.hitradius then
 			LG.circle("line",a.x,a.y,a.hitradius.r)
 		elseif a.hitbox then
@@ -175,7 +175,7 @@ local function draw(a)
 		LG.points(a.x,a.y)
 	end
 
-	LG.setColor(Palette[EC.pure_white])
+	LG.setColor(Game.palette[EC.pure_white])
 end
 
 local function damage(a,d)
