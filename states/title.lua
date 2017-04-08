@@ -1,7 +1,7 @@
 local function make(g)
 	g.state.font=LG.newFont("fonts/Kongtext Regular.ttf",64)
 	g.scores=scores.load()
-	sfx.play(13)
+	music.play(1)
 end
 
 
