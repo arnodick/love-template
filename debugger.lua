@@ -38,6 +38,11 @@ local function update(d)
 			--table.insert(debuglist,i.." count: "..#Game.counters[i])
 			table.insert(debuglist,i.." count: "..Game.counters[i])
 		end
+		if #Joysticks>0 then
+			for i,v in ipairs(Joysticks) do
+				table.insert(debuglist,"joy id: "..v:getID())
+			end
+		end
 	--[[
 		if #Joysticks>0 then
 			local axes={Joysticks[1]:getAxes()}

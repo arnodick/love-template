@@ -12,6 +12,9 @@ local function make(g,t)--initializes game's state, timer, camera, actor, menu a
 		LG.setCanvas(v)
 		LG.clear()
 	end
+	for i,v in pairs(SFX.sources) do
+		v:stop()
+	end
 	for i,v in pairs(Music.sources) do
 		v:stop()
 	end

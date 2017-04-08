@@ -10,12 +10,29 @@ love.math.setRandomSeed(os.time())
 --love.math.setRandomSeed(1)
 Debugger=debugger.make()
 love.keyboard.setKeyRepeat(false)
-Joysticks=love.joystick.getJoysticks()
+Joysticks={}
 SFX = sfx.load(false,true)
 Music = music.load()
 
 function love.load()
 	Game = game.make(8,8,320,240,1)--TODO this is where load from ini or whatever will happen. or rather, laod from type! g.t=Enums.games.PROTOSNAKE
+end
+
+function love.joystickadded(joystick)
+	table.insert(Joysticks,joystick)
+end
+
+function love.joystickremoved(joystick)
+	local joyid=joystick:getID()
+	for i,v in ipairs(Joysticks) do
+		if v:getID()==joyid then
+			table.remove(Joysticks,i)
+		end
+	end
+	if Player then
+		for i,v in ipairs(Player.controller.ct) do
+		end
+	end
 end
 
 function love.keypressed(key,scancode,isrepeat)
