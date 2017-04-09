@@ -5,7 +5,7 @@ local function make(a,c,size)
 	a.size=a.sizeinit
 	a.anglespeed=0.01
 	a.level=Game.levels[Game.level+1]
-	a.flags=flags.set(a.flags,EF.persistent)
+	a.flags=flags.switch(a.flags,EF.persistent)
 end
 
 local function control(a,gs)

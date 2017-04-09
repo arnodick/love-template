@@ -52,6 +52,7 @@ local function constants(e) --NOTE this function has side effects! makes global 
 		EF=e.flags
 	end
 	LG=love.graphics
+	game.state=state--NOTE just a hacky way to make state functions part of game function table
 end
 
 return

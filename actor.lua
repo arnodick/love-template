@@ -112,7 +112,7 @@ local function control(a,gs)
 			sprites.blink(a,24)
 			if Player.controller.powerup then
 				if Player.coin>=a.cost then
-					a.flags=flags.set(a.flags,EF.shopitem)
+					a.flags=flags.switch(a.flags,EF.shopitem)
 					actor.corpse(a.menu,a.menu.w+1,a.menu.h+1,true)
 					actor.make(EA.effect,EA.effects.explosion,a.x,a.y,0,0,EC.white,40)
 					a.menu=nil
