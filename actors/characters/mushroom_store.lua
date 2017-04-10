@@ -40,8 +40,8 @@ local function draw(a)
 end
 
 local function dead(a)
-	local port=actor.make(EA.effect,EA.effects.portal,math.floor(a.x),math.floor(a.y))
-	port.level=Game.levels.store
+	--local port=actor.make(EA.effect,EA.effects.portal,math.floor(a.x),math.floor(a.y))
+	--port.level=Game.levels.store
 end
 
 return

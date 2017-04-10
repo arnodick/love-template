@@ -35,6 +35,7 @@ local function make(lload)
 	for i=1,l.enemies.max do
 		actor.make(EA.character,l.enemies[1])
 	end
+	l.collectibledrops=lload.collectibledrops
 	if _G[Enums.levels[l.t]]["make"] then
 		_G[Enums.levels[l.t]]["make"](l,gs)
 	end
