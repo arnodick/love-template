@@ -54,6 +54,12 @@ local function keypressed(g,key)
 			game.state.make(g,Enums.states.play)
 		--else
 			--Screen.pixeltrans=true
+		else
+			if g.camera.zoom==1 then
+				g.camera.zoom=2
+			else
+				g.camera.zoom=1
+			end
 		end
 	elseif key=='escape' then
 		game.state.make(g,Enums.states.title)

@@ -44,8 +44,8 @@ local function control(s)
 
 		LG.translate(-Game.camera.x+(love.math.random(Game.camera.shake/2))*s.scale,-Game.camera.y)
 
-		LG.draw(Game.canvas.static,s.xoff,s.yoff,0,s.scale,s.scale)
-		LG.draw(Game.canvas.main,s.xoff,s.yoff,0,s.scale,s.scale) --just like draws everything to the screen or whatever
+		LG.draw(Game.canvas.static,s.xoff,s.yoff,0,s.scale*Game.camera.zoom,s.scale*Game.camera.zoom)
+		LG.draw(Game.canvas.main,s.xoff,s.yoff,0,s.scale*Game.camera.zoom,s.scale*Game.camera.zoom) --just like draws everything to the screen or whatever
 
 		LG.origin()
 
