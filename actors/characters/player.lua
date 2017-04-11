@@ -2,7 +2,7 @@ local function make(a,c,size,spr,hp,ct)
 	local e=Enums
 
 	if #Joysticks>0 then
-		controller.make(a,e.controllers.gamepad)
+		controller.make(a,e.controllers.gamepad_move,e.controllers.gamepad_aim)
 	else
 		a.cursor=cursor.make(0,0)
 		controller.make(a,e.controllers.keyboard,e.controllers.mouse)
