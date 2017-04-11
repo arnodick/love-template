@@ -17,7 +17,7 @@ local function make(a,c,size,spr,hp,ct)
 	animation.make(a,10,2)
 	a.flags=flags.set(a.flags,e.flags.enemy)
 
-	Game.levels.current.enemies.max=Game.levels.current.enemies.max+1
+	Game.levels.current.enemies.max=math.clamp(Game.levels.current.enemies.max+1,1,Game.levels.current.enemies.maxlimit)
 end
 
 local function control(a)
