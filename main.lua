@@ -30,7 +30,7 @@ function love.joystickremoved(joystick)
 	end
 --[[
 	if Player then
-		for i,v in ipairs(Player.controller.ct) do
+		for i,v in ipairs(Player.controller.types) do
 		end
 	end
 --]]

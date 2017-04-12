@@ -6,11 +6,11 @@ local function make(a,...)
 	c.aimvertical=0
 	c.shoot=false
 	c.powerup=false
-	c.ct={...}
+	c.types={...}
 
 	a.controller=c
 	
-	for k,v in pairs(c.ct) do
+	for k,v in pairs(c.types) do
 		if _G[Enums.controllernames[v]]["make"] then
 			_G[Enums.controllernames[v]]["make"](a)
 		end
@@ -20,8 +20,7 @@ end
 local function update(a,gs)
 	local c=a.controller
 	if c then
-
-		for k,v in pairs(c.ct) do
+		for k,v in pairs(c.types) do
 			if _G[Enums.controllernames[v]]["control"] then
 				_G[Enums.controllernames[v]]["control"](a)
 			end
