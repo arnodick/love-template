@@ -4,7 +4,7 @@ libraries = require("libraries")
 libraries.load("")
 --enumerators and constants
 Enums = enums.load("","actors","levels","states")
---debugger.printtable(Enums)
+debugger.printtable(Enums)
 love.math.setRandomSeed(os.time())
 --love.math.setRandomSeed(1)
 Debugger=debugger.make()
@@ -28,10 +28,12 @@ function love.joystickremoved(joystick)
 			table.remove(Joysticks,i)
 		end
 	end
+--[[
 	if Player then
 		for i,v in ipairs(Player.controller.ct) do
 		end
 	end
+--]]
 end
 
 function love.keypressed(key,scancode,isrepeat)
