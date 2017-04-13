@@ -13,11 +13,6 @@ Joysticks={}
 SFX = sfx.load(false,true)
 Music = music.load()
 
-ClampTest=1
-ClampTestMin=1
-ClampTestMax=10
-ClampTestInc=3
-
 function love.load()
 	Game = game.make(8,8,320,240,1)--TODO this is where load from ini or whatever will happen. or rather, laod from type! g.t=Enums.games.PROTOSNAKE
 end
@@ -44,11 +39,7 @@ end
 function love.keypressed(key,scancode,isrepeat)
 	game.keypressed(Game,key)
 
-	if key=='up' then
-		ClampTest=math.clamp(ClampTest+ClampTestInc,ClampTestMin,ClampTestMax,true)
-	elseif key=='down' then
-		ClampTest=math.clamp(ClampTest-ClampTestInc,ClampTestMin,ClampTestMax,true)
-	elseif key == '`' then
+	if key == '`' then
 		Debugger.debugging = not Debugger.debugging
 	elseif key == 'f' then
 		love.window.setFullscreen(not love.window.getFullscreen())
@@ -70,6 +61,5 @@ end
 function love.draw(dt)
 	game.draw(Game)
 
-	LG.print(ClampTest,10,10)
 	debugger.draw(Debugger)
 end
