@@ -5,8 +5,9 @@ local function clamp(v,mi,ma,wrap)
 		elseif v>ma then v=ma
 		end
 	else
-		if v<mi then v=ma
-		elseif v>ma then v=mi
+		--if v<mi then v=ma
+		if v<mi then v=ma+1+v-mi
+		elseif v>ma then v=mi-1+v-ma
 		end
 	end
 	return v
