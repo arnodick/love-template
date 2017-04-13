@@ -132,7 +132,7 @@ local function control(a,gs)
 		end
 	end
 	if a.tail then
-		local c=a.controller
+		local c=a.controller.aim
 		tail.control(a.tail,gs,a,c.aimhorizontal,c.aimvertical)
 	end
 

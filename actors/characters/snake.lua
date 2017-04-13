@@ -6,7 +6,7 @@ local function make(a,c,size,spr,hp,ct)
 	a.size=size or 1
 	a.spr=spr or 49
 	a.hp=hp or 8
-	controller.make(a,ec.shoot_accurate)
+	controller.make(a,ECT.aim,ECT.aims.shoot_accurate)
 	a.hit=0
 	a.hitsfx=3
 	a.hittime=6

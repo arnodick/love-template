@@ -1,7 +1,4 @@
-local function control(a)
-	local e=Enums.commands
-	local c=a.controller
-
+local function control(a,c)
 	if a.movetarget then
 		local movedir=vector.direction(vector.components(a.x,a.y,a.movetarget.x,a.movetarget.y))
 		c.movehorizontal=math.cos(movedir)

@@ -51,6 +51,9 @@ local function constants(e) --NOTE this function has side effects! makes global 
 	if e.flags then
 		EF=e.flags
 	end
+	if e.controllers then
+		ECT=e.controllers
+	end
 	LG=love.graphics
 	game.state=state--NOTE just a hacky way to make state functions part of game function table
 end

@@ -1,5 +1,4 @@
-local function control(a)
-	local c=a.controller
+local function control(a,c)
 	local j=Joysticks[1]
 	local deadzone=0.25
 

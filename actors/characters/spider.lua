@@ -6,7 +6,7 @@ local function make(a,c,size,spr,hp,ct)
 	a.size=size or 2
 	a.spr=spr or 8
 	a.hp=hp or 50
-	controller.make(a,ec.target_charge)
+	controller.make(a,ECT.move,ECT.moves.target_charge)
 	a.hit=0
 	a.hitsfx=3
 	a.hittime=6

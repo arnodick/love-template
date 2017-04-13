@@ -1,7 +1,4 @@
-local function control(a)
-	local e=Enums.commands
-	local c=a.controller
-
+local function control(a,c)
 	local dir=vector.direction(vector.components(a.x,a.y,a.target.x,a.target.y))
 	local dist=vector.distance(a.x,a.y,a.target.x,a.target.y)
 	if dist>a.speed then

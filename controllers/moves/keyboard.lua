@@ -1,7 +1,4 @@
-local function control(a)
-	local e=Enums.commands
-	local c=a.controller
-
+local function control(a,c)
 	if love.keyboard.isDown('left') or love.keyboard.isDown('a') then
 		c.movehorizontal=-1
 	elseif love.keyboard.isDown('right') or love.keyboard.isDown('d')  then
