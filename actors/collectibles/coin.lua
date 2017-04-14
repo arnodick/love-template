@@ -17,6 +17,7 @@ local function make(a,c,size,spr)
 	a.getsfx=6
 	a.follow=false
 	a.value=1
+	a.alpha=150
 	a.flags=flags.set(a.flags,EF.bouncy)
 end
 
