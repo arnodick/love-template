@@ -9,18 +9,22 @@ local function make(a,c,size)
 		table.insert(a.pointdirs, math.randomfraction(math.pi/2) + (math.pi/2)*i )
 	end
 	a.r=size
+	a.alpha=255
 	a.flags=flags.set(a.flags,EF.bouncy)
 end
 
 local function control(a)
 	local delta=Game.timer-a.delta
 	a.r=a.size-delta/5
+	a.alpha=a.alpha-2
 	if a.r<1 then
 		a.delete=true
 	end
 end
 
 local function draw(a)
+	--local r,g,b=
+	--LG.setColor(100,100,100,a.alpha)
 	local points={}
 	for i=1,#a.pointdirs do
 		table.insert(points,a.x+math.cos(a.pointdirs[i]+a.angle)*a.r)

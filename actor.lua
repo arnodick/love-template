@@ -110,7 +110,7 @@ local function control(a,gs)
 	if flags.get(a.flags,EF.shopitem) then
 		if vector.distance(a.x,a.y,Player.x,Player.y)<30 then
 			sprites.blink(a,24)
-			if Player.controller.powerup then
+			if Player.controller.aim.powerup then
 				if Player.coin>=a.cost then
 					a.flags=flags.switch(a.flags,EF.shopitem)
 					actor.corpse(a.menu,a.menu.w+1,a.menu.h+1,true)
@@ -154,7 +154,12 @@ local function draw(a)
 		_G[EA[a.t]]["predraw"](a)
 	end
 
-	LG.setColor(Game.palette[a.c])
+	local r,g,b=unpack(Game.palette[a.c])
+	local alpha=255
+	if a.alpha then
+		alpha=a.alpha
+	end
+	LG.setColor(r,g,b,alpha)
 	sprites.draw(a)
 
 	if _G[EA[a.t]]["draw"] then

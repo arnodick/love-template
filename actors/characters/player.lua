@@ -49,7 +49,7 @@ local function control(a)
 			Game.speed=math.clamp(a.vel,0.1,1)
 		end
 	end
-	if a.controller.powerup then
+	if a.controller.aim.powerup then
 		if #a.inv>1 then
 			local temp=a.inv[1]
 			table.remove(a.inv,1)
