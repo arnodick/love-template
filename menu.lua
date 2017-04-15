@@ -1,4 +1,4 @@
-local function make(t,x,y,w,h,text,c1,c2,bc1,bc2)
+local function make(t,x,y,w,h,text,c1,c2,bc1,bc2,...)
 --TODO make menu types
 	local m={}
 	m.t=t
@@ -15,15 +15,12 @@ local function make(t,x,y,w,h,text,c1,c2,bc1,bc2)
 	m.font=LG.newFont("fonts/Kongtext Regular.ttf",8)--TODO make fonts an array in game, then menu can select from them
 	--table.insert(Game.menus,m)
 	if _G[EM[m.t]]["make"] then
-		_G[EM[m.t]]["make"](m)
+		_G[EM[m.t]]["make"](m,...)
 	end
 	return m
 end
 
 local function control(m)
-	if m.controller then
-		controller.update(m)
-	end
 	if _G[EM[m.t]]["control"] then
 		_G[EM[m.t]]["control"](m)
 	end

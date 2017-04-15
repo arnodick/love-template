@@ -2,7 +2,7 @@ local function make(g)
 	g.state.font=LG.newFont("fonts/Kongtext Regular.ttf",64)
 	g.scores=scores.load()
 	music.play(1)
-	g.state.menu=menu.make(EM.interactive,Game.width/2,180,30,30,{"uno","dos"},EC.orange,EC.dark_green,EC.indigo,EC.dark_purple)
+	g.state.menu=menu.make(EM.interactive,Game.width/2,180,60,30,{"START","OPTIONS"},EC.orange,EC.dark_green,EC.indigo,EC.dark_purple,{game.state.make},{{Game,Enums.states.play}})
 end
 
 
@@ -15,7 +15,7 @@ end
 
 local function keypressed(g,key)
 	if key=="space" then
-		game.state.make(g,Enums.states.play)
+		--game.state.make(g,Enums.states.play)
 	elseif key=='escape' then
 		game.state.make(g,Enums.states.intro)
 	end
