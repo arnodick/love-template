@@ -29,7 +29,6 @@ local function control(m)
 end
 
 local function draw(m)
-	print(m.controller.move.movevertical)
 end
 
 return

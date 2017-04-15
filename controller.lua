@@ -10,7 +10,6 @@ local function make(a,t,st)
 	if _G[ECT[t]]["make"] then
 		_G[ECT[t]]["make"](a,c)
 	end
-	--table.insert(a.controller,c)
 	a.controller[ECT[t]]=c
 end
 
