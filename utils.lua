@@ -88,15 +88,18 @@ local function drawbox(x,y,w,a)
 	end
 end
 
-local function printborder(text,x,y,c1,c2,limit)
+local function printborder(text,x,y,c1,c2,limit,alpha)
 	limit=limit or Game.width - x
+	alpha=alpha or 255
 	for xoff=0,1 do
 		for yoff=1,1 do
 			--table.insert(coords,{x,y})
-			LG.setColor(Game.palette[c2])
+			local r,g,b=unpack(Game.palette[c2])
+			LG.setColor(r,g,b,alpha)
 			--LG.print(text,x+xoff,y+yoff)
 			LG.printf(text,x+xoff,y+yoff,limit,"left")
-			LG.setColor(Game.palette[c1])
+			r,g,b=unpack(Game.palette[c1])
+			LG.setColor(r,g,b,alpha)
 			LG.printf(text,x,y,limit,"left")
 		end
 	end

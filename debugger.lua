@@ -43,7 +43,7 @@ local function update(d)
 				table.insert(debuglist,"joy id: "..v:getID())
 			end
 		end
-	--[[
+	---[[
 		if #Joysticks>0 then
 			local axes={Joysticks[1]:getAxes()}
 			table.insert(debuglist,"joy axes:"..#axes)

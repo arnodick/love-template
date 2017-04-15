@@ -21,6 +21,9 @@ local function make(t,x,y,w,h,text,c1,c2,bc1,bc2)
 end
 
 local function control(m)
+	if m.controller then
+		controller.update(m)
+	end
 	if _G[EM[m.t]]["control"] then
 		_G[EM[m.t]]["control"](m)
 	end
@@ -42,7 +45,13 @@ local function draw(m)
 
 	if type(m.text)=="table" then
 		for i=1,#m.text do
-			LG.printborder(m.text[i],m.x-m.w/2,m.y-m.h/2+10*i,m.c1,m.c2,m.w)
+			local linealpha=255
+			if m.text.index then
+				if m.text.index~=i then
+					linealpha=50
+				end
+			end
+			LG.printborder(m.text[i],m.x-m.w/2,m.y-m.h/2+10*i,m.c1,m.c2,m.w,linealpha)
 		end
 	else
 		LG.printborder(m.text,m.x-m.w/2,m.y-m.h/2,m.c1,m.c2,m.w)
