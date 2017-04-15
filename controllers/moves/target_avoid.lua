@@ -3,6 +3,7 @@ local function control(a,c)
 
 	local dir=vector.direction(vector.components(a.x,a.y,a.target.x,a.target.y))
 	local dist=vector.distance(a.x,a.y,a.target.x,a.target.y)
+--move to point
 	if a.movetarget then
 		local movedir=vector.direction(vector.components(a.x,a.y,a.movetarget.x,a.movetarget.y))
 		c.movehorizontal=math.cos(movedir)
@@ -11,6 +12,7 @@ local function control(a,c)
 		if movedist<=a.vel then
 			a.movetarget=nil
 		end
+--avoid
 	elseif dist<maxdist then
 		if a.x>Game.width-32 or a.x<32 or a.y>Game.height-32 or a.y<32 then
 			a.movetarget={}
@@ -28,6 +30,7 @@ local function control(a,c)
 			c.movehorizontal=-math.cos(dir)
 			c.movevertical=-math.sin(dir)
 		end
+--random jitter
 	else
 		a.movetarget=nil
 		local x,y=love.math.random(Game.width),love.math.random(Game.height)

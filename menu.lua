@@ -1,11 +1,12 @@
-local function make(x,y,w,h,text,c1,c2,bc1,bc2)
+local function make(t,x,y,w,h,text,c1,c2,bc1,bc2)
 --TODO make menu types
 	local m={}
+	m.t=t
 	m.x=math.floor(x)
 	m.y=math.floor(y)
 	m.w=w
 	m.h=h
-	m.text=text--this is table
+	m.text=text--this cab a table or string
 	m.c1=c1
 	m.c2=c2
 	m.bc1=bc1
@@ -13,11 +14,16 @@ local function make(x,y,w,h,text,c1,c2,bc1,bc2)
 	--m.font=LG.newFont("fonts/pico8.ttf",8)--TODO make fonts an array in game, then menu can select from them
 	m.font=LG.newFont("fonts/Kongtext Regular.ttf",8)--TODO make fonts an array in game, then menu can select from them
 	--table.insert(Game.menus,m)
+	if _G[EM[m.t]]["make"] then
+		_G[EM[m.t]]["make"](m)
+	end
 	return m
 end
 
 local function control(m)
-
+	if _G[EM[m.t]]["control"] then
+		_G[EM[m.t]]["control"](m)
+	end
 end
 
 local function draw(m)
@@ -34,7 +40,7 @@ local function draw(m)
 	LG.setColor(Game.palette[m.bc1])
 	LG.rectangle("line",m.x-m.w/2,m.y-m.h/2,m.w,m.h)
 
-	if type(text)=="table" then
+	if type(m.text)=="table" then
 		for i=1,#m.text do
 			LG.printborder(m.text[i],m.x-m.w/2,m.y-m.h/2+10*i,m.c1,m.c2,m.w)
 		end
@@ -42,6 +48,10 @@ local function draw(m)
 		LG.printborder(m.text,m.x-m.w/2,m.y-m.h/2,m.c1,m.c2,m.w)
 	end
 	LG.setFont(Game.font)
+
+	if _G[EM[m.t]]["draw"] then
+		_G[EM[m.t]]["draw"](m)
+	end
 
 	if Debugmode then
 		LG.setColor(Game.palette[EC.red])

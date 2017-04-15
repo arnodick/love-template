@@ -25,7 +25,7 @@ local function control(a)
 
 	if dist<30 then
 		if not a.menu then
-			a.menu=menu.make(a.x,a.y-38,50,50,{"what you buy do you want to buy the powerup ?"},EC.orange,EC.dark_green,EC.indigo,EC.dark_purple)
+			a.menu=menu.make(EM.text,a.x,a.y-38,50,50,{"what you buy do you want to buy the powerup ?"},EC.orange,EC.dark_green,EC.indigo,EC.dark_purple)
 			a.menu.font=LG.newFont("fonts/pico8.ttf",8)
 		end
 	elseif a.menu then
