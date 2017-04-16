@@ -88,17 +88,16 @@ local function drawbox(x,y,w,a)
 	end
 end
 
-local function printborder(text,x,y,c1,c2,limit,alpha,align)
+local function printshadow(text,x,y,limit,align,c1,c2,alpha)
 	limit=limit or Game.width - x
-	alpha=alpha or 255
 	align=align or "left"
+	alpha=alpha or 255
 	for xoff=0,1 do
 		for yoff=1,1 do
-			--table.insert(coords,{x,y})
 			local r,g,b=unpack(Game.palette[c2])
 			LG.setColor(r,g,b,alpha)
-			--LG.print(text,x+xoff,y+yoff)
 			LG.printf(text,x+xoff,y+yoff,limit,align)
+
 			r,g,b=unpack(Game.palette[c1])
 			LG.setColor(r,g,b,alpha)
 			LG.printf(text,x,y,limit,align)
@@ -115,7 +114,7 @@ math.snap = snap
 love.filesystem.getfiles = getfiles
 love.filesystem.filterfiles = filterfiles
 love.graphics.drawbox = drawbox
-love.graphics.printborder = printborder
+love.graphics.printshadow = printshadow
 
 return
 {

@@ -95,11 +95,11 @@ local function draw(g)
 	end
 
 	if g.pause then
-		LG.printborder("PAUSE",g.camera.x+140,g.camera.y+g.height/2,EC.white,s.c)
+		LG.printshadow("PAUSE",g.camera.x+140,g.camera.y+g.height/2,g.width,"left",EC.white,s.c)
 	end
 
 	if Player.hp <= 0 then
-		LG.printborder("YOU DIED",g.camera.x+140,g.camera.y+20,EC.white,s.c)
+		LG.printshadow("YOU DIED",g.camera.x+140,g.camera.y+20,g.width,"left",EC.white,s.c)
 		LG.print("PRESS SPACE",g.camera.x+135,g.camera.y+50)
 		scores.draw(g.camera.x+150,g.camera.y+70,s.c,s.c2)
 	end

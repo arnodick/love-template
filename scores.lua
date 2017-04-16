@@ -66,8 +66,8 @@ local function draw(x,y,c1,c2)
 	for i=1,#s.high do
 		--LG.print(s.names[i],x-10,y+10*i)
 		--LG.print(s.high[i],x+10,y+10*i)
-		LG.printborder(s.names[i],x-10,y+10*i,c1,c2)
-		LG.printborder(s.high[i],x+10,y+10*i,c1,c2)
+		LG.printshadow(s.names[i],x-10,y+10*i,50,"left",c1,c2)
+		LG.printshadow(s.high[i], x+10,y+10*i,50,"left",c1,c2)
 	end
 end
 
