@@ -41,8 +41,8 @@ local function draw(g)
 	--scores.draw(Game.width/2,Game.height/2,EC.white,EC.yellow)
 ---[[
 	local imgdata=g.canvas.buffer:newImageData(0,0,g.canvas.buffer:getWidth()-1,g.canvas.buffer:getHeight()-1)
---	imgdata:mapPixel(pixelmaps.sparkle)
---	imgdata:mapPixel(pixelmaps.crush)
+	imgdata:mapPixel(pixelmaps.sparkle)
+	imgdata:mapPixel(pixelmaps.crush)
 	local image=LG.newImage(imgdata)
 	love.graphics.draw(image,0,0,0,1,1,0,0,0,0)
 --]]
