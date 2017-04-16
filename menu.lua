@@ -1,5 +1,4 @@
-local function make(t,x,y,w,h,text,c1,c2,bc1,bc2,...)
---TODO make menu types
+local function make(t,x,y,w,h,text,c1,c2,...)
 	local m={}
 	m.t=t
 	m.x=math.floor(x)
@@ -9,8 +8,6 @@ local function make(t,x,y,w,h,text,c1,c2,bc1,bc2,...)
 	m.text=text--this cab a table or string
 	m.c1=c1
 	m.c2=c2
-	m.bc1=bc1
-	m.bc2=bc2
 	--m.font=LG.newFont("fonts/pico8.ttf",8)--TODO make fonts an array in game, then menu can select from them
 	m.font=LG.newFont("fonts/Kongtext Regular.ttf",8)--TODO make fonts an array in game, then menu can select from them
 	--table.insert(Game.menus,m)
@@ -27,10 +24,13 @@ local function control(m)
 end
 
 local function draw(m)
-	LG.setFont(m.font)
+	if m.border then
+		border.draw(m.border)
+	end
+--[[
 	local alpha=230
-	local r,g,b=unpack(Game.palette[m.bc2])
 
+	local r,g,b=unpack(Game.palette[m.bc2])
 	LG.setColor(r,g,b,alpha)
 	LG.rectangle("fill",m.x-m.w/2+1,m.y-m.h/2+1,m.w+1,m.h+1)--TODO floor these suckas
 
@@ -39,7 +39,9 @@ local function draw(m)
 
 	LG.setColor(Game.palette[m.bc1])
 	LG.rectangle("line",m.x-m.w/2,m.y-m.h/2,m.w,m.h)
+--]]
 
+	LG.setFont(m.font)
 	if type(m.text)=="table" then
 		for i=1,#m.text do
 			local linealpha=255
