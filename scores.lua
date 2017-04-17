@@ -52,28 +52,8 @@ local function save()
 	LIP.save("scores.ini",scores)
 end
 
-local function draw(x,y,c1,c2)
-	local s=Game.scores
-
---TODO make this into menu library
-	LG.setColor(Game.palette[EC.dark_purple])
-	LG.rectangle("fill",x-20+1,y+1,52,102)
-	LG.setColor(Game.palette[EC.black])
-	LG.rectangle("fill",x-20,y,50,100)
-	LG.setColor(Game.palette[EC.indigo])
-	LG.rectangle("line",x-20,y,51,101)
-
-	for i=1,#s.high do
-		--LG.print(s.names[i],x-10,y+10*i)
-		--LG.print(s.high[i],x+10,y+10*i)
-		LG.printshadow(s.names[i],x-10,y+10*i,50,"left",c1,c2)
-		LG.printshadow(s.high[i], x+10,y+10*i,50,"left",c1,c2)
-	end
-end
-
 return
 {
 	load = load,
 	save = save,
-	draw = draw,
 }

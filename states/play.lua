@@ -25,6 +25,7 @@ local function make(g)
 end
 
 local function control(g)
+	local s=g.state
 	sfx.update(SFX,g.speed)
 
 	if not g.pause then
@@ -42,6 +43,18 @@ local function control(g)
 			end
 			counters.update(g.counters,v,-1)
 			table.remove(g.actors,i)
+		end
+	end
+
+	if Player.hp<=0 then
+		if not s.menu then
+			local scoretext={}
+			for i=1,#g.scores.names do
+				scoretext[i]=g.scores.names[i].." "..g.scores.high[i]
+			end
+			s.menu=menu.make(EM.text,g.camera.x+150,g.camera.y+150,50,100,scoretext,s.c,s.c2)
+			local m=s.menu
+			border.make(m,m.x,m.y,m.w,m.h,EC.dark_purple,EC.indigo)
 		end
 	end
 
@@ -101,7 +114,7 @@ local function draw(g)
 	if Player.hp <= 0 then
 		LG.printshadow("YOU DIED",g.camera.x+140,g.camera.y+20,g.width,"left",EC.white,s.c)
 		LG.print("PRESS SPACE",g.camera.x+135,g.camera.y+50)
-		scores.draw(g.camera.x+150,g.camera.y+70,s.c,s.c2)
+		menu.draw(s.menu)
 	end
 
 	LG.setColor(g.palette[EC.pure_white])

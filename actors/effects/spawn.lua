@@ -1,6 +1,6 @@
 local function make(a,c)
-	a.x=love.math.random(320)
-	a.y=love.math.random(240)
+	a.x=love.math.random(319)
+	a.y=love.math.random(239)
 	a.c=EC.blue
 	a.d=0
 	a.vel=0

@@ -2,7 +2,7 @@ local function make(g)
 	g.state.font=LG.newFont("fonts/Kongtext Regular.ttf",64)
 	g.scores=scores.load()
 	music.play(1)
-	g.state.menu=menu.make(EM.interactive,Game.width/2,180,60,30,{"START","OPTIONS"},EC.orange,EC.dark_green,{game.state.make,game.state.make},{{Game,Enums.states.play},{Game,Enums.states.options}})
+	g.state.menu=menu.make(EM.interactive,Game.width/2,180,60,30,{"START","OPTIONS"},EC.orange,EC.dark_green,"left",{game.state.make,game.state.make},{{Game,Enums.states.play},{Game,Enums.states.options}})
 	--EC.indigo,EC.dark_purple
 end
 
@@ -43,7 +43,6 @@ local function draw(g)
 		menu.draw(g.state.menu)
 		--LG.printf("PRESS SPACE",0,180,Game.width,"center")
 	LG.setCanvas(g.canvas.main)
-	--scores.draw(Game.width/2,Game.height/2,EC.white,EC.yellow)
 ---[[
 	local imgdata=g.canvas.buffer:newImageData(0,0,g.canvas.buffer:getWidth()-1,g.canvas.buffer:getHeight()-1)
 	imgdata:mapPixel(pixelmaps.sparkle)

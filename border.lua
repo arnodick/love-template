@@ -14,13 +14,14 @@ local function draw(border)
 
 	local r,g,b=unpack(Game.palette[border.c2])
 	LG.setColor(r,g,b,alpha)
-	LG.rectangle("fill",border.x-border.w/2+1,border.y-border.h/2+1,border.w+1,border.h+1)--TODO floor these suckas
+	local x,y=math.floor(border.x-border.w/2),math.floor(border.y-border.h/2)
+	LG.rectangle("fill",x+1,y+1,border.w+1,border.h+1)
 
 	LG.setColor(Game.palette[EC.black])
-	LG.rectangle("fill",border.x-border.w/2,border.y-border.h/2,border.w,border.h)
+	LG.rectangle("fill",x,y,border.w,border.h)
 
 	LG.setColor(Game.palette[border.c1])
-	LG.rectangle("line",border.x-border.w/2,border.y-border.h/2,border.w,border.h)
+	LG.rectangle("line",x,y,border.w,border.h)
 end
 
 return

@@ -3,8 +3,8 @@ local function make(t,st,x,y,d,vel,...)
 	local a={}
 	a.t=t
 	a.st=st
-	a.x=x or love.math.random(320)
-	a.y=y or love.math.random(240)
+	a.x=x or love.math.random(319)
+	a.y=y or love.math.random(239)
 	a.d=d or 0
 	a.vel=vel or 0
 	a.vec={math.cos(a.d),math.sin(a.d)}

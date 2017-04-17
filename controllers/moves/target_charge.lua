@@ -16,7 +16,7 @@ local function control(a,c)
 		sfx.play(12)
 	end
 	a.d=vector.direction(c.movehorizontal,-c.movevertical)
-	a.vel=vector.length(c.movehorizontal,c.movevertical)--TODO put speed in main actor stuff
+	a.vel=vector.length(c.movehorizontal,c.movevertical)
 end
 
 return
