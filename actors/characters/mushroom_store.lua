@@ -6,14 +6,11 @@ local function make(a,c,size,spr,hp,ct)
 	a.size=size or 1
 	a.spr=spr or 97
 	a.hp=hp or 1
-	controller.make(a,ECT.move,ECT.moves.target_seek)
+	controller.make(a,ECT.move,ECT.moves.target_seek,Game.width/2,Game.height/2)
 	a.hit=0
 	a.hitsfx=3
 	a.hittime=6
 	a.hitcolour=7
-	a.target={}
-	a.target.x=Game.width/2
-	a.target.y=Game.height/2
 	a.speed=2
 
 	animation.make(a,10,2)

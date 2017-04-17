@@ -1,4 +1,4 @@
-local function make(a,t,st,target)
+local function make(a,t,st,target,y)
 	if not a.controller then
 		a.controller={}
 	end
@@ -7,7 +7,12 @@ local function make(a,t,st,target)
 		if not a.target then
 			a.target={}
 		end
-		a.target[ECT[t]]=target
+		if type(target)=='table' then
+			a.target[ECT[t]]=target
+		else
+			a.target.x=target
+			a.target.y=y
+		end
 	end
 
 	local c={}
