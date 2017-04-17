@@ -1,6 +1,13 @@
-local function make(a,t,st)
+local function make(a,t,st,target)
 	if not a.controller then
 		a.controller={}
+	end
+
+	if target then
+		if not a.target then
+			a.target={}
+		end
+		a.target[ECT[t]]=target
 	end
 
 	local c={}

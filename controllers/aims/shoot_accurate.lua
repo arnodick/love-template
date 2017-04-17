@@ -1,5 +1,5 @@
 local function control(a,c)
-	local dir=vector.direction(vector.components(a.x,a.y,a.target.x,a.target.y))
+	local dir=vector.direction(vector.components(a.x,a.y,a.target.aim.x,a.target.aim.y))
 	c.aimhorizontal=math.cos(dir)
 	c.aimvertical=math.sin(dir)
 

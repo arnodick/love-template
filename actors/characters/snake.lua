@@ -6,12 +6,11 @@ local function make(a,c,size,spr,hp,ct)
 	a.size=size or 1
 	a.spr=spr or 49
 	a.hp=hp or 8
-	controller.make(a,ECT.aim,ECT.aims.shoot_accurate)
+	controller.make(a,ECT.aim,ECT.aims.shoot_accurate,Player)
 	a.hit=0
 	a.hitsfx=3
 	a.hittime=6
 	a.hitcolour=7
-	a.target=Player
 	a.value=1
 	tail.make(a,a.cinit,9)
 	a.inv={}
@@ -30,7 +29,7 @@ local function control(a)
 		for i,v in ipairs(Game.actors) do
 			if flags.get(v.flags,EF.enemy) then
 				if v~=a then
-					a.target=v
+					a.target.aim=v
 				end
 			end
 		end

@@ -6,12 +6,11 @@ local function make(a,c,size,spr,hp,ct)
 	a.size=size or 2
 	a.spr=spr or 8
 	a.hp=hp or 50
-	controller.make(a,ECT.move,ECT.moves.target_charge)
+	controller.make(a,ECT.move,ECT.moves.target_charge,Player)
 	a.hit=0
 	a.hitsfx=3
 	a.hittime=6
 	a.hitcolour=7
-	a.target=Player
 	a.value=1
 	a.speed=1.5
 	animation.make(a,6,2)
@@ -20,15 +19,15 @@ local function make(a,c,size,spr,hp,ct)
 end
 
 local function control(a)
-	if actor.collision(a.x,a.y,a.target) then
-		actor.damage(a.target,8)
+	if actor.collision(a.x,a.y,a.target.move) then
+		actor.damage(a.target.move,8)
 		actor.damage(a,a.hp)
 	end
 	if Player.hp<=0 then
 		for i,v in ipairs(Game.actors) do
 			if flags.get(v.flags,EF.enemy) then
 				if v~=a then
-					a.target=v
+					a.target.move=v
 				end
 			end
 		end
