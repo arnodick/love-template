@@ -9,6 +9,7 @@ local function make(t,st,x,y,d,vel,...)
 	a.vel=vel or 0
 	a.vec={math.cos(a.d),math.sin(a.d)}
 	a.angle=0
+	a.speed=1
 	a.delta=Game.timer
 	a.delete=false
 	a.flags = 0x0
@@ -52,7 +53,7 @@ local function control(a,gs)
 	a.vec[2] = math.sin(a.d)
 
 	local xcell,ycell=map.getcell(Game.map,a.x,a.y)
-	local xdest,ydest=a.x + a.vec[1]*a.vel*gs,a.y - a.vec[2]*a.vel*gs
+	local xdest,ydest=a.x + a.vec[1]*a.vel*a.speed*gs,a.y - a.vec[2]*a.vel*a.speed*gs
 	local xcelldest,ycelldest=map.getcell(Game.map,xdest,ydest)
 	
 	local xmapcell=Game.map[ycell][xcelldest]
