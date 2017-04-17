@@ -48,11 +48,7 @@ local function control(g)
 
 	if Player.hp<=0 then
 		if not s.menu then
-			local scoretext={}
-			for i=1,#g.scores.names do
-				scoretext[i]=g.scores.names[i].." "..g.scores.high[i]
-			end
-			s.menu=menu.make(EM.text,g.camera.x+150,g.camera.y+150,50,100,scoretext,s.c,s.c2)
+			s.menu=menu.make(EM.highscores,g.camera.x+150,g.camera.y+150,66,100,"",s.c,s.c2)
 			local m=s.menu
 			border.make(m,m.x,m.y,m.w,m.h,EC.dark_purple,EC.indigo)
 		end
