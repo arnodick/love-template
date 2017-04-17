@@ -11,7 +11,7 @@ local function control(g)
 end
 
 local function keypressed(g,key)
-	if key=="space" then
+	if key=="space" or key=="return" then
 		game.state.make(g,Enums.states.title)
 	elseif key == 'escape' then
 		love.event.quit()

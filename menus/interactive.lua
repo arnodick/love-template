@@ -7,9 +7,8 @@ local function make(m,buttons,args)
 end
 
 local function control(m)
-	--if m.controller then
-		controller.update(m)
-	--end
+	controller.update(m)
+
 	if m.controller.move.movevertical<0 then
 		if m.controller.move.last>=0 then
 			m.text.index=math.clamp(m.text.index-1,1,#m.text,true)
@@ -19,13 +18,17 @@ local function control(m)
 			m.text.index=math.clamp(m.text.index+1,1,#m.text,true)
 		end
 	end
-	if Joysticks[1]:isDown(1) then--TODO make this done by a controller
+
+	m.controller.move.last=m.controller.move.movevertical
+end
+
+local function gamepadpressed(m,button)
+	if button=='start' or button=='a' then
 		local i=m.text.index
 		if m.buttons[i] then
 			m.buttons[i](unpack(m.args[i]))
 		end
 	end
-	m.controller.move.last=m.controller.move.movevertical
 end
 
 local function draw(m)
@@ -35,5 +38,6 @@ return
 {
 	make = make,
 	control = control,
+	gamepadpressed = gamepadpressed,
 	draw = draw,
 }

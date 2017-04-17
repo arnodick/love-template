@@ -13,6 +13,9 @@ local function keypressed(g,key)
 end
 
 local function gamepadpressed(g,button)
+	if button=="b" then
+		game.state.make(g,Enums.states.intro)
+	end
 end
 
 local function draw(g)

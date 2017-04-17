@@ -9,22 +9,26 @@ end
 
 local function control(g)
 	menu.control(g.state.menu)
-	if g.timer>=330 then
+	if g.timer>=630 then
 		game.state.make(g,Enums.states.intro)
 	end
 end
 
 local function keypressed(g,key)
-	if key=="space" then
-		--game.state.make(g,Enums.states.play)
-	elseif key=='escape' then
+	if key=='escape' then
 		game.state.make(g,Enums.states.intro)
 	end
 end
 
 local function gamepadpressed(g,button)
-	if button=="start" then
-		game.state.make(g,Enums.states.play)
+	if button=="b" then
+		game.state.make(g,Enums.states.intro)
+	end
+	local m=g.state.menu
+	if m then
+		if _G[EM[m.t]]["gamepadpressed"] then
+			_G[EM[m.t]]["gamepadpressed"](m,button)
+		end
 	end
 end
 
