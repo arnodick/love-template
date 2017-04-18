@@ -36,10 +36,10 @@ local function draw(m)
 					linealpha=50
 				end
 			end
-			LG.printshadow(m.text[i],m.x-m.w/2,m.y-m.h/2+10*i,m.w,m.align,m.c1,m.c2,linealpha)
+			LG.printformat(m.text[i],m.x-m.w/2,m.y-m.h/2+10*i,m.w,m.align,m.c1,m.c2,linealpha)
 		end
 	else
-		LG.printshadow(m.text,m.x-m.w/2,m.y-m.h/2,m.w,m.align,m.c1,m.c2)
+		LG.printformat(m.text,m.x-m.w/2,m.y-m.h/2,m.w,m.align,m.c1,m.c2)
 	end
 	LG.setFont(Game.font)
 

@@ -88,7 +88,7 @@ local function drawbox(x,y,w,a)
 	end
 end
 
-local function printshadow(text,x,y,limit,align,c1,c2,alpha)
+local function printformat(text,x,y,limit,align,c1,c2,alpha)
 	limit=limit or Game.width - x
 	align=align or "left"
 	alpha=alpha or 255
@@ -114,7 +114,7 @@ math.snap = snap
 love.filesystem.getfiles = getfiles
 love.filesystem.filterfiles = filterfiles
 love.graphics.drawbox = drawbox
-love.graphics.printshadow = printshadow
+love.graphics.printformat = printformat
 
 return
 {

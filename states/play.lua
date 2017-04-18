@@ -48,9 +48,7 @@ local function control(g)
 
 	if Player.hp<=0 then
 		if not s.menu then
-			s.menu=menu.make(EM.highscores,g.camera.x+150,g.camera.y+150,66,100,"",s.c,s.c2)
-			local m=s.menu
-			border.make(m,m.x,m.y,m.w,m.h,EC.dark_purple,EC.indigo)
+			s.menu=menu.make(EM.highscores,g.width/2,g.height/2,66,100,"",s.c,s.c2,"center")
 		end
 	end
 
@@ -104,12 +102,12 @@ local function draw(g)
 	end
 
 	if g.pause then
-		LG.printshadow("PAUSE",g.camera.x+140,g.camera.y+g.height/2,g.width,"left",EC.white,s.c)
+		LG.printformat("PAUSE",g.camera.x+140,g.camera.y+g.height/2,g.width,"left",EC.white,s.c)
 	end
 
 	if Player.hp <= 0 then
-		LG.printshadow("YOU DIED",g.camera.x+140,g.camera.y+20,g.width,"left",EC.white,s.c)
-		LG.print("PRESS SPACE",g.camera.x+135,g.camera.y+50)
+		LG.printformat("YOU DIED",0,g.height/2-66,g.width,"center",EC.white,s.c)
+		LG.printformat("PRESS SPACE",0,g.height/2+60,g.width,"center",EC.white,s.c)
 		menu.draw(s.menu)
 	end
 
