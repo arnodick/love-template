@@ -1,7 +1,6 @@
 local function make(a,...)
 	a.flags = flags.set(a.flags, EF.damageable, EF.shootable, EF.explosive)
 	hitradius.make(a,4)
-	--if Game.level==Game.levels.current then
 	if Game.levels.current then
 		local spawnnum=(Game.score-1)%(#Game.levels.current.enemies)+1
 		if Game.levels.current.collectibledrops[spawnnum] then

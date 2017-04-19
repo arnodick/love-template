@@ -36,7 +36,7 @@ local function control(a,gs)
 
 	if a.anglespeed then
 		if a.anglespeeddecel then
-			a.anglespeed,a.anglespeeddecel=math.ease(a.anglespeed,a.anglespeeddecel,0)
+			a.anglespeed=math.snap(a.anglespeed,a.anglespeeddecel,0)
 		end
 		a.angle = a.angle + a.anglespeed*a.vec[1]*math.pi*2*gs
 	end
@@ -45,7 +45,7 @@ local function control(a,gs)
 		if a.hit>0 then
 			a.hit=a.hit-gs
 		else
-			a.c=a.cinit
+			a.c=a.cinit--TODO this is probably where weird colour stuff is happenin with snakes
 		end
 	end
 
@@ -87,25 +87,7 @@ local function control(a,gs)
 	end
 
 	if a.decel then
-		--a.vel,a.decel=math.ease(a.vel,a.decel*(Game.timer-a.delta)/4,0)
----[[
-		if a.vel>0 then
-			--TODO make decelinit and set decel to it here, so forever moving coins doesn't happen
-			if a.vel<=a.decel*(Game.timer-a.delta)/4 then
-				a.vel = 0
-				a.decel = 0
-			else
-				a.vel = a.vel - a.decel*gs*(Game.timer-a.delta)/4
-			end
-		elseif a.vel<0 then
-			if a.vel>=-a.decel*(Game.timer-a.delta)/4 then
-				a.vel = 0
-				a.decel = 0
-			else
-				a.vel = a.vel + a.decel*gs*(Game.timer-a.delta)/4
-			end
-		end
---]]
+		a.vel=math.snap(a.vel,a.decel*(Game.timer-a.delta)/4,0)
 	end
 
 	if flags.get(a.flags,EF.shopitem) then
@@ -193,7 +175,6 @@ local function damage(a,d)
 			if _G[EA[a.t]]["damage"] then
 				_G[EA[a.t]]["damage"](a)
 			end
-			--for i=1,8 do
 			for i=1,4 do
 				actor.make(EA.effect,EA.effects.debris,a.x,a.y)
 			end
