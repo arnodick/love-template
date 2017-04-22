@@ -1,12 +1,6 @@
 local function make(a,...)
 	a.flags = flags.set(a.flags, EF.damageable, EF.shootable, EF.explosive)
 	hitradius.make(a,4)
-	if Game.levels.current then
-		local spawnnum=(Game.score-1)%(#Game.levels.current.enemies)+1
-		if Game.levels.current.collectibledrops[spawnnum] then
-			a.collectibledrop=Game.levels.current.collectibledrops[spawnnum]
-		end
-	end
 	if _G[EA.characters[a.st]]["make"] then
 		_G[EA.characters[a.st]]["make"](a,...)
 	end
@@ -46,7 +40,8 @@ local function dead(a)
 		--local port=actor.make(EA.effect,EA.effects.portal,math.floor(a.x),math.floor(a.y))
 		local drop=actor.make(EA.collectible,EA.collectibles[dropname],math.floor(a.x),math.floor(a.y))
 		if dropname=="portal" then --TODO clean this up
-			drop.level=Game.levels.store
+			--drop.level=Game.levels.store
+			drop.level=Game.levels[a.collectibledroplevel]
 		end
 	end
 

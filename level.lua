@@ -19,7 +19,7 @@ local function load(dir)
 	return l
 end
 
-local function make(lload)
+local function make(lload)--TODO has to be a better way to do this. load number/string instead, get level from Game.levels array, copy using for pairs loop
 	local l={}
 	l.t=Enums.levels[lload.values.t]
 	l.c=lload.values.c
@@ -36,9 +36,11 @@ local function make(lload)
 		actor.make(EA.character,l.enemies[1])
 	end
 	l.collectibledrops=lload.collectibledrops
+	l.portal1=lload.portal1
 	if _G[Enums.levels[l.t]]["make"] then
 		_G[Enums.levels[l.t]]["make"](l,gs)
 	end
+	l.spawnindex=1
 	return l
 end
 

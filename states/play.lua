@@ -75,7 +75,11 @@ end
 
 local function gamepadpressed(g,button)
 	if button=="start" then
-		g.pause = not g.pause
+		if Player.hp<=0 then
+			game.state.make(g,Enums.states.play)
+		else
+			g.pause = not g.pause
+		end
 	end
 end
 

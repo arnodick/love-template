@@ -31,13 +31,18 @@ local function update(d)
 		table.insert(debuglist,"player item angle:"..Player.inv[1].angle)
 		end
 		end
+		if Game.levels.current then
+			table.insert(debuglist,"spawn i: "..Game.levels.current.spawnindex)
+		end
 		--table.insert(debuglist,"camx:"..Game.camera.x)
 		--table.insert(debuglist,"camy:"..Game.camera.y)
 		table.insert(debuglist,"pause: "..tostring(Game.pause))
+--[[
 		for i,v in pairs(Game.counters) do
 			--table.insert(debuglist,i.." count: "..#Game.counters[i])
 			table.insert(debuglist,i.." count: "..Game.counters[i])
 		end
+--]]
 		if #Joysticks>0 then
 			for i,v in ipairs(Joysticks) do
 				table.insert(debuglist,"joy id: "..v:getID())

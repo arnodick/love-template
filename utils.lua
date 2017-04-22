@@ -18,6 +18,22 @@ local function choose(...)
 	return arg[love.math.random(#arg)]
 end
 
+local function randomfraction(n)
+	return love.math.random(n*10000)/10000
+end
+
+local function snap(v,inc,snapto)--TODO does this need a negative version
+	if v-inc<=snapto+inc then--TODO make this addition instead of subtraction?
+		return snapto
+	else
+		return v-inc
+	end
+end
+
+local function ease(t,duration,limit,rate)
+	return (math.clamp(t,0,duration)/duration)*limit*rate
+end
+
 --loads a bunch of files that share an extension from a specific directory
 --returns a table with all the directory/filenames of those files
 --NOTE: unpack() the output to use it as an argument in another function
@@ -46,22 +62,6 @@ local function filterfiles(folder,ext)
 		end
 	end
 	return files
-end
-
-local function randomfraction(n)
-	return love.math.random(n*10000)/10000
-end
-
-local function snap(v,inc,snapto)--TODO does this need a negative version
-	if v-inc<=snapto+inc then--TODO make this addition instead of subtraction?
-		return snapto
-	else
-		return v-inc
-	end
-end
-
-local function ease(t,duration,rate)
-	return (t/duration)*rate
 end
 
 local function drawbox(x,y,w,a)

@@ -191,6 +191,8 @@ local function damage(a,d)
 				if Player.hp>0 then
 					if a.value then
 						Game.score=Game.score+a.value
+						local l=Game.levels.current
+						l.spawnindex=math.clamp(l.spawnindex+1,1,#l.enemies,true)
 					end
 				end
 
