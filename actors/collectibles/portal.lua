@@ -4,7 +4,6 @@ local function make(a,c,size)
 	a.sizeinit=size or 20
 	a.size=a.sizeinit
 	a.anglespeed=0.01
-	a.level=Game.levels[Game.level+1]
 	--a.flags=flags.switch(a.flags,EF.persistent)
 end
 
@@ -48,7 +47,6 @@ local function control(a,gs)
 		end
 		Game.levels.current=level.make(a.level)
 		Game.ease=true--TODO make easing function for this. works on any number
-		local maxdist=vector.distance(0,0,Game.width,Game.height)
 		Game.speed=0.01
 
 		a.delete=true --TODO maybe give this a VERY low chance of not happening?

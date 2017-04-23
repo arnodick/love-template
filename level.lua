@@ -37,6 +37,8 @@ local function make(lload)--TODO has to be a better way to do this. load number/
 	end
 	l.collectibledrops=lload.collectibledrops
 	l.portal1=lload.portal1
+	l.portal2=lload.portal2
+	l.portalstore=lload.portalstore
 	if _G[Enums.levels[l.t]]["make"] then
 		_G[Enums.levels[l.t]]["make"](l,gs)
 	end

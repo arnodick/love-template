@@ -23,33 +23,41 @@ local function control(a,gs)
 	a.size=a.size-gs
 	if a.size<=0 then
 		local l=Game.levels.current
+		local spawnnum=a.enemyspawn
 
-		if l.enemies[a.enemyspawn] then
-			local enemy=actor.make(EA.character,l.enemies[a.enemyspawn],a.x,a.y)
-			local level=Game.levels.current
-			if level then
-				local spawnnum=a.enemyspawn
-				if level.collectibledrops then
-					if level.collectibledrops[spawnnum] then
-						enemy.collectibledrop=level.collectibledrops[spawnnum]
-					end
-				end
+		if l.enemies[spawnnum] then
+			local enemy=actor.make(EA.character,l.enemies[spawnnum],a.x,a.y)			
 
-				local p1=level.portal1
-				if p1 then
-					if p1.droppedby==spawnnum then
-						enemy.collectibledrop="portal"
-						enemy.collectibledroplevel="store"
-					end
-				end
-				local p2=level.portal2
-				if p2 then
-					if p2.droppedby==spawnnum then
-						enemy.collectibledrop="portal"
-						enemy.collectibledroplevel=2
-					end
+			if l.collectibledrops then
+				if l.collectibledrops[spawnnum] then
+					enemy.collectibledrop=l.collectibledrops[spawnnum]
 				end
 			end
+
+			local p1=l.portal1
+			if p1 then
+				if p1.droppedby==spawnnum then
+					enemy.collectibledrop="portal"
+					enemy.collectibledroplevel=1
+				end
+			end
+
+			local p2=l.portal2
+			if p2 then
+				if p2.droppedby==spawnnum then
+					enemy.collectibledrop="portal"
+					enemy.collectibledroplevel=2
+				end
+			end
+
+			local pstore=l.portalstore
+			if pstore then
+				if pstore.droppedby==spawnnum then
+					enemy.collectibledrop="portal"
+					enemy.collectibledroplevel="store"
+				end
+			end
+
 		end
 		for i=1,20 do
 			local spark=actor.make(EA.effect,EA.effects.spark,a.x,a.y)
