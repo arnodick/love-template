@@ -8,7 +8,6 @@ local function make(a,c)
 	a.flags=flags.set(a.flags,EF.enemy)--NOTE this is to make sure a bazillion spawns don't... spawn
 	a.sfx=false
 	local l=Game.levels.current
-	--a.enemyspawn=(Game.score-1)%(#l.enemies)+1
 	a.enemyspawn=l.spawnindex
 end
 
@@ -28,6 +27,7 @@ local function control(a,gs)
 		if l.enemies[spawnnum] then
 			local enemy=actor.make(EA.character,l.enemies[spawnnum],a.x,a.y)			
 
+			--TODO make a spawn function or something that has all the drop stuff in it and put it in level load characer spawn too
 			if l.collectibledrops then
 				if l.collectibledrops[spawnnum] then
 					enemy.collectibledrop=l.collectibledrops[spawnnum]
@@ -57,8 +57,8 @@ local function control(a,gs)
 					enemy.collectibledroplevel="store"
 				end
 			end
-
 		end
+
 		for i=1,20 do
 			local spark=actor.make(EA.effect,EA.effects.spark,a.x,a.y)
 			spark.c=EC.dark_blue

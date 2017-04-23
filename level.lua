@@ -32,13 +32,15 @@ local function make(lload)--TODO has to be a better way to do this. load number/
 		end
 	end
 
-	for i=1,l.enemies.max do
-		actor.make(EA.character,l.enemies[1])
-	end
 	l.collectibledrops=lload.collectibledrops
 	l.portal1=lload.portal1
 	l.portal2=lload.portal2
 	l.portalstore=lload.portalstore
+
+	for i=1,l.enemies.max do
+		actor.make(EA.character,l.enemies[1])
+	end
+
 	if _G[Enums.levels[l.t]]["make"] then
 		_G[Enums.levels[l.t]]["make"](l,gs)
 	end
