@@ -16,6 +16,7 @@ end
 local function get(a)
 	local port=actor.make(EA.collectible,EA.collectibles.portal,Game.width/2,Game.height/2+40)
 	port.c=EC.red
+	port.level=2
 end
 
 return

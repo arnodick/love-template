@@ -10,7 +10,7 @@ local function make(tw,th,gw,gh,sp)
 
 	game.graphics(g,tw,th,gw,gh)
 	g.levels=level.load("levels/inis")
-	debugger.printtable(g.levels)
+	--debugger.printtable(g.levels)
 
 	game.state.make(g,Enums.states.intro)
 	return g

@@ -40,7 +40,7 @@ local function dead(a)
 	if dropname then
 		local drop=actor.make(EA.collectible,EA.collectibles[dropname],math.floor(a.x),math.floor(a.y))
 		if dropname=="portal" then --TODO clean this up
-			drop.level=Game.levels[a.collectibledroplevel]
+			drop.level=a.collectibledroplevel
 		end
 	end
 

@@ -21,7 +21,7 @@ local function make(g)
 	Player=actor.make(EA.character,EA.characters.player,g.width/2,g.height/2)
 
 	g.level=1
-	g.levels.current=level.make(g.levels[g.level])
+	g.levels.current=level.make(g.level)
 end
 
 local function control(g)
