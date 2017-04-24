@@ -30,6 +30,15 @@ local function control(a,gs)
 
 	--actor.calltype(a,gs,debug.getinfo(1,"n").name)
 
+--[[
+	for i=1,#EF do
+		if flags.get(a.flags,i) then
+			if _G[EF[i] ]["control"] then
+				_G[EF[i] ]["control"](a,gs)
+			end
+		end
+	end
+--]]
 	if _G[EA[a.t]]["control"] then
 		_G[EA[a.t]]["control"](a,gs)
 	end
