@@ -14,9 +14,9 @@ local function make(a,c,size,spr,hp,ct)
 	a.value=1
 	tail.make(a,a.cinit,9)
 	a.inv={}
-	table.insert(a.inv,actor.make(EA.item,EA.items.machinegun,a.x,a.y,0,0,a.cinit,EC.green))
+	table.insert(a.inv,actor.make(EA.machinegun,a.x,a.y,0,0,a.cinit,EC.green))
 	animation.make(a,10,2)
-	a.flags=flags.set(a.flags,e.flags.bouncy,e.flags.enemy)
+	a.flags=flags.set(a.flags,EA.flags.character,e.flags.bouncy,e.flags.enemy)
 	a.d=math.choose(math.pi)
 	a.vel=1
 	a.rage=0
@@ -45,7 +45,7 @@ local function draw(a)
 end
 
 local function dead(a)
-	actor.make(EA.collectible,EA.collectibles.coin,a.x,a.y)
+	actor.make(EA.coin,a.x,a.y)
 end
 
 return

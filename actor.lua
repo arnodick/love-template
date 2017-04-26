@@ -1,8 +1,7 @@
-local function make(t,st,x,y,d,vel,...)
+local function make(t,x,y,d,vel,...)
 	--if not (t==EA.effect and #Game.actors>3000) then --TODO figure out how to do this without checking the existence of each returned actor
 	local a={}
 	a.t=t
-	a.st=st
 	a.x=x or love.math.random(319)
 	a.y=y or love.math.random(239)
 	a.d=d or 0
@@ -30,11 +29,11 @@ local function control(a,gs)
 
 	--actor.calltype(a,gs,debug.getinfo(1,"n").name)
 
---[[
-	for i=1,#EF do
+---[[
+	for i=1,5 do
 		if flags.get(a.flags,i) then
-			if _G[EF[i] ]["control"] then
-				_G[EF[i] ]["control"](a,gs)
+			if _G[EA.flags[i] ]["control"] then
+				_G[EA.flags[i] ]["control"](a,gs)
 			end
 		end
 	end
@@ -106,7 +105,7 @@ local function control(a,gs)
 				if Player.coin>=a.cost then
 					a.flags=flags.switch(a.flags,EF.shopitem)
 					actor.corpse(a.menu,a.menu.w+1,a.menu.h+1,true)
-					actor.make(EA.effect,EA.effects.explosion,a.x,a.y,0,0,EC.white,40)
+					actor.make(EA.explosion,a.x,a.y,0,0,EC.white,40)
 					a.menu=nil
 					Player.coin=Player.coin-a.cost
 				else
@@ -185,7 +184,7 @@ local function damage(a,d)
 				_G[EA[a.t]]["damage"](a)
 			end
 			for i=1,4 do
-				actor.make(EA.effect,EA.effects.debris,a.x,a.y)
+				actor.make(EA.debris,a.x,a.y)
 			end
 			if a.hittime then
 				if a.hit<a.hittime then
@@ -206,7 +205,7 @@ local function damage(a,d)
 				end
 
 				if flags.get(a.flags,EF.explosive) then
-					actor.make(EA.effect,EA.effects.explosion,a.x,a.y,0,0,EC.white,20*(a.size))
+					actor.make(EA.explosion,a.x,a.y,0,0,EC.white,20*(a.size))
 				end
 
 				if _G[EA[a.t]]["dead"] then
@@ -272,7 +271,7 @@ local function corpse(a,tw,th,hack)
 		th=th-diff
 	end
 	
-	local body=actor.make(EA.effect,EA.effects.debris,a.x,a.y)
+	local body=actor.make(EA.debris,a.x,a.y)
 	body.decel=0.1
 	if not hack then
 		local choice=math.choose(1,2)
@@ -284,7 +283,7 @@ local function corpse(a,tw,th,hack)
 			body.image=LG.newImage(imgdata)
 			body.d=dir
 
-			local body2=actor.make(EA.effect,EA.effects.debris,a.x,a.y)
+			local body2=actor.make(EA.debris,a.x,a.y)
 			body2.decel=0.1
 			local imgdata2=Game.canvas.main:newImageData(ix+tw/2,iy,tw/2,th)
 			body2.image=LG.newImage(imgdata2)
@@ -296,19 +295,19 @@ local function corpse(a,tw,th,hack)
 		body.image=LG.newImage(imgdata)
 		body.d=math.randomfraction(math.pi*2)
 
-		local body2=actor.make(EA.effect,EA.effects.debris,a.x,a.y)
+		local body2=actor.make(EA.debris,a.x,a.y)
 		body2.decel=0.2
 		local imgdata2=Game.canvas.main:newImageData(ix+tw/2,iy+th/2,tw/2,th/2)
 		body2.image=LG.newImage(imgdata2)
 		body2.d=math.randomfraction(math.pi*2)
 
-		local body3=actor.make(EA.effect,EA.effects.debris,a.x,a.y)
+		local body3=actor.make(EA.debris,a.x,a.y)
 		body3.decel=0.2
 		local imgdata3=Game.canvas.main:newImageData(ix+tw/2,iy,tw/2,th/2)
 		body3.image=LG.newImage(imgdata3)
 		body3.d=math.randomfraction(math.pi*2)
 
-		local body4=actor.make(EA.effect,EA.effects.debris,a.x,a.y)
+		local body4=actor.make(EA.debris,a.x,a.y)
 		body4.decel=0.2
 		local imgdata4=Game.canvas.main:newImageData(ix,iy,tw/2,th/2)
 		body4.image=LG.newImage(imgdata4)

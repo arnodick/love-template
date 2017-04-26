@@ -14,14 +14,14 @@ local function make(a,c,size,spr,hp,ct)
 	a.value=1
 	a.speed=2
 	animation.make(a,10,2)
-	a.flags=flags.set(a.flags,e.flags.enemy)
+	a.flags=flags.set(a.flags,EA.flags.character,e.flags.enemy)
 
 	Game.levels.current.enemies.max=math.clamp(Game.levels.current.enemies.max+1,1,Game.levels.current.enemies.maxlimit)
 end
 
 local function control(a)
 	if love.math.random(10000)==1 then
-		local smolhp=actor.make(EA.collectible,EA.collectibles.hp,a.x,a.y,0,0,EC.red,1,129)
+		local smolhp=actor.make(EA.hp,a.x,a.y,0,0,EC.red,1,129)
 		smolhp.value=1
 		smolhp.scalex=0.5
 		smolhp.scaley=0.5

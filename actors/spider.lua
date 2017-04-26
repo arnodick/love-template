@@ -15,7 +15,7 @@ local function make(a,c,size,spr,hp,ct)
 	a.speed=1.5
 	animation.make(a,6,2)
 	hitradius.make(a,8)
-	a.flags=flags.set(a.flags,e.flags.enemy)
+	a.flags=flags.set(a.flags,EA.flags.character,e.flags.enemy)
 end
 
 local function control(a)
@@ -41,7 +41,7 @@ end
 
 local function dead(a)
 	for i=1,3 do
-		actor.make(EA.collectible,EA.collectibles.coin,a.x,a.y)
+		actor.make(EA.coin,a.x,a.y)
 	end
 end
 

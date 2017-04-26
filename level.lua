@@ -27,7 +27,7 @@ local function make(lindex)
 	l.enemies={}
 	for i,v in pairs(lload.enemies) do
 		if type(i)=="number" then
-			l.enemies[i]=EA.characters[v]
+			l.enemies[i]=EA[v]
 		else
 			l.enemies[i]=v
 		end
@@ -39,7 +39,7 @@ local function make(lindex)
 	l.portalstore=lload.portalstore
 
 	for i=1,l.enemies.max do
-		actor.make(EA.character,l.enemies[1])
+		actor.make(l.enemies[1])
 	end
 
 	l.spawnindex=1
@@ -54,7 +54,7 @@ local function control(l)
 	local enemycount=Game.counters.enemy
 	
 	if enemycount<l.enemies.max then
-		actor.make(EA.effect,EA.effects.spawn)
+		actor.make(EA.spawn)
 	end
 
 	if _G[Enums.levels[l.t]]["control"] then

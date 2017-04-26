@@ -30,7 +30,6 @@ local function load(m)
 	for a=1, #map do
 		for b=1, #map[a] do
 			if getflag(map[a][b], Enums.wall) then
-				--makewall((b-1)*TileW, (a-1)*TileH, TileW, TileH) --each cell that has a wall flag loads a wall entity
 				actor.make(0,0,(b-1)*TileW+TileW/2, (a-1)*TileH+TileH/2, TileW, TileH) --each cell that has a wall flag loads a wall entity
 			end
 		end

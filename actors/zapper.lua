@@ -4,7 +4,7 @@ local function make(a)
 	a.num=1
 	a.acc=0.1
 	a.snd=2
-	a.proj=EA.projectiles.lightning
+	a.proj=EA.lightning
 end
 
 local function draw(a)
@@ -14,7 +14,7 @@ end
 local function shoot(a)
 	for b=1,a.num do
 		local rand = love.math.random(-a.acc/2*100,a.acc/2*100)/50*math.pi
-		actor.make(EA.projectile,a.proj,a.x,a.y,-a.angle+rand,a.projvel+math.randomfraction(0.5),a.bc)
+		actor.make(a.proj,a.x,a.y,-a.angle+rand,a.projvel+math.randomfraction(0.5),a.bc)
 	end
 end
 

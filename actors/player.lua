@@ -23,12 +23,11 @@ local function make(a,c,size,spr,hp,ct)
 	a.inv={}
 	a.inv.i=1
 	a.inv.max=2
-	actor.make(EA.item,EA.items.machinegun,a.x,a.y,0,0,EC.dark_purple,EC.dark_purple)
-	--actor.make(EA.item,EA.items.hammer,a.x,a.y,0,0,EC.dark_purple,a.cinit)
+	actor.make(EA.machinegun,a.x,a.y,0,0,EC.dark_purple,EC.dark_purple)
 	a.coin=0
 	animation.make(a,10,2)
 	--animation.make(a,2,32) --SWEET GLITCH ANIMATION
-	a.flags=flags.set(a.flags,e.flags.persistent)
+	a.flags=flags.set(a.flags,EA.flags.character,e.flags.persistent)
 end
 
 local function control(a)

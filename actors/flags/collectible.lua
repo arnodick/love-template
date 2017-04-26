@@ -26,7 +26,7 @@ local function control(a,gs)
 			if a.getsfx then
 				sfx.play(a.getsfx)
 			end
-			actor.make(EA.effect,EA.effects.collectibleget,a.x,a.y,math.pi/2,1,EC.pure_white,1,a.sprinit)
+			actor.make(EA.collectibleget,a.x,a.y,math.pi/2,1,EC.pure_white,1,a.sprinit)
 			if _G[EA.collectibles[a.st]]["get"] then
 				_G[EA.collectibles[a.st]]["get"](a,gs)
 			end
