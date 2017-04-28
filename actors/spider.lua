@@ -15,7 +15,7 @@ local function make(a,c,size,spr,hp,ct)
 	a.speed=1.5
 	animation.make(a,6,2)
 	hitradius.make(a,8)
-	a.flags=flags.set(a.flags,EA.flags.character,e.flags.enemy)
+	a.flags=flags.set(a.flags,EA.flags.character,EF.enemy,EF.damageable, EF.shootable, EF.explosive)
 end
 
 local function control(a)

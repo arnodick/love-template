@@ -13,8 +13,10 @@ local function make(a,c,size,spr,hp,ct)
 	a.hitcolour=7
 	a.value=1
 	a.speed=2
+
 	animation.make(a,10,2)
-	a.flags=flags.set(a.flags,EA.flags.character,e.flags.enemy)
+	hitradius.make(a,4)
+	a.flags=flags.set(a.flags,EA.flags.character,EF.enemy,EF.damageable, EF.shootable, EF.explosive)
 
 	Game.levels.current.enemies.max=math.clamp(Game.levels.current.enemies.max+1,1,Game.levels.current.enemies.maxlimit)
 end

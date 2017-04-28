@@ -1,24 +1,3 @@
-local function make(a,...)
-	a.flags = flags.set(a.flags, EF.damageable, EF.shootable, EF.explosive)
-	hitradius.make(a,4)
-
-	if _G[EA.characters[a.st]]["make"] then
-		_G[EA.characters[a.st]]["make"](a,...)
-	end
-end
-
-local function control(a,gs)
-	if _G[EA.characters[a.st]]["control"] then
-		_G[EA.characters[a.st]]["control"](a)
-	end
-end
-
-local function draw(a)
-	if _G[EA.characters[a.st]]["draw"] then
-		_G[EA.characters[a.st]]["draw"](a)
-	end
-end
-
 local function collision(a)
 	if _G[EA.characters[a.st]]["collision"] then
 		_G[EA.characters[a.st]]["collision"](a)
@@ -51,9 +30,6 @@ end
 
 return
 {
-	make = make,
-	control = control,
-	draw = draw,
 	collision = collision,
 	damage = damage,
 	dead = dead,

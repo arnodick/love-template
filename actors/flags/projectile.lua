@@ -6,18 +6,6 @@ local function make(a,c,...)
 	end
 end
 
-local function control(a,gs)
-	if _G[EA.projectiles[a.st]]["control"] then
-		_G[EA.projectiles[a.st]]["control"](a,gs)
-	end
-end
-
-local function draw(a)
-	if _G[EA.projectiles[a.st]]["draw"] then
-		_G[EA.projectiles[a.st]]["draw"](a)
-	end
-end
-
 local function predraw(a)
 	if _G[EA.projectiles[a.st]]["predraw"] then
 		_G[EA.projectiles[a.st]]["predraw"](a)
@@ -33,8 +21,6 @@ end
 return
 {
 	make = make,
-	control = control,
-	draw = draw,
 	predraw = predraw,
 	collision = collision,
 }

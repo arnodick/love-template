@@ -1,22 +1,11 @@
-local function make(a,gc,bc,shopitem,...)
-	a.c=gc
-	a.bc=bc
-	a.leninit=len or 9
-	a.len=a.leninit
-	a.anglemin=-math.pi
-	a.anglemax=0
+local function make(a,gc,bc,shopitem)
+	a.c=gc--can go in individual item's input
+	a.bc=bc--can go in machinegun input
 	a.angle=-0.79
-	a.mx=a.x-math.cos(a.angle+0.1)*a.len/2
-	a.my=a.y-math.sin(a.angle+0.1)*a.len/2
-	a.tx=a.x-math.cos(a.angle)*a.len
-	a.ty=a.y-math.sin(a.angle)*a.len
 	a.getsfx=10
 	a.delta=0--NOTE need this bc actor.make sets delta to Game.timer, so any actor not spawning at Game.timer==0 can't shoot
 	if shopitem then
 		a.flags=flags.set(a.flags,EF.shopitem)
-	end
-	if _G[EA.items[a.st]]["make"] then
-		_G[EA.items[a.st]]["make"](a)
 	end
 	return a
 end
@@ -67,17 +56,10 @@ local function use(a,gs,user,vx,vy,shoot)
 	end
 end
 
-local function draw(a)
-	if _G[EA.items[a.st]]["draw"] then
-		_G[EA.items[a.st]]["draw"](a,gs)
-	end
-end
-
 return
 {
 	make = make,
 	control = control,
 	carry = carry,
 	use = use,
-	draw = draw,
 }

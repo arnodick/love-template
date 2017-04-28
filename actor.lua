@@ -15,6 +15,13 @@ local function make(t,x,y,d,vel,...)
 	if _G[EA[a.t]]["make"] then
 		_G[EA[a.t]]["make"](a,...)
 	end
+	for i=1,5 do
+		if flags.get(a.flags,i) then
+			if _G[EA.flags[i] ]["make"] then
+				_G[EA.flags[i] ]["make"](a,...)
+			end
+		end
+	end
 	counters.update(Game.counters,a,1)
 	if flags.get(a.flags,EF.queue) then
 		--Game.actors[ EA[a.t].."s" ][ EA[a.t].."s" ]={}

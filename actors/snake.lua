@@ -16,7 +16,8 @@ local function make(a,c,size,spr,hp,ct)
 	a.inv={}
 	table.insert(a.inv,actor.make(EA.machinegun,a.x,a.y,0,0,a.cinit,EC.green))
 	animation.make(a,10,2)
-	a.flags=flags.set(a.flags,EA.flags.character,e.flags.bouncy,e.flags.enemy)
+	hitradius.make(a,4)
+	a.flags=flags.set(a.flags,EA.flags.character,EF.bouncy,EF.enemy,EF.damageable, EF.shootable, EF.explosive)
 	a.d=math.choose(math.pi)
 	a.vel=1
 	a.rage=0

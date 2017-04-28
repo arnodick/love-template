@@ -1,9 +1,3 @@
-local function make(a,...)
-	if _G[EA.collectibles[a.st]]["make"] then
-		_G[EA.collectibles[a.st]]["make"](a,...)
-	end
-end
-
 local function control(a,gs)
 	if not flags.get(a.flags,EF.shopitem) then
 		if not a.spr then
@@ -40,20 +34,7 @@ local function control(a,gs)
 	end
 end
 
-local function predraw(a)
-
-end
-
-local function draw(a)
-	if _G[EA.collectibles[a.st]]["draw"] then
-		_G[EA.collectibles[a.st]]["draw"](a)
-	end
-end
-
 return
 {
-	make = make,
 	control = control,
-	predraw = predraw,
-	draw = draw,
 }
