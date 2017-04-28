@@ -20,9 +20,6 @@ local function control(a,gs)
 			table.insert(Player.inv,1,a)
 		end
 	end
-	if _G[EA.items[a.st]]["control"] then
-		_G[EA.items[a.st]]["control"](a,gs)
-	end
 end
 
 local function carry(a,user)
@@ -44,8 +41,8 @@ local function use(a,gs,user,vx,vy,shoot)
 		if shoot then
 			sfx.play(a.snd,a.x,a.y)
 
-			if _G[EA.items[a.st]]["shoot"] then
-				_G[EA.items[a.st]]["shoot"](a,gs)
+			if _G[EA[a.t]]["shoot"] then
+				_G[EA[a.t]]["shoot"](a,gs)
 			end
 
 			actor.make(EA.cloud,a.x,a.y,-a.angle+math.randomfraction(1)-0.5,math.randomfraction(1))
