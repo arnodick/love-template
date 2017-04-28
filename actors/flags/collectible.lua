@@ -21,16 +21,16 @@ local function control(a,gs)
 				sfx.play(a.getsfx)
 			end
 			actor.make(EA.collectibleget,a.x,a.y,math.pi/2,1,EC.pure_white,1,a.sprinit)
-			if _G[EA.[a.t]]["get"] then
-				_G[EA.[a.t]]["get"](a,gs)
+			if _G[EA[a.t]]["get"] then
+				_G[EA[a.t]]["get"](a,gs)
 			end
 			a.delete=true
 		end
 	else
 
 	end
-	if _G[EA.[a.t]]["control"] then
-		_G[EA.[a.t]]["control"](a,gs)
+	if _G[EA[a.t]]["control"] then
+		_G[EA[a.t]]["control"](a,gs)
 	end
 end
 

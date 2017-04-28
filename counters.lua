@@ -29,8 +29,8 @@ end
 local function update(c,a,amount)
 	--local typecounter=c[EA[a.t]]
 	c[EA[a.t]]=c[EA[a.t]]+amount
-	local typename=EA[a.t].."s"
-	c[EA[typename][a.st]]=c[EA[typename][a.st]]+amount
+	--local typename=EA[a.t].."s"
+	--c[EA[typename][a.st]]=c[EA[typename][a.st]]+amount
 	if flags.get(a.flags,EF.enemy) then
 		c.enemy=c.enemy+amount
 	end
