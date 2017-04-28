@@ -1,4 +1,5 @@
-local function make(a)
+local function make(a,c)
+	a.c=c
 	a.size=1
 	a.sprinit=145
 	a.spr=a.sprinit

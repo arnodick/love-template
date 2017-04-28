@@ -1,15 +1,3 @@
-local function collision(a)
-	if _G[EA.characters[a.st]]["collision"] then
-		_G[EA.characters[a.st]]["collision"](a)
-	end
-end
-
-local function damage(a)
-	if _G[EA.characters[a.st]]["damage"] then
-		_G[EA.characters[a.st]]["damage"](a)
-	end
-end
-
 local function dead(a)
 	actor.corpse(a,Game.tile.width,Game.tile.height)
 	Game.ease=true--TODO make easing function for this. works on any number
@@ -22,15 +10,9 @@ local function dead(a)
 			drop.level=a.collectibledroplevel
 		end
 	end
-
-	if _G[EA.characters[a.st]]["dead"] then
-		_G[EA.characters[a.st]]["dead"](a)
-	end
 end
 
 return
 {
-	collision = collision,
-	damage = damage,
 	dead = dead,
 }

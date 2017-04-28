@@ -1,5 +1,4 @@
 local function make(t,x,y,d,vel,...)
-	--if not (t==EA.effect and #Game.actors>3000) then --TODO figure out how to do this without checking the existence of each returned actor
 	local a={}
 	a.t=t
 	a.x=x or love.math.random(319)
@@ -15,20 +14,24 @@ local function make(t,x,y,d,vel,...)
 	if _G[EA[a.t]]["make"] then
 		_G[EA[a.t]]["make"](a,...)
 	end
+	if flags.get(a.flags,EA.flags.item) then
+		item.make(a)
+	end
+--[[
 	for i=1,5 do
 		if flags.get(a.flags,i) then
 			if _G[EA.flags[i] ]["make"] then
-				_G[EA.flags[i] ]["make"](a,...)
+				_G[EA.flags[i] ]["make"](a)
 			end
 		end
 	end
+--]]
 	counters.update(Game.counters,a,1)
 	if flags.get(a.flags,EF.queue) then
 		--Game.actors[ EA[a.t].."s" ][ EA[a.t].."s" ]={}
 	end
 	table.insert(Game.actors,a)
 	return a
-	--end
 end
 
 local function control(a,gs)
@@ -36,15 +39,12 @@ local function control(a,gs)
 
 	--actor.calltype(a,gs,debug.getinfo(1,"n").name)
 
----[[
-	for i=1,5 do
-		if flags.get(a.flags,i) then
-			if _G[EA.flags[i] ]["control"] then
-				_G[EA.flags[i] ]["control"](a,gs)
-			end
-		end
+	if flags.get(a.flags,EA.flags.collectible) then
+		collectible.control(a,gs)
 	end
---]]
+	if flags.get(a.flags,EA.flags.item) then
+		item.control(a,gs)
+	end
 	if _G[EA[a.t]]["control"] then
 		_G[EA[a.t]]["control"](a,gs)
 	end
@@ -215,6 +215,9 @@ local function damage(a,d)
 					actor.make(EA.explosion,a.x,a.y,0,0,EC.white,20*(a.size))
 				end
 
+				if flags.get(a.flags,EA.flags.character) then
+					character.dead(a)
+				end
 				if _G[EA[a.t]]["dead"] then
 					_G[EA[a.t]]["dead"](a)
 				end

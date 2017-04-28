@@ -1,12 +1,12 @@
-local function make(a,gc,bc,shopitem)
-	a.c=gc--can go in individual item's input
-	a.bc=bc--can go in machinegun input
-	a.angle=-0.79
-	a.getsfx=10
+local function make(a)
+	a.angle=-0.79--TODO put this in actor.make
+	a.getsfx=10--TODO put this in each item
 	a.delta=0--NOTE need this bc actor.make sets delta to Game.timer, so any actor not spawning at Game.timer==0 can't shoot
+	--[[
 	if shopitem then
 		a.flags=flags.set(a.flags,EF.shopitem)
 	end
+--]]
 	return a
 end
 

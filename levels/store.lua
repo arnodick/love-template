@@ -7,7 +7,8 @@ local function make(l)
 	local m=i1.menu
 	border.make(m,m.x,m.y,m.w,m.h,EC.white,EC.dark_gray)
 
-	local i2=actor.make(EA.hammer,Game.width/2,Game.height/2-40,0,0,EC.dark_purple,EC.dark_purple,true)--TODO put gun colour AFTER shopitem
+	local i2=actor.make(EA.hammer,Game.width/2,Game.height/2-40,0,0,EC.dark_purple)
+	i2.flags=flags.set(i2.flags,EF.shopitem)
 	i2.menu=menu.make(EM.text,i2.x,i2.y,24,24,"$"..i2.cost,EC.white,EC.dark_gray)
 	local m=i2.menu
 	border.make(m,m.x,m.y,m.w,m.h,EC.white,EC.dark_gray)
