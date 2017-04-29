@@ -18,7 +18,7 @@ local function make(a,c,size,spr)
 	a.follow=false
 	a.value=1
 	a.alpha=255
-	a.flags=flags.set(a.flags,EF.bouncy)
+	a.flags=flags.set(a.flags,EF.bouncy,EA.flags.collectible)
 end
 
 local function control(a,gs)

@@ -176,6 +176,7 @@ local function draw(a)
 			LG.rectangle("line",a.x+a.hitbox.x,a.y+a.hitbox.y,a.hitbox.w,a.hitbox.h)
 		end
 		LG.points(a.x,a.y)
+		LG.print(a.flags,a.x+8,a.y-8)
 	end
 
 	LG.setColor(Game.palette[EC.pure_white])
