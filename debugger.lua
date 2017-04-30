@@ -37,18 +37,19 @@ local function update(d)
 		--table.insert(debuglist,"camx:"..Game.camera.x)
 		--table.insert(debuglist,"camy:"..Game.camera.y)
 		table.insert(debuglist,"pause: "..tostring(Game.pause))
---[[
+---[[
 		for i,v in pairs(Game.counters) do
 			--table.insert(debuglist,i.." count: "..#Game.counters[i])
 			table.insert(debuglist,i.." count: "..Game.counters[i])
 		end
 --]]
+--[[
 		if #Joysticks>0 then
 			for i,v in ipairs(Joysticks) do
 				table.insert(debuglist,"joy id: "..v:getID())
 			end
 		end
-	---[[
+
 		if #Joysticks>0 then
 			local axes={Joysticks[1]:getAxes()}
 			table.insert(debuglist,"joy axes:"..#axes)
@@ -56,7 +57,7 @@ local function update(d)
 				table.insert(debuglist,"axis"..i..":"..axes[i])
 			end
 		end
-	--]]
+--]]
 		d.debuglist=debuglist
 	end
 end

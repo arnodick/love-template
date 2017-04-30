@@ -8,13 +8,11 @@ local function control(a,gs)
 				Player[EA[a.t]] = Player[EA[a.t]] + a.value
 			end
 			for i,v in pairs(Game.actors) do
-				if v.t==EA.collectible then
-					if v.st==EA.collectibles.coin then
-						v.scalex=4
-						v.scaley=4
-						v.deltimer=0
-						v.delta=Game.timer
-					end
+				if v.t==EA.coin then
+					v.scalex=4
+					v.scaley=4
+					v.deltimer=0
+					v.delta=Game.timer
 				end
 			end
 			if a.getsfx then
