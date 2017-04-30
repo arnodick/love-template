@@ -9,11 +9,11 @@ local function make(a,c,size,spr)
 	a.cost=0
 	a.flags=flags.set(a.flags,EA.flags.collectible)
 end
-
+--[[
 local function control(a,gs)
 
 end
-
+-]]
 local function get(a)
 	local port=actor.make(EA.portal,Game.width/2,Game.height/2+40)
 	port.c=EC.red
@@ -23,6 +23,6 @@ end
 return
 {
 	make = make,
-	control = control,
+	--control = control,
 	get = get,
 }

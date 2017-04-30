@@ -38,6 +38,10 @@ local function make(lindex)
 	l.portal2=lload.portal2
 	l.portalstore=lload.portalstore
 
+	l.storeitem1=lload.storeitem1
+	l.storeitem2=lload.storeitem2
+	l.storeitem3=lload.storeitem3
+
 	for i=1,l.enemies.max do
 		actor.make(l.enemies[1])
 	end
