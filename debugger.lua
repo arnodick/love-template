@@ -37,6 +37,15 @@ local function update(d)
 		--table.insert(debuglist,"camx:"..Game.camera.x)
 		--table.insert(debuglist,"camy:"..Game.camera.y)
 		table.insert(debuglist,"pause: "..tostring(Game.pause))
+
+		local levelpathstring=""
+		for i=1,#Game.levelpath do
+			levelpathstring=levelpathstring..Game.levelpath[i]
+			if i~=#Game.levelpath then
+				levelpathstring=levelpathstring.."_"
+			end
+		end
+		table.insert(debuglist,"level path: "..levelpathstring)
 ---[[
 		for i,v in pairs(Game.counters) do
 			--table.insert(debuglist,i.." count: "..#Game.counters[i])

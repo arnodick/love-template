@@ -16,11 +16,16 @@ local function make(t,x,y,d,vel,...)
 	end
 	if flags.get(a.flags,EA.flags.item) then
 		item.make(a)
+		a.st=EA.flags.item
+	elseif flags.get(a.flags,EA.flags.collectible) then
+		a.st=EA.flags.collectible
 	end
 	counters.update(Game.counters,a,1)
+--[[
 	if flags.get(a.flags,EF.queue) then
-		--Game.actors[ EA[a.t].."s" ][ EA[a.t].."s" ]={}
+		Game.actors[ EA[a.t].."s" ][ EA[a.t].."s" ]={}
 	end
+--]]
 	table.insert(Game.actors,a)
 	return a
 end
@@ -29,13 +34,20 @@ local function control(a,gs)
 	controller.update(a,gs)
 
 	--actor.calltype(a,gs,debug.getinfo(1,"n").name)
-
+--[[
 	if flags.get(a.flags,EA.flags.collectible) then
 		collectible.control(a,gs)
 	end
 	if flags.get(a.flags,EA.flags.item) then
 		item.control(a,gs)
 	end
+--]]
+	if a.st then
+		if _G[EA.flags[a.st]]["control"] then
+			_G[EA.flags[a.st]]["control"](a,gs)
+		end
+	end
+
 	if _G[EA[a.t]]["control"] then
 		_G[EA[a.t]]["control"](a,gs)
 	end
@@ -167,7 +179,7 @@ local function draw(a)
 			LG.rectangle("line",a.x+a.hitbox.x,a.y+a.hitbox.y,a.hitbox.w,a.hitbox.h)
 		end
 		LG.points(a.x,a.y)
-		LG.print(a.flags,a.x+8,a.y-8)
+		--LG.print(a.flags,a.x+8,a.y-8)
 	end
 
 	LG.setColor(Game.palette[EC.pure_white])
