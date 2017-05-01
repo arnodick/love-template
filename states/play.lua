@@ -30,7 +30,9 @@ local function control(g)
 
 	if not g.pause then
 		for i,v in ipairs(g.actors) do
-			actor.control(v,g.speed)
+			if not v.delete then
+				actor.control(v,g.speed)
+			end
 		end
 	end
 
@@ -88,7 +90,9 @@ local function draw(g)
 
 	map.draw(g.map)
 	for i,v in ipairs(g.actors) do
-		actor.draw(v)
+		if not v.delete then
+			actor.draw(v)
+		end
 	end
 
 	LG.setColor(g.palette[s.c])

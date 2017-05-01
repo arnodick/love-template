@@ -34,14 +34,7 @@ local function control(a,gs)
 	controller.update(a,gs)
 
 	--actor.calltype(a,gs,debug.getinfo(1,"n").name)
---[[
-	if flags.get(a.flags,EA.flags.collectible) then
-		collectible.control(a,gs)
-	end
-	if flags.get(a.flags,EA.flags.item) then
-		item.control(a,gs)
-	end
---]]
+
 	if a.st then
 		if _G[EA.flags[a.st]]["control"] then
 			_G[EA.flags[a.st]]["control"](a,gs)
