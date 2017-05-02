@@ -1,4 +1,5 @@
 local function make(a)
+	a.c=c or EC.blue
 	a.projvel=0
 	a.rof=1
 	a.num=1

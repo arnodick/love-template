@@ -4,7 +4,7 @@ libraries = require("libraries")
 libraries.load("")
 --enumerators and constants
 Enums = enums.load("","actors","levels","states","controllers","menus")
---debugger.printtable(Enums)
+debugger.printtable(Enums)
 love.math.setRandomSeed(os.time())
 --love.math.setRandomSeed(1)
 Debugger=debugger.make()
@@ -15,7 +15,7 @@ Music = music.load()
 
 function love.load()
 	Game = game.make(8,8,320,240,1)--TODO this is where load from ini or whatever will happen. or rather, laod from type! g.t=Enums.games.PROTOSNAKE
-	debugger.printtable(Game)
+	--debugger.printtable(Game)
 end
 
 function love.joystickadded(joystick)

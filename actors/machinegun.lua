@@ -1,5 +1,5 @@
 local function make(a,c,bc)
-	a.c=c
+	a.c=c or EC.blue
 	a.bc=bc
 	a.size=1
 	a.sprinit=161

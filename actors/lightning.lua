@@ -1,5 +1,5 @@
 local function make(a)
-	
+	a.c=c or EC.blue
 end
 
 local function control(a)

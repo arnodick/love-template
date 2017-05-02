@@ -6,7 +6,8 @@ local function make(l)
 		if storeitem then
 			local dropname=storeitem.drop
 			local x=Game.width/2-40+(i-1)*40
-			local drop=actor.make(EA[dropname],x,Game.height/2-40)
+			local drop=actor.make(love.math.random(#EA),x,Game.height/2-40)
+			--local drop=actor.make(EA[dropname],x,Game.height/2-40)
 			drop.flags=flags.set(drop.flags,EF.shopitem)
 			local cost=0
 			if drop.cost then

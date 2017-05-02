@@ -64,11 +64,14 @@ local function keypressed(g,key)
 		--else
 			--Screen.pixeltrans=true
 		else
+		--[[
 			if g.camera.zoom==1 then
 				g.camera.zoom=2
 			else
 				g.camera.zoom=1
 			end
+		--]]
+			g.levels.current=level.make("store")
 		end
 	elseif key=='escape' then
 		game.state.make(g,Enums.states.title)

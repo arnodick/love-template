@@ -24,8 +24,6 @@ local function control(a,gs)
 			end
 			a.delete=true
 		end
-	else
-
 	end
 	if _G[EA[a.t]]["control"] then
 		_G[EA[a.t]]["control"](a,gs)

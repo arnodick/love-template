@@ -11,7 +11,7 @@ local function make(a,c,size,spr,hp,ct)
 	end
 
 	a.cinit=c or EC.dark_blue
-	a.c=a.cinit
+	a.c=a.cinit or EC.blue
 	a.size=size or 1
 	a.spr=spr or 81
 	a.hp=hp or 8

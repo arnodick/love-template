@@ -33,6 +33,11 @@ end
 local function control(a,gs)
 	controller.update(a,gs)
 
+	if a.menu then
+		a.menu.x=a.x
+		a.menu.y=a.y
+	end
+
 	--actor.calltype(a,gs,debug.getinfo(1,"n").name)
 
 	if a.st then
