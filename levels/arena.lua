@@ -1,3 +1,4 @@
+--[[
 local function make(l)
 
 end
@@ -8,7 +9,7 @@ end
 
 return
 {
-	load = load,
 	make = make,
 	control = control,
 }
+--]]
