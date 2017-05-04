@@ -20,7 +20,9 @@ local function load(dir)
 end
 
 local function make(lindex)
-	table.insert(Game.levelpath,lindex)
+	if lindex~=Game.levelpath[#Game.levelpath] then
+		table.insert(Game.levelpath,lindex)
+	end
 	local lload=Game.levels[lindex]
 	local l={}
 	l.t=Enums.levels[lload.values.t]
