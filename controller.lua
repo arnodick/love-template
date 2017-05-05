@@ -19,10 +19,10 @@ local function make(a,t,st,target,y)
 	c.t=t
 	c.st=st
 
+	a.controller[ECT[t]]=c
 	if _G[ECT[t]]["make"] then
 		_G[ECT[t]]["make"](a,c)
 	end
-	a.controller[ECT[t]]=c
 end
 
 local function update(a,gs)
