@@ -15,6 +15,7 @@ local function make(a,c,size,spr,hp,ct)
 	table.insert(a.inv,actor.make(EA.machinegun,a.x,a.y,0,0,a.cinit,EC.green))
 	animation.make(a,10,2)
 	hitradius.make(a,4)
+	drop.generate(a,"coin")
 	a.flags=flags.set(a.flags,EA.flags.character,EF.bouncy,EF.enemy,EF.damageable, EF.shootable, EF.explosive)
 	a.d=math.choose(math.pi)
 	a.vel=1
@@ -35,23 +36,20 @@ local function control(a)
 	end
 end
 
-local function hitground(a)
-
-end
-
 local function draw(a)
 
 end
 
+--[[
 local function dead(a)
 	actor.make(EA.coin,a.x,a.y)
 end
+-]]
 
 return
 {
 	make = make,
 	control = control,
-	hitground = hitground,
 	draw = draw,
-	dead = dead,
+	--dead = dead,
 }
