@@ -2,9 +2,8 @@ local function make(m,menu_functions,menu_function_args)
 	m.menu_functions=menu_functions
 	m.menu_function_args=menu_function_args
 	m.text.index=1
-	--controller.make(m,ECT.move,ECT.moves.gamepad_move)
-	controller.make(m,ECT.move,ECT.moves.gamepad_menu)
-	controller.make(m,ECT.select,ECT.selects.menu_select)
+	controller.make(m,ECT.move,ECT.moves.gamepad_menu_move)
+	controller.make(m,ECT.select,ECT.selects.gamepad_menu_select)
 end
 
 local function control(m)

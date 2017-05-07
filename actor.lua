@@ -109,7 +109,7 @@ local function control(a,gs)
 	if flags.get(a.flags,EF.shopitem) then
 		if vector.distance(a.x,a.y,Player.x,Player.y)<30 then
 			sprites.blink(a,24)
-			if Player.controller.aim.powerup then
+			if Player.controllers.aim.powerup then
 				if Player.coin>=a.cost then
 					a.flags=flags.switch(a.flags,EF.shopitem)
 					actor.corpse(a.menu,a.menu.w+1,a.menu.h+1,true)
@@ -131,7 +131,7 @@ local function control(a,gs)
 		end
 	end
 	if a.tail then
-		local c=a.controller.aim
+		local c=a.controllers.aim
 		tail.control(a.tail,gs,a,c.aimhorizontal,c.aimvertical)
 	end
 

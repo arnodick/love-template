@@ -1,12 +1,10 @@
 local function make(a,c,size,spr,hp,ct)
-	local e=Enums
-	local ec=Enums.controllers
 	a.cinit=c or EC.yellow
 	a.c=a.cinit
 	a.size=size or 1
 	a.spr=spr or 97
 	a.hp=hp or 1
-	controller.make(a,ECT.move,ECT.moves.target_seek,Game.width/2,Game.height/2)
+	controller.make(a,ECT.move,ECT.moves.ai_target_seek,Game.width/2,Game.height/2)
 	a.hit=0
 	a.hitsfx=3
 	a.hittime=6

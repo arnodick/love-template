@@ -29,12 +29,6 @@ function love.joystickremoved(joystick)
 			table.remove(Joysticks,i)
 		end
 	end
---[[
-	if Player then
-		for i,v in ipairs(Player.controller.types) do
-		end
-	end
---]]
 end
 
 function love.keypressed(key,scancode,isrepeat)

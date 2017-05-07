@@ -28,33 +28,33 @@ local function control(a,gs)
 			local enemy=actor.make(l.enemies[spawnnum],a.x,a.y)			
 
 			--TODO make a spawn function or something that has all the drop stuff in it and put it in level load characer spawn too
-			if l.collectibledrops then
-				if l.collectibledrops[spawnnum] then
-					enemy.collectibledrop=l.collectibledrops[spawnnum]
+			if l.actordrops then
+				if l.actordrops[spawnnum] then
+					enemy.drop=l.actordrops[spawnnum]
 				end
 			end
 
 			local p1=l.portal1
 			if p1 then
 				if p1.droppedby==spawnnum then
-					enemy.collectibledrop="portal"
-					enemy.collectibledroplevel=1
+					enemy.drop="portal"
+					enemy.droplevel=1
 				end
 			end
 
 			local p2=l.portal2
 			if p2 then
 				if p2.droppedby==spawnnum then
-					enemy.collectibledrop="portal"
-					enemy.collectibledroplevel=2
+					enemy.drop="portal"
+					enemy.droplevel=2
 				end
 			end
 
 			local pstore=l.portalstore
 			if pstore then
 				if pstore.droppedby==spawnnum then
-					enemy.collectibledrop="portal"
-					enemy.collectibledroplevel="store"
+					enemy.drop="portal"
+					enemy.droplevel="store"
 				end
 			end
 		end

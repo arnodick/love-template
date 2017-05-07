@@ -2,12 +2,12 @@ local function make(a,c,size,spr,hp,ct)
 	local e=Enums
 
 	if #Joysticks>0 then
-		controller.make(a,ECT.move,ECT.moves.gamepad_move)
-		controller.make(a,ECT.aim,ECT.aims.gamepad_aim)
+		controller.make(a,ECT.move,ECT.moves.gamepad_actor_move)
+		controller.make(a,ECT.aim,ECT.aims.gamepad_actor_aim)
 	else
 		a.cursor=cursor.make(0,0)
-		controller.make(a,ECT.move,ECT.moves.keyboard)
-		controller.make(a,ECT.aim,ECT.aims.mouse)
+		controller.make(a,ECT.move,ECT.moves.keyboard_actor_move)
+		controller.make(a,ECT.aim,ECT.aims.mouse_actor_aim)
 	end
 
 	a.cinit=c or EC.dark_blue
@@ -49,7 +49,7 @@ local function control(a)
 			Game.speed=math.clamp(a.vel,0.1,1)
 		end
 	end
-	if a.controller.aim.powerup then
+	if a.controllers.aim.powerup then
 		if #a.inv>1 then
 			local temp=a.inv[1]
 			table.remove(a.inv,1)
@@ -57,7 +57,7 @@ local function control(a)
 		end
 	end
 	cursor.update(a.cursor)
-	--if a.controller.powerup then	
+	--if a.controllers.powerup then	
 	--end
 	if SFX.positonal then
 		love.audio.setPosition(a.x,a.y,0)

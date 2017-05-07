@@ -36,7 +36,7 @@ local function make(lindex)
 		end
 	end
 
-	l.collectibledrops=lload.collectibledrops
+	l.actordrops=lload.actordrops
 	l.portal1=lload.portal1
 	l.portal2=lload.portal2
 	l.portalstore=lload.portalstore
