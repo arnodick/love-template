@@ -36,8 +36,21 @@ local function update(a,gs)
 	end
 end
 
+local function gamepadpressed(a,button)
+	local c=a.controller
+	if c then
+		for k,v in pairs(c) do
+			if _G[ECT[v.t]]["gamepadpressed"] then
+				_G[ECT[v.t]]["gamepadpressed"](a,v,button)
+			end
+		end
+	end
+
+end
+
 return
 {
 	make = make,
 	update = update,
+	gamepadpressed = gamepadpressed,
 }
