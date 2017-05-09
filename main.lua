@@ -5,6 +5,7 @@ libraries.load("")
 --enumerators and constants
 Enums = enums.load("","actors","levels","states","controllers","menus")
 debugger.printtable(Enums)
+
 love.math.setRandomSeed(os.time())
 --love.math.setRandomSeed(1)
 Debugger=debugger.make()
