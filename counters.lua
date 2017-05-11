@@ -4,7 +4,7 @@ local function init()
 		c[EA[i]]=0
 	end
 	for j,k in pairs(EA) do
-		if type(k)=="table" then
+		if type(k)=="table" and j~="modules" then
 			for i,v in pairs(k) do
 				if type(i)=="string" then
 					c[i]=0
