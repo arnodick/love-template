@@ -10,7 +10,7 @@ local function make(a,c,size,spr,hp,ct)
 	a.hittime=6
 	a.hitcolour=7
 	a.value=1
-	tail.make(a,a.cinit,9)
+	module.make(a,EA.modules.tail,a.cinit,9)
 	a.inv={}
 	table.insert(a.inv,actor.make(EA.machinegun,a.x,a.y,0,0,a.cinit,EC.green))
 	animation.make(a,10,2)

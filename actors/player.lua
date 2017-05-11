@@ -19,7 +19,7 @@ local function make(a,c,size,spr,hp,ct)
 	a.hitsfx=4
 	a.hittime=6
 	a.hitcolour=7
-	tail.make(a,a.cinit,9)
+	module.make(a,EA.modules.tail,a.cinit,9)
 	a.inv={}
 	a.inv.i=1
 	a.inv.max=2
