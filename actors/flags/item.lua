@@ -23,8 +23,8 @@ local function control(a,gs)
 end
 
 local function carry(a,user)
-	a.x=user.tail.x
-	a.y=user.tail.y
+	a.x=user.modules.tail.x
+	a.y=user.modules.tail.y
 end
 
 local function use(a,gs,user,vx,vy,shoot)

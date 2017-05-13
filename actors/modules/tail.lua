@@ -1,5 +1,4 @@
-local function make(a,c,len)
-	local t={}
+local function make(a,t,c,len)
 	t.c=a.cinit
 	t.leninit=len
 	t.len=t.leninit
@@ -12,7 +11,6 @@ local function make(a,c,len)
 	t.y=a.y+t.vec[2]*t.len
 	t.mx=t.x-math.cos(t.angle+0.1)*t.len/2
 	t.my=t.y-math.sin(t.angle+0.1)*t.len/2
-	a.tail=t
 end
 
 local function control(t,gs,a,vx,vy)

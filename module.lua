@@ -12,7 +12,7 @@ local function make(a,t,...)
 
 	a.modules[EA.modules[t]]=m
 	if _G[EA.modules[t]]["make"] then
-		_G[EA.modules[t]]["make"](a,...)
+		_G[EA.modules[t]]["make"](a,m,...)
 	end
 end
 
