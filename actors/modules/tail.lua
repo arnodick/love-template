@@ -1,16 +1,16 @@
-local function make(a,t,c,len)
-	t.c=a.cinit
-	t.leninit=len
+local function make(t,c,len)
+	t.c=c or EC.red
+	t.leninit=len or 9
 	t.len=t.leninit
 	t.angle=0
 	t.vec={0,0}
 
-	t.sx=a.x+4
-	t.sy=a.y
-	t.x=a.x+t.vec[1]*t.len
-	t.y=a.y+t.vec[2]*t.len
-	t.mx=t.x-math.cos(t.angle+0.1)*t.len/2
-	t.my=t.y-math.sin(t.angle+0.1)*t.len/2
+	t.sx=0
+	t.sy=0
+	t.x=0
+	t.y=0
+	t.mx=0
+	t.my=0
 end
 
 local function control(t,gs,a,vx,vy)

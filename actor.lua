@@ -173,9 +173,9 @@ local function draw(a)
 	if Debugger.debugging then
 		LG.setColor(Game.palette[EC.blue])
 		if a.hitradius then
-			LG.circle("line",a.x,a.y,a.hitradius.r)
+			hitradius.draw(a)
 		elseif a.hitbox then
-			LG.rectangle("line",a.x+a.hitbox.x,a.y+a.hitbox.y,a.hitbox.w,a.hitbox.h)
+			hitbox.draw(a)
 		end
 		LG.points(a.x,a.y)
 		--LG.print(a.flags,a.x+8,a.y-8)

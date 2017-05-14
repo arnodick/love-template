@@ -1,4 +1,4 @@
-local function make(a,drop,dropname,level)
+local function make(drop,dropname,level)
 	drop.name=dropname
 	drop.level=level
 end
