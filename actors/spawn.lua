@@ -30,28 +30,28 @@ local function control(a,gs)
 			--TODO make a spawn function or something that has all the drop stuff in it and put it in level load characer spawn too
 			if l.actordrops then
 				if l.actordrops[spawnnum] then
-					drop.generate(enemy,l.actordrops[spawnnum])
+					module.make(enemy,EA.modules.drop,l.actordrops[spawnnum])
 				end
 			end
 
 			local p1=l.portal1
 			if p1 then
 				if p1.droppedby==spawnnum then
-					drop.generate(enemy,"portal",1)
+					module.make(enemy,EA.modules.drop,"portal",1)
 				end
 			end
 
 			local p2=l.portal2
 			if p2 then
 				if p2.droppedby==spawnnum then
-					drop.generate(enemy,"portal",2)
+					module.make(enemy,EA.modules.drop,"portal",2)
 				end
 			end
 
 			local pstore=l.portalstore
 			if pstore then
 				if pstore.droppedby==spawnnum then
-					drop.generate(enemy,"portal","store")
+					module.make(enemy,EA.modules.drop,"portal","store")
 				end
 			end
 		end

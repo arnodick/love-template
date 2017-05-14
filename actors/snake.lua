@@ -13,9 +13,9 @@ local function make(a,c,size,spr,hp,ct)
 	module.make(a,EA.modules.tail,a.cinit,9)
 	a.inv={}
 	table.insert(a.inv,actor.make(EA.machinegun,a.x,a.y,0,0,a.cinit,EC.green))
-	animation.make(a,10,2)
-	hitradius.make(a,4)
-	drop.generate(a,"coin")
+	module.make(a,EA.modules.animation,10,2)
+	module.make(a,EA.modules.hitradius,4)
+	module.make(a,EA.modules.drop,"coin")
 	a.flags=flags.set(a.flags,EA.flags.character,EF.bouncy,EF.enemy,EF.damageable, EF.shootable, EF.explosive)
 	a.d=math.choose(math.pi)
 	a.vel=1

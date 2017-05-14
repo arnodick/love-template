@@ -1,6 +1,5 @@
-local function make(a,r)
-	a.hitradius={}
-	a.hitradius.r=r
+local function make(a,m,r)
+	m.r=r
 end
 
 return

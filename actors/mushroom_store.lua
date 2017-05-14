@@ -11,8 +11,8 @@ local function make(a,c,size,spr,hp,ct)
 	a.hitcolour=7
 	a.speed=2
 
-	animation.make(a,10,2)
-	hitradius.make(a,4)
+	module.make(a,EA.modules.animation,10,2)
+	module.make(a,EA.modules.hitradius,4)
 	a.flags=flags.set(a.flags,EA.flags.character,EF.enemy,EF.damageable, EF.shootable, EF.explosive)
 end
 

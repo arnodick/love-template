@@ -1,10 +1,9 @@
-local function generate(a,dropname,level)
-	a.drop={}
-	a.drop.name=dropname
-	a.drop.level=level
+local function make(a,drop,dropname,level)
+	drop.name=dropname
+	drop.level=level
 end
 
-local function make(a,x,y)
+local function spawn(a,x,y)
 	local dropname=a.drop.name
 	if dropname then
 		local drop=actor.make(EA[dropname],math.floor(x),math.floor(y))
@@ -16,6 +15,6 @@ end
 
 return
 {
-	generate = generate,
 	make = make,
+	spawn = spawn,
 }

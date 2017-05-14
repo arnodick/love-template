@@ -25,9 +25,9 @@ local function make(a,c,size,spr,hp,ct)
 	a.inv.max=2
 	actor.make(EA.machinegun,a.x,a.y,0,0,EC.dark_purple,EC.dark_purple)
 	a.coin=0
-	animation.make(a,10,2)
+	module.make(a,EA.modules.animation,10,2)
 	--animation.make(a,2,32) --SWEET GLITCH ANIMATION
-	hitradius.make(a,4)
+	module.make(a,EA.modules.hitradius,4)
 	a.flags=flags.set(a.flags,EA.flags.character,EF.persistent,EF.damageable, EF.shootable, EF.explosive)
 end
 

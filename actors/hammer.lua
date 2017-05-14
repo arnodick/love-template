@@ -8,7 +8,7 @@ local function make(a,c)
 	a.spd=2
 
 	a.cost=3
-	hitradius.make(a,4)
+	module.make(a,EA.modules.hitradius,4)
 end
 
 local function control(a)

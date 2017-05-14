@@ -20,8 +20,8 @@ end
 local function draw(a)
 	if a.spr then
 		local anim=0
-		if a.anim then
-			anim=math.floor((Game.timer/a.anim.speed)%a.anim.frames)
+		if a.animation then
+			anim=math.floor((Game.timer/a.animation.speed)%a.animation.frames)
 		end
 		local scalex,scaley=1,1
 		if a.scalex then scalex=a.scalex end

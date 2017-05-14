@@ -130,11 +130,10 @@ local function control(a,gs)
 			item.carry(a.inv[i],a)
 		end
 	end
-	if a.modules then
-		if a.modules.tail then
-			local c=a.controllers.aim
-			tail.control(a.modules.tail,gs,a,c.aimhorizontal,c.aimvertical)
-		end
+
+	if a.tail then
+		local c=a.controllers.aim
+		tail.control(a.tail,gs,a,c.aimhorizontal,c.aimvertical)
 	end
 
 	if a.x<-10
@@ -167,10 +166,8 @@ local function draw(a)
 		_G[EA[a.t]]["draw"](a)
 	end
 
-	if a.modules then
-		if a.modules.tail then
-			tail.draw(a.modules.tail)
-		end
+	if a.tail then
+		tail.draw(a.tail)
 	end
 
 	if Debugger.debugging then
