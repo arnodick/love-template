@@ -50,7 +50,7 @@ local function control(g)
 
 	if Player.hp<=0 then
 		if not s.menu then
-			s.menu=menu.make(EM.highscores,g.width/2,g.height/2,66,100,"",s.c,s.c2,"center")
+			module.make(s,Enums.modules.menu,EM.highscores,g.width/2,g.height/2,66,100,"",s.c,s.c2,"center")
 		end
 	end
 

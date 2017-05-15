@@ -1,5 +1,4 @@
-local function make(t,x,y,w,h,text,c1,c2,align,...)
-	local m={}
+local function make(m,t,x,y,w,h,text,c1,c2,align,...)
 	m.t=t
 	m.x=math.floor(x)
 	m.y=math.floor(y)
@@ -14,7 +13,6 @@ local function make(t,x,y,w,h,text,c1,c2,align,...)
 	if _G[EM[m.t]]["make"] then
 		_G[EM[m.t]]["make"](m,...)
 	end
-	return m
 end
 
 local function control(m)

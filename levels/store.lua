@@ -13,7 +13,8 @@ local function make(l)
 			if drop.cost then
 				cost=drop.cost
 			end
-			drop.menu=menu.make(EM.text,drop.x,drop.y,24,24,"$"..cost,EC.white,EC.dark_gray)--TODO put costs option in inis
+
+			module.make(drop,Enums.modules.menu,EM.text,drop.x,drop.y,24,24,"$"..cost,EC.white,EC.dark_gray)--TODO put costs option in inis
 			local m=drop.menu
 			module.make(m,Enums.modules.border,EC.white,EC.dark_gray)
 		end

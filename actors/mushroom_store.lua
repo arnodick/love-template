@@ -21,7 +21,7 @@ local function control(a)
 
 	if dist<30 then
 		if not a.menu then
-			a.menu=menu.make(EM.text,a.x,a.y-38,50,50,{"what you buy do you want to buy the powerup ?"},EC.orange,EC.dark_green)
+			module.make(a,Enums.modules.menu,EM.text,a.x,a.y-38,50,50,{"what you buy do you want to buy the powerup ?"},EC.orange,EC.dark_green)
 			local m=a.menu
 			module.make(m,Enums.modules.border,EC.indigo,EC.dark_purple)
 			m.font=LG.newFont("fonts/pico8.ttf",8)--TODO put font in menu makey
