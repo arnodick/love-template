@@ -10,14 +10,14 @@ local function make(m,t,x,y,w,h,text,c1,c2,align,...)
 	m.align=align or "left"
 	m.font=LG.newFont("fonts/Kongtext Regular.ttf",8)--TODO make fonts an array in game, then menu can select from them
 	--table.insert(Game.menus,m)
-	if _G[EM[m.t]]["make"] then
-		_G[EM[m.t]]["make"](m,...)
+	if _G[EMM[m.t]]["make"] then
+		_G[EMM[m.t]]["make"](m,...)
 	end
 end
 
 local function control(m)
-	if _G[EM[m.t]]["control"] then
-		_G[EM[m.t]]["control"](m)
+	if _G[EMM[m.t]]["control"] then
+		_G[EMM[m.t]]["control"](m)
 	end
 end
 
@@ -41,8 +41,8 @@ local function draw(m)
 	end
 	LG.setFont(Game.font)
 
-	if _G[EM[m.t]]["draw"] then
-		_G[EM[m.t]]["draw"](m)
+	if _G[EMM[m.t]]["draw"] then
+		_G[EMM[m.t]]["draw"](m)
 	end
 
 	if Debugmode then

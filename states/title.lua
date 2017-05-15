@@ -2,7 +2,7 @@ local function make(g)
 	g.state.font=LG.newFont("fonts/Kongtext Regular.ttf",64)
 	g.scores=scores.load()
 	music.play(1)
-	module.make(g.state,Enums.modules.menu,EM.interactive,Game.width/2,180,60,30,{"START","OPTIONS"},EC.orange,EC.dark_green,"left",{game.state.make,game.state.make},{{Game,Enums.states.play},{Game,Enums.states.options}})
+	module.make(g.state,EM.menu,EMM.interactive,Game.width/2,180,60,30,{"START","OPTIONS"},EC.orange,EC.dark_green,"left",{game.state.make,game.state.make},{{Game,Enums.states.play},{Game,Enums.states.options}})
 	--EC.indigo,EC.dark_purple
 end
 
@@ -26,8 +26,8 @@ local function gamepadpressed(g,button)
 	end
 	local m=g.state.menu
 	if m then
-		if _G[EM[m.t]]["gamepadpressed"] then
-			_G[EM[m.t]]["gamepadpressed"](m,button)
+		if _G[EMM[m.t]]["gamepadpressed"] then
+			_G[EMM[m.t]]["gamepadpressed"](m,button)
 		end
 	end
 end

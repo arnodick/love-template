@@ -19,15 +19,13 @@ local function make(a,c,size,spr,hp,ct)
 	a.hitsfx=4
 	a.hittime=6
 	a.hitcolour=7
-	module.make(a,Enums.modules.tail,a.cinit,9)
-	a.inv={}
-	a.inv.i=1
-	a.inv.max=2
+	module.make(a,EM.tail,a.cinit,9)
+	module.make(a,EM.inv,2)
 	actor.make(EA.machinegun,a.x,a.y,0,0,EC.dark_purple,EC.dark_purple)
 	a.coin=0
-	module.make(a,Enums.modules.animation,10,2)
+	module.make(a,EM.animation,10,2)
 	--animation.make(a,2,32) --SWEET GLITCH ANIMATION
-	module.make(a,Enums.modules.hitradius,4)
+	module.make(a,EM.hitradius,4)
 	a.flags=flags.set(a.flags,EA.flags.character,EF.persistent,EF.damageable, EF.shootable, EF.explosive)
 end
 

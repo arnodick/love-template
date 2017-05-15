@@ -10,12 +10,12 @@ local function make(a,c,size,spr,hp,ct)
 	a.hittime=6
 	a.hitcolour=7
 	a.value=1
-	module.make(a,Enums.modules.tail,a.cinit,9)
+	module.make(a,EM.tail,a.cinit,9)
 	a.inv={}
 	table.insert(a.inv,actor.make(EA.machinegun,a.x,a.y,0,0,a.cinit,EC.green))
-	module.make(a,Enums.modules.animation,10,2)
-	module.make(a,Enums.modules.hitradius,4)
-	module.make(a,Enums.modules.drop,"coin")
+	module.make(a,EM.animation,10,2)
+	module.make(a,EM.hitradius,4)
+	module.make(a,EM.drop,"coin")
 	a.flags=flags.set(a.flags,EA.flags.character,EF.bouncy,EF.enemy,EF.damageable, EF.shootable, EF.explosive)
 	a.d=math.choose(math.pi)
 	a.vel=1

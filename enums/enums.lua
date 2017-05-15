@@ -55,8 +55,9 @@ local function constants(e) --NOTE this function has side effects! makes global 
 		ECT=e.controllers
 	end
 	if e.modules then
+		EM=e.modules
 		if e.modules.menus then
-			EM=e.modules.menus
+			EMM=e.modules.menus
 		end
 	end
 	LG=love.graphics
