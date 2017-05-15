@@ -3,7 +3,7 @@
 libraries = require("libraries")
 libraries.load("")
 --enumerators and constants
-Enums = enums.load("","actors","levels","states","controllers","menus")
+Enums = enums.load("","actors","levels","states","controllers","menus","modules")
 debugger.printtable(Enums)
 
 love.math.setRandomSeed(os.time())

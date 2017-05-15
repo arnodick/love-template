@@ -15,7 +15,7 @@ local function make(l)
 			end
 			drop.menu=menu.make(EM.text,drop.x,drop.y,24,24,"$"..cost,EC.white,EC.dark_gray)--TODO put costs option in inis
 			local m=drop.menu
-			module.make(m,EM.modules.border,EC.white,EC.dark_gray)
+			module.make(m,Enums.modules.border,EC.white,EC.dark_gray)
 		end
 	end
 end

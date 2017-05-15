@@ -11,8 +11,8 @@ local function make(a,c,size,spr,hp,ct)
 	a.hitcolour=7
 	a.speed=2
 
-	module.make(a,EA.modules.animation,10,2)
-	module.make(a,EA.modules.hitradius,4)
+	module.make(a,Enums.modules.animation,10,2)
+	module.make(a,Enums.modules.hitradius,4)
 	a.flags=flags.set(a.flags,EA.flags.character,EF.enemy,EF.damageable, EF.shootable, EF.explosive)
 end
 
@@ -23,7 +23,7 @@ local function control(a)
 		if not a.menu then
 			a.menu=menu.make(EM.text,a.x,a.y-38,50,50,{"what you buy do you want to buy the powerup ?"},EC.orange,EC.dark_green)
 			local m=a.menu
-			module.make(m,EM.modules.border,EC.indigo,EC.dark_purple)
+			module.make(m,Enums.modules.border,EC.indigo,EC.dark_purple)
 			m.font=LG.newFont("fonts/pico8.ttf",8)--TODO put font in menu makey
 		end
 	elseif a.menu then
