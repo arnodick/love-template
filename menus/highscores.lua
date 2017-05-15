@@ -4,7 +4,7 @@ local function make(m)
 		scoretext[i]=Game.scores.names[i].." "..Game.scores.high[i]
 	end
 	m.text=scoretext
-	border.make(m,m.x,m.y,m.w,m.h,EC.dark_purple,EC.indigo)
+	module.make(m,EM.modules.border,EC.dark_purple,EC.indigo)
 end
 
 local function control(m)

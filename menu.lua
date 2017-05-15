@@ -25,7 +25,7 @@ end
 
 local function draw(m)
 	if m.border then
-		border.draw(m.border)
+		border.draw(m,m.border)
 	end
 	LG.setFont(m.font)
 	if type(m.text)=="table" then

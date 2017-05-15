@@ -147,9 +147,6 @@ local function control(a,gs)
 end
 
 local function draw(a)
-	if a.menu then
-		menu.draw(a.menu)
-	end
 	if _G[EA[a.t]]["predraw"] then
 		_G[EA[a.t]]["predraw"](a)
 	end
@@ -168,6 +165,10 @@ local function draw(a)
 
 	if a.tail then
 		tail.draw(a.tail)
+	end
+
+	if a.menu then
+		menu.draw(a.menu)
 	end
 
 	if Debugger.debugging then

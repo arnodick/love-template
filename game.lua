@@ -40,12 +40,7 @@ end
 local function draw(g)
 	LG.setCanvas(g.canvas.main) --sets drawing to the primary canvas that refreshes every frame
 		LG.clear() --cleans that messy ol canvas all up, makes it all fresh and new and good you know
-		for i,v in ipairs(g.menus) do
-			menu.draw(v)
-		end
-
 		game.state.draw(g)
-
 	LG.setCanvas() --sets drawing back to screen
 
 	screen.control(Screen)
