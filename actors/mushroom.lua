@@ -1,4 +1,4 @@
-local function make(a,c,size,spr,hp,ct)
+local function make(a,c,size,spr,hp)
 	a.cinit=c or EC.yellow
 	a.c=a.cinit
 	a.size=size or 1

@@ -125,9 +125,9 @@ local function control(a,gs)
 		end
 	end
 
-	if a.inv then
-		for i=1,#a.inv do
-			item.carry(a.inv[i],a)
+	if a.inventory then
+		for i=1,#a.inventory do
+			item.carry(a.inventory[i],a)
 		end
 	end
 

@@ -1,4 +1,4 @@
-local function make(a,c,size,spr,hp,ct)
+local function make(a,c,size,spr,hp)
 	local e=Enums
 
 	if #Joysticks>0 then
@@ -19,14 +19,17 @@ local function make(a,c,size,spr,hp,ct)
 	a.hitsfx=4
 	a.hittime=6
 	a.hitcolour=7
-	module.make(a,EM.tail,a.cinit,9)
-	module.make(a,EM.inv,2)
-	actor.make(EA.machinegun,a.x,a.y,0,0,EC.dark_purple,EC.dark_purple)
+
 	a.coin=0
+
 	module.make(a,EM.animation,10,2)
-	--animation.make(a,2,32) --SWEET GLITCH ANIMATION
 	module.make(a,EM.hitradius,4)
+	module.make(a,EM.tail,a.cinit,9)
+	module.make(a,EM.inventory,2)
+	actor.make(EA.machinegun,a.x,a.y,0,0,EC.dark_purple,EC.dark_purple)
 	a.flags=flags.set(a.flags,EA.flags.character,EF.persistent,EF.damageable, EF.shootable, EF.explosive)
+
+	--animation.make(a,2,32) --SWEET GLITCH ANIMATION
 end
 
 local function control(a)
@@ -48,10 +51,10 @@ local function control(a)
 		end
 	end
 	if a.controllers.aim.powerup then
-		if #a.inv>1 then
-			local temp=a.inv[1]
-			table.remove(a.inv,1)
-			table.insert(a.inv,temp)
+		if #a.inventory>1 then
+			local temp=a.inventory[1]
+			table.remove(a.inventory,1)
+			table.insert(a.inventory,temp)
 		end
 	end
 	cursor.update(a.cursor)

@@ -10,9 +10,9 @@ local function control(a,c,gs)
 		_G[ECT.aims[c.st]]["control"](a,c)
 	end
 
-	if a.inv then
-		if #a.inv>0 then
-			item.use(a.inv[1],gs,a,c.aimhorizontal,c.aimvertical,c.shoot)
+	if a.inventory then
+		if #a.inventory>0 then
+			item.use(a.inventory[1],gs,a,c.aimhorizontal,c.aimvertical,c.shoot)
 		end
 	end
 end

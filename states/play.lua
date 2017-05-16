@@ -40,8 +40,8 @@ local function control(g)
 	
 	for i,v in ipairs(g.actors) do
 		if v.delete==true then
-			if v.inv then
-				v.inv[1].delete=true
+			if v.inventory then
+				v.inventory[1].delete=true
 			end
 			counters.update(g.counters,v,-1)
 			table.remove(g.actors,i)
@@ -103,11 +103,11 @@ local function draw(g)
 	LG.print("score:"..g.score,g.camera.x+s.score.x,g.camera.y+s.score.y)
 	LG.print("coins:"..Player.coin,g.camera.x+s.coins.x,g.camera.y+s.coins.y)
 	LG.print("hp:"..Player.hp,g.camera.x+s.hp.x,g.camera.y+s.hp.y)
-	for i=1,Player.inv.max do
+	for i=1,Player.inventory.max do
 		local x,y=g.width/2+40-i*20,20
 		LG.rectangle("line",x,y,15,15)
-		if Player.inv[i] then
-			local a=Player.inv[i]
+		if Player.inventory[i] then
+			local a=Player.inventory[i]
 			LG.draw(Spritesheet[a.size],Quads[a.size][a.spr],x+7,y+7,a.angle,1,1,(a.size*g.tile.width)/2,(a.size*g.tile.height)/2)
 		end
 	end

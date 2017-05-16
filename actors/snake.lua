@@ -1,4 +1,4 @@
-local function make(a,c,size,spr,hp,ct)
+local function make(a,c,size,spr,hp)
 	a.cinit=c or EC.dark_green
 	a.c=a.cinit
 	a.size=size or 1
@@ -11,8 +11,8 @@ local function make(a,c,size,spr,hp,ct)
 	a.hitcolour=7
 	a.value=1
 	module.make(a,EM.tail,a.cinit,9)
-	a.inv={}
-	table.insert(a.inv,actor.make(EA.machinegun,a.x,a.y,0,0,a.cinit,EC.green))
+	a.inventory={}
+	table.insert(a.inventory,actor.make(EA.machinegun,a.x,a.y,0,0,a.cinit,EC.green))
 	module.make(a,EM.animation,10,2)
 	module.make(a,EM.hitradius,4)
 	module.make(a,EM.drop,"coin")

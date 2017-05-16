@@ -27,8 +27,8 @@ local function update(d)
 		table.insert(debuglist,"player vx:"..Player.vec[1])
 		table.insert(debuglist,"player vy:"..Player.vec[2])
 		table.insert(debuglist,"player vel:"..Player.vel)
-		if Player.inv[1] then
-		table.insert(debuglist,"player item angle:"..Player.inv[1].angle)
+		if Player.inventory[1] then
+		table.insert(debuglist,"player item angle:"..Player.inventory[1].angle)
 		end
 		end
 		if Game.levels.current then

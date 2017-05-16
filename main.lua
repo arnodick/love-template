@@ -1,9 +1,7 @@
 --game initialization stuff (just boring stuff you need to maek Video Game)
---loads all the .lua libraries
-libraries = require("libraries")
-libraries.load("")
---enumerators and constants
-Enums = enums.load("","actors","levels","states","controllers","menus","modules")
+libraries = require("libraries")--have to load the libraries.lua library to use it to dynamically load the rest of the libraries
+libraries.load("")--loads all the .lua libraries
+Enums = enums.load("","actors","levels","states","controllers","modules")--enumerators and constants
 debugger.printtable(Enums)
 
 love.math.setRandomSeed(os.time())

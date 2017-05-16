@@ -12,12 +12,12 @@ end
 
 local function control(a,gs)
 	if actor.collision(a.x,a.y,Player) then	
-		if Player.controllers.powerup or #Player.inv<1 then
+		if Player.controllers.powerup or #Player.inventory<1 then
 			if a.getsfx then
 				sfx.play(a.getsfx)
 			end
 			a.flags=flags.set(a.flags,EF.persistent)
-			table.insert(Player.inv,1,a)
+			table.insert(Player.inventory,1,a)
 		end
 	end
 end
