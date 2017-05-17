@@ -37,7 +37,6 @@ local function load(dir,...)
 			end
 		end
 	end
-	enums.constants(e)
 	return e
 end
 

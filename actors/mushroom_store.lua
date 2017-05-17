@@ -13,7 +13,7 @@ local function make(a,c,size,spr,hp)
 
 	module.make(a,EM.animation,10,2)
 	module.make(a,EM.hitradius,4)
-	a.flags=flags.set(a.flags,EA.flags.character,EF.enemy,EF.damageable, EF.shootable, EF.explosive)
+	a.flags=flags.set(a.flags,EF.character,EF.enemy,EF.damageable, EF.shootable, EF.explosive)
 end
 
 local function control(a)

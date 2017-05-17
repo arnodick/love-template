@@ -14,11 +14,11 @@ local function make(t,x,y,d,vel,...)
 	if _G[EA[a.t]]["make"] then
 		_G[EA[a.t]]["make"](a,...)
 	end
-	if flags.get(a.flags,EA.flags.item) then
+	if flags.get(a.flags,EF.item) then
 		item.make(a)
-		a.st=EA.flags.item
-	elseif flags.get(a.flags,EA.flags.collectible) then
-		a.st=EA.flags.collectible
+		a.st=EF.item
+	elseif flags.get(a.flags,EF.collectible) then
+		a.st=EF.collectible
 	end
 	counters.update(Game.counters,a,1)
 --[[
@@ -41,8 +41,8 @@ local function control(a,gs)
 	--actor.calltype(a,gs,debug.getinfo(1,"n").name)
 
 	if a.st then
-		if _G[EA.flags[a.st]]["control"] then
-			_G[EA.flags[a.st]]["control"](a,gs)
+		if _G[EF[a.st]]["control"] then
+			_G[EF[a.st]]["control"](a,gs)
 		end
 	end
 
@@ -219,7 +219,7 @@ local function damage(a,d)
 					actor.make(EA.explosion,a.x,a.y,0,0,EC.white,20*(a.size))
 				end
 
-				if flags.get(a.flags,EA.flags.character) then
+				if flags.get(a.flags,EF.character) then
 					character.dead(a)
 				end
 				if _G[EA[a.t]]["dead"] then

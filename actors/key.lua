@@ -7,7 +7,7 @@ local function make(a,c,size,spr)
 
 	a.getsfx=6--TODO just call this sfx? or snd
 	a.cost=0
-	a.flags=flags.set(a.flags,EA.flags.collectible)
+	a.flags=flags.set(a.flags,EF.collectible)
 end
 --[[
 local function control(a,gs)
