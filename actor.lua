@@ -107,22 +107,7 @@ local function control(a,gs)
 	end
 
 	if flags.get(a.flags,EF.shopitem) then
-		if vector.distance(a.x,a.y,Player.x,Player.y)<30 then
-			sprites.blink(a,24)
-			if Player.controllers.aim.powerup then
-				if Player.coin>=a.cost then
-					a.flags=flags.switch(a.flags,EF.shopitem)
-					actor.corpse(a.menu,a.menu.w+1,a.menu.h+1,true)
-					actor.make(EA.explosion,a.x,a.y,0,0,EC.white,40)
-					a.menu=nil
-					Player.coin=Player.coin-a.cost
-				else
-					sfx.play(11)
-				end
-			end
-		else
-			a.spr=a.sprinit
-		end
+		shopitem.control(a,Player)
 	end
 
 	if a.inventory then
@@ -250,21 +235,9 @@ end
 local function collision(x,y,enemy)--TODO something other than enemy here?
 	local dist=vector.distance(enemy.x,enemy.y,x,y)
 	if enemy.hitradius then
-		if dist<enemy.hitradius.r then
-			return true
-		else
-			return false
-		end
+		return hitradius.collision(enemy.hitradius.r,dist)
 	elseif enemy.hitbox then
-		if x>enemy.x+enemy.hitbox.x then
-		if x<enemy.x+enemy.hitbox.x+enemy.hitbox.w then
-		if y>enemy.y+enemy.hitbox.y then
-		if y<enemy.y+enemy.hitbox.y+enemy.hitbox.h then
-			return true
-		end
-		end
-		end
-		end
+		hitbox.collision(x,y,enemy)
 	end
 	return false
 end

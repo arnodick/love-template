@@ -23,7 +23,7 @@ local function control(t,gs,a,vx,vy)
 	end
 	local hack=0
 	if t.angle < -1.4 then
-		hack=1 --NOTE: this is because the line wasn't drawing rom the proper origin because of... Math?
+		hack=1--NOTE: this is because the line wasn't drawing rom the proper origin because of... Math?
 	end
 
 	t.mx=a.x+8
