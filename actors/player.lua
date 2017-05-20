@@ -22,7 +22,7 @@ local function make(a,c,size,spr,hp)
 
 	a.coin=0
 
-	module.make(a,EM.animation,10,2)
+	module.make(a,EM.animation,EM.animations.frames,10,2)
 	module.make(a,EM.hitradius,4)
 	module.make(a,EM.tail,a.cinit,9)
 	module.make(a,EM.inventory,2)

@@ -11,9 +11,9 @@ local function make(a,c,size,spr,hp)
 	a.hitcolour=7
 	a.value=1
 	module.make(a,EM.tail,a.cinit,9)
-	a.inventory={}
+	module.make(a,EM.inventory,1)
 	table.insert(a.inventory,actor.make(EA.machinegun,a.x,a.y,0,0,a.cinit,EC.green))
-	module.make(a,EM.animation,10,2)
+	module.make(a,EM.animation,EM.animations.frames,10,2)
 	module.make(a,EM.hitradius,4)
 	module.make(a,EM.drop,"coin")
 	a.flags=flags.set(a.flags,EF.character,EF.bouncy,EF.enemy,EF.damageable, EF.shootable, EF.explosive)

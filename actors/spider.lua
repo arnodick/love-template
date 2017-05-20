@@ -11,7 +11,7 @@ local function make(a,c,size,spr,hp)
 	a.hitcolour=7
 	a.value=1
 	a.speed=1.5
-	module.make(a,EM.animation,6,2)
+	module.make(a,EM.animation,EM.animations.frames,EM.animations.frames,6,2)
 	module.make(a,EM.hitradius,8)
 	a.flags=flags.set(a.flags,EF.character,EF.enemy,EF.damageable, EF.shootable, EF.explosive)
 end

@@ -30,9 +30,9 @@ local function control(t,gs,a,vx,vy)
 	if math.abs(t.angle)<1 then
 		t.my=a.y
 	elseif t.angle<0 then
-		t.my=a.y-6-math.floor((Game.timer/a.animation.speed)%a.animation.frames)*4
+		t.my=a.y-6-math.floor((Game.timer/a.animation.frames.speed)%a.animation.frames.frames)*4
 	else
-		t.my=a.y+8+math.floor((Game.timer/a.animation.speed)%a.animation.frames)*4
+		t.my=a.y+8+math.floor((Game.timer/a.animation.frames.speed)%a.animation.frames.frames)*4
 	end
 	t.x=a.x+t.vec[1]*t.len
 	t.y=a.y+t.vec[2]*t.len

@@ -19,15 +19,20 @@ end
 
 local function draw(a)
 	if a.spr then
-		local anim=0
+		local anim={}
+		anim.frames=0
+
 		if a.animation then
-			anim=math.floor((Game.timer/a.animation.speed)%a.animation.frames)
+			for k,v in pairs(a.animation) do
+				anim[k]=animation.draw(k,v)
+			end
 		end
+
 		local scalex,scaley=1,1
 		if a.scalex then scalex=a.scalex end
 		if a.scaley then scaley=a.scaley end
 		
-		LG.draw(Spritesheet[a.size],Quads[a.size][a.spr+anim],a.x,a.y,a.angle,scalex,scaley,(a.size*Game.tile.width)/2,(a.size*Game.tile.height)/2)
+		LG.draw(Spritesheet[a.size],Quads[a.size][a.spr+anim.frames],a.x,a.y,a.angle,scalex,scaley,(a.size*Game.tile.width)/2,(a.size*Game.tile.height)/2)
 	end
 end
 

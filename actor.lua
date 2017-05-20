@@ -38,8 +38,6 @@ local function control(a,gs)
 		a.menu.y=a.y
 	end
 
-	--actor.calltype(a,gs,debug.getinfo(1,"n").name)
-
 	if a.st then
 		if _G[EF[a.st]]["control"] then
 			_G[EF[a.st]]["control"](a,gs)
@@ -237,7 +235,7 @@ local function collision(x,y,enemy)--TODO something other than enemy here?
 	if enemy.hitradius then
 		return hitradius.collision(enemy.hitradius.r,dist)
 	elseif enemy.hitbox then
-		hitbox.collision(x,y,enemy)
+		return hitbox.collision(x,y,enemy)
 	end
 	return false
 end
@@ -302,12 +300,6 @@ local function corpse(a,tw,th,hack)
 	end
 end
 
---local function calltype(a,gs,fn)
---	if _G[EA[a.t]][fn] then
---		_G[EA[a.t]][fn](a,gs)
---	end
---end
-
 return
 {
 	make = make,
@@ -317,5 +309,4 @@ return
 	damage = damage,
 	impulse = impulse,
 	corpse = corpse,
-	--calltype = calltype,
 }

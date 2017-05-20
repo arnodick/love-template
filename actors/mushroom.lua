@@ -12,7 +12,7 @@ local function make(a,c,size,spr,hp)
 	a.value=1
 	a.speed=2
 
-	module.make(a,EM.animation,10,2)
+	module.make(a,EM.animation,EM.animations.frames,10,2)
 	module.make(a,EM.hitradius,4)
 	a.flags=flags.set(a.flags,EF.character,EF.enemy,EF.damageable, EF.shootable, EF.explosive)
 

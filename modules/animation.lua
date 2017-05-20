@@ -1,13 +1,18 @@
-local function make(anim,speed,frames)
-	--sets actor to have an animation
-	--speed is how many steps it takes for animation to cycle (higher number is slower animation)
-	--frames is how many frames are in the animation
-	anim.speed=speed
-	anim.frames=frames
+local function make(m,t,...)
+	m[EM.animations[t]]={}
+	if _G[EM.animations[t]]["make"] then
+		_G[EM.animations[t]]["make"](m[EM.animations[t]],...)
+	end
+end
+
+local function draw(animname,anim)
+	if _G[animname]["draw"] then
+		return _G[animname]["draw"](anim)
+	end
 end
 
 return
 {
 	make = make,
-
+	draw = draw,
 }
