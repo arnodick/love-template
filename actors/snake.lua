@@ -5,10 +5,9 @@ local function make(a,c,size,spr,hp)
 	a.spr=spr or 49
 	a.hp=hp or 8
 	controller.make(a,ECT.aim,ECT.aims.ai_shoot_accurate,Player)
-	a.hit=0
-	a.hitsfx=3
-	a.hittime=6
-	a.hitcolour=7
+
+	module.make(a,EM.hit,3,6,EC.white)
+
 	a.value=1
 	module.make(a,EM.tail,a.cinit,9)
 	module.make(a,EM.inventory,1)

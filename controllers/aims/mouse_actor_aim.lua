@@ -9,9 +9,9 @@ local function control(a,c)
 		c.shoot=false
 	end
 	if love.mouse.isDown(2) then
-		c.powerup=true
+		c.action=true
 	else
-		c.powerup=false
+		c.action=false
 	end
 end
 

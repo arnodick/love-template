@@ -56,8 +56,8 @@ local function control(a,gs)
 	end
 
 	if a.hit then
-		if a.hit>0 then
-			a.hit=a.hit-gs
+		if a.hit.hit>0 then
+			a.hit.hit=a.hit.hit-gs
 		else
 			a.c=a.cinit--TODO this is probably where weird colour stuff is happenin with snakes
 		end
@@ -109,9 +109,7 @@ local function control(a,gs)
 	end
 
 	if a.inventory then
-		for i=1,#a.inventory do
-			item.carry(a.inventory[i],a)
-		end
+		inventory.control(a,a.inventory)
 	end
 
 	if a.tail then
@@ -170,7 +168,7 @@ end
 
 local function damage(a,d)
 	if not a.delete then
-		sfx.play(a.hitsfx,a.x,a.y)
+		sfx.play(a.hit.sfx,a.x,a.y)
 
 		if flags.get(a.flags,EF.damageable) then
 			a.hp = a.hp - d
@@ -180,11 +178,11 @@ local function damage(a,d)
 			for i=1,4 do
 				actor.make(EA.debris,a.x,a.y)
 			end
-			if a.hittime then
-				if a.hit<a.hittime then
-					a.hit=a.hittime
+			if a.hit.time then
+				if a.hit.hit<a.hit.time then
+					a.hit.hit=a.hit.time
 				end
-				a.c=a.hitcolour
+				a.c=a.hit.colour
 			end
 			if a.hp<1 then
 				--sfx.play(a.deathsnd,a.x,a.y)

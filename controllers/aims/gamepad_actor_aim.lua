@@ -11,9 +11,9 @@ local function control(a,c)
 		c.shoot=false
 	end
 	if j:isDown(1) or j:getGamepadAxis("triggerleft")>0 then
-		c.powerup=true
+		c.action=true
 	else
-		c.powerup=false
+		c.action=false
 	end
 end
 

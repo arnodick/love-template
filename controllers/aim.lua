@@ -2,7 +2,7 @@ local function make(a,c)
 	c.aimhorizontal=0
 	c.aimvertical=0
 	c.shoot=false
-	c.powerup=false
+	c.action=false
 end
 
 local function control(a,c,gs)

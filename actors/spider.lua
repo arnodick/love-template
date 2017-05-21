@@ -5,10 +5,9 @@ local function make(a,c,size,spr,hp)
 	a.spr=spr or 8
 	a.hp=hp or 50
 	controller.make(a,ECT.move,ECT.moves.ai_target_charge,Player)
-	a.hit=0
-	a.hitsfx=3
-	a.hittime=6
-	a.hitcolour=7
+
+	module.make(a,EM.hit,3,6,EC.white)
+
 	a.value=1
 	a.speed=1.5
 	module.make(a,EM.animation,EM.animations.frames,EM.animations.frames,6,2)

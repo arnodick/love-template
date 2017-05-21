@@ -15,11 +15,9 @@ local function make(a,c,size,spr,hp)
 	a.size=size or 1
 	a.spr=spr or 81
 	a.hp=hp or 8
-	a.hit=0
-	a.hitsfx=4
-	a.hittime=6
-	a.hitcolour=7
 
+	module.make(a,EM.hit,4,6,EC.white)
+	
 	a.coin=0
 
 	module.make(a,EM.animation,EM.animations.frames,10,2)
@@ -51,7 +49,7 @@ local function control(a)
 			Game.speed=math.clamp(a.vel,0.1,1)
 		end
 	end
-	if a.controllers.aim.powerup then
+	if a.controllers.aim.action then
 		if #a.inventory>1 then
 			local temp=a.inventory[1]
 			table.remove(a.inventory,1)
@@ -59,7 +57,7 @@ local function control(a)
 		end
 	end
 	cursor.update(a.cursor)
-	--if a.controllers.powerup then	
+	--if a.controllers.action then	
 	--end
 	if SFX.positonal then
 		love.audio.setPosition(a.x,a.y,0)

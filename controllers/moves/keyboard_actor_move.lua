@@ -22,9 +22,9 @@ local function control(a,c)
 	end
 
 	if love.keyboard.isDown('x') then
-		c.powerup=true
+		c.action=true
 	else
-		c.powerup=false
+		c.action=false
 	end
 	a.d=vector.direction(c.movehorizontal,-c.movevertical)
 	a.vel=vector.length(c.movehorizontal,c.movevertical)

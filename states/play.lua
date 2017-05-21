@@ -41,7 +41,9 @@ local function control(g)
 	for i,v in ipairs(g.actors) do
 		if v.delete==true then
 			if v.inventory then
-				v.inventory[1].delete=true
+				for j,k in ipairs(v.inventory) do
+					k.delete=true
+				end
 			end
 			counters.update(g.counters,v,-1)
 			table.remove(g.actors,i)
