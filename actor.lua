@@ -56,11 +56,7 @@ local function control(a,gs)
 	end
 
 	if a.hit then
-		if a.hit.hit>0 then
-			a.hit.hit=a.hit.hit-gs
-		else
-			a.c=a.cinit--TODO this is probably where weird colour stuff is happenin with snakes
-		end
+		hit.control(a.hit,a,gs)
 	end
 
 	a.vec[1] = math.cos(a.d)
@@ -178,12 +174,11 @@ local function damage(a,d)
 			for i=1,4 do
 				actor.make(EA.debris,a.x,a.y)
 			end
-			if a.hit.time then
-				if a.hit.hit<a.hit.time then
-					a.hit.hit=a.hit.time
-				end
-				a.c=a.hit.colour
+
+			if a.hit then
+				hit.damage(a.hit,a)
 			end
+
 			if a.hp<1 then
 				--sfx.play(a.deathsnd,a.x,a.y)
 				a.delete=true
