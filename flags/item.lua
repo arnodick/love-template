@@ -12,7 +12,7 @@ end
 
 local function control(a,gs)
 	if actor.collision(a.x,a.y,Player) then	
-		if Player.controllers.action or #Player.inventory<1 then
+		if Player.controller.action or #Player.inventory<1 then
 			if a.getsfx then
 				sfx.play(a.getsfx)
 			end

@@ -49,7 +49,7 @@ local function control(a)
 			Game.speed=math.clamp(a.vel,0.1,1)
 		end
 	end
-	if a.controllers.aim.action then
+	if a.controller.aim.action then
 		if #a.inventory>1 then
 			local temp=a.inventory[1]
 			table.remove(a.inventory,1)
@@ -57,7 +57,7 @@ local function control(a)
 		end
 	end
 	cursor.update(a.cursor)
-	--if a.controllers.action then	
+	--if a.controller.action then	
 	--end
 	if SFX.positonal then
 		love.audio.setPosition(a.x,a.y,0)
