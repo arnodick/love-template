@@ -1,4 +1,4 @@
-local function make(m,t,x,y,w,h,text,c1,c2,align,...)
+local function make(a,m,t,x,y,w,h,text,c1,c2,align,...)
 	m.t=t
 	m.x=math.floor(x)
 	m.y=math.floor(y)

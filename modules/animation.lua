@@ -1,4 +1,4 @@
-local function make(m,t,...)
+local function make(a,m,t,...)
 	m[EM.animations[t]]={}
 	if _G[EM.animations[t]]["make"] then
 		_G[EM.animations[t]]["make"](m[EM.animations[t]],...)

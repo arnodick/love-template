@@ -1,4 +1,4 @@
-local function make(m,r)
+local function make(a,m,r)
 	m.r=r
 end
 

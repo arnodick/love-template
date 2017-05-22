@@ -1,4 +1,4 @@
-local function make(t,c,len)
+local function make(a,t,c,len)
 	t.c=c or EC.red
 	t.leninit=len or 9
 	t.len=t.leninit

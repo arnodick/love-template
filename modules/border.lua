@@ -1,4 +1,4 @@
-local function make(b,c1,c2)
+local function make(a,b,c1,c2)
 	b.c1=c1
 	b.c2=c2
 end

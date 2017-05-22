@@ -1,4 +1,4 @@
-local function make(m,size)
+local function make(a,m,size)
 	m.i=1
 	m.max=size or 1
 end

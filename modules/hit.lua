@@ -1,4 +1,4 @@
-local function make(m,sound,time,colour)
+local function make(a,m,sound,time,colour)
 	m.hit=0
 	m.sfx=sound
 	m.time=time
