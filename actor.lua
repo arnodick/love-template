@@ -33,11 +33,6 @@ end
 local function control(a,gs)
 	controller.update(a,gs)
 
-	if a.menu then
-		a.menu.x=a.x
-		a.menu.y=a.y
-	end
-
 	if a.st then
 		if _G[EF[a.st]]["control"] then
 			_G[EF[a.st]]["control"](a,gs)
@@ -164,7 +159,9 @@ end
 
 local function damage(a,d)
 	if not a.delete then
-		sfx.play(a.hit.sfx,a.x,a.y)
+		if a.hit then
+			sfx.play(a.hit.sfx,a.x,a.y)
+		end
 
 		if flags.get(a.flags,EF.damageable) then
 			a.hp = a.hp - d

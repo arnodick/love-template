@@ -18,9 +18,6 @@ local function make(tw,th,gw,gh,sp)
 end
 
 local function control(g)
-	for i,v in ipairs(g.menus) do
-		menu.control(v)
-	end
 
 	game.state.control(g)
 

@@ -9,7 +9,6 @@ local function make(m,t,x,y,w,h,text,c1,c2,align,...)
 	m.c2=c2
 	m.align=align or "left"
 	m.font=LG.newFont("fonts/Kongtext Regular.ttf",8)--TODO make fonts an array in game, then menu can select from them
-	--table.insert(Game.menus,m)
 	if _G[EMM[m.t]]["make"] then
 		_G[EMM[m.t]]["make"](m,...)
 	end
