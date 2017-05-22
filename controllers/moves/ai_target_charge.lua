@@ -8,8 +8,8 @@ local function control(a,c)
 			a.destination=nil
 		end
 	else
-		local dir=vector.direction(vector.components(a.x,a.y,a.target.move.x,a.target.move.y))
-		local dist=vector.distance(a.x,a.y,a.target.move.x,a.target.move.y)*1.5
+		local dir=vector.direction(vector.components(a.x,a.y,c.target.x,c.target.y))
+		local dist=vector.distance(a.x,a.y,c.target.x,c.target.y)*1.5
 		a.destination={}
 		a.destination.x=math.clamp(a.x+math.cos(dir)*dist,0,Game.width)
 		a.destination.y=math.clamp(a.y+math.sin(dir)*dist,0,Game.height)

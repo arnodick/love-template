@@ -1,7 +1,7 @@
 local function make(a,c)
 	a.destination={}
-	a.destination.x=a.target.x
-	a.destination.y=a.target.y
+	a.destination.x=c.target.x
+	a.destination.y=c.target.y
 end
 
 local function control(a,c)
@@ -19,16 +19,6 @@ local function control(a,c)
 		a.d=vector.direction(c.movehorizontal,-c.movevertical)
 		a.vel=vector.length(c.movehorizontal,c.movevertical)
 	end
-
---[[
-		local movedir=vector.direction(vector.components(a.x,a.y,a.destination.x,a.destination.y))
-		c.movehorizontal=math.cos(movedir)
-		c.movevertical=math.sin(movedir)
-		local movedist=vector.distance(a.x,a.y,a.destination.x,a.destination.y)
-		if movedist<=a.vel then
-			a.destination=nil
-		end
---]]
 end
 
 return

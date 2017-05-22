@@ -28,7 +28,7 @@ local function control(a)
 		for i,v in ipairs(Game.actors) do
 			if flags.get(v.flags,EF.enemy) then
 				if v~=a then
-					a.target.aim=v
+					a.controller.aim.target=v
 				end
 			end
 		end
@@ -39,16 +39,9 @@ local function draw(a)
 
 end
 
---[[
-local function dead(a)
-	actor.make(EA.coin,a.x,a.y)
-end
--]]
-
 return
 {
 	make = make,
 	control = control,
 	draw = draw,
-	--dead = dead,
 }

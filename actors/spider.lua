@@ -10,21 +10,21 @@ local function make(a,c,size,spr,hp)
 
 	a.value=1
 	a.speed=1.5
-	module.make(a,EM.animation,EM.animations.frames,EM.animations.frames,6,2)
+	module.make(a,EM.animation,EM.animations.frames,6,2)
 	module.make(a,EM.hitradius,8)
 	a.flags=flags.set(a.flags,EF.character,EF.enemy,EF.damageable, EF.shootable, EF.explosive)
 end
 
 local function control(a)
-	if actor.collision(a.x,a.y,a.target.move) then
-		actor.damage(a.target.move,8)
+	if actor.collision(a.x,a.y,a.controller.move.target) then
+		actor.damage(a.controller.move.target,8)
 		actor.damage(a,a.hp)
 	end
 	if Player.hp<=0 then
 		for i,v in ipairs(Game.actors) do
 			if flags.get(v.flags,EF.enemy) then
 				if v~=a then
-					a.target.move=v
+					a.controller.move.target=v
 				end
 			end
 		end

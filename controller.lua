@@ -3,23 +3,23 @@ local function make(a,t,st,target,y)
 		a.controller={}
 	end
 
-	if target then
-		if not a.target then
-			a.target={}
-		end
-		if type(target)=='table' then
-			a.target[ECT[t]]=target
-		else
-			a.target.x=target
-			a.target.y=y
-		end
-	end
-
-	local c={}
+	a.controller[ECT[t]]={}
+	local c=a.controller[ECT[t]]
 	c.t=t
 	c.st=st
 
-	a.controller[ECT[t]]=c
+	if target then
+		if not c.target then
+			c.target={}
+		end
+		if type(target)=='table' then
+			c.target=target
+		else
+			c.target.x=target
+			c.target.y=y
+		end
+	end
+
 	if _G[ECT[t]]["make"] then
 		_G[ECT[t]]["make"](a,c)
 	end
