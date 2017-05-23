@@ -5,10 +5,10 @@ local function make(a,c,size,spr,hp)
 	a.spr=spr or 49
 	a.hp=hp or 8
 
+	a.value=1
+
 	module.make(a,EM.controller,EMC.aim,EMC.aims.ai_shoot_accurate,Player)
 	module.make(a,EM.hit,3,6,EC.white)
-
-	a.value=1
 	module.make(a,EM.tail,a.cinit,9)
 	module.make(a,EM.inventory,1)
 	table.insert(a.inventory,actor.make(EA.machinegun,a.x,a.y,0,0,a.cinit,EC.green))
@@ -16,6 +16,7 @@ local function make(a,c,size,spr,hp)
 	module.make(a,EM.hitradius,4)
 	module.make(a,EM.drop,"coin")
 	a.flags=flags.set(a.flags,EF.character,EF.bouncy,EF.enemy,EF.damageable, EF.shootable, EF.explosive)
+
 	a.d=math.choose(math.pi)
 	a.vel=1
 	a.rage=0

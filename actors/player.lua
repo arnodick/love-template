@@ -16,10 +16,9 @@ local function make(a,c,size,spr,hp)
 	a.spr=spr or 81
 	a.hp=hp or 8
 
-	module.make(a,EM.hit,4,6,EC.white)
-	
 	a.coin=0
 
+	module.make(a,EM.hit,4,6,EC.white)
 	module.make(a,EM.animation,EM.animations.frames,10,2)
 	module.make(a,EM.hitradius,4)
 	module.make(a,EM.tail,a.cinit,9)

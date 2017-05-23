@@ -5,11 +5,11 @@ local function make(a,c,size,spr,hp)
 	a.spr=spr or 8
 	a.hp=hp or 50
 
-	module.make(a,EM.controller,EMC.move,EMC.moves.ai_target_charge,Player)
-	module.make(a,EM.hit,3,6,EC.white)
-
 	a.value=1
 	a.speed=1.5
+
+	module.make(a,EM.controller,EMC.move,EMC.moves.ai_target_charge,Player)
+	module.make(a,EM.hit,3,6,EC.white)
 	module.make(a,EM.animation,EM.animations.frames,6,2)
 	module.make(a,EM.hitradius,8)
 	a.flags=flags.set(a.flags,EF.character,EF.enemy,EF.damageable, EF.shootable, EF.explosive)

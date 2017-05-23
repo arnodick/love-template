@@ -20,6 +20,12 @@ local function control(m)
 	end
 end
 
+local function gamepadpressed(m,button)
+	if _G[EMM[m.t]]["gamepadpressed"] then
+		_G[EMM[m.t]]["gamepadpressed"](m,button)
+	end
+end
+
 local function draw(m)
 	if m.border then
 		border.draw(m,m.border)
@@ -54,5 +60,6 @@ return
 {
 	make = make,
 	control = control,
+	gamepadpressed = gamepadpressed,
 	draw = draw,
 }

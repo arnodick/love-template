@@ -26,9 +26,7 @@ local function gamepadpressed(g,button)
 	end
 	local m=g.state.menu
 	if m then
-		if _G[EMM[m.t]]["gamepadpressed"] then
-			_G[EMM[m.t]]["gamepadpressed"](m,button)
-		end
+		menu.gamepadpressed(m,button)
 	end
 end
 
