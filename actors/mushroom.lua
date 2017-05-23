@@ -4,8 +4,8 @@ local function make(a,c,size,spr,hp)
 	a.size=size or 1
 	a.spr=spr or 97
 	a.hp=hp or 16
-	controller.make(a,ECT.move,ECT.moves.ai_target_avoid,Player)
-	
+
+	module.make(a,EM.controller,EMC.move,EMC.moves.ai_target_avoid,Player)
 	module.make(a,EM.hit,3,6,EC.white)
 
 	a.value=1

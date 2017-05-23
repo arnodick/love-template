@@ -1,10 +1,6 @@
-local function make(a,t,st,target,y)
-	if not a.controller then
-		a.controller={}
-	end
-
-	a.controller[ECT[t]]={}
-	local c=a.controller[ECT[t]]
+local function make(a,cont,t,st,target,y)
+	cont[EMC[t]]={}
+	local c=cont[EMC[t]]
 	c.t=t
 	c.st=st
 
@@ -20,8 +16,8 @@ local function make(a,t,st,target,y)
 		end
 	end
 
-	if _G[ECT[t]]["make"] then
-		_G[ECT[t]]["make"](a,c)
+	if _G[EMC[t]]["make"] then
+		_G[EMC[t]]["make"](a,c)
 	end
 end
 
@@ -29,8 +25,8 @@ local function update(a,gs)
 	local c=a.controller
 	if c then
 		for k,v in pairs(c) do
-			if _G[ECT[v.t]]["control"] then
-				_G[ECT[v.t]]["control"](a,v,gs)
+			if _G[EMC[v.t]]["control"] then
+				_G[EMC[v.t]]["control"](a,v,gs)
 			end
 		end
 	end
@@ -40,8 +36,8 @@ local function gamepadpressed(a,button)
 	local c=a.controller
 	if c then
 		for k,v in pairs(c) do
-			if _G[ECT[v.t]]["gamepadpressed"] then
-				_G[ECT[v.t]]["gamepadpressed"](a,v,button)
+			if _G[EMC[v.t]]["gamepadpressed"] then
+				_G[EMC[v.t]]["gamepadpressed"](a,v,button)
 			end
 		end
 	end

@@ -6,8 +6,8 @@ local function make(a,c)
 end
 
 local function control(a,c,gs)
-	if _G[ECT.aims[c.st]]["control"] then
-		_G[ECT.aims[c.st]]["control"](a,c)
+	if _G[EMC.aims[c.st]]["control"] then
+		_G[EMC.aims[c.st]]["control"](a,c)
 	end
 
 	if a.inventory then

@@ -50,13 +50,13 @@ local function constants(e) --NOTE this function has side effects! makes global 
 	if e.flags then
 		EF=e.flags
 	end
-	if e.controllers then
-		ECT=e.controllers
-	end
 	if e.modules then
 		EM=e.modules
-		if e.modules.menus then
+		if EM.menus then
 			EMM=e.modules.menus
+		end
+		if EM.controllers then
+			EMC=EM.controllers
 		end
 	end
 	LG=love.graphics

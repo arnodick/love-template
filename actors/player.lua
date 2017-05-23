@@ -2,12 +2,12 @@ local function make(a,c,size,spr,hp)
 	local e=Enums
 
 	if #Joysticks>0 then
-		controller.make(a,ECT.move,ECT.moves.gamepad_actor_move)
-		controller.make(a,ECT.aim,ECT.aims.gamepad_actor_aim)
+		module.make(a,EM.controller,EMC.move,EMC.moves.gamepad_actor_move)
+		module.make(a,EM.controller,EMC.aim,EMC.aims.gamepad_actor_aim)
 	else
 		a.cursor=cursor.make(0,0)
-		controller.make(a,ECT.move,ECT.moves.keyboard_actor_move)
-		controller.make(a,ECT.aim,ECT.aims.mouse_actor_aim)
+		module.make(a,EM.controller,EMC.move,EMC.moves.keyboard_actor_move)
+		module.make(a,EM.controller,EMC.aim,EMC.aims.mouse_actor_aim)
 	end
 
 	a.cinit=c or EC.dark_blue
