@@ -1,9 +1,9 @@
 --game initialization stuff (just boring stuff you need to maek Video Game)
 libraries = require("libraries")--have to load the libraries.lua library to use it to dynamically load the rest of the libraries
 libraries.load("")--loads all the .lua libraries
-Enums = enums.load("","actors","levels","states","controllers","modules","flags")--enumerators
+Enums = enums.load("","actors","games","states","levels","modules","flags")--enumerators
 enums.constants(Enums)--constants derived from enums, they're shorthand so you can type EM instead of Enums.modules
-debugger.printtable(Enums)
+--debugger.printtable(Enums)
 
 love.math.setRandomSeed(os.time())
 --love.math.setRandomSeed(1)
@@ -14,8 +14,8 @@ SFX = sfx.load(false,true)
 Music = music.load()
 
 function love.load()
-	Game = game.make(8,8,320,240,1)--TODO this is where load from ini or whatever will happen. or rather, laod from type! g.t=Enums.games.PROTOSNAKE
-	--debugger.printtable(Game)
+	Game = game.make(Enums.games.protosnake,8,8,320,240,1)--TODO this is where load from ini or whatever will happen. or rather, laod from type! g.t=Enums.games.PROTOSNAKE
+	debugger.printtable(Game)
 end
 
 function love.joystickadded(joystick)

@@ -1,5 +1,6 @@
-local function make(tw,th,gw,gh,sp)
+local function make(t,tw,th,gw,gh,sp)
 	local g={}--Game object
+	g.t=t
 	g.tile={}
 	g.tile.width=tw
 	g.tile.height=th
