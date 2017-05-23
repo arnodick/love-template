@@ -1,10 +1,9 @@
 local function make(a,t,...)
-	local m={}
-	--m.t=t
-
 	if not a[EM[t]] then
-		a[EM[t]]=m
+		a[EM[t]]={}
 	end
+	
+	local m=a[EM[t]]
 
 	if _G[EM[t]]["make"] then
 		_G[EM[t]]["make"](a,m,...)

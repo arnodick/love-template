@@ -53,7 +53,7 @@ local function constants(e) --NOTE this function has side effects! makes global 
 	if e.modules then
 		EM=e.modules
 		if EM.menus then
-			EMM=e.modules.menus
+			EMM=EM.menus
 		end
 		if EM.controllers then
 			EMC=EM.controllers

@@ -35,8 +35,10 @@ end
 local function gamepadpressed(a,button)
 	local c=a.controller
 	if c then
+		debugger.printtable(c)
 		for k,v in pairs(c) do
 			if _G[EMC[v.t]]["gamepadpressed"] then
+				print("yes")
 				_G[EMC[v.t]]["gamepadpressed"](a,v,button)
 			end
 		end
