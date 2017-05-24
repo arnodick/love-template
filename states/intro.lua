@@ -1,7 +1,11 @@
 local function make(g)
 	g.state.imgdata=love.image.newImageData(g.canvas.buffer:getWidth()-1,g.canvas.buffer:getHeight()-1)
 	g.state.font=LG.newFont("fonts/Kongtext Regular.ttf",20)
-	music.play(2)
+	if g.state.st then
+		if _G[Enums.states.intros[g.state.st]]["make"] then
+			_G[Enums.states.intros[g.state.st]]["make"](g)
+		end
+	end
 end
 
 local function control(g)

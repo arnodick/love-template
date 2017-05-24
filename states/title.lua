@@ -10,19 +10,19 @@ end
 local function control(g)
 	menu.control(g.state.menu)
 	if g.timer>=630 then
-		game.state.make(g,Enums.states.intro)
+		game.state.make(g,Enums.states.intro,Enums.states.intros.intro_protosnake)
 	end
 end
 
 local function keypressed(g,key)
 	if key=='escape' then
-		game.state.make(g,Enums.states.intro)
+		game.state.make(g,Enums.states.intro,Enums.states.intros.intro_protosnake)
 	end
 end
 
 local function gamepadpressed(g,button)
 	if button=="b" then
-		game.state.make(g,Enums.states.intro)
+		game.state.make(g,Enums.states.intro,Enums.states.intros.intro_protosnake)
 	end
 	local m=g.state.menu
 	if m then
