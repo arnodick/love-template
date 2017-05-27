@@ -6,22 +6,27 @@ end
 
 
 local function control(g)
+	if _G[Enums.states.options[g.state.st]]["control"] then
+		_G[Enums.states.options[g.state.st]]["control"](g)
+	end
 end
 
 local function keypressed(g,key)
-	if key=='escape' then
-		game.state.make(g,Enums.states.title)
+	if _G[Enums.states.options[g.state.st]]["keypressed"] then
+		_G[Enums.states.options[g.state.st]]["keypressed"](g,key)
 	end
 end
 
 local function gamepadpressed(g,button)
-	if button=="b" then
-		game.state.make(g,Enums.states.intro,Enums.states.intros.intro_protosnake)
+	if _G[Enums.states.options[g.state.st]]["gamepadpressed"] then
+		_G[Enums.states.options[g.state.st]]["gamepadpressed"](g,button)
 	end
 end
 
 local function draw(g)
-	LG.print("OPTIONS",g.width/2,g.height/2)
+	if _G[Enums.states.options[g.state.st]]["draw"] then
+		_G[Enums.states.options[g.state.st]]["draw"](g)
+	end
 end
 
 return
