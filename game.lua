@@ -14,7 +14,7 @@ local function make(t,tw,th,gw,gh,sp)
 	g.levelpath={}
 	--debugger.printtable(g.levels)
 
-	game.state.make(g,Enums.states.intro,Enums.states.intros["intro_"..Enums.games[g.t]])
+	game.state.make(g,Enums.states.intro)
 	return g
 end
 

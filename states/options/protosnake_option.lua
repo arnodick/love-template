@@ -1,5 +1,5 @@
 local function make(g)
-	music.play(2)
+	music.play(1)
 end
 
 local function control(g)

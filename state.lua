@@ -4,6 +4,10 @@ local function make(g,t,st)--initializes game's state, timer, camera, actor, men
 	g.state.t=t
 	if st then
 		g.state.st=st
+	else
+		local statename=Enums.states[t]
+		local gamename=Enums.games[g.t]
+		g.state.st=Enums.states[statename.."s"][gamename.."_"..statename]
 	end
 	g.timer=0
 	g.speed=1

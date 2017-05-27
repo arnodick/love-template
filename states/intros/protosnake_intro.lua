@@ -1,25 +1,23 @@
 local function make(g)
-	music.play(1)
+	g.state.imgdata=love.image.newImageData(g.canvas.buffer:getWidth()-1,g.canvas.buffer:getHeight()-1)
+	g.state.font=LG.newFont("fonts/Kongtext Regular.ttf",20)
+	music.play(2)
 end
 
-
 local function control(g)
+
 end
 
 local function keypressed(g,key)
-	if key=='escape' then
-		game.state.make(g,Enums.states.title)
-	end
+
 end
 
 local function gamepadpressed(g,button)
-	if button=="b" then
-		game.state.make(g,Enums.states.intro,Enums.states.intros.intro_protosnake)
-	end
+
 end
 
 local function draw(g)
-	LG.print("OPTIONS",g.width/2,g.height/2)
+
 end
 
 return

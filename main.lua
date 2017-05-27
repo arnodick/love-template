@@ -3,7 +3,7 @@ libraries = require("libraries")--have to load the libraries.lua library to use 
 libraries.load("")--loads all the .lua libraries
 Enums = enums.load("","actors","games","states","levels","modules","flags")--enumerators
 enums.constants(Enums)--constants derived from enums, they're shorthand so you can type EM instead of Enums.modules
---debugger.printtable(Enums)
+debugger.printtable(Enums)
 
 love.math.setRandomSeed(os.time())
 --love.math.setRandomSeed(1)
@@ -15,7 +15,7 @@ Music = music.load()
 
 function love.load()
 	Game = game.make(Enums.games.protosnake,8,8,320,240,1)--TODO this is where load from ini or whatever will happen. or rather, laod from type! g.t=Enums.games.PROTOSNAKE
-	debugger.printtable(Game)
+--	debugger.printtable(Game)
 end
 
 function love.joystickadded(joystick)

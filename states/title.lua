@@ -1,9 +1,7 @@
 local function make(g)
-	g.state.font=LG.newFont("fonts/Kongtext Regular.ttf",64)
-	g.scores=scores.load()
-	music.play(1)
-	module.make(g.state,EM.menu,EMM.interactive,Game.width/2,180,60,30,{"START","OPTIONS"},EC.orange,EC.dark_green,"left",{game.state.make,game.state.make},{{Game,Enums.states.play},{Game,Enums.states.options}})
-	--EC.indigo,EC.dark_purple
+	if _G[Enums.states.titles[g.state.st]]["make"] then
+		_G[Enums.states.titles[g.state.st]]["make"](g)
+	end
 end
 
 
