@@ -44,6 +44,9 @@ local function control(g)
 end
 
 local function keypressed(g,key)
+	if key=='space' then
+		Game.state.st=Enums.states.gameplays.protosnake_gameplay2
+	end
 	if _G[Enums.states.gameplays[g.state.st]]["keypressed"] then
 		_G[Enums.states.gameplays[g.state.st]]["keypressed"](g,key)
 	end

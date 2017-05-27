@@ -11,7 +11,8 @@ local function update(d)
 	if d.debugging then
 		local debuglist={}
 		table.insert(debuglist,Game.timer)
-		table.insert(debuglist,Game.speed)
+		table.insert(debuglist,"Game speed: "..Game.speed)
+		table.insert(debuglist,"Game state"..Game.state.st)
 		table.insert(debuglist,"FPS:"..love.timer.getFPS())
 		table.insert(debuglist,"Actors:"..#Game.actors)
 		if Game.level then

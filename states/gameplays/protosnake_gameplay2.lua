@@ -70,7 +70,7 @@ local function draw(g)
 		end
 	end
 
-	LG.setColor(g.palette[s.c+1])
+	LG.setColor(g.palette[s.c])
 	
 	LG.print("score:"..g.score,g.camera.x+s.score.x,g.camera.y+s.score.y)
 	LG.print("coins:"..Player.coin,g.camera.x+s.coins.x,g.camera.y+s.coins.y)
