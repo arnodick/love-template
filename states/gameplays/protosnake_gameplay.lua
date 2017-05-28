@@ -1,18 +1,5 @@
 local function make(g)
-	g.state.c=EC.orange
-	g.state.c2=EC.dark_green
-	--g.state.c=love.math.random(#g.palette)
-	--g.state.c2=love.math.random(#g.palette)
-	g.state.score={}
-	g.state.score.x=12
-	g.state.score.y=6
-	g.state.coins={}
-	g.state.coins.x=120
-	g.state.coins.y=6
-	g.state.hp={}
-	g.state.hp.x=240
-	g.state.hp.y=6
-
+	module.make(g.state,Enums.modules.hud,Enums.modules.huds.protosnake_hud)
 	g.score=0
 
 	local mw,mh=g.width/g.tile.width,g.height/g.tile.height
@@ -70,18 +57,8 @@ local function draw(g)
 		end
 	end
 
-	LG.setColor(g.palette[s.c+1])
-	
-	LG.print("score:"..g.score,g.camera.x+s.score.x,g.camera.y+s.score.y)
-	LG.print("coins:"..Player.coin,g.camera.x+s.coins.x,g.camera.y+s.coins.y)
-	LG.print("hp:"..Player.hp,g.camera.x+s.hp.x,g.camera.y+s.hp.y)
-	for i=1,Player.inventory.max do
-		local x,y=g.width/2+40-i*20,20
-		LG.rectangle("line",x,y,15,15)
-		if Player.inventory[i] then
-			local a=Player.inventory[i]
-			LG.draw(Spritesheet[a.size],Quads[a.size][a.spr],x+7,y+7,a.angle,1,1,(a.size*g.tile.width)/2,(a.size*g.tile.height)/2)
-		end
+	if s.hud then
+		hud.draw(s.hud)
 	end
 
 	if g.pause then
