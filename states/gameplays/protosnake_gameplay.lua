@@ -1,5 +1,5 @@
 local function make(g)
-	module.make(g.state,Enums.modules.hud,Enums.modules.huds.protosnake_hud)
+	module.make(g.state,EM.hud,EM.huds.protosnake_hud)
 
 	g.score=0
 

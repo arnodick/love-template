@@ -35,8 +35,8 @@ local function control(g)
 	end
 
 	if Player.hp<=0 then
-		if not s.menu then
-			module.make(s,EM.menu,EMM.highscores,g.width/2,g.height/2,66,100,"",s.c,s.c2,"center")
+		if not s.hud.menu then
+			module.make(s.hud,EM.menu,EMM.highscores,g.width/2,g.height/2,66,100,"",s.hud.c,s.hud.c2,"center")
 		end
 	end
 
@@ -44,9 +44,6 @@ local function control(g)
 end
 
 local function keypressed(g,key)
-	if key=='space' then
-		Game.state.st=Enums.states.gameplays.protosnake_gameplay2
-	end
 	if _G[Enums.states.gameplays[g.state.st]]["keypressed"] then
 		_G[Enums.states.gameplays[g.state.st]]["keypressed"](g,key)
 	end
