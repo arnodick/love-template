@@ -1,5 +1,6 @@
 local function make(g)
 	module.make(g.state,Enums.modules.hud,Enums.modules.huds.protosnake_hud)
+
 	g.score=0
 
 	local mw,mh=g.width/g.tile.width,g.height/g.tile.height
@@ -58,20 +59,8 @@ local function draw(g)
 	end
 
 	if s.hud then
-		hud.draw(s.hud)
+		hud.draw(g,s.hud)
 	end
-
-	if g.pause then
-		LG.printformat("PAUSE",g.camera.x+140,g.camera.y+g.height/2,g.width,"left",EC.white,s.c)
-	end
-
-	if Player.hp <= 0 then
-		LG.printformat("YOU DIED",0,g.height/2-66,g.width,"center",EC.white,s.c)
-		LG.printformat("PRESS SPACE",0,g.height/2+60,g.width,"center",EC.white,s.c)
-		menu.draw(s.menu)
-	end
-
-	LG.setColor(g.palette[EC.pure_white])
 end
 
 return

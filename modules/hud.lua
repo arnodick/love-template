@@ -5,9 +5,9 @@ local function make(s,h,t,...)
 	end
 end
 
-local function draw(h,...)
+local function draw(g,h,...)
 	if _G[Enums.modules.huds[h.t]]["draw"] then
-		_G[Enums.modules.huds[h.t]]["draw"](h,...)
+		_G[Enums.modules.huds[h.t]]["draw"](g,h,...)
 	end
 end
 
