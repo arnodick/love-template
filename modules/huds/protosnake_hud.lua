@@ -35,7 +35,6 @@ local function draw(g,h)
 	if Player.hp <= 0 then
 		LG.printformat("YOU DIED",0,g.height/2-66,g.width,"center",EC.white,h.c)
 		LG.printformat("PRESS SPACE",0,g.height/2+60,g.width,"center",EC.white,h.c)
-		menu.draw(h.menu)
 	end
 
 	LG.setColor(g.palette[EC.pure_white])

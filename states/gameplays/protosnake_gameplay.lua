@@ -13,7 +13,12 @@ local function make(g)
 end
 
 local function control(g)
-
+	local s=g.state
+	if Player.hp<=0 then
+		if not s.hud.menu then
+			module.make(s.hud,EM.menu,EMM.highscores,g.width/2,g.height/2,66,100,"",s.hud.c,s.hud.c2,"center")
+		end
+	end
 end
 
 local function keypressed(g,key)

@@ -34,12 +34,6 @@ local function control(g)
 		_G[Enums.states.gameplays[g.state.st]]["control"](g)
 	end
 
-	if Player.hp<=0 then
-		if not s.hud.menu then
-			module.make(s.hud,EM.menu,EMM.highscores,g.width/2,g.height/2,66,100,"",s.hud.c,s.hud.c2,"center")
-		end
-	end
-
 	level.control(g.levels.current)
 end
 

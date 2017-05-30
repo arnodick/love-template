@@ -9,6 +9,9 @@ local function draw(g,h,...)
 	if _G[EM.huds[h.t]]["draw"] then
 		_G[EM.huds[h.t]]["draw"](g,h,...)
 	end
+	if h.menu then
+		menu.draw(h.menu)
+	end
 end
 
 return
