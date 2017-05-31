@@ -10,11 +10,11 @@ local function make(t,tw,th,gw,gh,sp)
 	g.pause=false
 
 	game.graphics(g,tw,th,gw,gh)
-	g.levels=level.load("levels/inis")
-	g.levelpath={}
-	--debugger.printtable(g.levels)
 
-	game.state.make(g,Enums.states.intro)
+	if _G[Enums.games[t]]["make"] then
+		_G[Enums.games[t]]["make"](g)
+	end
+
 	return g
 end
 
