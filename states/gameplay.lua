@@ -50,6 +50,22 @@ local function gamepadpressed(g,button)
 end
 
 local function draw(g)
+	local s=g.state
+
+	if g.map then
+		map.draw(g.map)
+	end
+
+	for i,v in ipairs(g.actors) do
+		if not v.delete then
+			actor.draw(v)
+		end
+	end
+
+	if s.hud then
+		hud.draw(g,s.hud)
+	end
+
 	if _G[Enums.states.gameplays[g.state.st]]["draw"] then
 		_G[Enums.states.gameplays[g.state.st]]["draw"](g)
 	end

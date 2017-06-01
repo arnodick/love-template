@@ -54,18 +54,7 @@ local function gamepadpressed(g,button)
 end
 
 local function draw(g)
-	local s=g.state
 
-	map.draw(g.map)
-	for i,v in ipairs(g.actors) do
-		if not v.delete then
-			actor.draw(v)
-		end
-	end
-
-	if s.hud then
-		hud.draw(g,s.hud)
-	end
 end
 
 return
