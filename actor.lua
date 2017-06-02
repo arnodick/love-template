@@ -33,7 +33,7 @@ end
 local function control(a,gs)
 	controller.update(a,gs)
 
-	if a.st then
+	if a.st then--TODO make st a module
 		if _G[EF[a.st]]["control"] then
 			_G[EF[a.st]]["control"](a,gs)
 		end
@@ -43,7 +43,7 @@ local function control(a,gs)
 		_G[EA[a.t]]["control"](a,gs)
 	end
 
-	if a.anglespeed then
+	if a.anglespeed then--TODO make angle module with speed and accel
 		if a.anglespeeddecel then
 			a.anglespeed=math.snap(a.anglespeed,a.anglespeeddecel,0)
 		end
@@ -58,7 +58,7 @@ local function control(a,gs)
 		_G[Enums.physics[Game.pt]]["control"](a,gs)
 	end
 
-	if a.decel then
+	if a.decel then--TODO make decel module with speed OR velocity module? w speed and accel
 		a.vel=math.snap(a.vel,a.decel*(Game.timer-a.delta)/4,0)
 	end
 
