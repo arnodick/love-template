@@ -23,7 +23,7 @@ local function make(a,c,size,spr,hp)
 	module.make(a,EM.hitradius,4)
 	module.make(a,EM.tail,a.cinit,9)
 	module.make(a,EM.inventory,2)
-	actor.make(EA.machinegun,a.x,a.y,0,0,EC.dark_purple,EC.dark_purple)
+	actor.make(EA[Enums.games[Game.t]].machinegun,a.x,a.y,0,0,EC.dark_purple,EC.dark_purple)
 	a.flags=flags.set(a.flags,EF.character,EF.persistent,EF.damageable, EF.shootable, EF.explosive)
 	print(EF.shootable)
 

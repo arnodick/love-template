@@ -30,7 +30,7 @@ local function make(lindex)
 	l.enemies={}
 	for i,v in pairs(lload.enemies) do
 		if type(i)=="number" then
-			l.enemies[i]=EA[v]
+			l.enemies[i]=EA[Enums.games[Game.t]][v]
 		else
 			l.enemies[i]=v
 		end
@@ -61,7 +61,7 @@ local function control(l)
 	local enemycount=Game.counters.enemy
 	
 	if enemycount<l.enemies.max then
-		actor.make(EA.spawn)
+		actor.make(EA[Enums.games[Game.t]].spawn)
 	end
 
 	if _G[Enums.levels[l.t]]["control"] then

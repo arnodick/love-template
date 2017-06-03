@@ -54,7 +54,7 @@ local function control(a,gs)
 			if a.vel==0 then
 				sfx.play(7)
 				for i=1,20 do
-					actor.make(EA.cloud,a.x,a.y,math.randomfraction(math.pi*2),math.randomfraction(1))
+					actor.make(EA[Enums.games[Game.t]].cloud,a.x,a.y,math.randomfraction(math.pi*2),math.randomfraction(1))
 				end
 				a.delete=true
 			end

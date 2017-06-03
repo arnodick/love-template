@@ -5,7 +5,7 @@ local function make(a)
 	a.num=1
 	a.acc=0
 	a.snd=25
-	a.proj=EA.beam
+	a.proj=EA[Enums.games[Game.t]].beam
 end
 
 local function draw(a)

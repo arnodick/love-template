@@ -10,7 +10,7 @@ local function control(a)
 	if Game.timer-a.delta>=30 then
 		sfx.play(8)
 		for i=1,20 do
-			actor.make(EA.spark,a.x,a.y)
+			actor.make(EA[Enums.games[Game.t]].spark,a.x,a.y)
 		end
 		a.delete=true
 	end

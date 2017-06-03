@@ -6,7 +6,7 @@ local function make(g)
 	local mw,mh=g.width/g.tile.width,g.height/g.tile.height
 	g.map=map.generate(mw+2,mh+2)
 
-	Player=actor.make(EA.player,g.width/2,g.height/2)
+	Player=actor.make(EA[Enums.games[Game.t]].player,g.width/2,g.height/2)
 
 	g.level=1
 	g.levels.current=level.make(g.level)

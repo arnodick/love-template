@@ -1,11 +1,16 @@
-local function make(a)
+local function make(a,c,bc)
 	a.c=c or EC.blue
-	a.projvel=0
-	a.rof=20
+	a.bc=bc
+	a.size=1
+	a.sprinit=161
+	a.spr=a.sprinit
+	a.projvel=1.5
+	a.rof=4
 	a.num=1
-	a.acc=0.1
+	a.acc=0.015
 	a.snd=2
-	a.proj=EA.lightning
+	a.proj=EA[Enums.games[Game.t]].bullet
+	a.flags=flags.set(a.flags,EF.item)
 end
 
 local function draw(a)

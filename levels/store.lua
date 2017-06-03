@@ -1,13 +1,13 @@
 local function make(l)
-	actor.make(EA.wiper,0,5)
+	actor.make(EA[Enums.games[Game.t]].wiper,0,5)
 
 	for i=1,3 do
 		local storeitem=l["storeitem"..i]
 		if storeitem then
 			local dropname=storeitem.drop
 			local x=Game.width/2-40+(i-1)*40
-			--local drop=actor.make(love.math.random(#EA),x,Game.height/2-40)
-			local drop=actor.make(EA[dropname],x,Game.height/2-40)
+			--local drop=actor.make(love.math.random(#EA[Enums.games[Game.t]]),x,Game.height/2-40)
+			local drop=actor.make(EA[Enums.games[Game.t]][dropname],x,Game.height/2-40)
 			drop.flags=flags.set(drop.flags,EF.shopitem)
 			local cost=0
 			if drop.cost then

@@ -41,11 +41,11 @@ local function use(a,gs,user,vx,vy,shoot)
 		if shoot then
 			sfx.play(a.snd,a.x,a.y)
 
-			if _G[EA[a.t]]["shoot"] then
-				_G[EA[a.t]]["shoot"](a,gs)
+			if _G[EA[Enums.games[Game.t]][a.t]]["shoot"] then
+				_G[EA[Enums.games[Game.t]][a.t]]["shoot"](a,gs)
 			end
 
-			actor.make(EA.cloud,a.x,a.y,-a.angle+math.randomfraction(1)-0.5,math.randomfraction(1))
+			actor.make(EA[Enums.games[Game.t]].cloud,a.x,a.y,-a.angle+math.randomfraction(1)-0.5,math.randomfraction(1))
 			a.delta=a.rof
 		end
 	else 

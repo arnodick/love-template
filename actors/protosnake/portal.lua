@@ -38,7 +38,7 @@ local function control(a,gs)
 			if flags.get(v.flags,EF.enemy) then
 				--v.value=0
 				actor.damage(v,v.hp)
-			--elseif v.t==EA.collectible then
+			--elseif v.t==EA[Enums.games[Game.t]].collectible then
 			--	v.x=Player.x
 			--	v.y=Player.y
 			elseif not flags.get(v.flags,EF.persistent) then

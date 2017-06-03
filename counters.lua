@@ -1,9 +1,9 @@
 local function init()
 	local c={}
-	for i=1,#EA do
-		c[EA[i]]=0
+	for i=1,#EA[Enums.games[Game.t]] do
+		c[EA[Enums.games[Game.t]][i]]=0
 	end
-	for j,k in pairs(EA) do
+	for j,k in pairs(EA[Enums.games[Game.t]]) do
 		if type(k)=="table" and j~="modules" then
 			for i,v in pairs(k) do
 				if type(i)=="string" then
@@ -19,7 +19,7 @@ local function init()
 	--TABLE COUNTER
 	local c={}
 	for i=1,#Enums.actors do
-		c[ EA[i] ]={}
+		c[ EA[Enums.games[Game.t] ][i] ]={}
 	end
 	c.enemy={}
 	return c
@@ -27,25 +27,25 @@ local function init()
 end
 
 local function update(c,a,amount)
-	--local typecounter=c[EA[a.t]]
-	c[EA[a.t]]=c[EA[a.t]]+amount
-	--local typename=EA[a.t].."s"
-	--c[EA[typename][a.st]]=c[EA[typename][a.st]]+amount
+	--local typecounter=c[EA[Enums.games[Game.t]][a.t]]
+	c[EA[Enums.games[Game.t]][a.t]]=c[EA[Enums.games[Game.t]][a.t]]+amount
+	--local typename=EA[Enums.games[Game.t]][a.t].."s"
+	--c[EA[Enums.games[Game.t]][typename][a.st]]=c[EA[Enums.games[Game.t]][typename][a.st]]+amount
 	if flags.get(a.flags,EF.enemy) then
 		c.enemy=c.enemy+amount
 	end
 --[[
 	--TABLE COUNTER INCREMENT
-	table.insert(c[ EA[a.t] ],a)
+	table.insert(c[ EA[Enums.games[Game.t] ][a.t] ],a)
 	if flags.get(a.flags,EF.enemy) then
 		table.insert(c.enemy,a)
 	end
 
 
 	--TABLE COUNTER DECREMENT
-	for j,k in pairs(c[ EA[v.t] ]) do
+	for j,k in pairs(c[ EA[Enums.games[Game.t] ][v.t] ]) do
 		if k==v then
-			table.remove(c[ EA[v.t] ],j)
+			table.remove(c[ EA[Enums.games[Game.t] ][v.t] ],j)
 		end
 	end
 

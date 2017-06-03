@@ -38,7 +38,7 @@ end
 
 local function dead(a)
 	for i=1,3 do
-		actor.make(EA.coin,a.x,a.y)
+		actor.make(EA[Enums.games[Game.t]].coin,a.x,a.y)
 	end
 end
 

@@ -21,8 +21,8 @@ local function control(a,gs)
 	end
 
 	if collx or colly then
-		if _G[EA[a.t]]["collision"] then
-			_G[EA[a.t]]["collision"](a)
+		if _G[EA[Enums.games[Game.t]][a.t]]["collision"] then
+			_G[EA[Enums.games[Game.t]][a.t]]["collision"](a)
 		end
 		if flags.get(a.flags,EF.bouncy) then
 			if collx then

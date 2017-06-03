@@ -4,11 +4,11 @@ local function control(a,gs)
 			a.spr=a.sprinit
 		end
 		if actor.collision(a.x,a.y,Player) then
-			if Player[EA[a.t]] then
-				Player[EA[a.t]] = Player[EA[a.t]] + a.value
+			if Player[EA[Enums.games[Game.t]][a.t]] then
+				Player[EA[Enums.games[Game.t]][a.t]] = Player[EA[Enums.games[Game.t]][a.t]] + a.value
 			end
 			for i,v in pairs(Game.actors) do
-				if v.t==EA.coin then
+				if v.t==EA[Enums.games[Game.t]].coin then
 					v.scalex=4
 					v.scaley=4
 					v.deltimer=0
@@ -18,15 +18,15 @@ local function control(a,gs)
 			if a.getsfx then
 				sfx.play(a.getsfx)
 			end
-			actor.make(EA.collectibleget,a.x,a.y,math.pi/2,1,EC.pure_white,1,a.sprinit)
-			if _G[EA[a.t]]["get"] then
-				_G[EA[a.t]]["get"](a,gs)
+			actor.make(EA[Enums.games[Game.t]].collectibleget,a.x,a.y,math.pi/2,1,EC.pure_white,1,a.sprinit)
+			if _G[EA[Enums.games[Game.t]][a.t]]["get"] then
+				_G[EA[Enums.games[Game.t]][a.t]]["get"](a,gs)
 			end
 			a.delete=true
 		end
 	end
-	if _G[EA[a.t]]["control"] then
-		_G[EA[a.t]]["control"](a,gs)
+	if _G[EA[Enums.games[Game.t]][a.t]]["control"] then
+		_G[EA[Enums.games[Game.t]][a.t]]["control"](a,gs)
 	end
 end
 
