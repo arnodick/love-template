@@ -42,7 +42,7 @@ end
 
 local function constants(e) --NOTE this function has side effects! makes global variables
 	if e.actors then
-		EA[Enums.games[Game.t]]=e.actors
+		EA=e.actors
 	end
 	if e.colours then
 		EC=e.colours

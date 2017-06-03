@@ -13,7 +13,7 @@ local function make(g,t,st)--initializes game's state, timer, camera, actor, men
 	g.speed=1
 	g.camera=camera.make(0,0)
 	g.actors={}
-	g.counters=counters.init()
+	g.counters=counters.init(g.t)
 	for i,v in pairs(g.canvas) do
 		LG.setCanvas(v)
 		LG.clear()

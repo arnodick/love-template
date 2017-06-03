@@ -3,7 +3,7 @@ libraries = require("libraries")--have to load the libraries.lua library to use 
 libraries.load("")--loads all the .lua libraries
 Enums = enums.load("","actors","physics","games","states","levels","modules","flags")--enumerators
 enums.constants(Enums)--constants derived from enums, they're shorthand so you can type EM instead of Enums.modules
----debugger.printtable(Enums)
+debugger.printtable(Enums)
 
 love.math.setRandomSeed(os.time())
 --love.math.setRandomSeed(1)

@@ -1,9 +1,9 @@
-local function init()
+local function init(t)
 	local c={}
-	for i=1,#EA[Enums.games[Game.t]] do
-		c[EA[Enums.games[Game.t]][i]]=0
+	for i=1,#EA[Enums.games[t]] do
+		c[EA[Enums.games[t]][i]]=0
 	end
-	for j,k in pairs(EA[Enums.games[Game.t]]) do
+	for j,k in pairs(EA[Enums.games[t]]) do
 		if type(k)=="table" and j~="modules" then
 			for i,v in pairs(k) do
 				if type(i)=="string" then
@@ -19,7 +19,7 @@ local function init()
 	--TABLE COUNTER
 	local c={}
 	for i=1,#Enums.actors do
-		c[ EA[Enums.games[Game.t] ][i] ]={}
+		c[ EA[Enums.games[t] ][i] ]={}
 	end
 	c.enemy={}
 	return c
