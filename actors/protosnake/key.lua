@@ -5,15 +5,12 @@ local function make(a,c,size,spr)
 	a.spr=spr or 177
 	a.sprinit=a.spr
 
+	module.make(a,EM.collectible)
+
 	a.getsfx=6--TODO just call this sfx? or snd
 	a.cost=0
-	a.flags=flags.set(a.flags,EF.collectible)
 end
---[[
-local function control(a,gs)
 
-end
--]]
 local function get(a)
 	local port=actor.make(EA[Enums.games[Game.t]].portal,Game.width/2,Game.height/2+40)
 	port.c=EC.red
@@ -23,6 +20,5 @@ end
 return
 {
 	make = make,
-	--control = control,
 	get = get,
 }

@@ -16,7 +16,7 @@ local function control(a,gs)
 				end
 			end
 			if a.getsfx then
-				sfx.play(a.getsfx)
+				sfx.play(a.getsfx)--TODO make get sfx or just sfx a module
 			end
 			actor.make(EA[Enums.games[Game.t]].collectibleget,a.x,a.y,math.pi/2,1,EC.pure_white,1,a.sprinit)
 			if _G[EA[Enums.games[Game.t]][a.t]]["get"] then
@@ -25,9 +25,11 @@ local function control(a,gs)
 			a.delete=true
 		end
 	end
-	if _G[EA[Enums.games[Game.t]][a.t]]["control"] then
-		_G[EA[Enums.games[Game.t]][a.t]]["control"](a,gs)
+--[[
+	if _G[EA[Enums.games[Game.t] ][a.t] ]["control"] then--NOTE maybe this was causing fast colectible speeds?
+		_G[EA[Enums.games[Game.t] ][a.t] ]["control"](a,gs)
 	end
+--]]
 end
 
 return

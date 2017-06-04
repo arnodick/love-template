@@ -5,6 +5,8 @@ local function make(a,c,size,spr)
 	a.spr=spr or 113
 	a.sprinit=a.spr
 
+	module.make(a,EM.collectible)
+
 	a.d=math.randomfraction(math.pi*2)
 	a.vel=math.randomfraction(4)+4
 	a.decelinit=0.05
@@ -18,7 +20,7 @@ local function make(a,c,size,spr)
 	a.follow=false
 	a.value=1
 	a.alpha=255
-	a.flags=flags.set(a.flags,EF.bouncy,EF.collectible)
+	a.flags=flags.set(a.flags,EF.bouncy)
 end
 
 local function control(a,gs)

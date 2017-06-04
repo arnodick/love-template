@@ -36,11 +36,7 @@ local function control(a,gs)
 	if dist<20 then
 		for i,v in pairs(Game.actors) do
 			if flags.get(v.flags,EF.enemy) then
-				--v.value=0
 				actor.damage(v,v.hp)
-			--elseif v.t==EA[Enums.games[Game.t]].collectible then
-			--	v.x=Player.x
-			--	v.y=Player.y
 			elseif not flags.get(v.flags,EF.persistent) then
 				v.delete=true
 			end

@@ -14,12 +14,6 @@ local function make(t,x,y,d,vel,...)
 	if _G[EA[Enums.games[Game.t]][a.t]]["make"] then
 		_G[EA[Enums.games[Game.t]][a.t]]["make"](a,...)
 	end
-	if flags.get(a.flags,EF.item) then
-		item.make(a)
-		a.st=EF.item
-	elseif flags.get(a.flags,EF.collectible) then
-		a.st=EF.collectible
-	end
 	counters.update(Game.counters,a,1)
 --[[
 	if flags.get(a.flags,EF.queue) then
@@ -33,10 +27,19 @@ end
 local function control(a,gs)
 	controller.update(a,gs)
 
+--[[
 	if a.st then--TODO make st a module
-		if _G[EF[a.st]]["control"] then
-			_G[EF[a.st]]["control"](a,gs)
+		if _G[EF[a.st] ]["control"] then
+			_G[EF[a.st] ]["control"](a,gs)
 		end
+	end
+--]]
+	if a.item then
+		item.control(a,gs)
+	end
+
+	if a.collectible then
+		collectible.control(a,gs)
 	end
 
 	if _G[EA[Enums.games[Game.t]][a.t]]["control"] then

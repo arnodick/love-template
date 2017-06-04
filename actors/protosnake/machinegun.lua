@@ -10,7 +10,7 @@ local function make(a,c,bc)
 	a.acc=0.015
 	a.snd=2
 	a.proj=EA[Enums.games[Game.t]].bullet
-	a.flags=flags.set(a.flags,EF.item)
+	module.make(a,EM.item)
 end
 
 local function draw(a)
