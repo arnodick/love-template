@@ -1,7 +1,3 @@
-local function make(a,c)
-	c.last=0
-end
-
 local function control(a,c)
 	local j=Joysticks[1]
 	local deadzone=0.25
@@ -21,20 +17,17 @@ local function control(a,c)
 	end
 
 	if c.movevertical<0 then
-		if c.last>=0 then
+		if c.lastvertical>=0 then
 			a.text.index=math.clamp(a.text.index-1,1,#a.text,true)
 		end
 	elseif c.movevertical>0 then
-		if c.last<=0 then
+		if c.lastvertical<=0 then
 			a.text.index=math.clamp(a.text.index+1,1,#a.text,true)
 		end
 	end
-
-	c.last=c.movevertical
 end
 
 return
 {
-	make = make,
 	control = control,
 }

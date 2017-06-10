@@ -27,13 +27,6 @@ end
 local function control(a,gs)
 	controller.update(a,gs)
 
---[[
-	if a.st then--TODO make st a module
-		if _G[EF[a.st] ]["control"] then
-			_G[EF[a.st] ]["control"](a,gs)
-		end
-	end
---]]
 	if a.item then
 		item.control(a,gs)
 	end
