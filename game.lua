@@ -10,8 +10,6 @@ local function make(t,tw,th,gw,gh,sp)
 	g.speed=sp
 	g.pause=false
 
-	g.levels={}
-
 	game.graphics(g,tw,th,gw,gh)
 
 	if _G[Enums.games[t]]["make"] then

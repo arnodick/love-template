@@ -34,8 +34,10 @@ local function control(g)
 		_G[Enums.states.gameplays[g.state.st]]["control"](g)
 	end
 
-	if g.levels.current then
-		level.control(g.levels.current)
+	if g.levels then
+		if g.levels.current then
+			level.control(g.levels.current)
+		end
 	end
 end
 
