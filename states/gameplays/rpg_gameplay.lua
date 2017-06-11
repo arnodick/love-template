@@ -1,5 +1,11 @@
 local function make(g)
+	local mw,mh=g.width/g.tile.width,g.height/g.tile.height
+	g.map=map.generate(mw+2,mh+2)
 
+	g.level=1
+	g.levels.current=level.make(g.level)
+
+	Player=actor.make(EA[Enums.games[Game.t]].rpg_player,g.width/2,g.height/2)
 end
 
 local function control(g)
@@ -17,19 +23,7 @@ local function gamepadpressed(g,button)
 end
 
 local function draw(g)
-	local s=g.state
 
-	map.draw(g.map)
-	for i,v in ipairs(g.actors) do
-		if not v.delete then
-			actor.draw(v)
-		end
-	end
-
-	if s.hud then
-		hud.draw(g,s.hud)
-	end
-	LG.print("rpg gameplay", g.width/2, g.height/2)
 end
 
 return

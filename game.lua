@@ -1,4 +1,5 @@
 local function make(t,tw,th,gw,gh,sp)
+	--TODO input physics type to game.make
 	local g={}--Game object
 	g.t=t
 	g.tile={}
@@ -8,6 +9,8 @@ local function make(t,tw,th,gw,gh,sp)
 	g.height=gh
 	g.speed=sp
 	g.pause=false
+
+	g.levels={}
 
 	game.graphics(g,tw,th,gw,gh)
 

@@ -7,7 +7,9 @@ local function control(g)
 end
 
 local function keypressed(g,key)
-	if key=='escape' then
+	if key=="space" or key=="return" then
+		game.state.make(g,Enums.states.gameplay)
+	elseif key=='escape' then
 		game.state.make(g,Enums.states.intro)
 	end
 end

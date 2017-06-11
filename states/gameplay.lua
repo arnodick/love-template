@@ -34,7 +34,9 @@ local function control(g)
 		_G[Enums.states.gameplays[g.state.st]]["control"](g)
 	end
 
-	level.control(g.levels.current)
+	if g.levels.current then
+		level.control(g.levels.current)
+	end
 end
 
 local function keypressed(g,key)
