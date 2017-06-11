@@ -16,34 +16,40 @@ local function update(d)
 		table.insert(debuglist,"FPS:"..love.timer.getFPS())
 		table.insert(debuglist,"Actors:"..#Game.actors)
 		if Game.level then
-		table.insert(debuglist,"Level:"..Game.level)
+			table.insert(debuglist,"Level:"..Game.level)
 		end
 		if Player then
-		table.insert(debuglist,"player x:"..Player.x)
-		table.insert(debuglist,"player y:"..Player.y)
-		local xc,yc=map.getcell(Game.map,Player.x,Player.y)
-		table.insert(debuglist,"player x cell:"..xc)
-		table.insert(debuglist,"player y cell:"..yc)
-		table.insert(debuglist,"player dir:"..Player.d)
-		table.insert(debuglist,"player vx:"..Player.vec[1])
-		table.insert(debuglist,"player vy:"..Player.vec[2])
-		table.insert(debuglist,"player vel:"..Player.vel)
-		if Player.inventory[1] then
-		table.insert(debuglist,"player item angle:"..Player.inventory[1].angle)
+			table.insert(debuglist,"player x:"..Player.x)
+			table.insert(debuglist,"player y:"..Player.y)
+			local xc,yc=map.getcell(Game.map,Player.x,Player.y)
+			table.insert(debuglist,"player x cell:"..xc)
+			table.insert(debuglist,"player y cell:"..yc)
+			table.insert(debuglist,"player dir:"..Player.d)
+			table.insert(debuglist,"player vx:"..Player.vec[1])
+			table.insert(debuglist,"player vy:"..Player.vec[2])
+			table.insert(debuglist,"player vel:"..Player.vel)
+			if Player.inventory then
+				if Player.inventory[1] then
+					table.insert(debuglist,"player item angle:"..Player.inventory[1].angle)
+				end
+			end
 		end
-		end
-		if Game.levels.current then
-			table.insert(debuglist,"spawn i: "..Game.levels.current.spawnindex)
+		if Game.levels then
+			if Game.levels.current then
+				table.insert(debuglist,"spawn i: "..Game.levels.current.spawnindex)
+			end
 		end
 		--table.insert(debuglist,"camx:"..Game.camera.x)
 		--table.insert(debuglist,"camy:"..Game.camera.y)
 		table.insert(debuglist,"pause: "..tostring(Game.pause))
 
 		local levelpathstring=""
-		for i=1,#Game.levelpath do
-			levelpathstring=levelpathstring..Game.levelpath[i]
-			if i~=#Game.levelpath then
-				levelpathstring=levelpathstring.."_"
+		if Game.levelpath then
+			for i=1,#Game.levelpath do
+				levelpathstring=levelpathstring..Game.levelpath[i]
+				if i~=#Game.levelpath then
+					levelpathstring=levelpathstring.."_"
+				end
 			end
 		end
 		table.insert(debuglist,"level path: "..levelpathstring)
@@ -53,7 +59,7 @@ local function update(d)
 			table.insert(debuglist,i.." count: "..Game.counters[i])
 		end
 --]]
---[[
+---[[
 		if #Joysticks>0 then
 			for i,v in ipairs(Joysticks) do
 				table.insert(debuglist,"joy id: "..v:getID())

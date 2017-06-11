@@ -1,9 +1,8 @@
-local function make(a,c,size,spr,hp)
+local function make(a,c,size,char,hp)
 	local e=Enums
 
 	if #Joysticks>0 then
-		print("yup")
-		module.make(a,EM.controller,EMC.move,EMC.moves.gamepad_actor_move)
+		module.make(a,EM.controller,EMC.move,EMC.moves.gamepad_actor_move_roguelike)
 		module.make(a,EM.controller,EMC.aim,EMC.aims.gamepad_actor_aim)
 	else
 		a.cursor=cursor.make(0,0)
@@ -14,7 +13,7 @@ local function make(a,c,size,spr,hp)
 	a.cinit=c or EC.dark_blue
 	a.c=a.cinit or EC.blue
 	a.size=size or 1
-	a.spr=spr or 81
+	a.char=char or "X"
 	a.hp=hp or 8
 
 	module.make(a,EM.animation,EM.animations.frames,10,2)

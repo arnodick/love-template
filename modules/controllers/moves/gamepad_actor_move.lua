@@ -5,16 +5,7 @@ local function control(a,c)
 	c.movehorizontal=j:getGamepadAxis("leftx")
 	c.movevertical=j:getGamepadAxis("lefty")
 
-	local axes={"movehorizontal","movevertical"}
-	for i=1,#axes do
-		if c[axes[i]]>0 and c[axes[i]]<deadzone then
-			c[axes[i]]=0
-		end
-
-		if c[axes[i]]<0 and c[axes[i]]>-deadzone then
-			c[axes[i]]=0
-		end
-	end
+	controller.deadzone(c,0.25)
 
 	a.d=vector.direction(c.movehorizontal,-c.movevertical)
 	a.vel=vector.length(c.movehorizontal,c.movevertical)

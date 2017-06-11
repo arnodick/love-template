@@ -98,6 +98,10 @@ local function draw(a)
 	LG.setColor(r,g,b,alpha)
 	sprites.draw(a)
 
+	if a.char then
+		LG.print(a.char,a.x,a.y)
+	end
+
 	if _G[EA[Enums.games[Game.t]][a.t]]["draw"] then
 		_G[EA[Enums.games[Game.t]][a.t]]["draw"](a)
 	end

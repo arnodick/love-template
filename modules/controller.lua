@@ -41,7 +41,19 @@ local function gamepadpressed(a,button)
 			end
 		end
 	end
+end
 
+local function deadzone(c,dz)
+	local axes={"movehorizontal","movevertical"}
+	for i=1,#axes do
+		if c[axes[i]]>0 and c[axes[i]]<dz then
+			c[axes[i]]=0
+		end
+
+		if c[axes[i]]<0 and c[axes[i]]>-dz then
+			c[axes[i]]=0
+		end
+	end
 end
 
 return
@@ -49,4 +61,5 @@ return
 	make = make,
 	update = update,
 	gamepadpressed = gamepadpressed,
+	deadzone = deadzone
 }

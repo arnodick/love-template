@@ -1,7 +1,8 @@
-local function make(t,tw,th,gw,gh,sp)
+local function make(t,pt,tw,th,gw,gh,sp)
 	--TODO input physics type to game.make
 	local g={}--Game object
 	g.t=t
+	g.pt=pt
 	g.tile={}
 	g.tile.width=tw
 	g.tile.height=th
