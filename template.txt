@@ -1,4 +1,14 @@
 PRIORITY
+input Game into
+	actors.control, make etc
+things that couold be modules maybe
+	player as module
+	camera
+	cursor
+	level
+	map
+make different counter types, make one for counter.t=table_counter
+character to corpse module, or make corpse a drop or something
 printformat: printf but with even more options like
 	drop shadow
 	individual character colouration
@@ -21,7 +31,9 @@ Depth function sort table by depth during draw if not depth hen depth = 0
 effect duration
 screen scaling smarter about dimensions (vertical orientation, taller than width)
 make huds to go in states
-animation "object"
+animation "object"/module
+	give it duration input, value. delta from start time and current time
+	put blink in here
 	give it a type (maybe even subtype?)
 	subtype is easing function? ie: xoffset=sin(timer-delta)
 	types:

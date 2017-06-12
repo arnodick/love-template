@@ -27,7 +27,7 @@ local function make(lindex)
 	end
 	local lload=Game.levels[lindex]
 	local l={}
-	l.t=Enums["levels"][gamename][lload.values.t]
+	l.t=Enums.games.levels[gamename][lload.values.t]
 	l.c=lload.values.c
 	l.enemies={}
 	for i,v in pairs(lload.enemies) do
@@ -53,8 +53,8 @@ local function make(lindex)
 
 	l.spawnindex=1
 
-	if _G[Enums["levels"][gamename][l.t]]["make"] then
-		_G[Enums["levels"][gamename][l.t]]["make"](l,gs)
+	if _G[Enums.games.levels[gamename][l.t]]["make"] then
+		_G[Enums.games.levels[gamename][l.t]]["make"](l,gs)
 	end
 	return l
 end
@@ -67,8 +67,8 @@ local function control(l)
 		actor.make(EA[Enums.games[Game.t]].spawn)
 	end
 
-	if _G[Enums["levels"][gamename][l.t]]["control"] then
-		_G[Enums["levels"][gamename][l.t]]["control"](l,gs)
+	if _G[Enums.games.levels[gamename][l.t]]["control"] then
+		_G[Enums.games.levels[gamename][l.t]]["control"](l,gs)
 	end
 end
 

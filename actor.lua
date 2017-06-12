@@ -50,8 +50,8 @@ local function control(a,gs)
 		hit.control(a.hit,a,gs)
 	end
 
-	if _G[Enums.physics[Game.pt]]["control"] then
-		_G[Enums.physics[Game.pt]]["control"](a,gs)
+	if _G[Enums.games.modes[Game.pt]]["control"] then
+		_G[Enums.games.modes[Game.pt]]["control"](a,gs)
 	end
 
 	if a.decel then--TODO make decel module with speed OR velocity module? w speed and accel

@@ -1,6 +1,6 @@
 local function make(g)
-	if _G[Enums.states.gameplays[g.state.st]]["make"] then
-		_G[Enums.states.gameplays[g.state.st]]["make"](g)
+	if _G[Enums.games.states.gameplays[g.state.st]]["make"] then
+		_G[Enums.games.states.gameplays[g.state.st]]["make"](g)
 	end
 end
 
@@ -30,8 +30,8 @@ local function control(g)
 		end
 	end
 
-	if _G[Enums.states.gameplays[g.state.st]]["control"] then
-		_G[Enums.states.gameplays[g.state.st]]["control"](g)
+	if _G[Enums.games.states.gameplays[g.state.st]]["control"] then
+		_G[Enums.games.states.gameplays[g.state.st]]["control"](g)
 	end
 
 	if g.levels then
@@ -42,14 +42,14 @@ local function control(g)
 end
 
 local function keypressed(g,key)
-	if _G[Enums.states.gameplays[g.state.st]]["keypressed"] then
-		_G[Enums.states.gameplays[g.state.st]]["keypressed"](g,key)
+	if _G[Enums.games.states.gameplays[g.state.st]]["keypressed"] then
+		_G[Enums.games.states.gameplays[g.state.st]]["keypressed"](g,key)
 	end
 end
 
 local function gamepadpressed(g,button)
-	if _G[Enums.states.gameplays[g.state.st]]["gamepadpressed"] then
-		_G[Enums.states.gameplays[g.state.st]]["gamepadpressed"](g,button)
+	if _G[Enums.games.states.gameplays[g.state.st]]["gamepadpressed"] then
+		_G[Enums.games.states.gameplays[g.state.st]]["gamepadpressed"](g,button)
 	end
 end
 
@@ -70,8 +70,8 @@ local function draw(g)
 		hud.draw(g,s.hud)
 	end
 
-	if _G[Enums.states.gameplays[g.state.st]]["draw"] then
-		_G[Enums.states.gameplays[g.state.st]]["draw"](g)
+	if _G[Enums.games.states.gameplays[g.state.st]]["draw"] then
+		_G[Enums.games.states.gameplays[g.state.st]]["draw"](g)
 	end
 end
 

@@ -1,5 +1,4 @@
 local function make(t,pt,tw,th,gw,gh,sp)
-	--TODO input physics type to game.make
 	local g={}--Game object
 	g.t=t
 	g.pt=pt

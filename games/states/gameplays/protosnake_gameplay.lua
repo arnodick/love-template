@@ -24,7 +24,7 @@ end
 local function keypressed(g,key)
 	if key=='space' then
 		if Player.hp<=0 then
-			game.state.make(g,Enums.states.gameplay)
+			game.state.make(g,Enums.games.states.gameplay)
 		--[[
 		else
 			Screen.pixeltrans=true
@@ -38,14 +38,14 @@ local function keypressed(g,key)
 		--]]
 		end
 	elseif key=='escape' then
-		game.state.make(g,Enums.states.title)
+		game.state.make(g,Enums.games.states.title)
 	end
 end
 
 local function gamepadpressed(g,button)
 	if button=="start" then
 		if Player.hp<=0 then
-			game.state.make(g,Enums.states.gameplay)
+			game.state.make(g,Enums.games.states.gameplay)
 		else
 			g.pause = not g.pause
 		end

@@ -5,9 +5,9 @@ local function make(g,t,st)--initializes game's state, timer, camera, actor, men
 	if st then
 		g.state.st=st
 	else
-		local statename=Enums.states[t]
+		local statename=Enums.games.states[t]
 		local gamename=Enums.games[g.t]
-		g.state.st=Enums.states[statename.."s"][gamename.."_"..statename]
+		g.state.st=Enums.games.states[statename.."s"][gamename.."_"..statename]
 	end
 	g.timer=0
 	g.speed=1
@@ -24,36 +24,36 @@ local function make(g,t,st)--initializes game's state, timer, camera, actor, men
 	for i,v in pairs(Music.sources) do
 		v:stop()
 	end
-	if _G[e.states[g.state.t]]["make"] then
-		_G[e.states[g.state.t]]["make"](g)
+	if _G[e.games.states[g.state.t]]["make"] then
+		_G[e.games.states[g.state.t]]["make"](g)
 	end
 end
 
 local function control(g)
 	local s=g.state
-	if _G[Enums.states[s.t]]["control"] then
-		_G[Enums.states[s.t]]["control"](g)
+	if _G[Enums.games.states[s.t]]["control"] then
+		_G[Enums.games.states[s.t]]["control"](g)
 	end
 end
 
 local function keypressed(g,key)
 	local s=g.state
-	if _G[Enums.states[s.t]]["keypressed"] then
-		_G[Enums.states[s.t]]["keypressed"](g,key)
+	if _G[Enums.games.states[s.t]]["keypressed"] then
+		_G[Enums.games.states[s.t]]["keypressed"](g,key)
 	end
 end
 
 local function gamepadpressed(g,button)
 	local s=g.state
-	if _G[Enums.states[s.t]]["gamepadpressed"] then
-		_G[Enums.states[s.t]]["gamepadpressed"](g,button)
+	if _G[Enums.games.states[s.t]]["gamepadpressed"] then
+		_G[Enums.games.states[s.t]]["gamepadpressed"](g,button)
 	end
 end
 
 local function draw(g)
 	local s=g.state
-	if _G[Enums.states[s.t]]["draw"] then
-		_G[Enums.states[s.t]]["draw"](g)
+	if _G[Enums.games.states[s.t]]["draw"] then
+		_G[Enums.games.states[s.t]]["draw"](g)
 	end
 end
 
