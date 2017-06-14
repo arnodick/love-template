@@ -8,6 +8,10 @@ local function control(g)
 	local s=g.state
 	sfx.update(SFX,g.speed)
 
+	if _G[Enums.games.states.gameplays[g.state.st]]["control"] then
+		_G[Enums.games.states.gameplays[g.state.st]]["control"](g)
+	end
+
 	if not g.pause then
 		for i,v in ipairs(g.actors) do
 			if not v.delete then
@@ -28,10 +32,6 @@ local function control(g)
 			counters.update(g.counters,v,-1)
 			table.remove(g.actors,i)
 		end
-	end
-
-	if _G[Enums.games.states.gameplays[g.state.st]]["control"] then
-		_G[Enums.games.states.gameplays[g.state.st]]["control"](g)
 	end
 
 	if g.levels then
