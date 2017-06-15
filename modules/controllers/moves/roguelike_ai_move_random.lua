@@ -1,12 +1,9 @@
 local function control(a,c)
-	local j=Joysticks[1]
-	local deadzone=0.25
-
 	a.vec[1]=0
 	a.vec[2]=0
 
-	c.movehorizontal=j:getGamepadAxis("leftx")
-	c.movevertical=j:getGamepadAxis("lefty")
+	c.movehorizontal=love.math.random(2)-1
+	c.movevertical=love.math.random(2)-1
 
 	controller.deadzone(c,0.25)
 
