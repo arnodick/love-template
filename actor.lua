@@ -27,16 +27,20 @@ end
 local function control(a,gs)
 	controller.update(a,gs)
 
+	if _G[EA[Enums.games[Game.t]][a.t]]["control"] then
+		_G[EA[Enums.games[Game.t]][a.t]]["control"](a,gs)
+	end
+
+	if _G[Enums.games.modes[Game.pt]]["control"] then
+		_G[Enums.games.modes[Game.pt]]["control"](a,gs)
+	end
+
 	if a.item then
 		item.control(a,gs)
 	end
 
 	if a.collectible then
 		collectible.control(a,gs)
-	end
-
-	if _G[EA[Enums.games[Game.t]][a.t]]["control"] then
-		_G[EA[Enums.games[Game.t]][a.t]]["control"](a,gs)
 	end
 
 	if a.anglespeed then--TODO make angle module with speed and accel
@@ -48,10 +52,6 @@ local function control(a,gs)
 
 	if a.hit then
 		hit.control(a.hit,a,gs)
-	end
-
-	if _G[Enums.games.modes[Game.pt]]["control"] then
-		_G[Enums.games.modes[Game.pt]]["control"](a,gs)
 	end
 
 	if a.decel then--TODO make decel module with speed OR velocity module? w speed and accel
