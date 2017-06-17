@@ -6,9 +6,6 @@ local function control(a,c)
 	c.movevertical=j:getGamepadAxis("lefty")
 
 	controller.deadzone(c,0.25)
-
-	a.d=vector.direction(c.movehorizontal,-c.movevertical)
-	a.vel=vector.length(c.movehorizontal,c.movevertical)
 end
 
 return

@@ -1,4 +1,11 @@
 local function control(a,gs)
+	if a.controller then
+		local c=a.controller.move
+		if c then
+			a.d=vector.direction(c.movehorizontal,-c.movevertical)
+			a.vel=vector.length(c.movehorizontal,c.movevertical)
+		end
+	end
 	a.vec[1] = math.cos(a.d)
 	a.vec[2] = math.sin(a.d)
 

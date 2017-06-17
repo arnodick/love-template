@@ -18,8 +18,6 @@ local function control(a,c)
 			c.movevertical=0
 			a.destination=nil
 		end
-		a.d=vector.direction(c.movehorizontal,-c.movevertical)
-		a.vel=vector.length(c.movehorizontal,c.movevertical)
 	end
 end
 

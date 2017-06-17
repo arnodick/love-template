@@ -26,8 +26,6 @@ local function control(a,c)
 	else
 		c.action=false
 	end
-	a.d=vector.direction(c.movehorizontal,-c.movevertical)
-	a.vel=vector.length(c.movehorizontal,c.movevertical)
 end
 
 return

@@ -15,8 +15,6 @@ local function control(a,c)
 		a.destination.y=math.clamp(a.y+math.sin(dir)*dist,0,Game.height)
 		sfx.play(12)
 	end
-	a.d=vector.direction(c.movehorizontal,-c.movevertical)
-	a.vel=vector.length(c.movehorizontal,c.movevertical)
 end
 
 return

@@ -1,4 +1,12 @@
 local function control(a,gs)
+	if a.controller then
+		local c=a.controller.move
+		if c then
+			a.vec[1]=c.movehorizontal
+			a.vec[2]=c.movevertical
+		end
+	end
+
 	local tw,th=Game.tile.width,Game.tile.height
 
 	local xcell,ycell=map.getcell(Game.map,a.x,a.y)

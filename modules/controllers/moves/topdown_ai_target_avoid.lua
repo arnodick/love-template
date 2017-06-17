@@ -43,8 +43,6 @@ local function control(a,c)
 		c.movehorizontal=math.cos(movedir)
 		c.movevertical=math.sin(movedir)
 	end
-	a.d=vector.direction(c.movehorizontal,-c.movevertical)
-	a.vel=vector.length(c.movehorizontal,c.movevertical)
 end
 
 return
