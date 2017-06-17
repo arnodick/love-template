@@ -6,6 +6,8 @@ end
 
 local function control(a,c)
 	if a.destination then
+		a.destination.x=c.target.x
+		a.destination.y=c.target.y
 		local dir=vector.direction(vector.components(a.x,a.y,a.destination.x,a.destination.y))
 		local dist=vector.distance(a.x,a.y,a.destination.x,a.destination.y)
 		if dist>a.speed then

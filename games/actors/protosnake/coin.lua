@@ -37,11 +37,14 @@ local function control(a,gs)
 	if a.follow then
 		local dist=vector.distance(a.x,a.y,Player.x,Player.y)
 		if dist<30 then
-			local vx,vy=vector.components(a.x,a.y,Player.x,Player.y)
-			vy=-vy
-			a.d=vector.direction(vx,vy)
+			if not a.controller then
+				module.make(a,EM.controller,EMC.move,EMC.moves.topdown_ai_target_seek,Player)
+			end
 			a.vel=8/dist
 		else
+			if a.controller then
+				a.controller=nil
+			end
 			a.decel=a.decelinit
 		end
 	end

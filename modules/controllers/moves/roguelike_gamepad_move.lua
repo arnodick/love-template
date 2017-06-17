@@ -35,9 +35,6 @@ local function control(a,c)
 		a.vec[1]=0
 		a.vec[2]=0
 	end
-
-	--a.d=vector.direction(c.movehorizontal,-c.movevertical)
-	--a.vel=vector.length(c.movehorizontal,c.movevertical)
 end
 
 return
