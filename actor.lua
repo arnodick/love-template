@@ -27,6 +27,8 @@ end
 local function control(a,gs)
 	controller.update(a,gs)
 
+--TODO the order of these is making it so coin can't set its vel, bc it gets overwritten by mode controller
+-- have to implement a speed value separate from vel
 	if _G[EA[Enums.games[Game.t]][a.t]]["control"] then
 		_G[EA[Enums.games[Game.t]][a.t]]["control"](a,gs)
 	end
@@ -118,6 +120,9 @@ local function draw(a)
 			hitbox.draw(a)
 		end
 		LG.points(a.x,a.y)
+		if a.deltimer then
+			LG.print(a.deltimer,a.x,a.y)
+		end
 		--LG.print(a.flags,a.x+8,a.y-8)
 	end
 

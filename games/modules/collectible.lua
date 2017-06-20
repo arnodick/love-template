@@ -1,8 +1,10 @@
 local function control(a,gs)
 	if not flags.get(a.flags,EF.shopitem) then
+		--[[
 		if not a.spr then
 			a.spr=a.sprinit
 		end
+		--]]
 		if actor.collision(a.x,a.y,Player) then
 			if Player[EA[Enums.games[Game.t]][a.t]] then
 				Player[EA[Enums.games[Game.t]][a.t]] = Player[EA[Enums.games[Game.t]][a.t]] + a.value
