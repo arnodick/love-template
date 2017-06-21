@@ -40,7 +40,8 @@ local function control(a,gs)
 			if not a.controller then
 				module.make(a,EM.controller,EMC.move,EMC.moves.topdown_ai_target_seek,Player)
 			end
-			a.vel=8/dist
+			--a.vel=8/dist
+			a.speed=8/dist
 		else
 			if a.controller then
 				a.controller=nil
