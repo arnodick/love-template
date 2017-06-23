@@ -1,5 +1,7 @@
 PRIORITY
-maybe controllers all have input in the form of x,y axis, which takes output of keyboard, gamepad, ai algo, whatever
+maybe controllers all have input in the form of x,y axis, which takes output of keyboard, gamepad, ai algo, whatever.
+	these are called inputs, other things are controllers?
+	separate action/shoot etc controls into other controllers
 input Game into
 	actors.control, make etc
 things that couold be modules maybe

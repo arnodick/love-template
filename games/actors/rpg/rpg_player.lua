@@ -3,6 +3,7 @@ local function make(a,c,size,char,hp)
 
 	if #Joysticks>0 then
 		module.make(a,EM.controller,EMC.move,EMC.moves.roguelike_gamepad_move)
+		module.make(a,EM.controller,EMC.action,EMC.actions.roguelike_gamepad_action)
 	else
 		module.make(a,EM.controller,EMC.move,EMC.moves.roguelike_keyboard_move)
 	end
@@ -20,6 +21,12 @@ end
 local function control(a)
 	if SFX.positonal then
 		love.audio.setPosition(a.x,a.y,0)
+	end
+
+	if a.controller.action.use then
+		a.c=EC.red
+	else
+		a.c=a.cinit
 	end
 end
 
