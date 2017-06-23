@@ -3,11 +3,8 @@ local function make(a,c,size,char,hp)
 
 	if #Joysticks>0 then
 		module.make(a,EM.controller,EMC.move,EMC.moves.roguelike_gamepad_move)
-		module.make(a,EM.controller,EMC.aim,EMC.aims.gamepad_actor_aim)
 	else
-		a.cursor=cursor.make(0,0)
-		module.make(a,EM.controller,EMC.move,EMC.moves.topdown_keyboard_move)
-		module.make(a,EM.controller,EMC.aim,EMC.aims.mouse_actor_aim)
+		module.make(a,EM.controller,EMC.move,EMC.moves.roguelike_keyboard_move)
 	end
 
 	a.cinit=c or EC.dark_blue
