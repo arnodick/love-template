@@ -4,9 +4,9 @@ local function control(a,c)
 	c.aimvertical=math.sin(dir)
 
 	if love.math.random(20)==1 then
-		c.shoot=true
+		c.use=true
 	else
-		c.shoot=false
+		c.use=false
 	end
 end
 

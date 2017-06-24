@@ -11,12 +11,6 @@ local function control(a,c)
 	else
 		c.action=false
 	end
-
-	if a.inventory then
-		if #a.inventory>0 then
-			item.use(a.inventory[1],gs,a,c.aimhorizontal,c.aimvertical,c.use)
-		end
-	end
 end
 
 return

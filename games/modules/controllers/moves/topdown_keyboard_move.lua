@@ -16,9 +16,9 @@ local function control(a,c)
 	end
 
 	if love.keyboard.isDown('z') then
-		c.shoot=true
+		c.use=true
 	else
-		c.shoot=false
+		c.use=false
 	end
 
 	if love.keyboard.isDown('x') then
