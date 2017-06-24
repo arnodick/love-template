@@ -1,8 +1,9 @@
 local function make(a,i)
-	i.movehorizontal=0
-	i.movevertical=0
-	i.lastvertical=0
-	i.lasthorizontal=0
+	i.horizontal=0
+	i.vertical=0
+	i.last={}
+	i.last.vertical=0
+	i.last.horizontal=0
 	if _G[EMI.moves[i.st]]["make"] then
 		_G[EMI.moves[i.st]]["make"](a,i)
 	end
@@ -12,8 +13,8 @@ local function control(a,i,gs)
 	if _G[EMI.moves[i.st]]["control"] then
 		_G[EMI.moves[i.st]]["control"](a,i)
 	end
-	i.lastvertical=i.movevertical
-	i.lasthorizontal=i.movehorizontal
+	i.last.vertical=i.vertical
+	i.last.horizontal=i.horizontal
 end
 
 return
