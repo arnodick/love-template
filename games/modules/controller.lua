@@ -1,6 +1,6 @@
 local function make(a,cont,t,st,target,y)
-	cont[EMC[t]]={}
-	local c=cont[EMC[t]]
+	cont[EMC[t]]={}--this gives the controller a table named after the controller's type (ie controller.move)
+	local c=cont[EMC[t]]--c is the controller's type sub-table (ie move)
 	c.t=t
 	c.st=st
 

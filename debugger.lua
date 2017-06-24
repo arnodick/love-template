@@ -28,17 +28,22 @@ local function update(d)
 			table.insert(debuglist,"player vx:"..Player.vec[1])
 			table.insert(debuglist,"player vy:"..Player.vec[2])
 			table.insert(debuglist,"player vel:"..Player.vel)
+			table.insert(debuglist,"player input: "..tostring(Player.input))
+			table.insert(debuglist,"player input move hor: "..Player.input.Xmove.movehorizontal)
+			table.insert(debuglist,"player input move ver: "..Player.input.Xmove.movevertical)
 			if Player.inventory then
 				if Player.inventory[1] then
 					table.insert(debuglist,"player item angle:"..Player.inventory[1].angle)
 				end
 			end
 		end
+--[[
 		if Game.levels then
 			if Game.levels.current then
 				table.insert(debuglist,"spawn i: "..Game.levels.current.spawnindex)
 			end
 		end
+--]]
 		--table.insert(debuglist,"camx:"..Game.camera.x)
 		--table.insert(debuglist,"camy:"..Game.camera.y)
 		table.insert(debuglist,"pause: "..tostring(Game.pause))
@@ -53,7 +58,7 @@ local function update(d)
 			end
 		end
 		table.insert(debuglist,"level path: "..levelpathstring)
----[[
+--[[
 		for i,v in pairs(Game.counters) do
 			--table.insert(debuglist,i.." count: "..#Game.counters[i])
 			table.insert(debuglist,i.." count: "..Game.counters[i])

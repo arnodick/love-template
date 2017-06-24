@@ -1,19 +1,19 @@
-local function make(a,c)
-	c.movehorizontal=0
-	c.movevertical=0
-	c.lastvertical=0
-	c.lasthorizontal=0
-	if _G[EMC.moves[c.st]]["make"] then
-		_G[EMC.moves[c.st]]["make"](a,c)
+local function make(a,i)
+	i.movehorizontal=0
+	i.movevertical=0
+	i.lastvertical=0
+	i.lasthorizontal=0
+	if _G[EMI.moves[i.st]]["make"] then
+		_G[EMI.moves[i.st]]["make"](a,i)
 	end
 end
 
-local function control(a,c,gs)
-	if _G[EMC.moves[c.st]]["control"] then
-		_G[EMC.moves[c.st]]["control"](a,c)
+local function control(a,i,gs)
+	if _G[EMI.moves[i.st]]["control"] then
+		_G[EMI.moves[i.st]]["control"](a,i)
 	end
-	c.lastvertical=c.movevertical
-	c.lasthorizontal=c.movehorizontal
+	i.lastvertical=i.movevertical
+	i.lasthorizontal=i.movehorizontal
 end
 
 return

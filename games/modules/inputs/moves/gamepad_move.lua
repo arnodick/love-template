@@ -1,11 +1,11 @@
-local function control(a,c)
+local function control(a,i)
 	local j=Joysticks[1]
 	local deadzone=0.25
 
-	c.movehorizontal=j:getGamepadAxis("leftx")
-	c.movevertical=j:getGamepadAxis("lefty")
+	i.movehorizontal=j:getGamepadAxis("leftx")
+	i.movevertical=j:getGamepadAxis("lefty")
 
-	controller.deadzone(c,0.25)
+	--controller.deadzone(c,0.25)
 end
 
 return

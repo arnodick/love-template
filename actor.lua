@@ -25,14 +25,16 @@ local function make(t,x,y,d,vel,...)
 end
 
 local function control(a,gs)
-	controller.update(a,gs)
+	input.update(a,gs)
 
---TODO the order of these is making it so coin can't set its vel, bc it gets overwritten by mode controller
--- have to implement a speed value separate from vel
+	controller.update(a,gs)
+	
+	--actor's specific type control (ie snake.control)
 	if _G[EA[Enums.games[Game.t]][a.t]]["control"] then
 		_G[EA[Enums.games[Game.t]][a.t]]["control"](a,gs)
 	end
 
+	--game mode's specific type control (ie topdown.control)
 	if _G[Enums.games.modes[Game.pt]]["control"] then
 		_G[Enums.games.modes[Game.pt]]["control"](a,gs)
 	end

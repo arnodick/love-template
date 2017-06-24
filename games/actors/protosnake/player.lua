@@ -5,6 +5,7 @@ local function make(a,c,size,spr,hp)
 		module.make(a,EM.controller,EMC.move,EMC.moves.topdown_gamepad_move)
 		module.make(a,EM.controller,EMC.aim,EMC.aims.gamepad_actor_aim)
 		module.make(a,EM.controller,EMC.action,EMC.actions.topdown_gamepad_action)
+		module.make(a,EM.input,EMI.Xmove,EMI.moves.gamepad_move)
 	else
 		a.cursor=cursor.make(0,0)
 		module.make(a,EM.controller,EMC.move,EMC.moves.topdown_keyboard_move)

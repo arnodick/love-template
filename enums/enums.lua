@@ -53,6 +53,9 @@ local function constants(e) --NOTE this function has side effects! makes global 
 			if EM.controllers then
 				EMC=EM.controllers
 			end
+			if EM.inputs then
+				EMI=EM.inputs
+			end
 		end
 	end
 	if e.colours then
