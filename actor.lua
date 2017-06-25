@@ -68,7 +68,7 @@ local function control(a,gs)
 		inventory.control(a,a.inventory)
 	end
 
---[[
+---[[]
 	if a.tail then
 		--local c=a.controller.aim
 		if a.controller then

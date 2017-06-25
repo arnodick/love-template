@@ -3,7 +3,7 @@ local function make(a,c,size,spr,hp)
 
 	if #Joysticks>0 then
 		module.make(a,EM.controller,EMC.move,EI.gamepad)
-		--module.make(a,EM.controller,EMC.aim,EMC.aims.gamepad_actor_aim)
+		module.make(a,EM.controller,EMC.aim,EI.gamepad)
 		--module.make(a,EM.controller,EMC.action,EMC.actions.topdown_gamepad_action)
 	else
 		--a.cursor=cursor.make(0,0)
