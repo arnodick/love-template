@@ -1,10 +1,9 @@
 local function control(a,gs)
 	if a.controller then
-		--local c=a.controller.move
-		local c=a.controller.topdown_move
+		local c=a.controller.move
 		if c then
-			a.d=vector.direction(c.movehorizontal,-c.movevertical)
-			a.vel=vector.length(c.movehorizontal,c.movevertical)
+			a.d=vector.direction(c.horizontal,-c.vertical)
+			a.vel=vector.length(c.horizontal,c.vertical)
 		end
 	end
 	a.vec[1] = math.cos(a.d)

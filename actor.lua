@@ -25,18 +25,16 @@ local function make(t,x,y,d,vel,...)
 end
 
 local function control(a,gs)
-	input.update(a,gs)
-
 	controller.update(a,gs)
 	
-	--actor's specific type control (ie snake.control)
-	if _G[EA[Enums.games[Game.t]][a.t]]["control"] then
-		_G[EA[Enums.games[Game.t]][a.t]]["control"](a,gs)
-	end
-
 	--game mode's specific type control (ie topdown.control)
 	if _G[Enums.games.modes[Game.pt]]["control"] then
 		_G[Enums.games.modes[Game.pt]]["control"](a,gs)
+	end
+
+	--actor's specific type control (ie snake.control)
+	if _G[EA[Enums.games[Game.t]][a.t]]["control"] then
+		_G[EA[Enums.games[Game.t]][a.t]]["control"](a,gs)
 	end
 
 	if a.item then
@@ -70,13 +68,15 @@ local function control(a,gs)
 		inventory.control(a,a.inventory)
 	end
 
+--[[
 	if a.tail then
 		--local c=a.controller.aim
 		if a.controller then
-			local c=a.controller.topdown_aim
-			tail.control(a.tail,gs,a,c.aimhorizontal,c.aimvertical)
+			local c=a.controller.aim
+			tail.control(a.tail,gs,a,c.horizontal,c.vertical)
 		end
 	end
+--]]
 
 	if a.x<-10--TODO make these limits dynamic or something
 	or a.x>330

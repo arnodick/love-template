@@ -58,6 +58,9 @@ local function constants(e) --NOTE this function has side effects! makes global 
 			end
 		end
 	end
+	if e.inputs then
+		EI=e.inputs
+	end
 	if e.colours then
 		EC=e.colours
 	end
