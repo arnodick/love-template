@@ -6,9 +6,11 @@ local function make(a,c,size,spr,hp)
 		module.make(a,EM.controller,EMC.aim,EI.gamepad)
 		module.make(a,EM.controller,EMC.action,EI.gamepad)
 	else
-		--a.cursor=cursor.make(0,0)
-		--module.make(a,EM.controller,EMC.move,EMC.moves.topdown_keyboard_move)
-		--module.make(a,EM.controller,EMC.aim,EMC.aims.mouse_actor_aim)
+		module.make(a,EM.controller,EMC.move,EI.keyboard)
+		module.make(a,EM.controller,EMC.aim,EI.mouse)
+		module.make(a,EM.controller,EMC.action,EI.mouse)
+
+		a.cursor=cursor.make(0,0)--TODO make cursor a module, put it in controller instead of actor
 	end
 
 	a.cinit=c or EC.dark_blue

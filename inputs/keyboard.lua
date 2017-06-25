@@ -1,54 +1,41 @@
-local function leftstick()
-	local j=Joysticks[1]--TODO make joystick id or something assigned to actor
-	--local deadzone=0.25
+local function move()
+	local horizontal,vertical=0,0
 
-	--TODO just use clamp instead of this?
-	--gamepad.deadzone(i,deadzone)
+	if love.keyboard.isDown('left') or love.keyboard.isDown('a') then
+		horizontal=-1
+	elseif love.keyboard.isDown('right') or love.keyboard.isDown('d')  then
+		horizontal=1
+	end
 
-	return 	j:getGamepadAxis("leftx"), j:getGamepadAxis("lefty")
-end
+	if love.keyboard.isDown('up') or love.keyboard.isDown('w') then
+		vertical=-1
+	elseif love.keyboard.isDown('down') or love.keyboard.isDown('s') then
+		vertical=1
+	end
 
-local function rightstick()
-	local j=Joysticks[1]--TODO make joystick id or something assigned to actor
-	--local deadzone=0.25
-
-	--gamepad.deadzone(i,deadzone)
-
-	return 	j:getGamepadAxis("rightx"), j:getGamepadAxis("righty")
+	return horizontal,vertical
 end
 
 local function action()
-	local j=Joysticks[1]--TODO make joystick id or something assigned to actor
-	local use=false
-	local action=false
+	local use,action=false,false
 
-	if j:isDown(3) or j:getGamepadAxis("triggerright")>0 then
+	if love.keyboard.isDown('z') then
 		use=true
+	else
+		use=false
 	end
 
-	if j:isDown(1) or j:getGamepadAxis("triggerleft")>0 then
+	if love.keyboard.isDown('x') then
 		action=true
+	else
+		action=false
 	end
 
-	return 	use, action
-end
-
-local function deadzone()
-	local axes={"movehorizontal","movevertical"}
-	for i=1,#axes do
-		if c[axes[i]]>0 and c[axes[i]]<dz then
-			c[axes[i]]=0
-		end
-
-		if c[axes[i]]<0 and c[axes[i]]>-dz then
-			c[axes[i]]=0
-		end
-	end
+	return use,action
 end
 
 return
 {
-	leftstick = leftsick,
-	rightstick = rightstick,
-	deadzone = deadzone,
+	move = move,
+	action = action,
 }

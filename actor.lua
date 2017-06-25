@@ -68,12 +68,14 @@ local function control(a,gs)
 		inventory.control(a,a.inventory)
 	end
 
+---[[
 	if a.tail then
 		if a.controller then
 			local c=a.controller.aim
 			tail.control(a.tail,gs,a,c.horizontal,c.vertical)
 		end
 	end
+--]]
 
 	if a.x<-10--TODO make these limits dynamic or something
 	or a.x>330

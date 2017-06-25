@@ -1,24 +1,12 @@
-local function leftstick()
-	local j=Joysticks[1]--TODO make joystick id or something assigned to actor
-	--local deadzone=0.25
-
-	--TODO just use clamp instead of this?
-	--gamepad.deadzone(i,deadzone)
-
+local function move()
 	return 	j:getGamepadAxis("leftx"), j:getGamepadAxis("lefty")
 end
 
-local function rightstick()
-	local j=Joysticks[1]--TODO make joystick id or something assigned to actor
-	--local deadzone=0.25
-
-	--gamepad.deadzone(i,deadzone)
-
+local function aim()
 	return 	j:getGamepadAxis("rightx"), j:getGamepadAxis("righty")
 end
 
 local function action()
-	local j=Joysticks[1]--TODO make joystick id or something assigned to actor
 	local use=false
 	local action=false
 
@@ -33,22 +21,10 @@ local function action()
 	return 	use, action
 end
 
-local function deadzone()
-	local axes={"movehorizontal","movevertical"}
-	for i=1,#axes do
-		if c[axes[i]]>0 and c[axes[i]]<dz then
-			c[axes[i]]=0
-		end
-
-		if c[axes[i]]<0 and c[axes[i]]>-dz then
-			c[axes[i]]=0
-		end
-	end
-end
 
 return
 {
-	leftstick = leftsick,
-	rightstick = rightstick,
-	deadzone = deadzone,
+	move = move,
+	aim = aim,
+	action = action,
 }
