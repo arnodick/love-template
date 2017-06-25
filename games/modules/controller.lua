@@ -5,6 +5,8 @@ local function make(a,cont,t,input,target,y)
 	c.input=input
 
 	if target then
+		module.make(c,EM.target,target,y)
+		--[[
 		if not c.target then--TODO make target into a controller module
 			c.target={}
 		end
@@ -14,6 +16,7 @@ local function make(a,cont,t,input,target,y)
 			c.target.x=target
 			c.target.y=y
 		end
+		--]]
 	end
 
 	if _G[EMC[t]]["make"] then
