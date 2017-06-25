@@ -71,8 +71,11 @@ local function control(a,gs)
 	end
 
 	if a.tail then
-		local c=a.controller.aim
-		tail.control(a.tail,gs,a,c.aimhorizontal,c.aimvertical)
+		--local c=a.controller.aim
+		if a.controller then
+			local c=a.controller.topdown_aim
+			tail.control(a.tail,gs,a,c.aimhorizontal,c.aimvertical)
+		end
 	end
 
 	if a.x<-10--TODO make these limits dynamic or something

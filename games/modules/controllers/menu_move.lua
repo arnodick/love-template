@@ -1,9 +1,8 @@
 local function control(a,c)
-	local j=Joysticks[1]
-	local deadzone=0.25
-
-	c.movehorizontal=j:getGamepadAxis("leftx")
-	c.movevertical=j:getGamepadAxis("lefty")
+	local i=a.input.move
+	
+	c.movehorizontal=i.horizontal
+	c.movevertical=i.vertical
 
 	local axes={"movehorizontal","movevertical"}
 	for i=1,#axes do

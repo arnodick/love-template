@@ -2,14 +2,20 @@ local function make(a,c,size,spr,hp)
 	local e=Enums
 
 	if #Joysticks>0 then
-		module.make(a,EM.controller,EMC.move,EMC.moves.topdown_gamepad_move)
-		module.make(a,EM.controller,EMC.aim,EMC.aims.gamepad_actor_aim)
-		module.make(a,EM.controller,EMC.action,EMC.actions.topdown_gamepad_action)
-		module.make(a,EM.input,EMI.Xmove,EMI.moves.gamepad_move)
+		--module.make(a,EM.controller,EMC.move,EMC.moves.topdown_gamepad_move)
+		--module.make(a,EM.controller,EMC.aim,EMC.aims.gamepad_actor_aim)
+		--module.make(a,EM.controller,EMC.action,EMC.actions.topdown_gamepad_action)
+		module.make(a,EM.input,EMI.move,EMI.moves.gamepad_move)
+		module.make(a,EM.input,EMI.aim,EMI.aims.gamepad_aim)
+		module.make(a,EM.input,EMI.action,EMI.actions.gamepad_action)
+
+		module.make(a,EM.controller,EMC.topdown_move)
+		module.make(a,EM.controller,EMC.topdown_aim)
+		module.make(a,EM.controller,EMC.topdown_action)
 	else
-		a.cursor=cursor.make(0,0)
-		module.make(a,EM.controller,EMC.move,EMC.moves.topdown_keyboard_move)
-		module.make(a,EM.controller,EMC.aim,EMC.aims.mouse_actor_aim)
+		--a.cursor=cursor.make(0,0)
+		--module.make(a,EM.controller,EMC.move,EMC.moves.topdown_keyboard_move)
+		--module.make(a,EM.controller,EMC.aim,EMC.aims.mouse_actor_aim)
 	end
 
 	a.cinit=c or EC.dark_blue
@@ -51,6 +57,7 @@ local function control(a)
 			Game.speed=math.clamp(a.vel,0.1,1)
 		end
 	end
+	--[[
 	if a.controller.aim.action then
 		if #a.inventory>1 then
 			local temp=a.inventory[1]
@@ -58,6 +65,7 @@ local function control(a)
 			table.insert(a.inventory,temp)
 		end
 	end
+	--]]
 	cursor.update(a.cursor)
 	--if a.controller.action then	
 	--end

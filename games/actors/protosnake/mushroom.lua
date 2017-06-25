@@ -8,7 +8,7 @@ local function make(a,c,size,spr,hp)
 	a.value=1
 	a.speed=2
 
-	module.make(a,EM.controller,EMC.move,EMC.moves.topdown_ai_target_avoid,Player)
+	--module.make(a,EM.controller,EMC.move,EMC.moves.topdown_ai_target_avoid,Player)
 	module.make(a,EM.hit,3,6,EC.white)
 	module.make(a,EM.animation,EM.animations.frames,10,2)
 	module.make(a,EM.hitradius,4)

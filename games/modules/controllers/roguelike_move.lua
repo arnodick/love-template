@@ -1,11 +1,8 @@
 local function control(a,c)
-	local j=Joysticks[1]
-	local deadzone=0.25
-
-	c.movehorizontal=j:getGamepadAxis("leftx")
-	c.movevertical=j:getGamepadAxis("lefty")
-
-	controller.deadzone(c,0.5)
+	local i=a.input.move
+	
+	c.movehorizontal=i.horizontal
+	c.movevertical=i.vertical
 
 	if c.lasthorizontal==0 and c.lastvertical==0 then
 		if c.movehorizontal>0 then

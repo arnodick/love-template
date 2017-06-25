@@ -7,8 +7,8 @@ local function make(a,c,size,spr,hp)
 
 	a.value=1
 
-	module.make(a,EM.controller,EMC.aim,EMC.aims.ai_shoot_accurate,Player)
-	module.make(a,EM.controller,EMC.action,EMC.actions.topdown_ai_action,Player)
+	--module.make(a,EM.controller,EMC.aim,EMC.aims.ai_shoot_accurate,Player)
+	--module.make(a,EM.controller,EMC.action,EMC.actions.topdown_ai_action,Player)
 	module.make(a,EM.hit,3,6,EC.white)
 	module.make(a,EM.tail,a.cinit,9)
 	module.make(a,EM.inventory,1)
@@ -30,7 +30,7 @@ local function control(a)
 		for i,v in ipairs(Game.actors) do
 			if flags.get(v.flags,EF.enemy) then
 				if v~=a then
-					a.controller.aim.target=v
+					--a.controller.aim.target=v
 				end
 			end
 		end

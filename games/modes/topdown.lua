@@ -1,6 +1,7 @@
 local function control(a,gs)
 	if a.controller then
-		local c=a.controller.move
+		--local c=a.controller.move
+		local c=a.controller.topdown_move
 		if c then
 			a.d=vector.direction(c.movehorizontal,-c.movevertical)
 			a.vel=vector.length(c.movehorizontal,c.movevertical)
@@ -9,12 +10,14 @@ local function control(a,gs)
 	a.vec[1] = math.cos(a.d)
 	a.vec[2] = math.sin(a.d)
 
+--[[
 	if a.inventory then
 		if #a.inventory>0 then
 			c=a.controller
 			item.use(a.inventory[1],gs,a,c.aim.aimhorizontal,c.aim.aimvertical,c.action.use)
 		end
 	end
+	--]]
 
 	local xcell,ycell=map.getcell(Game.map,a.x,a.y)
 	local xdest,ydest=a.x + a.vec[1]*a.vel*a.speed*gs,a.y - a.vec[2]*a.vel*a.speed*gs
