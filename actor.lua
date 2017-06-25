@@ -37,11 +37,11 @@ local function control(a,gs)
 		_G[EA[Enums.games[Game.t]][a.t]]["control"](a,gs)
 	end
 
-	if a.item then
+	if a.item then--if a IS an item, do its item stuff
 		item.control(a,gs)
 	end
 
-	if a.collectible then
+	if a.collectible then--if a IS a collectible, do its collectible stuff
 		collectible.control(a,gs)
 	end
 
@@ -68,15 +68,12 @@ local function control(a,gs)
 		inventory.control(a,a.inventory)
 	end
 
----[[]
 	if a.tail then
-		--local c=a.controller.aim
 		if a.controller then
 			local c=a.controller.aim
 			tail.control(a.tail,gs,a,c.horizontal,c.vertical)
 		end
 	end
---]]
 
 	if a.x<-10--TODO make these limits dynamic or something
 	or a.x>330
