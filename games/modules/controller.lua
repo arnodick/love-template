@@ -2,7 +2,8 @@ local function make(a,cont,t,input,target,y)
 	cont[EMC[t]]={}--this gives the controller a table named after the controller's type (ie controller.move)
 	local c=cont[EMC[t]]--c is the controller's type sub-table (ie move)
 	c.t=t
-	c.input=input
+	--c.input=input
+	module.make(c,EM.input,input)
 
 	if target then
 		module.make(c,EM.target,target,y)
@@ -30,7 +31,7 @@ local function update(a,gs)
 		for k,v in pairs(c) do
 			local controllername=EMC[v.t]
 			if _G[controllername]["control"] then
-				local inputname=EI[v.input]
+				local inputname=EM.inputs[v.input.t]
 				local command1,command2=_G[inputname][controllername]()
 				_G[controllername]["control"](a,v,gs,command1,command2)
 			end

@@ -2,13 +2,13 @@ local function make(a,c,size,spr,hp)
 	local e=Enums
 
 	if #Joysticks>0 then
-		module.make(a,EM.controller,EMC.move,EI.gamepad)
-		module.make(a,EM.controller,EMC.aim,EI.gamepad)
-		module.make(a,EM.controller,EMC.action,EI.gamepad)
+		module.make(a,EM.controller,EMC.move,EM.inputs.gamepad)
+		module.make(a,EM.controller,EMC.aim,EM.inputs.gamepad)
+		module.make(a,EM.controller,EMC.action,EM.inputs.gamepad)
 	else
-		module.make(a,EM.controller,EMC.move,EI.keyboard)
-		module.make(a,EM.controller,EMC.aim,EI.mouse)
-		module.make(a,EM.controller,EMC.action,EI.mouse)
+		module.make(a,EM.controller,EMC.move,EM.inputs.keyboard)
+		module.make(a,EM.controller,EMC.aim,EM.inputs.mouse)
+		module.make(a,EM.controller,EMC.action,EM.inputs.mouse)
 
 		a.cursor=cursor.make(0,0)--TODO make cursor a module, put it in controller instead of actor
 	end

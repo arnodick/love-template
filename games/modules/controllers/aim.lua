@@ -4,7 +4,7 @@ local function make(a,c)
 end
 
 local function control(a,c,gs,c1,c2)
-	if c.input==EI.mouse then
+	if c.input==EM.inputs.mouse then
 		local dir=vector.direction(vector.components(a.x,a.y,c1,c2))
 		c1=math.cos(dir)
 		c2=math.sin(dir)
