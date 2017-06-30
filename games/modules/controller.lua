@@ -1,24 +1,15 @@
-local function make(a,cont,t,input,it)
-	cont[EMC[t]]={}--this gives the controller a table named after the controller's type (ie controller.move)
-	local c=cont[EMC[t]]--c is the controller's type sub-table (ie move)
+local function make(a,cont,t,input,ai1,ai2)
+	local controllertypename=EMC[t]
+	cont[controllertypename]={}--this gives the controller a table named after the controller's type (ie controller.move)
+	local c=cont[controllertypename]--c is the controller's type sub-table (ie move)
 	c.t=t
+	c.input=input
 
-	module.make(c,EM.input,input,it)
-
-	--if target then
-	--	module.make(c,EM.target,target,y)
-		--[[
-		if not c.target then--TODO make target into a controller module
-			c.target={}
-		end
-		if type(target)=='table' then
-			c.target=target
-		else
-			c.target.x=target
-			c.target.y=y
-		end
-		--]]
-	--end
+	if t==EMC["action"] then
+		module.make(c,EM.chance,ai1,ai2)
+	else
+		module.make(c,EM.target,ai1,ai2)
+	end
 
 	if _G[EMC[t]]["make"] then
 		_G[EMC[t]]["make"](a,c)
@@ -27,11 +18,14 @@ end
 
 local function update(a,gs)
 	local c=a.controller
+
 	if c then
 		for k,v in pairs(c) do
 			local controllername=EMC[v.t]
+
 			if _G[controllername]["control"] then
-				local inputname=EM.inputs[v.input.t]
+				local inputname=EM.inputs[v.input]
+				
 				local command1,command2=_G[inputname][controllername](a,v)
 				_G[controllername]["control"](a,v,gs,command1,command2)
 			end

@@ -29,8 +29,6 @@ local function update(d)
 			table.insert(debuglist,"player vy:"..Player.vec[2])
 			table.insert(debuglist,"player vel:"..Player.vel)
 			table.insert(debuglist,"player input: "..tostring(Player.input))
-			table.insert(debuglist,"player input move hor: "..Player.input.move.horizontal)
-			table.insert(debuglist,"player input move ver: "..Player.input.move.vertical)
 			if Player.inventory then
 				if Player.inventory[1] then
 					table.insert(debuglist,"player item angle:"..Player.inventory[1].angle)

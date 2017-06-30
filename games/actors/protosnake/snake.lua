@@ -7,14 +7,13 @@ local function make(a,c,size,spr,hp)
 
 	a.value=1
 
-	module.make(a,EM.controller,EMC.aim,EMI.ai,EMI.ais.ai_aim)
-	--module.make(a,EM.controller,EMC.action,EM.inputs.ai,EM.inputs.ais.ai_action)
-	module.make(a.controller.aim,EM.target,Player)
-	--module.make(a,EM.controller,EMC.action,EMC.actions.topdown_ai_action,Player)
+	module.make(a,EM.controller,EMC.aim,EMI.ai,Player)
+	module.make(a,EM.controller,EMC.action,EMI.ai,0.01,0)
+
 	module.make(a,EM.hit,3,6,EC.white)
 	module.make(a,EM.tail,a.cinit,9)
-	--module.make(a,EM.inventory,1)
-	--table.insert(a.inventory,actor.make(EA[Enums.games[Game.t]].machinegun,a.x,a.y,0,0,a.cinit,EC.green))
+	module.make(a,EM.inventory,1)
+	table.insert(a.inventory,actor.make(EA[Enums.games[Game.t]].machinegun,a.x,a.y,0,0,a.cinit,EC.green))
 	module.make(a,EM.animation,EM.animations.frames,10,2)
 	module.make(a,EM.hitradius,4)
 	module.make(a,EM.drop,"coin")
@@ -32,7 +31,7 @@ local function control(a)
 		for i,v in ipairs(Game.actors) do
 			if flags.get(v.flags,EF.enemy) then
 				if v~=a then
-					--a.controller.aim.target=v
+					a.controller.aim.target=v
 				end
 			end
 		end

@@ -4,18 +4,20 @@ local function move(a,c)
 end
 
 local function aim(a,c)
-	local aimhor,aimver=0,0
-	local i=c.input
-	if _G[EMI.ais[i.st]] then
-		aimhor,aimver=_G[EMI.ais[i.st]]["aim"](a,c)
-	end
-	return 	aimhor,aimver
+	local dir=vector.direction(vector.components(a.x,a.y,c.target.x,c.target.y))
+	return 	math.cos(dir),math.sin(dir)
 end
 
 local function action(a,c)
 	local use=false
 	local action=false
 
+	if math.randomfraction(1)<=c.chance[1] then
+		use=true
+	end
+	if math.randomfraction(1)<=c.chance[2] then
+		action=true
+	end
 
 	return 	use, action
 end
