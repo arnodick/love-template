@@ -7,7 +7,9 @@ local function make(a,c,size,spr,hp)
 
 	a.value=1
 
-	--module.make(a,EM.controller,EMC.aim,EMC.aims.ai_shoot_accurate,Player)
+	module.make(a,EM.controller,EMC.aim,EMI.ai,EMI.ais.ai_aim)
+	--module.make(a,EM.controller,EMC.action,EM.inputs.ai,EM.inputs.ais.ai_action)
+	module.make(a.controller.aim,EM.target,Player)
 	--module.make(a,EM.controller,EMC.action,EMC.actions.topdown_ai_action,Player)
 	module.make(a,EM.hit,3,6,EC.white)
 	module.make(a,EM.tail,a.cinit,9)

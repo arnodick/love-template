@@ -1,22 +1,21 @@
-local function move()
+local function move(a,c)
+
 	return 	j:getGamepadAxis("leftx"), j:getGamepadAxis("lefty")
 end
 
-local function aim()
-	return 	j:getGamepadAxis("rightx"), j:getGamepadAxis("righty")
+local function aim(a,c)
+	local aimhor,aimver=0,0
+	local i=c.input
+	if _G[EMI.ais[i.st]] then
+		aimhor,aimver=_G[EMI.ais[i.st]]["aim"](a,c)
+	end
+	return 	aimhor,aimver
 end
 
-local function action()
+local function action(a,c)
 	local use=false
 	local action=false
 
-	if j:isDown(3) or j:getGamepadAxis("triggerright")>0 then
-		use=true
-	end
-
-	if j:isDown(1) or j:getGamepadAxis("triggerleft")>0 then
-		action=true
-	end
 
 	return 	use, action
 end
