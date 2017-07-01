@@ -31,6 +31,7 @@ local function control(a)
 	if a.controller then
 		local movedist=vector.distance(a.x,a.y,a.controller.move.target.x,a.controller.move.target.y)
 		if movedist<=a.speed then
+			a.vel=0
 			a.controller=nil
 		end
 	end
