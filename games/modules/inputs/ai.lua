@@ -1,11 +1,11 @@
 local function move(a,c)
-
-	return 	j:getGamepadAxis("leftx"), j:getGamepadAxis("lefty")
+	local dir=vector.direction(vector.components(a.x,a.y,c.target.x,c.target.y))
+	return math.cos(dir),math.sin(dir)
 end
 
 local function aim(a,c)
 	local dir=vector.direction(vector.components(a.x,a.y,c.target.x,c.target.y))
-	return 	math.cos(dir),math.sin(dir)
+	return math.cos(dir),math.sin(dir)
 end
 
 local function action(a,c)
@@ -19,7 +19,7 @@ local function action(a,c)
 		action=true
 	end
 
-	return 	use, action
+	return use, action
 end
 
 

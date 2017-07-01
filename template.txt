@@ -1,4 +1,6 @@
 PRIORITY
+EMI > EMCI
+Game.player
 Game.name
 Game.mode.name
 maybe controllers all have input in the form of x,y axis, which takes output of keyboard, gamepad, ai algo, whatever.
