@@ -1,11 +1,10 @@
 PRIORITY
+organize folder structure
 EMI > EMCI
 Game.player
 Game.name
 Game.mode.name
-maybe controllers all have input in the form of x,y axis, which takes output of keyboard, gamepad, ai algo, whatever.
-	these are called inputs, other things are controllers?
-	separate action/shoot etc controls into other controllers
+
 input Game into
 	actors.control, make etc
 things that couold be modules maybe
@@ -28,7 +27,6 @@ Physics stun launch characters or suck them in just delete or nil their movement
 	Duration module? Decel module? 
 	Can just changed a module's subtype to make it behave different? Just change the states st from gameplay_topdown to gameplay_map or something and map had different draw style
 screen zoom
-make avoid ai into chunks. maybe move to point?
 easing function has start time, end time (duration), delta timer, rate
 	rate is multiplied by delta time? rate 1=linear, rate cos = curve time
 	for animaton and time dilation effects (know duration of animation, time dilation)
@@ -53,6 +51,10 @@ change controller input so impulses will work
 
 
 DONE
+make avoid ai into chunks. maybe move to point?
+maybe controllers all have input in the form of x,y axis, which takes output of keyboard, gamepad, ai algo, whatever.
+	these are called inputs, other things are controllers?
+	separate action/shoot etc controls into other controllers
 weird timer problem, something to do with game.speed injection into functions? NO just was running the coin's .control twice
 different types of actor.control?
 game and state architecture for switching game styles, genres

@@ -7,7 +7,7 @@ local function make(a,c,size,spr,hp)
 
 	a.speed=2
 
-	--module.make(a,EM.controller,EMC.move,EMC.moves.topdown_ai_target_seek,Game.width/2,Game.height/2)
+	module.make(a,EM.controller,EMC.move,EMI.ai,Game.width/2,Game.height/2)
 	module.make(a,EM.hit,3,6,EC.white)
 	module.make(a,EM.animation,EM.animations.frames,10,2)
 	module.make(a,EM.hitradius,4)
@@ -27,20 +27,17 @@ local function control(a)
 	elseif a.menu then
 		a.menu=nil
 	end
-end
 
-local function draw(a)
-
-end
-
-local function dead(a)
-
+	if a.controller then
+		local movedist=vector.distance(a.x,a.y,a.controller.move.target.x,a.controller.move.target.y)
+		if movedist<=a.speed then
+			a.controller=nil
+		end
+	end
 end
 
 return
 {
 	make = make,
 	control = control,
-	draw = draw,
-	dead = dead,
 }

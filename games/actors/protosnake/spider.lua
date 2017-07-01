@@ -8,14 +8,15 @@ local function make(a,c,size,spr,hp)
 	a.value=1
 	a.speed=1.5
 
-	--module.make(a,EM.controller,EMC.move,EMI.ai,Player)
 	module.make(a,EM.target,Player)
+	
 	--TODO make this stuff into some sort of function?
 	local dir=vector.direction(vector.components(a.x,a.y,a.target.x,a.target.y))
 	local dist=vector.distance(a.x,a.y,a.target.x,a.target.y)*1.5
 	local x=math.clamp(a.x+math.cos(dir)*dist,0,Game.width)
 	local y=math.clamp(a.y+math.sin(dir)*dist,0,Game.height)
 	module.make(a,EM.controller,EMC.move,EMI.ai,x,y)
+
 	module.make(a,EM.hit,3,6,EC.white)
 	module.make(a,EM.animation,EM.animations.frames,6,2)
 	module.make(a,EM.hitradius,8)

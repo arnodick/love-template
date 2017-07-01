@@ -8,7 +8,9 @@ local function make(a,c,size,spr,hp)
 	a.value=1
 	a.speed=2
 
-	--module.make(a,EM.controller,EMC.move,EMC.moves.topdown_ai_target_avoid,Player)
+	module.make(a,EM.target,Player)
+
+	module.make(a,EM.controller,EMC.move,EMI.ai,a.x,a.y)
 	module.make(a,EM.hit,3,6,EC.white)
 	module.make(a,EM.animation,EM.animations.frames,10,2)
 	module.make(a,EM.hitradius,4)
@@ -24,15 +26,41 @@ local function control(a)
 		smolhp.scalex=0.5
 		smolhp.scaley=0.5
 	end
-end
 
-local function dead(a)
+	local mindist=100
+	local movedist=vector.distance(a.x,a.y,a.controller.move.target.x,a.controller.move.target.y)
 
+	if a.target then--if you aren't running to safety
+		local playerdist=vector.distance(a.x,a.y,a.target.x,a.target.y)
+		if playerdist<mindist then--if player is too close and you're cornered, then run to safety
+			if a.x>Game.width-32 or a.x<32 or a.y>Game.height-32 or a.y<32 then
+				a.controller.move.target.x,a.controller.move.target.y=love.math.random(Game.width),love.math.random(Game.height)
+				local targetdist=vector.distance(a.controller.move.target.x,a.controller.move.target.y,a.target.x,a.target.y)
+				while targetdist<mindist do
+					a.controller.move.target.x,a.controller.move.target.y=love.math.random(Game.width),love.math.random(Game.height)
+					targetdist=vector.distance(a.controller.move.target.x,a.controller.move.target.y,a.target.x,a.target.y)
+				end
+				a.target=nil--don't worry about player any more, just get to safety
+			else--if player is too close and you're not cornered, BACK OFF
+				local playerdir=vector.direction(vector.components(a.x,a.y,a.target.x,a.target.y))
+				a.controller.move.target.x,a.controller.move.target.y=a.x-(math.cos(playerdir)*playerdist),a.y-(math.sin(playerdir)*playerdist)
+			end
+		else--if player is not close, then random jitter
+			local x,y=love.math.random(Game.width),love.math.random(Game.height)
+			local randdist=vector.distance(x,y,a.target.x,a.target.y)
+			while randdist<mindist do
+				x,y=love.math.random(Game.width),love.math.random(Game.height)
+				randdist=vector.distance(x,y,a.target.x,a.target.y)
+			end
+			a.controller.move.target.x,a.controller.move.target.y=x,y
+		end
+	elseif movedist<=a.vel then--if you've made it to safety then look out for player again
+		module.make(a,EM.target,Player)
+	end
 end
 
 return
 {
 	make = make,
 	control = control,
-	dead = dead,
 }

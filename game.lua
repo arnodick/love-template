@@ -1,7 +1,7 @@
-local function make(t,pt,tw,th,gw,gh,sp)
+local function make(t,mode,tw,th,gw,gh,sp)
 	local g={}--Game object
 	g.t=t
-	g.pt=pt
+	g.mode=mode
 	g.tile={}
 	g.tile.width=tw
 	g.tile.height=th

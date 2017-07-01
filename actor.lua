@@ -28,8 +28,8 @@ local function control(a,gs)
 	controller.update(a,gs)
 	
 	--game mode's specific type control (ie topdown.control)
-	if _G[Enums.games.modes[Game.pt]]["control"] then
-		_G[Enums.games.modes[Game.pt]]["control"](a,gs)
+	if _G[Enums.games.modes[Game.mode]]["control"] then
+		_G[Enums.games.modes[Game.mode]]["control"](a,gs)
 	end
 
 	--actor's specific type control (ie snake.control)
