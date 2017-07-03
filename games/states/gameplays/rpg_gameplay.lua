@@ -9,8 +9,8 @@ local function make(g)
 	g.levels.current=level.make(g.level)
 --]]
 
-	Game.player=actor.make(EA[Enums.games[Game.t]].rpg_player,g.width/2,g.height/2)
-	actor.make(EA[Enums.games[Game.t]].rpg_enemy,g.width/2,g.height/2)
+	Game.player=actor.make(EA[Game.name].rpg_player,g.width/2,g.height/2)
+	actor.make(EA[Game.name].rpg_enemy,g.width/2,g.height/2)
 end
 
 local function control(g)

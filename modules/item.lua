@@ -2,18 +2,12 @@ local function make(a)
 	a.angle=-0.79--TODO put this in actor.make
 	a.getsfx=10--TODO put this in each item
 	a.delta=0--NOTE need this bc actor.make sets delta to Game.timer, so any actor not spawning at Game.timer==0 can't shoot
-	--[[
-	if shopitem then
-		a.flags=flags.set(a.flags,EF.shopitem)
-	end
---]]
 	return a
 end
 
 local function control(a,gs)
 	if actor.collision(a.x,a.y,Game.player) then	
-		--if Game.player.controller.action or #Game.player.inventory<1 then
-		if #Game.player.inventory<1 then
+		if Game.player.controller.action.action or #Game.player.inventory<1 then
 			if a.getsfx then
 				sfx.play(a.getsfx)
 			end
@@ -42,11 +36,11 @@ local function use(a,gs,user,vx,vy,shoot)
 		if shoot then
 			sfx.play(a.snd,a.x,a.y)
 
-			if _G[EA[Enums.games[Game.t]][a.t]]["shoot"] then
-				_G[EA[Enums.games[Game.t]][a.t]]["shoot"](a,gs)
+			if _G[EA[Game.name][a.t]]["shoot"] then
+				_G[EA[Game.name][a.t]]["shoot"](a,gs)
 			end
 
-			actor.make(EA[Enums.games[Game.t]].cloud,a.x,a.y,-a.angle+math.randomfraction(1)-0.5,math.randomfraction(1))
+			actor.make(EA[Game.name].cloud,a.x,a.y,-a.angle+math.randomfraction(1)-0.5,math.randomfraction(1))
 			a.delta=a.rof
 		end
 	else 

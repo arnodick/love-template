@@ -45,18 +45,19 @@ local function constants(e) --NOTE this function has side effects! makes global 
 		if e.games.actors then
 			EA=e.games.actors
 		end
-		if e.games.modules then
-			EM=e.games.modules
-			if EM.menus then
-				EMM=EM.menus
-			end
-			if EM.controllers then
-				EMC=EM.controllers
-			end
-			if EM.inputs then
-				EMI=EM.inputs
+	end
+	if e.modules then
+		EM=e.modules
+		if EM.menus then
+			EMM=EM.menus
+		end
+		if EM.controllers then
+			EMC=EM.controllers
+			if EMC.inputs then
+				EMCI=EMC.inputs
 			end
 		end
+
 	end
 	if e.colours then
 		EC=e.colours

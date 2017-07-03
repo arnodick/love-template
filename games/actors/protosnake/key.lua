@@ -12,7 +12,7 @@ local function make(a,c,size,spr)
 end
 
 local function get(a)
-	local port=actor.make(EA[Enums.games[Game.t]].portal,Game.width/2,Game.height/2+40)
+	local port=actor.make(EA[Game.name].portal,Game.width/2,Game.height/2+40)
 	port.c=EC.red
 	port.level=2
 end

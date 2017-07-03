@@ -15,7 +15,7 @@ local function make(a,c,size,spr,hp)
 	local dist=vector.distance(a.x,a.y,a.target.x,a.target.y)*1.5
 	local x=math.clamp(a.x+math.cos(dir)*dist,0,Game.width)
 	local y=math.clamp(a.y+math.sin(dir)*dist,0,Game.height)
-	module.make(a,EM.controller,EMC.move,EMI.ai,x,y)
+	module.make(a,EM.controller,EMC.move,EMCI.ai,x,y)
 
 	module.make(a,EM.hit,3,6,EC.white)
 	module.make(a,EM.animation,EM.animations.frames,6,2)
@@ -42,7 +42,7 @@ local function control(a)
 		local dist=vector.distance(a.x,a.y,a.target.x,a.target.y)*1.5
 		local x=math.clamp(a.x+math.cos(dir)*dist,0,Game.width)
 		local y=math.clamp(a.y+math.sin(dir)*dist,0,Game.height)
-		module.make(a,EM.controller,EMC.move,EMI.ai,x,y)
+		module.make(a,EM.controller,EMC.move,EMCI.ai,x,y)
 		sfx.play(12)
 	end
 
@@ -64,7 +64,7 @@ end
 
 local function dead(a)
 	for i=1,3 do
-		actor.make(EA[Enums.games[Game.t]].coin,a.x,a.y)
+		actor.make(EA[Game.name].coin,a.x,a.y)
 	end
 end
 

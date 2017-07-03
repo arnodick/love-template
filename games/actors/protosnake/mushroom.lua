@@ -10,7 +10,7 @@ local function make(a,c,size,spr,hp)
 
 	module.make(a,EM.target,Game.player)
 
-	module.make(a,EM.controller,EMC.move,EMI.ai,a.x,a.y)
+	module.make(a,EM.controller,EMC.move,EMCI.ai,a.x,a.y)
 	module.make(a,EM.hit,3,6,EC.white)
 	module.make(a,EM.animation,EM.animations.frames,10,2)
 	module.make(a,EM.hitradius,4)
@@ -21,7 +21,7 @@ end
 
 local function control(a)
 	if love.math.random(10000)==1 then
-		local smolhp=actor.make(EA[Enums.games[Game.t]].hp,a.x,a.y,0,0,EC.red,1,129)
+		local smolhp=actor.make(EA[Game.name].hp,a.x,a.y,0,0,EC.red,1,129)
 		smolhp.value=1
 		smolhp.scalex=0.5
 		smolhp.scaley=0.5

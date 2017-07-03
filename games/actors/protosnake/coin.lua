@@ -38,7 +38,7 @@ local function control(a,gs)
 		local dist=vector.distance(a.x,a.y,Game.player.x,Game.player.y)
 		if dist<30 then
 			if not a.controller then
-				module.make(a,EM.controller,EMC.move,EMI.ai,Game.player)
+				module.make(a,EM.controller,EMC.move,EMCI.ai,Game.player)
 			end
 			a.speed=8/dist
 		else
@@ -59,7 +59,7 @@ local function control(a,gs)
 			if a.vel==0 then
 				sfx.play(7)
 				for i=1,20 do
-					actor.make(EA[Enums.games[Game.t]].cloud,a.x,a.y,math.randomfraction(math.pi*2),math.randomfraction(1))
+					actor.make(EA[Game.name].cloud,a.x,a.y,math.randomfraction(math.pi*2),math.randomfraction(1))
 				end
 				a.delete=true
 			end

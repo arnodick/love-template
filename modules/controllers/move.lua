@@ -11,6 +11,7 @@ local function control(a,c,gs,c1,c2)
 	c.last.horizontal=c.horizontal
 
 	c.horizontal,c.vertical=c1,c2
+	controller.deadzone(c,0.25)
 end
 
 return

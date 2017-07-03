@@ -20,7 +20,7 @@ local function load(dir)
 end
 
 local function make(lindex)
-	local gamename=Enums.games[Game.t]
+	local gamename=Game.name
 
 	if lindex~=Game.levelpath[#Game.levelpath] then
 		table.insert(Game.levelpath,lindex)
@@ -32,7 +32,7 @@ local function make(lindex)
 	l.enemies={}
 	for i,v in pairs(lload.enemies) do
 		if type(i)=="number" then
-			l.enemies[i]=EA[Enums.games[Game.t]][v]
+			l.enemies[i]=EA[Game.name][v]
 		else
 			l.enemies[i]=v
 		end
@@ -60,11 +60,11 @@ local function make(lindex)
 end
 
 local function control(l)
-	local gamename=Enums.games[Game.t]
+	local gamename=Game.name
 	local enemycount=Game.counters.enemy
 	
 	if enemycount<l.enemies.max then
-		actor.make(EA[Enums.games[Game.t]].spawn)
+		actor.make(EA[Game.name].spawn)
 	end
 
 	if _G[Enums.games.levels[gamename][l.t]]["control"] then

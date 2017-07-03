@@ -24,7 +24,7 @@ local function update(a,gs)
 			local controllername=EMC[v.t]
 
 			if _G[controllername]["control"] then
-				local inputname=EM.inputs[v.input]
+				local inputname=EMCI[v.input]
 				
 				local command1,command2=_G[inputname][controllername](a,v)
 				_G[controllername]["control"](a,v,gs,command1,command2)
@@ -45,7 +45,7 @@ local function gamepadpressed(a,button)
 end
 
 local function deadzone(c,dz)
-	local axes={"movehorizontal","movevertical"}
+	local axes={"horizontal","vertical"}
 	for i=1,#axes do
 		if c[axes[i]]>0 and c[axes[i]]<dz then
 			c[axes[i]]=0

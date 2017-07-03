@@ -5,7 +5,7 @@ local function make(a)
 	a.num=1
 	a.acc=0.1
 	a.snd=2
-	a.proj=EA[Enums.games[Game.t]].lightning
+	a.proj=EA[Game.name].lightning
 end
 
 local function draw(a)

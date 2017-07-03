@@ -27,25 +27,25 @@ local function init(t)
 end
 
 local function update(c,a,amount)
-	--local typecounter=c[EA[Enums.games[Game.t]][a.t]]
-	c[EA[Enums.games[Game.t]][a.t]]=c[EA[Enums.games[Game.t]][a.t]]+amount
-	--local typename=EA[Enums.games[Game.t]][a.t].."s"
-	--c[EA[Enums.games[Game.t]][typename][a.st]]=c[EA[Enums.games[Game.t]][typename][a.st]]+amount
+	--local typecounter=c[EA[Game.name][a.t]]
+	c[EA[Game.name][a.t]]=c[EA[Game.name][a.t]]+amount
+	--local typename=EA[Game.name][a.t].."s"
+	--c[EA[Game.name][typename][a.st]]=c[EA[Game.name][typename][a.st]]+amount
 	if flags.get(a.flags,EF.enemy) then
 		c.enemy=c.enemy+amount
 	end
 --[[
 	--TABLE COUNTER INCREMENT
-	table.insert(c[ EA[Enums.games[Game.t] ][a.t] ],a)
+	table.insert(c[ EA[Game.name ][a.t] ],a)
 	if flags.get(a.flags,EF.enemy) then
 		table.insert(c.enemy,a)
 	end
 
 
 	--TABLE COUNTER DECREMENT
-	for j,k in pairs(c[ EA[Enums.games[Game.t] ][v.t] ]) do
+	for j,k in pairs(c[ EA[Game.name ][v.t] ]) do
 		if k==v then
-			table.remove(c[ EA[Enums.games[Game.t] ][v.t] ],j)
+			table.remove(c[ EA[Game.name ][v.t] ],j)
 		end
 	end
 

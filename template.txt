@@ -1,13 +1,7 @@
 PRIORITY
-deadzones
 rage
-menu controller
-item buy
 organize folder structure
-EMI > EMCI
-Game.name
-Game.mode.name
-
+	get rid of enums.ini, put enums.lua in main folder
 input Game into
 	actors.control, make etc
 things that couold be modules maybe
@@ -54,6 +48,11 @@ change controller input so impulses will work
 
 
 DONE
+Game.name
+Game.mode.name
+item buy
+deadzones
+menu controller
 Game.player
 make avoid ai into chunks. maybe move to point?
 maybe controllers all have input in the form of x,y axis, which takes output of keyboard, gamepad, ai algo, whatever.

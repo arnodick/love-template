@@ -57,7 +57,7 @@ local function control(a,gs)
 		end
 
 		for i=1,20 do
-			local spark=actor.make(EA[Enums.games[Game.t]].spark,a.x,a.y)
+			local spark=actor.make(EA[Game.name].spark,a.x,a.y)
 			spark.c=EC.dark_blue
 		end
 		a.delete=true

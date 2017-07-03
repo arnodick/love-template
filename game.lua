@@ -3,6 +3,7 @@ local function make(t,mode,tw,th,gw,gh,sp)
 	g.t=t
 	g.name=Enums.games[t]
 	g.mode=mode
+	g.modename=Enums.games.modes[mode]
 	g.tile={}
 	g.tile.width=tw
 	g.tile.height=th

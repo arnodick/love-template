@@ -2,13 +2,13 @@ local function make(a,c,size,spr,hp)
 	local e=Enums
 
 	if #Joysticks>0 then
-		module.make(a,EM.controller,EMC.move,EM.inputs.gamepad)
-		module.make(a,EM.controller,EMC.aim,EM.inputs.gamepad)
-		module.make(a,EM.controller,EMC.action,EM.inputs.gamepad)
+		module.make(a,EM.controller,EMC.move,EMCI.gamepad)
+		module.make(a,EM.controller,EMC.aim,EMCI.gamepad)
+		module.make(a,EM.controller,EMC.action,EMCI.gamepad)
 	else
-		module.make(a,EM.controller,EMC.move,EM.inputs.keyboard)
-		module.make(a,EM.controller,EMC.aim,EM.inputs.mouse)
-		module.make(a,EM.controller,EMC.action,EM.inputs.mouse)
+		module.make(a,EM.controller,EMC.move,EMCI.keyboard)
+		module.make(a,EM.controller,EMC.aim,EMCI.mouse)
+		module.make(a,EM.controller,EMC.action,EMCI.mouse)
 
 		a.cursor=cursor.make(0,0)--TODO make cursor a module, put it in controller instead of actor
 	end
@@ -26,7 +26,7 @@ local function make(a,c,size,spr,hp)
 	module.make(a,EM.hitradius,4)
 	module.make(a,EM.tail,a.cinit,9)
 	module.make(a,EM.inventory,2)
-	actor.make(EA[Enums.games[Game.t]].machinegun,a.x,a.y,0,0,EC.dark_purple,EC.dark_purple)
+	actor.make(EA[Game.name].machinegun,a.x,a.y,0,0,EC.dark_purple,EC.dark_purple)
 	a.flags=flags.set(a.flags,EF.character,EF.persistent,EF.damageable, EF.shootable, EF.explosive)
 	print(EF.shootable)
 
@@ -35,7 +35,7 @@ end
 
 local function control(a)
 	--a.cinit=math.floor((Game.timer/2)%16)+1 --SWEET COLOUR CYCLE
-	local gamename=Enums.games[Game.t]
+	local gamename=Game.name
 	if Game.pause then
 		Game.speed=0
 	else

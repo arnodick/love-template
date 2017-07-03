@@ -9,14 +9,12 @@ local function control(a,gs)
 	a.vec[1] = math.cos(a.d)
 	a.vec[2] = math.sin(a.d)
 
----[[
 	if a.inventory then
 		if #a.inventory>0 then
 			c=a.controller
 			item.use(a.inventory[1],gs,a,c.aim.horizontal,c.aim.vertical,c.action.use)
 		end
 	end
---]]
 
 	local xcell,ycell=map.getcell(Game.map,a.x,a.y)
 	local xdest,ydest=a.x + a.vec[1]*a.vel*a.speed*gs,a.y - a.vec[2]*a.vel*a.speed*gs
@@ -37,8 +35,8 @@ local function control(a,gs)
 	end
 
 	if collx or colly then
-		if _G[EA[Enums.games[Game.t]][a.t]]["collision"] then
-			_G[EA[Enums.games[Game.t]][a.t]]["collision"](a)
+		if _G[EA[Game.name][a.t]]["collision"] then
+			_G[EA[Game.name][a.t]]["collision"](a)
 		end
 		if flags.get(a.flags,EF.bouncy) then
 			if collx then

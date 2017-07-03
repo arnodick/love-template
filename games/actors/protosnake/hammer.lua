@@ -9,6 +9,7 @@ local function make(a,c)
 
 	a.cost=3
 	module.make(a,EM.hitradius,4)
+	module.make(a,EM.item)
 end
 
 local function control(a)
@@ -18,10 +19,10 @@ local function control(a)
 		end
 	end
 	for i,v in pairs(Game.actors) do
-		if v.t==EA[Enums.games[Game.t]].projectile then
+		if v.t==EA[Game.name].projectile then
 			if actor.collision(v.x,v.y,a) then
 			for i=1,20 do
-				local spark=actor.make(EA[Enums.games[Game.t]].spark,v.x,v.y)
+				local spark=actor.make(EA[Game.name].spark,v.x,v.y)
 					spark.c=v.cinit
    				end
 				v.delete=true

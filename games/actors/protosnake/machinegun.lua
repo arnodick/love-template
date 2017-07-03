@@ -9,7 +9,7 @@ local function make(a,c,bc)
 	a.num=1
 	a.acc=0.015
 	a.snd=2
-	a.proj=EA[Enums.games[Game.t]].bullet
+	a.proj=EA[Game.name].bullet
 	module.make(a,EM.item)
 end
 
