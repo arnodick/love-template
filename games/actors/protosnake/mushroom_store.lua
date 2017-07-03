@@ -15,7 +15,7 @@ local function make(a,c,size,spr,hp)
 end
 
 local function control(a)
-	local dist=vector.distance(a.x,a.y,Player.x,Player.y)
+	local dist=vector.distance(a.x,a.y,Game.player.x,Game.player.y)
 
 	if dist<30 then
 		if not a.menu then

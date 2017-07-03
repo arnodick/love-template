@@ -11,14 +11,14 @@ local function make(a)
 end
 
 local function control(a,gs)
-	if actor.collision(a.x,a.y,Player) then	
-		--if Player.controller.action or #Player.inventory<1 then
-		if #Player.inventory<1 then
+	if actor.collision(a.x,a.y,Game.player) then	
+		--if Game.player.controller.action or #Game.player.inventory<1 then
+		if #Game.player.inventory<1 then
 			if a.getsfx then
 				sfx.play(a.getsfx)
 			end
 			a.flags=flags.set(a.flags,EF.persistent)
-			table.insert(Player.inventory,1,a)
+			table.insert(Game.player.inventory,1,a)
 		end
 	end
 end

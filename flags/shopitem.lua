@@ -1,7 +1,7 @@
 local function control(a,target)
 	if vector.distance(a.x,a.y,target.x,target.y)<30 then
 		sprites.blink(a,24)
-		if target.controller.aim.action then
+		if target.controller.action then
 			if target.coin>=a.cost then
 				a.flags=flags.switch(a.flags,EF.shopitem)
 				actor.corpse(a.menu,a.menu.w+1,a.menu.h+1,true)

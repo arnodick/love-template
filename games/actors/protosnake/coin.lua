@@ -35,10 +35,10 @@ local function control(a,gs)
 		a.scaley=a.scaley-0.1*gs
 	end
 	if a.follow then
-		local dist=vector.distance(a.x,a.y,Player.x,Player.y)
+		local dist=vector.distance(a.x,a.y,Game.player.x,Game.player.y)
 		if dist<30 then
 			if not a.controller then
-				module.make(a,EM.controller,EMC.move,EMI.ai,Player)
+				module.make(a,EM.controller,EMC.move,EMI.ai,Game.player)
 			end
 			a.speed=8/dist
 		else

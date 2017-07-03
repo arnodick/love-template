@@ -61,7 +61,7 @@ local function control(a,gs)
 	end
 
 	if flags.get(a.flags,EF.shopitem) then
-		shopitem.control(a,Player)
+		shopitem.control(a,Game.player)
 	end
 
 	if a.inventory then
@@ -156,7 +156,7 @@ local function damage(a,d)
 				--sfx.play(a.deathsnd,a.x,a.y)
 				a.delete=true
 
-				if Player.hp>0 then
+				if Game.player.hp>0 then
 					if a.value then
 						Game.score=Game.score+a.value
 						local l=Game.levels.current

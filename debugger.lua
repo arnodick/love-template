@@ -18,20 +18,20 @@ local function update(d)
 		if Game.level then
 			table.insert(debuglist,"Level:"..Game.level)
 		end
-		if Player then
-			table.insert(debuglist,"player x:"..Player.x)
-			table.insert(debuglist,"player y:"..Player.y)
-			local xc,yc=map.getcell(Game.map,Player.x,Player.y)
+		if Game.player then
+			table.insert(debuglist,"player x:"..Game.player.x)
+			table.insert(debuglist,"player y:"..Game.player.y)
+			local xc,yc=map.getcell(Game.map,Game.player.x,Game.player.y)
 			table.insert(debuglist,"player x cell:"..xc)
 			table.insert(debuglist,"player y cell:"..yc)
-			table.insert(debuglist,"player dir:"..Player.d)
-			table.insert(debuglist,"player vx:"..Player.vec[1])
-			table.insert(debuglist,"player vy:"..Player.vec[2])
-			table.insert(debuglist,"player vel:"..Player.vel)
-			table.insert(debuglist,"player input: "..tostring(Player.input))
-			if Player.inventory then
-				if Player.inventory[1] then
-					table.insert(debuglist,"player item angle:"..Player.inventory[1].angle)
+			table.insert(debuglist,"player dir:"..Game.player.d)
+			table.insert(debuglist,"player vx:"..Game.player.vec[1])
+			table.insert(debuglist,"player vy:"..Game.player.vec[2])
+			table.insert(debuglist,"player vel:"..Game.player.vel)
+			table.insert(debuglist,"player input: "..tostring(Game.player.input))
+			if Game.player.inventory then
+				if Game.player.inventory[1] then
+					table.insert(debuglist,"player item angle:"..Game.player.inventory[1].angle)
 				end
 			end
 		end

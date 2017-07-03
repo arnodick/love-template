@@ -1,8 +1,8 @@
 local function control(a,gs)
 	if not flags.get(a.flags,EF.shopitem) then
-		if actor.collision(a.x,a.y,Player) then
-			if Player[EA[Enums.games[Game.t]][a.t]] then
-				Player[EA[Enums.games[Game.t]][a.t]] = Player[EA[Enums.games[Game.t]][a.t]] + a.value
+		if actor.collision(a.x,a.y,Game.player) then
+			if Game.player[EA[Enums.games[Game.t]][a.t]] then
+				Game.player[EA[Enums.games[Game.t]][a.t]] = Game.player[EA[Enums.games[Game.t]][a.t]] + a.value
 			end
 			for i,v in pairs(Game.actors) do
 				if v.t==EA[Enums.games[Game.t]].coin then

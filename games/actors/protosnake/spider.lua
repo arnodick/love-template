@@ -8,7 +8,7 @@ local function make(a,c,size,spr,hp)
 	a.value=1
 	a.speed=1.5
 
-	module.make(a,EM.target,Player)
+	module.make(a,EM.target,Game.player)
 	
 	--TODO make this stuff into some sort of function?
 	local dir=vector.direction(vector.components(a.x,a.y,a.target.x,a.target.y))
@@ -21,6 +21,8 @@ local function make(a,c,size,spr,hp)
 	module.make(a,EM.animation,EM.animations.frames,6,2)
 	module.make(a,EM.hitradius,8)
 	a.flags=flags.set(a.flags,EF.character,EF.enemy,EF.damageable, EF.shootable, EF.explosive)
+
+	sfx.play(12)
 end
 
 local function control(a)
@@ -44,7 +46,7 @@ local function control(a)
 		sfx.play(12)
 	end
 
-	if Player.hp<=0 then
+	if Game.player.hp<=0 then
 		for i,v in ipairs(Game.actors) do
 			if flags.get(v.flags,EF.enemy) then
 				if v~=a then

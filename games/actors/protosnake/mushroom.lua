@@ -8,7 +8,7 @@ local function make(a,c,size,spr,hp)
 	a.value=1
 	a.speed=2
 
-	module.make(a,EM.target,Player)
+	module.make(a,EM.target,Game.player)
 
 	module.make(a,EM.controller,EMC.move,EMI.ai,a.x,a.y)
 	module.make(a,EM.hit,3,6,EC.white)
@@ -55,7 +55,7 @@ local function control(a)
 			a.controller.move.target.x,a.controller.move.target.y=x,y
 		end
 	elseif movedist<=a.vel then--if you've made it to safety then look out for player again
-		module.make(a,EM.target,Player)
+		module.make(a,EM.target,Game.player)
 	end
 end
 

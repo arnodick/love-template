@@ -32,7 +32,7 @@ local function control(a,gs)
 
 	a.image=LG.newImage(imgdata)
 
-	local dist=vector.distance(a.x,a.y,Player.x,Player.y)
+	local dist=vector.distance(a.x,a.y,Game.player.x,Game.player.y)
 	if dist<20 then
 		for i,v in pairs(Game.actors) do
 			if flags.get(v.flags,EF.enemy) then

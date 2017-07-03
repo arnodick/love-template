@@ -16,14 +16,14 @@ local function draw(g,h)
 	LG.setColor(g.palette[h.c])
 
 	LG.print("score:"..g.score,g.camera.x+h.score.x,g.camera.y+h.score.y)
-	LG.print("coins:"..Player.coin,g.camera.x+h.coins.x,g.camera.y+h.coins.y)
-	LG.print("hp:"..Player.hp,g.camera.x+h.hp.x,g.camera.y+h.hp.y)
+	LG.print("coins:"..Game.player.coin,g.camera.x+h.coins.x,g.camera.y+h.coins.y)
+	LG.print("hp:"..Game.player.hp,g.camera.x+h.hp.x,g.camera.y+h.hp.y)
 
-	for i=1,Player.inventory.max do
+	for i=1,Game.player.inventory.max do
 		local x,y=g.width/2+40-i*20,20
 		LG.rectangle("line",x,y,15,15)
-		if Player.inventory[i] then
-			local a=Player.inventory[i]
+		if Game.player.inventory[i] then
+			local a=Game.player.inventory[i]
 			LG.draw(Spritesheet[a.size],Quads[a.size][a.spr],x+7,y+7,a.angle,1,1,(a.size*g.tile.width)/2,(a.size*g.tile.height)/2)
 		end
 	end
@@ -32,7 +32,7 @@ local function draw(g,h)
 		LG.printformat("PAUSE",g.camera.x+140,g.camera.y+g.height/2,g.width,"left",EC.white,h.c)
 	end
 
-	if Player.hp <= 0 then
+	if Game.player.hp <= 0 then
 		LG.printformat("YOU DIED",0,g.height/2-66,g.width,"center",EC.white,h.c)
 		LG.printformat("PRESS SPACE",0,g.height/2+60,g.width,"center",EC.white,h.c)
 	end

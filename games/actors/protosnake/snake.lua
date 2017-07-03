@@ -7,7 +7,7 @@ local function make(a,c,size,spr,hp)
 
 	a.value=1
 
-	module.make(a,EM.controller,EMC.aim,EMI.ai,Player)
+	module.make(a,EM.controller,EMC.aim,EMI.ai,Game.player)
 	module.make(a,EM.controller,EMC.action,EMI.ai,0.01,0)
 
 	module.make(a,EM.hit,3,6,EC.white)
@@ -26,8 +26,11 @@ end
 
 local function control(a)
 	a.rage=math.floor(Game.score/5)
+
+	a.controller.action.chance[1]=love.math.random( math.max(40-(a.rage*10),10) ) / 1000
+
 	a.c=a.cinit+a.rage
-	if Player.hp<=0 then
+	if Game.player.hp<=0 then
 		for i,v in ipairs(Game.actors) do
 			if flags.get(v.flags,EF.enemy) then
 				if v~=a then
