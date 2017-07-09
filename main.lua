@@ -14,7 +14,8 @@ SFX = sfx.load(false,true)
 Music = music.load()
 
 function love.load()
-	Game = game.make(Enums.games.protosnake,Enums.games.modes.topdown,8,8,320,240,1)--TODO this is where load from ini or whatever will happen. or rather, laod from type! g.t=Enums.games.PROTOSNAKE
+	Game = game.make(Enums.games.iso,Enums.games.modes.isometric,32,32,640,480,1)
+	--Game = game.make(Enums.games.protosnake,Enums.games.modes.topdown,8,8,320,240,1)--TODO this is where load from ini or whatever will happen. or rather, laod from type! g.t=Enums.games.PROTOSNAKE
 	--Game = game.make(Enums.games.rpg,Enums.games.modes.roguelike,8,8,320,240,1)
 	--debugger.printtable(Game)
 end
