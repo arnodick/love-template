@@ -31,11 +31,11 @@ local function control(a)
 		actor.damage(a,a.hp)
 	end
 
-	if a.controller.move then
+	if a.controller.move.target then
 		local t=a.controller.move.target
 		local targetdistance=vector.distance(a.x,a.y,t.x,t.y)
 		if targetdistance<=a.vel then
-			a.controller.move=nil
+			a.controller.move.target=nil
 		end
 	else
 		local dir=vector.direction(vector.components(a.x,a.y,a.target.x,a.target.y))

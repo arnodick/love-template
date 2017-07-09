@@ -7,7 +7,7 @@ local function make(g)
 	g.map=map.generate(Enums.games.maps.map_2d,mw+2,mh+2)
 
 	g.player=actor.make(EA[Game.name].player,g.width/2,g.height/2)
-	module.make(a,EM.player)
+	--module.make(a,EM.player)
 
 	g.level=1
 	g.levels.current=level.make(g.level)

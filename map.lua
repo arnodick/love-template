@@ -39,8 +39,8 @@ local function load(m)
 end
 
 local function draw(m)
-	if _G[m.t]["draw"] then
-		_G[m.t]["draw"](m)
+	if _G[Enums.games.maps[m.t]]["draw"] then
+		_G[Enums.games.maps[m.t]]["draw"](m)
 	end
 	--[[
 	local tw,th=Game.tile.width,Game.tile.height
