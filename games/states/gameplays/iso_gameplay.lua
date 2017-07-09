@@ -18,7 +18,7 @@ local function keypressed(g,key)
 	elseif key=='space' then
 		local mw,mh=g.width/g.tile.width,g.height/g.tile.height
 		g.timer=0
-		g.map=map.generate(mw,mh)
+		g.map=map.generate(Enums.games.maps.map_isometric,mw,mh)
 	end
 end
 
