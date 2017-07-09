@@ -1,6 +1,6 @@
 local function make(g)
 	local mw,mh=g.width/g.tile.width,g.height/g.tile.height
-	g.map=map.generate(mw+2,mh+2)
+	g.map=map.generate(Enums.games.maps.map_2d,mw+2,mh+2)
 
 	g.step=false
 

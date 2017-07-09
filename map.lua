@@ -1,5 +1,6 @@
-local function generate(w,h)
+local function generate(t,w,h)
 	local m={}
+	m.t=t
 	for y=1,h do
 		table.insert(m,{})
 		for x=1,w do
@@ -38,6 +39,10 @@ local function load(m)
 end
 
 local function draw(m)
+	if _G[m.t]["draw"] then
+		_G[m.t]["draw"](m)
+	end
+	--[[
 	local tw,th=Game.tile.width,Game.tile.height
 	if Game.levels then
 		local c=Game.palette[Game.levels.current.c]
@@ -55,6 +60,7 @@ local function draw(m)
 	for x=1,#m[1]-1 do
 		LG.line(x*tw+1,0,x*tw+1,Game.height)
 	end
+	--]]
 end
 
 return

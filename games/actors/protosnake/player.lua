@@ -28,7 +28,7 @@ local function make(a,c,size,spr,hp)
 	module.make(a,EM.inventory,2)
 	actor.make(EA[Game.name].machinegun,a.x,a.y,0,0,EC.dark_purple,EC.dark_purple)
 	a.flags=flags.set(a.flags,EF.character,EF.persistent,EF.damageable, EF.shootable, EF.explosive)
-	print(EF.shootable)
+	--print(EF.shootable)
 
 	--animation.make(a,2,32) --SWEET GLITCH ANIMATION
 end

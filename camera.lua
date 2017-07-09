@@ -6,6 +6,7 @@ local function make(x,y)
 	c.shake=0
 	c.hit=0
 	return c
+	--TODO this should insert itself into Game.cameras, can have multiple cameras and jump around from one to another
 end
 
 local function control(c,t,gs)
