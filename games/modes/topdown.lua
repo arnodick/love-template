@@ -51,7 +51,50 @@ local function control(a,gs)
 	end
 end
 
+local function draw(a)
+	if _G[EA[Game.name][a.t]]["predraw"] then
+		_G[EA[Game.name][a.t]]["predraw"](a)
+	end
+
+	local r,g,b=unpack(Game.palette[a.c])
+	local alpha=255
+	if a.alpha then
+		alpha=a.alpha
+	end
+	LG.setColor(r,g,b,alpha)
+	sprites.draw(a)
+
+	if a.char then
+		LG.print(a.char,a.x,a.y)
+	end
+
+	if _G[EA[Game.name][a.t]]["draw"] then
+		_G[EA[Game.name][a.t]]["draw"](a)
+	end
+
+	if a.tail then
+		tail.draw(a.tail)
+	end
+
+	if Debugger.debugging then
+		LG.setColor(Game.palette[EC.blue])
+		if a.hitradius then
+			hitradius.draw(a)
+		elseif a.hitbox then
+			hitbox.draw(a)
+		end
+		LG.points(a.x,a.y)
+		if a.deltimer then
+			LG.print(a.deltimer,a.x,a.y)
+		end
+		--LG.print(a.flags,a.x+8,a.y-8)
+	end
+
+	LG.setColor(Game.palette[EC.pure_white])
+end
+
 return
 {
 	control = control,
+	draw = draw,
 }

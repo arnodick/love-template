@@ -75,6 +75,7 @@ local function graphics(g,tw,th,gw,gh)
 	tw,th=8,8
 	for a=1,#files do
 		local ss,qs = sprites.load("gfx/"..files[a],tw*2^(a-1),th*2^(a-1))
+		--local ss,qs = sprites.load("gfx/"..files[a],8*2^(a-1),8*2^(a-1))
 		table.insert(Spritesheet,ss)
 		table.insert(Quads,qs)
 	end

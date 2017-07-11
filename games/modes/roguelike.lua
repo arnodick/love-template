@@ -37,7 +37,12 @@ local function control(a,gs)
 	end
 end
 
+local function draw()
+	
+end
+
 return
 {
 	control = control,
+	draw = draw,
 }
