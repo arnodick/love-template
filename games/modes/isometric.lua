@@ -2,11 +2,17 @@ local function control(a,gs)
 	if a.controller then
 		local c=a.controller.move
 		if c then
-			a.vec[1]=c.movehorizontal
-			a.vec[2]=c.movevertical
+			a.d=vector.direction(c.horizontal,-c.vertical)
+			a.vel=vector.length(c.horizontal,c.vertical)
 		end
 	end
+	a.vec[1] = math.cos(a.d)
+	a.vec[2] = math.sin(a.d)
 
+	local xdest,ydest=a.x + a.vec[1]*8,a.y - a.vec[2]*8
+	a.x = xdest
+	a.y = ydest
+--[[
 	local tw,th=Game.tile.width,Game.tile.height
 
 	local xcell,ycell=map.getcell(Game.map,a.x,a.y)
@@ -30,14 +36,20 @@ local function control(a,gs)
 		end
 
 		if collx or colly then
-			if _G[EA[Game.name][a.t]]["collision"] then
-				_G[EA[Game.name][a.t]]["collision"](a)
+			if _G[EA[Game.name][a.t] ]["collision"] then
+				_G[EA[Game.name][a.t] ]["collision"](a)
 			end
 		end
 	end
+--]]
+end
+
+local function draw(a)
+	LG.draw(Spritesheet[a.size],Quads[a.size][a.spr],a.x,a.y,a.angle,1,1,(a.size*8)/2,(a.size*8)/2)
 end
 
 return
 {
 	control = control,
+	draw = draw,
 }
