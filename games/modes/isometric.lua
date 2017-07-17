@@ -9,7 +9,7 @@ local function control(a,gs)
 	a.vec[1] = math.cos(a.d)
 	a.vec[2] = math.sin(a.d)
 
-	local xdest,ydest=a.x + a.vec[1]*8,a.y - a.vec[2]*8
+	local xdest,ydest=a.x + a.vec[1]*a.vel*a.speed*gs,a.y - a.vec[2]*a.vel*a.speed*gs
 	a.x = xdest
 	a.y = ydest
 --[[
@@ -45,7 +45,16 @@ local function control(a,gs)
 end
 
 local function draw(a)
-	LG.draw(Spritesheet[a.size],Quads[a.size][a.spr],a.x,a.y,a.angle,1,1,(a.size*8)/2,(a.size*8)/2)
+	local x,y=map.getcell(Game.map,Game.player.x,Game.player.y)
+	local tw,th=Game.tile.width,Game.tile.height
+	--local isox=(x-1)*tw/2
+	--local isoy=(y-1)*th/4
+	local isox=(a.x)/2
+	local isoy=(a.y)/4
+	
+	--LG.draw(Spritesheet[a.size],Quads[a.size][a.spr],isox+230,isoy+50,a.angle,1,1,(y-1)*tw/2,(x-1)*-th/4)
+	--LG.draw(Spritesheet[a.size],Quads[a.size][a.spr],isox+230,isoy+50,a.angle,1,1,(y-1)*tw/2+(a.size*tw)/2,(x-1)*-th/4+(a.size*th)/2)
+	LG.draw(Spritesheet[a.size],Quads[a.size][a.spr],isox,isoy,a.angle,1,1,(y-1)*tw/2+(a.size*tw)/2,(x-1)*-th/4+(a.size*th)/2)
 end
 
 return

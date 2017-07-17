@@ -42,12 +42,12 @@ local function control(s)
 	else
 		--LG.setShader(Shader)
 
-		LG.translate(-Game.camera.x+(love.math.random(Game.camera.shake/2))*s.scale,-Game.camera.y)
+		--LG.translate(-Game.camera.x+(love.math.random(Game.camera.shake/2))*s.scale,-Game.camera.y)
 
 		LG.draw(Game.canvas.static,s.xoff,s.yoff,0,s.scale*Game.camera.zoom,s.scale*Game.camera.zoom)
 		LG.draw(Game.canvas.main,s.xoff,s.yoff,0,s.scale*Game.camera.zoom,s.scale*Game.camera.zoom) --just like draws everything to the screen or whatever
 
-		LG.origin()
+		--LG.origin()
 
 		--LG.setShader()
 	end

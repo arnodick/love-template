@@ -9,8 +9,8 @@ local function make(a,c,size,spr,hp)
 
 	a.cinit=c or EC.dark_blue
 	a.c=a.cinit or EC.blue
-	a.size=size or 1
-	a.spr=spr or 81
+	a.size=size or 2
+	a.spr=spr or 48
 	a.hp=hp or 8
 
 	module.make(a,EM.animation,EM.animations.frames,10,2)

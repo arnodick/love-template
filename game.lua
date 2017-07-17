@@ -39,10 +39,15 @@ local function gamepadpressed(g,button)
 end
 
 local function draw(g)
+	local s=Screen
+	LG.translate(-Game.camera.x+(love.math.random(Game.camera.shake/2))*s.scale,-Game.camera.y)
+
 	LG.setCanvas(g.canvas.main) --sets drawing to the primary canvas that refreshes every frame
 		LG.clear() --cleans that messy ol canvas all up, makes it all fresh and new and good you know
 		game.state.draw(g)
 	LG.setCanvas() --sets drawing back to screen
+
+	LG.origin()
 
 	screen.control(Screen)
 end
