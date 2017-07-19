@@ -25,7 +25,7 @@ local function control(a,gs)
 			th=th-diff
 		end
 
-	local imgdata=Game.canvas.static:newImageData(ix,iy,tw,th)
+	local imgdata=Game.canvas.background:newImageData(ix,iy,tw,th)
 
 	imgdata:mapPixel(pixelmaps.sparkle)
 	imgdata:mapPixel(pixelmaps.crush)
@@ -50,7 +50,7 @@ local function control(a,gs)
 end
 
 local function draw(a)
-	LG.setCanvas(Game.canvas.static)
+	LG.setCanvas(Game.canvas.background)
 		LG.setColor(Game.palette[EC.pure_white])
 		LG.draw(a.image,a.x,a.y,0,1,1,a.sizeinit,a.sizeinit)
 		LG.setColor(Game.palette[a.c])

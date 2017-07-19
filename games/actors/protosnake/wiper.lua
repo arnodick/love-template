@@ -6,7 +6,7 @@ end
 
 local function draw(a)
 	LG.line(a.x,0,a.x,Game.height)
-	LG.setCanvas(Game.canvas.static)
+	LG.setCanvas(Game.canvas.background)
 		LG.setColor(Game.palette[EC.black])
 		LG.line(a.x,0,a.x,Game.height)
 	LG.setCanvas(Game.canvas.main)

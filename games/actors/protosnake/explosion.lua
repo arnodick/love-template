@@ -4,7 +4,7 @@ local function make(a,c,size)
 	a.c=a.cinit
 	a.size=size or 20
 	a.r=0
-	Game.camera.shake=a.size
+	Screen.shake=a.size
 end
 
 local function control(a,gs)

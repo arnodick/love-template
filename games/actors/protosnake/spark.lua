@@ -15,7 +15,7 @@ end
 local function draw(a)
 	LG.points(a.x,a.y)
 	if a.vel<=0 then
-		LG.setCanvas(Game.canvas.static)
+		LG.setCanvas(Game.canvas.background)
 			LG.points(a.x,a.y)
 		LG.setCanvas(Game.canvas.main)
 	end

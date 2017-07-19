@@ -41,6 +41,10 @@ local function keypressed(g,key)
 	elseif key=='escape' then
 		game.state.make(g,Enums.games.states.title)
 	end
+
+	if key=='right' then
+		g.camera.x=g.camera.x+10
+	end
 end
 
 local function gamepadpressed(g,button)

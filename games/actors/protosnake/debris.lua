@@ -20,7 +20,7 @@ local function draw(a)
 	if a.image then
 		LG.draw(a.image,a.x,a.y,a.angle,1,1,(Game.tile.width)/2,(Game.tile.height)/2)
 		if a.vel<=0 then
-			LG.setCanvas(Game.canvas.static)
+			LG.setCanvas(Game.canvas.background)
 				LG.draw(a.image,a.x,a.y,a.angle,1,1,(Game.tile.width)/2,(Game.tile.height)/2)
 			LG.setCanvas(Game.canvas.main)
 		end
@@ -31,7 +31,7 @@ local function draw(a)
 		--LG.line(a.x,a.y,a.x+xl*-a.len,a.y+yl*-a.len)
 		LG.line(a.x,a.y,a.x+xl2*a.len,a.y+yl2*a.len)
 		if a.vel<=0 then
-			LG.setCanvas(Game.canvas.static)
+			LG.setCanvas(Game.canvas.background)
 				LG.line(a.x,a.y,a.x+xl*a.len,a.y+yl*a.len)
 				--LG.line(a.x,a.y,a.x+xl*-a.len,a.y+yl*-a.len)
 				LG.line(a.x,a.y,a.x+xl2*a.len,a.y+yl2*a.len)

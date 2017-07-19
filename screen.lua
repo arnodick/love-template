@@ -9,10 +9,15 @@ local function update(gw,gh)
 	s.pixelscalerate=s.pixelscalerateinit
 	s.pixelscalemin=0.1
 	s.pixeltrans=false
+	s.shake=0
 	return s
 end
 
-local function control(s)
+local function control(s,gs)
+	if s.shake>0 then
+		s.shake = s.shake - gs
+	end
+	local shake=love.math.random(s.shake/2)*s.scale
 	if s.pixeltrans then
 		local tempcanvas=LG.newCanvas(Game.width*s.pixelscale,Game.height*s.pixelscale)
 		LG.setCanvas(tempcanvas)
@@ -21,10 +26,10 @@ local function control(s)
 
 		--LG.setShader(Shader)
 
-		LG.translate(-Game.camera.x+(love.math.random(Game.camera.shake/2))*s.scale,-Game.camera.y)
-		LG.draw(Game.canvas.static,s.xoff,s.yoff,0,s.scale,s.scale)
-		LG.draw(tempcanvas,s.xoff,s.yoff,0,s.scale*1/s.pixelscale,s.scale*1/s.pixelscale) --just like draws everything to the screen or whatever
-		LG.origin()
+		--LG.translate(-Game.camera.x+(love.math.random(Game.camera.shake/2))*s.scale,-Game.camera.y)
+		LG.draw(Game.canvas.background,s.xoff+shake,s.yoff,0,s.scale,s.scale)
+		LG.draw(tempcanvas,s.xoff+shake,s.yoff,0,s.scale*1/s.pixelscale,s.scale*1/s.pixelscale) --just like draws everything to the screen or whatever
+		--LG.origin()
 		s.pixelscale=s.pixelscale+s.pixelscalerate*Game.speed
 		if s.pixelscalerate<0 then
 			if s.pixelscale<=s.pixelscalemin then
@@ -41,14 +46,11 @@ local function control(s)
 		--LG.setShader()
 	else
 		--LG.setShader(Shader)
-
-		--LG.translate(-Game.camera.x+(love.math.random(Game.camera.shake/2))*s.scale,-Game.camera.y)
-
-		LG.draw(Game.canvas.static,s.xoff,s.yoff,0,s.scale*Game.camera.zoom,s.scale*Game.camera.zoom)
-		LG.draw(Game.canvas.main,s.xoff,s.yoff,0,s.scale*Game.camera.zoom,s.scale*Game.camera.zoom) --just like draws everything to the screen or whatever
-
+		local g=Game
+		--LG.translate(-g.camera.x+(love.math.random(g.camera.shake/2))*s.scale,-g.camera.y)
+		LG.draw(g.canvas.background,s.xoff+shake,s.yoff,0,s.scale*g.camera.zoom,s.scale*g.camera.zoom)
+		LG.draw(g.canvas.main,s.xoff+shake,s.yoff,0,s.scale*g.camera.zoom,s.scale*g.camera.zoom) --just like draws everything to the screen or whatever
 		--LG.origin()
-
 		--LG.setShader()
 	end
 end

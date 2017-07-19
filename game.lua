@@ -40,7 +40,7 @@ end
 
 local function draw(g)
 	local s=Screen
-	LG.translate(-Game.camera.x+(love.math.random(Game.camera.shake/2))*s.scale,-Game.camera.y)
+	LG.translate(-g.camera.x,-g.camera.y)
 
 	LG.setCanvas(g.canvas.main) --sets drawing to the primary canvas that refreshes every frame
 		LG.clear() --cleans that messy ol canvas all up, makes it all fresh and new and good you know
@@ -49,7 +49,7 @@ local function draw(g)
 
 	LG.origin()
 
-	screen.control(Screen)
+	screen.control(Screen,g.speed)
 end
 
 local function graphics(g,tw,th,gw,gh)
@@ -80,7 +80,6 @@ local function graphics(g,tw,th,gw,gh)
 	tw,th=8,8
 	for a=1,#files do
 		local ss,qs = sprites.load("gfx/"..files[a],tw*2^(a-1),th*2^(a-1))
-		--local ss,qs = sprites.load("gfx/"..files[a],8*2^(a-1),8*2^(a-1))
 		table.insert(Spritesheet,ss)
 		table.insert(Quads,qs)
 	end
@@ -91,7 +90,7 @@ local function graphics(g,tw,th,gw,gh)
 
 	g.canvas = {}
 	g.canvas.buffer = LG.newCanvas(gw,gh) --offscreen buffer to draw to, modify, then draw to main canvas
-	g.canvas.static = LG.newCanvas(gw,gh) --this canvas doesn't clear every frame, so anything drawn to it stays
+	g.canvas.background = LG.newCanvas(gw,gh) --this canvas doesn't clear every frame, so anything drawn to it stays
 	g.canvas.main = LG.newCanvas(gw,gh) --this canvas refreshes every frame, and is where most of the drawing happens
 end
 
