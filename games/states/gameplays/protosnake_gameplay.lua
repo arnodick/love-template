@@ -44,6 +44,12 @@ local function keypressed(g,key)
 
 	if key=='right' then
 		g.camera.x=g.camera.x+10
+	elseif key=='left' then
+		g.camera.x=g.camera.x-10
+	elseif key=='up' then
+		g.camera.y=g.camera.y-10
+	elseif key=='down' then
+		g.camera.y=g.camera.y+10
 	end
 end
 

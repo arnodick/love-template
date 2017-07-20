@@ -25,10 +25,10 @@ local function draw(m)
 		LG.setColor(Game.palette[EC.red])
 	end
 
-	for y=1,#m-1 do
+	for y=1,#m-2 do
 		LG.line(0,y*th+1,Game.width,y*th+1)
 	end
-	for x=1,#m[1]-1 do
+	for x=1,#m[1]-2 do
 		LG.line(x*tw+1,0,x*tw+1,Game.height)
 	end
 end

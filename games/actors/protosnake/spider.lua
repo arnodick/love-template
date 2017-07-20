@@ -37,7 +37,8 @@ local function control(a)
 		if targetdistance<=a.vel then
 			a.controller.move.target=nil
 		end
-	else
+	end
+	if not a.controller.move.target then
 		local dir=vector.direction(vector.components(a.x,a.y,a.target.x,a.target.y))
 		local dist=vector.distance(a.x,a.y,a.target.x,a.target.y)*1.5
 		local x=math.clamp(a.x+math.cos(dir)*dist,0,Game.width)

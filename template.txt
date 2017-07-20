@@ -5,7 +5,6 @@ input Game into
 	actors.control, make etc
 things that couold be modules maybe
 	player as module
-	camera
 	cursor
 make different counter types, make one for counter.t=table_counter
 character to corpse module, or make corpse a drop or something
@@ -102,6 +101,7 @@ NO
 things that couold be modules maybe
 	level
 	map
+	camera
 menu x,y offset or something
 maybe enums generation just goes in libraries load?
 	figure out how enums.lua and libraries.lua are different, merge them
