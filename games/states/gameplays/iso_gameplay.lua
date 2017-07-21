@@ -7,8 +7,8 @@ local function make(g)
 	g.player=actor.make(EA[g.name].iso_player,g.width/2,g.height/2)
 	--actor.make(EA[Game.name].rpg_enemy,g.width/2,g.height/2)
 
-	g.camera.x=-230
-	g.camera.y=-50
+	--g.camera.x=-230
+	--g.camera.y=-50
 end
 
 local function control(g)
@@ -22,11 +22,6 @@ local function keypressed(g,key)
 		local mw,mh=g.width/g.tile.width,g.height/g.tile.height
 		g.timer=0
 		g.map=map.generate(Enums.games.maps.map_isometric,mw,mh)
-	end
-
-	if key=='right' then
-		g.camera.x=g.camera.x-1
-		--g.camera.y=50
 	end
 end
 

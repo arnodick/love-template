@@ -26,30 +26,9 @@ local function keypressed(g,key)
 	if key=='space' then
 		if Game.player.hp<=0 then
 			game.state.make(g,Enums.games.states.gameplay)
-		--[[
-		else
-			Screen.pixeltrans=true
-			if g.camera.zoom==1 then
-				g.camera.zoom=2
-			else
-				g.camera.zoom=1
-			end
-		
-			g.levels.current=level.make("store")
-		--]]
 		end
 	elseif key=='escape' then
 		game.state.make(g,Enums.games.states.title)
-	end
-
-	if key=='right' then
-		g.camera.x=g.camera.x+10
-	elseif key=='left' then
-		g.camera.x=g.camera.x-10
-	elseif key=='up' then
-		g.camera.y=g.camera.y-10
-	elseif key=='down' then
-		g.camera.y=g.camera.y+10
 	end
 end
 

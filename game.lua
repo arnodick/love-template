@@ -32,6 +32,22 @@ end
 
 local function keypressed(g,key,scancode,isrepeat)
 	game.state.keypressed(g,key)
+
+	if key=='right' then
+		g.camera.x=g.camera.x+10
+	elseif key=='left' then
+		g.camera.x=g.camera.x-10
+	elseif key=='up' then
+		g.camera.y=g.camera.y-10
+	elseif key=='down' then
+		g.camera.y=g.camera.y+10
+	end
+
+	if key=='z' then
+		g.camera.zoom=g.camera.zoom+0.1
+	elseif key=='x' then
+		g.camera.zoom=g.camera.zoom-0.1
+	end
 end
 
 local function gamepadpressed(g,button)
@@ -40,7 +56,9 @@ end
 
 local function draw(g)
 	local s=Screen
-	LG.translate(-g.camera.x,-g.camera.y)
+	--LG.translate(Screen.width/2/g.camera.zoom,Screen.height/2/g.camera.zoom)
+
+	LG.translate(-g.camera.x+g.width/2,-g.camera.y+g.height/2)
 
 	LG.setCanvas(g.canvas.main) --sets drawing to the primary canvas that refreshes every frame
 		LG.clear() --cleans that messy ol canvas all up, makes it all fresh and new and good you know
@@ -49,7 +67,11 @@ local function draw(g)
 
 	LG.origin()
 
+	--LG.translate(g.camera.x*Screen.scale,g.camera.y*Screen.scale)
+		LG.scale(g.camera.zoom)
+	--LG.translate(-g.camera.x*Screen.scale,-g.camera.y*Screen.scale)
 	screen.control(Screen,g.speed)
+	
 end
 
 local function graphics(g,tw,th,gw,gh)

@@ -26,10 +26,9 @@ local function control(s,gs)
 
 		--LG.setShader(Shader)
 
-		--LG.translate(-Game.camera.x+(love.math.random(Game.camera.shake/2))*s.scale,-Game.camera.y)
 		LG.draw(Game.canvas.background,s.xoff+shake,s.yoff,0,s.scale,s.scale)
 		LG.draw(tempcanvas,s.xoff+shake,s.yoff,0,s.scale*1/s.pixelscale,s.scale*1/s.pixelscale) --just like draws everything to the screen or whatever
-		--LG.origin()
+
 		s.pixelscale=s.pixelscale+s.pixelscalerate*Game.speed
 		if s.pixelscalerate<0 then
 			if s.pixelscale<=s.pixelscalemin then
@@ -47,10 +46,8 @@ local function control(s,gs)
 	else
 		--LG.setShader(Shader)
 		local g=Game
-		--LG.translate(-g.camera.x+(love.math.random(g.camera.shake/2))*s.scale,-g.camera.y)
-		LG.draw(g.canvas.background,s.xoff+shake,s.yoff,0,s.scale*g.camera.zoom,s.scale*g.camera.zoom)
-		LG.draw(g.canvas.main,s.xoff+shake,s.yoff,0,s.scale*g.camera.zoom,s.scale*g.camera.zoom) --just like draws everything to the screen or whatever
-		--LG.origin()
+		LG.draw(g.canvas.background,s.xoff+shake,s.yoff,0,s.scale,s.scale)
+		LG.draw(g.canvas.main,s.xoff+shake,s.yoff,0,s.scale,s.scale) --just like draws everything to the screen or whatever
 		--LG.setShader()
 	end
 end
