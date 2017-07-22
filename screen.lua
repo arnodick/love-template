@@ -46,8 +46,10 @@ local function control(s,gs)
 	else
 		--LG.setShader(Shader)
 		local g=Game
-		LG.draw(g.canvas.background,s.xoff+shake,s.yoff,0,s.scale,s.scale)
-		LG.draw(g.canvas.main,s.xoff+shake,s.yoff,0,s.scale,s.scale) --just like draws everything to the screen or whatever
+		--LG.draw(g.canvas.background,s.xoff+shake,s.yoff,0,s.scale,s.scale)
+		--LG.draw(g.canvas.main,s.xoff+shake,s.yoff,0,s.scale,s.scale) --just like draws everything to the screen or whatever
+		LG.draw(g.canvas.background,g.width,g.height,0,s.scale*g.camera.zoom,s.scale*g.camera.zoom,g.width/2,g.height/2)
+		LG.draw(g.canvas.main,g.width,g.height,0,s.scale*g.camera.zoom,s.scale*g.camera.zoom,g.width/2,g.height/2) --just like draws everything to the screen or whatever
 		--LG.setShader()
 	end
 end

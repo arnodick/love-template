@@ -63,13 +63,14 @@ local function draw(g)
 	LG.setCanvas(g.canvas.main) --sets drawing to the primary canvas that refreshes every frame
 		LG.clear() --cleans that messy ol canvas all up, makes it all fresh and new and good you know
 		game.state.draw(g)
+		LG.points(g.camera.x,g.camera.y)
 	LG.setCanvas() --sets drawing back to screen
-
+	
 	LG.origin()
 
-	--LG.translate(g.camera.x*Screen.scale,g.camera.y*Screen.scale)
-		LG.scale(g.camera.zoom)
-	--LG.translate(-g.camera.x*Screen.scale,-g.camera.y*Screen.scale)
+	--LG.translate(g.camera.x*((s.width-s.xoff*2)/g.width),g.camera.y*((s.height-s.yoff*2)/g.height))
+		--LG.scale(g.camera.zoom)
+	--LG.translate(-g.camera.x*((s.width-s.xoff*2)/g.width),-g.camera.y*((s.height-s.yoff*2)/g.height))
 	screen.control(Screen,g.speed)
 	
 end
