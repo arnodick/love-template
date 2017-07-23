@@ -20,7 +20,7 @@ local function control(g)
 		end
 	end
 
-	camera.control(g.camera,Game.player,g.speed)
+	camera.control(g.camera,g.player,g.speed)
 	
 	for i,v in ipairs(g.actors) do
 		if v.delete==true then

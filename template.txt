@@ -3,6 +3,9 @@ organize folder structure
 	get rid of enums.ini
 input Game into
 	actors.control, make etc
+	debugger
+	level
+	map?
 things that couold be modules maybe
 	player as module
 	cursor
@@ -44,6 +47,7 @@ change controller input so impulses will work
 
 
 DONE
+camera zoom
 put enums.lua in main folder
 Game.name
 Game.mode.name

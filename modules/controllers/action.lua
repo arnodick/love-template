@@ -3,6 +3,8 @@ local function make(a,c)
 	c.action=false
 	c.lastuse=false
 	c.lastaction=false
+	c.useduration=0
+	c.actionduration=0
 end
 
 local function control(a,c,gs,c1,c2)
@@ -10,6 +12,14 @@ local function control(a,c,gs,c1,c2)
 	c.lastaction=c.action
 	
 	c.use,c.action=c1,c2
+
+	if c.use then
+		if c.lastuse then
+			c.useduration=c.useduration+gs
+		end
+	else
+		c.useduration=0
+	end
 end
 
 return

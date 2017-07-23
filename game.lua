@@ -43,11 +43,17 @@ local function keypressed(g,key,scancode,isrepeat)
 		g.camera.y=g.camera.y+10
 	end
 
-	if key=='z' then
-		g.camera.zoom=g.camera.zoom+0.1
-	elseif key=='x' then
-		g.camera.zoom=g.camera.zoom-0.1
+	local zoominc=1
+	if g.camera.zoomamount~=0 then
+		zoominc=g.camera.zoomamount*0.1
 	end
+	if key=='z' then
+		g.camera.zoomamount=g.camera.zoomamount+g.camera.zoom*0.1
+	elseif key=='x' then
+		g.camera.zoomamount=g.camera.zoomamount-g.camera.zoom*0.1
+	end
+
+	g.camera.zoom=g.camera.zoom+g.camera.zoomamount
 end
 
 local function gamepadpressed(g,button)
@@ -56,23 +62,21 @@ end
 
 local function draw(g)
 	local s=Screen
-	--LG.translate(Screen.width/2/g.camera.zoom,Screen.height/2/g.camera.zoom)
-
 	LG.translate(-g.camera.x+g.width/2,-g.camera.y+g.height/2)
 
 	LG.setCanvas(g.canvas.main) --sets drawing to the primary canvas that refreshes every frame
 		LG.clear() --cleans that messy ol canvas all up, makes it all fresh and new and good you know
 		game.state.draw(g)
-		LG.points(g.camera.x,g.camera.y)
+		if Debugger.debugging then
+			LG.setColor(g.palette[EC.red])
+				LG.points(g.camera.x,g.camera.y)
+			LG.setColor(g.palette[EC.pure_white])
+		end
 	LG.setCanvas() --sets drawing back to screen
 	
 	LG.origin()
 
-	--LG.translate(g.camera.x*((s.width-s.xoff*2)/g.width),g.camera.y*((s.height-s.yoff*2)/g.height))
-		--LG.scale(g.camera.zoom)
-	--LG.translate(-g.camera.x*((s.width-s.xoff*2)/g.width),-g.camera.y*((s.height-s.yoff*2)/g.height))
 	screen.control(Screen,g.speed)
-	
 end
 
 local function graphics(g,tw,th,gw,gh)

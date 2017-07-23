@@ -25,10 +25,11 @@ local function update(d)
 			table.insert(debuglist,"player x cell:"..xc)
 			table.insert(debuglist,"player y cell:"..yc)
 			table.insert(debuglist,"player dir:"..Game.player.d)
-			table.insert(debuglist,"player vx:"..Game.player.vec[1])
-			table.insert(debuglist,"player vy:"..Game.player.vec[2])
+			table.insert(debuglist,"player vec x:"..Game.player.vec[1])
+			table.insert(debuglist,"player vec y:"..Game.player.vec[2])
 			table.insert(debuglist,"player vel:"..Game.player.vel)
 			table.insert(debuglist,"player input: "..tostring(Game.player.input))
+			table.insert(debuglist,"player use dur: "..tostring(Game.player.controller.action.useduration))
 			if Game.player.inventory then
 				if Game.player.inventory[1] then
 					table.insert(debuglist,"player item angle:"..Game.player.inventory[1].angle)
