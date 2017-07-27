@@ -43,6 +43,12 @@ local function keypressed(g,key,scancode,isrepeat)
 		g.camera.y=g.camera.y+10
 	end
 
+	if key=='z' then
+		module.make(g.camera,EM.transition,g.camera.zoom,60,2)
+	elseif key=='x' then
+		module.make(g.camera,EM.transition,g.camera.zoom,60,-2)
+	end
+--[[
 	local zoominc=1
 	if g.camera.zoomamount~=0 then
 		zoominc=g.camera.zoomamount*0.1
@@ -54,6 +60,7 @@ local function keypressed(g,key,scancode,isrepeat)
 	end
 
 	g.camera.zoom=g.camera.zoom+g.camera.zoomamount
+--]]
 end
 
 local function gamepadpressed(g,button)

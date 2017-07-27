@@ -3,7 +3,6 @@ local function make(x,y)
 	c.x=x
 	c.y=y
 	c.zoom=1
-	c.zoomamount=0
 	--c.shake=0
 	c.hit=0
 	return c
@@ -11,11 +10,9 @@ local function make(x,y)
 end
 
 local function control(c,t,gs)
-	--[[
-	if c.shake>0 then
-		c.shake = c.shake - gs
+	if c.transition then
+		transition.control(c,c.transition)
 	end
-	--]]
 end
 
 return

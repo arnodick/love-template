@@ -7,8 +7,8 @@ local function make(g)
 	g.player=actor.make(EA[g.name].iso_player,g.width/2,g.height/2)
 	--actor.make(EA[Game.name].rpg_enemy,g.width/2,g.height/2)
 
-	--g.camera.x=-230
-	--g.camera.y=-50
+	g.camera.x=50
+	g.camera.y=100
 end
 
 local function control(g)

@@ -45,6 +45,7 @@ local function update(d)
 --]]
 		table.insert(debuglist,"camx:"..Game.camera.x)
 		table.insert(debuglist,"camy:"..Game.camera.y)
+		table.insert(debuglist,"cam zoom:"..Game.camera.zoom)
 		table.insert(debuglist,"pause: "..tostring(Game.pause))
 
 		local levelpathstring=""

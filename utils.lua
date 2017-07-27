@@ -30,8 +30,11 @@ local function snap(v,inc,snapto)--TODO does this need a negative version
 	end
 end
 
-local function ease(t,duration,limit,rate)
-	return (math.clamp(t,0,duration)/duration)*limit*rate
+--local function ease(t,duration,limit,rate)
+local function ease(t,start,change,duration)
+	return change * t / duration + start
+	--return 1+(math.clamp(t,0,duration)/duration)*limit*rate
+	--return 1+(t/duration)*limit*rate
 end
 
 --loads a bunch of files that share an extension from a specific directory
