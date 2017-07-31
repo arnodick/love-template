@@ -31,10 +31,14 @@ local function snap(v,inc,snapto)--TODO does this need a negative version
 end
 
 --local function ease(t,duration,limit,rate)
-local function ease(t,start,change,duration)
-	return change * t / duration + start
+local function easein(t,start,change,duration,p)
+	return change * (t / duration) ^ p + start
 	--return 1+(math.clamp(t,0,duration)/duration)*limit*rate
 	--return 1+(t/duration)*limit*rate
+end
+
+local function easeout(t,start,change,duration,p)
+	return change * (1 - (1-(t/duration))^p) + start
 end
 
 --loads a bunch of files that share an extension from a specific directory
@@ -95,7 +99,8 @@ math.clamp = clamp
 math.choose = choose
 math.randomfraction = randomfraction
 math.snap = snap
-math.ease = ease
+math.easein = easein
+math.easeout = easeout
 love.filesystem.getfiles = getfiles
 love.filesystem.filterfiles = filterfiles
 love.graphics.drawbox = drawbox
