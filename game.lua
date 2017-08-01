@@ -33,39 +33,35 @@ end
 local function keypressed(g,key,scancode,isrepeat)
 	game.state.keypressed(g,key)
 
+	local ease=math.easeinsin
+	local dist=100
 	if key=='right' then
-		g.camera.x=g.camera.x+10
+		--g.camera.x=g.camera.x+10
+		module.make(g.camera,EM.transition,ease,"x",g.camera.x,60,dist,5)
 	elseif key=='left' then
-		g.camera.x=g.camera.x-10
+		--g.camera.x=g.camera.x-10
+		module.make(g.camera,EM.transition,ease,"x",g.camera.x,60,-dist,5)
 	elseif key=='up' then
-		g.camera.y=g.camera.y-10
+		--g.camera.y=g.camera.y-10
+		module.make(g.camera,EM.transition,ease,"y",g.camera.y,60,-dist,5)
 	elseif key=='down' then
-		g.camera.y=g.camera.y+10
+		--g.camera.y=g.camera.y+10
+		module.make(g.camera,EM.transition,ease,"y",g.camera.y,60,dist,5)
 	end
 
 	if key=='z' then
-		module.make(g.camera,EM.transition,math.easein,g.camera.zoom,60,2,5)
+		module.make(g.camera,EM.transition,math.easein,"zoom",g.camera.zoom,60,2,5)
 	elseif key=='x' then
-		module.make(g.camera,EM.transition,math.easein,g.camera.zoom,60,-2,5)
+		module.make(g.camera,EM.transition,math.easein,"zoom",g.camera.zoom,60,-2,5)
 	elseif key=='a' then
-		module.make(g.camera,EM.transition,math.easeout,g.camera.zoom,60,2,5)
+		module.make(g.camera,EM.transition,math.easeout,"zoom",g.camera.zoom,60,2,5)
 	elseif key=='s' then
-		module.make(g.camera,EM.transition,math.easeout,g.camera.zoom,60,-2,5)
+		module.make(g.camera,EM.transition,math.easeout,"zoom",g.camera.zoom,60,-2,5)
+	elseif key=='q' then
+		module.make(g.camera,EM.transition,math.easeoutsin,"zoom",g.camera.zoom,60,2,5)
+	elseif key=='w' then
+		module.make(g.camera,EM.transition,math.easeoutsin,"zoom",g.camera.zoom,60,-2,5)
 	end
-
---[[
-	local zoominc=1
-	if g.camera.zoomamount~=0 then
-		zoominc=g.camera.zoomamount*0.1
-	end
-	if key=='z' then
-		g.camera.zoomamount=g.camera.zoomamount+g.camera.zoom*0.1
-	elseif key=='x' then
-		g.camera.zoomamount=g.camera.zoomamount-g.camera.zoom*0.1
-	end
-
-	g.camera.zoom=g.camera.zoom+g.camera.zoomamount
---]]
 end
 
 local function gamepadpressed(g,button)

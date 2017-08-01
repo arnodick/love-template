@@ -1,4 +1,5 @@
 PRIORITY
+Depth function sort table by depth during draw if not depth hen depth = 0
 organize folder structure
 	get rid of enums.ini
 input Game into
@@ -9,7 +10,6 @@ input Game into
 things that couold be modules maybe
 	player as module
 	cursor
-make different counter types, make one for counter.t=table_counter
 character to corpse module, or make corpse a drop or something
 printformat: printf but with even more options like
 	drop shadow
@@ -19,16 +19,11 @@ printformat: printf but with even more options like
 	highlight?
 hud layer that goes above everything else?
 	Better way into draw menus on a new canvas called hud which also has score etc on it
-Physics stun launch characters or suck them in just delete or nil their movement controller, apply force, give decel. Projectile mpdule. Does all this at make. At end of duration, makes controller again. 
-	Duration module? Decel module? 
-	Can just changed a module's subtype to make it behave different? Just change the states st from gameplay_topdown to gameplay_map or something and map had different draw style
-screen zoom
-easing function has start time, end time (duration), delta timer, rate
-	rate is multiplied by delta time? rate 1=linear, rate cos = curve time
-	for animaton and time dilation effects (know duration of animation, time dilation)
+Physics stun launch characters or suck them in just delete or nil their movement controller, apply force, give decel.
+easing for for animaton and time dilation effects (know duration of animation, time dilation)
 
 IF YOU NEED TO
-Depth function sort table by depth during draw if not depth hen depth = 0
+make different counter types, make one for counter.t=table_counter
 effect duration
 screen scaling smarter about dimensions (vertical orientation, taller than width)
 make huds to go in states
@@ -45,9 +40,11 @@ test collision with walls, see if it needs extendo walls for high speeds
 change controller input so impulses will work
 	put controller commands in actor.control? Must be some way to make impulses stick
 
-
 DONE
+easing function has start time, end time (duration), delta timer, rate
+	rate is multiplied by delta time? rate 1=linear, rate cos = curve time
 camera zoom
+screen zoom
 put enums.lua in main folder
 Game.name
 Game.mode.name
@@ -102,6 +99,9 @@ fix sprites.draw quad selector (must be halved if tile = 16px)
 graphics stuff in game library
 
 NO
+Projectile mpdule. Does all this at make. At end of duration, makes controller again. 
+	Duration module? Decel module? 
+	Can just changed a module's subtype to make it behave different? Just change the states st from gameplay_topdown to gameplay_map or something and map had different draw style
 things that couold be modules maybe
 	level
 	map

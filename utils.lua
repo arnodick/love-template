@@ -33,12 +33,18 @@ end
 --local function ease(t,duration,limit,rate)
 local function easein(t,start,change,duration,p)
 	return change * (t / duration) ^ p + start
-	--return 1+(math.clamp(t,0,duration)/duration)*limit*rate
-	--return 1+(t/duration)*limit*rate
 end
 
 local function easeout(t,start,change,duration,p)
 	return change * (1 - (1-(t/duration))^p) + start
+end
+
+local function easeinsin(t,start,change,duration,p)
+	return change * math.sin(t / duration) ^ p + start
+end
+
+local function easeoutsin(t,start,change,duration,p)
+	return change * (1 - math.sin(1-(t/duration))^p) + start
 end
 
 --loads a bunch of files that share an extension from a specific directory
@@ -101,6 +107,8 @@ math.randomfraction = randomfraction
 math.snap = snap
 math.easein = easein
 math.easeout = easeout
+math.easeinsin = easeinsin
+math.easeoutsin = easeoutsin
 love.filesystem.getfiles = getfiles
 love.filesystem.filterfiles = filterfiles
 love.graphics.drawbox = drawbox

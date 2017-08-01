@@ -1,6 +1,7 @@
-local function make(a,m,easing,s,d,c,p)
+local function make(a,m,easing,variablename,s,d,c,p)
 	m.starttime=Game.timer
 	m.easing=easing
+	m.variablename=variablename
 	m.startvalue=s
 	m.duration=d
 	m.change=c
@@ -9,7 +10,7 @@ end
 
 local function control(a,m)
 	local timeelapsed=Game.timer-m.starttime
-	a.zoom=m.easing(timeelapsed,m.startvalue,(timeelapsed/m.duration)*m.change,m.duration,m.p)
+	a[m.variablename]=m.easing(timeelapsed,m.startvalue,(timeelapsed/m.duration)*m.change,m.duration,m.p)
 	if timeelapsed>=m.duration then
 		a.transition=nil
 	end
