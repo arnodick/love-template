@@ -30,23 +30,6 @@ local function snap(v,inc,snapto)--TODO does this need a negative version
 	end
 end
 
---local function ease(t,duration,limit,rate)
-local function easein(t,start,change,duration,p)
-	return change * (t / duration) ^ p + start
-end
-
-local function easeout(t,start,change,duration,p)
-	return change * (1 - (1-(t/duration))^p) + start
-end
-
-local function easeinsin(t,start,change,duration,p)
-	return change * math.sin(t / duration) ^ p + start
-end
-
-local function easeoutsin(t,start,change,duration,p)
-	return change * (1 - math.sin(1-(t/duration))^p) + start
-end
-
 --loads a bunch of files that share an extension from a specific directory
 --returns a table with all the directory/filenames of those files
 --NOTE: unpack() the output to use it as an argument in another function

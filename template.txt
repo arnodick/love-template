@@ -21,6 +21,7 @@ hud layer that goes above everything else?
 	Better way into draw menus on a new canvas called hud which also has score etc on it
 Physics stun launch characters or suck them in just delete or nil their movement controller, apply force, give decel.
 easing for for animaton and time dilation effects (know duration of animation, time dilation)
+just use 2d array for multi dimensions
 
 IF YOU NEED TO
 make different counter types, make one for counter.t=table_counter

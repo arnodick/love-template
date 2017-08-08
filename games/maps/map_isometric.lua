@@ -20,6 +20,10 @@ local function draw(m)
 				local value=m[y][x]
 				--LG.draw(Spritesheet[3],Quads[3][value],isox+230,isoy+50,0,1,1,(y-1)*tw/2,(x-1)*-th/4)
 				LG.draw(Spritesheet[3],Quads[3][value],isox,isoy,0,1,1,(y-1)*tw/2,(x-1)*-th/4)
+				if Debugger.debugging then
+					LG.points(isox,isoy)
+				end
+				
 			--end
 		end
 	end

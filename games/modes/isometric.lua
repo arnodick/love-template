@@ -45,7 +45,9 @@ local function control(a,gs)
 end
 
 local function draw(a)
-	local x,y=map.getcell(Game.map,Game.player.x,Game.player.y)
+--[[
+	--local x,y=map.getcell(Game.map,Game.player.x,Game.player.y)
+	--local x,y=Game.player.x*tw/2,Game.player.y*th/4
 	local tw,th=Game.tile.width,Game.tile.height
 	--local isox=(x-1)*tw/2
 	--local isoy=(y-1)*th/4
@@ -54,7 +56,21 @@ local function draw(a)
 	
 	--LG.draw(Spritesheet[a.size],Quads[a.size][a.spr],isox+230,isoy+50,a.angle,1,1,(y-1)*tw/2,(x-1)*-th/4)
 	--LG.draw(Spritesheet[a.size],Quads[a.size][a.spr],isox+230,isoy+50,a.angle,1,1,(y-1)*tw/2+(a.size*tw)/2,(x-1)*-th/4+(a.size*th)/2)
-	LG.draw(Spritesheet[a.size],Quads[a.size][a.spr],isox,isoy,a.angle,1,1,(y-1)*tw/2+(a.size*tw)/2,(x-1)*-th/4+(a.size*th)/2)
+	--LG.draw(Spritesheet[a.size],Quads[a.size][a.spr],isox,isoy,a.angle,1,1,(y-1)*tw/2+(a.size*tw)/2,(x-1)*-th/4+(a.size*th)/2)
+	LG.draw(Spritesheet[a.size],Quads[a.size][a.spr],isox,isoy,a.angle,1,1,0,0)
+--]]
+
+	local tw,th=Game.tile.width,Game.tile.height
+	local x,y=map.getcell(Game.map,a.x,a.y)
+	--local isox=(x-1)*tw/2
+	--local isoy=(y-1)*th/4
+	local isox=a.x/2
+	local isoy=a.y/4
+	--LG.draw(Spritesheet[3],Quads[3][value],isox+230,isoy+50,0,1,1,(y-1)*tw/2,(x-1)*-th/4)
+	LG.draw(Spritesheet[a.size],Quads[a.size][a.spr],isox,isoy,0,1,1,(y-1)*tw/2,(x-1)*-th/4)
+	if Debugger.debugging then
+		LG.points(isox,isoy)
+	end
 end
 
 return

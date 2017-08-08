@@ -33,34 +33,31 @@ end
 local function keypressed(g,key,scancode,isrepeat)
 	game.state.keypressed(g,key)
 
-	local ease=math.easeinsin
-	local dist=100
+	local ease=easing.outElastic
+	local dist=300
+	local d=300
 	if key=='right' then
-		--g.camera.x=g.camera.x+10
-		module.make(g.camera,EM.transition,ease,"x",g.camera.x,60,dist,5)
+		module.make(g.camera,EM.transition,ease,"x",g.camera.x,dist,d)
 	elseif key=='left' then
-		--g.camera.x=g.camera.x-10
-		module.make(g.camera,EM.transition,ease,"x",g.camera.x,60,-dist,5)
+		module.make(g.camera,EM.transition,ease,"x",g.camera.x,-dist,d)
 	elseif key=='up' then
-		--g.camera.y=g.camera.y-10
-		module.make(g.camera,EM.transition,ease,"y",g.camera.y,60,-dist,5)
+		module.make(g.camera,EM.transition,ease,"y",g.camera.y,-dist,d)
 	elseif key=='down' then
-		--g.camera.y=g.camera.y+10
-		module.make(g.camera,EM.transition,ease,"y",g.camera.y,60,dist,5)
+		module.make(g.camera,EM.transition,ease,"y",g.camera.y,dist,d)
 	end
 
 	if key=='z' then
-		module.make(g.camera,EM.transition,math.easein,"zoom",g.camera.zoom,60,2,5)
+		module.make(g.camera,EM.transition,ease,"zoom",g.camera.zoom,2,d)
 	elseif key=='x' then
-		module.make(g.camera,EM.transition,math.easein,"zoom",g.camera.zoom,60,-2,5)
+		module.make(g.camera,EM.transition,ease,"zoom",g.camera.zoom,-2,d)
 	elseif key=='a' then
-		module.make(g.camera,EM.transition,math.easeout,"zoom",g.camera.zoom,60,2,5)
+		module.make(g.camera,EM.transition,ease,"zoom",g.camera.zoom,2,d)
 	elseif key=='s' then
-		module.make(g.camera,EM.transition,math.easeout,"zoom",g.camera.zoom,60,-2,5)
+		module.make(g.camera,EM.transition,ease,"zoom",g.camera.zoom,-2,d)
 	elseif key=='q' then
-		module.make(g.camera,EM.transition,math.easeoutsin,"zoom",g.camera.zoom,60,2,5)
+		module.make(g.camera,EM.transition,ease,"zoom",g.camera.zoom,2,d)
 	elseif key=='w' then
-		module.make(g.camera,EM.transition,math.easeoutsin,"zoom",g.camera.zoom,60,-2,5)
+		module.make(g.camera,EM.transition,ease,"zoom",g.camera.zoom,-2,d)
 	end
 end
 
