@@ -15,7 +15,7 @@ local function control(g)
 	if not g.pause then
 		for i,v in ipairs(g.actors) do
 			if not v.delete then
-				actor.control(v,g.speed)
+				actor.control(g,v,g.speed)
 			end
 		end
 	end

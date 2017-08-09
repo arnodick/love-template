@@ -20,7 +20,6 @@ printformat: printf but with even more options like
 hud layer that goes above everything else?
 	Better way into draw menus on a new canvas called hud which also has score etc on it
 Physics stun launch characters or suck them in just delete or nil their movement controller, apply force, give decel.
-easing for for animaton and time dilation effects (know duration of animation, time dilation)
 just use 2d array for multi dimensions
 
 IF YOU NEED TO
@@ -42,6 +41,7 @@ change controller input so impulses will work
 	put controller commands in actor.control? Must be some way to make impulses stick
 
 DONE
+easing for for animaton and time dilation effects (know duration of animation, time dilation)
 easing function has start time, end time (duration), delta timer, rate
 	rate is multiplied by delta time? rate 1=linear, rate cos = curve time
 camera zoom

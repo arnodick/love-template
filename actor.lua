@@ -24,17 +24,17 @@ local function make(t,x,y,d,vel,...)
 	return a
 end
 
-local function control(a,gs)
+local function control(g,a,gs)
 	controller.update(a,gs)
 	
 	--game mode's specific type control (ie topdown.control)
-	if _G[Game.modename]["control"] then
-		_G[Game.modename]["control"](a,gs)
+	if _G[g.modename]["control"] then
+		_G[g.modename]["control"](a,gs)
 	end
 
 	--actor's specific type control (ie snake.control)
-	if _G[EA[Game.name][a.t]]["control"] then
-		_G[EA[Game.name][a.t]]["control"](a,gs)
+	if _G[EA[g.name][a.t]]["control"] then
+		_G[EA[g.name][a.t]]["control"](a,gs)
 	end
 
 	if a.item then--if a IS an item, do its item stuff
@@ -57,11 +57,11 @@ local function control(a,gs)
 	end
 
 	if a.decel then--TODO make decel module with speed OR velocity module? w speed and accel
-		a.vel=math.snap(a.vel,a.decel*(Game.timer-a.delta)/4,0)
+		a.vel=math.snap(a.vel,a.decel*(g.timer-a.delta)/4,0)
 	end
 
 	if flags.get(a.flags,EF.shopitem) then
-		shopitem.control(a,Game.player)
+		shopitem.control(a,g.player)
 	end
 
 	if a.inventory then
