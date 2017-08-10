@@ -14,20 +14,21 @@ local function update(gw,gh)
 end
 
 local function control(s,gs)
+	local g=Game
 	if s.shake>0 then
 		s.shake = s.shake - gs
 	end
 	--local shake=love.math.random(s.shake/2)*s.scale
 	local shake=love.math.random(-s.shake/2,s.shake/2)*s.scale
 	if s.pixeltrans then
-		local tempcanvas=LG.newCanvas(Game.width*s.pixelscale,Game.height*s.pixelscale)
+		local tempcanvas=LG.newCanvas(g.width*s.pixelscale,g.height*s.pixelscale)
 		LG.setCanvas(tempcanvas)
-			LG.draw(Game.canvas.main,0,0,0,s.pixelscale,s.pixelscale)
+			LG.draw(g.canvas.main,0,0,0,s.pixelscale,s.pixelscale)
 		LG.setCanvas()
 
 		--LG.setShader(Shader)
 
-		LG.draw(Game.canvas.background,s.xoff+shake,s.yoff,0,s.scale,s.scale)
+		LG.draw(g.canvas.background,s.xoff+shake,s.yoff,0,s.scale,s.scale)
 		LG.draw(tempcanvas,s.xoff+shake,s.yoff,0,s.scale*1/s.pixelscale,s.scale*1/s.pixelscale) --just like draws everything to the screen or whatever
 
 		s.pixelscale=s.pixelscale+s.pixelscalerate*gs

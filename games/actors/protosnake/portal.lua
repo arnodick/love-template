@@ -41,7 +41,7 @@ local function control(a,gs)
 				v.delete=true
 			end
 		end
-		Game.levels.current=level.make(a.level)
+		Game.levels.current=level.make(Game,a.level)
 		Game.ease=true--TODO make easing function for this. works on any number
 		Game.speed=0.01
 

@@ -29,14 +29,14 @@ local function control(g)
 					k.delete=true
 				end
 			end
-			counters.update(g.counters,v,-1)
+			counters.update(g,g.counters,v,-1)
 			table.remove(g.actors,i)
 		end
 	end
 
 	if g.levels then
 		if g.levels.current then
-			level.control(g.levels.current)
+			level.control(g,g.levels.current)
 		end
 	end
 end

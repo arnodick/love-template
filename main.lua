@@ -34,13 +34,14 @@ function love.joystickremoved(joystick)
 end
 
 function love.keypressed(key,scancode,isrepeat)
-	game.keypressed(Game,key)
+	local g=Game
+	game.keypressed(g,key)
 
 	if key == '`' then
 		Debugger.debugging = not Debugger.debugging
 	elseif key == 'f' then
 		love.window.setFullscreen(not love.window.getFullscreen())
-		Screen = screen.update(Game.width,Game.height)
+		Screen = screen.update(g.width,g.height)
 		Debugger.canvas = LG.newCanvas(Screen.width,Screen.height) --sets width and height of debug overlay (size of window)
 	end
 end
@@ -52,7 +53,7 @@ end
 function love.update(dt)
 	game.control(Game)
 
-	debugger.update(Debugger)
+	debugger.update(Game,Debugger)
 end
 
 function love.draw(dt)

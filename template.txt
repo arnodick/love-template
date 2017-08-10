@@ -4,9 +4,6 @@ organize folder structure
 	get rid of enums.ini
 input Game into
 	actors.control, make etc
-	debugger
-	level
-	map?
 things that couold be modules maybe
 	player as module
 	cursor
@@ -19,13 +16,13 @@ printformat: printf but with even more options like
 	highlight?
 hud layer that goes above everything else?
 	Better way into draw menus on a new canvas called hud which also has score etc on it
+screen scaling smarter about dimensions (vertical orientation, taller than width)
 Physics stun launch characters or suck them in just delete or nil their movement controller, apply force, give decel.
-just use 2d array for multi dimensions
 
 IF YOU NEED TO
+just use 2d array for multi dimensions
 make different counter types, make one for counter.t=table_counter
 effect duration
-screen scaling smarter about dimensions (vertical orientation, taller than width)
 make huds to go in states
 animation "object"/module
 	give it duration input, value. delta from start time and current time
@@ -41,6 +38,10 @@ change controller input so impulses will work
 	put controller commands in actor.control? Must be some way to make impulses stick
 
 DONE
+input Game into
+	debugger
+	level
+	map?
 easing for for animaton and time dilation effects (know duration of animation, time dilation)
 easing function has start time, end time (duration), delta timer, rate
 	rate is multiplied by delta time? rate 1=linear, rate cos = curve time

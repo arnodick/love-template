@@ -6,7 +6,7 @@ local function make(g)
 
 --[[
 	g.level=1
-	g.levels.current=level.make(g.level)
+	g.levels.current=level.make(g,g.level)
 --]]
 
 	Game.player=actor.make(EA[Game.name].rpg_player,g.width/2,g.height/2)

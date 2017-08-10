@@ -10,7 +10,7 @@ local function make(g)
 	--module.make(a,EM.player)
 
 	g.level=1
-	g.levels.current=level.make(g.level)
+	g.levels.current=level.make(g,g.level)
 end
 
 local function control(g)
