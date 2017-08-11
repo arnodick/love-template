@@ -1,9 +1,17 @@
 local function update(gw,gh)
 	local s={}
 	s.width,s.height=LG.getDimensions()
-	s.scale=math.floor(s.height/gh)
-	s.xoff=(s.width-gw*s.scale)/2
-	s.yoff=s.height%gh/2
+	if s.width>=s.height then
+		s.scale=math.floor(s.height/gh)
+		s.xoff=(s.width-gw*s.scale)/2
+		s.yoff=s.height%gh/2
+	else
+		s.scale=math.floor(s.width/gw)
+		s.xoff=(s.height-gh*s.scale)/2
+		s.yoff=s.width%gw/2
+	end
+
+
 	s.pixelscale=1
 	s.pixelscalerateinit=0.1
 	s.pixelscalerate=s.pixelscalerateinit

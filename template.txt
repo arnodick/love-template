@@ -1,4 +1,5 @@
 PRIORITY
+level types
 Depth function sort table by depth during draw if not depth hen depth = 0
 organize folder structure
 	get rid of enums.ini
