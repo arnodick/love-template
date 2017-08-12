@@ -19,12 +19,16 @@ local function control(a)
 
 	if dist<30 then
 		if not a.menu then
+			local zoomchange=16-Game.camera.zoom
+			module.make(Game.camera,EM.transition,easing.inOutSine,"zoom",Game.camera.zoom,zoomchange,180)
 			module.make(a,EM.menu,EMM.text,a.x,a.y-38,50,50,{"what you buy do you want to buy the powerup ?"},EC.orange,EC.dark_green)
 			local m=a.menu
 			module.make(m,EM.border,EC.indigo,EC.dark_purple)
 			m.font=LG.newFont("fonts/pico8.ttf",8)--TODO put font in menu makey
 		end
 	elseif a.menu then
+		local zoomchange=-(Game.camera.zoom-1)
+		module.make(Game.camera,EM.transition,easing.inOutSine,"zoom",Game.camera.zoom,zoomchange,20)
 		a.menu=nil
 	end
 
