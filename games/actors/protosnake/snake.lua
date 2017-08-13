@@ -10,7 +10,7 @@ local function make(a,c,size,spr,hp)
 	module.make(a,EM.controller,EMC.aim,EMCI.ai,Game.player)
 	module.make(a,EM.controller,EMC.action,EMCI.ai,0.01,0)
 
-	module.make(a,EM.hit,3,6,EC.white)
+	--module.make(a,EM.hit,3,6,EC.white)
 	module.make(a,EM.tail,a.cinit,9)
 	module.make(a,EM.inventory,1)
 	table.insert(a.inventory,actor.make(EA[Game.name].machinegun,a.x,a.y,0,0,a.cinit,EC.green))
@@ -33,7 +33,18 @@ local function control(a)
 		a.controller.action.chance[1]=0
 	end
 
-	a.c=a.cinit+a.rage
+	if a.rage>0 then
+		if math.floor(Game.timer/(20-a.rage*5))%2==0 then
+			if a.rage==1 then
+				a.c=EC.orange
+			else
+				a.c=EC.red
+			end
+		else
+			a.c=a.cinit
+		end
+	end
+
 	if Game.player.hp<=0 then
 		for i,v in ipairs(Game.actors) do
 			if flags.get(v.flags,EF.enemy) then
