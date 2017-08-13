@@ -27,7 +27,11 @@ end
 local function control(a)
 	a.rage=math.floor(Game.score/5)
 
-	a.controller.action.chance[1]=love.math.random( math.max(40-(a.rage*10),10) ) / 1000
+	if love.math.random( math.max(40-(a.rage*10),10) ) == 1 then
+		a.controller.action.chance[1]=1
+	else
+		a.controller.action.chance[1]=0
+	end
 
 	a.c=a.cinit+a.rage
 	if Game.player.hp<=0 then

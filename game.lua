@@ -47,17 +47,9 @@ local function keypressed(g,key,scancode,isrepeat)
 	end
 
 	if key=='z' then
-		module.make(g.camera,EM.transition,ease,"zoom",g.camera.zoom,2,d)
+		module.make(g.camera,EM.transition,ease,"zoom",g.camera.zoom,4,d)
 	elseif key=='x' then
-		module.make(g.camera,EM.transition,ease,"zoom",g.camera.zoom,-2,d)
-	elseif key=='a' then
-		module.make(g.camera,EM.transition,ease,"zoom",g.camera.zoom,2,d)
-	elseif key=='s' then
-		module.make(g.camera,EM.transition,ease,"zoom",g.camera.zoom,-2,d)
-	elseif key=='q' then
-		module.make(g.camera,EM.transition,ease,"zoom",g.camera.zoom,2,d)
-	elseif key=='w' then
-		module.make(g.camera,EM.transition,ease,"zoom",g.camera.zoom,-2,d)
+		module.make(g.camera,EM.transition,ease,"zoom",g.camera.zoom,-4,d)
 	end
 end
 

@@ -19,7 +19,7 @@ local function choose(...)
 end
 
 local function randomfraction(n)
-	return love.math.random(n*10000)/10000
+	return love.math.random(n*1000000)/1000000
 end
 
 local function snap(v,inc,snapto)--TODO does this need a negative version
