@@ -11,6 +11,7 @@ local function make(a,c,size,spr,hp)
 	module.make(a,EM.controller,EMC.action,EMCI.ai,0.01,0)
 
 	--module.make(a,EM.hit,3,6,EC.white)
+	module.make(a,EM.sound,3,"damage")
 	module.make(a,EM.tail,a.cinit,9)
 	module.make(a,EM.inventory,1)
 	table.insert(a.inventory,actor.make(EA[Game.name].machinegun,a.x,a.y,0,0,a.cinit,EC.green))
@@ -36,7 +37,7 @@ local function control(a)
 	if a.rage>0 then
 		if math.floor(Game.timer/(20-a.rage*5))%2==0 then
 			if a.rage==1 then
-				a.c=EC.orange
+				a.c=EC.yellow
 			else
 				a.c=EC.red
 			end

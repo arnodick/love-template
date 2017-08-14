@@ -18,6 +18,7 @@ local function make(a,c,size,spr,hp)
 	module.make(a,EM.controller,EMC.move,EMCI.ai,x,y)
 
 	--module.make(a,EM.hit,3,6,EC.white)
+	module.make(a,EM.sound,3,"damage")
 	module.make(a,EM.animation,EM.animations.frames,6,2)
 	module.make(a,EM.hitradius,8)
 	a.flags=flags.set(a.flags,EF.character,EF.enemy,EF.damageable, EF.shootable, EF.explosive)
