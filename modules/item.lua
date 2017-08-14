@@ -1,16 +1,20 @@
 local function make(a)
 	a.angle=-0.79--TODO put this in actor.make
-	a.getsfx=10--TODO put this in each item
 	a.delta=0--NOTE need this bc actor.make sets delta to Game.timer, so any actor not spawning at Game.timer==0 can't shoot
+	
+	module.make(a,EM.sound,10,"get")
 	return a
 end
 
 local function control(a,gs)
 	if actor.collision(a.x,a.y,Game.player) then	
 		if Game.player.controller.action.action or #Game.player.inventory<1 then
-			if a.getsfx then
-				sfx.play(a.getsfx)
+			if a.sound then
+				if a.sound.get then
+					sfx.play(a.sound.get)
+				end
 			end
+
 			a.flags=flags.set(a.flags,EF.persistent)
 			table.insert(Game.player.inventory,1,a)
 		end

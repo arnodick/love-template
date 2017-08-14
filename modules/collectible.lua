@@ -12,8 +12,11 @@ local function control(a,gs)
 					v.delta=Game.timer
 				end
 			end
-			if a.getsfx then
-				sfx.play(a.getsfx)--TODO make get sfx or just sfx a module
+
+			if a.sound then
+				if a.sound.get then
+					sfx.play(a.sound.get)
+				end
 			end
 			actor.make(EA[Game.name].collectibleget,a.x,a.y,math.pi/2,1,EC.pure_white,1,a.sprinit)
 			if _G[EA[Game.name][a.t]]["get"] then

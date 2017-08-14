@@ -6,8 +6,8 @@ local function make(a,c,size,spr)
 	a.sprinit=a.spr
 
 	module.make(a,EM.collectible)
+	module.make(a,EM.sound,6,"get")
 
-	a.getsfx=6--TODO just call this sfx? or snd
 	a.cost=2
 	a.value=4
 end

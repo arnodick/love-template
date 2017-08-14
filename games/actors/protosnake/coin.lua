@@ -6,6 +6,7 @@ local function make(a,c,size,spr)
 	a.sprinit=a.spr
 
 	module.make(a,EM.collectible)
+	module.make(a,EM.sound,6,"get")
 
 	a.d=math.randomfraction(math.pi*2)
 	a.vel=math.randomfraction(4)+4
@@ -16,7 +17,6 @@ local function make(a,c,size,spr)
 	a.scalex=1
 	a.scaley=1
 	a.deltimer=0
-	a.getsfx=6
 	a.follow=false
 	a.value=1
 	a.alpha=255

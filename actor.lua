@@ -100,11 +100,6 @@ end
 local function damage(a,d)
 	local g=Game
 	if not a.delete then
-		--[[
-		if a.hit then
-			sfx.play(a.hit.sfx,a.x,a.y)
-		end
-		--]]
 		if a.sound then
 			if a.sound.damage then
 				sfx.play(a.sound.damage,a.x,a.y)
