@@ -56,6 +56,10 @@ local function control(g,a,gs)
 		hit.control(a.hit,a,gs)
 	end
 
+	if a.flash then
+		flash.control(a,a.flash)
+	end
+
 	if a.decel then--TODO make decel module with speed OR velocity module? w speed and accel
 		a.vel=math.snap(a.vel,a.decel*(g.timer-a.delta)/4,0)
 	end
@@ -100,6 +104,7 @@ end
 local function damage(a,d)
 	local g=Game
 	if not a.delete then
+		module.make(a,EM.flash,"c",EC.white,a.cinit,6)
 		if a.sound then
 			if a.sound.damage then
 				sfx.play(a.sound.damage,a.x,a.y)
