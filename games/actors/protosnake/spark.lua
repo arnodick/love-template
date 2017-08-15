@@ -3,7 +3,7 @@ local function make(a,c)
 	a.d=math.randomfraction(math.pi*2)
 	a.vel=math.randomfraction(2)+2
 	a.decel=0.1
-	a.flags=flags.set(a.flags,EF.bouncy)
+	a.flags=flags.set(a.flags,EF.bouncy,EF.persistent)
 end
 
 local function control(a)

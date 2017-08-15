@@ -5,6 +5,7 @@ local function make(a,c,size)
 	a.size=size or 20
 	a.r=0
 	Screen.shake=a.size
+	a.flags=flags.set(a.flags,EF.persistent)
 end
 
 local function control(a,gs)

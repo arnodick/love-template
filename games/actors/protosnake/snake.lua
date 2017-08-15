@@ -35,6 +35,10 @@ local function control(a)
 	end
 
 	if a.rage>0 then
+		local acc=0.015*(a.rage+1)*100--TODO initacc for gun
+		if a.inventory[1].acc~=acc then
+			a.inventory[1].acc=acc
+		end
 		if math.floor(Game.timer/(20-a.rage*5))%2==0 then
 			if a.rage==1 then
 				a.c=EC.yellow

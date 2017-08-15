@@ -34,6 +34,7 @@ local function control(a,gs)
 
 	local dist=vector.distance(a.x,a.y,Game.player.x,Game.player.y)
 	if dist<20 then
+		--TODO make level.change or something
 		for i,v in pairs(Game.actors) do
 			if flags.get(v.flags,EF.enemy) then
 				actor.damage(v,v.hp)

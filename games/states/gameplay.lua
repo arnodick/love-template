@@ -69,6 +69,7 @@ local function draw(g)
 	if s.hud then
 		hud.draw(g,s.hud)
 	end
+	LG.print(love.timer.getFPS(),10,10)
 
 	if _G[Enums.games.states.gameplays[g.state.st]]["draw"] then
 		_G[Enums.games.states.gameplays[g.state.st]]["draw"](g)

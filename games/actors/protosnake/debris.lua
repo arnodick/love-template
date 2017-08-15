@@ -7,7 +7,7 @@ local function make(a,c)
 	a.anglespeed=(a.vec[1]+math.choose(0,0,3,8))*(a.vel/60)
 	a.len=math.randomfraction(1)+1
 	a.angleoff=math.randomfraction(math.pi)
-	a.flags=flags.set(a.flags,EF.bouncy)
+	a.flags=flags.set(a.flags,EF.bouncy,EF.persistent)
 end
 
 local function control(a)
