@@ -56,6 +56,10 @@ local function draw(a)
 		_G[EA[Game.name][a.t]]["predraw"](a)
 	end
 
+	if not a.c then
+		print(EA.protosnake[a.t])
+		print(a.c)
+	end
 	local r,g,b=unpack(Game.palette[a.c])
 	local alpha=255
 	if a.alpha then

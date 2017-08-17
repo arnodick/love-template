@@ -22,7 +22,6 @@ local function make(t,mode,tw,th,gw,gh,sp)
 end
 
 local function control(g)
-
 	game.state.control(g)
 
 	if not g.pause then --TODO figure out why pause is necessary

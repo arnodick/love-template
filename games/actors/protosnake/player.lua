@@ -36,6 +36,7 @@ end
 
 local function control(a)
 	--a.cinit=math.floor((Game.timer/2)%16)+1 --SWEET COLOUR CYCLE
+---[[
 	local gamename=Game.name
 	if Game.pause then
 		Game.speed=0
@@ -53,6 +54,7 @@ local function control(a)
 			Game.speed=math.clamp(a.vel,0.1,1)
 		end
 	end
+--]]
 	--[[
 	if a.controller.aim.action then
 		if #a.inventory>1 then
