@@ -1,7 +1,8 @@
 local function make(a,c)
 	a.x=love.math.random(319)
 	a.y=love.math.random(239)
-	a.c=EC.blue
+	a.cinit=EC.blue
+	a.c=a.cinit
 	a.d=0
 	a.vel=0
 	a.size=60
