@@ -38,6 +38,9 @@ local function control(t,gs,a,vx,vy)
 	t.y=a.y+t.vec[2]*t.len
 	t.sx=a.x+4
 	t.sy=a.y
+	if t.c~=a.c then
+		t.c=a.c
+	end
 end
 
 local function draw(t)

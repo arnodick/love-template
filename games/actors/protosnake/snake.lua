@@ -35,7 +35,7 @@ local function control(a)
 	end
 
 	if a.rage>0 then
-		local acc=0.015*(a.rage+1)*100--TODO initacc for gun
+		local acc=0.015*(a.rage+1)*2--TODO initacc for gun
 		if a.inventory[1].acc~=acc then
 			a.inventory[1].acc=acc
 		end
