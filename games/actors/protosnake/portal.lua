@@ -43,8 +43,10 @@ local function control(a,gs)
 			end
 		end
 		Game.levels.current=level.make(Game,a.level)
-		Game.ease=true--TODO make easing function for this. works on any number
-		Game.speed=0.01
+		--Game.ease=true--TODO make easing function for this. works on any number
+		--Game.speed=0.01
+		local initspeed=0.1
+		module.make(Game,EM.transition,easing.inQuad,"speed",initspeed,1-initspeed,30)
 
 		a.delete=true --TODO maybe give this a VERY low chance of not happening?
 	end

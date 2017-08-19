@@ -8,7 +8,6 @@ local function make(a,c,size,spr,hp)
 	a.speed=2
 
 	module.make(a,EM.controller,EMC.move,EMCI.ai,Game.width/2,Game.height/2)
-	--module.make(a,EM.hit,3,6,EC.white)
 	module.make(a,EM.sound,3,"damage")
 	module.make(a,EM.animation,EM.animations.frames,10,2)
 	module.make(a,EM.hitradius,4)

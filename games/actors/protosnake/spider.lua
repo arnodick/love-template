@@ -17,7 +17,6 @@ local function make(a,c,size,spr,hp)
 	local y=math.clamp(a.y+math.sin(dir)*dist,0,Game.height)
 	module.make(a,EM.controller,EMC.move,EMCI.ai,x,y)
 
-	--module.make(a,EM.hit,3,6,EC.white)
 	module.make(a,EM.sound,3,"damage")
 	module.make(a,EM.animation,EM.animations.frames,6,2)
 	module.make(a,EM.hitradius,8)

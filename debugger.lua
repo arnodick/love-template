@@ -11,6 +11,11 @@ local function update(g,d)
 	if d.debugging then
 		local debuglist={}
 		table.insert(debuglist,g.timer)
+		local trans=false
+		if g.transition then
+			trans=true
+		end
+		table.insert(debuglist,"Trans: "..tostring(trans))
 		table.insert(debuglist,"Game speed: "..g.speed)
 		table.insert(debuglist,"Game state"..g.state.st)
 		table.insert(debuglist,"FPS:"..love.timer.getFPS())

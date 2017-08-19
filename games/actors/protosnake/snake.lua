@@ -9,8 +9,6 @@ local function make(a,c,size,spr,hp)
 
 	module.make(a,EM.controller,EMC.aim,EMCI.ai,Game.player)
 	module.make(a,EM.controller,EMC.action,EMCI.ai,0.01,0)
-
-	--module.make(a,EM.hit,3,6,EC.white)
 	module.make(a,EM.sound,3,"damage")
 	module.make(a,EM.tail,a.cinit,9)
 	module.make(a,EM.inventory,1)

@@ -11,7 +11,6 @@ local function make(a,c,size,spr,hp)
 	module.make(a,EM.target,Game.player)
 
 	module.make(a,EM.controller,EMC.move,EMCI.ai,a.x,a.y)
-	--module.make(a,EM.hit,3,6,EC.white)
 	module.make(a,EM.sound,3,"damage")
 	module.make(a,EM.animation,EM.animations.frames,10,2)
 	module.make(a,EM.hitradius,4)

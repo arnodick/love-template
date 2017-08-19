@@ -5,6 +5,7 @@ local function make(a,m,easing,variablename,startvalue,change,duration)
 	m.startvalue=startvalue
 	m.change=change
 	m.duration=duration
+	a[m.variablename]=startvalue
 end
 
 local function control(a,m)
