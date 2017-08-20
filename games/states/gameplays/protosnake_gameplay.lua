@@ -16,25 +16,6 @@ end
 local function control(g)
 	local s=g.state
 
---[[
-	if g.pause then
-		g.speed=0
-	else
-		if g.ease then
-			if g.speed<g.player.vel then
-				g.speed=g.speed+0.01
-			else
-				g.speed=g.player.vel
-				g.ease=false
-			end
-		elseif g.levels.current.t==Enums.games.levels[g.name].store then--TODO make this a level value (level.time = time slow or not)
-			g.speed=1
-		else
-			g.speed=math.clamp(g.player.vel,0.1,1)
-		end
-	end
---]]
-
 	if Game.player.hp<=0 then
 		if not s.hud.menu then
 			module.make(s.hud,EM.menu,EMM.highscores,g.width/2,g.height/2,66,100,"",s.hud.c,s.hud.c2,"center")

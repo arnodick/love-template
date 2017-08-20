@@ -18,7 +18,7 @@ local function update(gw,gh)
 
 
 	s.pixelscale=1
-	s.pixelscalerateinit=0.1
+	s.pixelscalerateinit=0.05
 	s.pixelscalerate=s.pixelscalerateinit
 	s.pixelscalemin=0.1
 	s.pixeltrans=false
@@ -32,7 +32,7 @@ local function control(s,gs)
 		s.shake = s.shake - gs
 	end
 	--local shake=love.math.random(s.shake/2)*s.scale
-	local shake=love.math.random(-s.shake/2,s.shake/2)*s.scale
+	local shake=love.math.random(-s.shake/4,s.shake/4)*s.scale
 	if s.pixeltrans then
 		local tempcanvas=LG.newCanvas(g.width*s.pixelscale,g.height*s.pixelscale)
 		LG.setCanvas(tempcanvas)
@@ -63,6 +63,7 @@ local function control(s,gs)
 		local g=Game
 		LG.draw(g.canvas.background,(g.width*s.scale/2)+s.xoff+shake,(g.height*s.scale/2)+s.yoff,0,s.scale*g.camera.zoom,s.scale*g.camera.zoom,g.width/2,g.height/2)
 		LG.draw(g.canvas.main,(g.width*s.scale/2)+s.xoff+shake,(g.height*s.scale/2)+s.yoff,0,s.scale*g.camera.zoom,s.scale*g.camera.zoom,g.width/2,g.height/2) --just like draws everything to the screen or whatever
+		LG.draw(g.canvas.hud,(g.width*s.scale/2)+s.xoff+shake,(g.height*s.scale/2)+s.yoff,0,s.scale*g.camera.zoom,s.scale*g.camera.zoom,g.width/2,g.height/2) --just like draws everything to the screen or whatever
 		--LG.setShader()
 	end
 end

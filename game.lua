@@ -63,10 +63,11 @@ local function draw(g)
 	LG.setCanvas(g.canvas.main) --sets drawing to the primary canvas that refreshes every frame
 		LG.clear() --cleans that messy ol canvas all up, makes it all fresh and new and good you know
 		game.state.draw(g)
-		if Debugger.debugging then
-			LG.setColor(g.palette[EC.red])
-				LG.points(g.camera.x,g.camera.y)
-			LG.setColor(g.palette[EC.pure_white])
+		if g.state.hud then
+			LG.setCanvas(g.canvas.hud) --sets drawing to hud canvas, which draws OVER everything else
+				LG.clear() --cleans that messy ol canvas all up, makes it all fresh and new and good you know
+				hud.draw(g,g.state.hud)
+				LG.print(love.timer.getFPS(),10,10)
 		end
 	LG.setCanvas() --sets drawing back to screen
 	
@@ -115,6 +116,7 @@ local function graphics(g,tw,th,gw,gh)
 	g.canvas.buffer = LG.newCanvas(gw,gh) --offscreen buffer to draw to, modify, then draw to main canvas
 	g.canvas.background = LG.newCanvas(gw,gh) --this canvas doesn't clear every frame, so anything drawn to it stays
 	g.canvas.main = LG.newCanvas(gw,gh) --this canvas refreshes every frame, and is where most of the drawing happens
+	g.canvas.hud = LG.newCanvas(gw,gh) --this canvas is for HUD stuff like menus etc.
 end
 
 return

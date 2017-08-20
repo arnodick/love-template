@@ -35,18 +35,10 @@ end
 
 local function control(a)
 	--a.cinit=math.floor((Game.timer/2)%16)+1 --SWEET COLOUR CYCLE
----[[
 	local gamename=Game.name
 	if Game.pause then
 		Game.speed=0
-	elseif not Game.transition then
-		if Game.levels.current.t==Enums.games.levels[gamename].store then--TODO make this a level value (level.time = time slow or not)
-			Game.speed=1
-		else
-			Game.speed=math.clamp(a.vel,0.1,1)
-		end
-
---[[
+	else
 		if Game.ease then
 			if Game.speed<a.vel then
 				Game.speed=Game.speed+0.01
@@ -59,9 +51,7 @@ local function control(a)
 		else
 			Game.speed=math.clamp(a.vel,0.1,1)
 		end
--]]
 	end
---]]
 	--[[
 	if a.controller.aim.action then
 		if #a.inventory>1 then
@@ -86,7 +76,7 @@ end
 local function damage(a)
 	Screen.pixeltrans=true
 	Screen.pixelscale=0.1
-	Screen.shake=20
+	--Screen.shake=20
 end
 
 local function dead(a)
