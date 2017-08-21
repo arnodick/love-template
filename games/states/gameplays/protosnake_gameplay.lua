@@ -1,4 +1,7 @@
 local function make(g)
+	g.state.mode=Enums.games.modes.topdown
+	g.state.modename=Enums.games.modes[g.state.mode]
+
 	module.make(g.state,EM.hud,EM.huds.protosnake_hud)
 
 	g.score=0

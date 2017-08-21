@@ -28,8 +28,8 @@ local function control(g,a,gs)
 	controller.update(a,gs)
 	
 	--game mode's specific type control (ie topdown.control)
-	if _G[g.modename]["control"] then
-		_G[g.modename]["control"](a,gs)
+	if _G[g.state.modename]["control"] then
+		_G[g.state.modename]["control"](a,gs)
 	end
 
 	--actor's specific type control (ie snake.control)
@@ -104,8 +104,8 @@ local function draw(a)
 		menu.draw(a.menu)
 	end
 
-	if _G[Game.modename]["draw"] then
-		_G[Game.modename]["draw"](a)
+	if _G[Game.state.modename]["draw"] then
+		_G[Game.state.modename]["draw"](a)
 	end
 end
 

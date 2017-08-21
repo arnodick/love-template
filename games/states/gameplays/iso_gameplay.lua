@@ -1,4 +1,7 @@
 local function make(g)
+	g.state.mode=Enums.games.modes.isometric
+	g.state.modename=Enums.games.modes[g.state.mode]
+
 	local mw,mh=g.width/g.tile.width,g.height/g.tile.height
 	g.map=map.generate(Enums.games.maps.map_isometric,mw,mh)
 
