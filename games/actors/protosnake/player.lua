@@ -74,9 +74,7 @@ local function draw(a)
 end
 
 local function damage(a)
-	Screen.pixeltrans=true
-	Screen.pixelscale=0.1
-	--Screen.shake=20
+	module.make(Screen,EM.transition,easing.linear,"pixelscale",0.1,1-0.1,22)
 end
 
 local function dead(a)

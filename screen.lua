@@ -1,9 +1,9 @@
 local function update(gw,gh)
 	local s={}
 	s.width,s.height=LG.getDimensions()
-		s.scale=math.floor(s.height/gh)
-		s.xoff=(s.width-gw*s.scale)/2
-		s.yoff=s.height%gh/2
+	s.scale=math.floor(s.height/gh)
+	s.xoff=(s.width-gw*s.scale)/2
+	s.yoff=s.height%gh/2
 --[[
 	if s.width>=s.height then
 		s.scale=math.floor(s.height/gh)
@@ -15,13 +15,7 @@ local function update(gw,gh)
 		s.yoff=s.width%gw/2
 	end
 --]]
-
-
 	s.pixelscale=1
-	s.pixelscalerateinit=0.04
-	s.pixelscalerate=s.pixelscalerateinit
-	s.pixelscalemin=0.1
-	s.pixeltrans=false
 	s.shake=0
 	return s
 end
@@ -31,9 +25,10 @@ local function control(s,gs)
 	if s.shake>0 then
 		s.shake = s.shake - gs
 	end
-	--local shake=love.math.random(s.shake/2)*s.scale
+
 	local shake=love.math.random(-s.shake/4,s.shake/4)*s.scale
-	if s.pixeltrans then
+
+	if s.transition then
 		local tempcanvas=LG.newCanvas(g.width*s.pixelscale,g.height*s.pixelscale)
 		LG.setCanvas(tempcanvas)
 			LG.draw(g.canvas.background,0,0,0,s.pixelscale,s.pixelscale)
@@ -42,23 +37,12 @@ local function control(s,gs)
 
 		--LG.setShader(Shader)
 
-		--LG.draw(g.canvas.background,s.xoff+shake,s.yoff,0,s.scale,s.scale)
 		LG.draw(tempcanvas,s.xoff+shake,s.yoff,0,s.scale*1/s.pixelscale,s.scale*1/s.pixelscale) --just like draws everything to the screen or whatever
 		LG.draw(g.canvas.hud,(g.width*s.scale/2)+s.xoff,(g.height*s.scale/2)+s.yoff,0,s.scale*g.camera.zoom,s.scale*g.camera.zoom,g.width/2,g.height/2) --just like draws everything to the screen or whatever
 
-		s.pixelscale=s.pixelscale+s.pixelscalerate*gs
-		if s.pixelscalerate<0 then
-			if s.pixelscale<=s.pixelscalemin then
-				s.pixelscale=s.pixelscalemin
-				s.pixelscalerate=s.pixelscalerate*-0.1
-			end
-		else
-			if s.pixelscale>=1 then
-				s.pixelscale=1
-				s.pixelscalerate=s.pixelscalerateinit
-				s.pixeltrans=false
-			end
-		end
+		transition.control(s,s.transition)
+		s.pixelscale=math.clamp(s.pixelscale,0.1,1)
+
 		--LG.setShader()
 	else
 		--LG.setShader(Shader)
