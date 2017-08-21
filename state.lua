@@ -1,7 +1,9 @@
-local function make(g,t,st)--initializes game's state, timer, camera, actor, menu and state tables
+local function make(g,t,mode,st)--initializes game's state, timer, camera, actor, menu and state tables
 	local e=Enums
 	g.state={}
 	g.state.t=t
+	g.state.mode=mode
+	g.state.modename=Enums.games.modes[mode]
 	if st then
 		g.state.st=st
 	else

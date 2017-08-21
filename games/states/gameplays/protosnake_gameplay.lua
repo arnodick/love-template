@@ -1,6 +1,6 @@
 local function make(g)
-	g.state.mode=Enums.games.modes.topdown
-	g.state.modename=Enums.games.modes[g.state.mode]
+	--g.state.mode=Enums.games.modes.topdown
+	--g.state.modename=Enums.games.modes[g.state.mode]
 
 	module.make(g.state,EM.hud,EM.huds.protosnake_hud)
 
@@ -29,7 +29,7 @@ end
 local function keypressed(g,key)
 	if key=='space' then
 		if Game.player.hp<=0 then
-			game.state.make(g,Enums.games.states.gameplay)
+			game.state.make(g,Enums.games.states.gameplay,Enums.games.modes.topdown)
 		end
 	elseif key=='escape' then
 		game.state.make(g,Enums.games.states.title)
@@ -39,7 +39,7 @@ end
 local function gamepadpressed(g,button)
 	if button=="start" then
 		if Game.player.hp<=0 then
-			game.state.make(g,Enums.games.states.gameplay)
+			game.state.make(g,Enums.games.states.gameplay,Enums.games.modes.topdown)
 		else
 			g.pause = not g.pause
 		end

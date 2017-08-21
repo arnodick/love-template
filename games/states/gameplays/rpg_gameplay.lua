@@ -1,6 +1,6 @@
 local function make(g)
-	g.state.mode=Enums.games.modes.roguelike
-	g.state.modename=Enums.games.modes[g.state.mode]
+	--g.state.mode=Enums.games.modes.roguelike
+	--g.state.modename=Enums.games.modes[g.state.mode]
 
 	local mw,mh=g.width/g.tile.width,g.height/g.tile.height
 	g.map=map.generate(Enums.games.maps.map_2d,mw+2,mh+2)

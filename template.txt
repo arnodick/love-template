@@ -1,5 +1,4 @@
 PRIORITY
-states have game modes, instead of the game itself
 level types
 give camera movement controller
 Depth function sort table by depth during draw if not depth hen depth = 0
@@ -41,6 +40,7 @@ change controller input so impulses will work
 	put controller commands in actor.control? Must be some way to make impulses stick
 
 DONE
+states have game modes, instead of the game itself
 input Game into
 	debugger
 	level

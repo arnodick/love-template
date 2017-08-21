@@ -14,7 +14,7 @@ end
 
 local function gamepadpressed(g,button)
 	if button=="b" then
-		game.state.make(g,Enums.games.states.intro,Enums.games.states.intros.intro_protosnake)
+		game.state.make(g,Enums.games.states.intro)
 	end
 end
 
