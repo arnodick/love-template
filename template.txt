@@ -1,4 +1,5 @@
 PRIORITY
+states have game modes, instead of the game itself
 level types
 give camera movement controller
 Depth function sort table by depth during draw if not depth hen depth = 0

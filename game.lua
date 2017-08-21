@@ -31,25 +31,6 @@ end
 
 local function keypressed(g,key,scancode,isrepeat)
 	game.state.keypressed(g,key)
-
-	local ease=easing.outElastic
-	local dist=300
-	local d=300
-	if key=='right' then
-		module.make(g.camera,EM.transition,ease,"x",g.camera.x,dist,d)
-	elseif key=='left' then
-		module.make(g.camera,EM.transition,ease,"x",g.camera.x,-dist,d)
-	elseif key=='up' then
-		module.make(g.camera,EM.transition,ease,"y",g.camera.y,-dist,d)
-	elseif key=='down' then
-		module.make(g.camera,EM.transition,ease,"y",g.camera.y,dist,d)
-	end
-
-	if key=='z' then
-		module.make(g.camera,EM.transition,ease,"zoom",g.camera.zoom,4,d)
-	elseif key=='x' then
-		module.make(g.camera,EM.transition,ease,"zoom",g.camera.zoom,-4,d)
-	end
 end
 
 local function gamepadpressed(g,button)

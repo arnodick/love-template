@@ -61,7 +61,15 @@ local function control(g,a,gs)
 	end
 
 	if a.decel then--TODO make decel module with speed OR velocity module? w speed and accel
-		a.vel=math.snap(a.vel,a.decel*(g.timer-a.delta)/4,0)
+		a.vel=math.snap(a.vel,a.decel*(g.timer-a.delta)/4*gs,0)
+		--a.vel=math.snap(a.vel,a.decel*gs,0)
+--[[
+		if not a.transition then
+			module.make(a,EM.transition,easing.linear,"vel",a.vel,-a.vel,30)
+		else
+			transition.control(a,a.transition)
+		end
+--]]
 	end
 
 	if flags.get(a.flags,EF.shopitem) then
