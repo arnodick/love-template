@@ -9,6 +9,8 @@ input Game into
 things that couold be modules maybe
 	player as module
 	cursor
+make transition module a table of transitions, so a thing can have multiple transitions
+	maybe the name of the transition is the name of the value that it affects? ie: a.transition.zoom or Game.transition.speed
 character to corpse module, or make corpse a drop or something
 printformat: printf but with even more options like
 	drop shadow
@@ -104,6 +106,7 @@ fix sprites.draw quad selector (must be halved if tile = 16px)
 graphics stuff in game library
 
 NO
+make Game.ease a transition module
 Projectile mpdule. Does all this at make. At end of duration, makes controller again. 
 	Duration module? Decel module? 
 	Can just changed a module's subtype to make it behave different? Just change the states st from gameplay_topdown to gameplay_map or something and map had different draw style
