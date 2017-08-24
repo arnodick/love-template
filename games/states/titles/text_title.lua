@@ -1,5 +1,6 @@
 local function make(g)
 	g.char="x"
+	g.switch=false
 end
 
 local function control(g)
@@ -18,6 +19,8 @@ local function gamepadpressed(g,button)
 	if button=="b" then
 		game.state.make(g,Enums.games.states.intro)
 	elseif button=="a" then
+		g.switch = not g.switch
+--[[
 		local ps=Screen.pixelscale
 		local pixelscaletarget=0.125
 		local duration=120
@@ -26,6 +29,7 @@ local function gamepadpressed(g,button)
 		else
 			module.make(Screen,EM.transition,easing.linear,"pixelscale",ps,(1-ps),duration)
 		end
+--]]
 	end
 end
 

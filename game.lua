@@ -13,7 +13,7 @@ local function make(t,tw,th,gw,gh,sp)
 	game.graphics(g,tw,th,gw,gh)
 
 	if _G[Enums.games[t]]["make"] then
-		_G[Enums.games[t]]["make"](g)
+		_G[Enums.games[t]]["make"](g,tw,th,gw,gh)
 	end
 
 	return g
