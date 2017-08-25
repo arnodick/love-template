@@ -59,6 +59,13 @@ local function control(s,gs)
 			LG.draw(g.canvas.main,0,0,0,0.125,0.125)
 		LG.setCanvas()
 
+		local imgdata=g.canvas.buffer:newImageData(0,0,g.canvas.buffer:getWidth(),g.canvas.buffer:getHeight())
+		if g.cursor then
+			local r,g,b,a=imgdata:getPixel(g.cursor.x,g.cursor.y)
+			local t=r.." "..g.." "..b.." "..a
+			LG.print(t,0,0)
+		end
+
 		if g.switch then
 			LG.draw(g.canvas.buffer,s.xoff+shake,s.yoff,0,s.scale*1/0.125,s.scale*1/0.125) --just like draws everything to the screen or whatever
 		else

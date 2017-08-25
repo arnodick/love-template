@@ -1,6 +1,20 @@
 local function make(g)
 	g.char="x"
 	g.switch=false
+	g.cursor=cursor.make(0,0)
+	g.images={}
+	g.images.index=1
+	table.insert(g.images,LG.newImage("images/ss.jpg"))
+	table.insert(g.images,LG.newImage("images/walk.jpg"))
+	table.insert(g.images,LG.newImage("images/forestimage.jpg"))
+	table.insert(g.images,LG.newImage("images/car320.png"))
+	table.insert(g.images,LG.newImage("images/woodland-320-x-320.jpg.png"))
+	table.insert(g.images,LG.newImage("images/blue-lagoon-320x320.jpg"))
+	table.insert(g.images,LG.newImage("images/church1.jpg"))
+	table.insert(g.images,LG.newImage("images/church2.jpg"))
+	table.insert(g.images,LG.newImage("images/greeny.jpg"))
+	table.insert(g.images,LG.newImage("images/twisted.jpg"))
+	table.insert(g.images,LG.newImage("images/corridor.jpg"))
 end
 
 local function control(g)
@@ -12,7 +26,22 @@ local function keypressed(g,key)
 		--game.state.make(g,Enums.games.states.gameplay,Enums.games.modes.roguelike)
 	elseif key=='escape' then
 		game.state.make(g,Enums.games.states.intro)
+	elseif key=='left' then
+		g.cursor.x=g.cursor.x-1
+	elseif key=='right' then
+		g.cursor.x=g.cursor.x+1
+	elseif key=='up' then
+		g.cursor.y=g.cursor.y-1
+	elseif key=='down' then
+		g.cursor.y=g.cursor.y+1
+	elseif key=='z' then
+		g.images.index=g.images.index-1
+	elseif key=='x' then
+		g.images.index=g.images.index+1
 	end
+	--g.cursor.x=math.clamp(g.cursor.x,0,#g.images,true)
+	--g.images.index=math.clamp(g.images.index,1,#g.images,true)
+	g.images.index=math.clamp(g.images.index,1,#g.images,true)
 end
 
 local function gamepadpressed(g,button)
@@ -34,6 +63,7 @@ local function gamepadpressed(g,button)
 end
 
 local function draw(g)
+--[[
 	local cellw=g.width/g.tile.width
 	local cellh=g.height/g.tile.height
 	local offset=5
@@ -43,6 +73,11 @@ local function draw(g)
 			LG.setColor(g.palette[((x+y-offset)%16)+1])
 			LG.print(g.char,x*g.tile.width,y*g.tile.height)
 		end
+	end
+--]]
+	LG.draw(g.images[g.images.index],0,0)
+	if g.cursor then
+		cursor.draw(g.cursor)
 	end
 end
 

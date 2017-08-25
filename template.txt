@@ -1,4 +1,6 @@
 PRIORITY
+game.type.control and then game.type.control calls state controller, rather than game immediately calling state from root
+cursor as module
 level types
 give camera movement controller
 Depth function sort table by depth during draw if not depth hen depth = 0

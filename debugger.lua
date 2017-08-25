@@ -23,6 +23,10 @@ local function update(g,d)
 		if g.level then
 			table.insert(debuglist,"Level:"..g.level)
 		end
+		if g.cursor then
+			table.insert(debuglist,"cur x:"..g.cursor.x)
+			table.insert(debuglist,"cur y:"..g.cursor.y)
+		end
 		if g.player then
 			table.insert(debuglist,"player x:"..g.player.x)
 			table.insert(debuglist,"player y:"..g.player.y)

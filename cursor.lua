@@ -14,9 +14,16 @@ end
 
 local function draw(cursor,snap)
 	if cursor then
-		local xoff,yoff=Game.tile.width/2,Game.tile.height/2
-		LG.rectangle("line",cursor.x-xoff,cursor.y-yoff,Game.tile.width,Game.tile.height)
-		LG.setColor(Game.palette[EC.pure_white])
+		local g=Game
+		local xoff,yoff=g.tile.width/2,g.tile.height/2
+		if g.t==Enums.games.text then
+			LG.setColor(g.palette[EC.red])
+			LG.rectangle("line",(cursor.x*g.tile.width),(cursor.y*g.tile.height),g.tile.width,g.tile.height)
+			LG.setColor(g.palette[EC.pure_white])
+		else
+			LG.rectangle("line",cursor.x-xoff,cursor.y-yoff,g.tile.width,g.tile.height)
+			--LG.setColor(g.palette[EC.pure_white])
+		end
 	end
 end
 
