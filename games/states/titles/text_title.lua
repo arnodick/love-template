@@ -1,5 +1,6 @@
 local function make(g)
 	g.char="x"
+
 	g.switch=false
 	g.cursor=cursor.make(0,0)
 	g.images={}

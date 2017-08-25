@@ -84,6 +84,13 @@ local function printformat(text,x,y,limit,align,c1,c2,alpha)
 	LG.setColor(Game.palette[EC.white])
 end
 
+local function lightness(r,g,b)
+	r,g,b=r/255,g/255,b/255
+	max=math.max(r,g,b)
+	min=math.min(r,g,b)
+	return (max+min)/2
+end
+
 math.clamp = clamp
 math.choose = choose
 math.randomfraction = randomfraction
@@ -92,6 +99,7 @@ love.filesystem.getfiles = getfiles
 love.filesystem.filterfiles = filterfiles
 love.graphics.drawbox = drawbox
 love.graphics.printformat = printformat
+love.graphics.lightness = lightness
 
 return
 {

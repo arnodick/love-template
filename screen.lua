@@ -17,6 +17,23 @@ local function update(gw,gh)
 --]]
 	s.pixelscale=1
 	s.shake=0
+
+	s.chars={}
+	table.insert(s.chars," ")
+	table.insert(s.chars," ")
+	table.insert(s.chars,".")
+	table.insert(s.chars,",")
+	table.insert(s.chars,":")
+	table.insert(s.chars,"-")
+	table.insert(s.chars,"=")
+	table.insert(s.chars,"+")
+	table.insert(s.chars,"*")
+	table.insert(s.chars,"#")
+	table.insert(s.chars,"@")
+	print(s.chars[10])
+
+	s.font=LG.newFont("fonts/Kongtext Regular.ttf",16)
+
 	return s
 end
 
@@ -64,10 +81,25 @@ local function control(s,gs)
 			local r,g,b,a=imgdata:getPixel(g.cursor.x,g.cursor.y)
 			local t=r.." "..g.." "..b.." "..a
 			LG.print(t,0,0)
+			local l=LG.lightness(r,g,b)
+			l=l*10
+			l=math.ceil(l)
+			LG.print(l,0,10)
 		end
 
 		if g.switch then
-			LG.draw(g.canvas.buffer,s.xoff+shake,s.yoff,0,s.scale*1/0.125,s.scale*1/0.125) --just like draws everything to the screen or whatever
+			LG.setFont(s.font)
+			--LG.draw(g.canvas.buffer,s.xoff+shake,s.yoff,0,s.scale*1/0.125,s.scale*1/0.125) --just like draws everything to the screen or whatever
+			for y=0,imgdata:getWidth()-1 do
+				for x=0,imgdata:getHeight()-1 do
+					local r,gr,b=imgdata:getPixel(x,y)
+					local l=LG.lightness(r,gr,b)
+					l=math.ceil(l*10)
+
+					--LG.print(l,x*8*s.scale+s.xoff,y*8*s.scale+s.yoff)
+					LG.print(s.chars[l+1],x*g.tile.width*s.scale+s.xoff,y*g.tile.height*s.scale+s.yoff)
+				end
+			end
 		else
 			LG.draw(g.canvas.main,(g.width*s.scale/2)+s.xoff+shake,(g.height*s.scale/2)+s.yoff,0,s.scale*g.camera.zoom,s.scale*g.camera.zoom,g.width/2,g.height/2) --just like draws everything to the screen or whatever
 		end
