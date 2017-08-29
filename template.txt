@@ -1,4 +1,5 @@
 PRIORITY
+different renderers or types or something for screen
 game.type.control and then game.type.control calls state controller, rather than game immediately calling state from root
 cursor as module
 level types

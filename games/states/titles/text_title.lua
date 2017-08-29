@@ -2,9 +2,14 @@ local function make(g)
 	g.char="x"
 
 	g.switch=false
-	g.cursor=cursor.make(0,0)
+	--g.cursor=cursor.make(0,0)
 	g.images={}
 	g.images.index=1
+	table.insert(g.images,LG.newImage("images/band.jpg"))
+	table.insert(g.images,LG.newImage("images/bldg.jpg"))
+	table.insert(g.images,LG.newImage("images/015.jpg"))
+	table.insert(g.images,LG.newImage("images/photo.jpg"))
+	table.insert(g.images,LG.newImage("images/large.jpg"))
 	table.insert(g.images,LG.newImage("images/ss.jpg"))
 	table.insert(g.images,LG.newImage("images/walk.jpg"))
 	table.insert(g.images,LG.newImage("images/forestimage.jpg"))
@@ -16,6 +21,7 @@ local function make(g)
 	table.insert(g.images,LG.newImage("images/greeny.jpg"))
 	table.insert(g.images,LG.newImage("images/twisted.jpg"))
 	table.insert(g.images,LG.newImage("images/corridor.jpg"))
+	table.insert(g.images,LG.newImage("images/image14781.jpg"))
 end
 
 local function control(g)
@@ -76,7 +82,9 @@ local function draw(g)
 		end
 	end
 --]]
-	LG.draw(g.images[g.images.index],0,0)
+	LG.setCanvas(g.canvas.window)
+		LG.draw(g.images[g.images.index],0,0)
+	LG.setCanvas(g.canvas.main)
 	if g.cursor then
 		cursor.draw(g.cursor)
 	end
