@@ -36,7 +36,7 @@ local function gamepadpressed(g,button)
 end
 
 local function draw(g)
-	local s=Screen
+	local s=g.screen
 	LG.translate(-g.camera.x+g.width/2,-g.camera.y+g.height/2)
 
 	LG.setCanvas(g.canvas.main) --sets drawing to the primary canvas that refreshes every frame
@@ -52,7 +52,7 @@ local function draw(g)
 	
 	LG.origin()
 
-	screen.control(Screen,g.speed)
+	screen.control(g,g.screen,g.speed)
 end
 
 local function graphics(g,tw,th,gw,gh)
@@ -89,7 +89,7 @@ local function graphics(g,tw,th,gw,gh)
 
 	Shader = shader.make()
 
-	Screen = screen.update(gw,gh)
+	screen.update(g,Enums.screens.text_renderer)
 
 	g.canvas = {}
 	g.canvas.buffer = LG.newCanvas(gw,gh) --offscreen buffer to draw to, modify, then draw to main canvas

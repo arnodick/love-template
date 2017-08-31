@@ -74,7 +74,7 @@ local function draw(a)
 end
 
 local function damage(a)
-	module.make(Screen,EM.transition,easing.linear,"pixelscale",0.1,1-0.1,22)
+	module.make(Game.screen,EM.transition,easing.linear,"pixelscale",0.1,1-0.1,22)
 end
 
 local function dead(a)

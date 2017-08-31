@@ -4,7 +4,7 @@ local function make(a,c,size)
 	a.c=a.cinit
 	a.size=size or 20
 	a.r=0
-	Screen.shake=a.size
+	Game.screen.shake=a.size
 	a.flags=flags.set(a.flags,EF.persistent)
 end
 

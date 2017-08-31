@@ -35,9 +35,10 @@ local function draw(a)
 end
 
 local function damage(a)
-	Screen.pixeltrans=true
-	Screen.pixelscale=0.1
-	Screen.shake=20
+	local g=Game
+	g.screen.pixeltrans=true
+	g.screen.pixelscale=0.1
+	g.screen.shake=20
 end
 
 local function dead(a)

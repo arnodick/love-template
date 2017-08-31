@@ -7,8 +7,9 @@ end
 
 local function update(cursor)
 	if cursor then
+		local g=Game
 		local mx,my=love.mouse.getPosition()
-		cursor.x, cursor.y = mx/(Screen.width/Game.width), my/(Screen.height/Game.height)
+		cursor.x, cursor.y = mx/(g.screen.width/g.width), my/(g.screen.height/g.height)
 	end
 end
 
