@@ -55,7 +55,7 @@ local function control(s,gs)
 
 	local shake=love.math.random(-s.shake/4,s.shake/4)*s.scale
 
-	if g.t==Enums.games.protosnake then
+	if g.t~=Enums.games.offgrid then
 		if s.transition then
 			local tempcanvas=LG.newCanvas(g.width*s.pixelscale,g.height*s.pixelscale)
 			LG.setCanvas(tempcanvas)
@@ -80,7 +80,7 @@ local function control(s,gs)
 			LG.draw(g.canvas.hud,(g.width*s.scale/2)+s.xoff,(g.height*s.scale/2)+s.yoff,0,s.scale*g.camera.zoom,s.scale*g.camera.zoom,g.width/2,g.height/2) --just like draws everything to the screen or whatever
 			--LG.setShader()
 		end
-	elseif g.t==Enums.games.text then
+	elseif g.t==Enums.games.offgrid then
 		LG.setCanvas(g.canvas.buffer)
 			LG.draw(g.canvas.window,0,0,0,g.bufferscale,g.bufferscale)
 		LG.setCanvas()
@@ -113,7 +113,10 @@ local function control(s,gs)
 		end
 
 		LG.setCanvas(g.canvas.main)
-		LG.draw(g.canvas.window,0,0,0,1,1)
+			LG.draw(g.canvas.window,0,0,0,1,1)
+			if g.menu then
+				menu.draw(g.menu)
+			end
 		LG.setCanvas()
 		LG.draw(g.canvas.main,(g.width*s.scale/2)+s.xoff+shake,(g.height*s.scale/2)+s.yoff,0,s.scale*g.camera.zoom,s.scale*g.camera.zoom,g.width/2,g.height/2) --just like draws everything to the screen or whatever
 

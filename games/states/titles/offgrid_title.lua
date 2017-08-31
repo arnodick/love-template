@@ -22,7 +22,7 @@ local function make(g)
 	table.insert(g.images,LG.newImage("images/twisted.jpg"))
 	table.insert(g.images,LG.newImage("images/corridor.jpg"))
 	table.insert(g.images,LG.newImage("images/image14781.jpg"))
-	module.make(g,EM.menu,EMM.text,0,640,640,320,"Where are you going...",EC.white,EC.dark_gray)
+	module.make(g,EM.menu,EMM.text,320,800,640,320,"Where are you going...",EC.white,EC.dark_gray)
 end
 
 local function control(g)
@@ -86,7 +86,6 @@ local function draw(g)
 	LG.setCanvas(g.canvas.window)
 		LG.draw(g.images[g.images.index],0,0)
 	LG.setCanvas(g.canvas.main)
-	menu.draw(g.menu)
 	if g.cursor then
 		cursor.draw(g.cursor)
 	end

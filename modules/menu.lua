@@ -51,10 +51,12 @@ local g=Game
 		_G[EMM[m.t]]["draw"](m)
 	end
 
+--[[
 	if Debugmode then
 		LG.setColor(Game.palette[EC.red])
 		LG.points(a.x,a.y)
 	end
+--]]
 end
 
 return
