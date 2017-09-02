@@ -17,11 +17,13 @@ end
 local function gamepadpressed(g,button)
 	if button=="start" or button=="a" then
 		game.state.make(g,Enums.games.states.title)
+	elseif button=="b" then
+		love.event.quit()
 	end
 end
 
 local function draw(g)
-	LG.print("text intro", g.width/2, g.height/2)
+	LG.print("offgrid intro", g.width/2, g.height/2)
 end
 
 return
