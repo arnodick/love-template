@@ -26,7 +26,7 @@ local function make(g,t,mode,st)--initializes game's state, timer, camera, actor
 	for i,v in pairs(Music.sources) do
 		v:stop()
 	end
-	screen.update(g,Enums.screens.text_renderer)
+	screen.update(g)
 	if _G[e.games.states[g.state.t]]["make"] then
 		_G[e.games.states[g.state.t]]["make"](g)
 	end

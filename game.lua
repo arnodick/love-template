@@ -1,6 +1,7 @@
-local function make(t,tw,th,gw,gh,sp)
+local function make(t,st,tw,th,gw,gh,sp)
 	local g={}--Game object
 	g.t=t
+	g.st=st
 	g.name=Enums.games[t]
 	g.tile={}
 	g.tile.width=tw
@@ -89,7 +90,7 @@ local function graphics(g,tw,th,gw,gh)
 
 	Shader = shader.make()
 
-	screen.update(g,Enums.screens.text_renderer)
+	screen.update(g)
 
 	g.canvas = {}
 	g.canvas.buffer = LG.newCanvas(gw,gh) --offscreen buffer to draw to, modify, then draw to main canvas
