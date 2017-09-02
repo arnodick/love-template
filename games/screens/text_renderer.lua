@@ -1,22 +1,14 @@
 local function control(g,s,...)
 	local shake=love.math.random(-s.shake/4,s.shake/4)*s.scale
 
+	LG.draw(g.canvas.main,(g.width*s.scale/2)+s.xoff+shake,(g.height*s.scale/2)+s.yoff,0,s.scale*g.camera.zoom,s.scale*g.camera.zoom,g.width/2,g.height/2) --just like draws everything to the screen or whatever
+--[[
 	LG.setCanvas(g.canvas.buffer)
 		LG.draw(g.canvas.window,0,0,0,g.bufferscale,g.bufferscale)
 	LG.setCanvas()
 
 	local imgdata=g.canvas.buffer:newImageData(0,0,g.canvas.buffer:getWidth(),g.canvas.buffer:getHeight())
---[[
-	if g.cursor then
-		local r,g,b,a=imgdata:getPixel(g.cursor.x,g.cursor.y)
-		local t=r.." "..g.." "..b.." "..a
-		LG.print(t,0,0)
-		local l=LG.lightness(r,g,b)
-		l=l*10
-		l=math.ceil(l)
-		LG.print(l,0,10)
-	end
---]]
+
 	if g.switch then
 		LG.setCanvas(g.canvas.window)
 		LG.clear()
@@ -39,6 +31,7 @@ local function control(g,s,...)
 		end
 	LG.setCanvas()
 	LG.draw(g.canvas.main,(g.width*s.scale/2)+s.xoff+shake,(g.height*s.scale/2)+s.yoff,0,s.scale*g.camera.zoom,s.scale*g.camera.zoom,g.width/2,g.height/2) --just like draws everything to the screen or whatever
+--]]
 
 --[[
 	local tempcanvas=LG.newCanvas(g.width*s.pixelscale,g.height*s.pixelscale)

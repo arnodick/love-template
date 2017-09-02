@@ -44,12 +44,41 @@ local function gamepadpressed(g,button)
 end
 
 local function draw(g)
+--[[
 	LG.setCanvas(g.canvas.window)
 		LG.draw(g.images[g.images.index],0,0)
 	LG.setCanvas(g.canvas.main)
-	if g.cursor then
-		cursor.draw(g.cursor)
-	end
+--]]
+
+	LG.setCanvas(g.canvas.buffer)
+		--LG.draw(g.canvas.window,0,0,0,g.bufferscale,g.bufferscale)
+		LG.draw(g.images[g.images.index],0,0,0,g.bufferscale,g.bufferscale)
+	LG.setCanvas(g.canvas.main)
+
+	local imgdata=g.canvas.buffer:newImageData(0,0,g.canvas.buffer:getWidth(),g.canvas.buffer:getHeight())
+
+	--if g.switch then
+		--LG.setCanvas(g.canvas.window)
+		--LG.clear()
+		for y=0,imgdata:getWidth()-1 do
+			for x=0,imgdata:getHeight()-1 do
+				local r,gr,b=imgdata:getPixel(x,y)
+				local l=LG.lightness(r,gr,b)
+				l=math.ceil(l*10)
+				LG.setColor(r,gr,b)
+				LG.print(g.chars[l+1],x*g.tile.width,y*g.tile.height)
+			end
+		end
+		LG.setColor(g.palette[16]) --sets draw colour back to normal
+	--end
+
+	--LG.setCanvas(g.canvas.main)
+	--	LG.draw(g.canvas.window,0,0,0,1,1)
+		if g.menu then
+			menu.draw(g.menu)
+		end
+	--LG.setCanvas()
+	--LG.draw(g.canvas.main,(g.width*s.scale/2)+s.xoff+shake,(g.height*s.scale/2)+s.yoff,0,s.scale*g.camera.zoom,s.scale*g.camera.zoom,g.width/2,g.height/2) --just like draws everything to the screen or whatever
 end
 
 return
