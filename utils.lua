@@ -91,6 +91,26 @@ local function lightness(r,g,b)
 	return (max+min)/2
 end
 
+local function textify(image,scale,chars,smallcanvas,bigcanvas)
+	local g=Game
+	LG.setCanvas(smallcanvas)
+		LG.draw(image,0,0,0,scale,scale)
+	LG.setCanvas(bigcanvas)
+	local imgdata=smallcanvas:newImageData(0,0,smallcanvas:getWidth(),smallcanvas:getHeight())
+	for y=0,imgdata:getWidth()-1 do
+		for x=0,imgdata:getHeight()-1 do
+			local r,gr,b=imgdata:getPixel(x,y)
+			local l=LG.lightness(r,gr,b)
+			l=math.ceil(l*10)
+			LG.setColor(r,gr,b)
+			LG.print(chars[l+1],x*g.tile.width,y*g.tile.height)
+		end
+	end
+	LG.setColor(255,255,255) --sets draw colour back to normal
+	local mainimgdata=bigcanvas:newImageData(0,0,bigcanvas:getWidth(),bigcanvas:getHeight())
+	return LG.newImage(mainimgdata)
+end
+
 math.clamp = clamp
 math.choose = choose
 math.randomfraction = randomfraction
@@ -100,6 +120,7 @@ love.filesystem.filterfiles = filterfiles
 love.graphics.drawbox = drawbox
 love.graphics.printformat = printformat
 love.graphics.lightness = lightness
+love.graphics.textify = textify
 
 return
 {

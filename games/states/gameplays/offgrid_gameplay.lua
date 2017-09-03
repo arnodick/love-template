@@ -20,6 +20,12 @@ local function make(g)
 	table.insert(g.images,LG.newImage("images/corridor.jpg"))
 	table.insert(g.images,LG.newImage("images/image14781.jpg"))
 	module.make(g,EM.menu,EMM.text,320,800,640,320,"Where are you going...",EC.white,EC.dark_gray)
+
+	g.textimages={}
+	for i,v in ipairs(g.images) do
+		table.insert(g.textimages,LG.textify(v,g.bufferscale,g.chars,g.canvas.buffer,g.canvas.main))
+	end
+	g.textimages.index=1
 end
 
 local function control(g)
@@ -30,11 +36,13 @@ local function keypressed(g,key)
 	if key=='escape' then
 		game.state.make(g,Enums.games.states.title)
 	elseif key=='z' then
-		g.images.index=g.images.index-1
+		--g.images.index=g.images.index-1
+		g.textimages.index=g.textimages.index-1
 	elseif key=='x' then
-		g.images.index=g.images.index+1
+		--g.images.index=g.images.index+1
+		g.textimages.index=g.textimages.index+1
 	end
-	g.images.index=math.clamp(g.images.index,1,#g.images,true)
+	g.textimages.index=math.clamp(g.textimages.index,1,#g.textimages,true)
 end
 
 local function gamepadpressed(g,button)
@@ -44,41 +52,10 @@ local function gamepadpressed(g,button)
 end
 
 local function draw(g)
---[[
-	LG.setCanvas(g.canvas.window)
-		LG.draw(g.images[g.images.index],0,0)
-	LG.setCanvas(g.canvas.main)
---]]
-
-	LG.setCanvas(g.canvas.buffer)
-		--LG.draw(g.canvas.window,0,0,0,g.bufferscale,g.bufferscale)
-		LG.draw(g.images[g.images.index],0,0,0,g.bufferscale,g.bufferscale)
-	LG.setCanvas(g.canvas.main)
-
-	local imgdata=g.canvas.buffer:newImageData(0,0,g.canvas.buffer:getWidth(),g.canvas.buffer:getHeight())
-
-	--if g.switch then
-		--LG.setCanvas(g.canvas.window)
-		--LG.clear()
-		for y=0,imgdata:getWidth()-1 do
-			for x=0,imgdata:getHeight()-1 do
-				local r,gr,b=imgdata:getPixel(x,y)
-				local l=LG.lightness(r,gr,b)
-				l=math.ceil(l*10)
-				LG.setColor(r,gr,b)
-				LG.print(g.chars[l+1],x*g.tile.width,y*g.tile.height)
-			end
-		end
-		LG.setColor(g.palette[16]) --sets draw colour back to normal
-	--end
-
-	--LG.setCanvas(g.canvas.main)
-	--	LG.draw(g.canvas.window,0,0,0,1,1)
-		if g.menu then
-			menu.draw(g.menu)
-		end
-	--LG.setCanvas()
-	--LG.draw(g.canvas.main,(g.width*s.scale/2)+s.xoff+shake,(g.height*s.scale/2)+s.yoff,0,s.scale*g.camera.zoom,s.scale*g.camera.zoom,g.width/2,g.height/2) --just like draws everything to the screen or whatever
+	LG.draw(g.textimages[g.textimages.index],0,0)
+	if g.menu then
+		menu.draw(g.menu)
+	end
 end
 
 return
