@@ -1,10 +1,6 @@
 local function make(g,tw,th,gw,gh,sp)
-	g.window={}
-	g.window.width=640
-	g.window.height=640
-	local ww,wh=g.window.width,g.window.height
-	g.bufferscale=(ww/tw)/ww
-	g.canvas.window = LG.newCanvas(ww,wh)
+	local ww,wh=640,640
+	g.bufferscale=(ww/tw)/wh
 	g.canvas.buffer = LG.newCanvas(ww*g.bufferscale,wh*g.bufferscale)
 
 	g.chars={}

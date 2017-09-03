@@ -3,15 +3,16 @@ local function make(g)
 	g.images={}
 	g.images.index=1
 	table.insert(g.images,LG.newImage("images/band.jpg"))
-	table.insert(g.images,LG.newImage("images/bldg.jpg"))
+	--table.insert(g.images,LG.newImage("images/bldg.jpg"))
 	table.insert(g.images,LG.newImage("images/015.jpg"))
 	table.insert(g.images,LG.newImage("images/photo.jpg"))
 	table.insert(g.images,LG.newImage("images/large.jpg"))
-	table.insert(g.images,LG.newImage("images/ss.jpg"))
-	table.insert(g.images,LG.newImage("images/walk.jpg"))
+	--table.insert(g.images,LG.newImage("images/ss.jpg"))
+	--table.insert(g.images,LG.newImage("images/walk.jpg"))
 	table.insert(g.images,LG.newImage("images/forestimage.jpg"))
-	table.insert(g.images,LG.newImage("images/car320.png"))
-	table.insert(g.images,LG.newImage("images/woodland-320-x-320.jpg.png"))
+	--table.insert(g.images,LG.newImage("images/car320.png"))
+	--table.insert(g.images,LG.newImage("images/woodland-320-x-320.jpg.png"))
+--[[
 	table.insert(g.images,LG.newImage("images/blue-lagoon-320x320.jpg"))
 	table.insert(g.images,LG.newImage("images/church1.jpg"))
 	table.insert(g.images,LG.newImage("images/church2.jpg"))
@@ -19,6 +20,7 @@ local function make(g)
 	table.insert(g.images,LG.newImage("images/twisted.jpg"))
 	table.insert(g.images,LG.newImage("images/corridor.jpg"))
 	table.insert(g.images,LG.newImage("images/image14781.jpg"))
+--]]
 	module.make(g,EM.menu,EMM.text,320,800,640,320,"Where are you going...",EC.white,EC.dark_gray)
 
 	g.textimages={}
