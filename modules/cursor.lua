@@ -1,9 +1,7 @@
-local function make(x,y,snap)
-	local cursor = {}
-	cursor.x=x
-	cursor.y=y
+local function make(a,cursor,snap)
+	cursor.x=0
+	cursor.y=0
 	cursor.snap=snap or false
-	return cursor
 end
 
 local function update(cursor)
@@ -19,7 +17,7 @@ local function draw(cursor)
 		local xoff,yoff=tw,th
 		LG.setColor(g.palette[EC.red])
 		if cursor.snap then
-			LG.rectangle("line",math.ceil((cursor.x)/tw+1)*tw-xoff,math.ceil((cursor.y)/th+1)*th-yoff,tw,th)
+			LG.rectangle("line",math.ceil(cursor.x/tw+1)*tw-xoff,math.ceil(cursor.y/th+1)*th-yoff,tw,th)
 		else
 			LG.rectangle("line",cursor.x-xoff,cursor.y-yoff,tw,th)
 		end

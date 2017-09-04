@@ -1,5 +1,5 @@
 local function make(g)
-	g.state.cursor=cursor.make(0,0,true)
+	module.make(g.state,EM.cursor,true)
 	if _G[Enums.games.states.editors[g.state.st]]["make"] then
 		_G[Enums.games.states.editors[g.state.st]]["make"](g)
 	end

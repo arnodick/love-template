@@ -10,7 +10,7 @@ local function make(a,c,size,spr,hp)
 		module.make(a,EM.controller,EMC.aim,EMCI.mouse)
 		module.make(a,EM.controller,EMC.action,EMCI.mouse)
 
-		a.cursor=cursor.make(0,0)--TODO make cursor a module, put it in controller instead of actor
+		module.make(a,EM.cursor)
 	end
 
 	a.cinit=c or EC.dark_blue
