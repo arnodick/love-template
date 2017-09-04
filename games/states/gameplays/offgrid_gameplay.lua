@@ -24,8 +24,10 @@ local function make(g)
 	module.make(g,EM.menu,EMM.text,320,800,640,320,"Where are you going...",EC.white,EC.dark_gray)
 
 	g.textimages={}
+	local buffer = LG.newCanvas(640*g.bufferscale,640*g.bufferscale)
 	for i,v in ipairs(g.images) do
-		table.insert(g.textimages,LG.textify(v,g.bufferscale,g.chars,g.canvas.buffer,g.canvas.main))
+		--table.insert(g.textimages,LG.textify(v,g.bufferscale,g.chars,g.canvas.buffer,g.canvas.main))
+		table.insert(g.textimages,LG.textify(v,g.bufferscale,g.chars,buffer,g.canvas.main))
 	end
 	g.textimages.index=1
 end

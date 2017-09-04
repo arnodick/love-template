@@ -15,7 +15,16 @@ local function make(t,tw,th,gw,gh,sp)
 	if _G[Enums.games[t]]["make"] then
 		_G[Enums.games[t]]["make"](g,tw,th,gw,gh)
 	end
-
+---[[
+	if g.window then
+		local ww,wh=love.window.getMode()
+		if ww~=g.window.width or wh~=g.window.height then
+			LG.setCanvas()
+			love.window.setMode(g.window.width,g.window.height)
+		end
+		game.graphics(g,tw,th,gw,gh)
+	end
+--]]
 	return g
 end
 
@@ -87,7 +96,7 @@ local function graphics(g,tw,th,gw,gh)
 		table.insert(Quads,qs)
 	end
 
-	Shader = shader.make()
+	--Shader = shader.make()
 
 	screen.update(g)
 
