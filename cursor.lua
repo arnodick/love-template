@@ -1,30 +1,29 @@
-local function make(x,y)
+local function make(x,y,snap)
 	local cursor = {}
 	cursor.x=x
 	cursor.y=y
+	cursor.snap=snap or false
 	return cursor
 end
 
 local function update(cursor)
 	if cursor then
-		local g=Game
-		local mx,my=love.mouse.getPosition()
-		cursor.x, cursor.y = mx/(g.screen.width/g.width), my/(g.screen.height/g.height)
+		cursor.x,cursor.y=love.mouse.getPosition()
 	end
 end
 
-local function draw(cursor,snap)
+local function draw(cursor)
 	if cursor then
 		local g=Game
-		local xoff,yoff=g.tile.width/2,g.tile.height/2
-		if g.t==Enums.games.offgrid then
-			LG.setColor(g.palette[EC.red])
-			LG.rectangle("line",(cursor.x*g.tile.width),(cursor.y*g.tile.height),g.tile.width,g.tile.height)
-			LG.setColor(g.palette[EC.pure_white])
+		local tw,th=g.tile.width,g.tile.height
+		local xoff,yoff=tw,th
+		LG.setColor(g.palette[EC.red])
+		if cursor.snap then
+			LG.rectangle("line",math.ceil((cursor.x)/tw+1)*tw-xoff,math.ceil((cursor.y)/th+1)*th-yoff,tw,th)
 		else
-			LG.rectangle("line",cursor.x-xoff,cursor.y-yoff,g.tile.width,g.tile.height)
-			--LG.setColor(g.palette[EC.pure_white])
+			LG.rectangle("line",cursor.x-xoff,cursor.y-yoff,tw,th)
 		end
+		LG.setColor(g.palette[EC.pure_white])
 	end
 end
 
