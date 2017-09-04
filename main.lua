@@ -47,6 +47,10 @@ function love.keypressed(key,scancode,isrepeat)
 	end
 end
 
+function love.mousepressed(x,y,button)
+	game.mousepressed(Game,x,y,button)
+end
+
 function love.gamepadpressed(joystick,button)
 	game.gamepadpressed(Game,button)
 end

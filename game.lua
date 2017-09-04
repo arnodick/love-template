@@ -43,6 +43,10 @@ local function keypressed(g,key,scancode,isrepeat)
 	game.state.keypressed(g,key)
 end
 
+local function mousepressed(g,x,y,button)
+	game.state.mousepressed(g,x,y,button)
+end
+
 local function gamepadpressed(g,button)
 	game.state.gamepadpressed(g,button)
 end
@@ -115,6 +119,7 @@ return
 	make = make,
 	control = control,
 	keypressed = keypressed,
+	mousepressed = mousepressed,
 	gamepadpressed = gamepadpressed,
 	draw = draw,
 	init = init,
