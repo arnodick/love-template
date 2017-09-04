@@ -37,6 +37,9 @@ local function control(g)
 end
 
 local function keypressed(g,key,scancode,isrepeat)
+	if key=="tab" then
+		game.state.make(g,Enums.games.states.editor)
+	end
 	game.state.keypressed(g,key)
 end
 
