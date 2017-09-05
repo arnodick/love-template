@@ -37,12 +37,18 @@ local function control(g)
 	if _G[Enums.games.states[s.t]]["control"] then
 		_G[Enums.games.states[s.t]]["control"](g)
 	end
+	if g.editor then
+		editor.control(g)
+	end
 end
 
 local function keypressed(g,key)
 	local s=g.state
 	if _G[Enums.games.states[s.t]]["keypressed"] then
 		_G[Enums.games.states[s.t]]["keypressed"](g,key)
+	end
+	if g.editor then
+		editor.keypressed(g,key)
 	end
 end
 
@@ -51,12 +57,18 @@ local function mousepressed(g,x,y,button)
 	if _G[Enums.games.states[s.t]]["mousepressed"] then
 		_G[Enums.games.states[s.t]]["mousepressed"](g,x,y,button)
 	end
+	if g.editor then
+		editor.mousepressed(g,x,y,button)
+	end
 end
 
 local function wheelmoved(g,x,y)
 	local s=g.state
 	if _G[Enums.games.states[s.t]]["wheelmoved"] then
 		_G[Enums.games.states[s.t]]["wheelmoved"](g,x,y)
+	end
+	if g.editor then
+		editor.wheelmoved(g,x,y)
 	end
 end
 
@@ -65,12 +77,18 @@ local function gamepadpressed(g,button)
 	if _G[Enums.games.states[s.t]]["gamepadpressed"] then
 		_G[Enums.games.states[s.t]]["gamepadpressed"](g,button)
 	end
+	if g.editor then
+		editor.gamepadpressed(g,button)
+	end
 end
 
 local function draw(g)
 	local s=g.state
 	if _G[Enums.games.states[s.t]]["draw"] then
 		_G[Enums.games.states[s.t]]["draw"](g)
+	end
+	if g.editor then
+		editor.draw(g)
 	end
 end
 
