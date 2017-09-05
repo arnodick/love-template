@@ -7,14 +7,6 @@ local function generate(t,w,h)
 	return m
 end
 
-local function getcell(m,x,y)
-	local tw,th=Game.tile.width,Game.tile.height
-	local cx,cy=math.floor((x+tw)/tw)+1,math.floor((y+th)/th)+1
-	cx=math.clamp(cx,1,#m[1])
-	cy=math.clamp(cy,1,#m)
-	return cx,cy
-end
-
 local function load(m)
 	--loads map sprites and walls/entities from a hex populated textfile
 	--returns map array
@@ -35,10 +27,18 @@ local function draw(m)
 	end
 end
 
+local function getcell(m,x,y)
+	local tw,th=Game.tile.width,Game.tile.height
+	local cx,cy=math.floor((x+tw)/tw)+1,math.floor((y+th)/th)+1
+	cx=math.clamp(cx,1,#m[1])
+	cy=math.clamp(cy,1,#m)
+	return cx,cy
+end
+
 return
 {
 	generate = generate,
-	getcell = getcell,
 	load = load,
 	draw = draw,
+	getcell = getcell,
 }

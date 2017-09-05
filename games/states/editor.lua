@@ -1,5 +1,6 @@
 local function make(g)
 	module.make(g.state,EM.cursor,true)
+	g.state.map=map.generate(Enums.games.maps.map_editor,60,60)
 	if _G[Enums.games.states.editors[g.state.st]]["make"] then
 		_G[Enums.games.states.editors[g.state.st]]["make"](g)
 	end
@@ -22,6 +23,10 @@ local function keypressed(g,key)
 end
 
 local function mousepressed(g,x,y,button)
+	if button==1 then
+		cx,cy=map.getcell(g.state.map,g.state.cursor.x,g.state.cursor.y)
+		g.state.map[cy][cx]=5
+	end
 	if _G[Enums.games.states.editors[g.state.st]]["mousepressed"] then
 		_G[Enums.games.states.editors[g.state.st]]["mousepressed"](g,x,y,button)
 	end
@@ -34,7 +39,8 @@ local function gamepadpressed(g,button)
 end
 
 local function draw(g)
-	LG.print("EDITOR",g.width/2,g.height/2)
+	--LG.print("EDITOR",g.width/2,g.height/2)
+	map.draw(g.state.map)
 	cursor.draw(g.state.cursor)
 	LG.print("cursor x y "..g.state.cursor.x.." "..g.state.cursor.y,g.width/2,g.height/2+20)
 	if _G[Enums.games.states.editors[g.state.st]]["draw"] then
