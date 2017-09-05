@@ -17,7 +17,8 @@ local function draw(cursor)
 		local xoff,yoff=tw,th
 		LG.setColor(g.palette[EC.red])
 		if cursor.snap then
-			LG.rectangle("line",math.ceil(cursor.x/tw+1)*tw-xoff,math.ceil(cursor.y/th+1)*th-yoff,tw,th)
+			local cx,cy=math.floor(cursor.x/tw)*tw,math.floor(cursor.y/th)*th
+			LG.rectangle("line",cx,cy,tw,th)
 		else
 			LG.rectangle("line",cursor.x-xoff,cursor.y-yoff,tw,th)
 		end
