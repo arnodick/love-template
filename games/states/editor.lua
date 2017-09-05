@@ -33,7 +33,11 @@ local function mousepressed(g,x,y,button)
 end
 
 local function wheelmoved(g,x,y)
-	g.state.cursor.value=g.state.cursor.value+y
+	if love.keyboard.isDown('lctrl') then
+		g.camera.zoom=g.camera.zoom+y
+	else
+		g.state.cursor.value=g.state.cursor.value+y
+	end
 end
 
 local function gamepadpressed(g,button)

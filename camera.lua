@@ -10,8 +10,12 @@ local function make(x,y)
 	--TODO this should insert itself into Game.cameras, can have multiple cameras and jump around from one to another
 end
 
-local function control(c,t,gs)
-	if c.transition then
+local function control(c,target,gs)
+	local cu=Game.state.cursor
+	if cu then
+		c.x=cu.x
+		c.y=cu.y
+	elseif c.transition then
 		transition.control(c,c.transition)
 	end
 end
