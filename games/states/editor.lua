@@ -1,5 +1,7 @@
 local function make(g)
 	module.make(g.state,EM.cursor,EM.cursors.cursor_editor,true)
+	module.make(g.camera,EM.target,g.state.cursor)
+
 	g.state.map=map.generate(Enums.games.maps.map_editor,60,60)
 	if _G[Enums.games.states.editors[g.state.st]]["make"] then
 		_G[Enums.games.states.editors[g.state.st]]["make"](g)
@@ -11,6 +13,7 @@ local function control(g)
 	if _G[Enums.games.states.editors[g.state.st]]["control"] then
 		_G[Enums.games.states.editors[g.state.st]]["control"](g)
 	end
+	camera.control(g.camera,g.speed)
 end
 
 local function keypressed(g,key)

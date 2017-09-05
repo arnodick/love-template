@@ -24,7 +24,7 @@ local function control(g)
 		transition.control(g,g.transition)
 	end
 
-	camera.control(g.camera,g.player,g.speed)
+	camera.control(g.camera,g.speed)
 	
 	for i,v in ipairs(g.actors) do
 		if v.delete==true then
