@@ -29,7 +29,7 @@ end
 
 local function getcell(m,x,y)
 	local tw,th=Game.tile.width,Game.tile.height
-	local cx,cy=math.floor(x+tw)/tw,math.floor(y+th)/th
+	local cx,cy=math.floor((x+tw)/tw),math.floor((y+th)/th)
 	cx=math.clamp(cx,1,#m[1])
 	cy=math.clamp(cy,1,#m)
 	return cx,cy

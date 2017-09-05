@@ -53,6 +53,13 @@ local function mousepressed(g,x,y,button)
 	end
 end
 
+local function wheelmoved(g,x,y)
+	local s=g.state
+	if _G[Enums.games.states[s.t]]["wheelmoved"] then
+		_G[Enums.games.states[s.t]]["wheelmoved"](g,x,y)
+	end
+end
+
 local function gamepadpressed(g,button)
 	local s=g.state
 	if _G[Enums.games.states[s.t]]["gamepadpressed"] then
@@ -73,6 +80,7 @@ return
 	control = control,
 	keypressed = keypressed,
 	mousepressed = mousepressed,
+	wheelmoved = wheelmoved,
 	gamepadpressed = gamepadpressed,
 	draw = draw,
 }

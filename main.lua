@@ -51,6 +51,10 @@ function love.mousepressed(x,y,button)
 	game.mousepressed(Game,x,y,button)
 end
 
+function love.wheelmoved(x,y)
+	game.wheelmoved(Game,x,y)
+end
+
 function love.gamepadpressed(joystick,button)
 	game.gamepadpressed(Game,button)
 end

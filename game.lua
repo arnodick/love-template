@@ -47,6 +47,10 @@ local function mousepressed(g,x,y,button)
 	game.state.mousepressed(g,x,y,button)
 end
 
+local function wheelmoved(g,x,y)
+	game.state.wheelmoved(g,x,y)
+end
+
 local function gamepadpressed(g,button)
 	game.state.gamepadpressed(g,button)
 end
@@ -120,6 +124,7 @@ return
 	control = control,
 	keypressed = keypressed,
 	mousepressed = mousepressed,
+	wheelmoved = wheelmoved,
 	gamepadpressed = gamepadpressed,
 	draw = draw,
 	init = init,
