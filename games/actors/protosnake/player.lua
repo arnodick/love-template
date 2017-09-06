@@ -61,7 +61,9 @@ local function control(a)
 		end
 	end
 	--]]
-	cursor.update(a.cursor)
+	if a.cursor then
+		cursor.update(a.cursor)
+	end
 	--if a.controller.action then	
 	--end
 	if SFX.positonal then
@@ -70,7 +72,9 @@ local function control(a)
 end
 
 local function draw(a)
-	cursor.draw(a.cursor)
+	if a.cursor then
+		cursor.draw(a.cursor)
+	end
 end
 
 local function damage(a)
