@@ -21,37 +21,12 @@ end
 
 local function make(g,lindex)
 	local gamename=g.name
-
-	if lindex~=g.levelpath[#g.levelpath] then
-		table.insert(g.levelpath,lindex)
-	end
-	local lload=g.levels[lindex]
 	local l={}
-	l.t=Enums.games.levels[gamename][lload.values.t]
-	l.c=lload.values.c
-	l.enemies={}
-	for i,v in pairs(lload.enemies) do
-		if type(i)=="number" then
-			l.enemies[i]=EA[g.name][v]
-		else
-			l.enemies[i]=v
-		end
+	local lt=Enums.games.levels[gamename.."_level"]
+
+	if _G[Enums.games.levels[lt]]["make"] then
+		l=_G[Enums.games.levels[lt]]["make"](g,lindex)
 	end
-
-	l.actordrops=lload.actordrops
-	l.portal1=lload.portal1
-	l.portal2=lload.portal2
-	l.portalstore=lload.portalstore
-
-	l.storeitem1=lload.storeitem1
-	l.storeitem2=lload.storeitem2
-	l.storeitem3=lload.storeitem3
-
-	for i=1,l.enemies.max do
-		actor.make(l.enemies[1])
-	end
-
-	l.spawnindex=1
 
 	if _G[Enums.games.levels[gamename][l.t]]["make"] then
 		_G[Enums.games.levels[gamename][l.t]]["make"](l,gs)
@@ -61,10 +36,10 @@ end
 
 local function control(g,l)
 	local gamename=g.name
-	local enemycount=g.counters.enemy
-	
-	if enemycount<l.enemies.max then
-		actor.make(EA[g.name].spawn)
+	local lt=Enums.games.levels[gamename.."_level"]
+
+	if _G[Enums.games.levels[lt]]["control"] then
+		_G[Enums.games.levels[lt]]["control"](g,l)
 	end
 
 	if _G[Enums.games.levels[gamename][l.t]]["control"] then
