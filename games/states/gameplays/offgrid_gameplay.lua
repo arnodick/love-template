@@ -26,10 +26,13 @@ local function make(g)
 	g.textimages={}
 	local buffer = LG.newCanvas(640*g.bufferscale,640*g.bufferscale)
 	for i,v in ipairs(g.images) do
-		--table.insert(g.textimages,LG.textify(v,g.bufferscale,g.chars,g.canvas.buffer,g.canvas.main))
 		table.insert(g.textimages,LG.textify(v,g.bufferscale,g.chars,buffer,g.canvas.main))
 	end
 	g.textimages.index=1
+
+	g.level=1
+	g.levels.current=level.make(g,g.level)
+	debugger.printtable(g.levels.current)
 end
 
 local function control(g)
@@ -57,6 +60,7 @@ end
 
 local function draw(g)
 	LG.draw(g.textimages[g.textimages.index],0,0)
+	--LG.draw(g.levels.current.pic,0,0)
 	if g.menu then
 		menu.draw(g.menu)
 	end
