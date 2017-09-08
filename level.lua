@@ -1,4 +1,4 @@
-local function load(dir)
+local function load(g,dir)
 	local l={}
 	local files = love.filesystem.getDirectoryItems(dir)
 	for i=1,#files do
@@ -16,7 +16,7 @@ local function load(dir)
 			end
 		end
 	end
-	return l
+	g.levels=l
 end
 
 local function make(g,lindex)
@@ -31,7 +31,7 @@ local function make(g,lindex)
 	if _G[Enums.games.levels[gamename][l.t]]["make"] then
 		_G[Enums.games.levels[gamename][l.t]]["make"](l,gs)
 	end
-	return l
+	g.levels.current=l
 end
 
 local function control(g,l)

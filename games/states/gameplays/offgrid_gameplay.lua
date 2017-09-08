@@ -31,7 +31,7 @@ local function make(g)
 	g.textimages.index=1
 
 	g.level=1
-	g.levels.current=level.make(g,g.level)
+	level.make(g,g.level)
 	debugger.printtable(g.levels.current)
 end
 

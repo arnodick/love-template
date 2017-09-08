@@ -42,7 +42,7 @@ local function control(a,gs)
 				v.delete=true
 			end
 		end
-		Game.levels.current=level.make(Game,a.level)
+		level.make(Game,a.level)
 		Game.ease=true--TODO make easing function for this. works on any number
 		Game.speed=0.01
 		a.delete=true --TODO maybe give this a VERY low chance of not happening?

@@ -27,7 +27,7 @@ local function make(g,tw,th,gw,gh,sp)
 	table.insert(g.chars,"_")
 	table.insert(g.chars,"~")
 
-	g.levels=level.load("games/levels/offgrid/inis")
+	level.load(g,"games/levels/offgrid/inis")
 
 	game.state.make(g,Enums.games.states.intro)
 end
