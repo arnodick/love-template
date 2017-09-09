@@ -4,7 +4,9 @@ local function make(g,lindex)
 	local lload=g.levels[lindex]
 	local l={}
 	l.t=Enums.games.levels[gamename][lload.values.t]
-	l.pic=lload.values.pic
+	if lload.values.animspeed then
+		l.animspeed=lload.values.animspeed
+	end
 	return l
 end
 

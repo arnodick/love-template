@@ -1,4 +1,5 @@
 local function make(g)
+--[[
 	g.switch=false
 	g.images={}
 	g.images.index=1
@@ -23,14 +24,16 @@ local function make(g)
 --]]
 	module.make(g,EM.menu,EMM.text,320,800,640,320,"Where are you going...",EC.white,EC.dark_gray)
 
+--[[
 	g.textimages={}
 	local buffer = LG.newCanvas(640*g.bufferscale,640*g.bufferscale)
 	for i,v in ipairs(g.images) do
 		table.insert(g.textimages,LG.textify(v,g.bufferscale,g.chars,buffer,g.canvas.main))
 	end
 	g.textimages.index=1
+--]]
 
-	g.level=1
+	g.level=3
 	level.make(g,g.level)
 	debugger.printtable(g.levels.current)
 end
@@ -42,6 +45,8 @@ end
 local function keypressed(g,key)
 	if key=='escape' then
 		game.state.make(g,Enums.games.states.title)
+	end
+--[[
 	elseif key=='z' then
 		--g.images.index=g.images.index-1
 		g.textimages.index=g.textimages.index-1
@@ -50,6 +55,7 @@ local function keypressed(g,key)
 		g.textimages.index=g.textimages.index+1
 	end
 	g.textimages.index=math.clamp(g.textimages.index,1,#g.textimages,true)
+--]]
 end
 
 local function gamepadpressed(g,button)
@@ -59,8 +65,10 @@ local function gamepadpressed(g,button)
 end
 
 local function draw(g)
-	LG.draw(g.textimages[g.textimages.index],0,0)
-	--LG.draw(g.levels.current.pic,0,0)
+	local images=g.images[g.level]
+	local animspeed=g.levels.current.animspeed or 10
+	local anim=math.floor((g.timer/animspeed)%#images)
+	LG.draw(images[1+anim],0,0)
 	if g.menu then
 		menu.draw(g.menu)
 	end

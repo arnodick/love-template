@@ -29,10 +29,36 @@ local function make(g,tw,th,gw,gh,sp)
 
 	level.load(g,"games/levels/offgrid/inis")
 
+	offgrid.loadimages(g)
+
 	game.state.make(g,Enums.games.states.intro)
+end
+
+local function loadimages(g)
+	local dir="images/offgrid"
+	local buffer = LG.newCanvas(640*g.bufferscale,640*g.bufferscale)
+	g.images={}
+
+	local files = love.filesystem.getDirectoryItems(dir) --get all the files+directories in working dir
+	for j=1,#files do
+		local fileordir=files[j]
+		local imagedir=dir.."/"..fileordir
+		if love.filesystem.isDirectory(imagedir) then --if it's a dir, then load the images fromt he dir
+			g.images[j]={}
+			local imagefiles=love.filesystem.getfiles(imagedir,"jpg")
+			--for i,v in ipairs(imagefiles) do
+			for i=#imagefiles,1,-1 do --TODO this decrements because getfiles() decrements, don't know why, will have to change that
+				local v=imagefiles[i]
+				local plainimage=LG.newImage(v)
+				table.insert(g.images[j],LG.textify(plainimage,g.bufferscale,g.chars,buffer,g.canvas.main))
+			end
+		end
+	end
+	debugger.printtable(g.images)
 end
 
 return
 {
 	make = make,
+	loadimages = loadimages,
 }

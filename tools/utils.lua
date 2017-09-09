@@ -92,7 +92,7 @@ local function lightness(r,g,b)
 end
 
 local function textify(image,scale,chars,smallcanvas,bigcanvas)
-	local g=Game
+	--local g=Game
 	LG.setCanvas(smallcanvas)
 		LG.clear()
 		LG.draw(image,0,0,0,scale,scale)
@@ -105,7 +105,8 @@ local function textify(image,scale,chars,smallcanvas,bigcanvas)
 				local l=LG.lightness(r,gr,b)
 				l=math.ceil(l*10)
 				LG.setColor(r,gr,b)
-				LG.print(chars[l+1],x*g.tile.width,y*g.tile.height)
+				--LG.print(chars[l+1],x*g.tile.width,y*g.tile.height)
+				LG.print(chars[l+1],x*8,y*8)
 			end
 		end
 		LG.setColor(255,255,255) --sets draw colour back to normal

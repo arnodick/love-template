@@ -19,13 +19,13 @@ local function load(g,dir)
 	g.levels=l
 end
 
-local function make(g,lindex)
+local function make(g,index)
 	local gamename=g.name
 	local l={}
 	local lt=Enums.games.levels[gamename.."_level"]
 
 	if _G[Enums.games.levels[lt]]["make"] then
-		l=_G[Enums.games.levels[lt]]["make"](g,lindex)
+		l=_G[Enums.games.levels[lt]]["make"](g,index)
 	end
 
 	if _G[Enums.games.levels[gamename][l.t]]["make"] then
