@@ -1,40 +1,7 @@
 local function make(g)
---[[
-	g.switch=false
-	g.images={}
-	g.images.index=1
-	table.insert(g.images,LG.newImage("images/band.jpg"))
-	--table.insert(g.images,LG.newImage("images/bldg.jpg"))
-	table.insert(g.images,LG.newImage("images/015.jpg"))
-	table.insert(g.images,LG.newImage("images/photo.jpg"))
-	table.insert(g.images,LG.newImage("images/large.jpg"))
-	--table.insert(g.images,LG.newImage("images/ss.jpg"))
-	--table.insert(g.images,LG.newImage("images/walk.jpg"))
-	table.insert(g.images,LG.newImage("images/forestimage.jpg"))
-	--table.insert(g.images,LG.newImage("images/car320.png"))
-	--table.insert(g.images,LG.newImage("images/woodland-320-x-320.jpg.png"))
---[[
-	table.insert(g.images,LG.newImage("images/blue-lagoon-320x320.jpg"))
-	table.insert(g.images,LG.newImage("images/church1.jpg"))
-	table.insert(g.images,LG.newImage("images/church2.jpg"))
-	table.insert(g.images,LG.newImage("images/greeny.jpg"))
-	table.insert(g.images,LG.newImage("images/twisted.jpg"))
-	table.insert(g.images,LG.newImage("images/corridor.jpg"))
-	table.insert(g.images,LG.newImage("images/image14781.jpg"))
---]]
-	module.make(g,EM.menu,EMM.text,320,800,640,320,"Where are you going...",EC.white,EC.dark_gray)
-
---[[
-	g.textimages={}
-	local buffer = LG.newCanvas(640*g.bufferscale,640*g.bufferscale)
-	for i,v in ipairs(g.images) do
-		table.insert(g.textimages,LG.textify(v,g.bufferscale,g.chars,buffer,g.canvas.main))
-	end
-	g.textimages.index=1
---]]
-
 	g.level=3
 	level.make(g,g.level)
+
 	debugger.printtable(g.levels.current)
 end
 
@@ -45,6 +12,12 @@ end
 local function keypressed(g,key)
 	if key=='escape' then
 		game.state.make(g,Enums.games.states.title)
+	elseif key=='z' then
+		g.level=math.clamp(g.level-1,1,#g.levels,true)
+		level.make(g,g.level)
+	elseif key=='x' then
+		g.level=math.clamp(g.level+1,1,#g.levels,true)
+		level.make(g,g.level)
 	end
 --[[
 	elseif key=='z' then
@@ -66,7 +39,10 @@ end
 
 local function draw(g)
 	local images=g.images[g.level]
-	local animspeed=g.levels.current.animspeed or 10
+	local animspeed=10
+	if g.levels.current.animspeed then
+		animspeed=g.levels.current.animspeed
+	end
 	local anim=math.floor((g.timer/animspeed)%#images)
 	LG.draw(images[1+anim],0,0)
 	if g.menu then
