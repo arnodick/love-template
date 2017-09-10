@@ -46,6 +46,11 @@ local function control(g)
 end
 
 local function keypressed(g,key)
+	if g.levels then
+		if g.levels.current then
+			level.keypressed(g,g.levels.current,key)
+		end
+	end
 	if _G[Enums.games.states.gameplays[g.state.st]]["keypressed"] then
 		_G[Enums.games.states.gameplays[g.state.st]]["keypressed"](g,key)
 	end

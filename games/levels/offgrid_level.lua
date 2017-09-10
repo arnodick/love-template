@@ -23,7 +23,7 @@ local function make(g,l,index)
 		table.insert(menu_arguments,{g,g.player.x+1,g.player.y})
 		table.insert(menu_arguments,{g,g.player.x,g.player.y+1})
 		table.insert(menu_arguments,{g,g.player.x-1,g.player.y})
-		module.make(g,EM.menu,EMM.interactive,320,800,640,320,{"North","East","South","West"},EC.white,EC.dark_gray,"left",menu_functions,menu_arguments)
+		module.make(g,EM.menu,EMM.interactive_fiction,320,800,640,320,{"North","East","South","West"},EC.white,EC.dark_gray,"left",menu_functions,menu_arguments)
 	elseif not lload.menu_text then
 		local text=""
 		if lload.values.text then
@@ -37,7 +37,7 @@ local function make(g,l,index)
 			table.insert(menu_functions,level.make)
 			table.insert(menu_levels,{g,lload.menu_levels[i]})
 		end
-		module.make(g,EM.menu,EMM.interactive,320,800,640,320,lload.menu_text,EC.white,EC.dark_gray,"left",menu_functions,menu_levels)
+		module.make(g,EM.menu,EMM.interactive_fiction,320,800,640,320,lload.menu_text,EC.white,EC.dark_gray,"left",menu_functions,menu_levels)
 	end
 
 	print(index)
@@ -51,6 +51,12 @@ local function control(g,l)
 	end
 end
 
+local function keypressed(g,l,key)
+	if g.menu then
+		menu.keypressed(g.menu,key)
+	end
+end
+
 local function gamepadpressed(g,l,button)
 	if g.menu then
 		menu.gamepadpressed(g.menu,button)
@@ -61,5 +67,6 @@ return
 {
 	make = make,
 	control = control,
+	keypressed = keypressed,
 	gamepadpressed = gamepadpressed,
 }

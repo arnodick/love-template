@@ -20,6 +20,12 @@ local function control(m)
 	end
 end
 
+local function keypressed(m,key)
+	if _G[EMM[m.t]]["keypressed"] then
+		_G[EMM[m.t]]["keypressed"](m,key)
+	end
+end
+
 local function gamepadpressed(m,button)
 	if _G[EMM[m.t]]["gamepadpressed"] then
 		_G[EMM[m.t]]["gamepadpressed"](m,button)
@@ -63,6 +69,7 @@ return
 {
 	make = make,
 	control = control,
+	keypressed = keypressed,
 	gamepadpressed = gamepadpressed,
 	draw = draw,
 }

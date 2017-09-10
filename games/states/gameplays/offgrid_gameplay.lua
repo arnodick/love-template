@@ -14,11 +14,14 @@ end
 local function keypressed(g,key)
 	if key=='escape' then
 		game.state.make(g,Enums.games.states.title)
+	end
+--[[
 	elseif key=='z' then
 		level.make(g,g.level-1)
 	elseif key=='x' then
 		level.make(g,g.level+1)
 	end
+--]]
 end
 
 local function gamepadpressed(g,button)
