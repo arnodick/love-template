@@ -50,7 +50,7 @@ local function loadimages(g)
 			for i=#imagefiles,1,-1 do --TODO this decrements because getfiles() decrements, don't know why, will have to change that
 				local v=imagefiles[i]
 				local plainimage=LG.newImage(v)
-				table.insert(g.images[j],LG.textify(plainimage,g.bufferscale,g.chars,buffer,g.canvas.main))
+				table.insert(g.images[j],LG.textify(plainimage,g.bufferscale,g.chars,buffer,g.canvas.main,g.tile.width,g.tile.height))
 			end
 		end
 	end

@@ -1,10 +1,10 @@
-local function make(g,l,lindex)
+local function make(g,l,index)
 	local gamename=g.name
 
-	if lindex~=g.levelpath[#g.levelpath] then
-		table.insert(g.levelpath,lindex)
+	if index~=g.levelpath[#g.levelpath] then
+		table.insert(g.levelpath,index)
 	end
-	local lload=g.levels[lindex]
+	local lload=g.levels[index]
 
 	l.t=Enums.games.levels[gamename][lload.values.t]
 	l.c=lload.values.c

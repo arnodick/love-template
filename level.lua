@@ -29,7 +29,7 @@ local function make(g,index)
 	end
 
 	if _G[Enums.games.levels[gamename][l.t]]["make"] then
-		_G[Enums.games.levels[gamename][l.t]]["make"](l,gs)
+		_G[Enums.games.levels[gamename][l.t]]["make"](g,l)
 	end
 	g.levels.current=l
 end
@@ -43,7 +43,7 @@ local function control(g,l)
 	end
 
 	if _G[Enums.games.levels[gamename][l.t]]["control"] then
-		_G[Enums.games.levels[gamename][l.t]]["control"](l,gs)
+		_G[Enums.games.levels[gamename][l.t]]["control"](g,l)
 	end
 end
 

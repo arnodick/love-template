@@ -1,9 +1,9 @@
-local function make(g,l,lindex)
-	lindex=math.clamp(lindex,1,#g.levels,true)
+local function make(g,l,index)
+	index=math.clamp(index,1,#g.levels,true)
 	g.timer=0
-	g.level=lindex
+	g.level=index
 	local gamename=g.name
-	local lload=g.levels[lindex]
+	local lload=g.levels[index]
 	
 	l.t=Enums.games.levels[gamename][lload.values.t]
 
@@ -28,7 +28,7 @@ local function make(g,l,lindex)
 		module.make(g,EM.menu,EMM.interactive,320,800,640,320,lload.menu_text,EC.white,EC.dark_gray,"left",menu_functions,menu_levels)
 	end
 
-	print(lindex)
+	print(index)
 	debugger.printtable(l)
 	--print("text="..text)
 end

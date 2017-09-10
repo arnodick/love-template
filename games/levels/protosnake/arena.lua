@@ -1,9 +1,9 @@
 ---[[
-local function make(l)
+local function make(g,l)
 
 end
 
-local function control(l)
+local function control(g,l)
 
 end
 

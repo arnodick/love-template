@@ -1,13 +1,13 @@
-local function make(l)
-	actor.make(EA[Game.name].wiper,0,5)
+local function make(g,l)
+	actor.make(EA[g.name].wiper,0,5)
 
 	for i=1,3 do
 		local storeitem=l["storeitem"..i]
 		if storeitem then
 			local dropname=storeitem.drop
-			local x=Game.width/2-40+(i-1)*40
-			--local drop=actor.make(love.math.random(#EA[Game.name]),x,Game.height/2-40)
-			local drop=actor.make(EA[Game.name][dropname],x,Game.height/2-40)
+			local x=g.width/2-40+(i-1)*40
+			--local drop=actor.make(love.math.random(#EA[g.name]),x,g.height/2-40)
+			local drop=actor.make(EA[g.name][dropname],x,g.height/2-40)
 			drop.flags=flags.set(drop.flags,EF.shopitem)
 			local cost=0
 			if drop.cost then
