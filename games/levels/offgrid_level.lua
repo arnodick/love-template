@@ -11,7 +11,20 @@ local function make(g,l,index)
 		l.animspeed=lload.values.animspeed
 	end
 
-	if not lload.menu_text then
+	if l.t==Enums.games.levels.offgrid.city then
+		local menu_functions={}
+		local menu_arguments={}
+		table.insert(menu_functions,offgrid.move)
+		table.insert(menu_functions,offgrid.move)
+		table.insert(menu_functions,offgrid.move)
+		table.insert(menu_functions,offgrid.move)
+		
+		table.insert(menu_arguments,{g,g.player.x,g.player.y-1})
+		table.insert(menu_arguments,{g,g.player.x+1,g.player.y})
+		table.insert(menu_arguments,{g,g.player.x,g.player.y+1})
+		table.insert(menu_arguments,{g,g.player.x-1,g.player.y})
+		module.make(g,EM.menu,EMM.interactive,320,800,640,320,{"North","East","South","West"},EC.white,EC.dark_gray,"left",menu_functions,menu_arguments)
+	elseif not lload.menu_text then
 		local text=""
 		if lload.values.text then
 			text=lload.values.text

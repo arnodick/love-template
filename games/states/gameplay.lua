@@ -66,7 +66,7 @@ local function draw(g)
 	local s=g.state
 
 	if g.map then
-		map.draw(g.map)
+		--map.draw(g.map)
 	end
 
 	for i,v in ipairs(g.actors) do

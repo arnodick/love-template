@@ -1,6 +1,9 @@
 local function make(g)
-	g.level=3
 	g.map=map.generate(Enums.games.maps.map_offgrid,10,10)
+	g.player={}
+	g.player.x=1
+	g.player.y=1
+	g.level=g.map[g.player.y][g.player.x]
 	level.make(g,g.level)
 end
 

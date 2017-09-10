@@ -57,8 +57,15 @@ local function loadimages(g)
 	debugger.printtable(g.images)
 end
 
+local function move(g,x,y)
+	g.player.x,g.player.y=x,y
+	g.level=g.map[y][x]
+	level.make(g,g.level)
+end
+
 return
 {
 	make = make,
 	loadimages = loadimages,
+	move = move,
 }
