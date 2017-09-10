@@ -1,5 +1,6 @@
 local function make(g)
 	g.level=3
+	g.map=map.generate(Enums.games.maps.map_offgrid,10,10)
 	level.make(g,g.level)
 end
 
@@ -11,22 +12,10 @@ local function keypressed(g,key)
 	if key=='escape' then
 		game.state.make(g,Enums.games.states.title)
 	elseif key=='z' then
-		--g.level=math.clamp(g.level-1,1,#g.levels,true)
 		level.make(g,g.level-1)
 	elseif key=='x' then
-		--g.level=math.clamp(g.level+1,1,#g.levels,true)
 		level.make(g,g.level+1)
 	end
---[[
-	elseif key=='z' then
-		--g.images.index=g.images.index-1
-		g.textimages.index=g.textimages.index-1
-	elseif key=='x' then
-		--g.images.index=g.images.index+1
-		g.textimages.index=g.textimages.index+1
-	end
-	g.textimages.index=math.clamp(g.textimages.index,1,#g.textimages,true)
---]]
 end
 
 local function gamepadpressed(g,button)

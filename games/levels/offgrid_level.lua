@@ -15,7 +15,6 @@ local function make(g,l,index)
 		local text=""
 		if lload.values.text then
 			text=lload.values.text
-			
 		end
 		module.make(g,EM.menu,EMM.text,320,800,640,320,text,EC.white,EC.dark_gray)
 	else

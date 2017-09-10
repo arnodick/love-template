@@ -2,7 +2,7 @@ local function make(g)
 	module.make(g.state,EM.cursor,EM.cursors.cursor_editor,true)
 	module.make(g.camera,EM.target,g.state.cursor)
 
-	g.state.map=map.generate(Enums.games.maps.map_editor,60,60)
+	--g.state.map=map.generate(Enums.games.maps.map_editor,60,60)
 	if _G[Enums.games.states.editors[g.state.st]]["make"] then
 		_G[Enums.games.states.editors[g.state.st]]["make"](g)
 	end
@@ -27,8 +27,8 @@ end
 
 local function mousepressed(g,x,y,button)
 	if button==1 then
-		cx,cy=map.getcell(g.state.map,g.state.cursor.x,g.state.cursor.y)
-		g.state.map[cy][cx]=g.state.cursor.value
+		cx,cy=map.getcell(g.map,g.state.cursor.x,g.state.cursor.y)
+		g.map[cy][cx]=g.state.cursor.value
 	end
 	if _G[Enums.games.states.editors[g.state.st]]["mousepressed"] then
 		_G[Enums.games.states.editors[g.state.st]]["mousepressed"](g,x,y,button)
@@ -51,7 +51,7 @@ end
 
 local function draw(g)
 	--LG.print("EDITOR",g.width/2,g.height/2)
-	map.draw(g.state.map)
+	map.draw(g.map)
 	cursor.draw(g.state.cursor)
 	LG.print("cursor x y "..g.state.cursor.x.." "..g.state.cursor.y,g.width/2,g.height/2+20)
 	if _G[Enums.games.states.editors[g.state.st]]["draw"] then
