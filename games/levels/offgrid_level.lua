@@ -1,12 +1,10 @@
-local function make(g,lindex)
+local function make(g,l,lindex)
 	lindex=math.clamp(lindex,1,#g.levels,true)
 	g.timer=0
-
+	g.level=lindex
 	local gamename=g.name
 	local lload=g.levels[lindex]
-	g.level=lindex
-
-	local l={}
+	
 	l.t=Enums.games.levels[gamename][lload.values.t]
 
 	if lload.values.animspeed then
@@ -33,8 +31,6 @@ local function make(g,lindex)
 	print(lindex)
 	debugger.printtable(l)
 	--print("text="..text)
-
-	return l
 end
 
 local function control(g,l)

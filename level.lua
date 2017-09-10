@@ -25,7 +25,7 @@ local function make(g,index)
 	local lt=Enums.games.levels[gamename.."_level"]
 
 	if _G[Enums.games.levels[lt]]["make"] then
-		l=_G[Enums.games.levels[lt]]["make"](g,index)
+		_G[Enums.games.levels[lt]]["make"](g,l,index)
 	end
 
 	if _G[Enums.games.levels[gamename][l.t]]["make"] then

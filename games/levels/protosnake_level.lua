@@ -1,11 +1,11 @@
-local function make(g,lindex)
+local function make(g,l,lindex)
 	local gamename=g.name
 
 	if lindex~=g.levelpath[#g.levelpath] then
 		table.insert(g.levelpath,lindex)
 	end
 	local lload=g.levels[lindex]
-	local l={}
+
 	l.t=Enums.games.levels[gamename][lload.values.t]
 	l.c=lload.values.c
 	l.enemies={}
