@@ -1,8 +1,6 @@
 local function make(g)
 	g.level=3
 	level.make(g,g.level)
-
-	debugger.printtable(g.levels.current)
 end
 
 local function control(g)
@@ -13,11 +11,11 @@ local function keypressed(g,key)
 	if key=='escape' then
 		game.state.make(g,Enums.games.states.title)
 	elseif key=='z' then
-		g.level=math.clamp(g.level-1,1,#g.levels,true)
-		level.make(g,g.level)
+		--g.level=math.clamp(g.level-1,1,#g.levels,true)
+		level.make(g,g.level-1)
 	elseif key=='x' then
-		g.level=math.clamp(g.level+1,1,#g.levels,true)
-		level.make(g,g.level)
+		--g.level=math.clamp(g.level+1,1,#g.levels,true)
+		level.make(g,g.level+1)
 	end
 --[[
 	elseif key=='z' then

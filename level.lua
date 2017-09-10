@@ -47,9 +47,23 @@ local function control(g,l)
 	end
 end
 
+local function gamepadpressed(g,l,button)
+	local gamename=g.name
+	local lt=Enums.games.levels[gamename.."_level"]
+
+	if _G[Enums.games.levels[lt]]["gamepadpressed"] then
+		_G[Enums.games.levels[lt]]["gamepadpressed"](g,l,button)
+	end
+
+	if _G[Enums.games.levels[gamename][l.t]]["gamepadpressed"] then
+		_G[Enums.games.levels[gamename][l.t]]["gamepadpressed"](g,l,button)
+	end
+end
+
 return
 {
 	load = load,
 	make = make,
 	control = control,
+	gamepadpressed = gamepadpressed,
 }

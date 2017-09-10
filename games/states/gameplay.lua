@@ -52,6 +52,11 @@ local function keypressed(g,key)
 end
 
 local function gamepadpressed(g,button)
+	if g.levels then
+		if g.levels.current then
+			level.gamepadpressed(g,g.levels.current,button)
+		end
+	end
 	if _G[Enums.games.states.gameplays[g.state.st]]["gamepadpressed"] then
 		_G[Enums.games.states.gameplays[g.state.st]]["gamepadpressed"](g,button)
 	end
