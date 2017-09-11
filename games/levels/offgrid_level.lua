@@ -12,18 +12,36 @@ local function make(g,l,index)
 	end
 
 	if l.t==Enums.games.levels.offgrid.city then
+		local menu_text={}
 		local menu_functions={}
 		local menu_arguments={}
-		table.insert(menu_functions,offgrid.move)
-		table.insert(menu_functions,offgrid.move)
-		table.insert(menu_functions,offgrid.move)
-		table.insert(menu_functions,offgrid.move)
 		
-		table.insert(menu_arguments,{g,g.player.x,g.player.y-1})
-		table.insert(menu_arguments,{g,g.player.x+1,g.player.y})
-		table.insert(menu_arguments,{g,g.player.x,g.player.y+1})
-		table.insert(menu_arguments,{g,g.player.x-1,g.player.y})
-		module.make(g,EM.menu,EMM.interactive_fiction,320,800,640,320,{"North","East","South","West"},EC.white,EC.dark_gray,"left",menu_functions,menu_arguments)
+		if g.map[g.player.y-1] then
+			if g.map[g.player.y-1][g.player.x] then
+				table.insert(menu_arguments,{g,g.player.x,g.player.y-1})
+				table.insert(menu_text,"North")
+			end
+		end
+		if g.map[g.player.y][g.player.x+1] then
+			table.insert(menu_arguments,{g,g.player.x+1,g.player.y})
+			table.insert(menu_text,"East")
+		end
+		if g.map[g.player.y+1] then
+			if g.map[g.player.y+1][g.player.x] then
+				table.insert(menu_arguments,{g,g.player.x,g.player.y+1})
+				table.insert(menu_text,"South")
+			end
+		end
+		if g.map[g.player.y][g.player.x-1] then
+			table.insert(menu_arguments,{g,g.player.x-1,g.player.y})
+			table.insert(menu_text,"West")
+		end
+		
+		for i=1,#menu_arguments do
+			table.insert(menu_functions,offgrid.move)
+		end
+
+		module.make(g,EM.menu,EMM.interactive_fiction,320,800,640,320,menu_text,EC.white,EC.dark_gray,"left",menu_functions,menu_arguments)
 	elseif not lload.menu_text then
 		local text=""
 		if lload.values.text then

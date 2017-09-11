@@ -2,7 +2,7 @@ local function make()
 	local d={}
 	d.debugging=false
 	d.debuglist={}
-	d.font = LG.newFont("fonts/lucon.ttf",20)
+	d.font=LG.newFont("fonts/lucon.ttf",20)
 	d.canvas=LG.newCanvas(LG.getDimensions()) --sets width and height of debug overlay (size of window)
 	return d
 end
@@ -33,12 +33,22 @@ local function update(g,d)
 			local xc,yc=map.getcell(g.map,g.player.x,g.player.y)
 			table.insert(debuglist,"player x cell:"..xc)
 			table.insert(debuglist,"player y cell:"..yc)
+			if g.player.d then
 			table.insert(debuglist,"player dir:"..g.player.d)
+			end
+			if g.player.vec then
 			table.insert(debuglist,"player vec x:"..g.player.vec[1])
 			table.insert(debuglist,"player vec y:"..g.player.vec[2])
+			end
+			if g.player.vel then
 			table.insert(debuglist,"player vel:"..g.player.vel)
+			end
+			if g.player.input then
 			table.insert(debuglist,"player input: "..tostring(g.player.input))
+			end
+			if g.player.controller then
 			table.insert(debuglist,"player use dur: "..tostring(g.player.controller.action.useduration))
+			end
 			if g.player.inventory then
 				if g.player.inventory[1] then
 					table.insert(debuglist,"player item angle:"..g.player.inventory[1].angle)

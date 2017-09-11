@@ -38,8 +38,13 @@ local function draw(g)
 	end
 	local anim=math.floor((g.timer/animspeed)%#images)
 	LG.draw(images[1+anim],0,0)
+	LG.print(g.player.x.." "..g.player.y,10,120)
+	LG.print(g.map[g.player.y][g.player.x],10,130)
 	if g.menu then
 		menu.draw(g.menu)
+	end
+	if g.map then
+		map.draw(g.map)
 	end
 end
 
