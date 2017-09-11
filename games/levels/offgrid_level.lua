@@ -1,5 +1,5 @@
 local function make(g,l,index)
-	index=math.clamp(index,1,#g.levels,true)
+	--index=math.clamp(index,1,#g.levels,true)
 	g.timer=0
 	g.level=index
 	local gamename=g.name

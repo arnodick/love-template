@@ -60,6 +60,7 @@ end
 local function move(g,x,y)
 	g.player.x,g.player.y=x,y
 	g.level=g.map[y][x]
+	print(g.level)
 	level.make(g,g.level)
 end
 
