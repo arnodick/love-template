@@ -6,42 +6,28 @@ local function make(g,l,index)
 	local lload=g.levels[index]
 	
 	l.t=Enums.games.levels[gamename][lload.values.t]
+	l.title=lload.values.title
 
 	if lload.values.animspeed then
 		l.animspeed=lload.values.animspeed
 	end
 
 	if l.t==Enums.games.levels.offgrid.city then
-		local menu_text={}
-		local menu_functions={}
-		local menu_arguments={}
+		local m={}
+		m.text={}
+		m.arguments={}
+		m.functions={}
 		
-		if g.map[g.player.y-1] then
-			if g.map[g.player.y-1][g.player.x] then
-				table.insert(menu_arguments,{g,g.player.x,g.player.y-1})
-				table.insert(menu_text,"North")
-			end
-		end
-		if g.map[g.player.y][g.player.x+1] then
-			table.insert(menu_arguments,{g,g.player.x+1,g.player.y})
-			table.insert(menu_text,"East")
-		end
-		if g.map[g.player.y+1] then
-			if g.map[g.player.y+1][g.player.x] then
-				table.insert(menu_arguments,{g,g.player.x,g.player.y+1})
-				table.insert(menu_text,"South")
-			end
-		end
-		if g.map[g.player.y][g.player.x-1] then
-			table.insert(menu_arguments,{g,g.player.x-1,g.player.y})
-			table.insert(menu_text,"West")
-		end
+		m=offgrid_level.menuoption(g,m,g.player.x,g.player.y-1,"North")
+		m=offgrid_level.menuoption(g,m,g.player.x+1,g.player.y,"East")
+		m=offgrid_level.menuoption(g,m,g.player.x,g.player.y+1,"South")
+		m=offgrid_level.menuoption(g,m,g.player.x-1,g.player.y,"West")
 		
-		for i=1,#menu_arguments do
-			table.insert(menu_functions,offgrid.move)
+		for i=1,#m.arguments do
+			table.insert(m.functions,offgrid.move)
 		end
 
-		module.make(g,EM.menu,EMM.interactive_fiction,320,800,640,320,menu_text,EC.white,EC.dark_gray,"left",menu_functions,menu_arguments)
+		module.make(g,EM.menu,EMM.interactive_fiction,320,800,640,320,m.text,EC.white,EC.dark_gray,"left",m.functions,m.arguments)
 	elseif not lload.menu_text then
 		local text=""
 		if lload.values.text then
@@ -81,10 +67,25 @@ local function gamepadpressed(g,l,button)
 	end
 end
 
+local function menuoption(g,m,x,y,dir)
+	if g.map[y] then
+		if g.map[y][x] then	
+			local value=g.map[y][x]
+			if g.levels[value] then
+				table.insert(m.arguments,{g,x,y})
+				local destination=g.levels[value].values.title
+				table.insert(m.text,"Go "..dir.." to "..destination)
+			end
+		end
+	end
+	return m
+end
+
 return
 {
 	make = make,
 	control = control,
 	keypressed = keypressed,
 	gamepadpressed = gamepadpressed,
+	menuoption = menuoption,
 }
