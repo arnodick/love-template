@@ -104,7 +104,7 @@ local function draw(m)
 end
 
 local function getindexfrompoint(m,x,y)
---checks all available menu options to see if they point to the same spot on the map as the input (presumably player's key input)
+--checks all available menu options to see if one of the points to the same spot on the map as the input (presumably player's key input)
 --if so, sets the menu's index value to that menu option's index (ie the direction the player pushed is selected if it is an option)
 	for i=1,#m.text do
 		if m.menu_function_args[i][2]==x and m.menu_function_args[i][3]==y then
