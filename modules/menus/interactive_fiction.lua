@@ -82,7 +82,7 @@ local function draw(m)
 		elseif m.menu_function_args[i][2]>g.player.x then
 			points={m.x+m.w/8-xoff,m.y}
 		elseif m.menu_function_args[i][3]<g.player.y then
-			points={m.x-xoff,m.y-m.h/8}
+			points={m.x-xoff,m.y-m.h/4}
 		elseif m.menu_function_args[i][3]>g.player.y then
 			points={m.x-xoff,m.y+m.h/8}
 		end
