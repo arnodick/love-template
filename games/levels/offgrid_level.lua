@@ -18,14 +18,16 @@ local function make(g,l,index)
 		m.arguments={}
 		m.functions={}
 		
-		m=offgrid_level.menuoption(g,m,g.player.x,g.player.y-1,"North")
-		m=offgrid_level.menuoption(g,m,g.player.x+1,g.player.y,"East")
-		m=offgrid_level.menuoption(g,m,g.player.x,g.player.y+1,"South")
-		m=offgrid_level.menuoption(g,m,g.player.x-1,g.player.y,"West")
+		offgrid_level.menuoption(g,m,g.player.x,g.player.y-1,"North",1)
+		offgrid_level.menuoption(g,m,g.player.x+1,g.player.y,"East",2)
+		offgrid_level.menuoption(g,m,g.player.x,g.player.y+1,"South",3)
+		offgrid_level.menuoption(g,m,g.player.x-1,g.player.y,"West",4)
 		
+--[[
 		for i=1,#m.arguments do
 			table.insert(m.functions,offgrid.move)
 		end
+--]]
 
 		module.make(g,EM.menu,EMM.interactive_fiction,320,800,640,320,m.text,EC.white,EC.dark_gray,"left",m.functions,m.arguments)
 	elseif not lload.menu_text then
@@ -67,18 +69,23 @@ local function gamepadpressed(g,l,button)
 	end
 end
 
-local function menuoption(g,m,x,y,dir)
+local function menuoption(g,m,x,y,dir,index)
+--checks if a point on the map has a level in it
+--if so, puts that in the menu as an option
 	if g.map[y] then
 		if g.map[y][x] then	
 			local value=g.map[y][x]
 			if g.levels[value] then
 				table.insert(m.arguments,{g,x,y})
+				--m.arguments[index]={g,x,y}
 				local destination=g.levels[value].values.title
 				table.insert(m.text,"Go "..dir.." to "..destination)
+				--m.text[index]="Go "..dir.." to "..destination
+				table.insert(m.functions,offgrid.move)
+				--m.functions[index]=offgrid.move
 			end
 		end
 	end
-	return m
 end
 
 return

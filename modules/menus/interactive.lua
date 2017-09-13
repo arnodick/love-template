@@ -38,5 +38,4 @@ return
 	make = make,
 	control = control,
 	gamepadpressed = gamepadpressed,
-	draw = draw,
 }

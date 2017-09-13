@@ -14,5 +14,4 @@ return
 {
 	make = make,
 	control = control,
-	draw = draw,
 }

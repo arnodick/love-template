@@ -38,7 +38,10 @@ local g=Game
 		border.draw(m,m.border)
 	end
 	LG.setFont(m.font)
-	if type(m.text)=="table" then
+
+	if _G[EMM[m.t]]["draw"] then
+		_G[EMM[m.t]]["draw"](m)
+	elseif type(m.text)=="table" then
 		for i=1,#m.text do
 			local linealpha=255
 			if m.text.index then
@@ -51,11 +54,10 @@ local g=Game
 	else
 		LG.printformat(m.text,m.x-m.w/2,m.y-m.h/2,m.w,m.align,m.c1,m.c2)
 	end
+
 	LG.setFont(Game.font)
 
-	if _G[EMM[m.t]]["draw"] then
-		_G[EMM[m.t]]["draw"](m)
-	end
+
 
 --[[
 	if Debugmode then
