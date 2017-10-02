@@ -29,7 +29,7 @@ local function make(t,tw,th,gw,gh,sp)
 end
 
 local function control(g)
-	game.state.control(g)
+	_G[g.name]["control"](g)
 
 	if not g.pause then --TODO figure out why pause is necessary
 		g.timer = g.timer + g.speed
@@ -40,19 +40,23 @@ local function keypressed(g,key,scancode,isrepeat)
 	if key=="tab" then
 		game.state.make(g,Enums.games.states.editor)
 	end
-	game.state.keypressed(g,key)
+	--game.state.keypressed(g,key)
+	_G[g.name]["keypressed"](g,key)
 end
 
 local function mousepressed(g,x,y,button)
-	game.state.mousepressed(g,x,y,button)
+	--game.state.mousepressed(g,x,y,button)
+	_G[g.name]["mousepressed"](g,x,y,button)
 end
 
 local function wheelmoved(g,x,y)
-	game.state.wheelmoved(g,x,y)
+	--game.state.wheelmoved(g,x,y)
+	_G[g.name]["wheelmoved"](g,x,y)
 end
 
 local function gamepadpressed(g,button)
-	game.state.gamepadpressed(g,button)
+	--game.state.gamepadpressed(g,button)
+	_G[g.name]["gamepadpressed"](g,button)
 end
 
 local function draw(g)
@@ -61,7 +65,8 @@ local function draw(g)
 
 	LG.setCanvas(g.canvas.main) --sets drawing to the primary canvas that refreshes every frame
 		LG.clear() --cleans that messy ol canvas all up, makes it all fresh and new and good you know
-		game.state.draw(g)
+		--game.state.draw(g)
+		_G[g.name]["draw"](g)
 		if g.state.hud then
 			LG.setCanvas(g.canvas.hud) --sets drawing to hud canvas, which draws OVER everything else
 				LG.clear() --cleans that messy ol canvas all up, makes it all fresh and new and good you know
@@ -127,6 +132,5 @@ return
 	wheelmoved = wheelmoved,
 	gamepadpressed = gamepadpressed,
 	draw = draw,
-	init = init,
 	graphics = graphics,
 }
