@@ -18,7 +18,7 @@ end
 
 local function keypressed(g,key)
 	if key=="escape" then
-		game.state.make(g,Enums.games.states.gameplay)
+		state.make(g,Enums.games.states.gameplay)
 	end
 	if _G[Enums.games.states.editors[g.state.st]]["keypressed"] then
 		_G[Enums.games.states.editors[g.state.st]]["keypressed"](g,key)

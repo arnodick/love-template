@@ -2,7 +2,7 @@ local function make(g)
 	g.state.font=LG.newFont("fonts/Kongtext Regular.ttf",64)
 	g.scores=scores.load()
 	music.play(1)
-	module.make(g.state,EM.menu,EMM.interactive,Game.width/2,180,60,30,{"START","OPTIONS"},EC.orange,EC.dark_green,"left",{game.state.make,game.state.make},{{Game,Enums.games.states.gameplay,Enums.games.modes.topdown},{Game,Enums.games.states.option}})
+	module.make(g.state,EM.menu,EMM.interactive,Game.width/2,180,60,30,{"START","OPTIONS"},EC.orange,EC.dark_green,"left",{state.make,state.make},{{Game,Enums.games.states.gameplay,Enums.games.modes.topdown},{Game,Enums.games.states.option}})
 	--EC.indigo,EC.dark_purple
 
 end
@@ -10,20 +10,20 @@ end
 local function control(g)
 	menu.control(g.state.menu)
 	if g.timer>=630 then
-		game.state.make(g,Enums.games.states.intro,Enums.games.states.intros.intro_protosnake)
+		state.make(g,Enums.games.states.intro,Enums.games.states.intros.intro_protosnake)
 	end
 
 end
 
 local function keypressed(g,key)
 	if key=='escape' then
-		game.state.make(g,Enums.games.states.intro,Enums.games.states.intros.intro_protosnake)
+		state.make(g,Enums.games.states.intro,Enums.games.states.intros.intro_protosnake)
 	end
 end
 
 local function gamepadpressed(g,button)
 	if button=="b" then
-		game.state.make(g,Enums.games.states.intro,Enums.games.states.intros.intro_protosnake)
+		state.make(g,Enums.games.states.intro,Enums.games.states.intros.intro_protosnake)
 	end
 	local m=g.state.menu
 	if m then

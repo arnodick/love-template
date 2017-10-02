@@ -1,5 +1,5 @@
 local function make(g,tw,th,gw,gh,sp)
-	game.state.make(g,Enums.games.states.intro)
+	state.make(g,Enums.games.states.intro)
 end
 
 local function control(g)
