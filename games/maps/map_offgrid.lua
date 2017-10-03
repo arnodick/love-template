@@ -8,6 +8,7 @@ local function generate(m,w,h)
 end
 
 local function draw(m)
+--[[
 	local tw,th=Game.tile.width,Game.tile.height
 	local t=Game.timer
 
@@ -17,6 +18,7 @@ local function draw(m)
 			LG.print(value,(x-1)*tw*2,(y-1)*th*2)
 		end
 	end
+--]]
 --[[
 	for y=1,#m-2 do
 		LG.line(0,y*th+1,Game.width,y*th+1)

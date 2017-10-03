@@ -16,12 +16,13 @@ local function control(a,gs)
 		end
 	end
 
-	local xcell,ycell=map.getcell(Game.map,a.x,a.y)
+	local g=Game
+	local xcell,ycell=map.getcell(g.map,a.x+g.tile.width,a.y+g.tile.height)--NOTE the +tile.width in this and 2 lines down is just a hack to make protosnake walls work right
 	local xdest,ydest=a.x + a.vec[1]*a.vel*a.speed*gs,a.y - a.vec[2]*a.vel*a.speed*gs
-	local xcelldest,ycelldest=map.getcell(Game.map,xdest,ydest)
+	local xcelldest,ycelldest=map.getcell(g.map,xdest+g.tile.width,ydest+g.tile.height)
 	
-	local xmapcell=Game.map[ycell][xcelldest]
-	local ymapcell=Game.map[ycelldest][xcell]
+	local xmapcell=g.map[ycell][xcelldest]
+	local ymapcell=g.map[ycelldest][xcell]
 	local collx,colly=false,false
 	if not flags.get(xmapcell,EF.solid,16) then
 		a.x = xdest
@@ -35,8 +36,8 @@ local function control(a,gs)
 	end
 
 	if collx or colly then
-		if _G[EA[Game.name][a.t]]["collision"] then
-			_G[EA[Game.name][a.t]]["collision"](a)
+		if _G[EA[g.name][a.t]]["collision"] then
+			_G[EA[g.name][a.t]]["collision"](a)
 		end
 		if flags.get(a.flags,EF.bouncy) then
 			if collx then

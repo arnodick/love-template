@@ -31,6 +31,16 @@ local function draw(m)
 	for x=1,#m[1]-2 do
 		LG.line(x*tw+1,0,x*tw+1,Game.height)
 	end
+--[[
+	if Debugger.debugging then
+		for y=1,#m do
+			for x=1,#m[y] do
+				local value=m[y][x]
+				LG.print(value,(x-1)*tw,(y-1)*th)
+			end
+		end
+	end
+--]]
 end
 
 return
