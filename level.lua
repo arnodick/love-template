@@ -24,10 +24,12 @@ local function make(g,index)
 	local l={}
 	local lt=Enums.games.levels[gamename.."_level"]
 
+	--calls the game's general level code ie: offgrid_level.lua
 	if _G[Enums.games.levels[lt]]["make"] then
 		_G[Enums.games.levels[lt]]["make"](g,l,index)
 	end
 
+	--calls the level's specific type code ie: city.lua
 	if _G[Enums.games.levels[gamename][l.t]]["make"] then
 		_G[Enums.games.levels[gamename][l.t]]["make"](g,l)
 	end
@@ -73,6 +75,19 @@ local function gamepadpressed(g,l,button)
 	end
 end
 
+local function draw(g,l)
+	local gamename=g.name
+	local lt=Enums.games.levels[gamename.."_level"]
+
+	if _G[Enums.games.levels[lt]]["draw"] then
+		_G[Enums.games.levels[lt]]["draw"](g,l)
+	end
+
+	if _G[Enums.games.levels[gamename][l.t]]["draw"] then
+		_G[Enums.games.levels[gamename][l.t]]["draw"](g,l)
+	end
+end
+
 return
 {
 	load = load,
@@ -80,4 +95,5 @@ return
 	control = control,
 	keypressed = keypressed,
 	gamepadpressed = gamepadpressed,
+	draw = draw,
 }

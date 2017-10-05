@@ -74,6 +74,12 @@ local function draw(g)
 		map.draw(g.map)
 	end
 
+	if g.levels then
+		if g.levels.current then
+			level.draw(g,g.levels.current)
+		end
+	end
+
 	for i,v in ipairs(g.actors) do
 		if not v.delete then
 			actor.draw(v)

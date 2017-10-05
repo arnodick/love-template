@@ -31,24 +31,14 @@ local function gamepadpressed(g,button)
 end
 
 local function draw(g)
-	local images=g.images[g.level]
-	local animspeed=30
-	if g.levels.current.animspeed then
-		animspeed=g.levels.current.animspeed
-	end
-	local anim=math.floor((g.timer/animspeed)%#images)
-	LG.draw(images[1+anim],0,0)
-	--LG.print(g.player.x.." "..g.player.y,10,120)
-	--LG.print(g.map[g.player.y][g.player.x],10,130)
-	LG.print(g.menu.text.index,10,140)
 	if g.menu then
 		menu.draw(g.menu)
 	end
---[[
-	if g.map then
-		map.draw(g.map)
+	if Debugger.debugging then
+		--LG.print(g.player.x.." "..g.player.y,10,120)
+		--LG.print(g.map[g.player.y][g.player.x],10,130)
+		LG.print(g.menu.text.index,10,140)
 	end
---]]
 end
 
 return

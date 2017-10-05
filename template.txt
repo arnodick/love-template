@@ -1,6 +1,4 @@
 PRIORITY
-different renderers or types or something for screen
-game.type.control and then game.type.control calls state controller, rather than game immediately calling state from root
 cursor as module
 level types
 give camera movement controller
@@ -45,6 +43,7 @@ change controller input so impulses will work
 	put controller commands in actor.control? Must be some way to make impulses stick
 
 DONE
+game.type.control and then game.type.control calls state controller, rather than game immediately calling state from root
 states have game modes, instead of the game itself
 input Game into
 	debugger
@@ -109,6 +108,7 @@ fix sprites.draw quad selector (must be halved if tile = 16px)
 graphics stuff in game library
 
 NO
+different renderers or types or something for screen
 make Game.ease a transition module
 Projectile mpdule. Does all this at make. At end of duration, makes controller again. 
 	Duration module? Decel module? 

@@ -77,12 +77,9 @@ local function menuoption(g,m,x,y,dir,index)
 			local value=g.map[y][x]
 			if g.levels[value] then
 				table.insert(m.arguments,{g,x,y})
-				--m.arguments[index]={g,x,y}
 				local destination=g.levels[value].values.title
 				table.insert(m.text,"Go "..dir.." to "..destination)
-				--m.text[index]="Go "..dir.." to "..destination
 				table.insert(m.functions,offgrid.move)
-				--m.functions[index]=offgrid.move
 			end
 		end
 	end
