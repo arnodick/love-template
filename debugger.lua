@@ -82,6 +82,9 @@ local function update(g,d)
 			--table.insert(debuglist,i.." count: "..#g.counters[i])
 			table.insert(debuglist,i.." count: "..g.counters[i])
 		end
+		if g.levels.current.transition then
+			table.insert(debuglist,"trans timer "..g.levels.current.transition_timer)
+		end
 --]]
 --[[
 		if #Joysticks>0 then

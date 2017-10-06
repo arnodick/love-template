@@ -11,21 +11,6 @@ local function control(m)
 	controller.update(m)
 	local c=m.controller.move
 
---[[
-	for i=1,#m.text do
-		if m.menu_function_args[i][2]<g.player.x then
-			
-		elseif m.menu_function_args[i][2]>g.player.x then
-			
-		elseif m.menu_function_args[i][3]<g.player.y then
-			
-		elseif m.menu_function_args[i][3]>g.player.y then
-			
-		end
-		m.text.index=i
-	end
---]]
-
 	if c.vertical<0 then
 		if c.last.vertical>=0 then
 			local x,y=g.player.x,g.player.y-1

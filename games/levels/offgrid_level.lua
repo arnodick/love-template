@@ -22,12 +22,6 @@ local function make(g,l,index)
 		offgrid_level.menuoption(g,m,g.player.x+1,g.player.y,"East",2)
 		offgrid_level.menuoption(g,m,g.player.x,g.player.y+1,"South",3)
 		offgrid_level.menuoption(g,m,g.player.x-1,g.player.y,"West",4)
-		
---[[
-		for i=1,#m.arguments do
-			table.insert(m.functions,offgrid.move)
-		end
---]]
 
 		module.make(g,EM.menu,EMM.interactive_fiction,320,800,640,320,m.text,EC.white,EC.dark_gray,"left",m.functions,m.arguments)
 	elseif not lload.menu_text then
@@ -58,6 +52,9 @@ local function control(g,l)
 end
 
 local function keypressed(g,l,key)
+	if key=='space' then
+		module.make(l,EM.transition,easing.linear,"transition_timer",0,10,60,print,"done")
+	end
 	if g.menu then
 		menu.keypressed(g.menu,key)
 	end
@@ -76,10 +73,11 @@ local function menuoption(g,m,x,y,dir,index)
 		if g.map[y][x] then	
 			local value=g.map[y][x]
 			if g.levels[value] then
-				table.insert(m.arguments,{g,x,y})
 				local destination=g.levels[value].values.title
 				table.insert(m.text,"Go "..dir.." to "..destination)
+
 				table.insert(m.functions,offgrid.move)
+				table.insert(m.arguments,{g,x,y})
 			end
 		end
 	end

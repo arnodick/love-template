@@ -33,6 +33,7 @@ local function make(g,index)
 	if _G[Enums.games.levels[gamename][l.t]]["make"] then
 		_G[Enums.games.levels[gamename][l.t]]["make"](g,l)
 	end
+
 	g.levels.current=l
 end
 
@@ -46,6 +47,9 @@ local function control(g,l)
 
 	if _G[Enums.games.levels[gamename][l.t]]["control"] then
 		_G[Enums.games.levels[gamename][l.t]]["control"](g,l)
+	end
+	if l.transition then
+		transition.control(l,l.transition)
 	end
 end
 
