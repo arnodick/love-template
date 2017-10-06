@@ -53,7 +53,7 @@ end
 
 local function keypressed(g,l,key)
 	if key=='space' then
-		module.make(l,EM.transition,easing.linear,"transition_timer",0,10,60,print,"done")
+		module.make(l,EM.transition,easing.linear,"transition_timer",0,10,60,print,"done",EM.transitions.screen_transition_blocks)
 	end
 	if g.menu then
 		menu.keypressed(g.menu,key)
