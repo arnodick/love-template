@@ -1,4 +1,4 @@
-local function make(a,m,easing,variablename,startvalue,change,duration,complete,complete_arg,t)
+local function make(a,m,easing,variablename,startvalue,change,duration,complete,complete_args,t)
 	m.starttime=Game.timer
 	m.easing=easing
 	m.variablename=variablename
@@ -6,7 +6,7 @@ local function make(a,m,easing,variablename,startvalue,change,duration,complete,
 	m.change=change
 	m.duration=duration
 	m.complete=complete
-	m.complete_arg=complete_arg
+	m.complete_args=complete_args
 	m.t=t
 	a[m.variablename]=startvalue
 end
@@ -23,7 +23,7 @@ local function control(a,m)
 
 	if timeelapsed>=m.duration then
 		if m.complete then
-			m.complete(m.complete_arg)
+			m.complete(unpack(m.complete_args))
 		end
 		a.transition=nil
 	end

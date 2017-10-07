@@ -18,10 +18,10 @@ local function make(g,l,index)
 		m.arguments={}
 		m.functions={}
 		
-		offgrid_level.makemenuoption(g,l,m,g.player.x,g.player.y-1,"North",1)
-		offgrid_level.makemenuoption(g,l,m,g.player.x+1,g.player.y,"East",2)
-		offgrid_level.makemenuoption(g,l,m,g.player.x,g.player.y+1,"South",3)
-		offgrid_level.makemenuoption(g,l,m,g.player.x-1,g.player.y,"West",4)
+		offgrid_level.makemenuoption(g,m,g.player.x,g.player.y-1,"North",1)
+		offgrid_level.makemenuoption(g,m,g.player.x+1,g.player.y,"East",2)
+		offgrid_level.makemenuoption(g,m,g.player.x,g.player.y+1,"South",3)
+		offgrid_level.makemenuoption(g,m,g.player.x-1,g.player.y,"West",4)
 
 		module.make(g,EM.menu,EMM.interactive_fiction,320,800,640,320,m.text,EC.white,EC.dark_gray,"left",m.functions,m.arguments)
 	elseif not lload.menu_text then
@@ -52,9 +52,11 @@ local function control(g,l)
 end
 
 local function keypressed(g,l,key)
+--[[
 	if key=='space' then
 		module.make(l,EM.transition,easing.linear,"transition_timer",0,10,60,print,"done",EM.transitions.screen_transition_blocks)
 	end
+--]]
 	if g.menu then
 		menu.keypressed(g.menu,key)
 	end
@@ -66,7 +68,7 @@ local function gamepadpressed(g,l,button)
 	end
 end
 
-local function makemenuoption(g,l,m,x,y,dir,index)
+local function makemenuoption(g,m,x,y,dir,index)
 --checks if a point on the map has a level in it
 --if so, puts that in the menu as an option
 	if g.map[y] then
@@ -76,11 +78,8 @@ local function makemenuoption(g,l,m,x,y,dir,index)
 				local destination=g.levels[value].values.title
 				table.insert(m.text,"Go "..dir.." to "..destination)
 
-				table.insert(m.functions,module.make)
-				table.insert(m.arguments,{l,EM.transition,easing.linear,"transition_timer",0,10,60,print,"done",EM.transitions.screen_transition_blocks})
-				--l,EM.transition,easing.linear,"transition_timer",0,10,60,print,"done",EM.transitions.screen_transition_blocks
-				--table.insert(m.functions,offgrid.move)
-				--table.insert(m.arguments,{g,x,y})
+				table.insert(m.functions,offgrid.move)
+				table.insert(m.arguments,{g,x,y})
 			end
 		end
 	end
