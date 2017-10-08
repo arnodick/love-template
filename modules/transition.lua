@@ -8,6 +8,11 @@ local function make(a,m,easing,variablename,startvalue,change,duration,complete,
 	m.complete=complete
 	m.complete_args=complete_args
 	m.t=t
+	if m.t then
+		if _G[EM.transitions[m.t]]["make"] then
+			_G[EM.transitions[m.t]]["make"](a,m)
+		end
+	end
 	a[m.variablename]=startvalue
 end
 

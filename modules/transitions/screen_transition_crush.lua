@@ -24,19 +24,13 @@ local function control(a,m)
 end
 
 local function draw(g,l,m)
+	local imgdata=g.canvas.main:newImageData(0,0,g.canvas.main:getWidth()-1,g.canvas.main:getHeight()-1)
+	--imgdata:mapPixel(pixelmaps.melt)
+	imgdata:mapPixel(pixelmaps.sparkle)
+	imgdata:mapPixel(pixelmaps.crush)
 	LG.setCanvas(g.canvas.main) --sets drawing to the primary canvas but does NOT refresh every frame
-		if m.remove then
-			if #m.blocks>0 then
-				local randblockindex=love.math.random(#m.blocks)
-				LG.setColor(g.palette[EC.white])
-				LG.rectangle("fill",m.blocks[randblockindex].x,m.blocks[randblockindex].y,m.blocks[randblockindex].w,m.blocks[randblockindex].h)
-				LG.setColor(g.palette[EC.pure_white])
-				table.remove(m.blocks,randblockindex)
-			end
-			m.remove=false
-		elseif math.floor(l.transition_timer*32)%2==0 then
-			m.remove=true
-		end
+		local image=LG.newImage(imgdata)
+		love.graphics.draw(image,0,0,0,1,1,0,0,0,0)
 	LG.setCanvas() --sets drawing back to screen
 end
 

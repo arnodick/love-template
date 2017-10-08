@@ -59,16 +59,23 @@ local function draw(g)
 	local s=g.screen
 	LG.translate(-g.camera.x+g.width/2,-g.camera.y+g.height/2)
 
-	LG.setCanvas(g.canvas.main) --sets drawing to the primary canvas that refreshes every frame
-		LG.clear() --cleans that messy ol canvas all up, makes it all fresh and new and good you know
-		_G[g.name]["draw"](g)
-		if g.state.hud then
-			LG.setCanvas(g.canvas.hud) --sets drawing to hud canvas, which draws OVER everything else
-				LG.clear() --cleans that messy ol canvas all up, makes it all fresh and new and good you know
-				hud.draw(g,g.state.hud)
-				LG.print(love.timer.getFPS(),10,10)
+	local glc = g.levels.current
+	if not glc or not glc.transition then
+		LG.setCanvas(g.canvas.main) --sets drawing to the primary canvas that refreshes every frame
+			LG.clear() --cleans that messy ol canvas all up, makes it all fresh and new and good you know
+			_G[g.name]["draw"](g)
+			if g.state.hud then
+				LG.setCanvas(g.canvas.hud) --sets drawing to hud canvas, which draws OVER everything else
+					LG.clear() --cleans that messy ol canvas all up, makes it all fresh and new and good you know
+					hud.draw(g,g.state.hud)
+					LG.print(love.timer.getFPS(),10,10)
+			end
+		LG.setCanvas() --sets drawing back to screen
+	else
+		if _G[EM.transitions[glc.transition.t]]["draw"] then
+			_G[EM.transitions[glc.transition.t]]["draw"](g,glc,glc.transition)
 		end
-	LG.setCanvas() --sets drawing back to screen
+	end
 	
 	LG.origin()
 

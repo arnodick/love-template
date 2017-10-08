@@ -41,8 +41,11 @@ local function keypressed(m,key)
 		local i=m.text.index
 		if m.menu_functions[i] then
 			local g=Game
-			module.make(g,EM.transition,easing.linear,"transition_timer",0,10,60,offgrid.move,m.menu_function_args[i],EM.transitions.screen_transition_blocks)
---			m.menu_functions[i](unpack(m.menu_function_args[i]))
+			module.make(g.levels.current,EM.transition,easing.linear,"transition_timer",1,6400,64,m.menu_functions[i],m.menu_function_args[i],EM.transitions.screen_transition_text_dissolve)
+			--module.make(g.levels.current,EM.transition,easing.linear,"transition_timer",1,6400,64,m.menu_functions[i],m.menu_function_args[i],EM.transitions.screen_transition_text)
+
+			--module.make(g.levels.current,EM.transition,easing.linear,"transition_timer",0,1,40,m.menu_functions[i],m.menu_function_args[i],EM.transitions.screen_transition_text)
+			--module.make(g.levels.current,EM.transition,easing.linear,"transition_timer",0,1,40,m.menu_functions[i],m.menu_function_args[i],EM.transitions.screen_transition_blocks)
 		end
 	end
 end

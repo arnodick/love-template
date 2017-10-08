@@ -57,8 +57,11 @@ local function keypressed(g,l,key)
 		module.make(l,EM.transition,easing.linear,"transition_timer",0,10,60,print,"done",EM.transitions.screen_transition_blocks)
 	end
 --]]
-	if g.menu then
-		menu.keypressed(g.menu,key)
+	local glc = g.levels.current
+	if not glc or not glc.transition then
+		if g.menu then
+			menu.keypressed(g.menu,key)
+		end
 	end
 end
 

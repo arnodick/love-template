@@ -20,9 +20,11 @@ local function control(g)
 		end
 	end
 
+--[[
 	if g.transition then
 		transition.control(g,g.transition)
 	end
+--]]
 
 	camera.control(g.camera,g.speed)
 	
