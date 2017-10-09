@@ -58,6 +58,17 @@ local function keypressed(g,key)
 	end
 end
 
+local function keyreleased(g,key)
+	if g.levels then
+		if g.levels.current then
+			level.keyreleased(g,g.levels.current,key)
+		end
+	end
+	if _G[Enums.games.states.gameplays[g.state.st]]["keyreleased"] then
+		_G[Enums.games.states.gameplays[g.state.st]]["keyreleased"](g,key)
+	end
+end
+
 local function gamepadpressed(g,button)
 	if g.levels then
 		if g.levels.current then
@@ -104,6 +115,7 @@ return
 	make = make,
 	control = control,
 	keypressed = keypressed,
+	keyreleased = keyreleased,
 	gamepadpressed = gamepadpressed,
 	draw = draw,
 }

@@ -41,11 +41,10 @@ local function keypressed(m,key)
 		local i=m.text.index
 		if m.menu_functions[i] then
 			local g=Game
-			module.make(g.levels.current,EM.transition,easing.linear,"transition_timer",1,6400,64,m.menu_functions[i],m.menu_function_args[i],EM.transitions.screen_transition_text_dissolve)
-			--module.make(g.levels.current,EM.transition,easing.linear,"transition_timer",1,6400,64,m.menu_functions[i],m.menu_function_args[i],EM.transitions.screen_transition_text)
-
-			--module.make(g.levels.current,EM.transition,easing.linear,"transition_timer",0,1,40,m.menu_functions[i],m.menu_function_args[i],EM.transitions.screen_transition_text)
 			--module.make(g.levels.current,EM.transition,easing.linear,"transition_timer",0,1,40,m.menu_functions[i],m.menu_function_args[i],EM.transitions.screen_transition_blocks)
+			module.make(g.levels.current,EM.transition,easing.linear,"transition_timer",0,1,40,m.menu_functions[i],m.menu_function_args[i],EM.transitions.screen_transition_crush)
+			--module.make(g.levels.current,EM.transition,easing.linear,"transition_timer",1,6400,64,m.menu_functions[i],m.menu_function_args[i],EM.transitions.screen_transition_text)
+			--module.make(g.levels.current,EM.transition,easing.linear,"transition_timer",1,6400,64,m.menu_functions[i],m.menu_function_args[i],EM.transitions.screen_transition_text_dissolve)
 		end
 	end
 end

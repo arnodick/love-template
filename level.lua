@@ -66,6 +66,19 @@ local function keypressed(g,l,key)
 	end
 end
 
+local function keyreleased(g,l,key)
+	local gamename=g.name
+	local lt=Enums.games.levels[gamename.."_level"]
+
+	if _G[Enums.games.levels[lt]]["keyreleased"] then
+		_G[Enums.games.levels[lt]]["keyreleased"](g,l,key)
+	end
+
+	if _G[Enums.games.levels[gamename][l.t]]["keyreleased"] then
+		_G[Enums.games.levels[gamename][l.t]]["keyreleased"](g,key)
+	end
+end
+
 local function gamepadpressed(g,l,button)
 	local gamename=g.name
 	local lt=Enums.games.levels[gamename.."_level"]
@@ -98,6 +111,7 @@ return
 	make = make,
 	control = control,
 	keypressed = keypressed,
+	keyreleased = keyreleased,
 	gamepadpressed = gamepadpressed,
 	draw = draw,
 }

@@ -42,6 +42,10 @@ local function keypressed(g,key,scancode,isrepeat)
 	state.keypressed(g,key)
 end
 
+local function keyreleased(g,key)
+	state.keyreleased(g,key)
+end
+
 local function mousepressed(g,x,y,button)
 	state.mousepressed(g,x,y,button)
 end
@@ -93,6 +97,7 @@ return
 	make = make,
 	control = control,
 	keypressed = keypressed,
+	keyreleased = keyreleased,
 	mousepressed = mousepressed,
 	wheelmoved = wheelmoved,
 	gamepadpressed = gamepadpressed,

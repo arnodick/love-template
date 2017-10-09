@@ -52,11 +52,18 @@ local function control(g,l)
 end
 
 local function keypressed(g,l,key)
+	sfx.play(8)
 --[[
-	if key=='space' then
-		module.make(l,EM.transition,easing.linear,"transition_timer",0,10,60,print,"done",EM.transitions.screen_transition_blocks)
+	local glc = g.levels.current
+	if not glc or not glc.transition then
+		if g.menu then
+			menu.keypressed(g.menu,key)
+		end
 	end
 --]]
+end
+
+local function keyreleased(g,l,key)
 	local glc = g.levels.current
 	if not glc or not glc.transition then
 		if g.menu then
@@ -93,6 +100,7 @@ return
 	make = make,
 	control = control,
 	keypressed = keypressed,
+	keyreleased = keyreleased,
 	gamepadpressed = gamepadpressed,
 	makemenuoption = makemenuoption,
 }

@@ -48,6 +48,11 @@ function love.keypressed(key,scancode,isrepeat)
 	end
 end
 
+function love.keyreleased(key)
+	local g=Game
+	game.keyreleased(g,key)
+end
+
 function love.mousepressed(x,y,button)
 	game.mousepressed(Game,x,y,button)
 end

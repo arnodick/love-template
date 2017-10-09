@@ -43,6 +43,10 @@ local function keypressed(g,key,scancode,isrepeat)
 	_G[g.name]["keypressed"](g,key)
 end
 
+local function keyreleased(g,key)
+	_G[g.name]["keyreleased"](g,key)
+end
+
 local function mousepressed(g,x,y,button)
 	_G[g.name]["mousepressed"](g,x,y,button)
 end
@@ -130,6 +134,7 @@ return
 	make = make,
 	control = control,
 	keypressed = keypressed,
+	keyreleased = keyreleased,
 	mousepressed = mousepressed,
 	wheelmoved = wheelmoved,
 	gamepadpressed = gamepadpressed,
