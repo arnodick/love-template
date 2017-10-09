@@ -85,6 +85,11 @@ local function update(g,d)
 		if g.levels.current.transition then
 			table.insert(debuglist,"trans timer "..g.levels.current.transition_timer)
 		end
+		if g.menu then
+			if g.menu.transition then
+				table.insert(debuglist,"text trans "..g.menu.text_trans)
+			end
+		end
 --]]
 --[[
 		if #Joysticks>0 then

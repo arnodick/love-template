@@ -24,6 +24,12 @@ local function make(g,l,index)
 		offgrid_level.makemenuoption(g,m,g.player.x-1,g.player.y,"West",4)
 
 		module.make(g,EM.menu,EMM.interactive_fiction,320,800,640,320,m.text,EC.white,EC.dark_gray,"left",m.functions,m.arguments)
+		if lload.values.description then
+			g.menu.description=lload.values.description
+			module.make(g.menu,EM.transition,easing.linear,"text_trans",0,string.len(g.menu.description),360)
+		else
+			g.menu.description=nil
+		end
 	elseif not lload.menu_text then
 		local text=""
 		if lload.values.text then
@@ -40,8 +46,8 @@ local function make(g,l,index)
 		module.make(g,EM.menu,EMM.interactive_fiction,320,800,640,320,lload.menu_text,EC.white,EC.dark_gray,"left",menu_functions,menu_levels)
 	end
 
-	print(index)
-	debugger.printtable(l)
+	--print(index)
+	--debugger.printtable(l)
 	--print("text="..text)
 end
 
@@ -52,7 +58,9 @@ local function control(g,l)
 end
 
 local function keypressed(g,l,key)
-	sfx.play(8)
+	if key=='z' then
+		sfx.play(13)
+	end
 --[[
 	local glc = g.levels.current
 	if not glc or not glc.transition then
@@ -76,6 +84,10 @@ local function gamepadpressed(g,l,button)
 	if g.menu then
 		menu.gamepadpressed(g.menu,button)
 	end
+end
+
+local function draw(g,l)
+
 end
 
 local function makemenuoption(g,m,x,y,dir,index)
@@ -102,5 +114,6 @@ return
 	keypressed = keypressed,
 	keyreleased = keyreleased,
 	gamepadpressed = gamepadpressed,
+	draw = draw,
 	makemenuoption = makemenuoption,
 }

@@ -64,7 +64,7 @@ local function draw(g)
 	LG.translate(-g.camera.x+g.width/2,-g.camera.y+g.height/2)
 
 	local glc = g.levels.current
-	if not glc or not glc.transition then
+	if not glc or not glc.transition or not glc.transition.t then
 		LG.setCanvas(g.canvas.main) --sets drawing to the primary canvas that refreshes every frame
 			LG.clear() --cleans that messy ol canvas all up, makes it all fresh and new and good you know
 			_G[g.name]["draw"](g)

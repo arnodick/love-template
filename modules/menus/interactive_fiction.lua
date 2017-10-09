@@ -34,10 +34,26 @@ local function control(m)
 			interactive_fiction.getindexfrompoint(m,x,y)
 		end
 	end
+
+	if m.transition then
+		transition.control(m,m.transition)
+		if m.text_trans-math.floor(m.text_trans)<0.1 then
+			sfx.play(16)
+		end
+	--[[
+		if m.keysound then
+			sfx.play(16)
+			m.keysound=false
+		elseif math.floor(m.text_trans)%4==0 then
+			m.keysound=true
+		end
+--]]
+	end
 end
 
 local function keypressed(m,key)
 	if key=='z' then
+		sfx.play(14)
 		local i=m.text.index
 		if m.menu_functions[i] then
 			local g=Game
@@ -76,9 +92,7 @@ local function draw(m)
 			points={m.x-xoff,m.y+m.h/8}
 		end
 
-		--LG.line(m.x-xoff+40,m.y+arrowlength,m.x-xoff+40,m.y-arrowlength)
 		LG.line(arrowx,arrowy+arrowlength,arrowx,arrowy-arrowlength)
-		--LG.line(m.x-xoff+40-arrowlength,m.y,m.x-xoff+40+arrowlength,m.y)
 		LG.line(arrowx-arrowlength,arrowy,arrowx+arrowlength,arrowy)
 
 		local linealpha=255
@@ -88,7 +102,20 @@ local function draw(m)
 			end
 		end
 		LG.printformat(m.text[i],points[1],points[2],m.w/8,"center",m.c1,m.c2,linealpha)
-		--LG.print("x",m.x-xoff,m.y)
+	end
+	if m.description then
+		local colourtext={}
+		for i=1,string.len(m.description) do
+			--table.insert(colourtext,{love.math.random(255),love.math.random(255),love.math.random(255)})
+			if i<=m.text_trans then
+				table.insert(colourtext,{255,255,255})
+			else
+				table.insert(colourtext,{0,0,0})
+			end
+			table.insert(colourtext,string.sub(m.description,i,i))
+		end
+		--LG.printformat(colourtext,300,700,g.width/2,"left",EC.white,EC.blue,255)
+		LG.printf(colourtext,300,700,g.width/2,"left")	
 	end
 end
 

@@ -33,7 +33,7 @@ local function gamepadpressed(m,button)
 end
 
 local function draw(m)
-local g=Game
+	local g=Game
 	if m.border then
 		border.draw(m,m.border)
 	end
