@@ -8,6 +8,11 @@ local function make(a,m)
 	local blockamount=8
 	m.change=blockamount*blockamount
 	m.duration=blockamount*blockamount
+	local image=g.images[g.level][1]
+	LG.setCanvas(g.canvas.buffer)
+	LG.clear()
+	LG.draw(image,0,0)
+	LG.setCanvas(g.canvas.main)
 	for y=1,blockamount do
 		for x=1,blockamount do
 			table.insert(blocks,{x=(x-1)*gw/blockamount,y=(y-1)*gh/blockamount,w=gw/blockamount,h=gh/blockamount})
@@ -30,9 +35,9 @@ local function draw(g,l,m)
 		--if l.transition_timer-math.floor(l.transition_timer)<0.1 then
 			if #m.blocks>0 then
 				local randblockindex=love.math.random(#m.blocks)
-				LG.setColor(g.palette[EC.black])
-				LG.rectangle("fill",m.blocks[randblockindex].x,m.blocks[randblockindex].y,m.blocks[randblockindex].w,m.blocks[randblockindex].h)
-				LG.setColor(g.palette[EC.pure_white])
+				local imgdata=g.canvas.buffer:newImageData(m.blocks[randblockindex].x,m.blocks[randblockindex].y,m.blocks[randblockindex].w,m.blocks[randblockindex].h)
+				local image=LG.newImage(imgdata)
+				LG.draw(image,m.blocks[randblockindex].x,m.blocks[randblockindex].y)
 				table.remove(m.blocks,randblockindex)
 			end
 		--end

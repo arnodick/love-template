@@ -46,6 +46,7 @@ local function make(g,l,index)
 		module.make(g,EM.menu,EMM.interactive_fiction,320,800,640,320,lload.menu_text,EC.white,EC.dark_gray,"left",menu_functions,menu_levels)
 	end
 
+	module.make(l,EM.transition,easing.linear,"transition_timer",0,1,240,nil,nil,EM.transitions.screen_transition_blocksreverse)
 	--print(index)
 	--debugger.printtable(l)
 	--print("text="..text)
