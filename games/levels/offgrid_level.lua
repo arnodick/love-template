@@ -23,19 +23,17 @@ local function make(g,l,index)
 		offgrid_level.makemenuoption(g,m,g.player.x,g.player.y+1,"South",3)
 		offgrid_level.makemenuoption(g,m,g.player.x-1,g.player.y,"West",4)
 
-		module.make(g,EM.menu,EMM.interactive_fiction,320,800,640,320,m.text,EC.white,EC.dark_gray,"left",m.functions,m.arguments)
+		module.make(l,EM.menu,EMM.interactive_fiction,320,800,640,320,m.text,EC.white,EC.dark_gray,"left",m.functions,m.arguments)
 		if lload.values.description then
-			g.menu.description=lload.values.description
-			module.make(g.menu,EM.transition,easing.linear,"text_trans",0,string.len(g.menu.description),360)
-		else
-			g.menu.description=nil
+			l.menu.description=lload.values.description
+			module.make(l.menu,EM.transition,easing.linear,"text_trans",0,string.len(l.menu.description),360)
 		end
 	elseif not lload.menu_text then
 		local text=""
 		if lload.values.text then
 			text=lload.values.text
 		end
-		module.make(g,EM.menu,EMM.text,320,800,640,320,text,EC.white,EC.dark_gray)
+		module.make(l,EM.menu,EMM.text,320,800,640,320,text,EC.white,EC.dark_gray)
 	else
 		local menu_functions={}
 		local menu_levels={}
@@ -43,18 +41,15 @@ local function make(g,l,index)
 			table.insert(menu_functions,level.make)
 			table.insert(menu_levels,{g,lload.menu_levels[i]})
 		end
-		module.make(g,EM.menu,EMM.interactive_fiction,320,800,640,320,lload.menu_text,EC.white,EC.dark_gray,"left",menu_functions,menu_levels)
+		module.make(l,EM.menu,EMM.interactive_fiction,320,800,640,320,lload.menu_text,EC.white,EC.dark_gray,"left",menu_functions,menu_levels)
 	end
 
 	module.make(l,EM.transition,easing.linear,"transition_timer",0,1,240,nil,nil,EM.transitions.screen_transition_blocksreverse)
-	--print(index)
-	--debugger.printtable(l)
-	--print("text="..text)
 end
 
 local function control(g,l)
-	if g.menu then
-		menu.control(g.menu)
+	if l.menu then
+		menu.control(l.menu)
 	end
 end
 
@@ -65,8 +60,8 @@ local function keypressed(g,l,key)
 --[[
 	local glc = g.levels.current
 	if not glc or not glc.transition then
-		if g.menu then
-			menu.keypressed(g.menu,key)
+		if l.menu then
+			menu.keypressed(l.menu,key)
 		end
 	end
 --]]
@@ -75,20 +70,22 @@ end
 local function keyreleased(g,l,key)
 	local glc = g.levels.current
 	if not glc or not glc.transition then
-		if g.menu then
-			menu.keypressed(g.menu,key)
+		if l.menu then
+			menu.keypressed(l.menu,key)
 		end
 	end
 end
 
 local function gamepadpressed(g,l,button)
-	if g.menu then
-		menu.gamepadpressed(g.menu,button)
+	if l.menu then
+		menu.gamepadpressed(l.menu,button)
 	end
 end
 
 local function draw(g,l)
-
+	if l.menu then
+		menu.draw(l.menu)
+	end
 end
 
 local function makemenuoption(g,m,x,y,dir,index)
