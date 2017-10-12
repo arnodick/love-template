@@ -25,31 +25,21 @@ local function make(g,l,index)
 
 		module.make(l,EM.menu,EMM.interactive_fiction,320,800,640,320,m.text,EC.white,EC.dark_gray,"left",m.functions,m.arguments)
 		if lload.values.description then
+		--	l.description=lload.values.description
 			l.menu.description=lload.values.description
 			module.make(l.menu,EM.transition,easing.linear,"text_trans",0,string.len(l.menu.description),360)
 		end
-	elseif not lload.menu_text then
-		local text=""
-		if lload.values.text then
-			text=lload.values.text
-		end
-		module.make(l,EM.menu,EMM.text,320,800,640,320,text,EC.white,EC.dark_gray)
-	else
-		local menu_functions={}
-		local menu_levels={}
-		for i=1,#lload.menu_levels do
-			table.insert(menu_functions,level.make)
-			table.insert(menu_levels,{g,lload.menu_levels[i]})
-		end
-		module.make(l,EM.menu,EMM.interactive_fiction,320,800,640,320,lload.menu_text,EC.white,EC.dark_gray,"left",menu_functions,menu_levels)
+		--local args={l,EM.menu,EMM.interactive_fiction,320,800,640,320,m.text,EC.white,EC.dark_gray,"left",m.functions,m.arguments}
+		--module.make(l,EM.transition,easing.linear,"transition_timer",0,1,240,module.make,args,EM.transitions.screen_transition_blocksreverse)
+		module.make(l,EM.transition,easing.linear,"transition_timer",0,1,240,nil,nil,EM.transitions.screen_transition_blocksreverse)
 	end
-
-	module.make(l,EM.transition,easing.linear,"transition_timer",0,1,240,nil,nil,EM.transitions.screen_transition_blocksreverse)
 end
 
 local function control(g,l)
-	if l.menu then
-		menu.control(l.menu)
+	if not l.transition then
+		if l.menu then
+			menu.control(l.menu)
+		end
 	end
 end
 
@@ -83,8 +73,10 @@ local function gamepadpressed(g,l,button)
 end
 
 local function draw(g,l)
-	if l.menu then
-		menu.draw(l.menu)
+	if not l.transition then
+		if l.menu then
+			menu.draw(l.menu)
+		end
 	end
 end
 
