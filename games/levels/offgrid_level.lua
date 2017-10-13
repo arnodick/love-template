@@ -41,6 +41,19 @@ local function control(g,l)
 			menu.control(l.menu)
 		end
 	end
+	local saw = denver.get({waveform='sawtooth', frequency=440, length=0.5})
+	local saw2 = denver.get({waveform='sawtooth', frequency=4040, length=0.5})
+	saw:setLooping(false)
+	if g.timer==0 then
+		love.audio.play(saw)
+	end
+	if g.timer==30 then
+		love.audio.play(saw2)
+	end
+	--local sine = denver.get({waveform='sinus', frequency=440, length=1})
+	--love.audio.play(sine)
+	--local noise = denver.get({waveform='whitenoise', length=6})
+	--love.audio.play(noise)
 end
 
 local function keypressed(g,l,key)
