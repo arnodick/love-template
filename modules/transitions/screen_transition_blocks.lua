@@ -18,6 +18,7 @@ local function make(a,m)
 		table.insert(m.blocks,blocks[randblockindex])
 		table.remove(blocks,randblockindex)	
 	end
+	module.make(a,EM.synth,"sinus",440,60,{"B","G","D","C",})
 	--print("blocks: "..#m.blocks)
 end
 

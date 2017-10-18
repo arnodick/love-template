@@ -53,6 +53,12 @@ end
 
 local function keypressed(m,key)
 	if key=='z' then
+		sfx.play(13)
+	end
+end
+
+local function keyreleased(m,key)
+	if key=='z' then
 		sfx.play(14)
 		local i=m.text.index
 		if m.menu_functions[i] then
@@ -136,6 +142,7 @@ return
 	control = control,
 	gamepadpressed = gamepadpressed,
 	keypressed = keypressed,
+	keyreleased = keyreleased,
 	draw = draw,
 	getindexfrompoint = getindexfrompoint,
 }

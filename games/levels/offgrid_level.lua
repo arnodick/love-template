@@ -32,6 +32,8 @@ local function make(g,l,index)
 		--local args={l,EM.menu,EMM.interactive_fiction,320,800,640,320,m.text,EC.white,EC.dark_gray,"left",m.functions,m.arguments}
 		--module.make(l,EM.transition,easing.linear,"transition_timer",0,1,240,module.make,args,EM.transitions.screen_transition_blocksreverse)
 		module.make(l,EM.transition,easing.linear,"transition_timer",0,1,240,nil,nil,EM.transitions.screen_transition_blocksreverse)
+
+		module.make(l,EM.synth,"sinus",440,60,{"A","B","C","D","E","F","F","G",})
 	end
 end
 
@@ -41,15 +43,19 @@ local function control(g,l)
 			menu.control(l.menu)
 		end
 	end
-	local saw = denver.get({waveform='sawtooth', frequency=440, length=0.5})
-	local saw2 = denver.get({waveform='sawtooth', frequency=4040, length=0.5})
+	synth.control(l,l.synth)
+--[[
+	local saw = denver.get({waveform='sawtooth', frequency="G", length=2})
+	--local saw = denver.get({waveform='sawtooth', frequency="G", length=1/60})
+	--local saw2 = denver.get({waveform='sawtooth', frequency="B", length=1/60})
 	saw:setLooping(false)
-	if g.timer==0 then
+	if g.timer==1 then
 		love.audio.play(saw)
 	end
-	if g.timer==30 then
-		love.audio.play(saw2)
+	if g.timer==31 then
+		--love.audio.play(saw2)
 	end
+--]]
 	--local sine = denver.get({waveform='sinus', frequency=440, length=1})
 	--love.audio.play(sine)
 	--local noise = denver.get({waveform='whitenoise', length=6})
@@ -57,10 +63,7 @@ local function control(g,l)
 end
 
 local function keypressed(g,l,key)
-	if key=='z' then
-		sfx.play(13)
-	end
---[[
+---[[
 	local glc = g.levels.current
 	if not glc or not glc.transition then
 		if l.menu then
@@ -74,7 +77,7 @@ local function keyreleased(g,l,key)
 	local glc = g.levels.current
 	if not glc or not glc.transition then
 		if l.menu then
-			menu.keypressed(l.menu,key)
+			menu.keyreleased(l.menu,key)
 		end
 	end
 end
