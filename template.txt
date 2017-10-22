@@ -1,4 +1,6 @@
 PRIORITY
+make map a part of level
+	each level draws map differently, don't have to have map types
 redo all functions to make a local {} and add functions to it and just return that
 maybe make a batch file that makes all the new folders and files for a game
 cursor as module

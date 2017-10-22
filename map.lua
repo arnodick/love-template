@@ -9,10 +9,20 @@ map.generate = function(t,gen,w,h,...)
 	local m={}
 	m.t=t
 
-	generators[gen](m,w,h,...)
-	--if _G[Enums.games.maps[m.t]]["generate"] then
-	--	_G[Enums.games.maps[m.t]]["generate"](m,w,h)
-	--end
+	for y=1,h do
+		table.insert(m,{})
+		for x=1,w do
+			table.insert(m[y],0)
+		end
+	end
+
+	if type(gen)=="table" then
+		for i,v in ipairs(gen) do
+			generators[v](m,w,h,...)
+		end
+	else
+		generators[gen](m,w,h,...)
+	end
 	return m
 end
 
@@ -46,14 +56,12 @@ end
 
 generators.walls = function(m,w,h)
 	for y=1,h do
-		table.insert(m,{})
 		for x=1,w do
 			if x==1 or x==w or y==1 or y==h then
+				--TODO flag stuff screws up games that don't use flags, figure this out in game-specific code
 				local f=bit.lshift(1,(EF.solid-1))--converts an integer into its bit position
 				f=bit.lshift(f,16)
-				table.insert(m[y],f)
-			else
-				table.insert(m[y],0)
+				m[y][x]=f
 			end
 		end
 	end
@@ -61,18 +69,16 @@ end
 
 generators.random = function(m,w,h,pool)
 	for y=1,h do
-		table.insert(m,{})
 		for x=1,w do
-			table.insert(m[y],pool[love.math.random(#pool)])
+			m[y][x]=pool[love.math.random(#pool)]
 		end
 	end
 end
 
 generators.increment = function(m,w,h)
 	for y=1,h do
-		table.insert(m,{})
 		for x=1,w do
-			table.insert(m[y],x+(y-1)*w)
+			m[y][x]=x+(y-1)*w
 		end
 	end
 end
