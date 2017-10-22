@@ -1,12 +1,3 @@
-local function generate(m,w,h)
-	for y=1,h do
-		table.insert(m,{})
-		for x=1,w do
-			table.insert(m[y],x+(y-1)*w)
-		end
-	end
-end
-
 local function draw(m)
 	if Debugger.debugging then
 		local tw,th=Game.tile.width,Game.tile.height
@@ -23,6 +14,5 @@ end
 
 return
 {
-	generate = generate,
 	draw = draw,
 }

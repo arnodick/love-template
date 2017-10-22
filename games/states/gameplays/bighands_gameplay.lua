@@ -1,18 +1,11 @@
 local function make(g)
-	--g.state.mode=Enums.games.modes.roguelike
-	--g.state.modename=Enums.games.modes[g.state.mode]
-
 	local mw,mh=g.width/g.tile.width,g.height/g.tile.height
-	g.map=map.generate(Enums.games.maps.map_2d,"random",mw+2,mh+2)
-
-	g.step=false
-
-	Game.player=actor.make(EA[Game.name].rpg_player,g.width/2,g.height/2)
-	actor.make(EA[Game.name].rpg_enemy,g.width/2,g.height/2)
+	g.map=map.generate(Enums.games.maps.map_2d,"walls",mw+2,mh+2)
+	g.player=actor.make(EA[Game.name].bighands_player,g.width/2,g.height/2)
 end
 
 local function control(g)
-	--Game.pause=true
+	
 end
 
 local function keypressed(g,key)
@@ -22,11 +15,14 @@ local function keypressed(g,key)
 end
 
 local function gamepadpressed(g,button)
+	if button=="start" then
+		g.pause = not g.pause
+	end
 
 end
 
 local function draw(g)
-
+	LG.print("bighands gaem", g.width/2, g.height/2)
 end
 
 return

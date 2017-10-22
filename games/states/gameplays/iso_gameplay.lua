@@ -3,7 +3,7 @@ local function make(g)
 	--g.state.modename=Enums.games.modes[g.state.mode]
 
 	local mw,mh=g.width/g.tile.width,g.height/g.tile.height
-	g.map=map.generate(Enums.games.maps.map_isometric,mw,mh)
+	g.map=map.generate(Enums.games.maps.map_isometric,"random",mw,mh,{1,1,1,1,2,3,4})
 
 	--g.step=false
 
@@ -24,7 +24,7 @@ local function keypressed(g,key)
 	elseif key=='space' then
 		local mw,mh=g.width/g.tile.width,g.height/g.tile.height
 		g.timer=0
-		g.map=map.generate(Enums.games.maps.map_isometric,mw,mh)
+		g.map=map.generate(Enums.games.maps.map_isometric,"random",mw,mh)
 	end
 
 	local ease=easing.outElastic

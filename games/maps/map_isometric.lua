@@ -1,13 +1,3 @@
-local function generate(m,w,h)
-	local pool={1,1,1,1,2,3,4}
-	for y=1,h do
-		table.insert(m,{})
-		for x=1,w do
-			table.insert(m[y],pool[love.math.random(#pool)])
-		end
-	end
-end
-
 local function draw(m)
 	local tw,th=Game.tile.width,Game.tile.height
 	local t=Game.timer
@@ -31,6 +21,5 @@ end
 
 return
 {
-	generate = generate,
 	draw = draw,
 }

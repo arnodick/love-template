@@ -44,7 +44,9 @@ local function keypressed(g,key,scancode,isrepeat)
 end
 
 local function keyreleased(g,key)
-	_G[g.name]["keyreleased"](g,key)
+	if _G[g.name]["keyreleased"] then
+		_G[g.name]["keyreleased"](g,key)
+	end
 end
 
 local function mousepressed(g,x,y,button)
@@ -63,7 +65,10 @@ local function draw(g)
 	local s=g.screen
 	LG.translate(-g.camera.x+g.width/2,-g.camera.y+g.height/2)
 
-	local glc = g.levels.current
+	local glc=nil
+	if g.levels then
+		glc = g.levels.current
+	end
 	if not glc or not glc.transition or not glc.transition.t then
 		LG.setCanvas(g.canvas.main) --sets drawing to the primary canvas that refreshes every frame
 			LG.clear() --cleans that messy ol canvas all up, makes it all fresh and new and good you know
