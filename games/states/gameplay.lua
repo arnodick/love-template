@@ -83,10 +83,6 @@ end
 local function draw(g)
 	local s=g.state
 
-	if g.map then
-		map.draw(g.map)
-	end
-
 	if g.levels then
 		if g.levels.current then
 			level.draw(g,g.levels.current)

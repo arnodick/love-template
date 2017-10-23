@@ -4,10 +4,10 @@
 
 local map={}
 local generators={}
+local drawmodes={}
 
-map.generate = function(t,gen,w,h,...)
+map.generate = function(gen,w,h,...)
 	local m={}
-	m.t=t
 
 	for y=1,h do
 		table.insert(m,{})
@@ -40,10 +40,8 @@ map.load = function(m)
 	return map
 end
 
-map.draw = function(m)
-	if _G[Enums.games.maps[m.t]]["draw"] then
-		_G[Enums.games.maps[m.t]]["draw"](m)
-	end
+map.draw = function(m,drawmode)
+	drawmodes[drawmode](m)
 end
 
 map.getcell = function(m,x,y)
@@ -79,6 +77,57 @@ generators.increment = function(m,w,h)
 	for y=1,h do
 		for x=1,w do
 			m[y][x]=x+(y-1)*w
+		end
+	end
+end
+
+drawmodes.grid = function(m)
+	local tw,th=Game.tile.width,Game.tile.height
+	if Game.levels then
+		local c=Game.palette[Game.levels.current.c]
+		local r=c[1]
+		local g=c[2]
+		local b=c[3]
+		LG.setColor(r,g,b,120)
+	else
+		LG.setColor(Game.palette[EC.red])
+	end
+
+	for y=1,#m-2 do
+		LG.line(0,y*th+1,Game.width,y*th+1)
+	end
+	for x=1,#m[1]-2 do
+		LG.line(x*tw+1,0,x*tw+1,Game.height)
+	end
+end
+
+drawmodes.numbers = function(m)
+	local tw,th=Game.tile.width,Game.tile.height
+	for y=1,#m do
+		for x=1,#m[y] do
+			local value=m[y][x]
+			LG.print(value,(x-1)*tw,(y-1)*th)
+		end
+	end
+end
+
+drawmodes.isometric = function(m)
+	local tw,th=Game.tile.width,Game.tile.height
+	local t=Game.timer
+
+	for y=1,#m do
+		for x=1,#m[y] do
+			--if (y-1)*#m[y]+x<=t then
+				local isox=(x-1)*tw/2
+				local isoy=(y-1)*th/4
+				local value=m[y][x]
+				--LG.draw(Spritesheet[3],Quads[3][value],isox+230,isoy+50,0,1,1,(y-1)*tw/2,(x-1)*-th/4)
+				LG.draw(Spritesheet[3],Quads[3][value],isox,isoy,0,1,1,(y-1)*tw/2,(x-1)*-th/4)
+				if Debugger.debugging then
+					LG.points(isox,isoy)
+				end
+				
+			--end
 		end
 	end
 end

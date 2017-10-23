@@ -42,8 +42,13 @@ local function control(g,l)
 	end
 end
 
+local function draw(g,l)
+	map.draw(g.map,"grid")
+end
+
 return
 {
 	make = make,
 	control = control,
+	draw = draw,
 }

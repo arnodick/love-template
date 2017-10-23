@@ -4,7 +4,7 @@ local function make(g)
 
 	local mw,mh=g.width/g.tile.width,g.height/g.tile.height
 	--g.map=map.generate(Enums.games.maps.map_isometric,{"random","walls"},mw,mh,{1,1,1,1,2,3,4})
-	g.map=map.generate(Enums.games.maps.map_isometric,{"random"},mw,mh,{1,1,1,1,2,3,4})
+	g.map=map.generate({"random"},mw,mh,{1,1,1,1,2,3,4})
 
 	--g.step=false
 
@@ -53,7 +53,7 @@ local function gamepadpressed(g,button)
 end
 
 local function draw(g)
-
+	map.draw(g.map,"isometric")--TODO make isometric levels so this draw doesn't go over the actors
 end
 
 return

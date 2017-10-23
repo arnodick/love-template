@@ -1,5 +1,5 @@
 local function make(g)
-	g.map=map.generate(Enums.games.maps.map_offgrid,"increment",10,10)
+	g.map=map.generate("increment",10,10)
 	g.player={}
 	g.player.x=1
 	g.player.y=1

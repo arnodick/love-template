@@ -1,6 +1,6 @@
 local function make(g)
 	local mw,mh=g.width/g.tile.width,g.height/g.tile.height
-	g.map=map.generate(Enums.games.maps.map_2d,"walls",mw+2,mh+2)
+	g.map=map.generate("walls",mw+2,mh+2)
 	g.player=actor.make(EA[Game.name].bighands_player,g.width/2,g.height/2)
 end
 
