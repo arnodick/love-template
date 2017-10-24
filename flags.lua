@@ -1,4 +1,6 @@
-local function get(bytes,f,shift)
+local flags={}
+
+flags.get = function(bytes,f,shift)
 	--takes a hex flag variable and an integer flag position
 	--returns true if that flag position is set
 	local flag = 2^(f-1) --converts flag position to its actual hex number value (ie: f 1 = 1, f 2 = 2, f 3 = 4, f 4 = 8 etc.)
@@ -12,7 +14,7 @@ local function get(bytes,f,shift)
 	end
 end
 
-local function set(bytes,...)
+flags.set = function (bytes,...)
 	--takes a hex flag variable and a table of flag positions
 	--SETS the bit pointed to by each flag position
 	--only turns ON bits pointed to by the flag positions input
@@ -25,7 +27,7 @@ local function set(bytes,...)
 	return bytes
 end
 
-local function switch(bytes,...)
+flags.switch = function (bytes,...)
 	--takes a hex flag variable and a table of flag positions
 	--SWITCHES the bit pointed to by each flag position
 	--doesn't just turn ON bits, can turn OFF a bit by using a flag position that has already been set in the byte
@@ -38,9 +40,11 @@ local function switch(bytes,...)
 	return bytes
 end
 
-return
-{
-	get = get,
-	set = set,
-	switch = switch,
-}
+flags.strip = function(bytes)
+	--takes only a hex value
+	--set all the flag bits (high 16 bits) in the hex value and makes them 0
+	bytes=bit.band(bytes,65535)
+	return bytes
+end
+
+return flags

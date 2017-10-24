@@ -111,9 +111,9 @@ drawmodes.isometric = function(m)
 	for y=1,#m do
 		for x=1,#m[y] do
 			--if (y-1)*#m[y]+x<=t then
-				local isox=(x-1)*tw/2
-				local isoy=(y-1)*th/4
-				local value=bit.band(m[y][x],65535)
+				local isox,isoy=(x-1)*tw/2,(y-1)*th/4
+				local value=flags.strip(m[y][x])
+
 				--LG.draw(Spritesheet[3],Quads[3][value],isox+230,isoy+50,0,1,1,(y-1)*tw/2,(x-1)*-th/4)
 				LG.draw(Spritesheet[3],Quads[3][value],isox,isoy,0,1,1,(y-1)*tw/2,(x-1)*-th/4)
 				if Debugger.debugging then
