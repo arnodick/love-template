@@ -6,22 +6,21 @@ local map={}
 local generators={}
 local drawmodes={}
 
-map.generate = function(gen,w,h,...)
+map.generate = function(gen,w,h,args)
 	local m={}
 
 	for y=1,h do
 		table.insert(m,{})
 		for x=1,w do
 			table.insert(m[y],0)
+			if type(gen)=="table" then
+				for i,v in ipairs(gen) do
+					generators[v](m,w,h,x,y,args)
+				end
+			else
+				generators[gen](m,w,h,x,y,args)
+			end
 		end
-	end
-
-	if type(gen)=="table" then
-		for i,v in ipairs(gen) do
-			generators[v](m,w,h,...)
-		end
-	else
-		generators[gen](m,w,h,...)
 	end
 	return m
 end
@@ -32,6 +31,7 @@ map.load = function(m)
 	local map = textfile.load(m) --each cell (flags + integer) is loaded into map array
 	for a=1, #map do
 		for b=1, #map[a] do
+			--TODO make this dynamic, loads entities based on flag value
 			if getflag(map[a][b], Enums.wall) then
 				actor.make(0,0,(b-1)*TileW+TileW/2, (a-1)*TileH+TileH/2, TileW, TileH) --each cell that has a wall flag loads a wall entity
 			end
@@ -52,34 +52,27 @@ map.getcell = function(m,x,y)
 	return cx,cy
 end
 
-generators.walls = function(m,w,h)
-	for y=1,h do
-		for x=1,w do
-			if x==1 or x==w or y==1 or y==h then
-				--TODO flag stuff screws up games that don't use flags, figure this out in game-specific code
-				local f=bit.lshift(1,(EF.solid-1))--converts an integer into its bit position
-				f=bit.lshift(f,16)
-				m[y][x]=f
-			end
-		end
+
+
+generators.walls = function(m,w,h,x,y)
+	if x==1 or x==w or y==1 or y==h then
+		--TODO flag stuff screws up games that don't use flags, figure this out in game-specific code
+		local f=bit.lshift(1,(EF.solid-1))--converts an integer into its bit position
+		f=bit.lshift(f,16)
+		m[y][x]=f
 	end
 end
 
-generators.random = function(m,w,h,pool)
-	for y=1,h do
-		for x=1,w do
-			m[y][x]=pool[love.math.random(#pool)]
-		end
-	end
+generators.random = function(m,w,h,x,y,args)
+	local pool=args.pool
+	m[y][x]=pool[love.math.random(#pool)]
 end
 
-generators.increment = function(m,w,h)
-	for y=1,h do
-		for x=1,w do
-			m[y][x]=x+(y-1)*w
-		end
-	end
+generators.increment = function(m,w,h,x,y)
+	m[y][x]=x+(y-1)*w
 end
+
+
 
 drawmodes.grid = function(m)
 	local tw,th=Game.tile.width,Game.tile.height
