@@ -1,4 +1,5 @@
 PRIORITY
+get rid of game-specific state files by making offgrid.gameplay instead and run(game.name,gameplay.control) or something
 make map a part of level
 	each level draws map differently, don't have to have map types
 redo all functions to make a local {} and add functions to it and just return that

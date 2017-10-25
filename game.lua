@@ -31,7 +31,9 @@ game.state.make = function(g,t,mode,st)
 		v:stop()
 	end
 	screen.update(g)
-	run(e.games.states[g.state.t],"make",g)
+	--run(e.games.states[g.state.t],"make",g)
+	local statename=e.games.states[g.state.t].."s"
+	run(e.games.states[statename][g.state.st],"make",g)
 end
 
 game.make = function(t,tw,th,gw,gh,sp)
@@ -82,6 +84,8 @@ game.keypressed = function(g,s,key,scancode,isrepeat)
 	end
 
 	run(Enums.games.states[s.t],"keypressed",g,key)
+	--local statename=Enums.games.states[s.t].."s"
+	--run(Enums.games.states[statename][s.st],"keypressed",g,key)
 
 	if g.editor then
 		editor.keypressed(g,key)

@@ -1,16 +1,11 @@
-local function make(g)
-	if _G[Enums.games.states.gameplays[g.state.st]]["make"] then
-		_G[Enums.games.states.gameplays[g.state.st]]["make"](g)
-	end
-end
-
 local function control(g)
 	local s=g.state
-	sfx.update(SFX,g.speed)
 
 	if _G[Enums.games.states.gameplays[g.state.st]]["control"] then
 		_G[Enums.games.states.gameplays[g.state.st]]["control"](g)
 	end
+
+	sfx.update(SFX,g.speed)
 
 	if not g.pause then
 		for i,v in ipairs(g.actors) do
@@ -108,7 +103,6 @@ end
 
 return
 {
-	make = make,
 	control = control,
 	keypressed = keypressed,
 	keyreleased = keyreleased,

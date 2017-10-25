@@ -1,9 +1,3 @@
-local function make(g)
-	if _G[Enums.games.states.options[g.state.st]]["make"] then
-		_G[Enums.games.states.options[g.state.st]]["make"](g)
-	end
-end
-
 local function control(g)
 	if _G[Enums.games.states.options[g.state.st]]["control"] then
 		_G[Enums.games.states.options[g.state.st]]["control"](g)
@@ -30,7 +24,6 @@ end
 
 return
 {
-	make = make,
 	control = control,
 	keypressed = keypressed,
 	gamepadpressed = gamepadpressed,
