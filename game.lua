@@ -1,5 +1,42 @@
 local game={}
 
+--[[
+game.state={}
+
+state.make = function(g,t,mode,st)
+	--initializes game's state, timer, camera, actor, menu and state tables
+	local e=Enums
+	g.state={}
+	g.state.t=t
+	g.state.mode=mode
+	g.state.modename=Enums.games.modes[mode]
+	if st then
+		g.state.st=st
+	else
+		local statename=Enums.games.states[t]
+		local gamename=Enums.games[g.t]
+		g.state.st=Enums.games.states[statename.."s"][gamename.."_"..statename]
+	end
+	g.timer=0
+	g.speed=1
+	g.camera=camera.make(g.width/2,g.height/2)
+	g.actors={}
+	g.counters=counters.init(g.t)
+	for i,v in pairs(g.canvas) do
+		LG.setCanvas(v)
+		LG.clear()
+	end
+	for i,v in pairs(SFX.sources) do
+		v:stop()
+	end
+	for i,v in pairs(Music.sources) do
+		v:stop()
+	end
+	screen.update(g)
+	run(e.games.states[g.state.t],"make",g)
+end
+--]]
+
 game.make = function(t,tw,th,gw,gh,sp)
 	local g={}--Game object
 	g.t=t
@@ -14,9 +51,9 @@ game.make = function(t,tw,th,gw,gh,sp)
 
 	game.graphics(g,tw,th,gw,gh)
 
-	if _G[Enums.games[t]]["make"] then
-		_G[Enums.games[t]]["make"](g,tw,th,gw,gh)
-	end
+	run(g.name,"make",g,tw,th,gw,gh)
+	state.make(g,Enums.games.states.intro)
+
 ---[[
 	if g.window then
 		local ww,wh=love.window.getMode()
@@ -30,41 +67,59 @@ game.make = function(t,tw,th,gw,gh,sp)
 	return g
 end
 
-game.control = function(g)
-	_G[g.name]["control"](g)
+game.control = function(g,s)
+	run(Enums.games.states[s.t],"control",g)
+
+	if g.editor then
+		editor.control(g)
+	end
 
 	if not g.pause then --TODO figure out why pause is necessary
 		g.timer = g.timer + g.speed
 	end
 end
 
-game.keypressed = function(g,key,scancode,isrepeat)
+game.keypressed = function(g,s,key,scancode,isrepeat)
 	if key=="tab" then
 		state.make(g,Enums.games.states.editor)
 	end
-	_G[g.name]["keypressed"](g,key)
-end
 
-game.keyreleased = function(g,key)
-	if _G[g.name]["keyreleased"] then
-		_G[g.name]["keyreleased"](g,key)
+	run(Enums.games.states[s.t],"keypressed",g,key)
+
+	if g.editor then
+		editor.keypressed(g,key)
 	end
 end
 
-game.mousepressed = function(g,x,y,button)
-	_G[g.name]["mousepressed"](g,x,y,button)
+game.keyreleased = function(g,s,key)
+	run(Enums.games.states[s.t],"keyreleased",g,key)
 end
 
-game.wheelmoved = function(g,x,y)
-	_G[g.name]["wheelmoved"](g,x,y)
+game.mousepressed = function(g,s,x,y,button)
+	run(Enums.games.states[s.t],"mousepressed",g,x,y,button)
+
+	if g.editor then
+		editor.mousepressed(g,x,y,button)
+	end
 end
 
-game.gamepadpressed = function(g,button)
-	_G[g.name]["gamepadpressed"](g,button)
+game.wheelmoved = function(g,s,x,y)
+	run(Enums.games.states[s.t],"wheelmoved",g,x,y)
+
+	if g.editor then
+		editor.wheelmoved(g,x,y)
+	end
 end
 
-game.draw = function(g)
-	local s=g.screen
+game.gamepadpressed = function(g,s,button)
+	run(Enums.games.states[s.t],"gamepadpressed",g,button)
+
+	if g.editor then
+		editor.gamepadpressed(g,button)
+	end
+end
+
+game.draw = function(g,s)
 	LG.translate(-g.camera.x+g.width/2,-g.camera.y+g.height/2)
 
 	local glc=nil
@@ -74,7 +129,13 @@ game.draw = function(g)
 	if not glc or not glc.transition or not glc.transition.t then
 		LG.setCanvas(g.canvas.main) --sets drawing to the primary canvas that refreshes every frame
 			LG.clear() --cleans that messy ol canvas all up, makes it all fresh and new and good you know
-			_G[g.name]["draw"](g)
+
+			run(Enums.games.states[s.t],"draw",g)
+			
+			if g.editor then
+				editor.draw(g)
+			end
+
 			if g.state.hud then
 				LG.setCanvas(g.canvas.hud) --sets drawing to hud canvas, which draws OVER everything else
 					LG.clear() --cleans that messy ol canvas all up, makes it all fresh and new and good you know

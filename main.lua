@@ -23,6 +23,42 @@ function love.load()
 	--debugger.printtable(Game)
 end
 
+function love.update(dt)
+	game.control(Game,Game.state)
+
+	debugger.update(Game,Debugger)
+end
+
+function love.keypressed(key,scancode,isrepeat)
+	local g=Game
+	game.keypressed(g,g.state,key,scancode,isrepeat)
+
+	if key == '`' then
+		Debugger.debugging = not Debugger.debugging
+	elseif key == 'f' then
+		love.window.setFullscreen(not love.window.getFullscreen())
+		screen.update(g)
+		Debugger.canvas = LG.newCanvas(g.screen.width,g.screen.height) --sets width and height of debug overlay (size of window)
+	end
+end
+
+function love.keyreleased(key)
+	local g=Game
+	game.keyreleased(g,g.state,key)
+end
+
+function love.mousepressed(x,y,button)
+	game.mousepressed(Game,Game.state,x,y,button)
+end
+
+function love.wheelmoved(x,y)
+	game.wheelmoved(Game,Game.state,x,y)
+end
+
+function love.gamepadpressed(joystick,button)
+	game.gamepadpressed(Game,Game.state,button)
+end
+
 function love.joystickadded(joystick)
 	table.insert(Joysticks,joystick)
 end
@@ -36,44 +72,8 @@ function love.joystickremoved(joystick)
 	end
 end
 
-function love.keypressed(key,scancode,isrepeat)
-	local g=Game
-	game.keypressed(g,key)
-
-	if key == '`' then
-		Debugger.debugging = not Debugger.debugging
-	elseif key == 'f' then
-		love.window.setFullscreen(not love.window.getFullscreen())
-		screen.update(g)
-		Debugger.canvas = LG.newCanvas(g.screen.width,g.screen.height) --sets width and height of debug overlay (size of window)
-	end
-end
-
-function love.keyreleased(key)
-	local g=Game
-	game.keyreleased(g,key)
-end
-
-function love.mousepressed(x,y,button)
-	game.mousepressed(Game,x,y,button)
-end
-
-function love.wheelmoved(x,y)
-	game.wheelmoved(Game,x,y)
-end
-
-function love.gamepadpressed(joystick,button)
-	game.gamepadpressed(Game,button)
-end
-
-function love.update(dt)
-	game.control(Game)
-
-	debugger.update(Game,Debugger)
-end
-
 function love.draw(dt)
-	game.draw(Game)
+	game.draw(Game,Game.state)
 
 	debugger.draw(Debugger)
 end
