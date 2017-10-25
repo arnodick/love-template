@@ -1,4 +1,6 @@
-local function make(a,t,...)
+local module={}
+
+module.make = function(a,t,...)
 	if not a[EM[t]] then
 		a[EM[t]]={}
 	end
@@ -10,7 +12,4 @@ local function make(a,t,...)
 	end
 end
 
-return
-{
-	make = make,
-}
+return module

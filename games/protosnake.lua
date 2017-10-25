@@ -5,6 +5,8 @@ local function make(g,tw,th,gw,gh,sp)
 	state.make(g,Enums.games.states.intro)
 end
 
+
+--TODO can probably strip out all these state.control things and put them right in game library
 local function control(g)
 	state.control(g)
 end

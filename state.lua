@@ -1,4 +1,7 @@
-local function make(g,t,mode,st)--initializes game's state, timer, camera, actor, menu and state tables
+local state={}
+
+state.make = function(g,t,mode,st)
+	--initializes game's state, timer, camera, actor, menu and state tables
 	local e=Enums
 	g.state={}
 	g.state.t=t
@@ -27,12 +30,10 @@ local function make(g,t,mode,st)--initializes game's state, timer, camera, actor
 		v:stop()
 	end
 	screen.update(g)
-	if _G[e.games.states[g.state.t]]["make"] then
-		_G[e.games.states[g.state.t]]["make"](g)
-	end
+	run(e.games.states[g.state.t],"make",g)
 end
 
-local function control(g)
+state.control = function(g)
 	local s=g.state
 	if _G[Enums.games.states[s.t]]["control"] then
 		_G[Enums.games.states[s.t]]["control"](g)
@@ -42,7 +43,7 @@ local function control(g)
 	end
 end
 
-local function keypressed(g,key)
+state.keypressed = function(g,key)
 	local s=g.state
 	if _G[Enums.games.states[s.t]]["keypressed"] then
 		_G[Enums.games.states[s.t]]["keypressed"](g,key)
@@ -52,14 +53,14 @@ local function keypressed(g,key)
 	end
 end
 
-local function keyreleased(g,key)
+state.keyreleased = function(g,key)
 	local s=g.state
 	if _G[Enums.games.states[s.t]]["keyreleased"] then
 		_G[Enums.games.states[s.t]]["keyreleased"](g,key)
 	end
 end
 
-local function mousepressed(g,x,y,button)
+state.mousepressed = function(g,x,y,button)
 	local s=g.state
 	if _G[Enums.games.states[s.t]]["mousepressed"] then
 		_G[Enums.games.states[s.t]]["mousepressed"](g,x,y,button)
@@ -69,7 +70,7 @@ local function mousepressed(g,x,y,button)
 	end
 end
 
-local function wheelmoved(g,x,y)
+state.wheelmoved = function(g,x,y)
 	local s=g.state
 	if _G[Enums.games.states[s.t]]["wheelmoved"] then
 		_G[Enums.games.states[s.t]]["wheelmoved"](g,x,y)
@@ -79,7 +80,7 @@ local function wheelmoved(g,x,y)
 	end
 end
 
-local function gamepadpressed(g,button)
+state.gamepadpressed = function(g,button)
 	local s=g.state
 	if _G[Enums.games.states[s.t]]["gamepadpressed"] then
 		_G[Enums.games.states[s.t]]["gamepadpressed"](g,button)
@@ -89,7 +90,7 @@ local function gamepadpressed(g,button)
 	end
 end
 
-local function draw(g)
+state.draw = function(g)
 	local s=g.state
 	if _G[Enums.games.states[s.t]]["draw"] then
 		_G[Enums.games.states[s.t]]["draw"](g)
@@ -99,14 +100,4 @@ local function draw(g)
 	end
 end
 
-return
-{
-	make = make,
-	control = control,
-	keypressed = keypressed,
-	keyreleased = keyreleased,
-	mousepressed = mousepressed,
-	wheelmoved = wheelmoved,
-	gamepadpressed = gamepadpressed,
-	draw = draw,
-}
+return state

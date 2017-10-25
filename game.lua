@@ -1,4 +1,6 @@
-local function make(t,tw,th,gw,gh,sp)
+local game={}
+
+game.make = function(t,tw,th,gw,gh,sp)
 	local g={}--Game object
 	g.t=t
 	g.name=Enums.games[t]
@@ -28,7 +30,7 @@ local function make(t,tw,th,gw,gh,sp)
 	return g
 end
 
-local function control(g)
+game.control = function(g)
 	_G[g.name]["control"](g)
 
 	if not g.pause then --TODO figure out why pause is necessary
@@ -36,32 +38,32 @@ local function control(g)
 	end
 end
 
-local function keypressed(g,key,scancode,isrepeat)
+game.keypressed = function(g,key,scancode,isrepeat)
 	if key=="tab" then
 		state.make(g,Enums.games.states.editor)
 	end
 	_G[g.name]["keypressed"](g,key)
 end
 
-local function keyreleased(g,key)
+game.keyreleased = function(g,key)
 	if _G[g.name]["keyreleased"] then
 		_G[g.name]["keyreleased"](g,key)
 	end
 end
 
-local function mousepressed(g,x,y,button)
+game.mousepressed = function(g,x,y,button)
 	_G[g.name]["mousepressed"](g,x,y,button)
 end
 
-local function wheelmoved(g,x,y)
+game.wheelmoved = function(g,x,y)
 	_G[g.name]["wheelmoved"](g,x,y)
 end
 
-local function gamepadpressed(g,button)
+game.gamepadpressed = function(g,button)
 	_G[g.name]["gamepadpressed"](g,button)
 end
 
-local function draw(g)
+game.draw = function(g)
 	local s=g.screen
 	LG.translate(-g.camera.x+g.width/2,-g.camera.y+g.height/2)
 
@@ -91,7 +93,7 @@ local function draw(g)
 	screen.control(g,g.screen,g.speed)
 end
 
-local function graphics(g,tw,th,gw,gh)
+game.graphics = function(g,tw,th,gw,gh)
 	--just to declutter load function
 	--graphics settings and asset inits
 	LG.setDefaultFilter("nearest","nearest",1) --clean SPRITE scaling
@@ -134,15 +136,4 @@ local function graphics(g,tw,th,gw,gh)
 	g.canvas.hud = LG.newCanvas(gw,gh) --this canvas is for HUD stuff like menus etc.
 end
 
-return
-{
-	make = make,
-	control = control,
-	keypressed = keypressed,
-	keyreleased = keyreleased,
-	mousepressed = mousepressed,
-	wheelmoved = wheelmoved,
-	gamepadpressed = gamepadpressed,
-	draw = draw,
-	graphics = graphics,
-}
+return game
