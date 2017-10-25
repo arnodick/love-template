@@ -14,7 +14,7 @@ end
 local function keypressed(g,key)
 --[[
 	if key=="return" then--TODO HACK
-		state.make(g,Enums.games.states.gameplay)
+		game.state.make(g,Enums.games.states.gameplay)
 	end
 --]]
 

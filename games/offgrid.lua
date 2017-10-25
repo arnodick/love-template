@@ -31,7 +31,7 @@ local function make(g,tw,th,gw,gh,sp)
 
 	offgrid.loadimages(g)
 
-	--state.make(g,Enums.games.states.intro)
+	--game.state.make(g,Enums.games.states.intro)
 end
 
 local function loadimages(g)

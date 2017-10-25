@@ -10,7 +10,7 @@ end
 
 local function keypressed(g,key)
 	if key=='escape' then
-		state.make(g,Enums.games.states.title)
+		game.state.make(g,Enums.games.states.title)
 	end
 end
 

@@ -1,9 +1,7 @@
 local game={}
-
---[[
 game.state={}
 
-state.make = function(g,t,mode,st)
+game.state.make = function(g,t,mode,st)
 	--initializes game's state, timer, camera, actor, menu and state tables
 	local e=Enums
 	g.state={}
@@ -35,7 +33,6 @@ state.make = function(g,t,mode,st)
 	screen.update(g)
 	run(e.games.states[g.state.t],"make",g)
 end
---]]
 
 game.make = function(t,tw,th,gw,gh,sp)
 	local g={}--Game object
@@ -52,7 +49,7 @@ game.make = function(t,tw,th,gw,gh,sp)
 	game.graphics(g,tw,th,gw,gh)
 
 	run(g.name,"make",g,tw,th,gw,gh)
-	state.make(g,Enums.games.states.intro)
+	game.state.make(g,Enums.games.states.intro)
 
 ---[[
 	if g.window then
@@ -81,7 +78,7 @@ end
 
 game.keypressed = function(g,s,key,scancode,isrepeat)
 	if key=="tab" then
-		state.make(g,Enums.games.states.editor)
+		game.state.make(g,Enums.games.states.editor)
 	end
 
 	run(Enums.games.states[s.t],"keypressed",g,key)

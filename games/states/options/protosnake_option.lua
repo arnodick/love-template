@@ -8,13 +8,13 @@ end
 
 local function keypressed(g,key)
 	if key=='escape' then
-		state.make(g,Enums.games.states.title)
+		game.state.make(g,Enums.games.states.title)
 	end
 end
 
 local function gamepadpressed(g,button)
 	if button=="b" then
-		state.make(g,Enums.games.states.intro)
+		game.state.make(g,Enums.games.states.intro)
 	end
 end
 

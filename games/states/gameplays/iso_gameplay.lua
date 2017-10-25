@@ -21,7 +21,7 @@ end
 
 local function keypressed(g,key)
 	if key=='escape' then
-		state.make(g,Enums.games.states.title)
+		game.state.make(g,Enums.games.states.title)
 	elseif key=='space' then
 		local mw,mh=g.width/g.tile.width,g.height/g.tile.height
 		g.timer=0
