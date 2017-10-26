@@ -73,7 +73,41 @@ game.make = function(t,tw,th,gw,gh,sp)
 end
 
 game.control = function(g,s)
-	run(Enums.games.states[s.t],"control",g)
+	--run(Enums.games.states[s.t],"control",g)
+	local statename=Enums.games.states[s.t].."s"
+	run(Enums.games.states[statename][s.st],"control",g)
+
+	sfx.update(SFX,g.speed)
+
+	if not g.pause then
+		for i,v in ipairs(g.actors) do
+			if not v.delete then
+				actor.control(g,v,g.speed)
+			end
+		end
+	end
+	--if g.transition then
+	--	transition.control(g,g.transition)
+	--end
+	camera.control(g.camera,g.speed)
+	
+	for i,v in ipairs(g.actors) do
+		if v.delete==true then
+			if v.inventory then
+				for j,k in ipairs(v.inventory) do
+					k.delete=true
+				end
+			end
+			counters.update(g,g.counters,v,-1)
+			table.remove(g.actors,i)
+		end
+	end
+
+	if g.levels then
+		if g.levels.current then
+			level.control(g,g.levels.current)
+		end
+	end
 
 	if g.editor then
 		editor.control(g)

@@ -6,5 +6,5 @@ end
 
 return
 {
-	control = control,
+	--control = control,
 }
