@@ -42,34 +42,7 @@ local function control(g)
 	end
 end
 
-local function draw(g)
-	local s=g.state
-
-	if g.levels then
-		if g.levels.current then
-			level.draw(g,g.levels.current)
-		end
-	end
-
-	for i,v in ipairs(g.actors) do
-		if not v.delete then
-			actor.draw(v)
-		end
-	end
---[[
-	if s.hud then
-		hud.draw(g,s.hud)
-	end
-	LG.print(love.timer.getFPS(),10,10)
---]]
-
-	if _G[Enums.games.states.gameplays[g.state.st]]["draw"] then
-		_G[Enums.games.states.gameplays[g.state.st]]["draw"](g)
-	end
-end
-
 return
 {
 	control = control,
-	draw = draw,
 }

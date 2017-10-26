@@ -4,14 +4,7 @@ local function control(g)
 	end
 end
 
-local function draw(g)
-	if _G[Enums.games.states.titles[g.state.st]]["draw"] then
-		_G[Enums.games.states.titles[g.state.st]]["draw"](g)
-	end
-end
-
 return
 {
 	control = control,
-	draw = draw,
 }

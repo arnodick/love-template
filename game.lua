@@ -160,7 +160,21 @@ game.draw = function(g,s)
 		LG.setCanvas(g.canvas.main) --sets drawing to the primary canvas that refreshes every frame
 			LG.clear() --cleans that messy ol canvas all up, makes it all fresh and new and good you know
 
-			run(Enums.games.states[s.t],"draw",g)
+			if g.levels then
+				if g.levels.current then
+					level.draw(g,g.levels.current)
+				end
+			end
+
+			for i,v in ipairs(g.actors) do
+				if not v.delete then
+					actor.draw(v)
+				end
+			end
+
+			--run(Enums.games.states[s.t],"draw",g)
+			local statename=Enums.games.states[s.t].."s"
+			run(Enums.games.states[statename][s.st],"draw",g)
 			
 			if g.editor then
 				editor.draw(g)
