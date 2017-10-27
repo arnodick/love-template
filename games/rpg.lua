@@ -1,8 +1,7 @@
-local function make(g,tw,th,gw,gh,sp)
+local rpg={}
+
+rpg.make = function(g,tw,th,gw,gh,sp)
 	--game.state.make(g,Enums.games.states.intro)
 end
 
-return
-{
-	make = make,
-}
+return rpg

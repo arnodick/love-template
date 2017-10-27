@@ -1,4 +1,6 @@
-local function make(g,tw,th,gw,gh,sp)
+local offgrid={}
+
+offgrid.make = function(g,tw,th,gw,gh,sp)
 	local ww,wh=640,640
 	g.window={}
 	g.window.width=640
@@ -34,7 +36,7 @@ local function make(g,tw,th,gw,gh,sp)
 	--game.state.make(g,Enums.games.states.intro)
 end
 
-local function loadimages(g)
+offgrid.loadimages = function(g)
 	local dir="images/offgrid"
 	local buffer = LG.newCanvas(640*g.bufferscale,640*g.bufferscale)
 	g.images={}
@@ -57,16 +59,11 @@ local function loadimages(g)
 	debugger.printtable(g.images)
 end
 
-local function move(g,x,y)
+offgrid.move = function(g,x,y)
 	g.player.x,g.player.y=x,y
 	g.level=g.map[y][x]
 	print(g.level)
 	level.make(g,g.level)
 end
 
-return
-{
-	make = make,
-	loadimages = loadimages,
-	move = move,
-}
+return offgrid

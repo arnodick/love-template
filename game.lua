@@ -1,20 +1,13 @@
 local game={}
 game.state={}
 
-game.state.make = function(g,t,mode,st)
+game.state.make = function(g,t,mode)
 	--initializes game's state, timer, camera, actor, menu and state tables
 	local e=Enums
 	g.state={}
 	g.state.t=t
 	g.state.mode=mode
 	g.state.modename=Enums.games.modes[mode]
-	if st then
-		g.state.st=st
-	else
-		local statename=Enums.games.states[t]
-		local gamename=Enums.games[g.t]
-		g.state.st=Enums.games.states[statename.."s"][gamename.."_"..statename]
-	end
 
 	g.timer=0
 	g.speed=1
@@ -38,12 +31,17 @@ game.state.make = function(g,t,mode,st)
 	end
 	screen.update(g)
 
-	local statename=e.games.states[g.state.t].."s"
-	run(e.games.states[statename][g.state.st],"make",g)
+	run(g.name.."_"..g.state.t,"make",g)
+end
+
+game.state.run = function(gamename,statename,functionname,...)
+	--if _G[libraryname][functionname] then
+		_G[gamename][statename][functionname](...)
+	--end
 end
 
 game.make = function(t,tw,th,gw,gh,sp)
-	local g={}--Game object
+	local g={}
 	g.t=t
 	g.name=Enums.games[t]
 	g.tile={}
@@ -57,7 +55,7 @@ game.make = function(t,tw,th,gw,gh,sp)
 	game.graphics(g,tw,th,gw,gh)
 
 	run(g.name,"make",g,tw,th,gw,gh)
-	game.state.make(g,Enums.games.states.intro)
+	game.state.make(g,"intro")
 
 ---[[
 	if g.window then
@@ -73,9 +71,7 @@ game.make = function(t,tw,th,gw,gh,sp)
 end
 
 game.control = function(g,s)
-	--run(Enums.games.states[s.t],"control",g)
-	local statename=Enums.games.states[s.t].."s"
-	run(Enums.games.states[statename][s.st],"control",g)
+	run(g.name.."_"..g.state.t,"control",g)
 
 	sfx.update(SFX,g.speed)
 
@@ -120,7 +116,7 @@ end
 
 game.keypressed = function(g,s,key,scancode,isrepeat)
 	if key=="tab" then
-		game.state.make(g,Enums.games.states.editor)
+		--game.state.make(g,"editor")
 	end
 
 	if g.levels then
@@ -129,8 +125,7 @@ game.keypressed = function(g,s,key,scancode,isrepeat)
 		end
 	end
 
-	local statename=Enums.games.states[s.t].."s"
-	run(Enums.games.states[statename][s.st],"keypressed",g,key)
+	run(g.name.."_"..g.state.t,"keypressed",g,key)
 
 	if g.editor then
 		editor.keypressed(g,key)
@@ -145,13 +140,11 @@ game.keyreleased = function(g,s,key)
 		end
 	end
 
-	local statename=Enums.games.states[s.t].."s"
-	run(Enums.games.states[statename][s.st],"keyreleased",g,key)
+	run(g.name.."_"..g.state.t,"keyreleased",g,key)
 end
 
 game.mousepressed = function(g,s,x,y,button)
-	local statename=Enums.games.states[s.t].."s"
-	run(Enums.games.states[statename][s.st],"mousepressed",g,x,y,button)
+	run(g.name.."_"..g.state.t,"mousepressed",g,x,y,button)
 
 	if g.editor then
 		editor.mousepressed(g,x,y,button)
@@ -159,8 +152,7 @@ game.mousepressed = function(g,s,x,y,button)
 end
 
 game.wheelmoved = function(g,s,x,y)
-	local statename=Enums.games.states[s.t].."s"
-	run(Enums.games.states[statename][s.st],"wheelmoved",g,x,y)
+	run(g.name.."_"..g.state.t,"wheelmoved",g,x,y)
 
 	if g.editor then
 		editor.wheelmoved(g,x,y)
@@ -175,8 +167,7 @@ game.gamepadpressed = function(g,s,button)
 		end
 	end
 
-	local statename=Enums.games.states[s.t].."s"
-	run(Enums.games.states[statename][s.st],"gamepadpressed",g,button)
+	run(g.name.."_"..g.state.t,"gamepadpressed",g,button)
 
 	if g.editor then
 		editor.gamepadpressed(g,button)
@@ -206,9 +197,7 @@ game.draw = function(g,s)
 				end
 			end
 
-			--run(Enums.games.states[s.t],"draw",g)
-			local statename=Enums.games.states[s.t].."s"
-			run(Enums.games.states[statename][s.st],"draw",g)
+			run(g.name.."_"..g.state.t,"draw",g)
 			
 			if g.editor then
 				editor.draw(g)

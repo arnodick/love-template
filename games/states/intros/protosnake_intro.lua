@@ -6,13 +6,13 @@ end
 
 local function control(g)
 	if g.timer>2500 then
-		game.state.make(g,Enums.games.states.title)
+		game.state.make(g,"title")
 	end
 end
 
 local function keypressed(g,key)
 	if key=="space" or key=="return" then
-		game.state.make(g,Enums.games.states.title)
+		game.state.make(g,"title")
 	elseif key == 'escape' then
 		love.event.quit()
 	end
@@ -20,7 +20,7 @@ end
 
 local function gamepadpressed(g,button)
 	if button=="start" or button=="a" then
-		game.state.make(g,Enums.games.states.title)
+		game.state.make(g,"title")
 	end
 end
 

@@ -8,17 +8,17 @@ end
 
 local function keypressed(g,key)
 	if key=="space" or key=="return" then
-		game.state.make(g,Enums.games.states.gameplay,Enums.games.modes.topdown)
+		game.state.make(g,"gameplay",Enums.games.modes.topdown)
 	elseif key=='escape' then
-		game.state.make(g,Enums.games.states.intro)
+		game.state.make(g,"intro")
 	end
 end
 
 local function gamepadpressed(g,button)
 	if button=="start" or button=="a" then
-		game.state.make(g,Enums.games.states.gameplay,Enums.games.modes.topdown)
+		game.state.make(g,"gameplay",Enums.games.modes.topdown)
 	elseif button=="b" then
-		game.state.make(g,Enums.games.states.intro)
+		game.state.make(g,"intro")
 	end
 end
 
