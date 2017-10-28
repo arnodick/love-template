@@ -1,7 +1,8 @@
 PRIORITY
+what is in Game? make sure no debris is left over during state changes
+	maybe actors, levels, etc all go in state? so when you do state={} it wipes everything
 make tw and th part of level?
 editor not as module but as its own .lua library
-get rid of game-specific state files by making offgrid.gameplay instead and run(game.name,gameplay.control) or something
 make map a part of level
 	each level draws map differently, don't have to have map types
 redo all functions to make a local {} and add functions to it and just return that
@@ -50,6 +51,7 @@ change controller input so impulses will work
 	put controller commands in actor.control? Must be some way to make impulses stick
 
 DONE
+get rid of game-specific state files by making offgrid.gameplay instead and run(game.name,gameplay.control) or something
 game.type.control and then game.type.control calls state controller, rather than game immediately calling state from root
 states have game modes, instead of the game itself
 input Game into

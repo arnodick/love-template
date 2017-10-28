@@ -60,7 +60,8 @@ local function constants(e) --NOTE this function has side effects! makes global 
 
 	end
 	if e.colours then
-		EC=e.colours
+		--EC=e.colours
+		EC=
 	end
 	if e.flags then
 		EF=e.flags
