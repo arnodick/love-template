@@ -175,10 +175,6 @@ protosnake.option =
 		music.play(1)
 	end,
 
-	control = function(g)
-
-	end,
-
 	keypressed = function(g,key)
 		if key=='escape' then
 			game.state.make(g,"title")

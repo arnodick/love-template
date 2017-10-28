@@ -37,7 +37,6 @@ game.state.make = function(g,t,mode)
 	end
 	screen.update(g)
 
-	--run(g.name.."_"..g.state.t,"make",g)
 	game.state.run(g.name,g.state.t,"make",g)
 end
 
@@ -72,7 +71,6 @@ game.make = function(t,tw,th,gw,gh,sp)
 end
 
 game.control = function(g,s)
-	--run(g.name.."_"..g.state.t,"control",g)
 	game.state.run(g.name,g.state.t,"control",g)
 
 	sfx.update(SFX,g.speed)
@@ -127,7 +125,6 @@ game.keypressed = function(g,s,key,scancode,isrepeat)
 		end
 	end
 
-	--run(g.name.."_"..g.state.t,"keypressed",g,key)
 	game.state.run(g.name,g.state.t,"keypressed",g,key)
 
 	if g.editor then
@@ -143,12 +140,10 @@ game.keyreleased = function(g,s,key)
 		end
 	end
 
-	--run(g.name.."_"..g.state.t,"keyreleased",g,key)
 	game.state.run(g.name,g.state.t,"keyreleased",g,key)
 end
 
 game.mousepressed = function(g,s,x,y,button)
-	--run(g.name.."_"..g.state.t,"mousepressed",g,x,y,button)
 	game.state.run(g.name,g.state.t,"mousepressed",g,x,y,button)
 
 	if g.editor then
@@ -157,7 +152,6 @@ game.mousepressed = function(g,s,x,y,button)
 end
 
 game.wheelmoved = function(g,s,x,y)
-	--run(g.name.."_"..g.state.t,"wheelmoved",g,x,y)
 	game.state.run(g.name,g.state.t,"wheelmoved",g,x,y)
 
 	if g.editor then
@@ -173,7 +167,6 @@ game.gamepadpressed = function(g,s,button)
 		end
 	end
 
-	--run(g.name.."_"..g.state.t,"gamepadpressed",g,button)
 	game.state.run(g.name,g.state.t,"gamepadpressed",g,button)
 
 	if g.editor then
@@ -204,7 +197,6 @@ game.draw = function(g,s)
 				end
 			end
 
-			--run(g.name.."_"..g.state.t,"draw",g)
 			game.state.run(g.name,g.state.t,"draw",g)
 			
 			if g.editor then

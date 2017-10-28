@@ -36,6 +36,84 @@ offgrid.make = function(g,tw,th,gw,gh,sp)
 	--game.state.make(g,Enums.games.states.intro)
 end
 
+offgrid.gameplay =
+{
+	make = function(g)
+		g.map=map.generate("increment",10,10)
+		g.player={}
+		g.player.x=1
+		g.player.y=1
+		g.level=g.map[g.player.y][g.player.x]
+		level.make(g,g.level)
+	end,
+
+	keypressed = function(g,key)
+		if key=='escape' then
+			game.state.make(g,"title")
+		end
+	end,
+
+	gamepadpressed = function(g,button)
+		if button=="a" then
+			g.switch = not g.switch
+		end
+	end,
+
+	draw = function (g)
+		if Debugger.debugging then
+			--LG.print(g.player.x.." "..g.player.y,10,120)
+			--LG.print(g.map[g.player.y][g.player.x],10,130)
+			LG.print(g.levels.current.menu.text.index,10,140)
+		end
+	end
+}
+
+offgrid.title =
+{
+	keypressed = function(g,key)
+		if key=="space" or key=="return" then
+			game.state.make(g,"gameplay")
+		elseif key=='escape' then
+			game.state.make(g,"intro")
+		end
+	end,
+
+	gamepadpressed = function(g,button)
+		if button=="start" or button=="a" then
+			game.state.make(g,"gameplay")
+		elseif button=="b" then
+			game.state.make(g,"intro")
+		end
+	end,
+
+	draw = function(g)
+		LG.print("offgrid title", g.width/2, g.height/2)
+	end
+}
+
+offgrid.intro =
+{
+	keypressed = function(g,key)
+		if key=="space" or key=="return" then
+			game.state.make(g,"title")
+		elseif key == 'escape' then
+			love.event.quit()
+		end
+	end,
+
+	gamepadpressed = function(g,button)
+		if button=="start" or button=="a" then
+			game.state.make(g,"title")
+		elseif button=="b" then
+			love.event.quit()
+		end
+	end,
+
+	draw = function(g)
+		LG.print("offgrid intro", g.width/2, g.height/2)
+	end
+}
+
 offgrid.loadimages = function(g)
 	local dir="images/offgrid"
 	local buffer = LG.newCanvas(640*g.bufferscale,640*g.bufferscale)

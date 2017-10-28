@@ -1,7 +1,7 @@
 local level={}
 local modes={}
 
-level.load = function (g,dir)
+level.load = function(g,dir)
 	local l={}
 	local files = love.filesystem.getDirectoryItems(dir)
 	for i=1,#files do
@@ -22,7 +22,7 @@ level.load = function (g,dir)
 	g.levels=l
 end
 
-level.make = function (g,index)
+level.make = function(g,index)
 	local gamename=g.name
 	local l={}
 	local lt=Enums.games.levels[gamename.."_level"]
@@ -40,7 +40,7 @@ level.make = function (g,index)
 	g.levels.current=l
 end
 
-level.control = function (g,l)
+level.control = function(g,l)
 	local gamename=g.name
 	local lt=Enums.games.levels[gamename.."_level"]
 
@@ -56,7 +56,7 @@ level.control = function (g,l)
 	end
 end
 
-level.keypressed = function (g,l,key)
+level.keypressed = function(g,l,key)
 	local gamename=g.name
 	local lt=Enums.games.levels[gamename.."_level"]
 
@@ -69,7 +69,7 @@ level.keypressed = function (g,l,key)
 	end
 end
 
-level.keyreleased = function (g,l,key)
+level.keyreleased = function(g,l,key)
 	local gamename=g.name
 	local lt=Enums.games.levels[gamename.."_level"]
 
@@ -82,7 +82,7 @@ level.keyreleased = function (g,l,key)
 	end
 end
 
-level.gamepadpressed = function (g,l,button)
+level.gamepadpressed = function(g,l,button)
 	local gamename=g.name
 	local lt=Enums.games.levels[gamename.."_level"]
 
@@ -95,7 +95,7 @@ level.gamepadpressed = function (g,l,button)
 	end
 end
 
-level.draw = function (g,l)
+level.draw = function(g,l)
 	local gamename=g.name
 	local lt=Enums.games.levels[gamename.."_level"]
 
