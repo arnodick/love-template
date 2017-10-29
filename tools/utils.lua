@@ -124,8 +124,3 @@ love.graphics.drawbox = drawbox
 love.graphics.printformat = printformat
 love.graphics.lightness = lightness
 love.graphics.textify = textify
-
-return
-{
-	
-}

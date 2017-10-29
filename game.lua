@@ -119,6 +119,8 @@ end
 game.keypressed = function(g,s,key,scancode,isrepeat)
 	if key=="tab" then
 		--game.state.make(g,"editor")
+	elseif key=="space" then
+		palette.set(g,2)
 	end
 
 	if g.levels then
@@ -238,12 +240,9 @@ game.graphics = function(g,tw,th,gw,gh)
 	g.font:setLineHeight(1.8)
 	LG.setFont(g.font)
 
-	g.palettes = palette.load(unpack(love.filesystem.getfiles("palettes","ini")))
-	g.palette={}
-	for a=0,16 do
-		g.palette[a]=g.palettes[g.palettes.i][a]
-	end
+	palette.load(g,unpack(love.filesystem.getfiles("palettes","ini")))
 
+	--TODO put this in g.?
 	Spritesheet={}
 	Quads={}
 	local files = love.filesystem.filterfiles("gfx","png")

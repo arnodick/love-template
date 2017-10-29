@@ -1,3 +1,5 @@
+--TODO maybe put this in math?
+
 local function components(x,y,x2,y2)
 	return x2-x, y2-y
 end

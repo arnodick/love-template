@@ -1,3 +1,5 @@
+--TODO maybe put this in love.filesystem?
+
 local byteamount = 4 --4 bytes (8 hex digits) per cell
 
 function loadbytes(l)
