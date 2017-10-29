@@ -29,15 +29,16 @@ offgrid.make = function(g,tw,th,gw,gh,sp)
 	table.insert(g.chars,"_")
 	table.insert(g.chars,"~")
 
-	level.load(g,"games/levels/offgrid/inis")
+	level.load(g,"games/levels/offgrid")
 
 	offgrid.loadimages(g)
 	--debugger.printtable(g)
 	--debugger.printtable(_G)--NOTE DON'T DO THIS! gets stuck in loop printing forever, because _G is a member of _G
 end
 
-local types={}
-types.city =
+offgrid.level={}
+offgrid.level.types={}
+offgrid.level.types.city =
 {
 	make = function(g,l)
 		local m={}
@@ -72,105 +73,102 @@ types.city =
 	end
 }
 
-offgrid.level =
-{
-	make = function(g,l,index)
-		g.timer=0
-		g.level=index
-		local gamename=g.name
-		local lload=g.levels[index]
-		
-		l.t=lload.values.t
-		l.title=lload.values.title
+offgrid.level.make = function(g,l,index)
+	g.timer=0
+	g.level=index
+	local gamename=g.name
+	local lload=g.levels[index]
+	
+	l.t=lload.values.t
+	l.title=lload.values.title
 
-		if lload.values.animspeed then
-			l.animspeed=lload.values.animspeed
-		end
+	if lload.values.animspeed then
+		l.animspeed=lload.values.animspeed
+	end
 
-		types[l.t].make(g,l)
+	offgrid.level.types[l.t].make(g,l)
 
-		if lload.values.description then
-			l.menu.description=lload.values.description
-			module.make(l.menu,EM.transition,easing.linear,"text_trans",0,string.len(l.menu.description),360)
-		end
-	end,
+	if lload.values.description then
+		l.menu.description=lload.values.description
+		module.make(l.menu,EM.transition,easing.linear,"text_trans",0,string.len(l.menu.description),360)
+	end
+end
 
-	control = function(g,l)
-		if not l.transition then
-			if l.menu then
-				menu.control(l.menu)
-			end
-		end
-		synth.control(l,l.synth)
-	--[[
-		local saw = denver.get({waveform='sawtooth', frequency="G", length=2})
-		--local saw = denver.get({waveform='sawtooth', frequency="G", length=1/60})
-		--local saw2 = denver.get({waveform='sawtooth', frequency="B", length=1/60})
-		saw:setLooping(false)
-		if g.timer==1 then
-			love.audio.play(saw)
-		end
-		if g.timer==31 then
-			--love.audio.play(saw2)
-		end
-	--]]
-		--local sine = denver.get({waveform='sinus', frequency=440, length=1})
-		--love.audio.play(sine)
-		--local noise = denver.get({waveform='whitenoise', length=6})
-		--love.audio.play(noise)
-		types[l.t].control(g,l)
-	end,
-
-	keypressed = function(g,l,key)
-		local glc = g.levels.current
-		if not glc or not glc.transition then
-			if l.menu then
-				menu.keypressed(l.menu,key)
-			end
-		end
-	end,
-
-	keyreleased = function(g,l,key)
-		local glc = g.levels.current
-		if not glc or not glc.transition then
-			if l.menu then
-				menu.keyreleased(l.menu,key)
-			end
-		end
-	end,
-
-	gamepadpressed = function(g,l,button)
+offgrid.level.control = function(g,l)
+	if not l.transition then
 		if l.menu then
-			menu.gamepadpressed(l.menu,button)
+			menu.control(l.menu)
 		end
-	end,
+	end
+	synth.control(l,l.synth)
+--[[
+	local saw = denver.get({waveform='sawtooth', frequency="G", length=2})
+	--local saw = denver.get({waveform='sawtooth', frequency="G", length=1/60})
+	--local saw2 = denver.get({waveform='sawtooth', frequency="B", length=1/60})
+	saw:setLooping(false)
+	if g.timer==1 then
+		love.audio.play(saw)
+	end
+	if g.timer==31 then
+		--love.audio.play(saw2)
+	end
+--]]
+	--local sine = denver.get({waveform='sinus', frequency=440, length=1})
+	--love.audio.play(sine)
+	--local noise = denver.get({waveform='whitenoise', length=6})
+	--love.audio.play(noise)
+	offgrid.level.types[l.t].control(g,l)
+end
 
-	draw = function(g,l)
-		if not l.transition then
-			if l.menu then
-				menu.draw(l.menu)
-			end
+offgrid.level.keypressed = function(g,l,key)
+	local glc = g.levels.current
+	if not glc or not glc.transition then
+		if l.menu then
+			menu.keypressed(l.menu,key)
 		end
-		types[l.t].draw(g,l)
-	end,
+	end
+end
 
-	makemenuoption = function(g,m,x,y,dir,index)
-	--checks if a point on the map has a level in it
-	--if so, puts that in the menu as an option
-		if g.map[y] then
-			if g.map[y][x] then	
-				local value=g.map[y][x]
-				if g.levels[value] then
-					local destination=g.levels[value].values.title
-					table.insert(m.text,"Go "..dir.." to "..destination)
+offgrid.level.keyreleased = function(g,l,key)
+	local glc = g.levels.current
+	if not glc or not glc.transition then
+		if l.menu then
+			menu.keyreleased(l.menu,key)
+		end
+	end
+end
 
-					table.insert(m.functions,offgrid.move)
-					table.insert(m.arguments,{g,x,y})
-				end
+offgrid.level.gamepadpressed = function(g,l,button)
+	if l.menu then
+		menu.gamepadpressed(l.menu,button)
+	end
+end
+
+offgrid.level.draw = function(g,l)
+	if not l.transition then
+		if l.menu then
+			menu.draw(l.menu)
+		end
+	end
+	offgrid.level.types[l.t].draw(g,l)
+end
+
+offgrid.level.makemenuoption = function(g,m,x,y,dir,index)
+--checks if a point on the map has a level in it
+--if so, puts that in the menu as an option
+	if g.map[y] then
+		if g.map[y][x] then	
+			local value=g.map[y][x]
+			if g.levels[value] then
+				local destination=g.levels[value].values.title
+				table.insert(m.text,"Go "..dir.." to "..destination)
+
+				table.insert(m.functions,offgrid.move)
+				table.insert(m.arguments,{g,x,y})
 			end
 		end
 	end
-}
+end
 
 offgrid.gameplay =
 {

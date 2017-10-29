@@ -1,58 +1,99 @@
 local protosnake={}
 
 protosnake.make = function(g,tw,th,gw,gh,sp)
-	level.load(g,"games/levels/protosnake/inis")
+	level.load(g,"games/levels/protosnake")
 	g.levelpath={}
 end
 
-protosnake.level =
+protosnake.level={}
+protosnake.level.types={}
+protosnake.level.types.arena=
 {
-	make = function(g,l,index)
-		if index~=g.levelpath[#g.levelpath] then
-			table.insert(g.levelpath,index)
-		end
-		local lload=g.levels[index]
-
-		l.t=Enums.games.levels[g.name][lload.values.t]
-		l.c=lload.values.c
-		l.enemies={}
-		for i,v in pairs(lload.enemies) do
-			if type(i)=="number" then
-				l.enemies[i]=EA[g.name][v]
-			else
-				l.enemies[i]=v
-			end
-		end
-
-		l.actordrops=lload.actordrops
-		l.portal1=lload.portal1
-		l.portal2=lload.portal2
-		l.portalstore=lload.portalstore
-
-		l.storeitem1=lload.storeitem1
-		l.storeitem2=lload.storeitem2
-		l.storeitem3=lload.storeitem3
-
-		for i=1,l.enemies.max do
-			actor.make(l.enemies[1])
-		end
-
-		l.spawnindex=1
-		return l
+	make = function(g,l)
 	end,
 
 	control = function(g,l)
-		local enemycount=g.counters.enemy
-		
-		if enemycount<l.enemies.max then
-			actor.make(EA[g.name].spawn)
+	end
+}
+protosnake.level.types.store=
+{
+	make = function(g,l)
+		actor.make(EA[g.name].wiper,0,5)
+
+		for i=1,3 do
+			local storeitem=l["storeitem"..i]
+			if storeitem then
+				local dropname=storeitem.drop
+				local x=g.width/2-40+(i-1)*40
+				--local drop=actor.make(love.math.random(#EA[g.name]),x,g.height/2-40)
+				local drop=actor.make(EA[g.name][dropname],x,g.height/2-40)
+				drop.flags=flags.set(drop.flags,EF.shopitem)
+				local cost=0
+				if drop.cost then
+					cost=drop.cost
+				end
+
+				module.make(drop,EM.menu,EMM.text,drop.x,drop.y,24,24,"$"..cost,EC.white,EC.dark_gray)--TODO put costs option in inis
+				local m=drop.menu
+				module.make(m,EM.border,EC.white,EC.dark_gray)
+			end
 		end
 	end,
 
-	draw = function(g,l)
-		map.draw(g.map,"grid")
+	control = function(g,l)
 	end
 }
+
+protosnake.level.make = function(g,l,index)
+	if index~=g.levelpath[#g.levelpath] then
+		table.insert(g.levelpath,index)
+	end
+	local lload=g.levels[index]
+
+	--l.t=Enums.games.levels[g.name][lload.values.t]
+	l.t=lload.values.t
+	l.c=lload.values.c
+	l.enemies={}
+	for i,v in pairs(lload.enemies) do
+		if type(i)=="number" then
+			l.enemies[i]=EA[g.name][v]
+		else
+			l.enemies[i]=v
+		end
+	end
+
+	l.actordrops=lload.actordrops
+	l.portal1=lload.portal1
+	l.portal2=lload.portal2
+	l.portalstore=lload.portalstore
+
+	l.storeitem1=lload.storeitem1
+	l.storeitem2=lload.storeitem2
+	l.storeitem3=lload.storeitem3
+
+	for i=1,l.enemies.max do
+		actor.make(l.enemies[1])
+	end
+
+	l.spawnindex=1
+
+	protosnake.level.types[l.t].make(g,l)
+	return l
+end
+
+protosnake.level.control = function(g,l)
+	local enemycount=g.counters.enemy
+	
+	if enemycount<l.enemies.max then
+		actor.make(EA[g.name].spawn)
+	end
+
+	protosnake.level.types[l.t].control(g,l)
+end
+
+protosnake.level.draw = function(g,l)
+	map.draw(g.map,"grid")
+end
 
 protosnake.gameplay =
 {
