@@ -132,7 +132,7 @@ local function draw(d)
 end
 
 local function printtable(table,space)
-	space=space or ""
+	space=space or ""--space is just included for indentation, so each recursive iteration of print is indented by its recursion depth, for readability
 	for i,v in pairs(table) do
 		print(space..i.." = "..tostring(v))
 		if type(v)=="table" then

@@ -1,4 +1,5 @@
 PRIORITY
+maps agnostic? put it in main folder, maps can be load into any game
 put gamename_level stuff in the game's .lua file, ie: protosnake_level.lua becomes protosnake.level
 	level can have local functions for specific types of level? ie: local leveltypes={ city = function() }
 what is in Game? make sure no debris is left over during state changes
@@ -12,6 +13,7 @@ maybe take hud out of module, make it part of a game
 	game.hud functions maybe
 redo all functions to make a local {} and add functions to it and just return that
 maybe make a batch file that makes all the new folders and files for a game
+	make template.lua game, test to see what needs to be done to start
 cursor as module
 level types
 give camera movement controller
