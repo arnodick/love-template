@@ -36,48 +36,63 @@ offgrid.make = function(g,tw,th,gw,gh,sp)
 	--debugger.printtable(_G)--NOTE DON'T DO THIS! gets stuck in loop printing forever, because _G is a member of _G
 end
 
+local types={}
+types.city =
+{
+	make = function(g,l)
+		local m={}
+		m.text={}
+		m.arguments={}
+		m.functions={}
+		
+		offgrid.level.makemenuoption(g,m,g.player.x,g.player.y-1,"North",1)
+		offgrid.level.makemenuoption(g,m,g.player.x+1,g.player.y,"East",2)
+		offgrid.level.makemenuoption(g,m,g.player.x,g.player.y+1,"South",3)
+		offgrid.level.makemenuoption(g,m,g.player.x-1,g.player.y,"West",4)
+
+		module.make(l,EM.menu,EMM.interactive_fiction,320,800,640,320,m.text,EC.white,EC.dark_gray,"left",m.functions,m.arguments)
+		--local args={l,EM.menu,EMM.interactive_fiction,320,800,640,320,m.text,EC.white,EC.dark_gray,"left",m.functions,m.arguments}
+		--module.make(l,EM.transition,easing.linear,"transition_timer",0,1,240,module.make,args,EM.transitions.screen_transition_blocksreverse)
+		module.make(l,EM.transition,easing.linear,"transition_timer",0,1,240,nil,nil,EM.transitions.screen_transition_blocksreverse)
+
+		module.make(l,EM.synth,"sinus",440,60,{"A","B","C","D","E","F","F","G",})
+	end,
+
+	control = function(g,l)
+	end,
+
+	draw = function(g,l)
+		local images=g.images[g.level]
+		local animspeed=30
+		if g.levels.current.animspeed then
+			animspeed=g.levels.current.animspeed
+		end
+		local anim=math.floor((g.timer/animspeed)%#images)
+		LG.draw(images[1+anim],0,0)
+	end
+}
+
 offgrid.level =
 {
 	make = function(g,l,index)
-		--index=math.clamp(index,1,#g.levels,true)
 		g.timer=0
 		g.level=index
 		local gamename=g.name
 		local lload=g.levels[index]
 		
-		l.t=Enums.games.levels[gamename][lload.values.t]
+		l.t=lload.values.t
 		l.title=lload.values.title
 
 		if lload.values.animspeed then
 			l.animspeed=lload.values.animspeed
 		end
 
-		--TODO once level code is cleaned up, put this in leveltypes.city.make function
-		if l.t==Enums.games.levels.offgrid.city then
-			local m={}
-			m.text={}
-			m.arguments={}
-			m.functions={}
-			
-			offgrid.level.makemenuoption(g,m,g.player.x,g.player.y-1,"North",1)
-			offgrid.level.makemenuoption(g,m,g.player.x+1,g.player.y,"East",2)
-			offgrid.level.makemenuoption(g,m,g.player.x,g.player.y+1,"South",3)
-			offgrid.level.makemenuoption(g,m,g.player.x-1,g.player.y,"West",4)
+		types[l.t].make(g,l)
 
-			module.make(l,EM.menu,EMM.interactive_fiction,320,800,640,320,m.text,EC.white,EC.dark_gray,"left",m.functions,m.arguments)
-			if lload.values.description then
-			--	l.description=lload.values.description
-				l.menu.description=lload.values.description
-				module.make(l.menu,EM.transition,easing.linear,"text_trans",0,string.len(l.menu.description),360)
-			end
-			--local args={l,EM.menu,EMM.interactive_fiction,320,800,640,320,m.text,EC.white,EC.dark_gray,"left",m.functions,m.arguments}
-			--module.make(l,EM.transition,easing.linear,"transition_timer",0,1,240,module.make,args,EM.transitions.screen_transition_blocksreverse)
-			module.make(l,EM.transition,easing.linear,"transition_timer",0,1,240,nil,nil,EM.transitions.screen_transition_blocksreverse)
-
-			module.make(l,EM.synth,"sinus",440,60,{"A","B","C","D","E","F","F","G",})
+		if lload.values.description then
+			l.menu.description=lload.values.description
+			module.make(l.menu,EM.transition,easing.linear,"text_trans",0,string.len(l.menu.description),360)
 		end
-		--TODO
-		--run(leveltypes[l.t],"make",...)
 	end,
 
 	control = function(g,l)
@@ -103,17 +118,16 @@ offgrid.level =
 		--love.audio.play(sine)
 		--local noise = denver.get({waveform='whitenoise', length=6})
 		--love.audio.play(noise)
+		types[l.t].control(g,l)
 	end,
 
 	keypressed = function(g,l,key)
-	---[[
 		local glc = g.levels.current
 		if not glc or not glc.transition then
 			if l.menu then
 				menu.keypressed(l.menu,key)
 			end
 		end
-	--]]
 	end,
 
 	keyreleased = function(g,l,key)
@@ -137,6 +151,7 @@ offgrid.level =
 				menu.draw(l.menu)
 			end
 		end
+		types[l.t].draw(g,l)
 	end,
 
 	makemenuoption = function(g,m,x,y,dir,index)
