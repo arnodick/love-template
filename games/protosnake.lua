@@ -50,7 +50,6 @@ protosnake.level.make = function(g,l,index)
 	end
 	local lload=g.levels[index]
 
-	--l.t=Enums.games.levels[g.name][lload.values.t]
 	l.t=lload.values.t
 	l.c=lload.values.c
 	l.enemies={}

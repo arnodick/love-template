@@ -46,7 +46,7 @@ local function control(a)
 				Game.speed=a.vel
 				Game.ease=false
 			end
-		elseif Game.levels.current.t==Enums.games.levels[gamename].store then--TODO make this a level value (level.time = time slow or not)
+		elseif Game.levels.current.t=="store" then--TODO make this a level value (level.time = time slow or not)
 			Game.speed=1
 		else
 			Game.speed=math.clamp(a.vel,0.1,1)

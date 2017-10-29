@@ -17,7 +17,7 @@ local function update(g,d)
 		end
 		table.insert(debuglist,"Trans: "..tostring(trans))
 		table.insert(debuglist,"Game speed: "..g.speed)
-		table.insert(debuglist,"Game state"..g.state.st)
+		--table.insert(debuglist,"Game state"..g.state.st)
 		table.insert(debuglist,"FPS:"..love.timer.getFPS())
 		table.insert(debuglist,"Actors:"..#g.actors)
 		if g.level then
@@ -82,8 +82,12 @@ local function update(g,d)
 			--table.insert(debuglist,i.." count: "..#g.counters[i])
 			table.insert(debuglist,i.." count: "..g.counters[i])
 		end
-		if g.levels.current.transition then
-			table.insert(debuglist,"trans timer "..g.levels.current.transition_timer)
+		if g.levels then
+			if g.levels.current then
+				if g.levels.current.transition then
+					table.insert(debuglist,"trans timer "..g.levels.current.transition_timer)
+				end
+			end
 		end
 		if g.menu then
 			if g.menu.transition then
