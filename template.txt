@@ -1,4 +1,18 @@
 PRIORITY
+load state for each game?
+	this replaces gamename.make
+	is made in game.make instead of state.make("intro")	
+	loads quick stuff in load.make
+	loads slower stuff (offgrid images) in load.control
+		has a bool that ensures that load stuff only runs on first frame
+		make: loaded=false
+		control:
+			if loaded==false then
+				do slow loading stuff
+				loaded=true
+			end
+		this way can have a nice loading screen
+		threads for this?
 maps agnostic? put it in main folder, maps can be load into any game
 put gamename_level stuff in the game's .lua file, ie: protosnake_level.lua becomes protosnake.level
 	level can have local functions for specific types of level? ie: local leveltypes={ city = function() }
