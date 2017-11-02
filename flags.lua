@@ -24,6 +24,9 @@ flags.set = function (bytes,...)
 		local flag = flags.tohex(f[a])
 		bytes=bit.bor(bytes,flag)
 	end
+
+	--TODO maybe here do flag-specific function?
+	--ie run(flagname,make(a,...))
 	return bytes
 end
 

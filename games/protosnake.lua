@@ -10,6 +10,8 @@ protosnake.level.types={}
 protosnake.level.types.arena=
 {
 	make = function(g,l)
+		local mw,mh=g.width/g.tile.width,g.height/g.tile.height
+		l.map=map.generate("walls",mw+2,mh+2)
 	end,
 
 	control = function(g,l)
@@ -38,6 +40,8 @@ protosnake.level.types.store=
 				module.make(m,EM.border,EC.white,EC.dark_gray)
 			end
 		end
+		local mw,mh=g.width/g.tile.width,g.height/g.tile.height
+		l.map=map.generate("walls",mw+2,mh+2)
 	end,
 
 	control = function(g,l)
@@ -91,7 +95,7 @@ protosnake.level.control = function(g,l)
 end
 
 protosnake.level.draw = function(g,l)
-	map.draw(g.map,"grid")
+	map.draw(l.map,"grid")
 end
 
 protosnake.gameplay =
@@ -101,8 +105,8 @@ protosnake.gameplay =
 
 		g.score=0
 
-		local mw,mh=g.width/g.tile.width,g.height/g.tile.height
-		g.map=map.generate("walls",mw+2,mh+2)
+		--local mw,mh=g.width/g.tile.width,g.height/g.tile.height
+		--g.map=map.generate("walls",mw+2,mh+2)
 
 		g.player=actor.make(EA[Game.name].player,g.width/2,g.height/2)
 		--module.make(a,EM.player)

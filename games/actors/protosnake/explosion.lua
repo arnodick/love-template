@@ -4,7 +4,8 @@ local function make(a,c,size)
 	a.c=a.cinit
 	a.size=size or 20
 	a.r=0
-	Game.screen.shake=a.size
+	Game.screen.shake=a.size--TODO make shake module, does this then deletes itself
+	--instead of having an explosion actor, have an explosion flag, which does all the stuff an explosion would normally do
 	a.flags=flags.set(a.flags,EF.persistent)
 end
 

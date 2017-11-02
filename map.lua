@@ -73,7 +73,7 @@ generators.increment = function(m,w,h,x,y)
 end
 
 
-
+--TODO make drawmodes work inside a single loop too, instead of each having their own loop
 drawmodes.grid = function(m)
 	local tw,th=Game.tile.width,Game.tile.height
 	if Game.levels then

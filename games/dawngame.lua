@@ -1,45 +1,10 @@
-local template={}
+local iso={}
 
-template.make = function(g,tw,th,gw,gh,sp)
+iso.make = function(g,tw,th,gw,gh,sp)
 
 end
 
-template.level={}
-template.level.types={}
-template.level.types.LEVELTYPE=
-{
-	make = function(g,l)
-		--local mw,mh=g.width/g.tile.width,g.height/g.tile.height
-		--l.map=map.generate("walls",mw+2,mh+2)
-	end,
-
-	control = function(g,l)
-	end,
-
-	draw = function(g,l)
-	end
-}
-
-template.level.make = function(g,l,index)
-	local lload=g.levels[index]
-
-	l.t=lload.values.t
-	--DO LEVEL LOADING STUFF HERE
-
-	--template.level.types[l.t].make(g,l)
-	return l
-end
-
-template.level.control = function(g,l)
-	--template.level.types[l.t].control(g,l)
-end
-
-template.level.draw = function(g,l)
-	--template.level.types[l.t].draw(g,l)
-	--map.draw(l.map,"grid")
-end
-
-template.gameplay =
+iso.gameplay =
 {
 	make = function(g)
 
@@ -63,7 +28,7 @@ template.gameplay =
 	end
 }
 
-template.title =
+iso.title =
 {
 	keypressed = function(g,key)
 		if key=="space" or key=="return" then
@@ -83,11 +48,11 @@ template.title =
 	end,
 
 	draw = function(g)
-		LG.print("TITLE", g.width/2, g.height/2)
+		LG.print("DAWN GAME", g.width/2, g.height/2)
 	end
 }
 
-template.intro =
+iso.intro =
 {
 	keypressed = function(g,key)
 		if key=="space" or key=="return" then
@@ -108,7 +73,7 @@ template.intro =
 	end
 }
 
-template.option =
+iso.option =
 {
 	keypressed = function(g,key)
 		if key=='escape' then
@@ -127,4 +92,4 @@ template.option =
 	end
 }
 
-return template
+return iso

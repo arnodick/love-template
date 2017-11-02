@@ -20,6 +20,9 @@ local function make(t,x,y,d,vel,...)
 		Game.actors[ EA[Game.name ][a.t].."s" ][ EA[Game.name ][a.t].."s" ]={}
 	end
 --]]
+
+	--TODO in here do if inivalues.flags then flags.set(a,EF[flagname],...)
+
 	table.insert(Game.actors,a)
 	return a
 end
@@ -27,9 +30,14 @@ end
 local function control(g,a,gs)
 	controller.update(a,gs)
 	
+	--TODO this should be if levels.current.mode then modename["control"]
 	--game mode's specific type control (ie topdown.control)
+	--take mode out of state, put it in level, like with map making, input series of strings for each mode? or just one mode
+	--once mode is in level, game.state.run(level,mode,control,a,...)
+	if g.levels.current.map then
 	if _G[g.state.modename]["control"] then
-		_G[g.state.modename]["control"](a,gs)
+		_G[g.state.modename]["control"](a,g.levels.current.map,gs)
+	end
 	end
 
 	--actor's specific type control (ie snake.control)
