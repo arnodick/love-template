@@ -52,8 +52,6 @@ map.getcell = function(m,x,y)
 	return cx,cy
 end
 
-
-
 generators.walls = function(m,w,h,x,y)
 	if x==1 or x==w or y==1 or y==h then
 		--TODO flag stuff screws up games that don't use flags, figure this out in game-specific code
@@ -77,7 +75,7 @@ end
 drawmodes.grid = function(m)
 	local tw,th=Game.tile.width,Game.tile.height
 	if Game.levels then
-		local c=Game.palette[Game.levels.current.c]
+		local c=Game.palette[Game.level.c]
 		local r=c[1]
 		local g=c[2]
 		local b=c[3]

@@ -22,11 +22,7 @@ game.state.make = function(g,t,mode)
 	g.camera=camera.make(g.width/2,g.height/2)
 	g.actors={}
 	g.counters=counters.init(g.t)
-	if g.levels then
-		if g.levels.current then
-			g.levels.current=nil
-		end
-	end
+	g.level=nil
 	for i,v in pairs(g.canvas) do
 		LG.setCanvas(v)
 		LG.clear()
@@ -101,10 +97,8 @@ game.control = function(g,s)
 		end
 	end
 
-	if g.levels then
-		if g.levels.current then
-			level.control(g,g.levels.current)
-		end
+	if g.level then
+		level.control(g,g.level)
 	end
 
 	if g.editor then
@@ -123,10 +117,8 @@ game.keypressed = function(g,s,key,scancode,isrepeat)
 		palette.set(g,2)
 	end
 
-	if g.levels then
-		if g.levels.current then
-			level.keypressed(g,g.levels.current,key)
-		end
+	if g.level then
+		level.keypressed(g,g.level,key)
 	end
 
 	game.state.run(g.name,g.state.t,"keypressed",g,key)
@@ -137,11 +129,8 @@ game.keypressed = function(g,s,key,scancode,isrepeat)
 end
 
 game.keyreleased = function(g,s,key)
-
-	if g.levels then
-		if g.levels.current then
-			level.keyreleased(g,g.levels.current,key)
-		end
+	if g.level then
+		level.keyreleased(g,g.level,key)
 	end
 
 	game.state.run(g.name,g.state.t,"keyreleased",g,key)
@@ -164,12 +153,16 @@ game.wheelmoved = function(g,s,x,y)
 end
 
 game.gamepadpressed = function(g,s,button)
-
+	if g.level then
+		level.gamepadpressed(g,g.level,button)
+	end
+--[[
 	if g.levels then
 		if g.levels.current then
 			level.gamepadpressed(g,g.levels.current,button)
 		end
 	end
+--]]
 
 	game.state.run(g.name,g.state.t,"gamepadpressed",g,button)
 
@@ -180,20 +173,28 @@ end
 
 game.draw = function(g,s)
 	LG.translate(-g.camera.x+g.width/2,-g.camera.y+g.height/2)
-
+	
+--[[
 	local glc=nil
 	if g.levels then
 		glc = g.levels.current
 	end
-	if not glc or not glc.transition or not glc.transition.t then
+--]]
+	local l=g.level
+	if not l or not l.transition or not l.transition.t then
 		LG.setCanvas(g.canvas.main) --sets drawing to the primary canvas that refreshes every frame
 			LG.clear() --cleans that messy ol canvas all up, makes it all fresh and new and good you know
 
+			if g.level then
+				level.draw(g,g.level)
+			end
+--[[
 			if g.levels then
 				if g.levels.current then
 					level.draw(g,g.levels.current)
 				end
 			end
+--]]
 
 			for i,v in ipairs(g.actors) do
 				if not v.delete then
@@ -215,8 +216,8 @@ game.draw = function(g,s)
 			end
 		LG.setCanvas() --sets drawing back to screen
 	else
-		if _G[EM.transitions[glc.transition.t]]["draw"] then
-			_G[EM.transitions[glc.transition.t]]["draw"](g,glc,glc.transition)
+		if _G[EM.transitions[l.transition.t]]["draw"] then
+			_G[EM.transitions[l.transition.t]]["draw"](g,l,l.transition)
 		end
 	end
 	

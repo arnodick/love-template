@@ -20,8 +20,8 @@ local function update(g,d)
 		--table.insert(debuglist,"Game state"..g.state.st)
 		table.insert(debuglist,"FPS:"..love.timer.getFPS())
 		table.insert(debuglist,"Actors:"..#g.actors)
-		if g.level then
-			table.insert(debuglist,"Level:"..g.level)
+		if g.levels.index then
+			table.insert(debuglist,"Level:"..g.levels.index)
 		end
 		if g.cursor then
 			table.insert(debuglist,"cur x:"..g.cursor.x)
@@ -30,7 +30,7 @@ local function update(g,d)
 		if g.player then
 			table.insert(debuglist,"player x:"..g.player.x)
 			table.insert(debuglist,"player y:"..g.player.y)
-			local xc,yc=map.getcell(g.map,g.player.x,g.player.y)
+			local xc,yc=map.getcell(g.level.map,g.player.x,g.player.y)
 			table.insert(debuglist,"player x cell:"..xc)
 			table.insert(debuglist,"player y cell:"..yc)
 			if g.player.d then
@@ -56,10 +56,8 @@ local function update(g,d)
 			end
 		end
 --[[
-		if g.levels then
-			if g.levels.current then
-				table.insert(debuglist,"spawn i: "..g.levels.current.spawnindex)
-			end
+		if g.level then
+			table.insert(debuglist,"spawn i: "..g.level.spawnindex)
 		end
 --]]
 		table.insert(debuglist,"camx:"..g.camera.x)
@@ -82,11 +80,9 @@ local function update(g,d)
 			--table.insert(debuglist,i.." count: "..#g.counters[i])
 			table.insert(debuglist,i.." count: "..g.counters[i])
 		end
-		if g.levels then
-			if g.levels.current then
-				if g.levels.current.transition then
-					table.insert(debuglist,"trans timer "..g.levels.current.transition_timer)
-				end
+		if g.level then
+			if g.level.transition then
+				table.insert(debuglist,"trans timer "..g.level.transition_timer)
 			end
 		end
 		if g.menu then

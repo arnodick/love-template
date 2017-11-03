@@ -65,8 +65,8 @@ offgrid.level.types.city =
 	draw = function(g,l)
 		local images=g.images[g.levels.index]
 		local animspeed=30
-		if g.levels.current.animspeed then
-			animspeed=g.levels.current.animspeed
+		if g.level.animspeed then
+			animspeed=g.level.animspeed
 		end
 		local anim=math.floor((g.timer/animspeed)%#images)
 		LG.draw(images[1+anim],0,0)
@@ -121,7 +121,7 @@ offgrid.level.control = function(g,l)
 end
 
 offgrid.level.keypressed = function(g,l,key)
-	local glc = g.levels.current
+	local glc = g.level
 	if not glc or not glc.transition then
 		if l.menu then
 			menu.keypressed(l.menu,key)
@@ -130,7 +130,7 @@ offgrid.level.keypressed = function(g,l,key)
 end
 
 offgrid.level.keyreleased = function(g,l,key)
-	local glc = g.levels.current
+	local glc = g.level
 	if not glc or not glc.transition then
 		if l.menu then
 			menu.keyreleased(l.menu,key)
@@ -198,7 +198,7 @@ offgrid.gameplay =
 		if Debugger.debugging then
 			--LG.print(g.player.x.." "..g.player.y,10,120)
 			--LG.print(g.map[g.player.y][g.player.x],10,130)
-			LG.print(g.levels.current.menu.text.index,10,140)
+			LG.print(g.level.menu.text.index,10,140)
 		end
 	end
 }

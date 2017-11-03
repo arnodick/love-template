@@ -8,7 +8,7 @@ local function make(a,c)
 	a.size=60
 	a.flags=flags.set(a.flags,EF.enemy)--NOTE this is to make sure a bazillion spawns don't... spawn
 	a.sfx=false
-	local l=Game.levels.current
+	local l=Game.level
 	a.enemyspawn=l.spawnindex
 end
 
@@ -22,7 +22,7 @@ local function control(a,gs)
 
 	a.size=a.size-gs
 	if a.size<=0 then
-		local l=Game.levels.current
+		local l=Game.level
 		local spawnnum=a.enemyspawn
 
 		if l.enemies[spawnnum] then

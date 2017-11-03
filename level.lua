@@ -28,7 +28,7 @@ level.make = function(g,index)
 	local l={}
 	g.levels.index=index
 	game.state.run(g.name,"level","make",g,l,index)
-	g.levels.current=l
+	g.level=l
 end
 
 level.control = function(g,l)
