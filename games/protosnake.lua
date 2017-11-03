@@ -111,7 +111,7 @@ protosnake.gameplay =
 		g.player=actor.make(EA[Game.name].player,g.width/2,g.height/2)
 		--module.make(a,EM.player)
 
-		g.level=1
+		g.levels.current.index=1
 		level.make(g,g.level)
 	end,
 
