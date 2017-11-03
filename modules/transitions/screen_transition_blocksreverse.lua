@@ -8,7 +8,7 @@ local function make(a,m)
 	local blockamount=8
 	m.change=blockamount*blockamount
 	m.duration=blockamount*blockamount
-	local image=g.images[g.levels.current.index][1]
+	local image=g.images[g.levels.index][1]
 	LG.setCanvas(g.canvas.buffer)
 	LG.clear()
 	LG.draw(image,0,0)

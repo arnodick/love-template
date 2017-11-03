@@ -63,7 +63,7 @@ offgrid.level.types.city =
 	end,
 
 	draw = function(g,l)
-		local images=g.images[g.levels.current.index]
+		local images=g.images[g.levels.index]
 		local animspeed=30
 		if g.levels.current.animspeed then
 			animspeed=g.levels.current.animspeed
@@ -75,7 +75,7 @@ offgrid.level.types.city =
 
 offgrid.level.make = function(g,l,index)
 	g.timer=0
-	g.levels.current.index=index
+	--g.levels.index=index
 	local gamename=g.name
 	local lload=g.levels[index]
 	
@@ -177,8 +177,9 @@ offgrid.gameplay =
 		g.player={}
 		g.player.x=1
 		g.player.y=1
-		g.levels.current.index=g.map[g.player.y][g.player.x]
-		level.make(g,g.levels.current.index)
+		--g.levels.index=g.map[g.player.y][g.player.x]
+		local levelindex=g.map[g.player.y][g.player.x]
+		level.make(g,levelindex)
 	end,
 
 	keypressed = function(g,key)
@@ -273,9 +274,10 @@ end
 
 offgrid.move = function(g,x,y)
 	g.player.x,g.player.y=x,y
-	g.levels.current.index=g.map[y][x]
-	print(g.levels.current.index)
-	level.make(g,g.levels.current.index)
+	--g.levels.index=g.map[y][x]
+	local levelindex=g.map[y][x]
+	print(levelindex)
+	level.make(g,levelindex)
 end
 
 return offgrid
