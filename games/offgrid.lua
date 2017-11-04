@@ -86,7 +86,7 @@ offgrid.level.make = function(g,l,index)
 	end
 
 	--offgrid.level[l.t].make(g,l)
-	supperrun(offgrid,{"level",l.t,"make"},g,l)
+	supper.run(offgrid,{"level",l.t,"make"},g,l)
 
 	if lload.values.description then
 		l.menu.description=lload.values.description
