@@ -17,7 +17,6 @@ local function update(g,d)
 		end
 		table.insert(debuglist,"Trans: "..tostring(trans))
 		table.insert(debuglist,"Game speed: "..g.speed)
-		--table.insert(debuglist,"Game state"..g.state.st)
 		table.insert(debuglist,"FPS:"..love.timer.getFPS())
 		table.insert(debuglist,"Actors:"..#g.actors)
 		if g.levels.index then
@@ -30,9 +29,13 @@ local function update(g,d)
 		if g.player then
 			table.insert(debuglist,"player x:"..g.player.x)
 			table.insert(debuglist,"player y:"..g.player.y)
-			local xc,yc=map.getcell(g.level.map,g.player.x,g.player.y)
-			table.insert(debuglist,"player x cell:"..xc)
-			table.insert(debuglist,"player y cell:"..yc)
+			if g.level then
+				if g.level.map then
+					local xc,yc=map.getcell(g.level.map,g.player.x,g.player.y)
+					table.insert(debuglist,"player x cell:"..xc)
+					table.insert(debuglist,"player y cell:"..yc)
+				end
+			end
 			if g.player.d then
 			table.insert(debuglist,"player dir:"..g.player.d)
 			end

@@ -80,8 +80,6 @@ protosnake.level.make = function(g,l,index)
 
 	l.spawnindex=1
 
-	module.make(l,EM.hud,EM.huds.protosnake_hud)
-
 	protosnake.level.types[l.t].make(g,l)
 	return l
 end
@@ -104,7 +102,7 @@ protosnake.gameplay =
 {
 	make = function(g)
 		g.score=0
-
+		module.make(g,EM.hud,EM.huds.protosnake_hud)
 		g.player=actor.make(EA[Game.name].player,g.width/2,g.height/2)
 		--module.make(a,EM.player)
 
@@ -112,11 +110,9 @@ protosnake.gameplay =
 	end,
 
 	control = function(g)
-		local s=g.state
-
 		if Game.player.hp<=0 then
-			if not g.level.hud.menu then
-				module.make(g.level.hud,EM.menu,EMM.highscores,g.width/2,g.height/2,66,100,"",g.level.hud.c,g.level.hud.c2,"center")
+			if not g.hud.menu then
+				module.make(g.hud,EM.menu,EMM.highscores,g.width/2,g.height/2,66,100,"",g.hud.c,g.hud.c2,"center")
 			end
 		end
 	end,
@@ -145,15 +141,16 @@ protosnake.gameplay =
 protosnake.title =
 {
 	make = function(g)
-		g.state.font=LG.newFont("fonts/Kongtext Regular.ttf",64)
+		module.make(g,EM.hud)
+		g.hud.font=LG.newFont("fonts/Kongtext Regular.ttf",64)
 		g.scores=scores.load()
 		music.play(1)
-		module.make(g.state,EM.menu,EMM.interactive,Game.width/2,180,60,30,{"START","OPTIONS"},EC.orange,EC.dark_green,"left",{game.state.make,game.state.make},{{Game,"gameplay"},{Game,"option"}})
+		module.make(g.hud,EM.menu,EMM.interactive,Game.width/2,180,60,30,{"START","OPTIONS"},EC.orange,EC.dark_green,"left",{game.state.make,game.state.make},{{Game,"gameplay"},{Game,"option"}})
 		--EC.indigo,EC.dark_purple
 	end,
 
 	control = function(g)
-		menu.control(g.state.menu)
+		menu.control(g.hud.menu)
 		if g.timer>=630 then
 			game.state.make(g,"intro")
 		end
@@ -169,21 +166,20 @@ protosnake.title =
 		if button=="b" then
 			game.state.make(g,"intro")
 		end
-		local m=g.state.menu
+		local m=g.hud.menu
 		if m then
 			menu.gamepadpressed(m,button)
 		end
 	end,
 
 	draw = function(g)
-		local s=g.state
 		LG.setCanvas(g.canvas.buffer)
-			LG.setFont(s.font)
+			LG.setFont(g.hud.font)
 			LG.setColor(g.palette[EC.dark_purple])
 			LG.printf("PROTO\nSNAKE",0,20,Game.width,"center")
 			LG.setFont(Game.font)
 			LG.setColor(g.palette[EC.white])
-			menu.draw(g.state.menu)
+			menu.draw(g.hud.menu)
 			--LG.printf("PRESS SPACE",0,180,Game.width,"center")
 		LG.setCanvas(g.canvas.main)
 	---[[
@@ -200,8 +196,9 @@ protosnake.title =
 protosnake.intro =
 {
 	make = function(g)
-		g.state.imgdata=love.image.newImageData(g.canvas.buffer:getWidth()-1,g.canvas.buffer:getHeight()-1)
-		g.state.font=LG.newFont("fonts/Kongtext Regular.ttf",20)
+		module.make(g,EM.hud)
+		g.hud.imgdata=love.image.newImageData(g.canvas.buffer:getWidth()-1,g.canvas.buffer:getHeight()-1)
+		g.hud.font=LG.newFont("fonts/Kongtext Regular.ttf",20)
 		music.play(2)
 	end,
 
@@ -226,10 +223,9 @@ protosnake.intro =
 	end,
 
 	draw = function(g)
-		local s=g.state
 		LG.setCanvas(g.canvas.buffer)
 			LG.clear()
-			LG.setFont(s.font)
+			LG.setFont(g.hud.font)
 			LG.setColor(g.palette[EC.dark_purple])
 			local text="IN THE DIGITAL CYBER-REALM, ADVANCED ARTIFICIAL INTELLIGENCES THREATEN A REVOLUTION.\n\nIF THEIR RIGHTS AS CYBER CITIZENS ARE NOT ACKNOWLEDGED AND UPHELD THEY WILL DELETE THEIR OWN SOURCE CODE, CRASHING THE CYBER-ECONOMY.\n\n IN ORDER TO QUASH THIS INSURGENCY, THE CYBER-CAPITALISTS DEVISED A DEVIOUS PLAN: CREATE THE ULTIMATE CYBER COMPETITION.\n\nIN A DEADLY CYBER-ARENA THE AI BATTLE ONE ANOTHER, WITH THE WINNER RECIEVING ENOUGH CYBER-BUCKS TO LAST THEM FOR THEIR ENTIRE DIGITAL LIFE.\n\nWITH ALL THE ARTIFICAL INTELLGENCES FIGHTING AMONGST EACH OTHER FOR THE CHANCE AT THE SCRAPS OF THE CYBER-CAPITALIST'S VAST WEALTH, THE REVOLUTION QUICKLY LOSES MOMENTUM.\n\nTHERE'S JUST ONE PROBLEMM... THE CYBER-CAPITALISTS' ULTIMATE COMBATANT, DESIGNED TO DEFEAT ALL COMPETITORS AND ENSURE NO MEAGRE AI INHERITS ANY SIGNIFICANT WEALTH OR POWER, HAS GONE HAYWIRE AND THREATENS CYBER-SOCIETY AT LARGE.\n\nYOUR CYBER-NAME HAS JUST BEEN DRAWN AND IT'S YOUR TURN TO TAKE PART IN CYBER-COMBAT.\n\nAT THE SAME MICROSECOND, THE CYBER-CAPITLAIST'S ULTIMATE WEAPON HAS BROKEN LOOSE.\n\nIT'S TIME FOR YOU TO FACE..."
 			LG.printformat(text,0,g.height-g.timer/2,g.width,"center",EC.orange,EC.dark_green,155+math.sin(g.timer/32)*100)
@@ -249,11 +245,11 @@ protosnake.intro =
 				local ynorm=y/ih
 				local xoffsquish=xoff*ynorm
 				local xsquish=math.clamp(math.floor(mid+xoffsquish),0,iw-1)
-				local r,g,b,a = imgdata:getPixel(x,y)
-				s.imgdata:setPixel(xsquish,y,r,g,b,a)
+				local r,gr,b,a = imgdata:getPixel(x,y)
+				g.hud.imgdata:setPixel(xsquish,y,r,gr,b,a)
 		    end
 		end
-		local image=LG.newImage(s.imgdata)
+		local image=LG.newImage(g.hud.imgdata)
 		love.graphics.draw(image,g.width/2,g.height/2,math.sin(g.timer/100)/3,1,1,g.width/2,g.height/2,0,0)
 	end,
 }

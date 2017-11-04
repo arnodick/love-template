@@ -14,8 +14,8 @@ SFX = sfx.load(false,true)
 Music = music.load()
 
 function love.load()
-	Game = game.make(Enums.games.protosnake,8,8,320,240,1)
-	--Game = game.make(Enums.games.offgrid,8,8,640,960,1)
+	--Game = game.make(Enums.games.protosnake,8,8,320,240,1)
+	Game = game.make(Enums.games.offgrid,8,8,640,960,1)
 	--Game = game.make(Enums.games.dawngame,8,8,320,240,1)
 	--Game = game.make(Enums.games.bighands,8,8,320,320,1)
 
@@ -26,14 +26,14 @@ function love.load()
 end
 
 function love.update(dt)
-	game.control(Game,Game.state)
+	game.control(Game)
 
 	debugger.update(Game,Debugger)
 end
 
 function love.keypressed(key,scancode,isrepeat)
 	local g=Game
-	game.keypressed(g,g.state,key,scancode,isrepeat)
+	game.keypressed(g,key,scancode,isrepeat)
 
 	if key == '`' then
 		Debugger.debugging = not Debugger.debugging
@@ -46,19 +46,19 @@ end
 
 function love.keyreleased(key)
 	local g=Game
-	game.keyreleased(g,g.state,key)
+	game.keyreleased(g,key)
 end
 
 function love.mousepressed(x,y,button)
-	game.mousepressed(Game,Game.state,x,y,button)
+	game.mousepressed(Game,x,y,button)
 end
 
 function love.wheelmoved(x,y)
-	game.wheelmoved(Game,Game.state,x,y)
+	game.wheelmoved(Game,x,y)
 end
 
 function love.gamepadpressed(joystick,button)
-	game.gamepadpressed(Game,Game.state,button)
+	game.gamepadpressed(Game,button)
 end
 
 function love.joystickadded(joystick)
@@ -75,7 +75,7 @@ function love.joystickremoved(joystick)
 end
 
 function love.draw(dt)
-	game.draw(Game,Game.state)
+	game.draw(Game)
 
 	debugger.draw(Debugger)
 end

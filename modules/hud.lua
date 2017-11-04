@@ -1,14 +1,15 @@
 local function make(s,h,t,...)
-	h.t=t
-	if _G[EM.huds[t]]["make"] then
-		_G[EM.huds[t]]["make"](h,...)
+	if t then
+		h.t=t
+		run(EM.huds[t],"make",h,...)
 	end
 end
 
 local function draw(g,h,...)
-	if _G[EM.huds[h.t]]["draw"] then
-		_G[EM.huds[h.t]]["draw"](g,h,...)
+	if h.t then
+		run(EM.huds[h.t],"draw",g,h,...)
 	end
+
 	if h.menu then
 		menu.draw(h.menu)
 	end

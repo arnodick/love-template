@@ -9,17 +9,17 @@ game.state.run = function(gamename,statename,functionname,...)
 	end
 end
 
-game.state.make = function(g,t)
+game.state.make = function(g,state)
 	--initializes game's state, timer, camera, actor, menu and state tables
 	local e=Enums
-	g.state={}
-	g.state.t=t
+	g.state=state
 
 	g.timer=0
 	g.speed=1
 	g.camera=camera.make(g.width/2,g.height/2)
 	g.actors={}
 	g.level=nil
+	g.hud=nil
 	g.counters=counters.init(g.t)
 	for i,v in pairs(g.canvas) do
 		LG.setCanvas(v)
@@ -33,7 +33,7 @@ game.state.make = function(g,t)
 	end
 	screen.update(g)
 
-	game.state.run(g.name,g.state.t,"make",g)
+	game.state.run(g.name,g.state,"make",g)
 end
 
 game.make = function(t,tw,th,gw,gh,sp)
@@ -66,8 +66,8 @@ game.make = function(t,tw,th,gw,gh,sp)
 	return g
 end
 
-game.control = function(g,s)
-	game.state.run(g.name,g.state.t,"control",g)
+game.control = function(g)
+	game.state.run(g.name,g.state,"control",g)
 
 	sfx.update(SFX,g.speed)
 
@@ -108,7 +108,7 @@ game.control = function(g,s)
 	end
 end
 
-game.keypressed = function(g,s,key,scancode,isrepeat)
+game.keypressed = function(g,key,scancode,isrepeat)
 	if key=="tab" then
 		--game.state.make(g,"editor")
 	elseif key=="space" then
@@ -119,50 +119,50 @@ game.keypressed = function(g,s,key,scancode,isrepeat)
 		level.keypressed(g,g.level,key)
 	end
 
-	game.state.run(g.name,g.state.t,"keypressed",g,key)
+	game.state.run(g.name,g.state,"keypressed",g,key)
 
 	if g.editor then
 		editor.keypressed(g,key)
 	end
 end
 
-game.keyreleased = function(g,s,key)
+game.keyreleased = function(g,key)
 	if g.level then
 		level.keyreleased(g,g.level,key)
 	end
 
-	game.state.run(g.name,g.state.t,"keyreleased",g,key)
+	game.state.run(g.name,g.state,"keyreleased",g,key)
 end
 
-game.mousepressed = function(g,s,x,y,button)
-	game.state.run(g.name,g.state.t,"mousepressed",g,x,y,button)
+game.mousepressed = function(g,x,y,button)
+	game.state.run(g.name,g.state,"mousepressed",g,x,y,button)
 
 	if g.editor then
 		editor.mousepressed(g,x,y,button)
 	end
 end
 
-game.wheelmoved = function(g,s,x,y)
-	game.state.run(g.name,g.state.t,"wheelmoved",g,x,y)
+game.wheelmoved = function(g,x,y)
+	game.state.run(g.name,g.state,"wheelmoved",g,x,y)
 
 	if g.editor then
 		editor.wheelmoved(g,x,y)
 	end
 end
 
-game.gamepadpressed = function(g,s,button)
+game.gamepadpressed = function(g,button)
 	if g.level then
 		level.gamepadpressed(g,g.level,button)
 	end
 
-	game.state.run(g.name,g.state.t,"gamepadpressed",g,button)
+	game.state.run(g.name,g.state,"gamepadpressed",g,button)
 
 	if g.editor then
 		editor.gamepadpressed(g,button)
 	end
 end
 
-game.draw = function(g,s)
+game.draw = function(g)
 	LG.translate(-g.camera.x+g.width/2,-g.camera.y+g.height/2)
 	
 	local l=g.level
@@ -180,12 +180,18 @@ game.draw = function(g,s)
 				end
 			end
 
-			game.state.run(g.name,g.state.t,"draw",g)
+			game.state.run(g.name,g.state,"draw",g)
 			
 			if g.editor then
 				editor.draw(g)
 			end
 
+			if g.hud then
+				LG.setCanvas(g.canvas.hud) --sets drawing to hud canvas, which draws OVER everything else
+					LG.clear()
+					hud.draw(g,g.hud)
+			end
+--[[
 			if g.level then
 				if g.level.hud then
 					LG.setCanvas(g.canvas.hud) --sets drawing to hud canvas, which draws OVER everything else
@@ -193,6 +199,7 @@ game.draw = function(g,s)
 						hud.draw(g,g.level.hud)
 				end
 			end
+--]]
 		LG.setCanvas() --sets drawing back to screen
 	else
 		if _G[EM.transitions[l.transition.t]]["draw"] then
