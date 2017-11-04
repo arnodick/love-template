@@ -102,7 +102,7 @@ protosnake.gameplay =
 {
 	make = function(g)
 		g.score=0
-		module.make(g,EM.hud,EM.huds.protosnake_hud)
+		hud.make(g,EM.huds.protosnake_hud)
 		g.player=actor.make(EA[Game.name].player,g.width/2,g.height/2)
 		--module.make(a,EM.player)
 
@@ -141,12 +141,11 @@ protosnake.gameplay =
 protosnake.title =
 {
 	make = function(g)
-		module.make(g,EM.hud)
+		hud.make(g)
 		g.hud.font=LG.newFont("fonts/Kongtext Regular.ttf",64)
 		g.scores=scores.load()
 		music.play(1)
 		module.make(g.hud,EM.menu,EMM.interactive,Game.width/2,180,60,30,{"START","OPTIONS"},EC.orange,EC.dark_green,"left",{game.state.make,game.state.make},{{Game,"gameplay"},{Game,"option"}})
-		--EC.indigo,EC.dark_purple
 	end,
 
 	control = function(g)
@@ -196,7 +195,7 @@ protosnake.title =
 protosnake.intro =
 {
 	make = function(g)
-		module.make(g,EM.hud)
+		hud.make(g)
 		g.hud.imgdata=love.image.newImageData(g.canvas.buffer:getWidth()-1,g.canvas.buffer:getHeight()-1)
 		g.hud.font=LG.newFont("fonts/Kongtext Regular.ttf",20)
 		music.play(2)

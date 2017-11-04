@@ -191,15 +191,6 @@ game.draw = function(g)
 					LG.clear()
 					hud.draw(g,g.hud)
 			end
---[[
-			if g.level then
-				if g.level.hud then
-					LG.setCanvas(g.canvas.hud) --sets drawing to hud canvas, which draws OVER everything else
-						LG.clear()
-						hud.draw(g,g.level.hud)
-				end
-			end
---]]
 		LG.setCanvas() --sets drawing back to screen
 	else
 		if _G[EM.transitions[l.transition.t]]["draw"] then

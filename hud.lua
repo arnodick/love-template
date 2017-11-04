@@ -1,7 +1,8 @@
-local function make(s,h,t,...)
+local function make(g,t,...)
+	g.hud={}
 	if t then
-		h.t=t
-		run(EM.huds[t],"make",h,...)
+		g.hud.t=t
+		run(EM.huds[t],"make",g.hud,...)
 	end
 end
 
