@@ -24,8 +24,12 @@ end
 
 
 --TODO just get rid of these too?
-level.make = function(g,index)
+level.make = function(g,index,mode)
 	local l={}
+	if mode then
+		l.mode=mode
+		l.modename=Enums.games.modes[mode]
+	end
 	g.levels.index=index
 	game.state.run(g.name,"level","make",g,l,index)
 	g.level=l

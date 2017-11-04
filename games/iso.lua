@@ -55,7 +55,7 @@ iso.title =
 {
 	keypressed = function(g,key)
 		if key=="space" or key=="return" then
-			game.state.make(g,"gameplay",Enums.games.modes.isometric)
+			game.state.make(g,"gameplay")
 		elseif key=='escape' then
 			game.state.make(g,"intro")
 		end
@@ -63,7 +63,7 @@ iso.title =
 
 	gamepadpressed = function(g,button)
 		if button=="start" or button=="a" then
-			game.state.make(g,"gameplay",Enums.games.modes.isometric)
+			game.state.make(g,"gameplay")
 		end
 		if button=="b" then
 			game.state.make(g,"intro")

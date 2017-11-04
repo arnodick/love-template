@@ -34,7 +34,7 @@ bighands.title =
 {
 	keypressed = function(g,key)
 		if key=="space" or key=="return" then
-			game.state.make(g,"gameplay",Enums.games.modes.topdown)
+			game.state.make(g,"gameplay")
 		elseif key=='escape' then
 			game.state.make(g,"intro")
 		end
@@ -42,7 +42,7 @@ bighands.title =
 
 	gamepadpressed = function(g,button)
 		if button=="start" or button=="a" then
-			game.state.make(g,"gameplay",Enums.games.modes.topdown)
+			game.state.make(g,"gameplay")
 		elseif button=="b" then
 			game.state.make(g,"intro")
 		end

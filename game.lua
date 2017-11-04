@@ -9,20 +9,18 @@ game.state.run = function(gamename,statename,functionname,...)
 	end
 end
 
-game.state.make = function(g,t,mode)
+game.state.make = function(g,t)
 	--initializes game's state, timer, camera, actor, menu and state tables
 	local e=Enums
 	g.state={}
 	g.state.t=t
-	g.state.mode=mode
-	g.state.modename=Enums.games.modes[mode]
 
 	g.timer=0
 	g.speed=1
 	g.camera=camera.make(g.width/2,g.height/2)
 	g.actors={}
-	g.counters=counters.init(g.t)
 	g.level=nil
+	g.counters=counters.init(g.t)
 	for i,v in pairs(g.canvas) do
 		LG.setCanvas(v)
 		LG.clear()
@@ -156,13 +154,6 @@ game.gamepadpressed = function(g,s,button)
 	if g.level then
 		level.gamepadpressed(g,g.level,button)
 	end
---[[
-	if g.levels then
-		if g.levels.current then
-			level.gamepadpressed(g,g.levels.current,button)
-		end
-	end
---]]
 
 	game.state.run(g.name,g.state.t,"gamepadpressed",g,button)
 
@@ -174,12 +165,6 @@ end
 game.draw = function(g,s)
 	LG.translate(-g.camera.x+g.width/2,-g.camera.y+g.height/2)
 	
---[[
-	local glc=nil
-	if g.levels then
-		glc = g.levels.current
-	end
---]]
 	local l=g.level
 	if not l or not l.transition or not l.transition.t then
 		LG.setCanvas(g.canvas.main) --sets drawing to the primary canvas that refreshes every frame
@@ -188,13 +173,6 @@ game.draw = function(g,s)
 			if g.level then
 				level.draw(g,g.level)
 			end
---[[
-			if g.levels then
-				if g.levels.current then
-					level.draw(g,g.levels.current)
-				end
-			end
---]]
 
 			for i,v in ipairs(g.actors) do
 				if not v.delete then

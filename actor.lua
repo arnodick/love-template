@@ -30,13 +30,9 @@ end
 local function control(g,a,gs)
 	controller.update(a,gs)
 	
-	--TODO this should be if g.level.mode then modename["control"]
-	--game mode's specific type control (ie topdown.control)
-	--take mode out of state, put it in level, like with map making, input series of strings for each mode? or just one mode
-	--once mode is in level, game.state.run(level,mode,control,a,...)
-	if g.level.map then
-		if _G[g.state.modename]["control"] then
-			_G[g.state.modename]["control"](a,g.level.map,gs)
+	if g.level then
+		if g.level.mode then
+			run(g.level.modename,"control",a,g.level.map,gs)
 		end
 	end
 
@@ -112,8 +108,10 @@ local function draw(a)
 		menu.draw(a.menu)
 	end
 
-	if _G[Game.state.modename]["draw"] then
-		_G[Game.state.modename]["draw"](a)
+	if Game.level then
+		if Game.level.mode then
+			run(Game.level.modename,"draw",a)
+		end
 	end
 end
 

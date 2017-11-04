@@ -7,9 +7,6 @@ end
 rpg.gameplay =
 {
 	make = function(g)
-		--g.state.mode=Enums.games.modes.roguelike
-		--g.state.modename=Enums.games.modes[g.state.mode]
-
 		local mw,mh=g.width/g.tile.width,g.height/g.tile.height
 		g.map=map.generate("random",mw+2,mh+2)
 
@@ -30,7 +27,7 @@ rpg.title =
 {
 	keypressed = function(g,key)
 		if key=="space" or key=="return" then
-			game.state.make(g,"gameplay",Enums.games.modes.roguelike)
+			game.state.make(g,"gameplay")
 		elseif key=='escape' then
 			game.state.make(g,"intro")
 		end

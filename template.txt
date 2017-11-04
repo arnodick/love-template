@@ -14,15 +14,11 @@ load state for each game?
 		this way can have a nice loading screen
 		threads for this?
 maps agnostic? put it in main folder, maps can be load into any game
-put gamename_level stuff in the game's .lua file, ie: protosnake_level.lua becomes protosnake.level
-	level can have local functions for specific types of level? ie: local leveltypes={ city = function() }
 what is in Game? make sure no debris is left over during state changes
 	maybe actors, levels, etc all go in state? so when you do state={} it wipes everything
 	what should i put in game? Spritesheet, Quads
 make tw and th part of level?
 editor not as module but as its own .lua library
-make map a part of level
-	each level draws map differently, don't have to have map types
 maybe take hud out of module, make it part of a game
 	game.hud functions maybe
 redo all functions to make a local {} and add functions to it and just return that
@@ -71,7 +67,30 @@ test collision with walls, see if it needs extendo walls for high speeds
 change controller input so impulses will work
 	put controller commands in actor.control? Must be some way to make impulses stick
 
+NO
+different renderers or types or something for screen
+make Game.ease a transition module
+Projectile mpdule. Does all this at make. At end of duration, makes controller again. 
+	Duration module? Decel module? 
+	Can just changed a module's subtype to make it behave different? Just change the states st from gameplay_topdown to gameplay_map or something and map had different draw style
+things that couold be modules maybe
+	level
+	map
+	camera
+menu x,y offset or something
+maybe enums generation just goes in libraries load?
+	figure out how enums.lua and libraries.lua are different, merge them
+	if folder is one of the recursive enum ones, make it put functions into its parent
+	enum generator automatically adds modules to its parent's table ie actor.drop.make
+maybe actor.calltype and actor.callsubtype? EA[nameof[a.t]] and EA[nameof[a.t][nameof[a.st]]] respectively
+Screen, Spritesheet, Quads and all that, part of Game?
+flags.control? put all flag specific code in there for actors and run it at in actor.control? (probably not,unless a bunch more flags do stuff in the same place)
+
 DONE
+make map a part of level
+	each level draws map differently, don't have to have map types
+put gamename_level stuff in the game's .lua file, ie: protosnake_level.lua becomes protosnake.level
+	level can have local functions for specific types of level? ie: local leveltypes={ city = function() }
 organize folder structure
 	get rid of enums.ini
 get rid of game-specific state files by making offgrid.gameplay instead and run(game.name,gameplay.control) or something
@@ -138,22 +157,3 @@ palettes
 utils
 fix sprites.draw quad selector (must be halved if tile = 16px)
 graphics stuff in game library
-
-NO
-different renderers or types or something for screen
-make Game.ease a transition module
-Projectile mpdule. Does all this at make. At end of duration, makes controller again. 
-	Duration module? Decel module? 
-	Can just changed a module's subtype to make it behave different? Just change the states st from gameplay_topdown to gameplay_map or something and map had different draw style
-things that couold be modules maybe
-	level
-	map
-	camera
-menu x,y offset or something
-maybe enums generation just goes in libraries load?
-	figure out how enums.lua and libraries.lua are different, merge them
-	if folder is one of the recursive enum ones, make it put functions into its parent
-	enum generator automatically adds modules to its parent's table ie actor.drop.make
-maybe actor.calltype and actor.callsubtype? EA[nameof[a.t]] and EA[nameof[a.t][nameof[a.st]]] respectively
-Screen, Spritesheet, Quads and all that, part of Game?
-flags.control? put all flag specific code in there for actors and run it at in actor.control? (probably not,unless a bunch more flags do stuff in the same place)

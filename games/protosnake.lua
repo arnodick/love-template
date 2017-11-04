@@ -108,7 +108,7 @@ protosnake.gameplay =
 		g.player=actor.make(EA[Game.name].player,g.width/2,g.height/2)
 		--module.make(a,EM.player)
 
-		level.make(g,1)
+		level.make(g,1,Enums.games.modes.topdown)
 	end,
 
 	control = function(g)
@@ -124,7 +124,7 @@ protosnake.gameplay =
 	keypressed = function(g,key)
 		if key=='space' then
 			if Game.player.hp<=0 then
-				game.state.make(g,"gameplay",Enums.games.modes.topdown)
+				game.state.make(g,"gameplay")
 			end
 		elseif key=='escape' then
 			game.state.make(g,"title")
@@ -134,7 +134,7 @@ protosnake.gameplay =
 	gamepadpressed = function(g,button)
 		if button=="start" then
 			if Game.player.hp<=0 then
-				game.state.make(g,"gameplay",Enums.games.modes.topdown)
+				game.state.make(g,"gameplay")
 			else
 				g.pause = not g.pause
 			end
@@ -148,7 +148,7 @@ protosnake.title =
 		g.state.font=LG.newFont("fonts/Kongtext Regular.ttf",64)
 		g.scores=scores.load()
 		music.play(1)
-		module.make(g.state,EM.menu,EMM.interactive,Game.width/2,180,60,30,{"START","OPTIONS"},EC.orange,EC.dark_green,"left",{game.state.make,game.state.make},{{Game,"gameplay",Enums.games.modes.topdown},{Game,"option"}})
+		module.make(g.state,EM.menu,EMM.interactive,Game.width/2,180,60,30,{"START","OPTIONS"},EC.orange,EC.dark_green,"left",{game.state.make,game.state.make},{{Game,"gameplay"},{Game,"option"}})
 		--EC.indigo,EC.dark_purple
 	end,
 
