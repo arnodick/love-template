@@ -85,7 +85,6 @@ offgrid.level.make = function(g,l,index)
 		l.animspeed=lload.values.animspeed
 	end
 
-	--offgrid.level[l.t].make(g,l)
 	supper.run(offgrid,{"level",l.t,"make"},g,l)
 
 	if lload.values.description then
