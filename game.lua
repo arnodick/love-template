@@ -95,8 +95,13 @@ game.control = function(g)
 		end
 	end
 
-	if g.level then
-		level.control(g,g.level)
+	local l=g.level
+	if l then
+		game.state.run(g.name,"level","control",g,l)
+
+		if l.transition then
+			transition.control(l,l.transition)
+		end
 	end
 
 	if g.editor then
@@ -116,7 +121,7 @@ game.keypressed = function(g,key,scancode,isrepeat)
 	end
 
 	if g.level then
-		level.keypressed(g,g.level,key)
+		game.state.run(g.name,"level","keypressed",g,g.level,key)
 	end
 
 	game.state.run(g.name,g.state,"keypressed",g,key)
@@ -128,7 +133,7 @@ end
 
 game.keyreleased = function(g,key)
 	if g.level then
-		level.keyreleased(g,g.level,key)
+		game.state.run(g.name,"level","keyreleased",g,g.level,key)
 	end
 
 	game.state.run(g.name,g.state,"keyreleased",g,key)
@@ -152,7 +157,7 @@ end
 
 game.gamepadpressed = function(g,button)
 	if g.level then
-		level.gamepadpressed(g,g.level,button)
+		game.state.run(g.name,"level","gamepadpressed",g,g.level,button)
 	end
 
 	game.state.run(g.name,g.state,"gamepadpressed",g,button)
@@ -171,7 +176,7 @@ game.draw = function(g)
 			LG.clear() --cleans that messy ol canvas all up, makes it all fresh and new and good you know
 
 			if g.level then
-				level.draw(g,g.level)
+				game.state.run(g.name,"level","draw",g,g.level)
 			end
 
 			for i,v in ipairs(g.actors) do

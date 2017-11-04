@@ -2,13 +2,14 @@ local function make(g,t,...)
 	g.hud={}
 	if t then
 		g.hud.t=t
-		run(EM.huds[t],"make",g.hud,...)
+		game.state.run(g.name,"hud","make",g.hud,...)
+		--_G[g.name].hud[h.t].make(h)
 	end
 end
 
 local function draw(g,h,...)
 	if h.t then
-		run(EM.huds[h.t],"draw",g,h,...)
+		game.state.run(g.name,"hud","draw",g,h,...)
 	end
 
 	if h.menu then

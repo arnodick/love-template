@@ -37,8 +37,7 @@ offgrid.make = function(g,tw,th,gw,gh,sp)
 end
 
 offgrid.level={}
-offgrid.level.types={}
-offgrid.level.types.city =
+offgrid.level.city =
 {
 	make = function(g,l)
 		local m={}
@@ -86,7 +85,7 @@ offgrid.level.make = function(g,l,index)
 		l.animspeed=lload.values.animspeed
 	end
 
-	offgrid.level.types[l.t].make(g,l)
+	offgrid.level[l.t].make(g,l)
 
 	if lload.values.description then
 		l.menu.description=lload.values.description
@@ -117,7 +116,7 @@ offgrid.level.control = function(g,l)
 	--love.audio.play(sine)
 	--local noise = denver.get({waveform='whitenoise', length=6})
 	--love.audio.play(noise)
-	offgrid.level.types[l.t].control(g,l)
+	offgrid.level[l.t].control(g,l)
 end
 
 offgrid.level.keypressed = function(g,l,key)
@@ -150,7 +149,7 @@ offgrid.level.draw = function(g,l)
 			menu.draw(l.menu)
 		end
 	end
-	offgrid.level.types[l.t].draw(g,l)
+	offgrid.level[l.t].draw(g,l)
 end
 
 offgrid.level.makemenuoption = function(g,m,x,y,dir,index)

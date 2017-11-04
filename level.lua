@@ -22,8 +22,6 @@ level.load = function(g,dir)
 	g.levels=l
 end
 
-
---TODO just get rid of these too?
 level.make = function(g,index,mode)
 	local l={}
 	if mode then
@@ -33,30 +31,6 @@ level.make = function(g,index,mode)
 	g.levels.index=index
 	game.state.run(g.name,"level","make",g,l,index)
 	g.level=l
-end
-
-level.control = function(g,l)
-	game.state.run(g.name,"level","control",g,l)
-
-	if l.transition then
-		transition.control(l,l.transition)
-	end
-end
-
-level.keypressed = function(g,l,key)
-	game.state.run(g.name,"level","keypressed",g,l,key)
-end
-
-level.keyreleased = function(g,l,key)
-	game.state.run(g.name,"level","keyreleased",g,l,key)
-end
-
-level.gamepadpressed = function(g,l,button)
-	game.state.run(g.name,"level","gamepadpressed",g,l,button)
-end
-
-level.draw = function(g,l)
-	game.state.run(g.name,"level","draw",g,l)
 end
 
 return level

@@ -5,8 +5,7 @@ template.make = function(g,tw,th,gw,gh,sp)
 end
 
 template.level={}
-template.level.types={}
-template.level.types.LEVELTYPE=
+template.level.LEVELTYPE=
 {
 	make = function(g,l)
 		--local mw,mh=g.width/g.tile.width,g.height/g.tile.height
@@ -26,16 +25,16 @@ template.level.make = function(g,l,index)
 	l.t=lload.values.t
 	--DO LEVEL LOADING STUFF HERE
 
-	--template.level.types[l.t].make(g,l)
+	--template.level[l.t].make(g,l)
 	return l
 end
 
 template.level.control = function(g,l)
-	--template.level.types[l.t].control(g,l)
+	--template.level[l.t].control(g,l)
 end
 
 template.level.draw = function(g,l)
-	--template.level.types[l.t].draw(g,l)
+	--template.level[l.t].draw(g,l)
 	--map.draw(l.map,"grid")
 end
 
