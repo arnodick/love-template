@@ -14,6 +14,15 @@ SFX = sfx.load(false,true)
 Music = music.load()
 
 function love.load()
+	local t={}
+	t.first={}
+	t.first.second={}
+	t.first.second.third={}
+	t.first.second.third.fourth = function(x)
+		print("the SUPPER RUN is goood and "..x)
+	end
+	supperrun(t,{"first","second","third","fourth"},"juicy")
+
 	--Game = game.make(Enums.games.protosnake,8,8,320,240,1)
 	Game = game.make(Enums.games.offgrid,8,8,640,960,1)
 	--Game = game.make(Enums.games.dawngame,8,8,320,240,1)
