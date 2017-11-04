@@ -186,11 +186,12 @@ game.draw = function(g,s)
 				editor.draw(g)
 			end
 
-			if g.state.hud then
-				LG.setCanvas(g.canvas.hud) --sets drawing to hud canvas, which draws OVER everything else
-					LG.clear() --cleans that messy ol canvas all up, makes it all fresh and new and good you know
-					hud.draw(g,g.state.hud)
-					LG.print(love.timer.getFPS(),10,10)
+			if g.level then
+				if g.level.hud then
+					LG.setCanvas(g.canvas.hud) --sets drawing to hud canvas, which draws OVER everything else
+						LG.clear()
+						hud.draw(g,g.level.hud)
+				end
 			end
 		LG.setCanvas() --sets drawing back to screen
 	else

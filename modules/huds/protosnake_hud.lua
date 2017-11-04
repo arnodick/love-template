@@ -36,8 +36,8 @@ local function draw(g,h)
 		LG.printformat("YOU DIED",g.camera.x-g.width/2,g.camera.y-66,g.width,"center",EC.white,h.c)
 		LG.printformat("PRESS SPACE",g.camera.x-g.width/2,g.camera.y+60,g.width,"center",EC.white,h.c)
 	end
-
 	LG.setColor(g.palette[EC.pure_white])
+	LG.print(love.timer.getFPS(),10,10)
 end
 
 return

@@ -80,6 +80,8 @@ protosnake.level.make = function(g,l,index)
 
 	l.spawnindex=1
 
+	module.make(l,EM.hud,EM.huds.protosnake_hud)
+
 	protosnake.level.types[l.t].make(g,l)
 	return l
 end
@@ -101,8 +103,6 @@ end
 protosnake.gameplay =
 {
 	make = function(g)
-		module.make(g.state,EM.hud,EM.huds.protosnake_hud)
-
 		g.score=0
 
 		g.player=actor.make(EA[Game.name].player,g.width/2,g.height/2)
@@ -115,8 +115,8 @@ protosnake.gameplay =
 		local s=g.state
 
 		if Game.player.hp<=0 then
-			if not s.hud.menu then
-				module.make(s.hud,EM.menu,EMM.highscores,g.width/2,g.height/2,66,100,"",s.hud.c,s.hud.c2,"center")
+			if not g.level.hud.menu then
+				module.make(g.level.hud,EM.menu,EMM.highscores,g.width/2,g.height/2,66,100,"",g.level.hud.c,g.level.hud.c2,"center")
 			end
 		end
 	end,
