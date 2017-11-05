@@ -14,12 +14,14 @@ game.state.make = function(g,state)
 	local e=Enums
 	g.state=state
 
+	g.pause=false
 	g.timer=0
 	g.speed=1
 	g.camera=camera.make(g.width/2,g.height/2)
 	g.actors={}
 	g.level=nil
 	g.hud=nil
+	g.editor=nil
 	g.counters=counters.init(g.t)
 	for i,v in pairs(g.canvas) do
 		LG.setCanvas(v)
@@ -105,7 +107,7 @@ game.control = function(g)
 	end
 
 	if g.editor then
-		--editor.control(g)
+		editor.control(g)
 	end
 
 	if not g.pause then --TODO figure out why pause is necessary
@@ -195,14 +197,16 @@ game.draw = function(g)
 
 			game.state.run(g.name,g.state,"draw",g)
 			
+			LG.setCanvas(g.canvas.hud) --sets drawing to hud canvas, which draws OVER everything else
+			LG.clear()
+			if g.hud then
+					--NOTE do this to ahve cursor be affected by pixel effects!
+					--LG.setCanvas(g.canvas.hud) --sets drawing to hud canvas, which draws OVER everything else
+					--LG.clear()
+					hud.draw(g,g.hud)
+			end
 			if g.editor then
 				editor.draw(g)
-			end
-
-			if g.hud then
-				LG.setCanvas(g.canvas.hud) --sets drawing to hud canvas, which draws OVER everything else
-					LG.clear()
-					hud.draw(g,g.hud)
 			end
 		LG.setCanvas() --sets drawing back to screen
 	else

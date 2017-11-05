@@ -93,6 +93,10 @@ local function update(g,d)
 				table.insert(debuglist,"text trans "..g.menu.text_trans)
 			end
 		end
+		if g.editor then
+			table.insert(debuglist,"e cursor x "..g.editor.cursor.x)
+			table.insert(debuglist,"e cursor y "..g.editor.cursor.y)
+		end
 --]]
 --[[
 		if #Joysticks>0 then
