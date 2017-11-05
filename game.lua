@@ -105,7 +105,7 @@ game.control = function(g)
 	end
 
 	if g.editor then
-		editor.control(g)
+		--editor.control(g)
 	end
 
 	if not g.pause then --TODO figure out why pause is necessary
@@ -115,7 +115,14 @@ end
 
 game.keypressed = function(g,key,scancode,isrepeat)
 	if key=="tab" then
-		--game.state.make(g,"editor")
+		if not g.editor then
+			--game.state.make(g,"editor")
+			g.pause=true
+			editor.make(g)
+		else
+			g.pause=false
+			g.editor=nil
+		end
 	elseif key=="space" then
 		palette.set(g,2)
 	end
@@ -128,7 +135,7 @@ game.keypressed = function(g,key,scancode,isrepeat)
 	supper.run(_G[g.name],{g.state,"keypressed"},g,key)
 
 	if g.editor then
-		editor.keypressed(g,key)
+		--editor.keypressed(g,key)
 	end
 end
 
@@ -144,7 +151,7 @@ game.mousepressed = function(g,x,y,button)
 	game.state.run(g.name,g.state,"mousepressed",g,x,y,button)
 
 	if g.editor then
-		editor.mousepressed(g,x,y,button)
+		--editor.mousepressed(g,x,y,button)
 	end
 end
 
@@ -152,7 +159,7 @@ game.wheelmoved = function(g,x,y)
 	game.state.run(g.name,g.state,"wheelmoved",g,x,y)
 
 	if g.editor then
-		editor.wheelmoved(g,x,y)
+		--editor.wheelmoved(g,x,y)
 	end
 end
 
@@ -164,7 +171,7 @@ game.gamepadpressed = function(g,button)
 	game.state.run(g.name,g.state,"gamepadpressed",g,button)
 
 	if g.editor then
-		editor.gamepadpressed(g,button)
+		--editor.gamepadpressed(g,button)
 	end
 end
 

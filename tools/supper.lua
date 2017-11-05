@@ -1,4 +1,5 @@
-local supper={
+local supper =
+{
     _VERSION        = 'supper v1.0',
     _DESCRIPTION    = 'A dynamic function runner.',
     _LICENSE        = [[
@@ -24,6 +25,12 @@ THE SOFTWARE.
 ]]
 }
 
+--takes in a table t and a list of strings args
+--recursively digs through the table to see if it has members tables whose keys match the string args
+--if the last arg matches the key of a function in the table, run that function
+--returns the results of the function that was found nested in the table, if possible
+--ie: t = game (a table), args = {"level","cave","make"} will do the same as:
+--game.level.cave.make(...)
 supper.run = function(t,args,...)
 	local r=nil
 	if #args>0 then
@@ -40,7 +47,20 @@ supper.run = function(t,args,...)
 	end
 end
 
--- Supper Run:
--- Don't walk for your supper... run!
+--puts a table called "names" in a table t
+--the "names" tables is an enumerated list of all the key strings of the members of the table
+--ie: t = {desert=function(...),cave=function(...),sewer=function(...)}
+--then t.names[1]="desert", t.names[2]="cave", t.names[3]="sewer"
+--these names can then be used to dynamically call member functions of the table t
+supper.names = function(t)
+	local n={}
+	for k,v in pairs(t) do
+		table.insert(n,k)
+	end
+	t.names=n
+end
+
+-- Supper:
+-- Don't walk for your supper... RUN!
 
 return supper

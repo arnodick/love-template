@@ -20,7 +20,7 @@ local function update(g)
 	s.shake=0
 
 	s.font=LG.newFont("fonts/Kongtext Regular.ttf",8)
-	LG.setFont(s.font)
+	--LG.setFont(s.font)
 
 	g.screen=s
 end
