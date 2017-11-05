@@ -25,14 +25,18 @@ THE SOFTWARE.
 }
 
 supper.run = function(t,args,...)
+	local r=nil
 	if #args>0 then
 		local f=t[args[1]]
 		if f then
 			table.remove(args,1)
-			supper.run(f,args,...)
+			r=supper.run(f,args,...)
 		end
 	elseif type(t)=="function" then
-		t(...)
+		r=t(...)
+	end
+	if r then
+		return r
 	end
 end
 
