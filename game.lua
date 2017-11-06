@@ -153,7 +153,7 @@ game.mousepressed = function(g,x,y,button)
 	game.state.run(g.name,g.state,"mousepressed",g,x,y,button)
 
 	if g.editor then
-		--editor.mousepressed(g,x,y,button)
+		editor.mousepressed(g,x,y,button)
 	end
 end
 
@@ -161,7 +161,7 @@ game.wheelmoved = function(g,x,y)
 	game.state.run(g.name,g.state,"wheelmoved",g,x,y)
 
 	if g.editor then
-		--editor.wheelmoved(g,x,y)
+		editor.wheelmoved(g,x,y)
 	end
 end
 

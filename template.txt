@@ -1,4 +1,5 @@
 PRIORITY
+bug in Quad generation? why is 272 the highest one?
 synth should be a module
 load state for each game?
 	this replaces gamename.make

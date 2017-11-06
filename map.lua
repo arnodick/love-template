@@ -40,6 +40,7 @@ map.load = function(m)
 	return map
 end
 
+--TODO make map.draw take multiple drawmodes in an array
 map.draw = function(m,drawmode)
 	drawmodes[drawmode](m)
 end
@@ -98,6 +99,16 @@ drawmodes.numbers = function(m)
 		for x=1,#m[y] do
 			local value=m[y][x]
 			LG.print(value,(x-1)*tw,(y-1)*th)
+		end
+	end
+end
+
+drawmodes.sprites = function(m)
+	local tw,th=Game.tile.width,Game.tile.height
+	for y=1,#m do
+		for x=1,#m[y] do
+			local value=flags.strip(m[y][x])
+			LG.draw(Spritesheet[1],Quads[1][value],(x-1)*tw,(y-1)*th)
 		end
 	end
 end

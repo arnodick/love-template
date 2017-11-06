@@ -23,6 +23,7 @@ function love.load()
 	--Game = game.make(Enums.games.rpg,8,8,320,240,1)
 	--Game = game.make(Enums.games.template,8,8,320,240,1)
 	--debugger.printtable(Game)
+	print(#Quads[1])
 end
 
 function love.update(dt)

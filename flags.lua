@@ -45,7 +45,7 @@ end
 
 flags.strip = function(bytes)
 	--takes only a hex value
-	--set all the flag bits (high 16 bits) in the hex value and makes them 0
+	--set all the flag bits (high 16 bits) in the hex value to 0
 	bytes=bit.band(bytes,65535)
 	return bytes
 end
