@@ -94,8 +94,8 @@ protosnake.level.control = function(g,l)
 end
 
 protosnake.level.draw = function(g,l)
-	--map.draw(l.map,"grid")
-	map.draw(l.map,"sprites")
+	map.draw(l.map,"grid")
+	--map.draw(l.map,{"grid","sprites"})
 end
 
 protosnake.gameplay =
