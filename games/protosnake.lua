@@ -94,8 +94,8 @@ protosnake.level.control = function(g,l)
 end
 
 protosnake.level.draw = function(g,l)
-	map.draw(l.map,"grid")
-	--map.draw(l.map,{"grid","sprites"})
+	--map.draw(l.map,"grid")
+	map.draw(l.map,{"grid","sprites"})
 end
 
 protosnake.gameplay =
@@ -132,7 +132,7 @@ protosnake.gameplay =
 		if button=="start" then
 			if Game.player.hp<=0 then
 				game.state.make(g,"gameplay")
-			else
+			elseif not g.editor then
 				g.pause = not g.pause
 			end
 		end

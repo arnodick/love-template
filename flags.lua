@@ -50,6 +50,13 @@ flags.strip = function(bytes)
 	return bytes
 end
 
+flags.isolate = function(bytes)
+	--takes some bytes that have flags in the high 16 bits and a value in the lower 16 bits
+	--strips away the value in the low 16 bits, keeping the flags in the high 16 bits
+	bytes=bit.band(bytes,4294901760)
+	return bytes
+end
+
 flags.tohex = function(position)
 	--converts flag position to its actual hex number value (ie: f 1 = 1, f 2 = 2, f 3 = 4, f 4 = 8 etc.)
 	return 2^(position-1)

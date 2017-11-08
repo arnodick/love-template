@@ -24,17 +24,29 @@ cursor.update = function(cursor)
 end
 
 cursor.draw = function(cursor)
+--[[
 	local g=Game
 	local tw,th=g.tile.width,g.tile.height
 	local xoff,yoff=tw,th
-	LG.setColor(g.palette[EC.red])
+	local p=g.palette[EC.red]
+	p[4]=180
+	LG.setColor(p)
 	if cursor.snap then
-		local cx,cy=math.floor(cursor.x/tw)*tw,math.floor(cursor.y/th)*th
-		LG.rectangle("line",cx,cy,tw,th)
+		local cx,cy=math.floor(cursor.x/tw)*tw+1,math.floor(cursor.y/th)*th+1
+		--LG.rectangle("line",cx,cy,tw,th)
+		LG.line(cx-1,cy,cx+2,cy)
+		LG.line(cx,cy,cx,cy+2)
+		LG.line(cx+tw,cy,cx+tw-3,cy)
+		LG.line(cx+tw,cy,cx+tw,cy+2)
+		LG.line(cx,cy+th,cx,cy+th-3)
+		LG.line(cx,cy+th,cx+2,cy+th)
+		LG.line(cx+tw,cy+th-1,cx+tw,cy+th-3)
+		LG.line(cx+tw,cy+th,cx+tw-3,cy+th)
 	else
 		LG.rectangle("line",cursor.x-xoff,cursor.y-yoff,tw,th)
 	end
 	LG.setColor(g.palette[EC.pure_white])
+--]]
 
 	if _G[EM.cursors[cursor.t]]["draw"] then
 		_G[EM.cursors[cursor.t]]["draw"](cursor)

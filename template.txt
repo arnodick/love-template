@@ -1,4 +1,5 @@
 PRIORITY
+map should take g.level as input too, or Game if that's how it go
 bug in Quad generation? why is 272 the highest one?
 synth should be a module
 load state for each game?
@@ -20,7 +21,6 @@ what is in Game? make sure no debris is left over during state changes
 	maybe actors, levels, etc all go in state? so when you do state={} it wipes everything
 	what should i put in game? Spritesheet, Quads
 make tw and th part of level?
-editor not as module but as its own .lua library
 redo all functions to make a local {} and add functions to it and just return that
 maybe make a batch file that makes all the new folders and files for a game
 	make template.lua game, test to see what needs to be done to start
@@ -158,3 +158,4 @@ palettes
 utils
 fix sprites.draw quad selector (must be halved if tile = 16px)
 graphics stuff in game library
+editor not as module but as its own .lua library
