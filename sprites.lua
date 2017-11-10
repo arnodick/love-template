@@ -1,21 +1,19 @@
 local function load(spr,tw,th)
 	--takes in a spritesheet file(PNG) and some tile sizes
 	--returns the spritesheet object and its QUADS
-	local ss = LG.newImage(spr)
+	local spritesheet=LG.newImage(spr)
 	local quads={}
-	local ssw,ssh=ss:getWidth(),ss:getHeight()
-	print("ssw "..ssw)
-	print("ssh "..ssh)
-	local sswt,ssht=ssw/tw,ssh/th
-	print("sswt "..sswt)
-	print("ssht "..ssht)
-	for y=0,ssht do
-		for x=0,sswt do
-			quads[x+y*sswt]=LG.newQuad(x*tw,y*th,tw,th,ssw,ssh)
+	local spritesheetW,spritesheetH=spritesheet:getWidth(),spritesheet:getHeight()
+	local spritesheetTilesW,spritesheetTilesH=spritesheetW/tw,spritesheetH/th
+	for b=0, spritesheetTilesH-1 do
+		for a=0, spritesheetTilesW-1 do
+			quads[a+b*spritesheetTilesW]=LG.newQuad(a*tw,b*th,tw,th,spritesheetW,spritesheetH)
 		end
 	end
 	return spritesheet,quads
 end
+
+
 
 local function make(a)
 --TODO this sprinit

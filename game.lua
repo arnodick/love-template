@@ -244,7 +244,6 @@ game.graphics = function(g,tw,th,gw,gh)
 
 	tw,th=8,8
 	for a=1,#files do
-		print(files[a])
 		local ss,qs = sprites.load("gfx/"..files[a],tw*2^(a-1),th*2^(a-1))
 		table.insert(Spritesheet,ss)
 		table.insert(Quads,qs)
