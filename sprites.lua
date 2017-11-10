@@ -1,16 +1,20 @@
-local function load(spr, tw, th)
+local function load(spr,tw,th)
 	--takes in a spritesheet file(PNG) and some tile sizes
 	--returns the spritesheet object and its QUADS
-	local spritesheet = LG.newImage(spr)
-	local quads = {}
-	local spritesheetW, spritesheetH = spritesheet:getWidth(), spritesheet:getHeight()
-	local spritesheetTilesW,spritesheetTilesH = spritesheetW/tw, spritesheetH/th
-	for b=0, spritesheetTilesH do
-		for a=0, spritesheetTilesW do
-			quads[a+b*spritesheetTilesW] = LG.newQuad(a*tw,b*th,tw,th,spritesheetW,spritesheetH)
+	local ss = LG.newImage(spr)
+	local quads={}
+	local ssw,ssh=ss:getWidth(),ss:getHeight()
+	print("ssw "..ssw)
+	print("ssh "..ssh)
+	local sswt,ssht=ssw/tw,ssh/th
+	print("sswt "..sswt)
+	print("ssht "..ssht)
+	for y=0,ssht do
+		for x=0,sswt do
+			quads[x+y*sswt]=LG.newQuad(x*tw,y*th,tw,th,ssw,ssh)
 		end
 	end
-	return spritesheet, quads
+	return spritesheet,quads
 end
 
 local function make(a)

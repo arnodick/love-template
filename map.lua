@@ -46,6 +46,7 @@ map.draw = function(m,drawmode)
 		for x=1,#m[y] do
 			if type(drawmode)=="table" then
 				for i,v in ipairs(drawmode) do
+					print("x "..x.." y "..y)
 					drawmodes[v](m,x,y)
 				end
 			else

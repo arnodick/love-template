@@ -52,8 +52,7 @@ local function filterfiles(folder,ext)
 	local files = love.filesystem.getDirectoryItems(folder)
 	for i=#files,1,-1 do
 		local filedata = love.filesystem.newFileData("code", files[i])
-		local filename = filedata:getFilename()
-		if filedata:getExtension() ~= ext then
+		if filedata:getExtension()~=ext then
 			table.remove(files,i)
 		end
 	end
