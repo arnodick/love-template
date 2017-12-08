@@ -118,7 +118,6 @@ end
 game.keypressed = function(g,key,scancode,isrepeat)
 	if key=="tab" then
 		if not g.editor then
-			--game.state.make(g,"editor")
 			g.pause=true
 			editor.make(g)
 		else

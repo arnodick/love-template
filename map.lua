@@ -40,7 +40,6 @@ map.load = function(m)
 	return map
 end
 
---TODO make map.draw take multiple drawmodes in an array
 map.draw = function(m,drawmode)
 	for y=1,#m do
 		for x=1,#m[y] do

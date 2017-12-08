@@ -11,11 +11,20 @@ local function draw(cursor)
 	if cursor.snap then
 		local cx,cy=map.getcell(g.level.map,cursor.x+tw,cursor.y+th)
 		local cell=Game.level.map[cy][cx]
+--[[
 		if flags.get(cell,EF.solid,16) then
 			LG.setColor(g.palette[EC.red])
 		end
+--]]
 		--cx,cy=math.floor(cursor.x/tw)*tw,math.floor(cursor.y/th)*th
 		cx,cy=(cx-2)*tw,(cy-2)*th
+		for i=1,11 do
+			LG.setColor(g.palette[EC.white])
+			if flags.get(cell,i,16) then
+				LG.setColor(g.palette[EC.red])
+			end
+			LG.points(cx-i*2,cy-5)
+		end
 		LG.print(cursor.value,cx+tw,cy+th)
 		LG.draw(Spritesheet[1],Quads[1][cursor.value],cx,cy)
 

@@ -1,6 +1,7 @@
 PRIORITY
+Make actor.drawmodes and cursor.modes, put editor cursor in modes not as a file and subtype file 
+	Make cursor blinky and just corners draw not whole square
 map should take g.level as input too, or Game if that's how it go
-bug in Quad generation? why is 272 the highest one?
 synth should be a module
 load state for each game?
 	this replaces gamename.make
@@ -82,6 +83,7 @@ Screen, Spritesheet, Quads and all that, part of Game?
 flags.control? put all flag specific code in there for actors and run it at in actor.control? (probably not,unless a bunch more flags do stuff in the same place)
 
 DONE
+bug in Quad generation? why is 272 the highest one?
 hud layer that goes above everything else?
 	Better way into draw menus on a new canvas called hud which also has score etc on it
 level types
