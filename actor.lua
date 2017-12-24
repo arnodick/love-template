@@ -103,14 +103,14 @@ local function control(g,a,gs)
 	end
 end
 
-local function draw(a)
+local function draw(g,a)
 	if a.menu then
 		menu.draw(a.menu)
 	end
 
-	if Game.level then
-		if Game.level.mode then
-			run(Game.level.modename,"draw",a)
+	if g.level then
+		if g.level.mode then
+			run(g.level.modename,"draw",a)
 		end
 	end
 end

@@ -190,7 +190,7 @@ game.draw = function(g)
 
 			for i,v in ipairs(g.actors) do
 				if not v.delete then
-					actor.draw(v)
+					actor.draw(g,v)
 				end
 			end
 
