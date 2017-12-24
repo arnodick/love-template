@@ -20,7 +20,7 @@ end
 local function shoot(a)
 	for b=1,a.num do
 		local rand = love.math.random(-a.acc/2*100,a.acc/2*100)/50*math.pi
-		actor.make(a.proj,a.x,a.y,-a.angle+rand,a.projvel+math.randomfraction(0.5),a.bc)
+		actor.make(Game,a.proj,a.x,a.y,-a.angle+rand,a.projvel+math.randomfraction(0.5),a.bc)
 	end
 end
 

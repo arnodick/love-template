@@ -1,4 +1,4 @@
-local function make(t,x,y,d,vel,...)
+local function make(g,t,x,y,d,vel,...)
 	local a={}
 	a.t=t
 	a.x=x or love.math.random(319)
@@ -8,13 +8,13 @@ local function make(t,x,y,d,vel,...)
 	a.vec={math.cos(a.d),math.sin(a.d)}
 	a.angle=0
 	a.speed=1
-	a.delta=Game.timer
+	a.delta=g.timer
 	a.delete=false
 	a.flags = 0x0
-	if _G[EA[Game.name][a.t]]["make"] then
-		_G[EA[Game.name][a.t]]["make"](a,...)
+	if _G[EA[g.name][a.t]]["make"] then
+		_G[EA[g.name][a.t]]["make"](a,...)
 	end
-	counters.update(Game,Game.counters,a,1)
+	counters.update(g,g.counters,a,1)
 --[[
 	if flags.get(a.flags,EF.queue) then
 		Game.actors[ EA[Game.name ][a.t].."s" ][ EA[Game.name ][a.t].."s" ]={}
@@ -23,7 +23,7 @@ local function make(t,x,y,d,vel,...)
 
 	--TODO in here do if inivalues.flags then flags.set(a,EF[flagname],...)
 
-	table.insert(Game.actors,a)
+	table.insert(g.actors,a)
 	return a
 end
 
@@ -125,13 +125,14 @@ local function damage(a,d)
 			end
 		end
 
+		--TODO a lot of this stuff is game specific, or rather level specific (each level should have its own rules/"physics" and some games just have the same for every level, whereas games with different modes in different parts of the game will have different rules/physics in different levels)
 		if flags.get(a.flags,EF.damageable) then
 			a.hp = a.hp - d
 			if _G[EA[g.name][a.t]]["damage"] then
 				_G[EA[g.name][a.t]]["damage"](a)
 			end
 			for i=1,4 do
-				actor.make(EA[g.name].debris,a.x,a.y)
+				actor.make(g,EA[g.name].debris,a.x,a.y)
 			end
 
 			if a.hit then
@@ -151,7 +152,7 @@ local function damage(a,d)
 				end
 
 				if flags.get(a.flags,EF.explosive) then
-					actor.make(EA[g.name].explosion,a.x,a.y,0,0,EC.white,20*(a.size))
+					actor.make(g,EA[g.name].explosion,a.x,a.y,0,0,EC.white,20*(a.size))
 				end
 
 				if flags.get(a.flags,EF.character) then
@@ -209,7 +210,7 @@ local function corpse(a,tw,th,hack)
 		th=th-diff
 	end
 	
-	local body=actor.make(EA[g.name].debris,a.x,a.y)
+	local body=actor.make(g,EA[g.name].debris,a.x,a.y)
 	body.decel=0.1
 	if not hack then
 		local choice=math.choose(1,2)
@@ -221,7 +222,7 @@ local function corpse(a,tw,th,hack)
 			body.image=LG.newImage(imgdata)
 			body.d=dir
 
-			local body2=actor.make(EA[g.name].debris,a.x,a.y)
+			local body2=actor.make(g,EA[g.name].debris,a.x,a.y)
 			body2.decel=0.1
 			local imgdata2=g.canvas.main:newImageData(ix+tw/2,iy,tw/2,th)
 			body2.image=LG.newImage(imgdata2)
@@ -233,19 +234,19 @@ local function corpse(a,tw,th,hack)
 		body.image=LG.newImage(imgdata)
 		body.d=math.randomfraction(math.pi*2)
 
-		local body2=actor.make(EA[g.name].debris,a.x,a.y)
+		local body2=actor.make(g,EA[g.name].debris,a.x,a.y)
 		body2.decel=0.2
 		local imgdata2=g.canvas.main:newImageData(ix+tw/2,iy+th/2,tw/2,th/2)
 		body2.image=LG.newImage(imgdata2)
 		body2.d=math.randomfraction(math.pi*2)
 
-		local body3=actor.make(EA[g.name].debris,a.x,a.y)
+		local body3=actor.make(g,EA[g.name].debris,a.x,a.y)
 		body3.decel=0.2
 		local imgdata3=g.canvas.main:newImageData(ix+tw/2,iy,tw/2,th/2)
 		body3.image=LG.newImage(imgdata3)
 		body3.d=math.randomfraction(math.pi*2)
 
-		local body4=actor.make(EA[g.name].debris,a.x,a.y)
+		local body4=actor.make(g,EA[g.name].debris,a.x,a.y)
 		body4.decel=0.2
 		local imgdata4=g.canvas.main:newImageData(ix,iy,tw/2,th/2)
 		body4.image=LG.newImage(imgdata4)

@@ -11,7 +11,7 @@ iso.gameplay =
 		g.map=map.generate({"random","walls"},mw,mh,{pool={1,1,1,1,2,3,4}})
 		--g.map=map.generate({"random"},mw,mh,{pool={1,1,1,1,2,3,4}})
 
-		g.player=actor.make(EA[g.name].iso_player,g.width/2,g.height/2)
+		g.player=actor.make(Game,EA[g.name].iso_player,g.width/2,g.height/2)
 
 		g.camera.x=50
 		g.camera.y=100

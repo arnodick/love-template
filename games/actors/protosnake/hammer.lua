@@ -22,7 +22,7 @@ local function control(a)
 		if v.t==EA[Game.name].projectile then
 			if actor.collision(v.x,v.y,a) then
 			for i=1,20 do
-				local spark=actor.make(EA[Game.name].spark,v.x,v.y)
+				local spark=actor.make(Game,EA[Game.name].spark,v.x,v.y)
 					spark.c=v.cinit
    				end
 				v.delete=true

@@ -65,7 +65,7 @@ end
 
 local function dead(a)
 	for i=1,3 do
-		actor.make(EA[Game.name].coin,a.x,a.y)
+		actor.make(Game,EA[Game.name].coin,a.x,a.y)
 	end
 end
 

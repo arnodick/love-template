@@ -21,7 +21,7 @@ end
 
 local function control(a)
 	if love.math.random(10000)==1 then
-		local smolhp=actor.make(EA[Game.name].hp,a.x,a.y,0,0,EC.red,1,129)
+		local smolhp=actor.make(Game,EA[Game.name].hp,a.x,a.y,0,0,EC.red,1,129)
 		smolhp.value=1
 		smolhp.scalex=0.5
 		smolhp.scaley=0.5

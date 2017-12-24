@@ -33,7 +33,7 @@ map.load = function(m)
 		for b=1, #map[a] do
 			--TODO make this dynamic, loads entities based on flag value
 			if getflag(map[a][b], Enums.wall) then
-				actor.make(0,0,(b-1)*TileW+TileW/2, (a-1)*TileH+TileH/2, TileW, TileH) --each cell that has a wall flag loads a wall entity
+				actor.make(Game,0,0,(b-1)*TileW+TileW/2, (a-1)*TileH+TileH/2, TileW, TileH) --each cell that has a wall flag loads a wall entity
 			end
 		end
 	end

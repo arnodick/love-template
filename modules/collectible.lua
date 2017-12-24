@@ -18,7 +18,7 @@ local function control(a,gs)
 					sfx.play(a.sound.get)
 				end
 			end
-			actor.make(EA[Game.name].collectibleget,a.x,a.y,math.pi/2,1,EC.pure_white,1,a.sprinit)
+			actor.make(Game,EA[Game.name].collectibleget,a.x,a.y,math.pi/2,1,EC.pure_white,1,a.sprinit)
 			if _G[EA[Game.name][a.t]]["get"] then
 				_G[EA[Game.name][a.t]]["get"](a,gs)
 			end

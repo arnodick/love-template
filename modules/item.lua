@@ -44,7 +44,7 @@ local function use(a,gs,user,vx,vy,shoot)
 				_G[EA[Game.name][a.t]]["shoot"](a,gs)
 			end
 
-			actor.make(EA[Game.name].cloud,a.x,a.y,-a.angle+math.randomfraction(1)-0.5,math.randomfraction(1))
+			actor.make(Game,EA[Game.name].cloud,a.x,a.y,-a.angle+math.randomfraction(1)-0.5,math.randomfraction(1))
 			a.delta=a.rof
 		end
 	else 

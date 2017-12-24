@@ -26,7 +26,7 @@ local function control(a,gs)
 		local spawnnum=a.enemyspawn
 
 		if l.enemies[spawnnum] then
-			local enemy=actor.make(l.enemies[spawnnum],a.x,a.y)			
+			local enemy=actor.make(Game,l.enemies[spawnnum],a.x,a.y)			
 
 			--TODO make a spawn function or something that has all the drop stuff in it and put it in level load characer spawn too
 			if l.actordrops then
@@ -58,7 +58,7 @@ local function control(a,gs)
 		end
 
 		for i=1,20 do
-			local spark=actor.make(EA[Game.name].spark,a.x,a.y)
+			local spark=actor.make(Game,EA[Game.name].spark,a.x,a.y)
 			spark.c=EC.dark_blue
 		end
 		a.delete=true
