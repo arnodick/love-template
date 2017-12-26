@@ -24,7 +24,7 @@ local function control(g,a,gs)
 	end
 end
 
-local function draw(a)
+local function draw(g,a)
 	local dist=vector.distance(a.gx,a.gy,a.x,a.y)
 	local dir=vector.direction(vector.components(a.gx,a.gy,a.x,a.y))
 	for i=10,dist,5 do

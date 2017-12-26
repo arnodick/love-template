@@ -23,10 +23,10 @@ local function control(g,a,gs)
 	end
 end
 
-local function draw(a)
+local function draw(g,a)
 	LG.circle("fill",a.x,a.y,a.r,16)
 	if Debugger.debugging then
-		LG.setColor(Game.palette[11])
+		LG.setColor(g.palette[11])
 		LG.circle("line",a.x,a.y,a.r)
 	end
 end

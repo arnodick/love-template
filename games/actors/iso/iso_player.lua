@@ -24,9 +24,11 @@ local function control(g,a)
 	end
 end
 
+--[[
 local function draw(a)
 	
 end
+--]]
 
 local function damage(a)
 	local g=Game
@@ -43,7 +45,7 @@ return
 {
 	make = make,
 	control = control,
-	draw = draw,
+	--draw = draw,
 	damage = damage,
 	dead = dead,
 }

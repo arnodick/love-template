@@ -52,37 +52,42 @@ local function control(a,m,gs)
 	end
 end
 
-local function draw(a)
-	if _G[EA[Game.name][a.t]]["predraw"] then
-		_G[EA[Game.name][a.t]]["predraw"](a)
+local function draw(g,a)
+--[[
+	if _G[EA[g.name][a.t] ]["predraw"] then
+		_G[EA[g.name][a.t] ]["predraw"](a)
 	end
+--]]
 
 	if not a.c then
 		print(EA.protosnake[a.t])
 		print(a.c)
 	end
-	local r,g,b=unpack(Game.palette[a.c])
+	local r,gr,b=unpack(g.palette[a.c])
 	local alpha=255
 	if a.alpha then
 		alpha=a.alpha
 	end
-	LG.setColor(r,g,b,alpha)
+	LG.setColor(r,gr,b,alpha)
 	sprites.draw(a)
 
 	if a.char then
 		LG.print(a.char,a.x,a.y)
 	end
 
-	if _G[EA[Game.name][a.t]]["draw"] then
-		_G[EA[Game.name][a.t]]["draw"](a)
+	run(EA[g.name][a.t],"draw",g,a)--actor's specific draw function (ie snake.draw)
+--[[
+	if _G[EA[g.name][a.t] ]["draw"] then
+		_G[EA[g.name][a.t] ]["draw"](a)
 	end
+--]]
 
 	if a.tail then
 		tail.draw(a.tail)
 	end
 
 	if Debugger.debugging then
-		LG.setColor(Game.palette[EC.blue])
+		LG.setColor(g.palette[EC.blue])
 		if a.hitradius then
 			hitradius.draw(a)
 		elseif a.hitbox then
@@ -95,7 +100,7 @@ local function draw(a)
 		--LG.print(a.flags,a.x+8,a.y-8)
 	end
 
-	LG.setColor(Game.palette[EC.pure_white])
+	LG.setColor(g.palette[EC.pure_white])
 end
 
 return

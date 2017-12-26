@@ -4,12 +4,12 @@ local function make(g,a,c)
 	a.vel=1
 end
 
-local function draw(a)
-	LG.line(a.x,0,a.x,Game.height)
-	LG.setCanvas(Game.canvas.background)
-		LG.setColor(Game.palette[EC.black])
-		LG.line(a.x,0,a.x,Game.height)
-	LG.setCanvas(Game.canvas.main)
+local function draw(g,a)
+	LG.line(a.x,0,a.x,g.height)
+	LG.setCanvas(g.canvas.background)
+		LG.setColor(g.palette[EC.black])
+		LG.line(a.x,0,a.x,g.height)
+	LG.setCanvas(g.canvas.main)
 end
 
 local function collision(a)

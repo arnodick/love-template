@@ -14,9 +14,9 @@ local function control(a,gs)
 	a.y = ydest
 end
 
-local function draw(a)
-	local tw,th=Game.tile.width,Game.tile.height
-	local x,y=map.getcell(Game.map,a.x,a.y)
+local function draw(g,a)
+	local tw,th=g.tile.width,g.tile.height
+	local x,y=map.getcell(g.map,a.x,a.y)
 	--local isox=(x-1)*tw/2
 	--local isoy=(y-1)*th/4
 	local isox=a.x/2

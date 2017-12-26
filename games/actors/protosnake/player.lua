@@ -71,7 +71,7 @@ local function control(g,a)
 	end
 end
 
-local function draw(a)
+local function draw(g,a)
 	if a.cursor then
 		cursor.draw(a.cursor)
 	end

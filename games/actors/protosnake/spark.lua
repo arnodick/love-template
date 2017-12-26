@@ -12,12 +12,12 @@ local function control(g,a)
 	end
 end
 
-local function draw(a)
+local function draw(g,a)
 	LG.points(a.x,a.y)
 	if a.vel<=0 then
-		LG.setCanvas(Game.canvas.background)
+		LG.setCanvas(g.canvas.background)
 			LG.points(a.x,a.y)
-		LG.setCanvas(Game.canvas.main)
+		LG.setCanvas(g.canvas.main)
 	end
 end
 

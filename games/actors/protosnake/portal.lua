@@ -49,16 +49,16 @@ local function control(g,a,gs)
 	end
 end
 
-local function draw(a)
-	LG.setCanvas(Game.canvas.background)
-		LG.setColor(Game.palette[EC.pure_white])
+local function draw(g,a)
+	LG.setCanvas(g.canvas.background)
+		LG.setColor(g.palette[EC.pure_white])
 		LG.draw(a.image,a.x,a.y,0,1,1,a.sizeinit,a.sizeinit)
-		LG.setColor(Game.palette[a.c])
+		LG.setColor(g.palette[a.c])
 		local curve=love.math.newBezierCurve(a.x,a.y,a.x+math.cos(a.angle)*a.size/2,a.y+math.sin(a.angle)/2*a.size,a.x+math.cos(a.angle-1)*a.size,a.y+math.sin(a.angle-1)*a.size)
 		local curve2=love.math.newBezierCurve(a.x,a.y,a.x-math.cos(a.angle)*a.size/2,a.y-math.sin(a.angle)/2*a.size,a.x-math.cos(a.angle-1)*a.size,a.y-math.sin(a.angle-1)*a.size)
 		LG.line(curve:render(2))
 		LG.line(curve2:render(2))
-	LG.setCanvas(Game.canvas.main)
+	LG.setCanvas(g.canvas.main)
 end
 
 return

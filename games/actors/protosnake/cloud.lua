@@ -26,7 +26,7 @@ local function control(g,a)
 	end
 end
 
-local function draw(a)
+local function draw(g,a)
 	--local r,g,b=
 	--LG.setColor(100,100,100,a.alpha)
 	local points={}
@@ -36,9 +36,9 @@ local function draw(a)
 	end
 	LG.polygon("fill",points)
 	if Debugger.debugging then
-		LG.setColor(Game.palette[EC.green])
+		LG.setColor(g.palette[EC.green])
 		LG.points(a.x,a.y)
-		LG.setColor(Game.palette[EC.red])
+		LG.setColor(g.palette[EC.red])
 		for i=1,#points,2 do
 			LG.points(points[i],points[i+1])
 		end

@@ -58,10 +58,11 @@ local function control(g,a)
 	end
 end
 
-
+--[[
 local function draw(a)
 
 end
+--]]
 
 local function dead(a)
 	for i=1,3 do
@@ -73,6 +74,6 @@ return
 {
 	make = make,
 	control = control,
-	draw = draw,
+	--draw = draw,
 	dead = dead,
 }

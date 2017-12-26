@@ -30,7 +30,7 @@ local function control(g,a)
 	end
 end
 
-local function draw(a)
+local function draw(g,a)
 	cursor.draw(a.cursor)
 end
 

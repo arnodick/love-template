@@ -31,18 +31,22 @@ local function control(g,a)
 	end
 end
 
+--[[
 local function draw(a)
 	
 end
+--]]
 
+--[[
 local function shoot(a)
 	
 end
+--]]
 
 return
 {
 	make = make,
 	control = control,
-	draw = draw,
-	shoot = shoot,
+	--draw = draw,
+	--shoot = shoot,
 }

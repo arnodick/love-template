@@ -65,7 +65,7 @@ local function control(g,a,gs)
 	end
 end
 
-local function draw(a)
+local function draw(g,a)
 	LG.rectangle("line",a.x-a.size/2,a.y-a.size/2,a.size,a.size)
 end
 

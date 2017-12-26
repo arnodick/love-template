@@ -105,7 +105,7 @@ local function draw(g,a)
 
 	if g.level then
 		if g.level.mode then
-			run(g.level.modename,"draw",a)
+			run(g.level.modename,"draw",g,a)
 		end
 	end
 end

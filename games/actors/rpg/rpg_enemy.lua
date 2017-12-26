@@ -19,7 +19,7 @@ local function control(g,a)
 
 end
 
-local function draw(a)
+local function draw(g,a)
 	
 end
 

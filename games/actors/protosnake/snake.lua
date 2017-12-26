@@ -59,13 +59,15 @@ local function control(g,a)
 	end
 end
 
+--[[
 local function draw(a)
 
 end
+--]]
 
 return
 {
 	make = make,
 	control = control,
-	draw = draw,
+	--draw = draw,
 }
