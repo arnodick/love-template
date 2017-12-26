@@ -1,4 +1,4 @@
-local function make(a,c,size,spr,hp)
+local function make(g,a,c,size,spr,hp)
 	a.cinit=c or EC.red
 	a.c=a.cinit
 	a.size=size or 2
@@ -8,13 +8,13 @@ local function make(a,c,size,spr,hp)
 	a.value=1
 	a.speed=1.5
 
-	module.make(a,EM.target,Game.player)
+	module.make(a,EM.target,g.player)
 	
 	--TODO make this stuff into some sort of function?
 	local dir=vector.direction(vector.components(a.x,a.y,a.target.x,a.target.y))
 	local dist=vector.distance(a.x,a.y,a.target.x,a.target.y)*1.5
-	local x=math.clamp(a.x+math.cos(dir)*dist,0,Game.width)
-	local y=math.clamp(a.y+math.sin(dir)*dist,0,Game.height)
+	local x=math.clamp(a.x+math.cos(dir)*dist,0,g.width)
+	local y=math.clamp(a.y+math.sin(dir)*dist,0,g.height)
 	module.make(a,EM.controller,EMC.move,EMCI.ai,x,y)
 
 	module.make(a,EM.sound,3,"damage")

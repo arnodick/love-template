@@ -1,4 +1,4 @@
-local function make(a,c,size,spr,hp)
+local function make(g,a,c,size,spr,hp)
 	a.cinit=c or EC.yellow
 	a.c=a.cinit
 	a.size=size or 1
@@ -7,7 +7,7 @@ local function make(a,c,size,spr,hp)
 
 	a.speed=2
 
-	module.make(a,EM.controller,EMC.move,EMCI.ai,Game.width/2,Game.height/4*3)
+	module.make(a,EM.controller,EMC.move,EMCI.ai,g.width/2,g.height/4*3)
 	module.make(a,EM.sound,3,"damage")
 	module.make(a,EM.animation,EM.animations.frames,10,2)
 	module.make(a,EM.hitradius,4)
@@ -42,8 +42,8 @@ local function control(g,a)
 end
 
 local function dead(a)
-	local zoomchange=-(g.camera.zoom-1)
-	module.make(g.camera,EM.transition,easing.inOutSine,"zoom",g.camera.zoom,zoomchange,10)
+	local zoomchange=-(Game.camera.zoom-1)
+	module.make(Game.camera,EM.transition,easing.inOutSine,"zoom",Game.camera.zoom,zoomchange,10)
 end
 
 return

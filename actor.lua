@@ -11,7 +11,7 @@ local function make(g,t,x,y,d,vel,...)
 	a.delta=g.timer
 	a.delete=false
 	a.flags = 0x0
-	run(EA[g.name][a.t],"make",a,...)
+	run(EA[g.name][a.t],"make",g,a,...)--actor's specifc make function (ie snake.make)
 	counters.update(g,g.counters,a,1)
 --[[
 	if flags.get(a.flags,EF.queue) then

@@ -1,11 +1,11 @@
-local function make(a)
+local function make(g,a)
 	a.c=c or EC.blue
 	a.projvel=0
 	a.rof=20
 	a.num=1
 	a.acc=0.1
 	a.snd=2
-	a.proj=EA[Game.name].lightning
+	a.proj=EA[g.name].lightning
 end
 
 local function draw(a)

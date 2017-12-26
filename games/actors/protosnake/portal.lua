@@ -1,4 +1,4 @@
-local function make(a,c,size)
+local function make(g,a,c,size)
 	a.cinit=c or EC.dark_purple
 	a.c=a.cinit
 	a.sizeinit=size or 20

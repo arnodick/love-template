@@ -1,11 +1,11 @@
-local function make(a)
+local function make(g,a)
 	a.c=c or EC.blue
 	a.projvel=0
 	a.rof=1
 	a.num=1
 	a.acc=0
 	a.snd=25
-	a.proj=EA[Game.name].beam
+	a.proj=EA[g.name].beam
 end
 
 local function draw(a)

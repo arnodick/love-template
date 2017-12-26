@@ -1,4 +1,4 @@
-local function make(a)
+local function make(g,a)
 	a.c=c or EC.blue
 end
 

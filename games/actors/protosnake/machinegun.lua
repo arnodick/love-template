@@ -1,4 +1,4 @@
-local function make(a,c,bc)
+local function make(g,a,c,bc)
 	a.c=c or EC.blue
 	a.bc=bc
 	a.size=1
@@ -9,7 +9,7 @@ local function make(a,c,bc)
 	a.num=1
 	a.acc=0.015
 	a.snd=2
-	a.proj=EA[Game.name].bullet
+	a.proj=EA[g.name].bullet
 	module.make(a,EM.item)
 end
 

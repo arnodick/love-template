@@ -1,4 +1,4 @@
-local function make(a,c)
+local function make(g,a,c)
 	a.c=c or EC.dark_purple
 	a.size=1
 	a.sprinit=145

@@ -1,4 +1,4 @@
-local function make(a,c,size,spr)
+local function make(g,a,c,size,spr)
 	a.c=c or EC.pure_white
 	a.size=size or 1
 	a.spr=spr or 1

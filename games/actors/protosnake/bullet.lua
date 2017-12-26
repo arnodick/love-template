@@ -1,4 +1,4 @@
-local function make(a,c)
+local function make(g,a,c)
 	a.cinit=c or EC.red
 	a.c=a.cinit
 	a.spr=65
@@ -20,10 +20,12 @@ local function control(g,a)
 	end
 end
 
+--[[
 local function draw(a)
 		--LG.setColor(Game.palette[EC.green])
 		--LG.draw(Spritesheet[a.size],Quads[a.size][a.spr],a.x,a.y,a.angle,1.2,1.2,(a.size*Game.tile.width)/2,(a.size*Game.tile.height)/2)
 end
+--]]
 --[[
 local function predraw(a)
 		LG.setColor(Game.palette[EC.dark_green])
@@ -38,7 +40,7 @@ return
 {
 	make = make,
 	control = control,
-	draw = draw,
+	--draw = draw,
 	--predraw = predraw,
 	collision = collision,
 }

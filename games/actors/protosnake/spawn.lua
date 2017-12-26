@@ -1,4 +1,4 @@
-local function make(a,c)
+local function make(g,a,c)
 	a.x=love.math.random(319)
 	a.y=love.math.random(239)
 	a.cinit=EC.blue
@@ -8,7 +8,7 @@ local function make(a,c)
 	a.size=60
 	a.flags=flags.set(a.flags,EF.enemy)--NOTE this is to make sure a bazillion spawns don't... spawn
 	a.sfx=false
-	local l=Game.level
+	local l=g.level
 	a.enemyspawn=l.spawnindex
 end
 

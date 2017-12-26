@@ -2,7 +2,7 @@
 -- maybe even do modules through ini? what would this look like?
 -- [modulename ie explosion]
 -- r=12
-local function make(a,c,size)
+local function make(g,a,c,size)
 	a.cinit=c or EC.indigo
 	a.c=a.cinit
 	a.size=size or 6

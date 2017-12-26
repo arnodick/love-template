@@ -1,4 +1,4 @@
-local function make(a,c,size,spr,hp)
+local function make(g,a,c,size,spr,hp)
 	local e=Enums
 
 	if #Joysticks>0 then
@@ -26,7 +26,7 @@ local function make(a,c,size,spr,hp)
 	module.make(a,EM.hitradius,4)
 	module.make(a,EM.tail,a.cinit,9)
 	module.make(a,EM.inventory,2)
-	actor.make(Game,EA[Game.name].machinegun,a.x,a.y,0,0,EC.dark_purple,EC.dark_purple)
+	actor.make(g,EA[g.name].machinegun,a.x,a.y,0,0,EC.dark_purple,EC.dark_purple)
 	a.flags=flags.set(a.flags,EF.character,EF.persistent,EF.damageable, EF.shootable, EF.explosive)
 	--print(EF.shootable)
 

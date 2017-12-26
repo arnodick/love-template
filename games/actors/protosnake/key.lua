@@ -1,4 +1,4 @@
-local function make(a,c,size,spr)
+local function make(g,a,c,size,spr)
 	a.cinit=c or EC.blue
 	a.c=a.cinit
 	a.size=size or 1
@@ -11,8 +11,8 @@ local function make(a,c,size,spr)
 	a.cost=0
 end
 
-local function get(g,a)
-	local port=actor.make(g,EA[g.name].portal,g.width/2,g.height/2+40)
+local function get(a)
+	local port=actor.make(Game,EA[Game.name].portal,Game.width/2,Game.height/2+40)
 	port.c=EC.red
 	port.level=2
 end

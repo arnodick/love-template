@@ -1,4 +1,4 @@
-local function make(a,c,size,spr,hp)
+local function make(g,a,c,size,spr,hp)
 	local e=Enums
 
 	if #Joysticks>0 then

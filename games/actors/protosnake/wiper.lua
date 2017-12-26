@@ -1,4 +1,4 @@
-local function make(a,c)
+local function make(g,a,c)
 	a.c=c or EC.red
 	a.d=0
 	a.vel=1

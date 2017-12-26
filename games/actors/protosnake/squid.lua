@@ -1,4 +1,4 @@
-local function make(a,c,size,spr,hp)
+local function make(g,a,c,size,spr,hp)
 	a.cinit=c or EC.yellow
 	a.c=a.cinit
 	a.size=size or 1
@@ -8,7 +8,7 @@ local function make(a,c,size,spr,hp)
 	a.value=1
 	a.speed=2
 
-	module.make(a,EM.target,Game.player)
+	module.make(a,EM.target,g.player)
 
 	module.make(a,EM.controller,EMC.move,EMCI.ai,a.x,a.y)
 	module.make(a,EM.sound,3,"damage")
@@ -16,7 +16,7 @@ local function make(a,c,size,spr,hp)
 	module.make(a,EM.hitradius,4)
 	a.flags=flags.set(a.flags,EF.character,EF.enemy,EF.damageable, EF.shootable, EF.explosive)
 
-	Game.level.enemies.max=math.clamp(Game.level.enemies.max+1,1,Game.level.enemies.maxlimit)
+	g.level.enemies.max=math.clamp(g.level.enemies.max+1,1,g.level.enemies.maxlimit)
 end
 
 local function control(g,a)

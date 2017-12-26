@@ -1,10 +1,10 @@
-local function make(a,c,size)
+local function make(g,a,c,size)
 	sfx.play(1,a.x,a.y)
 	a.cinit=c or EC.white
 	a.c=a.cinit
 	a.size=size or 20
 	a.r=0
-	Game.screen.shake=a.size--TODO make shake module, does this then deletes itself
+	g.screen.shake=a.size--TODO make shake module, does this then deletes itself
 	--instead of having an explosion actor, have an explosion flag, which does all the stuff an explosion would normally do
 	a.flags=flags.set(a.flags,EF.persistent)
 end
