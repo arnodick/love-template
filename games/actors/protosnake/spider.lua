@@ -25,7 +25,7 @@ local function make(a,c,size,spr,hp)
 	sfx.play(12)
 end
 
-local function control(a)
+local function control(g,a)
 	if actor.collision(a.x,a.y,a.target) then
 		actor.damage(a.target,8)
 		actor.damage(a,a.hp)
@@ -41,14 +41,14 @@ local function control(a)
 	if not a.controller.move.target then
 		local dir=vector.direction(vector.components(a.x,a.y,a.target.x,a.target.y))
 		local dist=vector.distance(a.x,a.y,a.target.x,a.target.y)*1.5
-		local x=math.clamp(a.x+math.cos(dir)*dist,0,Game.width)
-		local y=math.clamp(a.y+math.sin(dir)*dist,0,Game.height)
+		local x=math.clamp(a.x+math.cos(dir)*dist,0,g.width)
+		local y=math.clamp(a.y+math.sin(dir)*dist,0,g.height)
 		module.make(a,EM.controller,EMC.move,EMCI.ai,x,y)
 		sfx.play(12)
 	end
 
-	if Game.player.hp<=0 then
-		for i,v in ipairs(Game.actors) do
+	if g.player.hp<=0 then
+		for i,v in ipairs(g.actors) do
 			if flags.get(v.flags,EF.enemy) then
 				if v~=a then
 					a.controller.move.target=v

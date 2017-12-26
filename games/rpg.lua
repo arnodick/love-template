@@ -12,8 +12,8 @@ rpg.gameplay =
 
 		g.step=false
 
-		Game.player=actor.make(Game,EA[Game.name].rpg_player,g.width/2,g.height/2)
-		actor.make(Game,EA[Game.name].rpg_enemy,g.width/2,g.height/2)
+		g.player=actor.make(Game,EA[g.name].rpg_player,g.width/2,g.height/2)
+		actor.make(Game,EA[g.name].rpg_enemy,g.width/2,g.height/2)
 	end,
 
 	keypressed = function(g,key)

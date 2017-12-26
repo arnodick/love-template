@@ -2,9 +2,9 @@ local function make(a)
 	a.c=c or EC.blue
 end
 
-local function control(a)
+local function control(g,a)
 	local dam=1
-	for i,enemy in ipairs(Game.actors) do
+	for i,enemy in ipairs(g.actors) do
 		if flags.get(enemy.flags,EF.shootable) then
 			if not enemy.delete then
 				if actor.collision(a.x,a.y,enemy) then

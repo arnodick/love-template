@@ -18,7 +18,7 @@ local function make(a,c,size,char,hp)
 
 end
 
-local function control(a)
+local function control(g,a)
 	if SFX.positonal then
 		love.audio.setPosition(a.x,a.y,0)
 	end

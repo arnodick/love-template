@@ -18,7 +18,7 @@ local function make(a,c,size,spr,hp)
 	a.flags=flags.set(a.flags,EF.character,EF.persistent,EF.damageable, EF.shootable, EF.explosive)
 end
 
-local function control(a)
+local function control(g,a)
 	if SFX.positonal then
 		love.audio.setPosition(a.x,a.y,0)
 	end

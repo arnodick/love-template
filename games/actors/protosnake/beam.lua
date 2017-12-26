@@ -5,9 +5,9 @@ local function make(a,gx,gy,ga)
 	a.c=c or EC.blue
 end
 
-local function control(a,gs)
+local function control(g,a,gs)
 	local dam=0
-	for i,enemy in ipairs(Game.actors) do
+	for i,enemy in ipairs(g.actors) do
 		if flags.get(enemy.flags,EF.shootable) then
 			if not enemy.delete then
 				local ld=vector.direction(enemy.x-a.gx,enemy.y-a.gy)
@@ -19,7 +19,7 @@ local function control(a,gs)
 			end
 		end
 	end
-	if Game.timer-a.delta>=gs*3 then
+	if g.timer-a.delta>=gs*3 then
 		a.delete=true
 	end
 end

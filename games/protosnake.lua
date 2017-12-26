@@ -104,14 +104,14 @@ protosnake.gameplay =
 		g.score=0
 		--hud.make(g,EM.huds.protosnake_hud)
 		hud.make(g,"gameplay")
-		g.player=actor.make(g,EA[Game.name].player,g.width/2,g.height/2)
+		g.player=actor.make(g,EA[g.name].player,g.width/2,g.height/2)
 		--module.make(a,EM.player)
 
 		level.make(g,1,Enums.games.modes.topdown)
 	end,
 
 	control = function(g)
-		if Game.player.hp<=0 then
+		if g.player.hp<=0 then
 			if not g.hud.menu then
 				module.make(g.hud,EM.menu,EMM.highscores,g.width/2,g.height/2,66,100,"",g.hud.c,g.hud.c2,"center")
 			end
@@ -120,7 +120,7 @@ protosnake.gameplay =
 
 	keypressed = function(g,key)
 		if key=='space' then
-			if Game.player.hp<=0 then
+			if g.player.hp<=0 then
 				game.state.make(g,"gameplay")
 			end
 		elseif key=='escape' then
@@ -130,7 +130,7 @@ protosnake.gameplay =
 
 	gamepadpressed = function(g,button)
 		if button=="start" then
-			if Game.player.hp<=0 then
+			if g.player.hp<=0 then
 				game.state.make(g,"gameplay")
 			elseif not g.editor then
 				g.pause = not g.pause
@@ -146,7 +146,7 @@ protosnake.title =
 		g.hud.font=LG.newFont("fonts/Kongtext Regular.ttf",64)
 		g.scores=scores.load()
 		music.play(1)
-		module.make(g.hud,EM.menu,EMM.interactive,Game.width/2,180,60,30,{"START","OPTIONS"},EC.orange,EC.dark_green,"left",{game.state.make,game.state.make},{{Game,"gameplay"},{Game,"option"}})
+		module.make(g.hud,EM.menu,EMM.interactive,g.width/2,180,60,30,{"START","OPTIONS"},EC.orange,EC.dark_green,"left",{game.state.make,game.state.make},{{Game,"gameplay"},{Game,"option"}})
 	end,
 
 	control = function(g)
@@ -176,11 +176,11 @@ protosnake.title =
 		LG.setCanvas(g.canvas.buffer)
 			LG.setFont(g.hud.font)
 			LG.setColor(g.palette[EC.dark_purple])
-			LG.printf("PROTO\nSNAKE",0,20,Game.width,"center")
-			LG.setFont(Game.font)
+			LG.printf("PROTO\nSNAKE",0,20,g.width,"center")
+			LG.setFont(g.font)
 			LG.setColor(g.palette[EC.white])
 			menu.draw(g.hud.menu)
-			--LG.printf("PRESS SPACE",0,180,Game.width,"center")
+			--LG.printf("PRESS SPACE",0,180,g.width,"center")
 		LG.setCanvas(g.canvas.main)
 	---[[
 		local imgdata=g.canvas.buffer:newImageData(0,0,g.canvas.buffer:getWidth()-1,g.canvas.buffer:getHeight()-1)
@@ -305,14 +305,14 @@ protosnake.hud.gameplay =
 		LG.setColor(g.palette[h.c])
 
 		LG.print("score:"..g.score,g.camera.x+h.score.x,g.camera.y+h.score.y)
-		LG.print("coins:"..Game.player.coin,g.camera.x+h.coins.x,g.camera.y+h.coins.y)
-		LG.print("hp:"..Game.player.hp,g.camera.x+h.hp.x,g.camera.y+h.hp.y)
+		LG.print("coins:"..g.player.coin,g.camera.x+h.coins.x,g.camera.y+h.coins.y)
+		LG.print("hp:"..g.player.hp,g.camera.x+h.hp.x,g.camera.y+h.hp.y)
 
-		for i=1,Game.player.inventory.max do
+		for i=1,g.player.inventory.max do
 			local x,y=g.camera.x+40-i*20,20
 			LG.rectangle("line",x,y,15,15)
-			if Game.player.inventory[i] then
-				local a=Game.player.inventory[i]
+			if g.player.inventory[i] then
+				local a=g.player.inventory[i]
 				LG.draw(Spritesheet[a.size],Quads[a.size][a.spr],x+7,y+7,a.angle,1,1,(a.size*g.tile.width)/2,(a.size*g.tile.height)/2)
 			end
 		end
@@ -321,7 +321,7 @@ protosnake.hud.gameplay =
 			LG.printformat("PAUSE",g.camera.x-g.width/2,g.camera.y,g.width,"center",EC.white,h.c)
 		end
 
-		if Game.player.hp <= 0 then
+		if g.player.hp <= 0 then
 			LG.printformat("YOU DIED",g.camera.x-g.width/2,g.camera.y-66,g.width,"center",EC.white,h.c)
 			LG.printformat("PRESS SPACE",g.camera.x-g.width/2,g.camera.y+60,g.width,"center",EC.white,h.c)
 		end

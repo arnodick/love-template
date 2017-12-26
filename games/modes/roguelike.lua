@@ -1,4 +1,4 @@
-local function control(a,gs)
+local function control(g,a,gs)
 	if a.controller then
 		local c=a.controller.move
 		if c then

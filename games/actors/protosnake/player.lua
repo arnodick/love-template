@@ -33,23 +33,23 @@ local function make(a,c,size,spr,hp)
 	--animation.make(a,2,32) --SWEET GLITCH ANIMATION
 end
 
-local function control(a)
-	--a.cinit=math.floor((Game.timer/2)%16)+1 --SWEET COLOUR CYCLE
-	local gamename=Game.name
-	if Game.pause then
-		Game.speed=0
+local function control(g,a)
+	--a.cinit=math.floor((g.timer/2)%16)+1 --SWEET COLOUR CYCLE
+	local gamename=g.name
+	if g.pause then
+		g.speed=0
 	else
-		if Game.ease then
-			if Game.speed<a.vel then
-				Game.speed=Game.speed+0.01
+		if g.ease then
+			if g.speed<a.vel then
+				g.speed=g.speed+0.01
 			else
-				Game.speed=a.vel
-				Game.ease=false
+				g.speed=a.vel
+				g.ease=false
 			end
-		elseif Game.level.t=="store" then--TODO make this a level value (level.time = time slow or not)
-			Game.speed=1
+		elseif g.level.t=="store" then--TODO make this a level value (level.time = time slow or not)
+			g.speed=1
 		else
-			Game.speed=math.clamp(a.vel,0.1,1)
+			g.speed=math.clamp(a.vel,0.1,1)
 		end
 	end
 	--[[

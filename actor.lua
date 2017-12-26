@@ -11,13 +11,11 @@ local function make(g,t,x,y,d,vel,...)
 	a.delta=g.timer
 	a.delete=false
 	a.flags = 0x0
-	if _G[EA[g.name][a.t]]["make"] then
-		_G[EA[g.name][a.t]]["make"](a,...)
-	end
+	run(EA[g.name][a.t],"make",a,...)
 	counters.update(g,g.counters,a,1)
 --[[
 	if flags.get(a.flags,EF.queue) then
-		Game.actors[ EA[Game.name ][a.t].."s" ][ EA[Game.name ][a.t].."s" ]={}
+		g.actors[ EA[g.name ][a.t].."s" ][ EA[g.name ][a.t].."s" ]={}
 	end
 --]]
 
@@ -36,10 +34,7 @@ local function control(g,a,gs)
 		end
 	end
 
-	--actor's specific type control (ie snake.control)
-	if _G[EA[g.name][a.t]]["control"] then
-		_G[EA[g.name][a.t]]["control"](a,gs)
-	end
+	run(EA[g.name][a.t],"control",g,a,gs)--actor's specific type control (ie snake.control)
 
 	if a.item then--if a IS an item, do its item stuff
 		item.control(a,gs)

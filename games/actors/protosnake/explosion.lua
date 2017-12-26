@@ -9,15 +9,15 @@ local function make(a,c,size)
 	a.flags=flags.set(a.flags,EF.persistent)
 end
 
-local function control(a,gs)
-	local delta = (Game.timer-a.delta)
+local function control(g,a,gs)
+	local delta = (g.timer-a.delta)
 	a.r = a.size*(delta/6)
 	if a.r>=a.size then
 		for j=1,6*a.size do
 			local s = math.randomfraction(a.size/2)
 			local dir = math.randomfraction(math.pi*2)
 			local d = math.randomfraction(math.pi*2)
-			actor.make(Game,EA[Game.name].cloud,a.x+math.cos(dir)*s,a.y+math.sin(dir)*s,d,math.randomfraction(0.5))
+			actor.make(g,EA[g.name].cloud,a.x+math.cos(dir)*s,a.y+math.sin(dir)*s,d,math.randomfraction(0.5))
 		end
 		a.delete=true
 	end

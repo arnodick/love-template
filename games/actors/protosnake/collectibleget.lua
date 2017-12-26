@@ -5,12 +5,12 @@ local function make(a,c,size,spr)
 	a.scalex=1
 end
 
-local function control(a)
-	a.scalex=math.sin(Game.timer)
-	if Game.timer-a.delta>=30 then
+local function control(g,a)
+	a.scalex=math.sin(g.timer)
+	if g.timer-a.delta>=30 then
 		sfx.play(8)
 		for i=1,20 do
-			actor.make(Game,EA[Game.name].spark,a.x,a.y)
+			actor.make(g,EA[g.name].spark,a.x,a.y)
 		end
 		a.delete=true
 	end

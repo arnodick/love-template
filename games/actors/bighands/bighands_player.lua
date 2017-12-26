@@ -24,7 +24,7 @@ local function make(a,c,size,spr,hp)
 	--animation.make(a,2,32) --SWEET GLITCH ANIMATION
 end
 
-local function control(a)
+local function control(g,a)
 	
 end
 

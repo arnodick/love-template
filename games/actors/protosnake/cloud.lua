@@ -17,8 +17,8 @@ local function make(a,c,size)
 	a.flags=flags.set(a.flags,EF.bouncy)
 end
 
-local function control(a)
-	local delta=Game.timer-a.delta
+local function control(g,a)
+	local delta=g.timer-a.delta
 	a.r=a.size-delta/5
 	a.alpha=a.alpha-2
 	if a.r<1 then

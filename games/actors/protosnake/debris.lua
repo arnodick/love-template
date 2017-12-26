@@ -10,7 +10,7 @@ local function make(a,c)
 	a.flags=flags.set(a.flags,EF.bouncy,EF.persistent)
 end
 
-local function control(a)
+local function control(g,a)
 	if a.vel<=0 then
 		a.delete=true
 	end

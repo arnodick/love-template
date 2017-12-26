@@ -15,7 +15,7 @@ local function make(a,c,size,char,hp)
 
 end
 
-local function control(a)
+local function control(g,a)
 
 end
 

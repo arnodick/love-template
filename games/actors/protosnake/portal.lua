@@ -7,7 +7,7 @@ local function make(a,c,size)
 	--a.flags=flags.switch(a.flags,EF.persistent)
 end
 
-local function control(a,gs)
+local function control(g,a,gs)
 	a.size=math.clamp(a.size+love.math.random(8)-4,1,20)
 
 		--TODO make this a function. in pixelmaps?
@@ -16,35 +16,35 @@ local function control(a,gs)
 		local ix2,iy2=ix+tw,iy+th
 		if ix<0 then ix=0 end
 		if iy<0 then iy=0 end
-		if ix2>Game.width then
-			local diff=ix2-Game.width
+		if ix2>g.width then
+			local diff=ix2-g.width
 			tw=tw-diff
 		end
-		if iy2>Game.height then
-			local diff=iy2-Game.height
+		if iy2>g.height then
+			local diff=iy2-g.height
 			th=th-diff
 		end
 
-	local imgdata=Game.canvas.background:newImageData(ix,iy,tw,th)
+	local imgdata=g.canvas.background:newImageData(ix,iy,tw,th)
 
 	imgdata:mapPixel(pixelmaps.sparkle)
 	imgdata:mapPixel(pixelmaps.crush)
 
 	a.image=LG.newImage(imgdata)
 
-	local dist=vector.distance(a.x,a.y,Game.player.x,Game.player.y)
+	local dist=vector.distance(a.x,a.y,g.player.x,g.player.y)
 	if dist<20 then
 		--TODO make level.change or something
-		for i,v in pairs(Game.actors) do
+		for i,v in pairs(g.actors) do
 			if flags.get(v.flags,EF.enemy) and v.hp then
 				actor.damage(v,v.hp)
 			elseif not flags.get(v.flags,EF.persistent) then
 				v.delete=true
 			end
 		end
-		level.make(Game,a.level,Enums.games.modes.topdown)
-		Game.ease=true--TODO make easing function for this. works on any number
-		Game.speed=0.01
+		level.make(g,a.level,Enums.games.modes.topdown)
+		g.ease=true--TODO make easing function for this. works on any number
+		g.speed=0.01
 		a.delete=true --TODO maybe give this a VERY low chance of not happening?
 	end
 end

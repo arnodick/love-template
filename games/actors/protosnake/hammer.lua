@@ -12,17 +12,17 @@ local function make(a,c)
 	module.make(a,EM.item)
 end
 
-local function control(a)
+local function control(g,a)
 	if not flags.get(a.flags,EF.shopitem) then
 		if not a.spr then
 			a.spr=a.sprinit
 		end
 	end
-	for i,v in pairs(Game.actors) do
-		if v.t==EA[Game.name].projectile then
+	for i,v in pairs(g.actors) do
+		if v.t==EA[g.name].projectile then
 			if actor.collision(v.x,v.y,a) then
 			for i=1,20 do
-				local spark=actor.make(Game,EA[Game.name].spark,v.x,v.y)
+				local spark=actor.make(g,EA[g.name].spark,v.x,v.y)
 					spark.c=v.cinit
    				end
 				v.delete=true
