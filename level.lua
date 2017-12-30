@@ -22,13 +22,18 @@ level.load = function(g,dir)
 	g.levels=l
 end
 
-level.make = function(g,index,mode)
+level.make = function(g,index,mode,tw,th)
 	local l={}
 	if mode then
 		l.mode=mode
 		l.modename=Enums.games.modes[mode]
 	end
 	g.levels.index=index
+	if tw and th then
+		l.tile={}
+		l.tile.width=tw
+		l.tile.height=th
+	end
 	game.state.run(g.name,"level","make",g,l,index)
 	g.level=l
 end
