@@ -28,6 +28,9 @@ level.make = function(g,index,mode,tw,th)
 		l.mode=mode
 		l.modename=Enums.games.modes[mode]
 	end
+	if not g.levels then
+		g.levels={}
+	end
 	g.levels.index=index
 	if tw and th then
 		l.tile={}

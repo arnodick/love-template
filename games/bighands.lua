@@ -1,5 +1,13 @@
 local bighands={}
 
+bighands.level={}
+
+bighands.level.make = function(g,l,index)
+	local mw,mh=g.width/g.tile.width,g.height/g.tile.height
+	l.map=map.generate("walls",mw+2,mh+2)
+	return l
+end
+
 bighands.make = function(g,tw,th,gw,gh,sp)
 
 end
@@ -7,9 +15,11 @@ end
 bighands.gameplay =
 {
 	make = function(g)
-		local mw,mh=g.width/g.tile.width,g.height/g.tile.height
-		g.map=map.generate("walls",mw+2,mh+2)
-		g.player=actor.make(g,EA[g.name].bighands_player,g.width/2,g.height/2)
+		level.make(g,1,Enums.games.modes.topdown)
+		g.players={}
+		table.insert(g.players,actor.make(g,EA[g.name].bighands_player,g.width/2,g.height/2))
+		table.insert(g.players,actor.make(g,EA[g.name].bighands_player,g.width/2,g.height/2))
+		--g.player=actor.make(g,EA[g.name].bighands_player,g.width/2,g.height/2)
 	end,
 
 	keypressed = function(g,key)
@@ -26,7 +36,7 @@ bighands.gameplay =
 	end,
 
 	draw = function(g)
-		LG.print("bighands gaem", g.width/2, g.height/2)
+		LG.print("bighands gaem",g.width/2,g.height/2)
 	end
 }
 

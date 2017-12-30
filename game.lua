@@ -4,9 +4,11 @@ game.state={}
 game.state.run = function(gamename,statename,functionname,...)
 	--dynamically runs a function from the current game's current state
 	--NOTE need this AND run because this uses a 3D table, maybe some tricky way to lump this in with run?
-	if _G[gamename][statename][functionname] then
-		_G[gamename][statename][functionname](...)
-	end
+	--if _G[gamename][statename] then
+		if _G[gamename][statename][functionname] then
+			_G[gamename][statename][functionname](...)
+		end
+	--end
 end
 
 game.state.make = function(g,state)
