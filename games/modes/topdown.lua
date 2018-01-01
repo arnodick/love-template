@@ -59,11 +59,8 @@ local function draw(g,a)
 	end
 --]]
 
-	if not a.c then
-		print(EA.protosnake[a.t])
-		print(a.c)
-	end
-	local r,gr,b=unpack(g.palette[a.c])
+	local c=a.c or EC.pure_white
+	local r,gr,b=unpack(g.palette[c])
 	local alpha=255
 	if a.alpha then
 		alpha=a.alpha

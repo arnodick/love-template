@@ -1,4 +1,6 @@
 PRIORITY
+make animations not have enums for their inputs any more, jsut use table of strings like in map
+module delete function? resets values that need to be set back to init value ie: flashing sprite needs to be set back to having a sprite
 Make actor.drawmodes and cursor.modes, put editor cursor in modes not as a file and subtype file 
 	Make cursor blinky and just corners draw not whole square
 map should take g.level as input too, or Game if that's how it go

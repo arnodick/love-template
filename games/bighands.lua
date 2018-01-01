@@ -36,7 +36,7 @@ bighands.gameplay =
 	end,
 
 	draw = function(g)
-		LG.print("bighands gaem",g.width/2,g.height/2)
+		--LG.print("bighands gaem",g.width/2,g.height/2)
 	end
 }
 
