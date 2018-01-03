@@ -22,11 +22,18 @@ local function make(g,a,c,size,spr,hp)
 	module.make(a,EM.sound,4,"damage")
 	module.make(a,EM.hitradius,4)
 
-	a.flags=flags.set(a.flags,EF.character,EF.persistent,EF.damageable,EF.shootable)
+	a.flags=flags.set(a.flags,EF.character,EF.persistent,EF.damageable)
 end
 
 local function control(g,a)
-	a.angle=-a.d+math.pi/2
+	if not a.controller.action.action then
+		a.angle=-a.d
+	else
+		a.angle=vector.direction(a.controller.aim.horizontal,a.controller.aim.vertical)
+		if a.controller.action.use then
+			actor.make(g,EA[g.name].bighands_bullet,a.x,a.y,a.angle,2)
+		end
+	end
 	if a.vel>0 then
 		if not a.animation then
 			module.make(a,EM.animation,EM.animations.frames,10,4)
