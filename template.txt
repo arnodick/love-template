@@ -1,4 +1,5 @@
 PRIORITY
+keyboard vector instead of absolute
 make animations not have enums for their inputs any more, jsut use table of strings like in map
 module delete function? resets values that need to be set back to init value ie: flashing sprite needs to be set back to having a sprite
 Make actor.drawmodes and cursor.modes, put editor cursor in modes not as a file and subtype file 

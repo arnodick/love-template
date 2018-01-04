@@ -18,7 +18,7 @@ bighands.gameplay =
 		level.make(g,1,Enums.games.modes.topdown_tank)
 		g.players={}
 		table.insert(g.players,actor.make(g,EA[g.name].bighands_player,g.width/2,g.height/2))
-		table.insert(g.players,actor.make(g,EA[g.name].bighands_player,g.width/2,g.height/2))
+		--table.insert(g.players,actor.make(g,EA[g.name].bighands_player,g.width/2,g.height/2))
 		--g.player=actor.make(g,EA[g.name].bighands_player,g.width/2,g.height/2)
 	end,
 

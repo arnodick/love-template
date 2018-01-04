@@ -21,18 +21,23 @@ local function make(g,a,c,size,spr,hp)
 
 	module.make(a,EM.sound,4,"damage")
 	module.make(a,EM.hitradius,4)
+	module.make(a,EM.inventory,1)
+	actor.make(g,EA[g.name].wand,a.x,a.y)
+
+	a.hand={l=8,d=math.pi/4,x=0,y=0}
+	a.hand.x=a.x+(math.cos(a.d+a.hand.d)*a.hand.l)
+	a.hand.y=a.y+(math.sin(a.d+a.hand.d)*a.hand.l)
 
 	a.flags=flags.set(a.flags,EF.character,EF.persistent,EF.damageable)
 end
 
 local function control(g,a)
+	a.hand.x=a.x+(math.cos(a.angle+a.hand.d)*a.hand.l)
+	a.hand.y=a.y+(math.sin(a.angle+a.hand.d)*a.hand.l)
 	if not a.controller.action.action then
 		a.angle=-a.d
 	else
 		a.angle=vector.direction(a.controller.aim.horizontal,a.controller.aim.vertical)
-		if a.controller.action.use then
-			actor.make(g,EA[g.name].bighands_bullet,a.x,a.y,a.angle,2)
-		end
 	end
 	if a.vel>0 then
 		if not a.animation then
@@ -46,7 +51,7 @@ local function control(g,a)
 end
 
 local function draw(g,a)
-	
+	--LG.points(a.hand.x,a.hand.y)
 end
 
 local function damage(a)
