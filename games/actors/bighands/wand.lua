@@ -1,4 +1,4 @@
-local function make(g,a,c)
+local function make(g,a,c,user)
 	a.spr=209
 	a.size=1
 	a.snd=2
@@ -19,6 +19,7 @@ end
 
 local function shoot(a)
 	actor.make(Game,EA[Game.name].bighands_bullet,a.tip.x,a.tip.y,a.angle,2)
+	--actor.make(Game,EA[Game.name].bighands_beam,a.tip.x,a.tip.y,a.angle,0,EC.pure_white,a.tip.x,a.tip.y,a.angle)
 end
 
 return

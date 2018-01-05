@@ -35,6 +35,15 @@ local function carry(a,user)
 	elseif user.hand then
 		a.x=user.hand.x
 		a.y=user.hand.y
+--[[
+		if not user.controller.action.action then
+			a.tip.x=a.x+(math.cos(user.angle)*a.l)
+			a.tip.y=a.y+(math.sin(user.angle)*a.l)
+		else
+			a.tip.x=a.x+(math.cos(a.angle)*a.l)
+			a.tip.y=a.y+(math.sin(a.angle)*a.l)
+		end
+--]]
 	end
 end
 
@@ -42,11 +51,6 @@ local function use(a,gs,user,vx,vy,shoot)
 	a.angle=vector.direction(vx,vy)
 	a.vec[1]=math.cos(a.angle)
 	a.vec[2]=math.sin(a.angle)
-
---[[
-	a.x=user.tail.x
-	a.y=user.tail.y
---]]
 
 	if a.delta<=0 then
 		if shoot then
