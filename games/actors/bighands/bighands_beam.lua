@@ -6,7 +6,7 @@ local function make(g,a,gx,gy,ga)
 end
 
 local function control(g,a,gs)
---[[
+---[[
 	local dam=0
 	for i,enemy in ipairs(g.actors) do
 		if flags.get(enemy.flags,EF.shootable) then

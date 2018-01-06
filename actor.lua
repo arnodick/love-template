@@ -126,9 +126,12 @@ local function damage(a,d)
 			if _G[EA[g.name][a.t]]["damage"] then
 				_G[EA[g.name][a.t]]["damage"](a)
 			end
+			--TODO make this game-specific
+--[[
 			for i=1,4 do
 				actor.make(g,EA[g.name].debris,a.x,a.y)
 			end
+--]]
 
 			if a.hit then
 				hit.damage(a.hit,a)
