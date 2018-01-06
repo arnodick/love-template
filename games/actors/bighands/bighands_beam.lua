@@ -2,10 +2,11 @@ local function make(g,a,gx,gy,ga)
 	a.gx=gx or 1
 	a.gy=gy or 1
 	a.ga=ga or 1
-	a.c=c or EC.blue
+	--a.c=c or EC.blue
 end
 
 local function control(g,a,gs)
+--[[
 	local dam=0
 	for i,enemy in ipairs(g.actors) do
 		if flags.get(enemy.flags,EF.shootable) then
@@ -19,7 +20,8 @@ local function control(g,a,gs)
 			end
 		end
 	end
-	if g.timer-a.delta>=gs*3 then
+--]]
+	if g.timer-a.delta>=gs*4 then
 		a.delete=true
 	end
 end
