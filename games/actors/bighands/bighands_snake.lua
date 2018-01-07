@@ -14,7 +14,7 @@ local function make(g,a,c,size,spr,hp)
 	module.make(a,EM.animation,EM.animations.frames,10,2)
 	module.make(a,EM.hitradius,4)
 	--module.make(a,EM.drop,"coin")
-	a.flags=flags.set(a.flags,EF.character,EF.bouncy,EF.enemy,EF.damageable, EF.shootable, EF.explosive)
+	a.flags=flags.set(a.flags,EF.bouncy,EF.enemy,EF.damageable,EF.shootable)
 
 	a.d=math.choose(math.pi)
 	a.vel=1

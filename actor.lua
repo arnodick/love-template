@@ -113,6 +113,7 @@ end
 local function damage(a,d)
 	local g=Game
 	if not a.delete then
+		--TODO game-specific
 		module.make(a,EM.flash,"c",EC.white,a.cinit,6)
 		if a.sound then
 			if a.sound.damage then
@@ -141,6 +142,8 @@ local function damage(a,d)
 				--sfx.play(a.deathsnd,a.x,a.y)
 				a.delete=true
 
+				--TODO game-specific code
+				if g.player then
 				if g.player.hp>0 then
 					if a.value then
 						g.score=g.score+a.value
@@ -148,11 +151,14 @@ local function damage(a,d)
 						l.spawnindex=math.clamp(l.spawnindex+1,1,#l.enemies,true)
 					end
 				end
+				end
 
+				--TODO sort of game-specific
 				if flags.get(a.flags,EF.explosive) then
 					actor.make(g,EA[g.name].explosion,a.x,a.y,0,0,EC.white,20*(a.size))
 				end
 
+				--TODO also sort of game specific
 				if flags.get(a.flags,EF.character) then
 					character.dead(a)
 				end
