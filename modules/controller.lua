@@ -45,16 +45,23 @@ local function gamepadpressed(a,button)
 end
 
 local function deadzone(c,dz)
+	local l=vector.length(c.horizontal,c.vertical)
+	if l<dz then
+		c.horizontal=0
+		c.vertical=0
+	end
+--[[
 	local axes={"horizontal","vertical"}
 	for i=1,#axes do
-		if c[axes[i]]>0 and c[axes[i]]<dz then
-			c[axes[i]]=0
+		if c[axes[i] ]>0 and c[axes[i] ]<dz then
+			c[axes[i] ]=0
 		end
 
-		if c[axes[i]]<0 and c[axes[i]]>-dz then
-			c[axes[i]]=0
+		if c[axes[i] ]<0 and c[axes[i] ]>-dz then
+			c[axes[i] ]=0
 		end
 	end
+--]]
 end
 
 return

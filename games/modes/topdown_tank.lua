@@ -2,8 +2,20 @@ local function control(a,m,gs)
 	if a.controller then
 		local c=a.controller.move
 		if c then
-			if c.horizontal~=0 or c.vertical~=0 then
-				a.d=vector.direction(c.horizontal,-c.vertical)
+			if c.horizontal~=0 and c.vertical~=0 then
+---[[
+				if not a.transition then
+					local controllerdirection=vector.direction(c.horizontal,-c.vertical)
+					local controllerdifference=controllerdirection-a.d
+					--local controllerdifference2=a.d-controllerdirection
+					local controllerdifference2=-a.d-(math.pi*2-controllerdirection)
+					if math.abs(controllerdifference)>math.abs(controllerdifference2) then
+						controllerdifference=controllerdifference2
+					end
+					module.make(a,EM.transition,easing.linear,"d",a.d,controllerdifference,math.abs(controllerdifference*10))
+				end
+--]]
+				--a.d=vector.direction(c.horizontal,-c.vertical)
 				a.vel=vector.length(c.horizontal,c.vertical)
 			else
 				a.vel=0
@@ -23,7 +35,7 @@ local function control(a,m,gs)
 
 	local g=Game
 	local xcell,ycell=map.getcell(m,a.x+g.tile.width,a.y+g.tile.height)--NOTE the +tile.width in this and 2 lines down is just a hack to make protosnake walls work right
-	local xdest,ydest=a.x + a.vec[1]*a.vel*a.speed*gs,a.y - a.vec[2]*a.vel*a.speed*gs
+	local xdest,ydest=a.x + a.vec[1]*a.vel*a.speed*gs,a.y-a.vec[2]*a.vel*a.speed*gs
 	local xcelldest,ycelldest=map.getcell(m,xdest+g.tile.width,ydest+g.tile.height)
 	
 	local xmapcell=m[ycell][xcelldest]

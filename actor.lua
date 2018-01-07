@@ -71,6 +71,10 @@ local function control(g,a,gs)
 --]]
 	end
 
+	if a.transition then
+		transition.control(a,a.transition)
+	end
+
 	if flags.get(a.flags,EF.shopitem) then
 		shopitem.control(a,g.player)
 	end
