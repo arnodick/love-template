@@ -1,4 +1,5 @@
 PRIORITY
+fix weirdness with angle vs direction
 namespace (ughhhhhh) game-specific functions, like player? so, protosnake.player instead of just player
 keyboard vector instead of absolute
 make animations not have enums for their inputs any more, jsut use table of strings like in map

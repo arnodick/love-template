@@ -29,6 +29,7 @@ local function update(g,d)
 		if g.players[1] then
 			if g.players[1].d then
 				table.insert(debuglist,"player dir:"..g.players[1].d)
+				table.insert(debuglist,"player angle:"..g.players[1].angle)
 			end
 		end
 		if g.player then

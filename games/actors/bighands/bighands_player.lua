@@ -34,8 +34,26 @@ end
 local function control(g,a)
 	a.hand.x=a.x+(math.cos(a.angle+a.hand.d)*a.hand.l)
 	a.hand.y=a.y+(math.sin(a.angle+a.hand.d)*a.hand.l)
+	local c=a.controller.move
 	if not a.controller.action.action then
-		a.angle=-a.d
+---[[
+		if not a.transition then
+			if c then
+				if c.horizontal~=0 and c.vertical~=0 then
+					local controllerdirection=vector.direction(c.horizontal,-c.vertical)
+					--local controllerdifference=controllerdirection-a.d
+					local controllerdifference=controllerdirection+a.angle
+					--local controllerdifference2=-a.d-(math.pi*2-controllerdirection)
+					local controllerdifference2=a.angle-(math.pi*2-controllerdirection)
+					if math.abs(controllerdifference)>math.abs(controllerdifference2) then
+						controllerdifference=controllerdifference2
+					end
+					module.make(a,EM.transition,easing.linear,"angle",a.angle,-controllerdifference,math.abs(controllerdifference*10))
+				end
+			end
+		end
+--]]
+		--a.angle=-a.d
 	else
 		a.angle=vector.direction(a.controller.aim.horizontal,a.controller.aim.vertical)
 	end

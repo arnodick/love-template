@@ -66,6 +66,9 @@ end
 
 function love.joystickadded(joystick)
 	table.insert(Joysticks,joystick)
+	print("Joystick "..joystick:getID())
+	print(" GUID: "..joystick:getGUID())
+	print(" Name: "..joystick:getName())
 end
 
 function love.joystickremoved(joystick)
