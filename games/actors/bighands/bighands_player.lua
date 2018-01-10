@@ -1,17 +1,20 @@
 local function make(g,a,c,size,spr,hp)
 	local e=Enums
 
-	if #g.players+1 == 1 then
+	local playernum=#g.players+1
+	--if #g.players+1 == 1 then
 		if #Joysticks>0 then
-			module.make(a,EM.controller,EMC.move,EMCI.gamepad)
-			module.make(a,EM.controller,EMC.aim,EMCI.gamepad)
-			module.make(a,EM.controller,EMC.action,EMCI.gamepad)
+			module.make(a,EM.controller,EMC.move,EMCI.gamepad,playernum)
+			module.make(a,EM.controller,EMC.aim,EMCI.gamepad,playernum)
+			module.make(a,EM.controller,EMC.action,EMCI.gamepad,playernum)
 		end
+--[[
 	else
 		module.make(a,EM.controller,EMC.move,EMCI.keyboard)
 		module.make(a,EM.controller,EMC.aim,EMCI.mouse)
 		module.make(a,EM.controller,EMC.action,EMCI.mouse)
 	end
+--]]
 
 	--a.cinit=c or EC.pure_white
 	--a.c=a.cinit or EC.pure_white
@@ -39,7 +42,7 @@ local function control(g,a)
 ---[[
 		if not a.transition then
 			if c then
-				if c.horizontal~=0 and c.vertical~=0 then
+				if c.horizontal~=0 or c.vertical~=0 then
 					local controllerdirection=vector.direction(c.horizontal,-c.vertical)
 					--local controllerdifference=controllerdirection-a.d
 					local controllerdifference=controllerdirection+a.angle
@@ -48,7 +51,7 @@ local function control(g,a)
 					if math.abs(controllerdifference)>math.abs(controllerdifference2) then
 						controllerdifference=controllerdifference2
 					end
-					module.make(a,EM.transition,easing.linear,"angle",a.angle,-controllerdifference,math.abs(controllerdifference*10))
+					module.make(a,EM.transition,easing.linear,"angle",a.angle,-controllerdifference,math.abs(controllerdifference*5))
 				end
 			end
 		end

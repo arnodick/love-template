@@ -1,20 +1,20 @@
-local function move()
-	local j=Joysticks[1]--TODO make joystick id or something assigned to actor
+local function move(a)
+	local j=Joysticks[a.controller.move.id]
 	--local deadzone=0.25
 	--TODO just use clamp instead of this?
 	--gamepad.deadzone(i,deadzone)
 	return j:getGamepadAxis("leftx"),j:getGamepadAxis("lefty")
 end
 
-local function aim()--TODO maybeinput joystick here? can do this with keyboard, mouse, ai etc.
-	local j=Joysticks[1]--TODO make joystick id or something assigned to actor
+local function aim(a)
+	local j=Joysticks[a.controller.move.id]
 	--local deadzone=0.25
 	--gamepad.deadzone(i,deadzone)
 	return j:getGamepadAxis("rightx"),j:getGamepadAxis("righty")
 end
 
-local function action()
-	local j=Joysticks[1]--TODO make joystick id or something assigned to actor
+local function action(a)
+	local j=Joysticks[a.controller.move.id]
 	local use,action=false,false
 
 	if j:isDown(3) or j:getGamepadAxis("triggerright")>0 then
