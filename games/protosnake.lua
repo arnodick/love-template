@@ -330,4 +330,18 @@ protosnake.hud.gameplay =
 	end
 }
 
+--this is run when an actor in the game loses all its HP
+protosnake.dead = function(g,a)
+{
+	if g.player then
+		if g.player.hp>0 then
+			if a.value then
+				g.score=g.score+a.value
+				local l=g.level
+				l.spawnindex=math.clamp(l.spawnindex+1,1,#l.enemies,true)
+			end
+		end
+	end
+}
+
 return protosnake

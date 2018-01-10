@@ -147,6 +147,8 @@ local function damage(a,d)
 				a.delete=true
 
 				--TODO game-specific code
+				run(g.name,"dead",g,a)
+--[[
 				if g.player then
 				if g.player.hp>0 then
 					if a.value then
@@ -156,6 +158,7 @@ local function damage(a,d)
 					end
 				end
 				end
+--]]
 
 				--TODO sort of game-specific
 				if flags.get(a.flags,EF.explosive) then
