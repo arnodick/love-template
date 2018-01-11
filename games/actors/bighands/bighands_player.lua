@@ -25,7 +25,7 @@ local function make(g,a,c,size,spr,hp)
 	module.make(a,EM.sound,4,"damage")
 	module.make(a,EM.hitradius,4)
 	module.make(a,EM.inventory,1)
-	actor.make(g,EA[g.name].wand,a.x,a.y)
+	actor.make(g,EA[g.name].wand,a.x+20,a.y)
 
 	a.hand={l=8,d=math.pi/4,x=0,y=0}
 	a.hand.x=a.x+(math.cos(a.d+a.hand.d)*a.hand.l)

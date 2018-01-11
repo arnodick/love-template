@@ -17,7 +17,10 @@ local function control(a,gs)
 		--if actor.collision(a.x,a.y,p) then
 		if actor.collision(a.x,a.y,p) then
 			--if Game.player.controller.action.action or #Game.player.inventory<1 then
-			if p.controller.action.action or #p.inventory<1 then
+
+			--TODO make this game-specific, or make pickup styles or something
+			--if p.controller.action.action or #p.inventory<1 then
+			if p.controller.action.action and #p.inventory<1 then
 				if a.sound then
 					if a.sound.get then
 						sfx.play(a.sound.get)

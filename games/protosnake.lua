@@ -48,6 +48,7 @@ protosnake.level.store=
 }
 
 protosnake.level.make = function(g,l,index)
+	--TODO maybe get rid of all this with json?
 	if index~=g.levelpath[#g.levelpath] then
 		table.insert(g.levelpath,index)
 	end
@@ -332,7 +333,6 @@ protosnake.hud.gameplay =
 
 --this is run when an actor in the game loses all its HP
 protosnake.dead = function(g,a)
-{
 	if g.player then
 		if g.player.hp>0 then
 			if a.value then
@@ -342,6 +342,6 @@ protosnake.dead = function(g,a)
 			end
 		end
 	end
-}
+end
 
 return protosnake
