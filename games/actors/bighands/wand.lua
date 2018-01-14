@@ -18,17 +18,27 @@ end
 --]]
 
 local function shoot(a)
+	local r=ray.cast(a.tip.x,a.tip.y,a.angle,50,1)
 	--actor.make(Game,EA[Game.name].bighands_bullet,a.tip.x,a.tip.y,a.angle,2)
+
+--[[
 	local dist=50
 	lx=math.cos(a.angle)*dist
 	ly=math.sin(a.angle)*dist
+--]]
+
 --[[
 	if lx<=0 then lx=1 end
 	if lx>=Game.width then lx=Game.width-1 end
 	if ly<=0 then ly=1 end
 	if ly>=Game.height then ly=Game.height-1 end
 --]]
-	actor.make(Game,EA[Game.name].bighands_beam,a.tip.x+lx,a.tip.y+ly,a.angle,0,a.tip.x,a.tip.y,a.angle)
+
+	lx=math.cos(r.d)*r.len
+	ly=math.sin(r.d)*r.len
+
+	--actor.make(Game,EA[Game.name].bighands_beam,a.tip.x+lx,a.tip.y+ly,a.angle,0,a.tip.x,a.tip.y,a.angle)
+	actor.make(Game,EA[Game.name].bighands_beam,a.tip.x+lx,a.tip.y+ly,r.d,0,a.tip.x,a.tip.y,r.d)
 end
 
 return

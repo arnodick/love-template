@@ -86,7 +86,7 @@ drawmodes.grid = function(m,x,y)
 	if x==1 or y==1 then
 		local tw,th=Game.tile.width,Game.tile.height
 		if Game.levels then
-			local c=Game.palette[Game.level.c]
+			local c=Game.palette[Game.level.c or EC.white]
 			local r=c[1]
 			local g=c[2]
 			local b=c[3]

@@ -8,6 +8,10 @@ bighands.level.make = function(g,l,index)
 	return l
 end
 
+bighands.level.draw = function(g,l)
+	map.draw(l.map,{"grid","sprites"})
+end
+
 bighands.make = function(g,tw,th,gw,gh,sp)
 
 end
