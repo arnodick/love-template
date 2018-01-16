@@ -1,4 +1,6 @@
 PRIORITY
+Mode.make which can be done to game or level
+Maybe just make everything a module? Ie x y d v c alpha etc
 fix weirdness with angle vs direction
 namespace (ughhhhhh) game-specific functions, like player? so, protosnake.player instead of just player
 keyboard vector instead of absolute

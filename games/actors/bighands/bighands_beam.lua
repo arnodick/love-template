@@ -27,12 +27,17 @@ local function control(g,a,gs)
 end
 
 local function draw(g,a)
-	local dist=vector.distance(a.gx,a.gy,a.x,a.y)
-	local dir=vector.direction(vector.components(a.gx,a.gy,a.x,a.y))
+	--local dist=vector.distance(a.gx,a.gy,a.x,a.y)
+	--local dir=vector.direction(vector.components(a.gx,a.gy,a.x,a.y))
+	local dir=a.ga
+	LG.points(a.gx,a.gy,a.x,a.y)
+	
+--[[
 	for i=10,dist,5 do
 		local x,y=a.gx+math.cos(dir)*i,a.gy+math.sin(dir)*i
 		LG.circle("fill",x,y,6)
 	end
+--]]
 end
 
 return

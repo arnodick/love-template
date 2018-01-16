@@ -21,8 +21,10 @@ bighands.gameplay =
 	make = function(g)
 		level.make(g,1,Enums.games.modes.topdown_tank)
 		g.players={}
-		table.insert(g.players,actor.make(g,EA[g.name].bighands_player,g.width/2,g.height/2))
-		table.insert(g.players,actor.make(g,EA[g.name].bighands_player,g.width/2,g.height/2+50))
+		for i=1,#Joysticks do
+			table.insert(g.players,actor.make(g,EA[g.name].bighands_player,g.width/2,g.height/2+(i*10)))
+			--table.insert(g.players,actor.make(g,EA[g.name].bighands_player,g.width/2,g.height/2+50))
+		end
 		actor.make(g,EA[g.name].bighands_snake,g.width/2,g.height/2-20)
 		
 		--table.insert(g.players,actor.make(g,EA[g.name].bighands_player,g.width/2,g.height/2))
