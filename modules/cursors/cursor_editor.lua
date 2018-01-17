@@ -10,7 +10,8 @@ local function draw(cursor)
 	--LG.setColor(g.palette[EC.red])
 	if cursor.snap then
 		local cx,cy=map.getcell(g.level.map,cursor.x+tw,cursor.y+th)
-		local cell=Game.level.map[cy][cx]
+		--local cell=Game.level.map[cy][cx]
+		local cell=map.getcellvalue(g.level.map,cursor.x,cursor.y)
 --[[
 		if flags.get(cell,EF.solid,16) then
 			LG.setColor(g.palette[EC.red])

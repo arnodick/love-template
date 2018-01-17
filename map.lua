@@ -62,11 +62,19 @@ map.getcell = function(m,x,y)
 	return cx,cy
 end
 
+map.getcellvalue = function(m,x,y)
+	local cx,cy=map.getcell(m,x,y)
+	return m[cy][cx]
+end
+
 generators.walls = function(m,w,h,x,y)
 	if x==1 or x==w or y==1 or y==h then
 		--TODO flag stuff screws up games that don't use flags, figure this out in game-specific code
 		local f=bit.lshift(1,(EF.solid-1))--converts an integer into its bit position
 		f=bit.lshift(f,16)--shifts those bits left by 16 so they can be combined with a value in the lower 16
+		
+		--f=1
+
 		m[y][x]=f
 	end
 end

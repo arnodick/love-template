@@ -69,6 +69,8 @@ local function control(g,a)
 			a.animation=nil
 		end
 	end
+	g.camera.x=a.x
+	g.camera.y=a.y
 end
 
 local function draw(g,a)
