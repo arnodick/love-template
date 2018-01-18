@@ -11,14 +11,9 @@ end
 
 editor.mousepressed = function(g,x,y,button)
 	if button==1 then
-		local cx,cy=map.getcell(g.level.map,g.editor.cursor.x,g.editor.cursor.y)
-		g.level.map[cy][cx]=bit.bor(flags.isolate(g.level.map[cy][cx]),g.editor.cursor.value)
+		map.setcellvalue(g.level.map,g.editor.cursor.x,g.editor.cursor.y,g.editor.cursor.value)
 	elseif button==2 then
-		--TODO make this bit shift set a function like editor.flags.set() or something
-		local f=bit.lshift(1,(EF.solid-1))--converts an integer into its bit position
-		f=bit.lshift(f,16)
-		local cx,cy=map.getcell(g.level.map,g.editor.cursor.x,g.editor.cursor.y)
-		g.level.map[cy][cx]=bit.bor(g.level.map[cy][cx],f)
+		map.setcellflag(g.level.map,g.editor.cursor.x,g.editor.cursor.y,EF.solid)
 	end
 end
 

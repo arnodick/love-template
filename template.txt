@@ -1,4 +1,6 @@
 PRIORITY
+maybe make all flags just work on the high 16 bits
+convert getcells to getcellvalue
 why is the map acting as a wall where there is no wall? is it a super high number?
 Mode.make which can be done to game or level
 Maybe just make everything a module? Ie x y d v c alpha etc

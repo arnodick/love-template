@@ -67,6 +67,20 @@ map.getcellvalue = function(m,x,y)
 	return m[cy][cx]
 end
 
+map.setcellvalue = function(m,x,y,v)
+	--sets the value of a map cell in the low 16 bits while retaining the flags in the high 16 bits
+	local cx,cy=map.getcell(m,x,y)
+	m[cy][cx]=bit.bor(flags.isolate(m[cy][cx]),v)
+end
+
+map.setcellflag = function(m,x,y,v)
+	--sets a flag on the high 16 bits of a map cell while retaining the value in the low 16 bits
+	local f=flags.tohex(v)
+	f=bit.lshift(f,16)
+	local cx,cy=map.getcell(m,x,y)
+	m[cy][cx]=bit.bor(m[cy][cx],f)
+end
+
 generators.walls = function(m,w,h,x,y)
 	if x==1 or x==w or y==1 or y==h then
 		--TODO flag stuff screws up games that don't use flags, figure this out in game-specific code

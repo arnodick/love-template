@@ -3,7 +3,7 @@ local flags={}
 flags.get = function(bytes,flag,shift)
 	--takes a hex flag variable and an integer flag position
 	--returns true if that flag position is set
-	flag = flags.tohex(flag)
+	flag=flags.tohex(flag)
 	if shift then
 		bytes=bit.rshift(bytes,shift)
 	end
@@ -20,8 +20,7 @@ flags.set = function (bytes,...)
 	--only turns ON bits pointed to by the flag positions input
 	local f={...}
 	for a=1,#f do
-		--local flag = 2^(flags[a]-1) 
-		local flag = flags.tohex(f[a])
+		local flag=flags.tohex(f[a])
 		bytes=bit.bor(bytes,flag)
 	end
 
