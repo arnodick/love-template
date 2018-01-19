@@ -25,24 +25,24 @@ map.generate = function(gen,w,h,args)
 	return m
 end
 
-map.load = function(m)
+map.load = function(filename)
 	--loads map sprites and walls/entities from a hex populated textfile
 	--returns map array
-	local map = textfile.load(m) --each cell (flags + integer) is loaded into map array
-	for a=1, #map do
-		for b=1, #map[a] do
+	local m=textfile.load(filename) --each cell (flags + integer) is loaded into map array
+	for a=1,map.width(m) do
+		for b=1,map.height(m) do
 			--TODO make this dynamic, loads entities based on flag value
-			if getflag(map[a][b], Enums.wall) then
+			if getflag(m[a][b],Enums.wall) then
 				actor.make(Game,0,0,(b-1)*TileW+TileW/2, (a-1)*TileH+TileH/2, TileW, TileH) --each cell that has a wall flag loads a wall entity
 			end
 		end
 	end
-	return map
+	return m
 end
 
 map.draw = function(m,drawmode)
-	for y=1,#m do
-		for x=1,#m[y] do
+	for y=1,map.cellheight(m) do
+		for x=1,map.cellwidth(m) do
 			if type(drawmode)=="table" then
 				for i,v in ipairs(drawmode) do
 					drawmodes[v](m,x,y)
@@ -54,42 +54,55 @@ map.draw = function(m,drawmode)
 	end
 end
 
+map.cellwidth = function(m)
+	return #m[1]
+end
+
+map.width = function(m)
+	return map.cellwidth(m)*Game.tile.width
+end
+
+map.cellheight = function(m)
+	return #m
+end
+
+map.height = function(m)
+	return map.cellheight(m)*Game.tile.height
+end
+
 map.getcell = function(m,x,y)
 	local tw,th=Game.tile.width,Game.tile.height
 	local cx,cy=math.floor((x+tw)/tw),math.floor((y+th)/th)
-	cx=math.clamp(cx,1,#m[1])
-	cy=math.clamp(cy,1,#m)
+	cx=math.clamp(cx,1,map.width(m))
+	cy=math.clamp(cy,1,map.height(m))
 	return cx,cy
 end
 
-map.getcellvalue = function(m,x,y)
+map.getcellvalue = function(m,x,y)--takes world x,y coordinates and returns the value of the cell under those coordinates
 	local cx,cy=map.getcell(m,x,y)
 	return m[cy][cx]
 end
 
-map.setcellvalue = function(m,x,y,v)
-	--sets the value of a map cell in the low 16 bits while retaining the flags in the high 16 bits
-	local cx,cy=map.getcell(m,x,y)
-	m[cy][cx]=bit.bor(flags.isolate(m[cy][cx]),v)
+map.setcellvalue = function(m,x,y,v,worldcoords)--sets the value of a map cell in the low 16 bits while retaining the flags in the high 16 bits
+	if worldcoords then
+		x,y=map.getcell(m,x,y)
+	end
+	m[y][x]=bit.bor(flags.isolate(m[y][x]),v)
 end
 
-map.setcellflag = function(m,x,y,v)
-	--sets a flag on the high 16 bits of a map cell while retaining the value in the low 16 bits
-	local f=flags.tohex(v)
+map.setcellflag = function(m,x,y,v,worldcoords)--sets a flag on the high 16 bits of a map cell while retaining the value in the low 16 bits
+	local f=flags.fromenum(v)
 	f=bit.lshift(f,16)
-	local cx,cy=map.getcell(m,x,y)
-	m[cy][cx]=bit.bor(m[cy][cx],f)
+	if worldcoords then
+		x,y=map.getcell(m,x,y)
+	end
+	m[y][x]=bit.bor(m[y][x],f)
 end
 
 generators.walls = function(m,w,h,x,y)
 	if x==1 or x==w or y==1 or y==h then
-		--TODO flag stuff screws up games that don't use flags, figure this out in game-specific code
-		local f=bit.lshift(1,(EF.solid-1))--converts an integer into its bit position
-		f=bit.lshift(f,16)--shifts those bits left by 16 so they can be combined with a value in the lower 16
-		
-		--f=1
-
-		m[y][x]=f
+		map.setcellflag(m,x,y,EF.solid)
+		map.setcellvalue(m,x,y,3)
 	end
 end
 
@@ -105,25 +118,21 @@ end
 
 
 drawmodes.grid = function(m,x,y)
+	local g=Game
 	if x==1 or y==1 then
-		local tw,th=Game.tile.width,Game.tile.height
-		if Game.levels then
-			local c=Game.palette[Game.level.c or EC.white]
-			local r=c[1]
-			local g=c[2]
-			local b=c[3]
-			LG.setColor(r,g,b,120)
-		else
-			LG.setColor(Game.palette[EC.red])
-		end
+		local tw,th=g.tile.width,g.tile.height
+--TODO make a palette.fromenum function or something to input EC.red and get r,gr,b
+		local c=g.palette[g.level.c or EC.white]
+		local r,gr,b=c[1],c[2],c[3]
+		LG.setColor(r,gr,b,120)
 
 		if x==1 then
-			LG.line(0,y*th+1,Game.width,y*th+1)
+			LG.line(0,y*th,map.width(m),y*th)
 		end
 		if y==1 then
-			LG.line(x*tw+1,0,x*tw+1,Game.height)
+			LG.line(x*tw,0,x*tw,map.height(m))
 		end
-		LG.setColor(Game.palette[16])
+		LG.setColor(g.palette[16])
 	end
 end
 

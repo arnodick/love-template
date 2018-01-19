@@ -11,9 +11,9 @@ end
 
 editor.mousepressed = function(g,x,y,button)
 	if button==1 then
-		map.setcellvalue(g.level.map,g.editor.cursor.x,g.editor.cursor.y,g.editor.cursor.value)
+		map.setcellvalue(g.level.map,g.editor.cursor.x,g.editor.cursor.y,g.editor.cursor.value,true)
 	elseif button==2 then
-		map.setcellflag(g.level.map,g.editor.cursor.x,g.editor.cursor.y,EF.solid)
+		map.setcellflag(g.level.map,g.editor.cursor.x,g.editor.cursor.y,EF.solid,true)
 	end
 end
 

@@ -3,7 +3,7 @@ local flags={}
 flags.get = function(bytes,flag,shift)
 	--takes a hex flag variable and an integer flag position
 	--returns true if that flag position is set
-	flag=flags.tohex(flag)
+	flag=flags.fromenum(flag)
 	if shift then
 		bytes=bit.rshift(bytes,shift)
 	end
@@ -20,7 +20,7 @@ flags.set = function (bytes,...)
 	--only turns ON bits pointed to by the flag positions input
 	local f={...}
 	for a=1,#f do
-		local flag=flags.tohex(f[a])
+		local flag=flags.fromenum(f[a])
 		bytes=bit.bor(bytes,flag)
 	end
 
@@ -36,7 +36,7 @@ flags.switch = function (bytes,...)
 	--doesn't just turn ON bits, can turn OFF a bit by using a flag position that has already been set in the byte
 	local f={...}
 	for a=1,#f do
-		local flag = flags.tohex(f[a])
+		local flag = flags.fromenum(f[a])
 		bytes=bit.bxor(bytes,flag)
 	end
 	return bytes
@@ -56,7 +56,8 @@ flags.isolate = function(bytes)
 	return bytes
 end
 
-flags.tohex = function(position)
+flags.fromenum = function(position)
+	--input an enums.flags value ie enums.flags.solid or EF.solid to make it into a binary flag
 	--converts flag position to its actual hex number value (ie: f 1 = 1, f 2 = 2, f 3 = 4, f 4 = 8 etc.)
 	return 2^(position-1)
 end
