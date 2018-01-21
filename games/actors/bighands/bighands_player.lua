@@ -44,9 +44,7 @@ local function control(g,a)
 			if c then
 				if c.horizontal~=0 or c.vertical~=0 then
 					local controllerdirection=vector.direction(c.horizontal,-c.vertical)
-					--local controllerdifference=controllerdirection-a.d
 					local controllerdifference=controllerdirection+a.angle
-					--local controllerdifference2=-a.d-(math.pi*2-controllerdirection)
 					local controllerdifference2=a.angle-(math.pi*2-controllerdirection)
 					if math.abs(controllerdifference)>math.abs(controllerdifference2) then
 						controllerdifference=controllerdifference2

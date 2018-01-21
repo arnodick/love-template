@@ -21,15 +21,19 @@ local function control(a,m)
 	a[m.variablename]=m.easing(timeelapsed,m.startvalue,m.change,m.duration)
 
 	if m.t then
-		if _G[EM.transitions[m.t]]["control"] then
-			_G[EM.transitions[m.t]]["control"](a,m)
+		run(EM.transitions[m.t],"control",a,m)
+--[[
+		if _G[EM.transitions[m.t] ]["control"] then
+			_G[EM.transitions[m.t] ]["control"](a,m)
 		end
+--]]
 	end
 
 	if timeelapsed>=m.duration then
 		if m.complete then
 			m.complete(unpack(m.complete_args))
 		end
+		a[m.variablename]=m.startvalue+m.change
 		a.transition=nil
 	end
 end
