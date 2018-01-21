@@ -9,9 +9,7 @@ local function make(a,m,easing,variablename,startvalue,change,duration,complete,
 	m.complete_args=complete_args
 	m.t=t
 	if m.t then
-		if _G[EM.transitions[m.t]]["make"] then
-			_G[EM.transitions[m.t]]["make"](a,m)
-		end
+		run(EM.transitions[m.t],"make",a,m)
 	end
 	a[m.variablename]=startvalue
 end
@@ -22,11 +20,6 @@ local function control(a,m)
 
 	if m.t then
 		run(EM.transitions[m.t],"control",a,m)
---[[
-		if _G[EM.transitions[m.t] ]["control"] then
-			_G[EM.transitions[m.t] ]["control"](a,m)
-		end
---]]
 	end
 
 	if timeelapsed>=m.duration then

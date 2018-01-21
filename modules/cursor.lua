@@ -17,10 +17,18 @@ end
 cursor.update = function(cursor)
 	local g=Game
 	local x,y=love.mouse.getPosition()
+--[[
 	x=math.clamp(x,0,g.width-1)
 	y=math.clamp(y,0,g.height-1)
+--]]
+	x=math.clamp(x,0,map.width(g.level.map))
+	y=math.clamp(y,0,map.height(g.level.map))
 	love.mouse.setPosition(x,y)
 	cursor.x,cursor.y=x,y
+end
+
+cursor.mousepressed = function(g,cursor,x,y,button)
+	run(EM.cursors[cursor.t],"mousepressed",g,cursor,x,y,button)
 end
 
 cursor.draw = function(cursor)
@@ -47,10 +55,7 @@ cursor.draw = function(cursor)
 	end
 	LG.setColor(g.palette[EC.pure_white])
 --]]
-
-	if _G[EM.cursors[cursor.t]]["draw"] then
-		_G[EM.cursors[cursor.t]]["draw"](cursor)
-	end
+	run(EM.cursors[cursor.t],"draw",cursor)
 end
 
 return cursor

@@ -1,15 +1,24 @@
-local function make(cursor)
+cursor_editor={}
+
+cursor_editor.make = function(cursor)
 	cursor.value=1
 end
 
+cursor_editor.mousepressed = function(g,cursor,x,y,button)
+	if button==1 then
+		map.setcellvalue(g.level.map,cursor.x,cursor.y,cursor.value,true)
+	elseif button==2 then
+		map.setcellflag(g.level.map,cursor.x,cursor.y,EF.solid,true)
+	end
+end
 
 --TODO input Game into this
-local function draw(cursor)
+cursor_editor.draw = function(cursor)
 	local g=Game
 	local tw,th=g.tile.width,g.tile.height
 	--LG.setColor(g.palette[EC.red])
 	if cursor.snap then
-		local cx,cy=map.getcell(g.level.map,cursor.x+tw,cursor.y+th)
+		local cx,cy=map.getcell(g.level.map,cursor.x,cursor.y)
 		--local cell=Game.level.map[cy][cx]
 		local cell=map.getcellvalue(g.level.map,cursor.x,cursor.y)
 --[[
@@ -52,8 +61,4 @@ local function draw(cursor)
 	LG.setColor(g.palette[EC.pure_white])
 end
 
-return
-{
-	make = make,
-	draw = draw,
-}
+return cursor_editor
