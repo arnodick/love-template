@@ -4,7 +4,8 @@ bighands.level={}
 
 bighands.level.make = function(g,l,index)
 	local mw,mh=g.width/g.tile.width,g.height/g.tile.height
-	l.map=map.generate("walls",mw+2,mh+10)
+	--l.map=map.generate("walls",mw+2,mh+10)
+	l.map=map.load("maptest.txt")
 	return l
 end
 

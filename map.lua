@@ -29,6 +29,7 @@ map.load = function(filename)
 	--loads map sprites and walls/entities from a hex populated textfile
 	--returns map array
 	local m=textfile.load(filename) --each cell (flags + integer) is loaded into map array
+--[[
 	for a=1,map.width(m) do
 		for b=1,map.height(m) do
 			--TODO make this dynamic, loads entities based on flag value
@@ -37,7 +38,12 @@ map.load = function(filename)
 			end
 		end
 	end
+--]]
 	return m
+end
+
+map.save = function(m,filename)
+	textfile.save(m,filename)
 end
 
 map.draw = function(m,drawmode)

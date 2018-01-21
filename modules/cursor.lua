@@ -29,6 +29,12 @@ cursor.mousepressed = function(g,c,x,y,button)
 	end
 end
 
+cursor.wheelmoved = function(g,c,x,y)
+	if c.t then
+		cursor[c.t].wheelmoved(g,c,x,y)
+	end
+end
+
 cursor.draw = function(c)
 --[[
 	local g=Game
@@ -70,6 +76,10 @@ cursor.editor.mousepressed = function(g,c,x,y,button)
 	elseif button==2 then
 		map.setcellflag(g.level.map,c.x,c.y,EF.solid,true)
 	end
+end
+
+cursor.editor.wheelmoved = function(g,c,x,y)
+	c.value=math.clamp(c.value+y,0,255)--TODO make this limit more dynamic?
 end
 
 --TODO input Game into this

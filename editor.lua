@@ -2,7 +2,6 @@ local editor={}
 
 editor.make = function(g)
 	g.editor={}
-	--module.make(g.editor,EM.cursor,EM.cursors.cursor_editor,true)
 	module.make(g.editor,EM.cursor,"editor",true)
 end
 
@@ -10,23 +9,23 @@ editor.control = function(g)
 	cursor.update(g.editor.cursor)
 end
 
+editor.keypressed = function(g,key)
+	if love.keyboard.isDown('lctrl') then
+		if key=="s" then
+			map.save(g.level.map,"maptest.txt")
+		end
+	end
+end
+
 editor.mousepressed = function(g,x,y,button)
 	cursor.mousepressed(g,g.editor.cursor,x,y,button)
---[[
-	if button==1 then
-		map.setcellvalue(g.level.map,g.editor.cursor.x,g.editor.cursor.y,g.editor.cursor.value,true)
-	elseif button==2 then
-		map.setcellflag(g.level.map,g.editor.cursor.x,g.editor.cursor.y,EF.solid,true)
-	end
---]]
 end
 
 editor.wheelmoved = function(g,x,y)
 	if love.keyboard.isDown('lctrl') then
 		g.camera.zoom=g.camera.zoom+y
 	else
-		g.editor.cursor.value=math.clamp(g.editor.cursor.value+y,0,255)--TODO make this limit more dynamic?
-		--g.editor.cursor.value=g.editor.cursor.value+y
+		cursor.wheelmoved(g,g.editor.cursor,x,y)
 	end
 end
 
