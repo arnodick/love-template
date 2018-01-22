@@ -12,6 +12,7 @@ end
 editor.keypressed = function(g,key)
 	if love.keyboard.isDown('lctrl') then
 		if key=="s" then
+			module.make(g.hud,EM.menu,EMM.text,50,50,50,50,{"what you buy do you want to buy the powerup ?"},EC.orange,EC.dark_green)
 			map.save(g.level.map,"maptest.txt")
 		end
 	end

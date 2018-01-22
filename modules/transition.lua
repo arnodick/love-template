@@ -12,6 +12,8 @@ local function make(a,m,easing,variablename,startvalue,change,duration,complete,
 		run(EM.transitions[m.t],"make",a,m)
 	end
 	a[m.variablename]=startvalue
+	print(startvalue)
+	print(startvalue+change)
 end
 
 local function control(a,m)

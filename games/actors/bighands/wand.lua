@@ -18,7 +18,7 @@ end
 --]]
 
 local function shoot(a)
-	local r=ray.cast(a.tip.x,a.tip.y,a.angle,50,1)
+	local r=ray.cast(a.tip.x,a.tip.y,a.angle,250,1)
 	--actor.make(Game,EA[Game.name].bighands_bullet,a.tip.x,a.tip.y,a.angle,2)
 
 --[[

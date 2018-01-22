@@ -24,6 +24,7 @@ local function direction(vx,vy)
 		hack=math.pi*2
 	end
 	return math.atan2(vy,vx)+hack
+	--return math.clamp(math.atan2(vy,vx),0,math.pi*2,true)
 end
 
 local function mirror(vx,vy,hor)

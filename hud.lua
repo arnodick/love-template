@@ -1,5 +1,6 @@
 local function make(g,t,...)
 	g.hud={}
+	print(g.hud)
 	if t then
 		g.hud.t=t
 		game.state.run(g.name,"hud","make",g.hud,...)

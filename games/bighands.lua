@@ -14,19 +14,24 @@ bighands.level.draw = function(g,l)
 end
 
 bighands.make = function(g,tw,th,gw,gh,sp)
-
+	print("hud making")
+	hud.make(g)
 end
 
 bighands.gameplay =
 {
 	make = function(g)
+		--local zoomchange=4-g.camera.zoom
+		--module.make(g.camera,EM.transition,easing.inOutSine,"zoom",g.camera.zoom,zoomchange,60)
 		level.make(g,1,Enums.games.modes.topdown_tank)
+		local m=g.level.map
+
 		g.players={}
 		for i=1,#Joysticks do
-			table.insert(g.players,actor.make(g,EA[g.name].bighands_player,g.width/2,g.height/2+(i*10)))
-			--table.insert(g.players,actor.make(g,EA[g.name].bighands_player,g.width/2,g.height/2+50))
+			table.insert(g.players,actor.make(g,EA[g.name].bighands_player,map.width(m)/2,map.height(m)/2+(i*10)))
 		end
-		actor.make(g,EA[g.name].bighands_snake,g.width/2,g.height/2-20)
+		
+		actor.make(g,EA[g.name].bighands_snake,map.width(m)/2,map.height(m)/2-20)
 		
 		--table.insert(g.players,actor.make(g,EA[g.name].bighands_player,g.width/2,g.height/2))
 		--g.player=actor.make(g,EA[g.name].bighands_player,g.width/2,g.height/2)
