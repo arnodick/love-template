@@ -14,13 +14,13 @@ bighands.level.draw = function(g,l)
 end
 
 bighands.make = function(g,tw,th,gw,gh,sp)
-	print("hud making")
-	hud.make(g)
+	
 end
 
 bighands.gameplay =
 {
 	make = function(g)
+		hud.make(g)
 		--local zoomchange=4-g.camera.zoom
 		--module.make(g.camera,EM.transition,easing.inOutSine,"zoom",g.camera.zoom,zoomchange,60)
 		level.make(g,1,Enums.games.modes.topdown_tank)

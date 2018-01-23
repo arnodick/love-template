@@ -1,3 +1,5 @@
+--TODO put all this AWAY baby woo
+--cann all go in game-specific file ie bighands.lua has protosnake.hud.make = function blah
 local function make(h)
 	h.c=EC.orange
 	h.c2=EC.dark_green
