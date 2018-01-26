@@ -2,9 +2,9 @@ local function make(g,a,c,size,spr,hp)
 	local e=Enums
 
 	if #Joysticks>0 then
-		module.make(a,EM.controller,EMC.move,EMCI.gamepad)
-		module.make(a,EM.controller,EMC.aim,EMCI.gamepad)
-		module.make(a,EM.controller,EMC.action,EMCI.gamepad)
+		module.make(a,EM.controller,EMC.move,EMCI.gamepad,1)
+		module.make(a,EM.controller,EMC.aim,EMCI.gamepad,1)
+		module.make(a,EM.controller,EMC.action,EMCI.gamepad,1)
 	else
 		module.make(a,EM.controller,EMC.move,EMCI.keyboard)
 		module.make(a,EM.controller,EMC.aim,EMCI.mouse)

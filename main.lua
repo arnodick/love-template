@@ -9,15 +9,16 @@ love.math.setRandomSeed(os.time())
 --love.math.setRandomSeed(1)
 Debugger=debugger.make()
 love.keyboard.setKeyRepeat(false)
+love.keyboard.setTextInput(false)
 Joysticks={}
 SFX = sfx.load(false,true)
 Music = music.load()
 
 function love.load()
-	--Game = game.make(Enums.games.protosnake,8,8,320,240,1)
+	Game = game.make(Enums.games.protosnake,8,8,320,240,1)
 	--Game = game.make(Enums.games.offgrid,8,8,640,960,1)
 	--Game = game.make(Enums.games.dawngame,8,8,320,240,1)
-	Game = game.make(Enums.games.bighands,8,8,640,480,1)
+	--Game = game.make(Enums.games.bighands,8,8,640,480,1)
 
 	--Game = game.make(Enums.games.iso,32,32,640,640,1)
 	--Game = game.make(Enums.games.rpg,8,8,320,240,1)
@@ -35,16 +36,18 @@ function love.update(dt)
 end
 
 function love.keypressed(key,scancode,isrepeat)
-	local g=Game
-	game.keypressed(g,key,scancode,isrepeat)
+	--if not love.keyboard.hasTextInput() then
+		local g=Game
+		game.keypressed(g,key,scancode,isrepeat)
 
-	if key == '`' then
-		Debugger.debugging = not Debugger.debugging
-	elseif key == 'f' then
-		love.window.setFullscreen(not love.window.getFullscreen())
-		screen.update(g)
-		Debugger.canvas = LG.newCanvas(g.screen.width,g.screen.height) --sets width and height of debug overlay (size of window)
-	end
+		if key == '`' then
+			Debugger.debugging = not Debugger.debugging
+		elseif key == 'f' then
+			love.window.setFullscreen(not love.window.getFullscreen())
+			screen.update(g)
+			Debugger.canvas = LG.newCanvas(g.screen.width,g.screen.height) --sets width and height of debug overlay (size of window)
+		end
+	--end
 end
 
 function love.keyreleased(key)

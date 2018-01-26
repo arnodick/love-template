@@ -1,15 +1,17 @@
 local module={}
 
 module.make = function(a,t,...)
-	if not a[EM[t]] then
-		a[EM[t]]={}
+	local modulename=EM[t]
+	if not a[modulename] then
+		a[modulename]={}
 	end
 	
-	local m=a[EM[t]]
+	local m=a[modulename]
 
-	if _G[EM[t]]["make"] then
-		_G[EM[t]]["make"](a,m,...)
-	end
+	run(modulename,"make",a,m,...)
+end
+
+module.destroy = function(a,m)
 end
 
 return module

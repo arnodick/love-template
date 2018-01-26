@@ -1,7 +1,7 @@
 PRIORITY
+map.width and map.height values
 maybe make all flags just work on the high 16 bits
 convert getcells to getcellvalue
-why is the map acting as a wall where there is no wall? is it a super high number?
 Mode.make which can be done to game or level
 Maybe just make everything a module? Ie x y d v c alpha etc
 fix weirdness with angle vs direction
@@ -91,6 +91,7 @@ Screen, Spritesheet, Quads and all that, part of Game?
 flags.control? put all flag specific code in there for actors and run it at in actor.control? (probably not,unless a bunch more flags do stuff in the same place)
 
 DONE
+why is the map acting as a wall where there is no wall? is it a super high number?
 input Game into
 	actors.control, make etc
 	input into all the game-specific actor functions as well ie player, snake etc

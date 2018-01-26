@@ -22,6 +22,8 @@ map.generate = function(gen,w,h,args)
 			end
 		end
 	end
+	m.w=w
+	m.h=h
 	return m
 end
 
@@ -39,6 +41,8 @@ map.load = function(filename)
 		end
 	end
 --]]
+	m.w=map.cellwidth(m)
+	m.h=map.cellheight(m)
 	return m
 end
 
@@ -47,8 +51,8 @@ map.save = function(m,filename)
 end
 
 map.draw = function(m,drawmode)
-	for y=1,map.cellheight(m) do
-		for x=1,map.cellwidth(m) do
+	for y=1,m.h do
+		for x=1,m.w do
 			if type(drawmode)=="table" then
 				for i,v in ipairs(drawmode) do
 					drawmodes[v](m,x,y)
@@ -79,8 +83,8 @@ end
 map.getcell = function(m,x,y)
 	local tw,th=Game.tile.width,Game.tile.height
 	local cx,cy=math.floor((x+tw)/tw),math.floor((y+th)/th)
-	cx=math.clamp(cx,1,map.cellwidth(m))
-	cy=math.clamp(cy,1,map.cellheight(m))
+	cx=math.clamp(cx,1,m.w)
+	cy=math.clamp(cy,1,m.h)
 	return cx,cy
 end
 

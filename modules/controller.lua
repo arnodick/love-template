@@ -8,7 +8,6 @@ local function make(a,cont,t,input,ai1,ai2)
 	if input==EMCI.gamepad then
 		c.id=ai1
 	end
-	print("controller id "..c.id)
 
 	if t==EMC["action"] then
 		module.make(c,EM.chance,ai1,ai2)

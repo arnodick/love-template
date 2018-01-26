@@ -7,20 +7,38 @@ local function make(a)
 end
 
 local function control(a,gs)
-	local p=Game.player
+	
 	if Game.players then
 		--p=Game.players[1]
 		players=Game.players
-	end
-	--if actor.collision(a.x,a.y,Game.player) then
-	for i,p in ipairs(players) do
-		--if actor.collision(a.x,a.y,p) then
+		for i,p in ipairs(players) do
+			--if actor.collision(a.x,a.y,p) then
+			if actor.collision(a.x,a.y,p) then
+				--if Game.player.controller.action.action or #Game.player.inventory<1 then
+
+				--TODO make this game-specific, or make pickup styles or something
+				--if p.controller.action.action or #p.inventory<1 then
+				if p.controller.action.action and #p.inventory<1 then
+					if a.sound then
+						if a.sound.get then
+							sfx.play(a.sound.get)
+						end
+					end
+
+					a.flags=flags.set(a.flags,EF.persistent)
+					--table.insert(Game.player.inventory,1,a)
+					table.insert(p.inventory,1,a)
+				end
+			end
+		end
+	else
+		local p=Game.player
 		if actor.collision(a.x,a.y,p) then
 			--if Game.player.controller.action.action or #Game.player.inventory<1 then
 
 			--TODO make this game-specific, or make pickup styles or something
 			--if p.controller.action.action or #p.inventory<1 then
-			if p.controller.action.action and #p.inventory<1 then
+			if p.controller.action.action or #p.inventory<1 then
 				if a.sound then
 					if a.sound.get then
 						sfx.play(a.sound.get)
@@ -33,6 +51,8 @@ local function control(a,gs)
 			end
 		end
 	end
+	--if actor.collision(a.x,a.y,Game.player) then
+
 end
 
 local function carry(a,user)

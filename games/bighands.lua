@@ -10,7 +10,7 @@ bighands.level.make = function(g,l,index)
 end
 
 bighands.level.draw = function(g,l)
-	map.draw(l.map,{"sprites"})
+	map.draw(l.map,{"sprites","grid"})
 end
 
 bighands.make = function(g,tw,th,gw,gh,sp)
@@ -21,6 +21,7 @@ bighands.gameplay =
 {
 	make = function(g)
 		hud.make(g)
+		love.keyboard.setTextInput(false)
 		--local zoomchange=4-g.camera.zoom
 		--module.make(g.camera,EM.transition,easing.inOutSine,"zoom",g.camera.zoom,zoomchange,60)
 		level.make(g,1,Enums.games.modes.topdown_tank)

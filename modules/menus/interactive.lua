@@ -2,7 +2,7 @@ local function make(m,menu_functions,menu_function_args)
 	m.menu_functions=menu_functions
 	m.menu_function_args=menu_function_args
 	m.text.index=1
-	module.make(m,EM.controller,EMC.move,EMCI.gamepad)
+	module.make(m,EM.controller,EMC.move,EMCI.gamepad,1)
 	--module.make(m,EM.controller,EMC.select,EMC.selects.gamepad_menu_select)
 end
 
