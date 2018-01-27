@@ -10,7 +10,8 @@ bighands.level.make = function(g,l,index)
 end
 
 bighands.level.draw = function(g,l)
-	map.draw(l.map,{"sprites","grid"})
+	--map.draw(l.map,{"sprites","grid"})
+	map.draw(l.map,{"sprites"})
 end
 
 bighands.make = function(g,tw,th,gw,gh,sp)
@@ -22,12 +23,12 @@ bighands.gameplay =
 	make = function(g)
 		hud.make(g)
 		love.keyboard.setTextInput(false)
-		--local zoomchange=4-g.camera.zoom
-		--module.make(g.camera,EM.transition,easing.inOutSine,"zoom",g.camera.zoom,zoomchange,60)
+		local zoomchange=4-g.camera.zoom
+		module.make(g.camera,EM.transition,easing.inOutSine,"zoom",g.camera.zoom,zoomchange,60)
 		level.make(g,1,Enums.games.modes.topdown_tank)
 		local m=g.level.map
 
-		g.players={}
+		--g.players={}
 		for i=1,#Joysticks do
 			table.insert(g.players,actor.make(g,EA[g.name].bighands_player,map.width(m)/2,map.height(m)/2+(i*10)))
 		end

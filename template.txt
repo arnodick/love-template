@@ -1,4 +1,12 @@
 PRIORITY
+do that 30 fps thing you did with spacetank
+change modules to have just a table input with {variablename="whatever",x=12,etc=true}
+make corpse its own thing, then just change debris into sparks
+in protosnale make a screen where you have to press a button on a controller to add your player, which spawns you in a little room you can run around in experiment in
+when you're all ready, run to exit together
+maybe this is where you can buy hairdye
+long hair for characters in bighands/witchez
+generalzie multiplayer
 arbitrary player amounts? if you can press a button on keyboard or joystick you can add a player
 map.width and map.height values
 maybe make all flags just work on the high 16 bits

@@ -21,15 +21,11 @@ local function control(t,gs,a,vx,vy)
 	if t.len<t.leninit then
 		t.len = t.len + gs
 	end
-	local hack=0
-	if t.angle < -1.4 then
-		hack=1--NOTE: this is because the line wasn't drawing rom the proper origin because of... Math?
-	end
 
 	t.mx=a.x+8
-	if math.abs(t.angle)<1 then
+	if t.angle<1 or t.angle>(math.pi*2)-1 then
 		t.my=a.y
-	elseif t.angle<0 then
+	elseif t.angle>math.pi then
 		t.my=a.y-6-math.floor((Game.timer/a.animation.frames.speed)%a.animation.frames.frames)*4
 	else
 		t.my=a.y+8+math.floor((Game.timer/a.animation.frames.speed)%a.animation.frames.frames)*4

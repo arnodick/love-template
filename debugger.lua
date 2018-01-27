@@ -26,11 +26,13 @@ local function update(g,d)
 			table.insert(debuglist,"cur x:"..g.cursor.x)
 			table.insert(debuglist,"cur y:"..g.cursor.y)
 		end
+		if g.players then
 		if g.players[1] then
 			if g.players[1].d then
 				table.insert(debuglist,"player dir:"..g.players[1].d)
 				table.insert(debuglist,"player angle:"..g.players[1].angle)
 			end
+		end
 		end
 		if g.player then
 			table.insert(debuglist,"player x:"..g.player.x)

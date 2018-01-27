@@ -132,9 +132,11 @@ local function damage(a,d)
 				_G[EA[g.name][a.t]]["damage"](a)
 			end
 			--TODO make this game-specific
---[[
+---[[
 			for i=1,4 do
-				actor.make(g,EA[g.name].debris,a.x,a.y)
+				if EA[g.name].debris then
+					actor.make(g,EA[g.name].debris,a.x,a.y)
+				end
 			end
 --]]
 
