@@ -112,7 +112,7 @@ end
 generators.walls = function(m,w,h,x,y)
 	if x==1 or x==w or y==1 or y==h then
 		map.setcellflag(m,x,y,EF.solid)
-		map.setcellvalue(m,x,y,3)
+		--map.setcellvalue(m,x,y,3)
 	end
 end
 

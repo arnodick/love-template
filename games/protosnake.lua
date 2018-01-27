@@ -300,6 +300,7 @@ protosnake.hud.gameplay =
 		h.hp={}
 		h.hp.x=-Game.width/2+240
 		h.hp.y=-Game.height/2+6
+		print("OTHER IT HAPPENED")
 	end,
 
 	draw = function(g,h)
