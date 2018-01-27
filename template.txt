@@ -1,4 +1,5 @@
 PRIORITY
+arbitrary player amounts? if you can press a button on keyboard or joystick you can add a player
 map.width and map.height values
 maybe make all flags just work on the high 16 bits
 convert getcells to getcellvalue

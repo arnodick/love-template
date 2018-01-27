@@ -7,7 +7,8 @@ local function make(a)
 end
 
 local function control(a,gs)
-	
+	--TODO FIX THIS MESS BY GIVING ALL GAMES A PLAYERS TABLE AT CREATION WHICH DOES GET FUCKED UP BY STATE CHANGES JUST MAKE IT EVERY STATE
+	--then just loop through PLAYERS no matter what
 	if Game.players then
 		--p=Game.players[1]
 		players=Game.players

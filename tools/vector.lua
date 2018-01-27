@@ -19,11 +19,16 @@ local function distance(x,y,x2,y2)
 end
 
 local function direction(vx,vy)
+--this works with witchwizz
+--[[
 	local hack=0
 	if vy<=0 then
 		hack=math.pi*2
 	end
-	return math.atan2(vy,vx)+hack
+	--return math.atan2(vy,vx)+hack
+--]]
+	--NOTE this works with protosnake
+	return math.atan2(vy,vx)
 	--return math.clamp(math.atan2(vy,vx),0,math.pi*2,true)
 end
 
