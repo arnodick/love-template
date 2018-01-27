@@ -133,11 +133,7 @@ local function damage(a,d)
 			end
 			--TODO make this game-specific
 ---[[
-			for i=1,4 do
-				if EA[g.name].debris then
-					actor.make(g,EA[g.name].debris,a.x,a.y)
-				end
-			end
+			game.state.run(g.name,"actor","damage",g,a,d)
 --]]
 
 			if a.hit then
@@ -149,7 +145,8 @@ local function damage(a,d)
 				a.delete=true
 
 				--TODO game-specific code
-				run(g.name,"dead",g,a)
+				--run(g.name,"dead",g,a)
+				game.state.run(g.name,"actor","dead",g,a)
 --[[
 				if g.player then
 				if g.player.hp>0 then

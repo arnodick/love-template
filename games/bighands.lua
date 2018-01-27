@@ -28,7 +28,6 @@ bighands.gameplay =
 		level.make(g,1,Enums.games.modes.topdown_tank)
 		local m=g.level.map
 
-		--g.players={}
 		for i=1,#Joysticks do
 			table.insert(g.players,actor.make(g,EA[g.name].bighands_player,map.width(m)/2,map.height(m)/2+(i*10)))
 		end
@@ -100,5 +99,7 @@ bighands.intro =
 		LG.print("bighands intro", g.width/2, g.height/2)
 	end
 }
+
+bighands.actor = {}
 
 return bighands

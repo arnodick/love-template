@@ -325,16 +325,26 @@ protosnake.option =
 }
 
 --this is run when an actor in the game loses all its HP
-protosnake.dead = function(g,a)
-	if g.player then
-		if g.player.hp>0 then
-			if a.value then
-				g.score=g.score+a.value
-				local l=g.level
-				l.spawnindex=math.clamp(l.spawnindex+1,1,#l.enemies,true)
+
+protosnake.actor =
+{
+	damage = function(g,a,d)
+		for i=1,4 do
+			actor.make(g,EA[g.name].debris,a.x,a.y)
+		end
+	end,
+
+	dead = function(g,a)
+		if g.player then
+			if g.player.hp>0 then
+				if a.value then
+					g.score=g.score+a.value
+					local l=g.level
+					l.spawnindex=math.clamp(l.spawnindex+1,1,#l.enemies,true)
+				end
 			end
 		end
-	end
-end
+	end,
+}
 
 return protosnake
