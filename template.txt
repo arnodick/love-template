@@ -3,6 +3,7 @@ do that 30 fps thing you did with spacetank
 change modules to have just a table input with {variablename="whatever",x=12,etc=true}
 make corpse its own thing, then just change debris into sparks
 in protosnale make a screen where you have to press a button on a controller to add your player, which spawns you in a little room you can run around in experiment in
+get rid of all enums for module making? just do string input. keep old EM[] module code commented out, in case we need it later
 when you're all ready, run to exit together
 maybe this is where you can buy hairdye
 long hair for characters in bighands/witchez

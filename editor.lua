@@ -2,7 +2,8 @@ local editor={}
 
 editor.make = function(g)
 	g.editor={}
-	module.make(g.editor,EM.cursor,"editor",true)
+	--module.make(g.editor,EM.cursor,"editor",true)
+	module.make(g.editor,"cursor","editor",true)
 end
 
 editor.control = function(g)
