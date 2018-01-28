@@ -30,8 +30,10 @@ local function gamepadpressed(m,button)
 	end
 end
 
+--[[
 local function draw(m)
 end
+--]]
 
 return
 {

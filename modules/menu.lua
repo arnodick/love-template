@@ -1,4 +1,6 @@
-local function make(a,m,t,x,y,w,h,text,c1,c2,align,...)
+local menu={}
+
+menu.make = function(a,m,t,x,y,w,h,text,c1,c2,align,...)
 	m.t=t
 	m.x=math.floor(x)
 	m.y=math.floor(y)
@@ -9,64 +11,44 @@ local function make(a,m,t,x,y,w,h,text,c1,c2,align,...)
 	m.c2=c2
 	m.align=align or "left"
 	m.font=LG.newFont("fonts/Kongtext Regular.ttf",8)--TODO make fonts an array in game, then menu can select from them
+--[[
 	local modulename=t
 	if type(t)=="number" then
 		modulename=EMM[t]
 	end
+--]]
+	local modulename=EMM[t]
 	run(modulename,"make",m,...)
 end
 
-local function control(m)
-	if _G[EMM[m.t]]["control"] then
-		_G[EMM[m.t]]["control"](m)
-	end
+menu.control = function(m)
+	run(EMM[m.t],"control",m)
 end
 
-local function keypressed(m,key)
-	if _G[EMM[m.t]]["keypressed"] then
-		_G[EMM[m.t]]["keypressed"](m,key)
-	end
+menu.keypressed = function(m,key)
+	run(EMM[m.t],"keypressed",m,key)
 end
 
-local function keyreleased(m,key)
-	if _G[EMM[m.t]]["keyreleased"] then
-		_G[EMM[m.t]]["keyreleased"](m,key)
-	end
+menu.keyreleased = function(m,key)
+	run(EMM[m.t],"keyreleased",m,key)
 end
 
-local function gamepadpressed(m,button)
-	if _G[EMM[m.t]]["gamepadpressed"] then
-		_G[EMM[m.t]]["gamepadpressed"](m,button)
-	end
+menu.gamepadpressed = function(m,button)
+	run(EMM[m.t],"gamepadpressed",m,button)
 end
 
-local function draw(m)
+menu.draw = function(m)
 	local g=Game
 	if m.border then
 		border.draw(m,m.border)
 	end
 	LG.setFont(m.font)
-
-	if _G[EMM[m.t]]["draw"] then
-		_G[EMM[m.t]]["draw"](m)
-	elseif type(m.text)=="table" then
-		for i=1,#m.text do
-			local linealpha=255
-			if m.text.index then
-				if m.text.index~=i then
-					linealpha=50
-				end
-			end
-			LG.printformat(m.text[i],m.x-m.w/2,m.y-m.h/2+10*i,m.w,m.align,m.c1,m.c2,linealpha)
-		end
+	if _G[ EMM[m.t] ]["draw"] then
+		_G[ EMM[m.t] ]["draw"](m)
 	else
-		LG.printformat(m.text,m.x-m.w/2,m.y-m.h/2,m.w,m.align,m.c1,m.c2)
+		run("text","draw",m)
 	end
-
-	LG.setFont(Game.font)
-
-
-
+	LG.setFont(g.font)
 --[[
 	if Debugmode then
 		LG.setColor(Game.palette[EC.red])
@@ -75,12 +57,4 @@ local function draw(m)
 --]]
 end
 
-return
-{
-	make = make,
-	control = control,
-	keypressed = keypressed,
-	keyreleased = keyreleased,
-	gamepadpressed = gamepadpressed,
-	draw = draw,
-}
+return menu
