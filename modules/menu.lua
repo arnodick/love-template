@@ -43,9 +43,7 @@ menu.draw = function(m)
 		border.draw(m,m.border)
 	end
 	LG.setFont(m.font)
-	if _G[ EMM[m.t] ]["draw"] then
-		_G[ EMM[m.t] ]["draw"](m)
-	else
+	if not run(EMM[m.t],"draw",m) then
 		run("text","draw",m)
 	end
 	LG.setFont(g.font)
