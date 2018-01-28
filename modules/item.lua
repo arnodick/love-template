@@ -9,6 +9,9 @@ end
 local function control(a,gs)
 	--TODO FIX THIS MESS BY GIVING ALL GAMES A PLAYERS TABLE AT CREATION WHICH DOES GET FUCKED UP BY STATE CHANGES JUST MAKE IT EVERY STATE
 	--then just loop through PLAYERS no matter what
+	local g=Game
+	game.state.run(g.name,"item","control",g,a,gs)
+--[[
 	if Game.players then
 		--p=Game.players[1]
 		players=Game.players
@@ -52,8 +55,8 @@ local function control(a,gs)
 			end
 		end
 	end
+-]]
 	--if actor.collision(a.x,a.y,Game.player) then
-
 end
 
 local function carry(a,user)

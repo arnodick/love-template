@@ -6,7 +6,7 @@ local function make(a,cont,t,input,ai1,ai2)
 	c.input=input
 
 	if input==EMCI.gamepad then
-		c.id=ai1
+		c.id=ai1 or 1
 	end
 
 	if t==EMC["action"] then
@@ -15,9 +15,7 @@ local function make(a,cont,t,input,ai1,ai2)
 		module.make(c,EM.target,ai1,ai2)
 	end
 
-	if _G[EMC[t]]["make"] then
-		_G[EMC[t]]["make"](a,c)
-	end
+	run(EMC[t],"make",a,c)
 end
 
 local function update(a,gs)

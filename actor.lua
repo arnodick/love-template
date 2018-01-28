@@ -131,10 +131,8 @@ local function damage(a,d)
 			if _G[EA[g.name][a.t]]["damage"] then
 				_G[EA[g.name][a.t]]["damage"](a)
 			end
-			--TODO make this game-specific
----[[
+
 			game.state.run(g.name,"actor","damage",g,a,d)
---]]
 
 			if a.hit then
 				hit.damage(a.hit,a)

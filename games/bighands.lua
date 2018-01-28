@@ -102,4 +102,24 @@ bighands.intro =
 
 bighands.actor = {}
 
+bighands.item =
+{
+	control = function(g,a,gs)
+		players=Game.players
+		for i,p in ipairs(players) do
+			if actor.collision(a.x,a.y,p) then
+				if p.controller.action.action and #p.inventory<1 then
+					if a.sound then
+						if a.sound.get then
+							sfx.play(a.sound.get)
+						end
+					end
+					a.flags=flags.set(a.flags,EF.persistent)
+					table.insert(p.inventory,1,a)
+				end
+			end
+		end	
+	end,
+}
+
 return bighands

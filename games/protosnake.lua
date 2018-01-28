@@ -103,8 +103,7 @@ protosnake.gameplay =
 {
 	make = function(g)
 		g.score=0
-		--hud.make(g,EM.huds.protosnake_hud)
-		hud.make(g,"gameplay")
+		hud.make(g)
 		g.player=actor.make(g,EA[g.name].player,g.width/2,g.height/2)
 		--module.make(a,EM.player)
 
@@ -153,7 +152,6 @@ protosnake.gameplay =
 			h.hp={}
 			h.hp.x=-Game.width/2+240
 			h.hp.y=-Game.height/2+6
-			print("OTHER IT HAPPENED")
 		end,
 
 		draw = function(g,h)
@@ -342,6 +340,24 @@ protosnake.actor =
 					local l=g.level
 					l.spawnindex=math.clamp(l.spawnindex+1,1,#l.enemies,true)
 				end
+			end
+		end
+	end,
+}
+
+protosnake.item =
+{
+	control = function(g,a,gs)
+		local p=g.player
+		if actor.collision(a.x,a.y,p) then
+			if p.controller.action.action or #p.inventory<1 then
+				if a.sound then
+					if a.sound.get then
+						sfx.play(a.sound.get)
+					end
+				end
+				a.flags=flags.set(a.flags,EF.persistent)
+				table.insert(p.inventory,1,a)
 			end
 		end
 	end,
