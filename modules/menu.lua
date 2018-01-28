@@ -9,9 +9,11 @@ local function make(a,m,t,x,y,w,h,text,c1,c2,align,...)
 	m.c2=c2
 	m.align=align or "left"
 	m.font=LG.newFont("fonts/Kongtext Regular.ttf",8)--TODO make fonts an array in game, then menu can select from them
-	if _G[EMM[m.t]]["make"] then
-		_G[EMM[m.t]]["make"](m,...)
+	local modulename=t
+	if type(t)=="number" then
+		modulename=EMM[t]
 	end
+	run(modulename,"make",m,...)
 end
 
 local function control(m)
