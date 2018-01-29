@@ -362,6 +362,11 @@ protosnake.item =
 			end
 		end
 	end,
+
+	carry = function(a,user)
+		a.x=user.tail.x
+		a.y=user.tail.y
+	end,
 }
 
 return protosnake

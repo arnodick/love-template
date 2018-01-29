@@ -120,6 +120,11 @@ bighands.item =
 			end
 		end	
 	end,
+
+	carry = function(a,user)
+		a.x=user.hand.x
+		a.y=user.hand.y
+	end,
 }
 
 return bighands
