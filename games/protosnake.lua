@@ -49,64 +49,14 @@ protosnake.level.store=
 }
 
 protosnake.level.make = function(g,l,index)
-	--TODO maybe get rid of all this with json?
 	if index~=g.levelpath[#g.levelpath] then
 		table.insert(g.levelpath,index)
 	end
-
-	--l={unpack(g.levels[index])}
-	--l=g.levels[index]
-	print(l)
-	debugger.printtable(l)
-	copytable(l,g.levels[index])
-	print(l)
-	debugger.printtable(l)
-	--debugger.printtable(l)
-	--[[
-	local lload=g.levels[index]
-	--debugger.printtable(lload)
-
-	l.t=lload.values.t
-	l.c=lload.values.c
-
-	l.enemies={}
-	for i,v in pairs(lload.enemies) do
-		if type(i)=="number" then
-			l.enemies[i]=EA[g.name][v]
-		else
-			l.enemies[i]=v
-		end
-	end
-
-	l.enemycount={}
-	l.enemycount.max=lload.enemycount.max
-	l.enemycount.maxlimit=lload.enemycount.maxlimit
-
-	l.actordrops=lload.actordrops
-	l.portal1=lload.portal1
-	l.portal2=lload.portal2
-	l.portalstore=lload.portalstore
-
-	l.storeitem1=lload.storeitem1
-	l.storeitem2=lload.storeitem2
-	l.storeitem3=lload.storeitem3
---]]
-
-	--for i=1,l.enemies.max do
 	for i=1,l.enemycount.max do
-		--actor.make(g,l.enemies[1])
 		actor.make(g,EA[g.name][l.enemies[1]])
 	end
-
 	l.spawnindex=1
-	--debugger.printtable(l)
-
-	--testvar=json.load("games/levels/protosnake/1.json")
-	--debugger.printtable(testvar)
-	--debugger.printtable(l)
-
 	protosnake.level[l.t].make(g,l)
-
 	return l
 end
 

@@ -50,6 +50,7 @@ level.make = function(g,index,mode,tw,th)
 		l.tile.width=tw
 		l.tile.height=th
 	end
+	copytable(l,g.levels[index])
 	game.state.run(g.name,"level","make",g,l,index)
 	g.level=l
 end

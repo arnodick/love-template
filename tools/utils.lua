@@ -60,6 +60,9 @@ local function filterfiles(folder,ext)
 end
 
 function copytable(copyto,copyfrom)
+	--copies the values and tables from a source table and adds them to the target table
+	--a new table is NOT made, so references to the target table are not broken
+	--also retains any values that were in the target table before copying (unless the source table has a value with the same key, in which case the value in the target table with that key is overwritten)
 	for k,v in pairs(copyfrom) do
 		if type(v)~="table" then
 			copyto[k]=v
