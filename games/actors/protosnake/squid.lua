@@ -16,7 +16,8 @@ local function make(g,a,c,size,spr,hp)
 	module.make(a,EM.hitradius,4)
 	a.flags=flags.set(a.flags,EF.character,EF.enemy,EF.damageable, EF.shootable, EF.explosive)
 
-	g.level.enemies.max=math.clamp(g.level.enemies.max+1,1,g.level.enemies.maxlimit)
+	--g.level.enemies.max=math.clamp(g.level.enemies.max+1,1,g.level.enemies.maxlimit)
+	g.level.enemycount.max=math.clamp(g.level.enemycount.max+1,1,g.level.enemycount.maxlimit)
 end
 
 local function control(g,a)

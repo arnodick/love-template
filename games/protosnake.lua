@@ -66,6 +66,8 @@ protosnake.level.make = function(g,l,index)
 		end
 	end
 
+	l.enemycount=lload.enemycount
+
 	l.actordrops=lload.actordrops
 	l.portal1=lload.portal1
 	l.portal2=lload.portal2
@@ -75,7 +77,8 @@ protosnake.level.make = function(g,l,index)
 	l.storeitem2=lload.storeitem2
 	l.storeitem3=lload.storeitem3
 
-	for i=1,l.enemies.max do
+	--for i=1,l.enemies.max do
+	for i=1,l.enemycount.max do
 		actor.make(g,l.enemies[1])
 	end
 
@@ -91,7 +94,8 @@ end
 protosnake.level.control = function(g,l)
 	local enemycount=g.counters.enemy
 	
-	if enemycount<l.enemies.max then
+	--if enemycount<l.enemies.max then
+	if enemycount<l.enemycount.max then
 		actor.make(g,EA[g.name].spawn)
 	end
 
