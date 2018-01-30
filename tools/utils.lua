@@ -1,4 +1,4 @@
-local function clamp(v,mi,ma,wrap)
+	local function clamp(v,mi,ma,wrap)
 	wrap=wrap or false
 	if not wrap then
 		if v<mi then v=mi
@@ -57,6 +57,17 @@ local function filterfiles(folder,ext)
 		end
 	end
 	return files
+end
+
+function copytable(copyto,copyfrom)
+	for k,v in pairs(copyfrom) do
+		if type(v)~="table" then
+			copyto[k]=v
+		else
+			copyto[k]={}
+			copytable(copyto[k],v)
+		end
+	end
 end
 
 local function drawbox(x,y,w,a)

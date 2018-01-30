@@ -1,7 +1,8 @@
 local protosnake={}
 
 protosnake.make = function(g,tw,th,gw,gh,sp)
-	level.load(g,"games/levels/protosnake","ini")
+	--level.load(g,"games/levels/protosnake","ini")
+	level.load(g,"games/levels/protosnake","json")
 	g.levelpath={}
 end
 
@@ -52,6 +53,16 @@ protosnake.level.make = function(g,l,index)
 	if index~=g.levelpath[#g.levelpath] then
 		table.insert(g.levelpath,index)
 	end
+
+	--l={unpack(g.levels[index])}
+	--l=g.levels[index]
+	print(l)
+	debugger.printtable(l)
+	copytable(l,g.levels[index])
+	print(l)
+	debugger.printtable(l)
+	--debugger.printtable(l)
+	--[[
 	local lload=g.levels[index]
 	--debugger.printtable(lload)
 
@@ -79,17 +90,20 @@ protosnake.level.make = function(g,l,index)
 	l.storeitem1=lload.storeitem1
 	l.storeitem2=lload.storeitem2
 	l.storeitem3=lload.storeitem3
+--]]
 
 	--for i=1,l.enemies.max do
 	for i=1,l.enemycount.max do
-		actor.make(g,l.enemies[1])
+		--actor.make(g,l.enemies[1])
+		actor.make(g,EA[g.name][l.enemies[1]])
 	end
 
 	l.spawnindex=1
 	--debugger.printtable(l)
 
-	testvar=json.load("games/levels/protosnake/test.ini")
-	debugger.printtable(testvar)
+	--testvar=json.load("games/levels/protosnake/1.json")
+	--debugger.printtable(testvar)
+	--debugger.printtable(l)
 
 	protosnake.level[l.t].make(g,l)
 

@@ -12,14 +12,22 @@ level.load = function(g,dir,ext)
 	for i=1,#files do
 		local file=files[i]
 		if love.filesystem.isFile(dir.."/"..file) then --if it isn't a directory
-			local filedata = love.filesystem.newFileData("code", file) --gets each file's filedata, so we can determine their extensions
-			local filename = filedata:getFilename() --get the file's name
-			if filedata:getExtension() == ext then
-				local f = string.gsub(filename, "."..ext, "")--strip the file extension
+			local filedata=love.filesystem.newFileData("code", file) --gets each file's filedata, so we can determine their extensions
+			local filename=filedata:getFilename() --get the file's name
+			if filedata:getExtension()==ext then
+				local f=string.gsub(filename, "."..ext, "")--strip the file extension
 				if tonumber(f) then--if the file has a number as its name, it will be indexed in the table by integer
-					l[tonumber(f)]=LIP.load(dir.."/"..filename)
+					if ext=="ini" then
+						l[tonumber(f)]=LIP.load(dir.."/"..filename)
+					elseif ext=="json" then
+						l[tonumber(f)]=json.load(dir.."/"..filename)
+					end
 				else--if the file has a string name, it will be indexed in the table by a string key
-					l[f]=LIP.load(dir.."/"..filename)
+					if ext=="ini" then
+						l[f]=LIP.load(dir.."/"..filename)
+					elseif ext=="json" then
+						l[f]=json.load(dir.."/"..filename)
+					end
 				end
 			end
 		end

@@ -26,7 +26,7 @@ local function control(g,a,gs)
 		local spawnnum=a.enemyspawn
 
 		if l.enemies[spawnnum] then
-			local enemy=actor.make(g,l.enemies[spawnnum],a.x,a.y)			
+			local enemy=actor.make(g,EA[g.name][l.enemies[spawnnum]],a.x,a.y)
 
 			--TODO make a spawn function or something that has all the drop stuff in it and put it in level load characer spawn too
 			if l.actordrops then
