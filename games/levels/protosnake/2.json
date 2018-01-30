@@ -1,0 +1,13 @@
+{
+	"t":"arena",
+	"c":3,
+	"enemies":
+	[
+		"snake",
+	],
+	"enemycount":
+	{
+		"max":10,
+		"maxlimit":30,
+	},
+}

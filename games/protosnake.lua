@@ -87,13 +87,9 @@ protosnake.level.make = function(g,l,index)
 
 	l.spawnindex=1
 	--debugger.printtable(l)
-	--test=love.filesystem.read("games/levels/protosnake/test.ini")
-	--print(test)
-	--testvar=json.decode(test)
+
 	testvar=json.load("games/levels/protosnake/test.ini")
 	debugger.printtable(testvar)
-
-	--print(json.encode(l))--TODO TWOULD INDEED APPEAR THAT JSON CANT HANDLE MIXED ARRAY VALUES SO NO NUMBER INDEXES IN TABLE THAT HAS ALSO HAS STRING KEYS gonna have to modify max and maxlimit in enemies{} so it can be handl't
 
 	protosnake.level[l.t].make(g,l)
 
