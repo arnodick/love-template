@@ -56,6 +56,7 @@ protosnake.level.make = function(g,l,index)
 
 	l.t=lload.values.t
 	l.c=lload.values.c
+
 	l.enemies={}
 	for i,v in pairs(lload.enemies) do
 		if type(i)=="number" then
@@ -79,8 +80,11 @@ protosnake.level.make = function(g,l,index)
 	end
 
 	l.spawnindex=1
+	--debugger.printtable(l)
+	--print(json.encode(l))--TODO TWOULD INDEED APPEAR THAT JSON CANT HANDLE MIXED ARRAY VALUES SO NO NUMBER INDEXES IN TABLE THAT HAS ALSO HAS STRING KEYS gonna have to modify max and maxlimit in enemies{} so it can be handl't
 
 	protosnake.level[l.t].make(g,l)
+
 	return l
 end
 
