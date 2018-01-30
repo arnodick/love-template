@@ -23,14 +23,16 @@ bighands.gameplay =
 	make = function(g)
 		hud.make(g)
 		love.keyboard.setTextInput(false)
-		local zoomchange=4-g.camera.zoom
-		module.make(g.camera,EM.transition,easing.inOutSine,"zoom",g.camera.zoom,zoomchange,60)
+		--local zoomchange=4-g.camera.zoom
+		--module.make(g.camera,EM.transition,easing.inOutSine,"zoom",g.camera.zoom,zoomchange,60)
 		level.make(g,1,Enums.games.modes.topdown_tank)
 		local m=g.level.map
 
+--[[
 		for i=1,#Joysticks do
 			table.insert(g.players,actor.make(g,EA[g.name].bighands_player,map.width(m)/2,map.height(m)/2+(i*10)))
 		end
+--]]
 		
 		actor.make(g,EA[g.name].bighands_snake,map.width(m)/2,map.height(m)/2-20)
 		
@@ -44,11 +46,16 @@ bighands.gameplay =
 		end
 	end,
 
-	gamepadpressed = function(g,button)
+	gamepadpressed = function(g,joystick,button)
 		if button=="start" then
 			g.pause = not g.pause
+		elseif button=="a" then
+			--print(joystick:getID())
+			if #Joysticks>#g.players then
+				local m=g.level.map
+				table.insert(g.players,actor.make(g,EA[g.name].bighands_player,map.width(m)/2,map.height(m)/2))
+			end
 		end
-
 	end,
 
 	draw = function(g)
@@ -66,7 +73,7 @@ bighands.title =
 		end
 	end,
 
-	gamepadpressed = function(g,button)
+	gamepadpressed = function(g,joystick,button)
 		if button=="start" or button=="a" then
 			game.state.make(g,"gameplay")
 		elseif button=="b" then
@@ -89,7 +96,7 @@ bighands.intro =
 		end
 	end,
 
-	gamepadpressed = function(g,button)
+	gamepadpressed = function(g,joystick,button)
 		if button=="start" or button=="a" then
 			game.state.make(g,"title")
 		end

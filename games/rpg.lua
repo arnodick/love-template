@@ -33,7 +33,7 @@ rpg.title =
 		end
 	end,
 
-	gamepadpressed = function(g,button)
+	gamepadpressed = function(g,joystick,button)
 		if button=="b" then
 			game.state.make(g,"intro")
 		end
@@ -54,7 +54,7 @@ rpg.intro =
 		end
 	end,
 
-	gamepadpressed = function(g,button)
+	gamepadpressed = function(g,joystick,button)
 		if button=="start" or button=="a" then
 			game.state.make(g,"title")
 		end
@@ -73,7 +73,7 @@ rpg.option =
 		end
 	end,
 
-	gamepadpressed = function (g,button)
+	gamepadpressed = function (g,joystick,button)
 		if button=="b" then
 			game.state.make(g,"intro")
 		end

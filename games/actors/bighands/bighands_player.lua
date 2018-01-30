@@ -2,6 +2,7 @@ local function make(g,a,c,size,spr,hp)
 	local e=Enums
 
 	local playernum=#g.players+1
+	print(playernum)
 	--if #g.players+1 == 1 then
 		if #Joysticks>0 then
 			module.make(a,EM.controller,EMC.move,EMCI.gamepad,playernum)

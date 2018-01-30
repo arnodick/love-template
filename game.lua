@@ -167,12 +167,12 @@ game.wheelmoved = function(g,x,y)
 	end
 end
 
-game.gamepadpressed = function(g,button)
+game.gamepadpressed = function(g,joystick,button)
 	if g.level then
 		game.state.run(g.name,"level","gamepadpressed",g,g.level,button)
 	end
 
-	game.state.run(g.name,g.state,"gamepadpressed",g,button)
+	game.state.run(g.name,g.state,"gamepadpressed",g,joystick,button)
 
 	if g.editor then
 		--editor.gamepadpressed(g,button)

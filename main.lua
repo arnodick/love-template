@@ -64,7 +64,7 @@ function love.wheelmoved(x,y)
 end
 
 function love.gamepadpressed(joystick,button)
-	game.gamepadpressed(Game,button)
+	game.gamepadpressed(Game,joystick,button)
 end
 
 function love.joystickadded(joystick)

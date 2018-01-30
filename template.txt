@@ -1,4 +1,5 @@
 PRIORITY
+ctrl+N to make new map, input sizes
 input Game into module stuff
 do that 30 fps thing you did with spacetank
 change modules to have just a table input with {variablename="whatever",x=12,etc=true}

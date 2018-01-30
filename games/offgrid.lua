@@ -187,7 +187,7 @@ offgrid.gameplay =
 		end
 	end,
 
-	gamepadpressed = function(g,button)
+	gamepadpressed = function(g,joystick,button)
 		if button=="a" then
 			g.switch = not g.switch
 		end
@@ -212,7 +212,7 @@ offgrid.title =
 		end
 	end,
 
-	gamepadpressed = function(g,button)
+	gamepadpressed = function(g,joystick,button)
 		if button=="start" or button=="a" then
 			game.state.make(g,"gameplay")
 		elseif button=="b" then
@@ -235,7 +235,7 @@ offgrid.intro =
 		end
 	end,
 
-	gamepadpressed = function(g,button)
+	gamepadpressed = function(g,joystick,button)
 		if button=="start" or button=="a" then
 			game.state.make(g,"title")
 		elseif button=="b" then
