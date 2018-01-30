@@ -5,10 +5,6 @@ module.make = function(a,t,...)
 	if type(t)=="number" then
 		modulename=EM[t]
 	end
---[[
-	--old enum code
-	local modulename=EM[t]
---]]
 	if not a[modulename] then
 		a[modulename]={}
 	end

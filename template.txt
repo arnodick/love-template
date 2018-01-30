@@ -1,31 +1,45 @@
-PRIORITY
-test if pixel ma stuff whne making debris is causing fps slowdown
+YES
+test if pixel map stuff whne making debris is causing fps slowdown
 ctrl+N to make new map, input sizes
-input Game into module stuff
-do that 30 fps thing you did with spacetank
-change modules to have just a table input with {variablename="whatever",x=12,etc=true}
-make corpse its own thing, then just change debris into sparks
-get rid of all enums for module making? just do string input. keep old EM[] module code commented out, in case we need it later
-in protosnale make a screen where you have to press a button on a controller to add your player, which spawns you in a little room you can run around in experiment in
-when you're all ready, run to exit together
-maybe this is where you can buy hairdye
-long hair for characters in bighands/witchez
-generalzie multiplayer
-arbitrary player amounts? if you can press a button on keyboard or joystick you can add a player
-map.width and map.height values
-maybe make all flags just work on the high 16 bits
-convert getcells to getcellvalue
-Mode.make which can be done to game or level
-Maybe just make everything a module? Ie x y d v c alpha etc
-fix weirdness with angle vs direction
-namespace (ughhhhhh) game-specific functions, like player? so, protosnake.player instead of just player
 keyboard vector instead of absolute
-make animations not have enums for their inputs any more, jsut use table of strings like in map
-module delete function? resets values that need to be set back to init value ie: flashing sprite needs to be set back to having a sprite
-Make actor.drawmodes and cursor.modes, put editor cursor in modes not as a file and subtype file
-	Make cursor blinky and just corners draw not whole square
-map should take g.level as input too, or Game if that's how it go
+do that 30 fps thing you did with spacetank
+make module inputs flexible, can take enum or string ie: EM.menu OR "menu", EMM.text OR "text"
+make map.getcell return the m[y][x], takes input that says whether world x,y coords or map cell x,y coords, make current getcell into getcellcoords
+module delete function, resets values that need to be set back to init value ie: flashing sprite needs to be set back to having a sprite
+background for map, drawn to persistent canvas. canvas will be have to be size of entire map? and will ahve to move around with camera maybe
+
+fix weirdness with angle vs direction (can't remember what this is about but maybe important?)
+namespace (ughhhhhh) game-specific functions, like player? so, protosnake.player instead of just player? or something to make actors game specific
+	maybe just make all actors into json files? then just add modules to give them behaviours etc
+give animations option to have string input as well as enums for their inputs, give option to take table of animations as well
+table input option for transitions too, so actors can have multiple transitions
+	maybe the name of the transition is the name of the value that it affects? ie: a.transition.zoom or Game.transition.speed
 synth should be a module
+what is in Game? make sure no debris is left over during state changes
+	what should i put in game? Spritesheet, Quads
+things that couold be modules maybe
+	player as module
+		put player functions in game, so protosnake.player.control
+		if a.player then player.control, which runs game.state.run(gamename,"player","control")
+
+make 2d array for multi dimensions by multiplying width by amount of Z levels ie 4x4 with 3 levels = 4x12
+redo all functions to make a local {} and add functions to it and just return that
+give camera movement controller
+screen scaling smarter about dimensions (vertical orientation, taller than width)
+
+IF YOU NEED TO
+printformat: printf but with even more options like
+	drop shadow
+	individual character colouration
+	individual character colour
+	blink
+	highlight?
+character to corpse module, or make corpse a drop or something
+Physics stun launch characters or suck them in just delete or nil their movement controller, apply force, give decel.
+Depth function sort table by depth during draw if not depth hen depth = 0
+make tw and th part of level?
+maybe actors, levels, etc all go in state? so when you do state={} it wipes everything
+maps agnostic? put it in main folder, maps can be load into any game
 load state for each game?
 	this replaces gamename.make
 	is made in game.make instead of state.make("intro")	
@@ -40,34 +54,14 @@ load state for each game?
 			end
 		this way can have a nice loading screen
 		threads for this?
-maps agnostic? put it in main folder, maps can be load into any game
-what is in Game? make sure no debris is left over during state changes
-	maybe actors, levels, etc all go in state? so when you do state={} it wipes everything
-	what should i put in game? Spritesheet, Quads
-make tw and th part of level?
-redo all functions to make a local {} and add functions to it and just return that
+Maybe just make everything a module? Ie x y d v c alpha etc
 maybe make a batch file that makes all the new folders and files for a game
-	make template.lua game, test to see what needs to be done to start
-give camera movement controller
-Depth function sort table by depth during draw if not depth hen depth = 0
-things that couold be modules maybe
-	player as module
-		put player functions in game, so protosnake.player.control
-		if a.player then player.control, which runs game.state.run(gamename,"player","control")
-make transition module a table of transitions, so a thing can have multiple transitions
-	maybe the name of the transition is the name of the value that it affects? ie: a.transition.zoom or Game.transition.speed
-character to corpse module, or make corpse a drop or something
-printformat: printf but with even more options like
-	drop shadow
-	individual character colouration
-	individual character colour
-	blink
-	highlight?
-screen scaling smarter about dimensions (vertical orientation, taller than width)
-Physics stun launch characters or suck them in just delete or nil their movement controller, apply force, give decel.
-
-IF YOU NEED TO
-just use 2d array for multi dimensions
+Mode.make which can be done to game or level
+maybe make all flags just work on the high 16 bits
+input Game into module stuff
+change modules to have just a table input with {variablename="whatever",x=12,etc=true}
+make corpse its own thing, then just change debris into sparks
+arbitrary player amounts? if you can press a button on keyboard or joystick you can add a player
 make different counter types, make one for counter.t=table_counter
 effect duration
 make huds to go in states
@@ -83,106 +77,3 @@ animation "object"/module
 test collision with walls, see if it needs extendo walls for high speeds
 change controller input so impulses will work
 	put controller commands in actor.control? Must be some way to make impulses stick
-
-NO
-different renderers or types or something for screen
-make Game.ease a transition module
-Projectile mpdule. Does all this at make. At end of duration, makes controller again. 
-	Duration module? Decel module? 
-	Can just changed a module's subtype to make it behave different? Just change the states st from gameplay_topdown to gameplay_map or something and map had different draw style
-things that couold be modules maybe
-	level
-	map
-	camera
-menu x,y offset or something
-maybe enums generation just goes in libraries load?
-	figure out how enums.lua and libraries.lua are different, merge them
-	if folder is one of the recursive enum ones, make it put functions into its parent
-	enum generator automatically adds modules to its parent's table ie actor.drop.make
-maybe actor.calltype and actor.callsubtype? EA[nameof[a.t]] and EA[nameof[a.t][nameof[a.st]]] respectively
-Screen, Spritesheet, Quads and all that, part of Game?
-flags.control? put all flag specific code in there for actors and run it at in actor.control? (probably not,unless a bunch more flags do stuff in the same place)
-
-DONE
-why is the map acting as a wall where there is no wall? is it a super high number?
-input Game into
-	actors.control, make etc
-	input into all the game-specific actor functions as well ie player, snake etc
-bug in Quad generation? why is 272 the highest one?
-hud layer that goes above everything else?
-	Better way into draw menus on a new canvas called hud which also has score etc on it
-level types
-cursor as module
-maybe take hud out of module, make it part of a game
-	game.hud functions maybe
-make map a part of level
-	each level draws map differently, don't have to have map types
-put gamename_level stuff in the game's .lua file, ie: protosnake_level.lua becomes protosnake.level
-	level can have local functions for specific types of level? ie: local leveltypes={ city = function() }
-organize folder structure
-	get rid of enums.ini
-get rid of game-specific state files by making offgrid.gameplay instead and run(game.name,gameplay.control) or something
-game.type.control and then game.type.control calls state controller, rather than game immediately calling state from root
-states have game modes, instead of the game itself
-input Game into
-	debugger
-	level
-	map?
-easing for for animaton and time dilation effects (know duration of animation, time dilation)
-easing function has start time, end time (duration), delta timer, rate
-	rate is multiplied by delta time? rate 1=linear, rate cos = curve time
-camera zoom
-screen zoom
-put enums.lua in main folder
-Game.name
-Game.mode.name
-item buy
-deadzones
-menu controller
-Game.player
-make avoid ai into chunks. maybe move to point?
-maybe controllers all have input in the form of x,y axis, which takes output of keyboard, gamepad, ai algo, whatever.
-	these are called inputs, other things are controllers?
-	separate action/shoot etc controls into other controllers
-weird timer problem, something to do with game.speed injection into functions? NO just was running the coin's .control twice
-different types of actor.control?
-game and state architecture for switching game styles, genres
-	States can have subtypes. Intro - intro_protosnake, gameplay, gameplay_topdown_twinstick. 
-		Have to figure out what in gameplay is generic and what is specific to topdown. Still have problem of actor control. Make control run the control_gameplay name code?
-convert old flags into new style
-menus printing in wrong spot
-	make menu follow owner
-architecture for modules
-	modules folder in actor folder for example
-	put tail, drop, etc in modules folder
-menu controller
-item, collectible, character, effect etc are all just flags. then call flag's code from actor.control
-	map which ones have special code
-	flag.make .control etc for this?
-	make flag inputs a standard input into actor.make, second value, where subtype was
-
-make accel/decel snap function
-	for physics (don't necessarily know when movement will end)
-gamepadbutton pressed for menus
-interactive menu type
-	menus need types for this
-alpha values for sprite and form draws
-rollover clamp function
-make controller enums dynamic
-make ai enums dynamic and give type subtype
-make get set and switch flags functions
-add gamepad while game is on and new gamepad is plugged in
-Palettes, Canvases, part of Game
-make states dynamic
-debugger library, object
-git excludes
-animation library
-gun library
-controller library
-hitbox library
-camera is borken
-palettes
-utils
-fix sprites.draw quad selector (must be halved if tile = 16px)
-graphics stuff in game library
-editor not as module but as its own .lua library

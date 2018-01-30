@@ -1,0 +1,107 @@
+DONE
+convert getcells to getcellvalue
+map.width and map.height values
+generalzie multiplayer
+why is the map acting as a wall where there is no wall? is it a super high number?
+input Game into
+	actors.control, make etc
+	input into all the game-specific actor functions as well ie player, snake etc
+bug in Quad generation? why is 272 the highest one?
+Make cursor.modes, put editor cursor in modes not as a file and subtype file
+hud layer that goes above everything else?
+	Better way into draw menus on a new canvas called hud which also has score etc on it
+level types
+cursor as module
+maybe take hud out of module, make it part of a game
+	game.hud functions maybe
+make map a part of level
+	each level draws map differently, don't have to have map types
+put gamename_level stuff in the game's .lua file, ie: protosnake_level.lua becomes protosnake.level
+	level can have local functions for specific types of level? ie: local leveltypes={ city = function() }
+organize folder structure
+	get rid of enums.ini
+get rid of game-specific state files by making offgrid.gameplay instead and run(game.name,gameplay.control) or something
+game.type.control and then game.type.control calls state controller, rather than game immediately calling state from root
+states have game modes, instead of the game itself
+input Game into
+	debugger
+	level
+	map?
+easing for for animaton and time dilation effects (know duration of animation, time dilation)
+easing function has start time, end time (duration), delta timer, rate
+	rate is multiplied by delta time? rate 1=linear, rate cos = curve time
+camera zoom
+screen zoom
+put enums.lua in main folder
+Game.name
+Game.mode.name
+item buy
+deadzones
+menu controller
+Game.player
+make avoid ai into chunks. maybe move to point?
+maybe controllers all have input in the form of x,y axis, which takes output of keyboard, gamepad, ai algo, whatever.
+	these are called inputs, other things are controllers?
+	separate action/shoot etc controls into other controllers
+weird timer problem, something to do with game.speed injection into functions? NO just was running the coin's .control twice
+different types of actor.control?
+game and state architecture for switching game styles, genres
+	States can have subtypes. Intro - intro_protosnake, gameplay, gameplay_topdown_twinstick. 
+		Have to figure out what in gameplay is generic and what is specific to topdown. Still have problem of actor control. Make control run the control_gameplay name code?
+convert old flags into new style
+menus printing in wrong spot
+	make menu follow owner
+architecture for modules
+	modules folder in actor folder for example
+	put tail, drop, etc in modules folder
+menu controller
+item, collectible, character, effect etc are all just flags. then call flag's code from actor.control
+	map which ones have special code
+	flag.make .control etc for this?
+	make flag inputs a standard input into actor.make, second value, where subtype was
+
+make accel/decel snap function
+	for physics (don't necessarily know when movement will end)
+gamepadbutton pressed for menus
+interactive menu type
+	menus need types for this
+alpha values for sprite and form draws
+rollover clamp function
+make controller enums dynamic
+make ai enums dynamic and give type subtype
+make get set and switch flags functions
+add gamepad while game is on and new gamepad is plugged in
+Palettes, Canvases, part of Game
+make states dynamic
+debugger library, object
+git excludes
+animation library
+gun library
+controller library
+hitbox library
+camera is borken
+palettes
+utils
+fix sprites.draw quad selector (must be halved if tile = 16px)
+graphics stuff in game library
+editor not as module but as its own .lua library
+
+NO
+get rid of all enums for module making? just do string input. keep old EM[] module code commented out, in case we need it later
+different renderers or types or something for screen
+make Game.ease a transition module
+Projectile mpdule. Does all this at make. At end of duration, makes controller again. 
+	Duration module? Decel module? 
+	Can just changed a module's subtype to make it behave different? Just change the states st from gameplay_topdown to gameplay_map or something and map had different draw style
+things that couold be modules maybe
+	level
+	map
+	camera
+menu x,y offset or something
+maybe enums generation just goes in libraries load?
+	figure out how enums.lua and libraries.lua are different, merge them
+	if folder is one of the recursive enum ones, make it put functions into its parent
+	enum generator automatically adds modules to its parent's table ie actor.drop.make
+maybe actor.calltype and actor.callsubtype? EA[nameof[a.t]] and EA[nameof[a.t][nameof[a.st]]] respectively
+Screen, Spritesheet, Quads and all that, part of Game?
+flags.control? put all flag specific code in there for actors and run it at in actor.control? (probably not,unless a bunch more flags do stuff in the same place)
