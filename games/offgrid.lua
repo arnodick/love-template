@@ -29,7 +29,7 @@ offgrid.make = function(g,tw,th,gw,gh,sp)
 	table.insert(g.chars,"_")
 	table.insert(g.chars,"~")
 
-	level.load(g,"games/levels/offgrid")
+	level.load(g,"games/levels/offgrid","ini")
 
 	offgrid.loadimages(g)
 	--debugger.printtable(g)

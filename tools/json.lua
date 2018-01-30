@@ -376,5 +376,10 @@ function json.decode(str)
   return ( parse(str, next_char(str, 1, space_chars, true)) )
 end
 
+function json.load(filepath)
+  --loads JSON formatted text from a file and returns a Lua table
+  return json.decode(love.filesystem.read(filepath))
+end
+
 
 return json
