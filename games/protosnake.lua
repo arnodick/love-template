@@ -53,6 +53,7 @@ protosnake.level.make = function(g,l,index)
 		table.insert(g.levelpath,index)
 	end
 	local lload=g.levels[index]
+	debugger.printtable(lload)
 
 	l.t=lload.values.t
 	l.c=lload.values.c
@@ -66,7 +67,9 @@ protosnake.level.make = function(g,l,index)
 		end
 	end
 
-	l.enemycount=lload.enemycount
+	l.enemycount={}
+	l.enemycount.max=lload.enemycount.max
+	l.enemycount.maxlimit=lload.enemycount.maxlimit
 
 	l.actordrops=lload.actordrops
 	l.portal1=lload.portal1
