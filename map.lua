@@ -31,6 +31,7 @@ map.load = function(filename)
 	--loads map sprites and walls/entities from a hex populated textfile
 	--returns map array
 	local m=textfile.load(filename) --each cell (flags + integer) is loaded into map array
+	--TODO do actorspawn flag stuff here to load actor from value of tile
 --[[
 	for a=1,map.width(m) do
 		for b=1,map.height(m) do

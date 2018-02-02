@@ -55,6 +55,9 @@ level.make = function(g,index,mode,tw,th)
 	end
 	if l.map then
 		l.map=map.load(l.map..".txt")
+	elseif l.map_generate then
+		debugger.printtable(l.map_generate)
+		l.map=map.generate(l.map_generate.args,l.map_generate.w,l.map_generate.h)
 	end
 	game.state.run(g.name,"level","make",g,l,index)
 	g.level=l

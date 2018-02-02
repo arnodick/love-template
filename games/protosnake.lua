@@ -1,8 +1,6 @@
 local protosnake={}
 
 protosnake.make = function(g,tw,th,gw,gh,sp)
-	--level.load(g,"games/levels/protosnake","ini")
-	--level.load(g,"games/levels/protosnake","json")
 	g.levelpath={}
 end
 
@@ -40,8 +38,8 @@ protosnake.level.store=
 				module.make(m,EM.border,EC.white,EC.dark_gray)
 			end
 		end
-		local mw,mh=g.width/g.tile.width,g.height/g.tile.height
-		l.map=map.generate("walls",mw+2,mh+2)
+		--local mw,mh=g.width/g.tile.width,g.height/g.tile.height
+		--l.map=map.generate("walls",mw+2,mh+2)
 	end,
 
 	control = function(g,l)
