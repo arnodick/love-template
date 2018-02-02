@@ -1,6 +1,7 @@
 {
 	"t":"arena",
 	"c":3,
+	"map":"arn",
 	"enemies":
 	[
 		"snake",

@@ -55,6 +55,7 @@ game.make = function(t,tw,th,gw,gh,sp)
 
 	game.graphics(g,tw,th,gw,gh)
 
+	level.load(g,"games/levels/"..g.name,"json")
 	run(g.name,"make",g,tw,th,gw,gh)
 	game.state.make(g,"intro")
 

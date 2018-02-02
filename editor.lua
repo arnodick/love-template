@@ -14,12 +14,12 @@ editor.keypressed = function(g,key)
 	if love.keyboard.isDown('lctrl') then
 		if key=="s" then
 			love.keyboard.setTextInput(true)
-			module.make(g.hud,EM.menu,EMM.text,50,50,200,200,{"type file name",""},EC.orange,EC.dark_green)
+			module.make(g.hud,EM.menu,EMM.text,100,100,200,200,{"type file name",""},EC.orange,EC.dark_green)
 		end
 	elseif key=="return" then
 		if g.hud.menu then
 			map.save(g.level.map,g.hud.menu.text[2]..".txt")
-			love.keyboard.setTextInput(false)
+			--love.keyboard.setTextInput(false)
 			g.hud.menu=nil
 		end
 	end

@@ -53,6 +53,9 @@ level.make = function(g,index,mode,tw,th)
 	if g.levels[index] then
 		copytable(l,g.levels[index])
 	end
+	if l.map then
+		l.map=map.load(l.map..".txt")
+	end
 	game.state.run(g.name,"level","make",g,l,index)
 	g.level=l
 end

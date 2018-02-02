@@ -1,6 +1,7 @@
 {
 	"t":"store",
 	"c":8,
+	"map":"arn",
 	"enemies":
 	[
 		"squid_store",

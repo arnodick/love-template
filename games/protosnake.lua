@@ -2,7 +2,7 @@ local protosnake={}
 
 protosnake.make = function(g,tw,th,gw,gh,sp)
 	--level.load(g,"games/levels/protosnake","ini")
-	level.load(g,"games/levels/protosnake","json")
+	--level.load(g,"games/levels/protosnake","json")
 	g.levelpath={}
 end
 
@@ -10,8 +10,8 @@ protosnake.level={}
 protosnake.level.arena=
 {
 	make = function(g,l)
-		local mw,mh=g.width/g.tile.width,g.height/g.tile.height
-		l.map=map.generate("walls",mw+2,mh+2)
+		--local mw,mh=g.width/g.tile.width,g.height/g.tile.height
+		--l.map=map.generate("walls",mw+2,mh+2)
 	end,
 
 	control = function(g,l)
