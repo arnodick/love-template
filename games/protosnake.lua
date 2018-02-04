@@ -187,10 +187,14 @@ protosnake.title =
 		if button=="b" then
 			game.state.make(g,"intro")
 		end
+--TODO comment this out and see if it still works after generalized to game
+	
+--[[
 		local m=g.hud.menu
 		if m then
 			menu.gamepadpressed(m,button)
 		end
+--]]
 	end,
 
 	draw = function(g)

@@ -176,9 +176,14 @@ game.gamepadpressed = function(g,joystick,button)
 
 	game.state.run(g.name,g.state,"gamepadpressed",g,joystick,button)
 
-	if g.editor then
-		--editor.gamepadpressed(g,button)
+	if g.hud then
+		hud.gamepadpressed(g,joystick,button)
 	end
+--[[
+	if g.editor then
+		editor.gamepadpressed(g,button)
+	end
+--]]
 end
 
 game.draw = function(g)
