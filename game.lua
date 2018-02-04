@@ -43,27 +43,22 @@ game.state.make = function(g,state)
 end
 
 game.make = function(t,tw,th,gw,gh,sp)
-	--TODO GET RID OF TW AND TH HERE make it level specific
-	tw = tw or 8
-	th = th or 8
-	gw = gw or 640
-	gh = gh or 480
-	sp = sp or 1
 	local g={}
 	g.t=t
 	g.name=Enums.games[t]
 	g.tile={}
-	g.tile.width=tw
-	g.tile.height=th
-	g.width=gw
-	g.height=gh
-	g.speed=sp
+	g.tile.width=tw or 8
+	g.tile.height=th or 8
+	g.width=gw or 640
+	g.height=gh or 480
+	g.speed=sp or 1
 	g.pause=false
 
 	game.graphics(g)
 
 	level.load(g,"games/levels/"..g.name,"json")
-	run(g.name,"make",g,tw,th,gw,gh)
+	--run(g.name,"make",g,tw,th,gw,gh)
+	run(g.name,"make",g,g.tile.width,g.tile.height,g.width,g.height)
 	game.state.make(g,"intro")
 
 ---[[

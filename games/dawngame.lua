@@ -1,10 +1,10 @@
-local iso={}
+local dawngame={}
 
-iso.make = function(g,tw,th,gw,gh,sp)
+dawngame.make = function(g,tw,th,gw,gh,sp)
 
 end
 
-iso.gameplay =
+dawngame.gameplay =
 {
 	make = function(g)
 
@@ -28,7 +28,7 @@ iso.gameplay =
 	end
 }
 
-iso.title =
+dawngame.title =
 {
 	keypressed = function(g,key)
 		if key=="space" or key=="return" then
@@ -52,7 +52,7 @@ iso.title =
 	end
 }
 
-iso.intro =
+dawngame.intro =
 {
 	keypressed = function(g,key)
 		if key=="space" or key=="return" then
@@ -71,7 +71,7 @@ iso.intro =
 	end
 }
 
-iso.option =
+dawngame.option =
 {
 	keypressed = function(g,key)
 		if key=='escape' then
@@ -90,4 +90,4 @@ iso.option =
 	end
 }
 
-return iso
+return dawngame
