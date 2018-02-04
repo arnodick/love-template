@@ -23,23 +23,13 @@ end
 bighands.gameplay =
 {
 	make = function(g)
-		--hud.make(g)
 		love.keyboard.setTextInput(false)
-		--local zoomchange=4-g.camera.zoom
-		--module.make(g.camera,EM.transition,easing.inOutSine,"zoom",g.camera.zoom,zoomchange,60)
+		local zoomchange=4-g.camera.zoom
+		module.make(g.camera,EM.transition,easing.inOutSine,"zoom",g.camera.zoom,zoomchange,60)
 		level.make(g,1,Enums.games.modes.topdown_tank)
 		local m=g.level.map
-
---[[
-		for i=1,#Joysticks do
-			table.insert(g.players,actor.make(g,EA[g.name].bighands_player,map.width(m)/2,map.height(m)/2+(i*10)))
-		end
---]]
 		
 		actor.make(g,EA[g.name].bighands_snake,map.width(m)/2,map.height(m)/2-20)
-		
-		--table.insert(g.players,actor.make(g,EA[g.name].bighands_player,g.width/2,g.height/2))
-		--g.player=actor.make(g,EA[g.name].bighands_player,g.width/2,g.height/2)
 	end,
 
 	keypressed = function(g,key)
@@ -93,9 +83,6 @@ bighands.intro =
 	keypressed = function(g,key)
 		if key=="space" or key=="return" then
 			game.state.make(g,"title")
-		elseif key == 'escape' then
-			--love.event.quit()
-			--game.make(Enums.games.multigame)
 		end
 	end,
 

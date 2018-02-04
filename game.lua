@@ -60,7 +60,6 @@ game.make = function(t,tw,th,gw,gh,sp)
 	g.speed=sp
 	g.pause=false
 
-	--game.graphics(g,tw,th,gw,gh)
 	game.graphics(g)
 
 	level.load(g,"games/levels/"..g.name,"json")

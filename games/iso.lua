@@ -80,8 +80,6 @@ iso.intro =
 	keypressed = function(g,key)
 		if key=="space" or key=="return" then
 			game.state.make(g,"title")
-		elseif key == 'escape' then
-			--love.event.quit()
 		end
 	end,
 

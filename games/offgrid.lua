@@ -230,16 +230,12 @@ offgrid.intro =
 	keypressed = function(g,key)
 		if key=="space" or key=="return" then
 			game.state.make(g,"title")
-		elseif key == 'escape' then
-			--love.event.quit()
 		end
 	end,
 
 	gamepadpressed = function(g,joystick,button)
 		if button=="start" or button=="a" then
 			game.state.make(g,"title")
-		elseif button=="b" then
-			--love.event.quit()
 		end
 	end,
 

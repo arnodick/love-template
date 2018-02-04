@@ -38,8 +38,6 @@ protosnake.level.store=
 				module.make(m,EM.border,EC.white,EC.dark_gray)
 			end
 		end
-		--local mw,mh=g.width/g.tile.width,g.height/g.tile.height
-		--l.map=map.generate("walls",mw+2,mh+2)
 	end,
 
 	control = function(g,l)
@@ -78,7 +76,6 @@ protosnake.gameplay =
 {
 	make = function(g)
 		g.score=0
-		--hud.make(g)
 		g.player=actor.make(g,EA[g.name].player,g.width/2,g.height/2)
 		--module.make(a,EM.player)
 
@@ -162,7 +159,6 @@ protosnake.gameplay =
 protosnake.title =
 {
 	make = function(g)
-		--hud.make(g)
 		g.hud.font=LG.newFont("fonts/Kongtext Regular.ttf",64)
 		g.scores=scores.load()
 		music.play(1)
@@ -171,7 +167,6 @@ protosnake.title =
 	end,
 
 	control = function(g)
-		--menu.control(g.hud.menu)
 		if g.timer>=630 then
 			game.state.make(g,"intro")
 		end
@@ -187,14 +182,6 @@ protosnake.title =
 		if button=="b" then
 			game.state.make(g,"intro")
 		end
---TODO comment this out and see if it still works after generalized to game
-	
---[[
-		local m=g.hud.menu
-		if m then
-			menu.gamepadpressed(m,button)
-		end
---]]
 	end,
 
 	draw = function(g)
@@ -204,8 +191,6 @@ protosnake.title =
 			LG.printf("PROTO\nSNAKE",0,20,g.width,"center")
 			LG.setFont(g.font)
 			LG.setColor(g.palette[EC.white])
-			--menu.draw(g.hud.menu)
-			--LG.printf("PRESS SPACE",0,180,g.width,"center")
 		LG.setCanvas(g.canvas.main)
 	---[[
 		local imgdata=g.canvas.buffer:newImageData(0,0,g.canvas.buffer:getWidth()-1,g.canvas.buffer:getHeight()-1)
@@ -221,7 +206,6 @@ protosnake.title =
 protosnake.intro =
 {
 	make = function(g)
-		--hud.make(g)
 		g.hud.imgdata=love.image.newImageData(g.canvas.buffer:getWidth()-1,g.canvas.buffer:getHeight()-1)
 		g.hud.font=LG.newFont("fonts/Kongtext Regular.ttf",20)
 		music.play(2)
@@ -236,9 +220,6 @@ protosnake.intro =
 	keypressed = function(g,key)
 		if key=="space" or key=="return" then
 			game.state.make(g,"title")
-		elseif key == 'escape' then
-			--love.event.quit()
-			--game.make(Enums.games.multigame)
 		end
 	end,
 
@@ -302,8 +283,6 @@ protosnake.option =
 		LG.print("OPTIONS",g.width/2,g.height/2)
 	end
 }
-
---this is run when an actor in the game loses all its HP
 
 protosnake.actor =
 {
