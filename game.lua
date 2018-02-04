@@ -43,6 +43,7 @@ game.state.make = function(g,state)
 end
 
 game.make = function(t,tw,th,gw,gh,sp)
+	--TODO GET RID OF TW AND TH HERE make it level specific
 	tw = tw or 8
 	th = th or 8
 	gw = gw or 640
@@ -73,7 +74,7 @@ game.make = function(t,tw,th,gw,gh,sp)
 			LG.setCanvas()
 			love.window.setMode(g.window.width,g.window.height)
 		end
-		game.graphics(g,tw,th,gw,gh)
+		game.graphics(g)
 	end
 --]]
 	--return g
@@ -249,7 +250,7 @@ game.draw = function(g)
 	screen.control(g,g.screen,g.speed)
 end
 
-game.graphics = function(g,tw,th,gw,gh)
+game.graphics = function(g)
 	--just to declutter load function
 	--graphics settings and asset inits
 	LG.setDefaultFilter("nearest","nearest",1) --clean SPRITE scaling
@@ -271,7 +272,7 @@ game.graphics = function(g,tw,th,gw,gh)
 	Quads={}
 	local files = love.filesystem.filterfiles("gfx","png")
 
-	tw,th=8,8
+	local tw,th=8,8
 	for a=1,#files do
 		local ss,qs = sprites.load("gfx/"..files[a],tw*2^(a-1),th*2^(a-1))
 		table.insert(Spritesheet,ss)
