@@ -155,10 +155,7 @@ game.keypressed = function(g,key,scancode,isrepeat)
 		end
 	end
 
-	--game.state.run(g.name,g.state,"keypressed",g,key)
-	supper.run(_G[g.name],{g.state,"keypressed"},g,key)
-
-
+	game.state.run(g.name,g.state,"keypressed",g,key)
 
 	if g.editor then
 		editor.keypressed(g,key)
