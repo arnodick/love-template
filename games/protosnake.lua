@@ -1,6 +1,6 @@
 local protosnake={}
 
-protosnake.make = function(g,tw,th,gw,gh,sp)
+protosnake.make = function(g)
 	g.levelpath={}
 end
 

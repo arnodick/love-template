@@ -1,12 +1,12 @@
 local offgrid={}
 
-offgrid.make = function(g,tw,th,gw,gh,sp)
+offgrid.make = function(g)
 	local ww,wh=640,640
 	g.window={}
 	g.window.width=640
 	g.window.height=960
 
-	g.bufferscale=(ww/tw)/wh
+	g.bufferscale=(ww/g.tile.width)/wh
 	--g.canvas.buffer = LG.newCanvas(ww*g.bufferscale,wh*g.bufferscale)
 
 	g.chars={}

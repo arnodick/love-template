@@ -1,6 +1,6 @@
 local rpg={}
 
-rpg.make = function(g,tw,th,gw,gh,sp)
+rpg.make = function(g)
 
 end
 

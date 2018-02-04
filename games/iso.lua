@@ -1,6 +1,6 @@
 local iso={}
 
-iso.make = function(g,tw,th,gw,gh,sp)
+iso.make = function(g)
 
 end
 

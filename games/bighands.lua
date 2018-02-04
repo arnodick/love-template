@@ -16,7 +16,7 @@ bighands.level.draw = function(g,l)
 	map.draw(l.map,{"sprites"})
 end
 
-bighands.make = function(g,tw,th,gw,gh,sp)
+bighands.make = function(g)
 	
 end
 

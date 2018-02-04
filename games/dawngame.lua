@@ -1,6 +1,6 @@
 local dawngame={}
 
-dawngame.make = function(g,tw,th,gw,gh,sp)
+dawngame.make = function(g)
 
 end
 

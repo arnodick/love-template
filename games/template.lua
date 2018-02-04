@@ -1,6 +1,6 @@
 local template={}
 
-template.make = function(g,tw,th,gw,gh,sp)
+template.make = function(g)
 
 end
 
