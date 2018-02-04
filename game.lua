@@ -38,22 +38,29 @@ game.state.make = function(g,state)
 	end
 	screen.update(g)
 
+	hud.make(g)
 	game.state.run(g.name,g.state,"make",g)
 end
 
 game.make = function(t,tw,th,gw,gh,sp)
+	tw = tw or 8
+	th = th or 8
+	gw = gw or 640
+	gh = gh or 480
+	sp = sp or 1
 	local g={}
 	g.t=t
 	g.name=Enums.games[t]
 	g.tile={}
-	g.tile.width=tw or 8
-	g.tile.height=th or 8
-	g.width=gw or 640
-	g.height=gh or 480
-	g.speed=sp or 1
+	g.tile.width=tw
+	g.tile.height=th
+	g.width=gw
+	g.height=gh
+	g.speed=sp
 	g.pause=false
 
-	game.graphics(g,tw,th,gw,gh)
+	--game.graphics(g,tw,th,gw,gh)
+	game.graphics(g)
 
 	level.load(g,"games/levels/"..g.name,"json")
 	run(g.name,"make",g,tw,th,gw,gh)
@@ -142,8 +149,16 @@ game.keypressed = function(g,key,scancode,isrepeat)
 		game.state.run(g.name,"level","keypressed",g,g.level,key)
 	end
 
+	if g.state=="intro" then
+		if key=="escape" then
+			game.make(Enums.games.multigame)
+		end
+	end
+
 	--game.state.run(g.name,g.state,"keypressed",g,key)
 	supper.run(_G[g.name],{g.state,"keypressed"},g,key)
+
+
 
 	if g.editor then
 		editor.keypressed(g,key)

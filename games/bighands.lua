@@ -23,7 +23,7 @@ end
 bighands.gameplay =
 {
 	make = function(g)
-		hud.make(g)
+		--hud.make(g)
 		love.keyboard.setTextInput(false)
 		--local zoomchange=4-g.camera.zoom
 		--module.make(g.camera,EM.transition,easing.inOutSine,"zoom",g.camera.zoom,zoomchange,60)
@@ -95,8 +95,7 @@ bighands.intro =
 			game.state.make(g,"title")
 		elseif key == 'escape' then
 			--love.event.quit()
-			--Game = game.make(Enums.games.multigame)
-			game.make(Enums.games.multigame)
+			--game.make(Enums.games.multigame)
 		end
 	end,
 

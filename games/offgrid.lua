@@ -231,7 +231,7 @@ offgrid.intro =
 		if key=="space" or key=="return" then
 			game.state.make(g,"title")
 		elseif key == 'escape' then
-			love.event.quit()
+			--love.event.quit()
 		end
 	end,
 
@@ -239,7 +239,7 @@ offgrid.intro =
 		if button=="start" or button=="a" then
 			game.state.make(g,"title")
 		elseif button=="b" then
-			love.event.quit()
+			--love.event.quit()
 		end
 	end,
 

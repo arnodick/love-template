@@ -2,7 +2,9 @@ local function make(m,menu_functions,menu_function_args)
 	m.menu_functions=menu_functions
 	m.menu_function_args=menu_function_args
 	m.text.index=1
+	--TODO get rid of 1 beloew
 	module.make(m,EM.controller,EMC.move,EMCI.gamepad,1)
+	module.make(m,EM.controller,EMC.action,EMCI.gamepad,1)
 	--module.make(m,EM.controller,EMC.select,EMC.selects.gamepad_menu_select)
 end
 
@@ -22,10 +24,12 @@ local function control(m)
 end
 
 local function gamepadpressed(m,button)
-	if button=='start' or button=='a' then
-		local i=m.text.index
-		if m.menu_functions[i] then
-			m.menu_functions[i](unpack(m.menu_function_args[i]))
+	if not m.controller.action.lastuse then
+		if button=='start' or button=='a' then
+			local i=m.text.index
+			if m.menu_functions[i] then
+				m.menu_functions[i](unpack(m.menu_function_args[i]))
+			end
 		end
 	end
 end

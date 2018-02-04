@@ -1,7 +1,7 @@
 local function make(a,c)
 	c.use=false
 	c.action=false
-	c.lastuse=false
+	c.lastuse=true
 	c.lastaction=false
 	c.useduration=0
 	c.actionduration=0

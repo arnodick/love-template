@@ -78,7 +78,7 @@ protosnake.gameplay =
 {
 	make = function(g)
 		g.score=0
-		hud.make(g)
+		--hud.make(g)
 		g.player=actor.make(g,EA[g.name].player,g.width/2,g.height/2)
 		--module.make(a,EM.player)
 
@@ -162,7 +162,7 @@ protosnake.gameplay =
 protosnake.title =
 {
 	make = function(g)
-		hud.make(g)
+		--hud.make(g)
 		g.hud.font=LG.newFont("fonts/Kongtext Regular.ttf",64)
 		g.scores=scores.load()
 		music.play(1)
@@ -204,7 +204,7 @@ protosnake.title =
 			LG.printf("PROTO\nSNAKE",0,20,g.width,"center")
 			LG.setFont(g.font)
 			LG.setColor(g.palette[EC.white])
-			menu.draw(g.hud.menu)
+			--menu.draw(g.hud.menu)
 			--LG.printf("PRESS SPACE",0,180,g.width,"center")
 		LG.setCanvas(g.canvas.main)
 	---[[
@@ -221,7 +221,7 @@ protosnake.title =
 protosnake.intro =
 {
 	make = function(g)
-		hud.make(g)
+		--hud.make(g)
 		g.hud.imgdata=love.image.newImageData(g.canvas.buffer:getWidth()-1,g.canvas.buffer:getHeight()-1)
 		g.hud.font=LG.newFont("fonts/Kongtext Regular.ttf",20)
 		music.play(2)
@@ -238,8 +238,7 @@ protosnake.intro =
 			game.state.make(g,"title")
 		elseif key == 'escape' then
 			--love.event.quit()
-			--Game = game.make(Enums.games.multigame)
-			game.make(Enums.games.multigame)
+			--game.make(Enums.games.multigame)
 		end
 	end,
 

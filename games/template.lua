@@ -92,7 +92,7 @@ template.intro =
 		if key=="space" or key=="return" then
 			game.state.make(g,"title")
 		elseif key == 'escape' then
-			love.event.quit()
+			--love.event.quit()
 		end
 	end,
 
