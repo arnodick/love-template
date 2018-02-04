@@ -171,7 +171,7 @@ protosnake.title =
 	end,
 
 	control = function(g)
-		menu.control(g.hud.menu)
+		--menu.control(g.hud.menu)
 		if g.timer>=630 then
 			game.state.make(g,"intro")
 		end

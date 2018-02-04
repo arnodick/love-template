@@ -74,6 +74,11 @@ game.make = function(t,tw,th,gw,gh,sp)
 end
 
 game.control = function(g)
+	if g.hud then
+		if g.hud.menu then
+			menu.control(g.hud.menu)
+		end
+	end
 	game.state.run(g.name,g.state,"control",g)
 
 	sfx.update(SFX,g.speed)
