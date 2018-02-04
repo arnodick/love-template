@@ -46,11 +46,11 @@ game.make = function(t,tw,th,gw,gh,sp)
 	g.t=t
 	g.name=Enums.games[t]
 	g.tile={}
-	g.tile.width=tw
-	g.tile.height=th
-	g.width=gw
-	g.height=gh
-	g.speed=sp
+	g.tile.width=tw or 8
+	g.tile.height=th or 8
+	g.width=gw or 640
+	g.height=gh or 480
+	g.speed=sp or 1
 	g.pause=false
 
 	game.graphics(g,tw,th,gw,gh)
@@ -69,7 +69,8 @@ game.make = function(t,tw,th,gw,gh,sp)
 		game.graphics(g,tw,th,gw,gh)
 	end
 --]]
-	return g
+	--return g
+	Game = g
 end
 
 game.control = function(g)

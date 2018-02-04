@@ -1,4 +1,5 @@
 YES
+put hud.make in game.make not game-specific
 test if pixel map stuff whne making debris is causing fps slowdown
 ctrl+N to make new map, input sizes
 keyboard vector instead of absolute

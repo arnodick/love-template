@@ -234,7 +234,8 @@ protosnake.intro =
 			game.state.make(g,"title")
 		elseif key == 'escape' then
 			--love.event.quit()
-			Game = game.make(Enums.games.multigame,8,8,640,480,1)
+			--Game = game.make(Enums.games.multigame)
+			game.make(Enums.games.multigame)
 		end
 	end,
 
