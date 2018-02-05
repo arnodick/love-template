@@ -59,7 +59,7 @@ game.make = function(t,tw,th,gw,gh,sp)
 	level.load(g,"games/levels/"..g.name,"json")
 	--run(g.name,"make",g,g.tile.width,g.tile.height,g.width,g.height)
 
---[[
+---[[
 	g.window={}
 	g.window.width=g.width
 	g.window.height=g.height
@@ -68,7 +68,7 @@ game.make = function(t,tw,th,gw,gh,sp)
 	run(g.name,"make",g)
 	game.state.make(g,"intro")
 
---[[
+---[[
 	if g.window then
 		local ww,wh=love.window.getMode()
 		if ww~=g.window.width or wh~=g.window.height then
@@ -282,6 +282,7 @@ game.graphics = function(g)
 
 	screen.update(g)
 
+	local gw,gh=g.width,g.height
 	g.canvas = {}
 	g.canvas.buffer = LG.newCanvas(gw,gh) --offscreen buffer to draw to, modify, then draw to main canvas
 	g.canvas.background = LG.newCanvas(gw,gh) --this canvas doesn't clear every frame, so anything drawn to it stays
