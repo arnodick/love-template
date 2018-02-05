@@ -58,6 +58,13 @@ game.make = function(t,tw,th,gw,gh,sp)
 
 	level.load(g,"games/levels/"..g.name,"json")
 	--run(g.name,"make",g,g.tile.width,g.tile.height,g.width,g.height)
+
+--[[
+	g.window={}
+	g.window.width=g.width
+	g.window.height=g.height
+--]]
+
 	run(g.name,"make",g)
 	game.state.make(g,"intro")
 
