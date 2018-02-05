@@ -68,7 +68,7 @@ game.make = function(t,tw,th,gw,gh,sp)
 	run(g.name,"make",g)
 	game.state.make(g,"intro")
 
----[[
+--[[
 	if g.window then
 		local ww,wh=love.window.getMode()
 		if ww~=g.window.width or wh~=g.window.height then
@@ -248,6 +248,7 @@ game.draw = function(g)
 	screen.control(g,g.screen,g.speed)
 end
 
+--TODO YOU FUCKED THIS UP FIX IT AND PUT GW GH BACK IN DOOFUS
 game.graphics = function(g)
 	--just to declutter load function
 	--graphics settings and asset inits
