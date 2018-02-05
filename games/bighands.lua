@@ -24,8 +24,8 @@ bighands.gameplay =
 {
 	make = function(g)
 		love.keyboard.setTextInput(false)
-		local zoomchange=4-g.camera.zoom
-		module.make(g.camera,EM.transition,easing.inOutSine,"zoom",g.camera.zoom,zoomchange,60)
+		--local zoomchange=4-g.camera.zoom
+		--module.make(g.camera,EM.transition,easing.inOutSine,"zoom",g.camera.zoom,zoomchange,60)
 		level.make(g,1,Enums.games.modes.topdown_tank)
 		local m=g.level.map
 		

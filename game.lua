@@ -49,8 +49,8 @@ game.make = function(t,tw,th,gw,gh,sp)
 	g.tile={}
 	g.tile.width=tw or 8
 	g.tile.height=th or 8
-	g.width=gw or 640
-	g.height=gh or 480
+	g.width=gw or 320
+	g.height=gh or 240
 	g.speed=sp or 1
 	g.pause=false
 
@@ -59,7 +59,7 @@ game.make = function(t,tw,th,gw,gh,sp)
 	level.load(g,"games/levels/"..g.name,"json")
 	--run(g.name,"make",g,g.tile.width,g.tile.height,g.width,g.height)
 
----[[
+--[[
 	g.window={}
 	g.window.width=g.width
 	g.window.height=g.height

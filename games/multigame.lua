@@ -11,7 +11,7 @@ multigame.intro =
 			table.insert(gamemakes,game.make)
 			table.insert(gameargs,{i})
 		end
-		module.make(g.hud,EM.menu,EMM.interactive,g.width/2,180,400,30,gamenames,EC.orange,EC.dark_green,"left",gamemakes,gameargs)
+		module.make(g.hud,EM.menu,EMM.interactive,g.width/2,180,160,120,gamenames,EC.orange,EC.dark_green,"left",gamemakes,gameargs)
 	end,
 
 	keypressed = function(g,key)

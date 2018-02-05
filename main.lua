@@ -15,7 +15,7 @@ SFX = sfx.load(false,true)
 Music = music.load()
 
 function love.load()
-	game.make(Enums.games.multigame,8,8,640,480,1)
+	game.make(Enums.games.multigame,8,8,320,240,1)
 	--game.make(Enums.games.protosnake,8,8,320,240,1)
 	--game.make(Enums.games.offgrid,8,8,640,960,1)
 	--game.make(Enums.games.bighands,8,8,640,480,1)
