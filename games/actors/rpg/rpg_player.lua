@@ -2,8 +2,10 @@ local function make(g,a,c,size,char,hp)
 	local e=Enums
 
 	if #Joysticks>0 then
-		module.make(a,EM.controller,EMC.move,EMC.moves.roguelike_gamepad_move)
-		module.make(a,EM.controller,EMC.action,EMC.actions.roguelike_gamepad_action)
+		module.make(a,EM.controller,EMC.move,EMCI.gamepad)
+		module.make(a,EM.controller,EMC.action,EMCI.gamepad)
+		--module.make(a,EM.controller,EMC.move,EMC.moves.roguelike_gamepad_move)
+		--module.make(a,EM.controller,EMC.action,EMC.actions.roguelike_gamepad_action)
 	else
 		module.make(a,EM.controller,EMC.move,EMC.moves.roguelike_keyboard_move)
 	end

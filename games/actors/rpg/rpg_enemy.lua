@@ -2,7 +2,7 @@ local function make(g,a,c,size,char,hp)
 	local e=Enums
 
 
-	module.make(a,EM.controller,EMC.move,EMC.moves.roguelike_ai_move_random)
+	module.make(a,EM.controller,EMC.move,EMCI.ai)
 
 
 	a.cinit=c or EC.yellow

@@ -8,8 +8,6 @@ protosnake.level={}
 protosnake.level.arena=
 {
 	make = function(g,l)
-		--local mw,mh=g.width/g.tile.width,g.height/g.tile.height
-		--l.map=map.generate("walls",mw+2,mh+2)
 	end,
 
 	control = function(g,l)

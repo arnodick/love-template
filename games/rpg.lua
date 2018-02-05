@@ -8,7 +8,8 @@ rpg.gameplay =
 {
 	make = function(g)
 		local mw,mh=g.width/g.tile.width,g.height/g.tile.height
-		g.map=map.generate("random",mw+2,mh+2)
+		--g.map=map.generate("random",mw+2,mh+2)
+		g.map=map.generate("walls",mw+2,mh+2)
 
 		g.step=false
 
@@ -36,6 +37,8 @@ rpg.title =
 	gamepadpressed = function(g,joystick,button)
 		if button=="b" then
 			game.state.make(g,"intro")
+		elseif button=="a" then
+			game.state.make(g,"gameplay")
 		end
 	end,
 
