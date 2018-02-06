@@ -6,9 +6,9 @@ local function make(m,menu_functions,menu_function_args)
 	--module.make(m,EM.controller,EMC.select,EMC.selects.gamepad_menu_select)
 end
 
-local function control(m)
+local function control(m,gs)
 	local g=Game
-	controller.update(m)
+	controller.update(m,gs)
 	local c=m.controller.move
 
 	if c.vertical<0 then
