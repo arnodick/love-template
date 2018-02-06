@@ -83,7 +83,7 @@ protosnake.gameplay =
 	control = function(g)
 		if g.player.hp<=0 then
 			if not g.hud.menu then
-				module.make(g.hud,EM.menu,EMM.highscores,g.width/2,g.height/2,66,100,"",g.hud.c,g.hud.c2,"center")
+				module.make(g.hud,EM.menu,EMM.highscores,g.width/2,g.height/2,66,110,"",g.hud.c,g.hud.c2,"center")
 			end
 		end
 	end,
@@ -114,14 +114,14 @@ protosnake.gameplay =
 			h.c=EC.orange
 			h.c2=EC.dark_green
 			h.score={}
-			h.score.x=-Game.width/2+12
-			h.score.y=-Game.height/2+6
+			h.score.x=-g.width/2+12
+			h.score.y=-g.height/2+6
 			h.coins={}
-			h.coins.x=-Game.width/2+120
-			h.coins.y=-Game.height/2+6
+			h.coins.x=-g.width/2+120
+			h.coins.y=-g.height/2+6
 			h.hp={}
-			h.hp.x=-Game.width/2+240
-			h.hp.y=-Game.height/2+6
+			h.hp.x=-g.width/2+240
+			h.hp.y=-g.height/2+6
 		end,
 
 		draw = function(g,h)

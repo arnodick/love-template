@@ -13,11 +13,11 @@ local function control(m,gs)
 	local c=m.controller.move
 
 	if c.vertical<0 then
-		if c.last.vertical>=0 then
+		if c.last.vertical>=0 or (c.duration.vertical>30 and math.floor(Game.timer)%4==0) then
 			m.text.index=math.clamp(m.text.index-1,1,#m.text,true)
 		end
 	elseif c.vertical>0 then
-		if c.last.vertical<=0 then
+		if c.last.vertical<=0 or (c.duration.vertical>30 and math.floor(Game.timer)%4==0) then
 			m.text.index=math.clamp(m.text.index+1,1,#m.text,true)
 		end
 	end

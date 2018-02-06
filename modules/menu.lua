@@ -47,10 +47,10 @@ menu.draw = function(m)
 		run("text","draw",m)
 	end
 	LG.setFont(g.font)
---[[
-	if Debugmode then
+---[[
+	if Debugger.debugging then
 		LG.setColor(Game.palette[EC.red])
-		LG.points(a.x,a.y)
+		LG.points(m.x,m.y)
 	end
 --]]
 end

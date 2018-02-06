@@ -75,7 +75,10 @@ local function update(g,d)
 		table.insert(debuglist,"camy:"..g.camera.y)
 		table.insert(debuglist,"cam zoom:"..g.camera.zoom)
 		table.insert(debuglist,"pause: "..tostring(g.pause))
-
+		if g.hud.menu then
+			table.insert(debuglist,"menu x:"..g.hud.menu.x)
+			table.insert(debuglist,"menu y:"..g.hud.menu.y)
+		end
 		local levelpathstring=""
 		if g.levelpath then
 			for i=1,#g.levelpath do

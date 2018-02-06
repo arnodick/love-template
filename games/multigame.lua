@@ -11,12 +11,17 @@ multigame.intro =
 			table.insert(gamemakes,game.make)
 			table.insert(gameargs,{i})
 		end
-		module.make(g.hud,EM.menu,EMM.interactive,g.width/2,180,160,120,gamenames,EC.orange,EC.dark_green,"left",gamemakes,gameargs)
+		--module.make(g.hud,EM.menu,EMM.interactive,g.width/2,120,160,120,gamenames,EC.orange,EC.dark_green,"center",gamemakes,gameargs)
+		module.make(g.hud,EM.menu,EMM.interactive,g.width/2,120,160,(#gamenames+2)*12,gamenames,EC.orange,EC.dark_green,"center",gamemakes,gameargs)
+		module.make(g.hud.menu,EM.border,EC.orange,EC.dark_green)
 	end,
 
 	keypressed = function(g,key)
-		if key == 'escape' then
+		if key=="escape" then
 			love.event.quit()
+		elseif key=="up" then
+			g.hud.menu.y=g.hud.menu.y-10
+			g.camera.y=g.hud.menu.y
 		end
 	end,
 
