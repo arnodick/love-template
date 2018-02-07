@@ -22,9 +22,9 @@ protosnake.level.store=
 			local storeitem=l["storeitem"..i]
 			if storeitem then
 				local dropname=storeitem.drop
-				local x=g.width/2-40+(i-1)*40
+				local x=g.level.map.width/2-40+(i-1)*40
 				--local drop=actor.make(g,love.math.random(#EA[g.name]),x,g.height/2-40)
-				local drop=actor.make(g,EA[g.name][dropname],x,g.height/2-40)
+				local drop=actor.make(g,EA[g.name][dropname],x,g.level.map.height/2-40)
 				drop.flags=flags.set(drop.flags,EF.shopitem)
 				local cost=0
 				if drop.cost then
@@ -43,6 +43,9 @@ protosnake.level.store=
 }
 
 protosnake.level.make = function(g,l,index)
+	if not g.player or g.player.hp<=0 then
+		g.player=actor.make(g,EA[g.name].player,l.map.width/2,l.map.height/2)
+	end
 	if index~=g.levelpath[#g.levelpath] then
 		table.insert(g.levelpath,index)
 	end
@@ -51,6 +54,8 @@ protosnake.level.make = function(g,l,index)
 	end
 	l.spawnindex=1
 	protosnake.level[l.t].make(g,l)
+	g.camera.x=map.width(l.map)/2
+	g.camera.y=map.height(l.map)/2
 	return l
 end
 
@@ -74,10 +79,8 @@ protosnake.gameplay =
 {
 	make = function(g)
 		g.score=0
-		g.player=actor.make(g,EA[g.name].player,g.width/2,g.height/2)
-		--module.make(a,EM.player)
-
 		level.make(g,1,Enums.games.modes.topdown)
+		--module.make(a,EM.player)
 	end,
 
 	control = function(g)

@@ -34,11 +34,11 @@ local function control(g,a)
 	if a.target then--if you aren't running to safety
 		local playerdist=vector.distance(a.x,a.y,a.target.x,a.target.y)
 		if playerdist<mindist then--if player is too close and you're cornered, then run to safety
-			if a.x>g.width-32 or a.x<32 or a.y>g.height-32 or a.y<32 then
-				a.controller.move.target.x,a.controller.move.target.y=love.math.random(g.width),love.math.random(g.height)
+			if a.x>g.level.map.width-32 or a.x<32 or a.y>g.level.map.height-32 or a.y<32 then
+				a.controller.move.target.x,a.controller.move.target.y=love.math.random(g.level.map.width-32),love.math.random(g.level.map.height-32)
 				local targetdist=vector.distance(a.controller.move.target.x,a.controller.move.target.y,a.target.x,a.target.y)
 				while targetdist<mindist do
-					a.controller.move.target.x,a.controller.move.target.y=love.math.random(g.width),love.math.random(g.height)
+					a.controller.move.target.x,a.controller.move.target.y=love.math.random(g.level.map.width-32),love.math.random(g.level.map.height-32)
 					targetdist=vector.distance(a.controller.move.target.x,a.controller.move.target.y,a.target.x,a.target.y)
 				end
 				a.target=nil--don't worry about player any more, just get to safety
@@ -47,10 +47,10 @@ local function control(g,a)
 				a.controller.move.target.x,a.controller.move.target.y=a.x-(math.cos(playerdir)*playerdist),a.y-(math.sin(playerdir)*playerdist)
 			end
 		else--if player is not close, then random jitter
-			local x,y=love.math.random(g.width),love.math.random(g.height)
+			local x,y=love.math.random(g.level.map.width),love.math.random(g.level.map.height)
 			local randdist=vector.distance(x,y,a.target.x,a.target.y)
 			while randdist<mindist do
-				x,y=love.math.random(g.width),love.math.random(g.height)
+				x,y=love.math.random(g.level.map.width),love.math.random(g.level.map.height)
 				randdist=vector.distance(x,y,a.target.x,a.target.y)
 			end
 			a.controller.move.target.x,a.controller.move.target.y=x,y

@@ -24,6 +24,8 @@ map.generate = function(gen,w,h,args)
 	end
 	m.w=w
 	m.h=h
+	m.width=map.width(m)
+	m.height=map.height(m)
 	return m
 end
 
@@ -44,6 +46,8 @@ map.load = function(filename)
 --]]
 	m.w=map.cellwidth(m)
 	m.h=map.cellheight(m)
+	m.width=map.width(m)
+	m.height=map.height(m)
 	return m
 end
 

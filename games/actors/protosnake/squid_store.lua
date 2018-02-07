@@ -7,7 +7,7 @@ local function make(g,a,c,size,spr,hp)
 
 	a.speed=2
 
-	module.make(a,EM.controller,EMC.move,EMCI.ai,g.width/2,g.height/4*3)
+	module.make(a,EM.controller,EMC.move,EMCI.ai,g.level.map.width/2,g.level.map.height/4*3)
 	module.make(a,EM.sound,3,"damage")
 	module.make(a,EM.animation,EM.animations.frames,10,2)
 	module.make(a,EM.hitradius,4)
