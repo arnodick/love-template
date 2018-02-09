@@ -19,9 +19,7 @@ local function control(a,gs)
 				end
 			end
 			actor.make(Game,EA[Game.name].collectibleget,a.x,a.y,math.pi/2,1,EC.pure_white,1,a.sprinit)
-			if _G[EA[Game.name][a.t]]["get"] then
-				_G[EA[Game.name][a.t]]["get"](a,gs)
-			end
+			run(EA[Game.name][a.t],"get",a,gs)
 			a.delete=true
 		end
 	end

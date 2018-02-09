@@ -54,8 +54,8 @@ protosnake.level.make = function(g,l,index)
 	end
 	l.spawnindex=1
 	protosnake.level[l.t].make(g,l)
-	g.camera.x=map.width(l.map)/2
-	g.camera.y=map.height(l.map)/2
+	g.camera.x=map.width(l.map)/2-8
+	g.camera.y=map.height(l.map)/2-8
 	return l
 end
 

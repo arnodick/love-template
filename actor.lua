@@ -128,9 +128,7 @@ local function damage(a,d)
 		--TODO a lot of this stuff is game specific, or rather level specific (each level should have its own rules/"physics" and some games just have the same for every level, whereas games with different modes in different parts of the game will have different rules/physics in different levels)
 		if flags.get(a.flags,EF.damageable) then
 			a.hp = a.hp - d
-			if _G[EA[g.name][a.t]]["damage"] then
-				_G[EA[g.name][a.t]]["damage"](a)
-			end
+			run(EA[g.name][a.t],"damage",a)
 
 			game.state.run(g.name,"actor","damage",g,a,d)
 
@@ -142,20 +140,7 @@ local function damage(a,d)
 				--sfx.play(a.deathsnd,a.x,a.y)
 				a.delete=true
 
-				--TODO game-specific code
-				--run(g.name,"dead",g,a)
 				game.state.run(g.name,"actor","dead",g,a)
---[[
-				if g.player then
-				if g.player.hp>0 then
-					if a.value then
-						g.score=g.score+a.value
-						local l=g.level
-						l.spawnindex=math.clamp(l.spawnindex+1,1,#l.enemies,true)
-					end
-				end
-				end
---]]
 
 				--TODO sort of game-specific
 				if flags.get(a.flags,EF.explosive) then
@@ -166,9 +151,8 @@ local function damage(a,d)
 				if flags.get(a.flags,EF.character) then
 					character.dead(a)
 				end
-				if _G[EA[g.name][a.t]]["dead"] then
-					_G[EA[g.name][a.t]]["dead"](a)
-				end
+				
+				run(EA[g.name][a.t],"dead",a)
 			end
 		end
 	end
