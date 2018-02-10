@@ -86,7 +86,7 @@ protosnake.gameplay =
 	control = function(g)
 		if g.player.hp<=0 then
 			if not g.hud.menu then
-				module.make(g.hud,EM.menu,EMM.highscores,g.width/2,g.height/2,66,110,"",g.hud.c,g.hud.c2,"center")
+				module.make(g.hud,EM.menu,EMM.highscores,g.camera.x,g.camera.y,66,110,"",g.hud.c,g.hud.c2,"center")
 			end
 		end
 	end,
@@ -135,7 +135,7 @@ protosnake.gameplay =
 			LG.print("hp:"..g.player.hp,g.camera.x+h.hp.x,g.camera.y+h.hp.y)
 
 			for i=1,g.player.inventory.max do
-				local x,y=g.camera.x+40-i*20,20
+				local x,y=g.camera.x+40-i*20,g.camera.y-g.height/2+20--20
 				LG.rectangle("line",x,y,15,15)
 				if g.player.inventory[i] then
 					local a=g.player.inventory[i]
@@ -152,7 +152,7 @@ protosnake.gameplay =
 				LG.printformat("PRESS SPACE",g.camera.x-g.width/2,g.camera.y+60,g.width,"center",EC.white,h.c)
 			end
 			LG.setColor(g.palette[EC.pure_white])
-			LG.print(love.timer.getFPS(),10,10)
+			LG.print(love.timer.getFPS(),g.camera.x-g.width/2+10,g.camera.y-g.height/2+20)
 		end
 	}
 }

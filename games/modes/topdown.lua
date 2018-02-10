@@ -17,9 +17,11 @@ local function control(a,m,gs)
 	end
 
 	local g=Game
-	local xcell,ycell=map.getcell(m,a.x+g.tile.width,a.y+g.tile.height)--NOTE the +tile.width in this and 2 lines down is just a hack to make protosnake walls work right
+	--local xcell,ycell=map.getcell(m,a.x+g.tile.width,a.y+g.tile.height)--NOTE the +tile.width in this and 2 lines down is just a hack to make protosnake walls work right
+	local xcell,ycell=map.getcell(m,a.x,a.y)
 	local xdest,ydest=a.x + a.vec[1]*a.vel*a.speed*gs,a.y - a.vec[2]*a.vel*a.speed*gs
-	local xcelldest,ycelldest=map.getcell(m,xdest+g.tile.width,ydest+g.tile.height)
+	--local xcelldest,ycelldest=map.getcell(m,xdest+g.tile.width,ydest+g.tile.height)
+	local xcelldest,ycelldest=map.getcell(m,xdest,ydest)
 	
 	local xmapcell=m[ycell][xcelldest]
 	local ymapcell=m[ycelldest][xcell]

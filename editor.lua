@@ -38,7 +38,7 @@ end
 
 editor.wheelmoved = function(g,x,y)
 	if love.keyboard.isDown('lctrl') then
-		g.camera.zoom=g.camera.zoom+y
+		g.camera.zoom=g.camera.zoom+y/10
 	else
 		cursor.wheelmoved(g,g.editor.cursor,x,y)
 	end
