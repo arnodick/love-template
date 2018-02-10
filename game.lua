@@ -49,8 +49,14 @@ game.make = function(t,tw,th,gw,gh,sp)
 	g.tile={}
 	g.tile.width=tw or 8
 	g.tile.height=th or 8
+	g.width=gw or 640
+	g.height=gh or 480
+--[[
+	g.tile.width=tw or 8
+	g.tile.height=th or 8
 	g.width=gw or 320
 	g.height=gh or 240
+--]]
 	g.speed=sp or 1
 	g.pause=false
 
@@ -224,6 +230,12 @@ game.draw = function(g)
 			end
 
 			game.state.run(g.name,g.state,"draw",g)
+
+			if g.editor then
+				if g.editor.cursor then
+					cursor.draw(g.editor.cursor)
+				end
+			end
 			
 			LG.setCanvas(g.canvas.hud) --sets drawing to hud canvas, which draws OVER everything else
 			LG.clear()

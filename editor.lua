@@ -46,7 +46,6 @@ end
 
 editor.draw = function(g)
 	LG.printformat("EDITOR",g.camera.x-g.width/2,g.camera.y-15,g.width,"center",EC.red,EC.blue)
-	cursor.draw(g.editor.cursor)
 end
 
 return editor
