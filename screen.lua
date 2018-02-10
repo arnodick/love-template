@@ -57,9 +57,7 @@ local function control(g,s,gs)
 		--LG.setShader()
 	end
 --[[
-	if _G[Enums.games.screens[g.st] ]["control"] then
-		_G[Enums.games.screens[g.st] ]["control"](g,s)
-	end
+	run(Enums.games.screens[g.st],"control",g,s)
 --]]
 end
 

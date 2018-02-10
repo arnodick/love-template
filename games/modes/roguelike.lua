@@ -30,9 +30,7 @@ local function control(a,gs)
 		end
 
 		if collx or colly then
-			if _G[EA[Game.name][a.t]]["collision"] then
-				_G[EA[Game.name][a.t]]["collision"](a)
-			end
+			run(EA[Game.name][a.t],"collision",a)
 		end
 	end
 end

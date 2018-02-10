@@ -238,9 +238,7 @@ game.draw = function(g)
 			end
 		LG.setCanvas() --sets drawing back to screen
 	else
-		if _G[EM.transitions[l.transition.t]]["draw"] then
-			_G[EM.transitions[l.transition.t]]["draw"](g,l,l.transition)
-		end
+		run(EM.transitions[l.transition.t],"draw",g,l,l.transition)
 	end
 	
 	LG.origin()
