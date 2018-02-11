@@ -1,6 +1,9 @@
 local function make(g,a,c,size,char,hp)
 	local e=Enums
 
+	module.make(a,EM.controller,EMC.move,EMCI.keyboard)
+	module.make(a,EM.controller,EMC.action,EMCI.keyboard)
+--[[
 	if #Joysticks>0 then
 		module.make(a,EM.controller,EMC.move,EMCI.gamepad)
 		module.make(a,EM.controller,EMC.action,EMCI.gamepad)
@@ -9,6 +12,7 @@ local function make(g,a,c,size,char,hp)
 	else
 		module.make(a,EM.controller,EMC.move,EMC.moves.roguelike_keyboard_move)
 	end
+--]]
 
 	a.cinit=c or EC.dark_blue
 	a.c=a.cinit or EC.blue
@@ -23,6 +27,18 @@ end
 local function control(g,a)
 	if SFX.positonal then
 		love.audio.setPosition(a.x,a.y,0)
+	end
+
+	g.step=false
+	if a.controller.move.horizontal~=0 then
+		if a.controller.move.last.horizontal==0 then
+			g.step=true
+		end
+	end
+	if a.controller.move.vertical~=0 then
+		if a.controller.move.last.vertical==0 then
+			g.step=true
+		end
 	end
 
 	if a.controller.action.use then

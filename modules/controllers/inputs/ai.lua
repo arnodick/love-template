@@ -1,5 +1,10 @@
 local function move(a,c)
-	local dir=vector.direction(vector.components(a.x,a.y,c.target.x or a.x+1,c.target.y or a.y+1))
+	local tarx,tary=a.x+1,a.y+1
+	if c.target then
+		tarx,tary=c.target.x,c.target.y
+	end
+	local dir=vector.direction(vector.components(a.x,a.y,tarx,tary))
+	--local dir=vector.direction(vector.components(a.x,a.y,c.target.x,c.target.y))
 	return math.cos(dir),math.sin(dir)
 end
 

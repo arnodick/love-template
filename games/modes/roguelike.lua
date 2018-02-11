@@ -9,14 +9,10 @@ roguelike.control = function(a,m,gs)
 		end
 	end
 
-	local tw,th=Game.tile.width,Game.tile.height
-
-	local xcell,ycell=map.getcell(m,a.x,a.y)
-	local xdest,ydest=a.x + a.vec[1]*tw,a.y + a.vec[2]*th
-	local xcelldest,ycelldest=map.getcell(m,xdest,ydest)
+	local xdest,ydest=a.x+a.vec[1],a.y+a.vec[2]
 	
-	local xmapcell=m[ycell][xcelldest]
-	local ymapcell=m[ycelldest][xcell]
+	local xmapcell=m[a.y][xdest]
+	local ymapcell=m[ydest][a.x]
 	local collx,colly=false,false
 
 	if Game.step==true then
@@ -40,7 +36,7 @@ end
 roguelike.draw = function(g,a)
 	if a.char then
 		LG.setColor(100,200,100)
-		LG.print(a.char,a.x,a.y)
+		LG.print(a.char,(a.x-1)*g.tile.width,(a.y-1)*g.tile.height)
 	end
 end
 

@@ -1,9 +1,7 @@
 local function make(g,a,c,size,char,hp)
 	local e=Enums
 
-
-	module.make(a,EM.controller,EMC.move,EMCI.ai)
-
+	module.make(a,EM.controller,EMC.move,EMCI.ai,10,10)
 
 	a.cinit=c or EC.yellow
 	a.c=a.cinit or EC.yellow

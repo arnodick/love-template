@@ -14,10 +14,14 @@ rpg.gameplay =
 		--g.map=map.generate("walls",mw+2,mh+2)
 		level.make(g,1,Enums.games.modes.roguelike)
 
-		g.step=true
+		g.step=false
 
-		g.player=actor.make(g,EA[g.name].rpg_player,g.level.map.width/2,g.level.map.height/2)
-		--actor.make(g,EA[g.name].rpg_enemy,g.width/2,g.height/2)
+		g.player=actor.make(g,EA[g.name].rpg_player,g.level.map.w/2,g.level.map.h/2)
+		--actor.make(g,EA[g.name].rpg_enemy,2,2)
+	end,
+
+	control = function(g)
+		--g.step=false
 	end,
 
 	keypressed = function(g,key)
