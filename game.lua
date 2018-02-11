@@ -47,11 +47,13 @@ game.make = function(t,tw,th,gw,gh,sp)
 	g.t=t
 	g.name=Enums.games[t]
 	g.tile={}
+--[[
 	g.tile.width=tw or 8
 	g.tile.height=th or 8
 	g.width=gw or 640
 	g.height=gh or 480
---[[
+--]]
+---[[
 	g.tile.width=tw or 8
 	g.tile.height=th or 8
 	g.width=gw or 320

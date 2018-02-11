@@ -4,24 +4,31 @@ rpg.make = function(g)
 
 end
 
+rpg.level={}
+
 rpg.gameplay =
 {
 	make = function(g)
-		local mw,mh=g.width/g.tile.width,g.height/g.tile.height
+		--local mw,mh=g.width/g.tile.width,g.height/g.tile.height
 		--g.map=map.generate("random",mw+2,mh+2)
-		g.map=map.generate("walls",mw+2,mh+2)
+		--g.map=map.generate("walls",mw+2,mh+2)
+		level.make(g,1,Enums.games.modes.roguelike)
 
-		g.step=false
+		g.step=true
 
-		g.player=actor.make(g,EA[g.name].rpg_player,g.width/2,g.height/2)
-		actor.make(g,EA[g.name].rpg_enemy,g.width/2,g.height/2)
+		g.player=actor.make(g,EA[g.name].rpg_player,g.level.map.width/2,g.level.map.height/2)
+		--actor.make(g,EA[g.name].rpg_enemy,g.width/2,g.height/2)
 	end,
 
 	keypressed = function(g,key)
 		if key=='escape' then
 			game.state.make(g,"title")
 		end
-	end
+	end,
+
+	draw = function(g)
+		map.draw(g.level.map,{"grid","sprites"})
+	end,
 }
 
 rpg.title =

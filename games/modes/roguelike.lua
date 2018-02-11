@@ -1,20 +1,22 @@
-local function control(a,gs)
+local roguelike={}
+
+roguelike.control = function(a,m,gs)
 	if a.controller then
 		local c=a.controller.move
 		if c then
-			a.vec[1]=c.movehorizontal
-			a.vec[2]=c.movevertical
+			a.vec[1]=c.horizontal
+			a.vec[2]=c.vertical
 		end
 	end
 
 	local tw,th=Game.tile.width,Game.tile.height
 
-	local xcell,ycell=map.getcell(Game.map,a.x,a.y)
-	local xdest,ydest=a.x + a.vec[1]*tw,a.y - a.vec[2]*th
-	local xcelldest,ycelldest=map.getcell(Game.map,xdest,ydest)
+	local xcell,ycell=map.getcell(m,a.x,a.y)
+	local xdest,ydest=a.x + a.vec[1]*tw,a.y + a.vec[2]*th
+	local xcelldest,ycelldest=map.getcell(m,xdest,ydest)
 	
-	local xmapcell=Game.map[ycell][xcelldest]
-	local ymapcell=Game.map[ycelldest][xcell]
+	local xmapcell=m[ycell][xcelldest]
+	local ymapcell=m[ycelldest][xcell]
 	local collx,colly=false,false
 
 	if Game.step==true then
@@ -35,14 +37,11 @@ local function control(a,gs)
 	end
 end
 
---[[
-local function draw()
-	
+roguelike.draw = function(g,a)
+	if a.char then
+		LG.setColor(100,200,100)
+		LG.print(a.char,a.x,a.y)
+	end
 end
---]]
 
-return
-{
-	control = control,
-	--draw = draw,
-}
+return roguelike
