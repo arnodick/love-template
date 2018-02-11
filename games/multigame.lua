@@ -6,10 +6,13 @@ multigame.intro =
 		local gamenames={}
 		local gamemakes={}
 		local gameargs={}
+		local no={}
 		for i,v in ipairs(Enums.games) do
-			table.insert(gamenames,v)
-			table.insert(gamemakes,game.make)
-			table.insert(gameargs,{i})
+			if v~="dawngame" and v~="offgrid" then
+				table.insert(gamenames,v)
+				table.insert(gamemakes,game.make)
+				table.insert(gameargs,{i})
+			end
 		end
 		--module.make(g.hud,EM.menu,EMM.interactive,g.width/2,120,160,120,gamenames,EC.orange,EC.dark_green,"center",gamemakes,gameargs)
 		module.make(g.hud,EM.menu,EMM.interactive,g.width/2,120,160,(#gamenames+2)*12,gamenames,EC.orange,EC.dark_green,"center",gamemakes,gameargs)
