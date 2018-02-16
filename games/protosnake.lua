@@ -80,7 +80,7 @@ protosnake.gameplay =
 	make = function(g)
 		g.score=0
 		level.make(g,1,Enums.games.modes.topdown)
-		g.camera.zoom=2
+		--g.camera.zoom=2
 		--module.make(a,EM.player)
 	end,
 

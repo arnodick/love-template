@@ -51,6 +51,7 @@ local function control(g,a)
 		else
 			g.speed=math.clamp(a.vel,0.1,1)
 		end
+		--g.camera.zoom=1/g.speed--too weird but potentially neat
 	end
 	--[[
 	if a.controller.aim.action then

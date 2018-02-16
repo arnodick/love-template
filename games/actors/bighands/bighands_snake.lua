@@ -5,6 +5,9 @@ local function make(g,a,c,size,spr,hp)
 	a.spr=spr or 49
 	a.hp=hp or 8
 
+	--module.make(a,EM.target,g.players[1])
+	--module.make(a,EM.controller,EMC.move,EMCI.ai,g.players[1])
+	
 	--module.make(a,EM.controller,EMC.aim,EMCI.ai,g.player)
 	--module.make(a,EM.controller,EMC.action,EMCI.ai,0.01,0)
 	module.make(a,EM.sound,3,"damage")
@@ -20,9 +23,11 @@ local function make(g,a,c,size,spr,hp)
 	a.vel=1
 end
 
---[[
+---[[
 local function control(g,a)
-
+	if g.players[1] then
+		module.make(a,EM.controller,EMC.move,EMCI.ai,g.players[1])
+	end
 end
 --]]
 
@@ -35,6 +40,6 @@ end
 return
 {
 	make = make,
-	--control = control,
+	control = control,
 	--draw = draw,
 }

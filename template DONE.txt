@@ -1,4 +1,5 @@
 DONE
+put hud.make in game.make not game-specific
 convert getcells to getcellvalue
 map.width and map.height values
 generalzie multiplayer

@@ -1,5 +1,5 @@
 YES
-put hud.make in game.make not game-specific
+make canvas gamewidth * 4 in dimensions, so every game can zoom in
 test if pixel map stuff whne making debris is causing fps slowdown
 ctrl+N to make new map, input sizes
 keyboard vector instead of absolute
@@ -8,6 +8,8 @@ make module inputs flexible, can take enum or string ie: EM.menu OR "menu", EMM.
 make map.getcell return the m[y][x], takes input that says whether world x,y coords or map cell x,y coords, make current getcell into getcellcoords
 module delete function, resets values that need to be set back to init value ie: flashing sprite needs to be set back to having a sprite
 background for map, drawn to persistent canvas. canvas will be have to be size of entire map? and will ahve to move around with camera maybe
+within game if you press pause long enough, goes to 1st person arcade that has a bunch of ther games that aren't in multigame menu
+	multigame is just ONE arcade game in the arcade
 
 fix weirdness with angle vs direction (can't remember what this is about but maybe important?)
 namespace (ughhhhhh) game-specific functions, like player? so, protosnake.player instead of just player? or something to make actors game specific
