@@ -18,7 +18,27 @@ end
 
 bighands.player =
 {
-	
+	make = function(g,a)
+		local playernum=#g.players
+		print(playernum)
+
+		if #Joysticks>0 then
+			module.make(a,EM.controller,EMC.move,EMCI.gamepad,playernum)
+			module.make(a,EM.controller,EMC.aim,EMCI.gamepad,playernum)
+			module.make(a,EM.controller,EMC.action,EMCI.gamepad,playernum)
+		end
+
+		actor.make(g,EA[g.name].wand,a.x+20,a.y)
+
+		a.hand={l=8,d=math.pi/4,x=0,y=0}
+		a.hand.x=a.x+(math.cos(a.d+a.hand.d)*a.hand.l)
+		a.hand.y=a.y+(math.sin(a.d+a.hand.d)*a.hand.l)
+	end,
+
+	control = function(g,a)
+		g.camera.x=a.x
+		g.camera.y=a.y
+	end,
 }
 
 bighands.make = function(g)
@@ -50,9 +70,7 @@ bighands.gameplay =
 			--print(joystick:getID())
 			if #Joysticks>#g.players then
 				local m=g.level.map
-				--TODO put this in player.make
-				--table.insert(g.players,actor.make(g,EA[g.name].bighands_player,map.width(m)/2,map.height(m)/2))
-				local a=actor.make(g,EA[g.name].bighands_player,map.width(m)/2,map.height(m)/2)
+				local a=actor.make(g,EA[g.name].witch,map.width(m)/2,map.height(m)/2)
 				player.make(g,a)
 			end
 		end
