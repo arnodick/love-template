@@ -1,7 +1,9 @@
 local player={}
 
-player.make = function(g,a)
-	g.player=a--TODO make this optional, otherwise just add to g.players
+player.make = function(g,a,singleplayer)
+	if singleplayer then
+		g.player=a
+	end
 	a.player=true--TODO make this a flag
 	game.state.run(g.name,"player","make",g,a)
 end

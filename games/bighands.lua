@@ -45,6 +45,7 @@ bighands.gameplay =
 			--print(joystick:getID())
 			if #Joysticks>#g.players then
 				local m=g.level.map
+				--TODO put this in player.make
 				table.insert(g.players,actor.make(g,EA[g.name].bighands_player,map.width(m)/2,map.height(m)/2))
 			end
 		end
