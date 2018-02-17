@@ -36,6 +36,10 @@ local function control(g,a,gs)
 
 	run(EA[g.name][a.t],"control",g,a,gs)--actor's specific type control (ie snake.control)
 
+	if a.player then
+		player.control(g,a)
+	end
+
 	if a.item then--if a IS an item, do its item stuff
 		item.control(a,gs)
 	end
@@ -112,6 +116,10 @@ local function draw(g,a)
 			run(g.level.modename,"draw",g,a)
 		end
 	end
+
+	if a.player then
+		player.draw(g,a)
+	end
 end
 
 local function damage(a,d)
@@ -127,8 +135,11 @@ local function damage(a,d)
 
 		--TODO a lot of this stuff is game specific, or rather level specific (each level should have its own rules/"physics" and some games just have the same for every level, whereas games with different modes in different parts of the game will have different rules/physics in different levels)
 		if flags.get(a.flags,EF.damageable) then
-			a.hp = a.hp - d
+			a.hp=a.hp-d
 			run(EA[g.name][a.t],"damage",a)
+			if a.player then
+				player.damage(g,a)
+			end
 
 			game.state.run(g.name,"actor","damage",g,a,d)
 
@@ -141,6 +152,9 @@ local function damage(a,d)
 				a.delete=true
 
 				game.state.run(g.name,"actor","dead",g,a)
+				if a.player then
+					player.dead(g,a)
+				end
 
 				--TODO sort of game-specific
 				if flags.get(a.flags,EF.explosive) then

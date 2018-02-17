@@ -102,7 +102,7 @@ bighands.actor = {}
 bighands.item =
 {
 	control = function(g,a,gs)
-		players=Game.players
+		local players=Game.players
 		for i,p in ipairs(players) do
 			if actor.collision(a.x,a.y,p) then
 				if p.controller.action.action and #p.inventory<1 then

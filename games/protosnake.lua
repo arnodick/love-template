@@ -44,7 +44,9 @@ protosnake.level.store=
 
 protosnake.level.make = function(g,l,index)
 	if not g.player or g.player.hp<=0 then
-		g.player=actor.make(g,EA[g.name].player,l.map.width/2,l.map.height/2)
+		--g.player=actor.make(g,EA[g.name].protosnake_player,l.map.width/2,l.map.height/2)
+		local a=actor.make(g,EA[g.name].protosnake_player,l.map.width/2,l.map.height/2)
+		player.make(g,a)
 	end
 	if index~=g.levelpath[#g.levelpath] then
 		table.insert(g.levelpath,index)
@@ -54,8 +56,8 @@ protosnake.level.make = function(g,l,index)
 	end
 	l.spawnindex=1
 	protosnake.level[l.t].make(g,l)
-	g.camera.x=map.width(l.map)/2-8
-	g.camera.y=map.height(l.map)/2-8
+	g.camera.x=map.width(l.map)/2
+	g.camera.y=map.height(l.map)/2
 	return l
 end
 
@@ -74,6 +76,83 @@ protosnake.level.draw = function(g,l)
 	--map.draw(l.map,"grid")
 	map.draw(l.map,{"grid","sprites"})
 end
+
+protosnake.player =
+{
+	make = function(g,a)
+		if #Joysticks>0 then
+			module.make(a,EM.controller,EMC.move,EMCI.gamepad)
+			module.make(a,EM.controller,EMC.aim,EMCI.gamepad)
+			module.make(a,EM.controller,EMC.action,EMCI.gamepad)
+		else
+			module.make(a,EM.controller,EMC.move,EMCI.keyboard)
+			module.make(a,EM.controller,EMC.aim,EMCI.mouse)
+			module.make(a,EM.controller,EMC.action,EMCI.mouse)
+		end
+
+		a.coin=0
+
+		actor.make(g,EA[g.name].machinegun,a.x,a.y,0,0,EC.dark_purple,EC.dark_purple)
+	end,
+
+	control = function(g,a)
+		--a.cinit=math.floor((g.timer/2)%16)+1 --SWEET COLOUR CYCLE
+		local gamename=g.name
+		if g.pause then
+			g.speed=0
+		else
+			if g.ease then
+				if g.speed<a.vel then
+					g.speed=g.speed+0.01
+				else
+					g.speed=a.vel
+					g.ease=false
+				end
+			elseif g.level.t=="store" then--TODO make this a level value (level.time = time slow or not)
+				g.speed=1
+			else
+				g.speed=math.clamp(a.vel,0.1,1)
+			end
+			--g.camera.zoom=1/g.speed--too weird but potentially neat
+		end
+		--[[
+		if a.controller.aim.action then
+			if #a.inventory>1 then
+				local temp=a.inventory[1]
+				table.remove(a.inventory,1)
+				table.insert(a.inventory,temp)
+			end
+		end
+	--]]
+
+	--TODO put this in actor
+		if a.cursor then
+			cursor.update(a.cursor)
+		end
+		--if a.controller.action then	
+		--end
+		if SFX.positonal then
+			love.audio.setPosition(a.x,a.y,0)
+		end
+	end,
+
+	draw = function(g,a)
+		--TODO put this in actor
+		if a.cursor then
+			cursor.draw(a.cursor)
+		end
+	end,
+
+	damage = function(g,a)--TODO input g here
+		module.make(g.screen,EM.transition,easing.linear,"pixelscale",0.1,1-0.1,22)
+	end,
+
+	dead = function(g,a)
+		g.speed=math.randomfraction(0.2)+0.25
+		--Game.speed=1
+		scores.save()
+	end,
+}
 
 protosnake.gameplay =
 {
