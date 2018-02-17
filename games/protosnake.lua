@@ -44,7 +44,6 @@ protosnake.level.store=
 
 protosnake.level.make = function(g,l,index)
 	if not g.player or g.player.hp<=0 then
-		--g.player=actor.make(g,EA[g.name].scorpion,l.map.width/2,l.map.height/2)
 		local a=actor.make(g,EA[g.name].scorpion,l.map.width/2,l.map.height/2)
 		player.make(g,a,true)
 	end

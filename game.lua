@@ -21,6 +21,7 @@ game.state.make = function(g,state)
 	g.speed=1
 	g.camera=camera.make(g.width/2,g.height/2)
 	g.actors={}
+	g.player=nil
 	g.players={}
 	g.level=nil
 	g.hud=nil

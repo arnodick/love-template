@@ -16,6 +16,11 @@ bighands.level.draw = function(g,l)
 	map.draw(l.map,{"sprites"})
 end
 
+bighands.player =
+{
+	
+}
+
 bighands.make = function(g)
 	
 end
@@ -46,7 +51,9 @@ bighands.gameplay =
 			if #Joysticks>#g.players then
 				local m=g.level.map
 				--TODO put this in player.make
-				table.insert(g.players,actor.make(g,EA[g.name].bighands_player,map.width(m)/2,map.height(m)/2))
+				--table.insert(g.players,actor.make(g,EA[g.name].bighands_player,map.width(m)/2,map.height(m)/2))
+				local a=actor.make(g,EA[g.name].bighands_player,map.width(m)/2,map.height(m)/2)
+				player.make(g,a)
 			end
 		end
 	end,
@@ -103,7 +110,7 @@ bighands.actor = {}
 bighands.item =
 {
 	control = function(g,a,gs)
-		local players=Game.players
+		local players=g.players
 		for i,p in ipairs(players) do
 			if actor.collision(a.x,a.y,p) then
 				if p.controller.action.action and #p.inventory<1 then
