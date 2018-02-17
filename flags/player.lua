@@ -6,7 +6,7 @@ player.make = function(g,a,singleplayer)
 	else
 		table.insert(g.players,a)
 	end
-	a.player=true--TODO make this a flag
+	a.flags=flags.set(a.flags,EF.player,EF.persistent)
 	game.state.run(g.name,"player","make",g,a)
 end
 

@@ -9,7 +9,7 @@ local function make(g,a,c,size,spr,hp)
 	module.make(a,EM.hitradius,4)
 	module.make(a,EM.inventory,1)
 
-	a.flags=flags.set(a.flags,EF.character,EF.persistent,EF.damageable)
+	a.flags=flags.set(a.flags,EF.character,EF.damageable)
 end
 
 local function control(g,a)

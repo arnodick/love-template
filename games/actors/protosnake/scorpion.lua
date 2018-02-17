@@ -12,7 +12,7 @@ local function make(g,a,c,size,spr,hp)
 	module.make(a,EM.hitradius,4)
 	module.make(a,EM.tail,a.cinit,9)
 	module.make(a,EM.inventory,2)
-	a.flags=flags.set(a.flags,EF.character,EF.persistent,EF.damageable,EF.shootable,EF.explosive)
+	a.flags=flags.set(a.flags,EF.character,EF.damageable,EF.shootable,EF.explosive)
 
 	--animation.make(a,2,32) --SWEET GLITCH ANIMATION
 end

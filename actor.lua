@@ -36,7 +36,7 @@ local function control(g,a,gs)
 
 	run(EA[g.name][a.t],"control",g,a,gs)--actor's specific type control (ie snake.control)
 
-	if a.player then
+	if flags.get(a.flags,EF.player) then
 		player.control(g,a)
 	end
 
@@ -117,7 +117,7 @@ local function draw(g,a)
 		end
 	end
 
-	if a.player then
+	if flags.get(a.flags,EF.player) then
 		player.draw(g,a)
 	end
 end
@@ -137,7 +137,7 @@ local function damage(a,d)
 		if flags.get(a.flags,EF.damageable) then
 			a.hp=a.hp-d
 			run(EA[g.name][a.t],"damage",a)
-			if a.player then
+			if flags.get(a.flags,EF.player) then
 				player.damage(g,a)
 			end
 
@@ -152,7 +152,7 @@ local function damage(a,d)
 				a.delete=true
 
 				game.state.run(g.name,"actor","dead",g,a)
-				if a.player then
+				if flags.get(a.flags,EF.player) then
 					player.dead(g,a)
 				end
 
