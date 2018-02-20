@@ -6,18 +6,48 @@ end
 
 rpg.level={}
 
+rpg.player =
+{
+	make = function(g,a)
+		module.make(a,EM.controller,EMC.move,EMCI.keyboard)
+		module.make(a,EM.controller,EMC.action,EMCI.keyboard)
+	end,
+
+	control = function(g,a)
+		if SFX.positonal then
+			love.audio.setPosition(a.x,a.y,0)
+		end
+
+		g.step=false
+		if a.controller.move.horizontal~=0 then
+			if a.controller.move.last.horizontal==0 then
+				g.step=true
+			end
+		end
+		if a.controller.move.vertical~=0 then
+			if a.controller.move.last.vertical==0 then
+				g.step=true
+			end
+		end
+
+		if a.controller.action.use then
+			a.c=EC.red
+		else
+			a.c=a.cinit
+		end
+	end,
+}
+
 rpg.gameplay =
 {
 	make = function(g)
-		--local mw,mh=g.width/g.tile.width,g.height/g.tile.height
-		--g.map=map.generate("random",mw+2,mh+2)
-		--g.map=map.generate("walls",mw+2,mh+2)
 		level.make(g,1,Enums.games.modes.roguelike)
 
 		g.step=false
 
-		g.player=actor.make(g,EA[g.name].rpg_player,g.level.map.w/2,g.level.map.h/2)
-		--actor.make(g,EA[g.name].rpg_enemy,2,2)
+		local a=actor.make(g,EA[g.name].rpg_character,g.level.map.w/2,g.level.map.h/2)
+		player.make(g,a,true)
+		actor.make(g,EA[g.name].rpg_character,2,2)
 	end,
 
 	control = function(g)

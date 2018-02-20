@@ -1,4 +1,5 @@
 DONE
+give option to make g.player when player.make is run, bool or something
 put hud.make in game.make not game-specific
 convert getcells to getcellvalue
 map.width and map.height values
@@ -106,3 +107,4 @@ maybe enums generation just goes in libraries load?
 maybe actor.calltype and actor.callsubtype? EA[nameof[a.t]] and EA[nameof[a.t][nameof[a.st]]] respectively
 Screen, Spritesheet, Quads and all that, part of Game?
 flags.control? put all flag specific code in there for actors and run it at in actor.control? (probably not,unless a bunch more flags do stuff in the same place)
+remove all g.player, replace with g.players[1]

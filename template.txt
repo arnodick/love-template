@@ -1,6 +1,4 @@
 YES
-remove all g.player, replace with g.players[1]
-	give option to make g.player when player.make is run, bool or something
 make canvas gamewidth * 4 in dimensions, so every game can zoom in
 test if pixel map stuff whne making debris is causing fps slowdown
 ctrl+N to make new map, input sizes
