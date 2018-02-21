@@ -30,9 +30,11 @@ bighands.player =
 
 		actor.make(g,EA[g.name].wand,a.x+20,a.y)
 
+--[[
 		a.hand={l=8,d=math.pi/4,x=0,y=0}
 		a.hand.x=a.x+(math.cos(a.d+a.hand.d)*a.hand.l)
 		a.hand.y=a.y+(math.sin(a.d+a.hand.d)*a.hand.l)
+--]]
 	end,
 
 	control = function(g,a)
@@ -53,8 +55,8 @@ bighands.gameplay =
 		--module.make(g.camera,EM.transition,easing.inOutSine,"zoom",g.camera.zoom,zoomchange,60)
 		level.make(g,1,Enums.games.modes.topdown_tank)
 		local m=g.level.map
-		
-		actor.make(g,EA[g.name].bighands_snake,map.width(m)/2,map.height(m)/2-20)
+		actor.make(g,EA[g.name].witch,map.width(m)/2-5,map.height(m)/2-5)
+		--actor.make(g,EA[g.name].bighands_snake,map.width(m)/2,map.height(m)/2-20)
 	end,
 
 	keypressed = function(g,key)
