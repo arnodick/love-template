@@ -1,4 +1,10 @@
 YES
+THERES NO SUCH THING AS GAME-SPECIFIC ACTORS
+	actors folder then everything is in that, beam, scorpion, etc
+	levels, maps go in game-specific folders
+	modes is not game specific
+maybe WE do have to make game folders ie bighands/actors, rpg/levels
+	so Enums.bighands.actors?
 make canvas gamewidth * 4 in dimensions, so every game can zoom in
 test if pixel map stuff whne making debris is causing fps slowdown
 ctrl+N to make new map, input sizes

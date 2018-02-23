@@ -5,43 +5,19 @@ template.make = function(g)
 end
 
 template.level={}
-template.level.LEVELTYPE=
-{
-	make = function(g,l)
-		--local mw,mh=g.width/g.tile.width,g.height/g.tile.height
-		--l.map=map.generate("walls",mw+2,mh+2)
-	end,
-
-	control = function(g,l)
-	end,
-
-	draw = function(g,l)
-	end
-}
-
-template.level.make = function(g,l,index)
-	local lload=g.levels[index]
-
-	l.t=lload.values.t
-	--DO LEVEL LOADING STUFF HERE
-
-	--template.level[l.t].make(g,l)
-	return l
-end
-
-template.level.control = function(g,l)
-	--template.level[l.t].control(g,l)
-end
 
 template.level.draw = function(g,l)
 	--template.level[l.t].draw(g,l)
 	--map.draw(l.map,"grid")
+	map.draw(l.map,{"numbers"})
 end
 
 template.gameplay =
 {
 	make = function(g)
-
+		level.make(g,1,Enums.games.modes.topdown)
+		local m=g.level.map
+		actor.make(g,EA[g.name].template_actor,map.width(m)/2-5,map.height(m)/2-5)
 	end,
 
 	keypressed = function(g,key)
