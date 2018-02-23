@@ -54,7 +54,8 @@ level.make = function(g,index,mode,tw,th)
 		copytable(l,g.levels[index])
 	end
 	if l.map then
-		l.map=map.load(l.map..".txt")
+		--l.map=map.load(l.map..".txt")
+		l.map=map.load("/games/maps/"..l.map..".txt")
 	elseif l.map_generate then
 		debugger.printtable(l.map_generate)
 		l.map=map.generate(l.map_generate.args,l.map_generate.w,l.map_generate.h)
