@@ -65,8 +65,8 @@ game.make = function(t,tw,th,gw,gh,sp)
 
 	game.graphics(g)
 
-	level.load(g,"games/levels/"..g.name,"json")
-	--run(g.name,"make",g,g.tile.width,g.tile.height,g.width,g.height)
+	--level.load(g,"games/levels/"..g.name,"json")
+	level.load(g,"games/"..g.name.."/levels","json")
 
 --[[
 	g.window={}
