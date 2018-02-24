@@ -19,7 +19,7 @@ end
 
 local function shoot(a)
 	local r=ray.cast(a.tip.x,a.tip.y,a.angle,250,1)
-	--actor.make(Game,EA[Game.name].bighands_bullet,a.tip.x,a.tip.y,a.angle,2)
+	--actor.make(Game,EA.bighands_bullet,a.tip.x,a.tip.y,a.angle,2)
 
 --[[
 	local dist=50
@@ -37,8 +37,8 @@ local function shoot(a)
 	lx=math.cos(r.d)*r.len
 	ly=math.sin(r.d)*r.len
 
-	--actor.make(Game,EA[Game.name].bighands_beam,a.tip.x+lx,a.tip.y+ly,a.angle,0,a.tip.x,a.tip.y,a.angle)
-	actor.make(Game,EA[Game.name].bighands_beam,a.tip.x+lx,a.tip.y+ly,r.d,0,a.tip.x,a.tip.y,r.d)
+	--actor.make(Game,EA.bighands_beam,a.tip.x+lx,a.tip.y+ly,a.angle,0,a.tip.x,a.tip.y,a.angle)
+	actor.make(Game,EA.bighands_beam,a.tip.x+lx,a.tip.y+ly,r.d,0,a.tip.x,a.tip.y,r.d)
 end
 
 return

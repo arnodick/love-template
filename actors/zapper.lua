@@ -5,7 +5,7 @@ local function make(g,a)
 	a.num=1
 	a.acc=0.1
 	a.snd=2
-	a.proj=EA[g.name].lightning
+	a.proj=EA.lightning
 end
 
 local function draw(a)

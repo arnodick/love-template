@@ -28,7 +28,7 @@ roguelike.control = function(a,m,gs)
 		end
 
 		if collx or colly then
-			run(EA[Game.name][a.t],"collision",a)
+			run(EA[a.t],"collision",a)
 		end
 	end
 end

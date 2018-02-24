@@ -38,7 +38,7 @@ local function control(a,m,gs)
 	end
 
 	if collx or colly then
-		run(EA[g.name][a.t],"collision",a)
+		run(EA[a.t],"collision",a)
 
 		if flags.get(a.flags,EF.bouncy) then
 			if collx then
@@ -55,7 +55,7 @@ end
 
 local function draw(g,a)
 --[[
-	run(EA[g.name][a.t],"predraw",a)
+	run(EA[a.t],"predraw",a)
 --]]
 
 	local c=a.c or EC.pure_white
@@ -71,7 +71,7 @@ local function draw(g,a)
 		LG.print(a.char,a.x,a.y)
 	end
 
-	run(EA[g.name][a.t],"draw",g,a)--actor's specific draw function (ie snake.draw)
+	run(EA[a.t],"draw",g,a)--actor's specific draw function (ie snake.draw)
 
 	if a.tail then
 		tail.draw(a.tail)

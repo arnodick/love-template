@@ -19,10 +19,10 @@ local function control(g,a)
 		end
 	end
 	for i,v in pairs(g.actors) do
-		if v.t==EA[g.name].projectile then
+		if v.t==EA.projectile then
 			if actor.collision(v.x,v.y,a) then
 			for i=1,20 do
-				local spark=actor.make(g,EA[g.name].spark,v.x,v.y)
+				local spark=actor.make(g,EA.spark,v.x,v.y)
 					spark.c=v.cinit
    				end
 				v.delete=true

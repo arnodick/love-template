@@ -17,7 +17,7 @@ local function control(g,a,gs)
 			local s = math.randomfraction(a.size/2)
 			local dir = math.randomfraction(math.pi*2)
 			local d = math.randomfraction(math.pi*2)
-			actor.make(g,EA[g.name].cloud,a.x+math.cos(dir)*s,a.y+math.sin(dir)*s,d,math.randomfraction(0.5))
+			actor.make(g,EA.cloud,a.x+math.cos(dir)*s,a.y+math.sin(dir)*s,d,math.randomfraction(0.5))
 		end
 		a.delete=true
 	end

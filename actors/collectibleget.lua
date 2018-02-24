@@ -10,7 +10,7 @@ local function control(g,a)
 	if g.timer-a.delta>=30 then
 		sfx.play(8)
 		for i=1,20 do
-			actor.make(g,EA[g.name].spark,a.x,a.y)
+			actor.make(g,EA.spark,a.x,a.y)
 		end
 		a.delete=true
 	end

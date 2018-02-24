@@ -11,11 +11,11 @@ local function make(g,t,x,y,d,vel,...)
 	a.delta=g.timer
 	a.delete=false
 	a.flags = 0x0
-	run(EA[g.name][a.t],"make",g,a,...)--actor's specifc make function (ie snake.make)
+	run(EA[a.t],"make",g,a,...)--actor's specifc make function (ie snake.make)
 	counters.update(g,g.counters,a,1)
 --[[
 	if flags.get(a.flags,EF.queue) then
-		g.actors[ EA[g.name ][a.t].."s" ][ EA[g.name ][a.t].."s" ]={}
+		g.actors[ EA[a.t].."s" ][ EA[a.t].."s" ]={}
 	end
 --]]
 
@@ -34,7 +34,7 @@ local function control(g,a,gs)
 		end
 	end
 
-	run(EA[g.name][a.t],"control",g,a,gs)--actor's specific type control (ie snake.control)
+	run(EA[a.t],"control",g,a,gs)--actor's specific type control (ie snake.control)
 
 	if flags.get(a.flags,EF.player) then
 		player.control(g,a)
@@ -136,7 +136,7 @@ local function damage(a,d)
 		--TODO a lot of this stuff is game specific, or rather level specific (each level should have its own rules/"physics" and some games just have the same for every level, whereas games with different modes in different parts of the game will have different rules/physics in different levels)
 		if flags.get(a.flags,EF.damageable) then
 			a.hp=a.hp-d
-			run(EA[g.name][a.t],"damage",a)
+			run(EA[a.t],"damage",a)
 			if flags.get(a.flags,EF.player) then
 				player.damage(g,a)
 			end
@@ -158,7 +158,7 @@ local function damage(a,d)
 
 				--TODO sort of game-specific
 				if flags.get(a.flags,EF.explosive) then
-					actor.make(g,EA[g.name].explosion,a.x,a.y,0,0,EC.white,20*(a.size))
+					actor.make(g,EA.explosion,a.x,a.y,0,0,EC.white,20*(a.size))
 				end
 
 				--TODO also sort of game specific
@@ -166,7 +166,7 @@ local function damage(a,d)
 					character.dead(a)
 				end
 				
-				run(EA[g.name][a.t],"dead",a)
+				run(EA[a.t],"dead",a)
 			end
 		end
 	end
@@ -216,7 +216,7 @@ local function corpse(a,tw,th,hack)
 		th=th-diff
 	end
 	
-	local body=actor.make(g,EA[g.name].debris,a.x,a.y)
+	local body=actor.make(g,EA.debris,a.x,a.y)
 	body.decel=0.1
 	if not hack then
 		local choice=math.choose(1,2)
@@ -228,7 +228,7 @@ local function corpse(a,tw,th,hack)
 			body.image=LG.newImage(imgdata)
 			body.d=dir
 
-			local body2=actor.make(g,EA[g.name].debris,a.x,a.y)
+			local body2=actor.make(g,EA.debris,a.x,a.y)
 			body2.decel=0.1
 			local imgdata2=g.canvas.main:newImageData(ix+tw/2,iy,tw/2,th)
 			body2.image=LG.newImage(imgdata2)
@@ -240,19 +240,19 @@ local function corpse(a,tw,th,hack)
 		body.image=LG.newImage(imgdata)
 		body.d=math.randomfraction(math.pi*2)
 
-		local body2=actor.make(g,EA[g.name].debris,a.x,a.y)
+		local body2=actor.make(g,EA.debris,a.x,a.y)
 		body2.decel=0.2
 		local imgdata2=g.canvas.main:newImageData(ix+tw/2,iy+th/2,tw/2,th/2)
 		body2.image=LG.newImage(imgdata2)
 		body2.d=math.randomfraction(math.pi*2)
 
-		local body3=actor.make(g,EA[g.name].debris,a.x,a.y)
+		local body3=actor.make(g,EA.debris,a.x,a.y)
 		body3.decel=0.2
 		local imgdata3=g.canvas.main:newImageData(ix+tw/2,iy,tw/2,th/2)
 		body3.image=LG.newImage(imgdata3)
 		body3.d=math.randomfraction(math.pi*2)
 
-		local body4=actor.make(g,EA[g.name].debris,a.x,a.y)
+		local body4=actor.make(g,EA.debris,a.x,a.y)
 		body4.decel=0.2
 		local imgdata4=g.canvas.main:newImageData(ix,iy,tw/2,th/2)
 		body4.image=LG.newImage(imgdata4)

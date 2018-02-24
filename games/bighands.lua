@@ -19,7 +19,7 @@ bighands.player =
 			module.make(a,EM.controller,EMC.action,EMCI.gamepad,playernum)
 		end
 
-		actor.make(g,EA[g.name].wand,a.x+20,a.y)
+		actor.make(g,EA.wand,a.x+20,a.y)
 
 --[[
 		a.hand={l=8,d=math.pi/4,x=0,y=0}
@@ -46,8 +46,8 @@ bighands.gameplay =
 		--module.make(g.camera,EM.transition,easing.inOutSine,"zoom",g.camera.zoom,zoomchange,60)
 		level.make(g,1,Enums.modes.topdown_tank)
 		local m=g.level.map
-		actor.make(g,EA[g.name].witch,map.width(m)/2-5,map.height(m)/2-5)
-		--actor.make(g,EA[g.name].bighands_snake,map.width(m)/2,map.height(m)/2-20)
+		actor.make(g,EA.witch,map.width(m)/2-5,map.height(m)/2-5)
+		--actor.make(g,EA.bighands_snake,map.width(m)/2,map.height(m)/2-20)
 	end,
 
 	keypressed = function(g,key)
@@ -63,7 +63,7 @@ bighands.gameplay =
 			--print(joystick:getID())
 			if #Joysticks>#g.players then
 				local m=g.level.map
-				local a=actor.make(g,EA[g.name].witch,map.width(m)/2,map.height(m)/2)
+				local a=actor.make(g,EA.witch,map.width(m)/2,map.height(m)/2)
 				player.make(g,a)
 			end
 		end

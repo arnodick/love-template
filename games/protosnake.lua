@@ -16,15 +16,15 @@ protosnake.level.arena=
 protosnake.level.store=
 {
 	make = function(g,l)
-		actor.make(g,EA[g.name].wiper,0,5)
+		actor.make(g,EA.wiper,0,5)
 
 		for i=1,3 do
 			local storeitem=l["storeitem"..i]
 			if storeitem then
 				local dropname=storeitem.drop
 				local x=g.level.map.width/2-40+(i-1)*40
-				--local drop=actor.make(g,love.math.random(#EA[g.name]),x,g.height/2-40)
-				local drop=actor.make(g,EA[g.name][dropname],x,g.level.map.height/2-40)
+				--local drop=actor.make(g,love.math.random(#EA),x,g.height/2-40)
+				local drop=actor.make(g,EA[dropname],x,g.level.map.height/2-40)
 				drop.flags=flags.set(drop.flags,EF.shopitem)
 				local cost=0
 				if drop.cost then
@@ -44,14 +44,14 @@ protosnake.level.store=
 
 protosnake.level.make = function(g,l,index)
 	if not g.player or g.player.hp<=0 then
-		local a=actor.make(g,EA[g.name].scorpion,l.map.width/2,l.map.height/2)
+		local a=actor.make(g,EA.scorpion,l.map.width/2,l.map.height/2)
 		player.make(g,a,true)
 	end
 	if index~=g.levelpath[#g.levelpath] then
 		table.insert(g.levelpath,index)
 	end
 	for i=1,l.enemycount.max do
-		actor.make(g,EA[g.name][l.enemies[1]])
+		actor.make(g,EA[l.enemies[1]])
 	end
 	l.spawnindex=1
 	protosnake.level[l.t].make(g,l)
@@ -65,7 +65,7 @@ protosnake.level.control = function(g,l)
 	
 	--if enemycount<l.enemies.max then
 	if enemycount<l.enemycount.max then
-		actor.make(g,EA[g.name].spawn)
+		actor.make(g,EA.spawn)
 	end
 
 	protosnake.level[l.t].control(g,l)
@@ -91,7 +91,7 @@ protosnake.player =
 
 		a.coin=0
 
-		actor.make(g,EA[g.name].machinegun,a.x,a.y,0,0,EC.dark_purple,EC.dark_purple)
+		actor.make(g,EA.machinegun,a.x,a.y,0,0,EC.dark_purple,EC.dark_purple)
 	end,
 
 	control = function(g,a)
@@ -368,7 +368,7 @@ protosnake.actor =
 {
 	damage = function(g,a,d)
 		for i=1,4 do
-			actor.make(g,EA[g.name].debris,a.x,a.y)
+			actor.make(g,EA.debris,a.x,a.y)
 		end
 	end,
 

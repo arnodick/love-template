@@ -5,7 +5,7 @@ local function make(g,a)
 	a.num=1
 	a.acc=0
 	a.snd=25
-	a.proj=EA[g.name].beam
+	a.proj=EA.beam
 end
 
 local function draw(a)

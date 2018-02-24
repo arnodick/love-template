@@ -23,7 +23,7 @@ local function use(a,gs,user,vx,vy,shoot)
 	if a.delta<=0 then
 		if shoot then
 			sfx.play(a.snd,a.x,a.y)
-			run(EA[Game.name][a.t],"shoot",a,gs)
+			run(EA[a.t],"shoot",a,gs)
 			a.delta=a.rof
 		end
 	else 
