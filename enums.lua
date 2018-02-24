@@ -44,12 +44,12 @@ local function load(dir,...)
 end
 
 local function constants(e) --NOTE this function has side effects! makes global variables
-	if e.games then
+	--if e.games then
 		--TODO here is where change to EA=e.actors
-		if e.games.actors then
-			EA=e.games.actors
+		if e.actors then
+			EA=e.actors
 		end
-	end
+	--end
 	if e.modules then
 		EM=e.modules
 		if EM.menus then
