@@ -45,6 +45,7 @@ end
 
 local function constants(e) --NOTE this function has side effects! makes global variables
 	if e.games then
+		--TODO here is where change to EA=e.actors
 		if e.games.actors then
 			EA=e.games.actors
 		end
