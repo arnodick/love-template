@@ -12,7 +12,7 @@ local function make(g,t,x,y,d,vel,...)
 	a.delete=false
 	a.flags = 0x0
 	run(EA[a.t],"make",g,a,...)--actor's specifc make function (ie snake.make)
-	counters.update(g,g.counters,a,1)
+	game.counters(g,a,1)
 --[[
 	if flags.get(a.flags,EF.queue) then
 		g.actors[ EA[a.t].."s" ][ EA[a.t].."s" ]={}

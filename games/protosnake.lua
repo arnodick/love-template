@@ -63,7 +63,6 @@ end
 protosnake.level.control = function(g,l)
 	local enemycount=g.counters.enemy
 	
-	--if enemycount<l.enemies.max then
 	if enemycount<l.enemycount.max then
 		actor.make(g,EA.spawn)
 	end
@@ -72,7 +71,6 @@ protosnake.level.control = function(g,l)
 end
 
 protosnake.level.draw = function(g,l)
-	--map.draw(l.map,"grid")
 	map.draw(l.map,{"grid","sprites"})
 end
 

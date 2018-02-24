@@ -26,7 +26,8 @@ game.state.make = function(g,state)
 	g.level=nil
 	g.hud=nil
 	g.editor=nil
-	g.counters=counters.init(g.t)
+	g.counters={}
+	g.counters.enemy=0
 	for i,v in pairs(g.canvas) do
 		LG.setCanvas(v)
 		LG.clear()
@@ -120,7 +121,7 @@ game.control = function(g)
 					k.delete=true
 				end
 			end
-			counters.update(g,g.counters,v,-1)
+			game.counters(g,v,-1)
 			table.remove(g.actors,i)
 		end
 	end
@@ -259,6 +260,22 @@ game.draw = function(g)
 	LG.origin()
 
 	screen.control(g,g.screen,g.speed)
+end
+
+
+game.counters = function(g,a,amount)
+	local c=g.counters
+	local actorname=EA[a.t]
+	if not c[actorname] then
+		c[actorname]=0
+	end
+	c[actorname]=c[actorname]+amount
+	if c[actorname]<=0 then
+		c[actorname]=nil
+	end
+	if flags.get(a.flags,EF.enemy) then
+		c.enemy=c.enemy+amount
+	end
 end
 
 --TODO YOU FUCKED THIS UP FIX IT AND PUT GW GH BACK IN DOOFUS
