@@ -41,7 +41,7 @@ rpg.player =
 rpg.gameplay =
 {
 	make = function(g)
-		level.make(g,1,Enums.games.modes.roguelike)
+		level.make(g,1,Enums.modes.roguelike)
 
 		g.step=false
 

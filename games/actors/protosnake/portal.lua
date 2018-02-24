@@ -42,7 +42,7 @@ local function control(g,a,gs)
 				v.delete=true
 			end
 		end
-		level.make(g,a.level,Enums.games.modes.topdown)
+		level.make(g,a.level,Enums.modes.topdown)
 		g.ease=true--TODO make easing function for this. works on any number
 		g.speed=0.01
 		a.delete=true --TODO maybe give this a VERY low chance of not happening?

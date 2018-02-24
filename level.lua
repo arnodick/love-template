@@ -1,5 +1,4 @@
 local level={}
---local modes={}
 
 level.load = function(g,dir,ext)
 	--loads a folder of ini files from a folder into the g.levels table, so they can be accessed quickyl by the game
@@ -38,8 +37,10 @@ end
 level.make = function(g,index,mode,tw,th)
 	local l={}
 	if mode then
+	--TODO put if mode==string then l.modename=mode etc
+	--l.mode=Enums.games.modes[mode]
 		l.mode=mode
-		l.modename=Enums.games.modes[mode]
+		l.modename=Enums.modes[mode]
 	end
 	if not g.levels then
 		g.levels={}
@@ -55,7 +56,7 @@ level.make = function(g,index,mode,tw,th)
 	end
 	if l.map then
 		--l.map=map.load(l.map..".txt")
-		l.map=map.load("/games/maps/"..l.map..".txt")
+		l.map=map.load("/maps/"..l.map..".txt")
 	elseif l.map_generate then
 		debugger.printtable(l.map_generate)
 		l.map=map.generate(l.map_generate.args,l.map_generate.w,l.map_generate.h)

@@ -1,4 +1,6 @@
 YES
+fill out flags folder with 16 flags files, just make dummies if need to, so maps don't get screwed up everytime a new flag is made
+	do WE really need flag files? could just make it a simple table if we can remove all the code from flags
 THERES NO SUCH THING AS GAME-SPECIFIC ACTORS
 	actors folder then everything is in that, beam, scorpion, etc
 	levels, maps go in game-specific folders

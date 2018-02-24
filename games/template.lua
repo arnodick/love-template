@@ -15,7 +15,7 @@ end
 template.gameplay =
 {
 	make = function(g)
-		level.make(g,1,Enums.games.modes.topdown)
+		level.make(g,1,Enums.modes.topdown)
 		local m=g.level.map
 		actor.make(g,EA[g.name].template_actor,map.width(m)/2-5,map.height(m)/2-5)
 	end,

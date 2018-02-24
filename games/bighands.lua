@@ -44,7 +44,7 @@ bighands.gameplay =
 		love.keyboard.setTextInput(false)
 		--local zoomchange=4-g.camera.zoom
 		--module.make(g.camera,EM.transition,easing.inOutSine,"zoom",g.camera.zoom,zoomchange,60)
-		level.make(g,1,Enums.games.modes.topdown_tank)
+		level.make(g,1,Enums.modes.topdown_tank)
 		local m=g.level.map
 		actor.make(g,EA[g.name].witch,map.width(m)/2-5,map.height(m)/2-5)
 		--actor.make(g,EA[g.name].bighands_snake,map.width(m)/2,map.height(m)/2-20)
