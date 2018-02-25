@@ -47,7 +47,6 @@ bighands.gameplay =
 		level.make(g,1,Enums.modes.topdown_tank)
 		local m=g.level.map
 		actor.make(g,EA.witch,map.width(m)/2-5,map.height(m)/2-5)
-		--actor.make(g,EA.bighands_snake,map.width(m)/2,map.height(m)/2-20)
 	end,
 
 	keypressed = function(g,key)

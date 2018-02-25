@@ -22,6 +22,14 @@ editor.keypressed = function(g,key)
 			--love.keyboard.setTextInput(false)
 			g.hud.menu=nil
 		end
+	elseif key=="up" then
+		g.camera.y=g.camera.y-8
+	elseif key=="down" then
+		g.camera.y=g.camera.y+8
+	elseif key=="left" then
+		g.camera.x=g.camera.x-8
+	elseif key=="right" then
+		g.camera.x=g.camera.x+8
 	end
 end
 

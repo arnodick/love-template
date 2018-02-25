@@ -114,6 +114,13 @@ map.setcellflag = function(m,x,y,v,worldcoords)--sets a flag on the high 16 bits
 	m[y][x]=bit.bor(m[y][x],f)
 end
 
+map.erasecellflags = function(m,x,y,worldcoords)
+	if worldcoords then
+		x,y=map.getcell(m,x,y)
+	end
+	m[y][x]=flags.strip(m[y][x])
+end
+
 generators.walls = function(m,w,h,x,y)
 	if x==1 or x==w or y==1 or y==h then
 		map.setcellflag(m,x,y,EF.solid)

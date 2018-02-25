@@ -75,6 +75,8 @@ cursor.editor.mousepressed = function(g,c,x,y,button)
 		map.setcellvalue(g.level.map,c.x,c.y,c.value,true)
 	elseif button==2 then
 		map.setcellflag(g.level.map,c.x,c.y,EF.solid,true)
+	elseif button==3 then
+		map.erasecellflags(g.level.map,c.x,c.y,true)
 	end
 end
 
@@ -86,24 +88,17 @@ end
 cursor.editor.draw = function(c)
 	local g=Game
 	local tw,th=g.tile.width,g.tile.height
-	--LG.setColor(g.palette[EC.red])
 	if c.snap then
 		local cx,cy=map.getcell(g.level.map,c.x,c.y)
-		--local cell=Game.level.map[cy][cx]
 		local cell=map.getcellvalue(g.level.map,c.x,c.y)
---[[
-		if flags.get(cell,EF.solid,16) then
-			LG.setColor(g.palette[EC.red])
-		end
---]]
-		--cx,cy=math.floor(c.x/tw)*tw,math.floor(c.y/th)*th
+
 		cx,cy=(cx-1)*tw,(cy-1)*th
-		for i=1,11 do
+		for i=1,#Enums.flags do
 			LG.setColor(g.palette[EC.white])
 			if flags.get(cell,i,16) then
 				LG.setColor(g.palette[EC.red])
 			end
-			LG.points(cx-i*2,cy-5)
+			LG.points(cx+i*2,cy-5)
 		end
 		LG.print(c.value,cx+tw,cy+th)
 		LG.draw(Spritesheet[1],Quads[1][c.value],cx,cy)
@@ -112,8 +107,6 @@ cursor.editor.draw = function(c)
 		p[4]=180
 		LG.setColor(p)
 		if c.snap then
-			--local cx,cy=math.floor(c.x/tw)*tw+1,math.floor(c.y/th)*th+1
-			--LG.rectangle("line",cx,cy,tw,th)
 			LG.line(cx-1,cy,cx+2,cy)
 			LG.line(cx,cy,cx,cy+2)
 			LG.line(cx+tw,cy,cx+tw-3,cy)
