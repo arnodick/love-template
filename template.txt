@@ -1,12 +1,5 @@
 YES
-fill out flags folder with 16 flags files, just make dummies if need to, so maps don't get screwed up everytime a new flag is made
-	do WE really need flag files? could just make it a simple table if we can remove all the code from flags
-THERES NO SUCH THING AS GAME-SPECIFIC ACTORS
-	actors folder then everything is in that, beam, scorpion, etc
-	levels, maps go in game-specific folders
-	modes is not game specific
-maybe WE do have to make game folders ie bighands/actors, rpg/levels
-	so Enums.bighands.actors?
+do WE really need flag files? could just make it a simple table if we can remove all the code from flags
 make canvas gamewidth * 4 in dimensions, so every game can zoom in
 test if pixel map stuff whne making debris is causing fps slowdown
 ctrl+N to make new map, input sizes

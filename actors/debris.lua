@@ -17,11 +17,12 @@ local function control(g,a)
 end
 
 local function draw(g,a)
+	local xcamoff,ycamoff=g.camera.x-g.width/2,g.camera.y-g.height/2
 	if a.image then
 		LG.draw(a.image,a.x,a.y,a.angle,1,1,(g.tile.width)/2,(g.tile.height)/2)
 		if a.vel<=0 then
 			LG.setCanvas(g.canvas.background)
-				LG.draw(a.image,a.x,a.y,a.angle,1,1,(g.tile.width)/2,(g.tile.height)/2)
+				LG.draw(a.image,a.x+xcamoff,a.y+ycamoff,a.angle,1,1,(g.tile.width)/2,(g.tile.height)/2)
 			LG.setCanvas(g.canvas.main)
 		end
 	else
@@ -32,9 +33,9 @@ local function draw(g,a)
 		LG.line(a.x,a.y,a.x+xl2*a.len,a.y+yl2*a.len)
 		if a.vel<=0 then
 			LG.setCanvas(g.canvas.background)
-				LG.line(a.x,a.y,a.x+xl*a.len,a.y+yl*a.len)
+				LG.line(a.x+xcamoff,a.y+ycamoff,a.x+xl*a.len+xcamoff,a.y+yl*a.len+ycamoff)
 				--LG.line(a.x,a.y,a.x+xl*-a.len,a.y+yl*-a.len)
-				LG.line(a.x,a.y,a.x+xl2*a.len,a.y+yl2*a.len)
+				LG.line(a.x+xcamoff,a.y+ycamoff,a.x+xl2*a.len+xcamoff,a.y+yl2*a.len+ycamoff)
 			LG.setCanvas(g.canvas.main)
 		end
 	end

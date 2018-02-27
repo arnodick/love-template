@@ -202,7 +202,9 @@ end
 local function corpse(a,tw,th,hack)
 	local g=Game
 	local dir=math.randomfraction(math.pi*2)
-	local ix,iy=a.x-tw/2,a.y-th/2
+	--local ix,iy=a.x-tw/2,a.y-th/2
+	--local ix,iy=a.x-tw/2-8,a.y-th/2-8
+	local ix,iy=a.x-tw/2-(g.camera.x-g.width/2),a.y-th/2-(g.camera.y-g.height/2)
 	local ix2,iy2=ix+tw,iy+th
 
 	if ix<0 then ix=0 end

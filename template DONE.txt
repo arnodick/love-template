@@ -1,4 +1,9 @@
 DONE
+fill out flags folder with 16 flags files, just make dummies if need to, so maps don't get screwed up everytime a new flag is made
+THERES NO SUCH THING AS GAME-SPECIFIC ACTORS
+	actors folder then everything is in that, beam, scorpion, etc
+	levels, maps go in game-specific folders
+	modes is not game specific
 give option to make g.player when player.make is run, bool or something
 put hud.make in game.make not game-specific
 convert getcells to getcellvalue
