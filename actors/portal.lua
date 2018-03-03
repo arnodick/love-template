@@ -48,33 +48,7 @@ local function control(g,a,gs)
 		a.delete=true --TODO maybe give this a VERY low chance of not happening?
 	end
 end
---[[
-local function draw(g,a)
-	local xcamoff,ycamoff=g.camera.x-g.width/2,g.camera.y-g.height/2
-	LG.setCanvas(g.canvas.background)
-		LG.setColor(g.palette[EC.pure_white])
-		LG.draw(a.image,a.x+xcamoff,a.y+ycamoff,0,1,1,a.sizeinit,a.sizeinit)
-		LG.setColor(g.palette[a.c])
-		local curve=love.math.newBezierCurve(
-			a.x+xcamoff,
-			a.y+ycamoff,
-			a.x+xcamoff+math.cos(a.angle)*a.size/2,
-			a.y+ycamoff+math.sin(a.angle)/2*a.size,
-			a.x+xcamoff+math.cos(a.angle-1)*a.size,
-			a.y+ycamoff+math.sin(a.angle-1)*a.size
-		)
-		local curve2=love.math.newBezierCurve(
-			a.x+xcamoff,
-			a.y+ycamoff,
-			a.x+xcamoff-math.cos(a.angle)*a.size/2,
-			a.y+ycamoff-math.sin(a.angle)/2*a.size,
-			a.x+xcamoff-math.cos(a.angle-1)*a.size,
-			a.y+ycamoff-math.sin(a.angle-1)*a.size)
-		LG.line(curve:render(2))
-		LG.line(curve2:render(2))
-	LG.setCanvas(g.canvas.main)
-end
---]]
+
 local function draw(g,a)
 	local xcamoff,ycamoff=g.camera.x-g.width/2,g.camera.y-g.height/2
 	LG.setCanvas(g.canvas.background)

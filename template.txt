@@ -81,3 +81,10 @@ animation "object"/module
 test collision with walls, see if it needs extendo walls for high speeds
 change controller input so impulses will work
 	put controller commands in actor.control? Must be some way to make impulses stick
+
+IDEAS
+all the games start to blend together near the end, level modes seemingly from other games creep in to other games
+puzzle: "more" should be on the menu
+	make a puzzle out of the fact the text gets filled up in menu's 2nd entry if you press keys
+	at one point there is a menu where the 2nd option is "mo" if you use it nothing happens, but if you type in "re" and use it, go somewhere
+isometric is a little world you can observe, creatures walk around in it and do things, but you can't affect it, only float around and look at it
