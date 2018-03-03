@@ -5,10 +5,10 @@ local function make(g,a,c)
 end
 
 local function draw(g,a)
-	LG.line(a.x,0,a.x,g.height)
+	LG.line(a.x,0,a.x,g.level.map.height)
 	LG.setCanvas(g.canvas.background)
 		LG.setColor(g.palette[EC.black])
-		LG.line(a.x,0,a.x,g.height)
+		LG.line(a.x,0,a.x,g.level.map.height)
 	LG.setCanvas(g.canvas.main)
 end
 

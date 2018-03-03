@@ -30,7 +30,11 @@ game.state.make = function(g,state)
 	g.counters.enemy=0
 	for i,v in pairs(g.canvas) do
 		LG.setCanvas(v)
-		LG.clear()
+		if i=="background" then
+			LG.clear(34,67,169)
+		else
+			LG.clear()
+		end
 	end
 	for i,v in pairs(SFX.sources) do
 		v:stop()
@@ -313,11 +317,11 @@ game.graphics = function(g)
 	screen.update(g)
 
 	local gw,gh=g.width,g.height
-	g.canvas = {}
-	g.canvas.buffer = LG.newCanvas(gw,gh) --offscreen buffer to draw to, modify, then draw to main canvas
-	g.canvas.background = LG.newCanvas(gw,gh) --this canvas doesn't clear every frame, so anything drawn to it stays, drawn below main canvas
-	g.canvas.main = LG.newCanvas(gw,gh) --this canvas refreshes every frame, and is where most of the drawing happens
-	g.canvas.hud = LG.newCanvas(gw,gh) --this canvas is for HUD stuff like menus etc.
+	g.canvas={}
+	g.canvas.buffer=LG.newCanvas(gw,gh) --offscreen buffer to draw to, modify, then draw to main canvas
+	g.canvas.background=LG.newCanvas(gw,gh) --this canvas doesn't clear every frame, so anything drawn to it stays, drawn below main canvas
+	g.canvas.main=LG.newCanvas(gw,gh) --this canvas refreshes every frame, and is where most of the drawing happens
+	g.canvas.hud=LG.newCanvas(gw,gh) --this canvas is for HUD stuff like menus etc.
 end
 
 return game

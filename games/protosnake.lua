@@ -16,7 +16,7 @@ protosnake.level.arena=
 protosnake.level.store=
 {
 	make = function(g,l)
-		actor.make(g,EA.wiper,0,5)
+		actor.make(g,EA.wiper,8,8)
 
 		for i=1,3 do
 			local storeitem=l["storeitem"..i]
@@ -156,8 +156,6 @@ protosnake.gameplay =
 	make = function(g)
 		g.score=0
 		level.make(g,1,Enums.modes.topdown)
-		--g.camera.zoom=2
-		--module.make(a,EM.player)
 	end,
 
 	control = function(g)

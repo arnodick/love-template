@@ -61,6 +61,10 @@ level.make = function(g,index,mode,tw,th)
 		debugger.printtable(l.map_generate)
 		l.map=map.generate(l.map_generate.args,l.map_generate.w,l.map_generate.h)
 	end
+	if l.background then
+		print("blah")
+		g.canvas.background=LG.newCanvas(l.background.w*g.tile.width,l.background.h*g.tile.height)
+	end
 	game.state.run(g.name,"level","make",g,l,index)
 	g.level=l
 end

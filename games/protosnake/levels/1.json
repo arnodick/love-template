@@ -10,6 +10,11 @@
 			"walls",
 		]
 	},
+	"background":
+	{
+		"w":42,
+		"h":32,
+	},
 	"enemies":
 	[
 		"snake",
