@@ -44,7 +44,6 @@ local function control(g,s,gs)
 		--LG.setShader(Shader)
 
 		LG.draw(tempcanvas,s.xoff+shake,s.yoff,0,(s.scale*1/s.pixelscale)*g.camera.zoom,(s.scale*1/s.pixelscale)*g.camera.zoom) --just like draws everything to the screen or whatever
-		LG.draw(g.canvas.hud,(g.width*s.scale/2)+s.xoff,(g.height*s.scale/2)+s.yoff,0,s.scale*g.camera.zoom,s.scale*g.camera.zoom,g.width/2,g.height/2) --just like draws everything to the screen or whatever
 
 		transition.control(s,s.transition)
 		s.pixelscale=math.clamp(s.pixelscale,0.1,1)
@@ -56,9 +55,9 @@ local function control(g,s,gs)
 		LG.draw(g.canvas.background,(g.width*s.scale/2)+s.xoff+shake,(g.height*s.scale/2)+s.yoff,0,s.scale*g.camera.zoom,s.scale*g.camera.zoom,g.camera.x,g.camera.y)
 		--LG.draw(g.canvas.background,(g.width*s.scale/2)+s.xoff+shake,(g.height*s.scale/2)+s.yoff,0,s.scale*g.camera.zoom,s.scale*g.camera.zoom,g.width/2,g.height/2)
 		LG.draw(g.canvas.main,      (g.width*s.scale/2)+s.xoff+shake,(g.height*s.scale/2)+s.yoff,0,s.scale*g.camera.zoom,s.scale*g.camera.zoom,g.width/2,g.height/2) --just like draws everything to the screen or whatever
-		LG.draw(g.canvas.hud,       (g.width*s.scale/2)+s.xoff,      (g.height*s.scale/2)+s.yoff,0,s.scale,s.scale,g.width/2,g.height/2) --just like draws everything to the screen or whatever
 		--LG.setShader()
 	end
+	LG.draw(g.canvas.hud,(g.width*s.scale/2)+s.xoff,(g.height*s.scale/2)+s.yoff,0,s.scale,s.scale,g.width/2,g.height/2) --just like draws everything to the hud or whatever
 end
 
 return
