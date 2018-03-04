@@ -84,6 +84,7 @@ change controller input so impulses will work
 	put controller commands in actor.control? Must be some way to make impulses stick
 
 IDEAS
+zoom in real close to an item "ah yes, i can see all the details" but it's huge chunky pixels that are indiscernible
 don't encrypt passwords, let people change it manually. make it a puzzle, say change your score to 1,465,000, unlocks a level
 all the games start to blend together near the end, level modes seemingly from other games creep in to other games
 puzzle: "more" should be on the menu
