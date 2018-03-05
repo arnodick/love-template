@@ -35,6 +35,15 @@ local function draw(g,a)
 		table.insert(points,a.y+math.sin(a.pointdirs[i]+a.angle)*a.r/2.5)
 	end
 	LG.polygon("fill",points)
+--[[
+	LG.setCanvas(g.level.canvas.background)
+		local xcamoff,ycamoff=g.camera.x-g.width/2,g.camera.y-g.height/2
+		LG.translate(xcamoff,ycamoff)
+			LG.polygon("fill",points)
+		LG.translate(-xcamoff,-ycamoff)
+	LG.setCanvas(g.canvas.main)
+	--]]
+
 	if Debugger.debugging then
 		LG.setColor(g.palette[EC.green])
 		LG.points(a.x,a.y)
