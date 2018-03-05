@@ -24,6 +24,7 @@ local function update(g)
 
 
 	s.canvas=LG.newCanvas(gw,gh)
+	s.clear=true
 	g.screen=s
 end
 
@@ -56,7 +57,9 @@ local function control(g,s,gs)
 		s.pixelscale=math.clamp(s.pixelscale,0.1,1)
 	else
 		LG.setCanvas(s.canvas)
-			LG.clear()
+			if s.clear==true then
+				LG.clear()
+			end
 			local xcamoff,ycamoff=g.camera.x-g.width/2,g.camera.y-g.height/2
 			LG.draw(g.canvas.background,0,0,0,s.pixelscale,s.pixelscale,xcamoff,ycamoff)
 			if g.level then
