@@ -57,7 +57,6 @@ protosnake.level.make = function(g,l,index)
 	protosnake.level[l.t].make(g,l)
 	g.camera.x=map.width(l.map)/2--TODO without -8 portal graphics all screwy, dynamicify portal effect
 	g.camera.y=map.height(l.map)/2-- -8 here too
-	l.bgdraw=true
 	return l
 end
 
@@ -73,8 +72,13 @@ end
 
 protosnake.level.draw = function(g,l)
 	if l.bgdraw==true then
-		LG.setCanvas(g.canvas.background)
-		map.draw(l.map,{"grid","sprites"})
+		if l.canvas then
+			if l.canvas.background then
+				LG.setCanvas(l.canvas.background)
+				map.draw(l.map,{"grid","sprites"})
+				--LG.clear(190,10,136,30)
+			end
+		end
 		LG.setCanvas(g.canvas.main)
 		l.bgdraw=false
 	end

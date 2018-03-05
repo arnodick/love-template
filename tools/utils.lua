@@ -127,6 +127,14 @@ local function textify(image,scale,chars,smallcanvas,bigcanvas,charw,charh)
 	return LG.newImage(mainimgdata)
 end
 
+local function drawtobackground(background,drawable,x,y,a,scale,scale,xoff,yoff)
+	local g=Game
+	local xcamoff,ycamoff=g.camera.x-g.width/2,g.camera.y-g.height/2
+	LG.setCanvas(background)
+		LG.draw(drawable,x+xcamoff,y+ycamoff,a,scale,scale,xoff,yoff)
+	LG.setCanvas(g.canvas.main)
+end
+
 math.clamp = clamp
 math.choose = choose
 math.randomfraction = randomfraction
@@ -137,3 +145,4 @@ love.graphics.drawbox = drawbox
 love.graphics.printformat = printformat
 love.graphics.lightness = lightness
 love.graphics.textify = textify
+love.graphics.drawtobackground = drawtobackground

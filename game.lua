@@ -30,11 +30,7 @@ game.state.make = function(g,state)
 	g.counters.enemy=0
 	for i,v in pairs(g.canvas) do
 		LG.setCanvas(v)
-		if i=="background" then
-			LG.clear(34,67,169)
-		else
-			LG.clear()
-		end
+		LG.clear()
 	end
 	for i,v in pairs(SFX.sources) do
 		v:stop()

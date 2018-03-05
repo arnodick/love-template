@@ -15,7 +15,7 @@ end
 local function draw(g,a)
 	LG.points(a.x,a.y)
 	if a.vel<=0 then
-		LG.setCanvas(g.canvas.background)
+		LG.setCanvas(g.level.canvas.background)
 			local xcamoff,ycamoff=g.camera.x-g.width/2,g.camera.y-g.height/2
 			LG.points(a.x+xcamoff,a.y+ycamoff)
 		LG.setCanvas(g.canvas.main)

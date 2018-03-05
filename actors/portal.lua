@@ -25,7 +25,7 @@ local function control(g,a,gs)
 			th=th-diff
 		end
 
-	local imgdata=g.canvas.background:newImageData(ix,iy,tw,th)
+	local imgdata=g.level.canvas.background:newImageData(ix,iy,tw,th)
 
 	imgdata:mapPixel(pixelmaps.sparkle)
 	imgdata:mapPixel(pixelmaps.crush)
@@ -51,7 +51,7 @@ end
 
 local function draw(g,a)
 	local xcamoff,ycamoff=g.camera.x-g.width/2,g.camera.y-g.height/2
-	LG.setCanvas(g.canvas.background)
+	LG.setCanvas(g.level.canvas.background)
 		LG.translate(xcamoff,ycamoff)
 		LG.setColor(g.palette[EC.pure_white])
 		LG.draw(a.image,a.x,a.y,0,1,1,a.sizeinit,a.sizeinit)

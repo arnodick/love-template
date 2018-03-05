@@ -73,6 +73,8 @@ end
 cursor.editor.mousepressed = function(g,c,x,y,button)
 	if button==1 then
 		map.setcellvalue(g.level.map,c.x,c.y,c.value,true)
+		c.draw=true
+		--LG.drawtobackground(g.level.canvas.background,a.image,x,y,0,1,1,(g.tile.width)/2,(g.tile.height)/2)
 	elseif button==2 then
 		map.setcellflag(g.level.map,c.x,c.y,EF.solid,true)
 	elseif button==3 then
@@ -92,7 +94,22 @@ cursor.editor.draw = function(c)
 		local cx,cy=map.getcell(g.level.map,c.x,c.y)
 		local cell=map.getcellvalue(g.level.map,c.x,c.y)
 
+
 		cx,cy=(cx-1)*tw,(cy-1)*th
+
+		if c.draw==true then
+			c.draw=false
+			LG.setCanvas(g.level.canvas.background)
+			LG.line(cx-1,cy,cx+2,cy)
+			LG.line(cx,cy,cx,cy+2)
+			LG.line(cx+tw,cy,cx+tw-3,cy)
+			LG.line(cx+tw,cy,cx+tw,cy+2)
+			LG.line(cx,cy+th,cx,cy+th-3)
+			LG.line(cx,cy+th,cx+2,cy+th)
+			LG.line(cx+tw,cy+th-1,cx+tw,cy+th-3)
+			LG.line(cx+tw,cy+th,cx+tw-3,cy+th)
+			LG.setCanvas(g.canvas.main)
+		end
 		for i=1,#Enums.flags do
 			LG.setColor(g.palette[EC.white])
 			if flags.get(cell,i,16) then

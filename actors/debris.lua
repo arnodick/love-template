@@ -21,9 +21,7 @@ local function draw(g,a)
 	if a.image then
 		LG.draw(a.image,a.x,a.y,a.angle,1,1,(g.tile.width)/2,(g.tile.height)/2)
 		if a.vel<=0 then
-			LG.setCanvas(g.canvas.background)
-				LG.draw(a.image,a.x+xcamoff,a.y+ycamoff,a.angle,1,1,(g.tile.width)/2,(g.tile.height)/2)
-			LG.setCanvas(g.canvas.main)
+			LG.drawtobackground(g.level.canvas.background,a.image,a.x,a.y,a.angle,1,1,(g.tile.width)/2,(g.tile.height)/2)
 		end
 	else
 		local xl,yl=math.cos(a.angle),math.sin(a.angle)
@@ -32,7 +30,7 @@ local function draw(g,a)
 		--LG.line(a.x,a.y,a.x+xl*-a.len,a.y+yl*-a.len)
 		LG.line(a.x,a.y,a.x+xl2*a.len,a.y+yl2*a.len)
 		if a.vel<=0 then
-			LG.setCanvas(g.canvas.background)
+			LG.setCanvas(g.level.canvas.background)
 				LG.line(a.x+xcamoff,a.y+ycamoff,a.x+xl*a.len+xcamoff,a.y+yl*a.len+ycamoff)
 				--LG.line(a.x,a.y,a.x+xl*-a.len,a.y+yl*-a.len)
 				LG.line(a.x+xcamoff,a.y+ycamoff,a.x+xl2*a.len+xcamoff,a.y+yl2*a.len+ycamoff)
