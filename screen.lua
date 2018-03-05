@@ -22,6 +22,8 @@ local function update(g)
 	s.font=LG.newFont("fonts/Kongtext Regular.ttf",8)
 	--LG.setFont(s.font)
 
+
+	s.canvas=LG.newCanvas(gw,gh)
 	g.screen=s
 end
 
@@ -48,18 +50,24 @@ local function control(g,s,gs)
 			end
 			LG.draw(g.canvas.main,      0,0,0,s.pixelscale,s.pixelscale)
 		LG.setCanvas()
-
-		--LG.setShader(Shader)
-
 		LG.draw(tempcanvas,x,y,0,scale,scale,g.width/2*s.pixelscale,g.height/2*s.pixelscale) --just like draws everything to the screen or whatever
 
 		transition.control(s,s.transition)
 		s.pixelscale=math.clamp(s.pixelscale,0.1,1)
-
-		--LG.setShader()
 	else
-		--LG.setShader(Shader)
-
+		LG.setCanvas(s.canvas)
+			LG.clear()
+			local xcamoff,ycamoff=g.camera.x-g.width/2,g.camera.y-g.height/2
+			LG.draw(g.canvas.background,0,0,0,s.pixelscale,s.pixelscale,xcamoff,ycamoff)
+			if g.level then
+				if g.level.canvas then
+					LG.draw(g.level.canvas.background,0,0,0,s.pixelscale,s.pixelscale,xcamoff,ycamoff)
+				end
+			end
+			LG.draw(g.canvas.main,      0,0,0,s.pixelscale,s.pixelscale)
+		LG.setCanvas()
+		LG.draw(s.canvas,x,y,0,scale,scale,g.width/2*s.pixelscale,g.height/2*s.pixelscale)
+--[[
 		LG.draw(g.canvas.background,x,y,0,scale,scale,g.camera.x,g.camera.y)
 		if g.level then
 			if g.level.canvas then
@@ -67,8 +75,7 @@ local function control(g,s,gs)
 			end
 		end
 		LG.draw(g.canvas.main,      x,y,0,scale,scale,g.width/2,g.height/2) --just like draws everything to the screen or whatever
-		
-		--LG.setShader()
+--]]
 	end
 	LG.draw(g.canvas.hud,(g.width*s.scale/2)+s.xoff,(g.height*s.scale/2)+s.yoff,0,s.scale,s.scale,g.width/2,g.height/2) --just like draws everything to the hud or whatever
 end
