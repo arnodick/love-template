@@ -100,14 +100,10 @@ cursor.editor.draw = function(c)
 		if c.draw==true then
 			c.draw=false
 			LG.setCanvas(g.level.canvas.background)
-			LG.line(cx-1,cy,cx+2,cy)
-			LG.line(cx,cy,cx,cy+2)
-			LG.line(cx+tw,cy,cx+tw-3,cy)
-			LG.line(cx+tw,cy,cx+tw,cy+2)
-			LG.line(cx,cy+th,cx,cy+th-3)
-			LG.line(cx,cy+th,cx+2,cy+th)
-			LG.line(cx+tw,cy+th-1,cx+tw,cy+th-3)
-			LG.line(cx+tw,cy+th,cx+tw-3,cy+th)
+				local xcamoff,ycamoff=g.camera.x-g.width/2,g.camera.y-g.height/2
+				LG.translate(xcamoff,ycamoff)
+					LG.draw(Spritesheet[1],Quads[1][c.value],cx,cy)
+				LG.translate(-xcamoff,-ycamoff)
 			LG.setCanvas(g.canvas.main)
 		end
 		for i=1,#Enums.flags do
