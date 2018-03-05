@@ -75,7 +75,10 @@ protosnake.level.draw = function(g,l)
 		if l.canvas then
 			if l.canvas.background then
 				LG.setCanvas(l.canvas.background)
+				local xcamoff,ycamoff=g.camera.x-g.width/2,g.camera.y-g.height/2
+				LG.translate(xcamoff,ycamoff)
 				map.draw(l.map,{"grid","sprites"})
+				LG.translate(-xcamoff,-ycamoff)
 				--LG.clear(190,10,136,30)
 			end
 		end

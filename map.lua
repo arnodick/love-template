@@ -149,6 +149,7 @@ drawmodes.grid = function(m,x,y)
 		LG.setColor(r,gr,b,120)
 
 		if x==1 then
+			--LG.line(0,y*th,map.width(m),y*th)
 			LG.line(0,y*th,map.width(m),y*th)
 		end
 		if y==1 then

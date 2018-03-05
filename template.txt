@@ -1,4 +1,5 @@
 YES
+ALL canvases draw to a screen canvas, like the temp canvas in transition in screen, except it is always there. this then does actual drawing to monitor
 make foregrouynd, like background also doesn't redraw, draws AFTER rest of game
 do WE really need flag files? could just make it a simple table if we can remove all the code from flags
 make canvas gamewidth * 4 in dimensions, so every game can zoom in

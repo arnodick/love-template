@@ -1,7 +1,15 @@
 {
 	"t":"arena",
 	"c":1,
-	"map":"testy",
+	"map_generate":
+	{
+		"w":42,
+		"h":32,
+		"args":
+		[
+			"walls",
+		]
+	},
 	"enemies":
 	[
 		"snake",
