@@ -1,0 +1,16 @@
+{
+	"t":"city",
+	"title":"Oh no...",
+
+	"menu_text":
+	[
+		"Go to the store",
+		"Wander into the woods...",
+	],
+
+	"menu_levels":
+	[
+		1,
+		3,
+	],
+}

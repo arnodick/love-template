@@ -29,7 +29,7 @@ offgrid.make = function(g)
 	table.insert(g.chars,"_")
 	table.insert(g.chars,"~")
 
-	level.load(g,"games/levels/offgrid","ini")
+	level.load(g,"games/offgrid/levels","json")
 
 	offgrid.loadimages(g)
 	--debugger.printtable(g)
@@ -74,21 +74,11 @@ offgrid.level.city =
 
 offgrid.level.make = function(g,l,index)
 	g.timer=0
-	--g.levels.index=index
-	local gamename=g.name
-	local lload=g.levels[index]
-	
-	l.t=lload.values.t
-	l.title=lload.values.title
-
-	if lload.values.animspeed then
-		l.animspeed=lload.values.animspeed
-	end
 
 	supper.run(offgrid,{"level",l.t,"make"},g,l)
 
-	if lload.values.description then
-		l.menu.description=lload.values.description
+	if l.description then
+		l.menu.description=l.description
 		module.make(l.menu,EM.transition,easing.linear,"text_trans",0,string.len(l.menu.description),360)
 	end
 end
@@ -159,7 +149,7 @@ offgrid.level.makemenuoption = function(g,m,x,y,dir,index)
 		if g.map[y][x] then	
 			local value=g.map[y][x]
 			if g.levels[value] then
-				local destination=g.levels[value].values.title
+				local destination=g.levels[value].title
 				table.insert(m.text,"Go "..dir.." to "..destination)
 
 				table.insert(m.functions,offgrid.move)
