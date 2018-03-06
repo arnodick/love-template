@@ -7,7 +7,6 @@ offgrid.make = function(g)
 	g.window.height=960
 
 	g.bufferscale=(ww/g.tile.width)/wh
-	--g.canvas.buffer = LG.newCanvas(ww*g.bufferscale,wh*g.bufferscale)
 
 	g.chars={}
 	table.insert(g.chars," ")
@@ -29,10 +28,7 @@ offgrid.make = function(g)
 	table.insert(g.chars,"_")
 	table.insert(g.chars,"~")
 
-	level.load(g,"games/offgrid/levels","json")
-
 	offgrid.loadimages(g)
-	--debugger.printtable(g)
 	--debugger.printtable(_G)--NOTE DON'T DO THIS! gets stuck in loop printing forever, because _G is a member of _G
 end
 

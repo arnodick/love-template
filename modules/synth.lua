@@ -2,7 +2,6 @@
 --the synth it plays is input as {waveform= etc}
 --can add transition module to a synth to change its freq
 local function make(a,m,waveform,note,length,notes)
-	print("YAYER")
 	m.waveform=waveform
 	m.note=note
 	m.length=length
