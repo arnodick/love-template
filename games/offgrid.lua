@@ -46,12 +46,18 @@ offgrid.level.city =
 		offgrid.level.makemenuoption(g,m,g.player.x,g.player.y+1,"South",3)
 		offgrid.level.makemenuoption(g,m,g.player.x-1,g.player.y,"West",4)
 
-		module.make(l,EM.menu,EMM.interactive_fiction,320,800,640,320,m.text,EC.white,EC.dark_gray,"left",m.functions,m.arguments)
+		--module.make(l,EM.menu,EMM.interactive_fiction,320,800,640,320,m.text,EC.white,EC.dark_gray,"left",m.functions,m.arguments)
+		module.make(l,EM.menu,"interactive_fiction",320,800,640,320,m.text,EC.white,EC.dark_gray,"left",m.functions,m.arguments)
 		--local args={l,EM.menu,EMM.interactive_fiction,320,800,640,320,m.text,EC.white,EC.dark_gray,"left",m.functions,m.arguments}
 		--module.make(l,EM.transition,easing.linear,"transition_timer",0,1,240,module.make,args,EM.transitions.screen_transition_blocksreverse)
 		module.make(l,EM.transition,easing.linear,"transition_timer",0,1,240,nil,nil,EM.transitions.screen_transition_blocksreverse)
 
 		module.make(l,EM.synth,"sinus",440,60,{"A","B","C","D","E","F","F","G",})
+
+		if l.description then
+			l.menu.description=l.description
+			module.make(l.menu,EM.transition,easing.linear,"text_trans",0,string.len(l.menu.description),360)
+		end
 	end,
 
 	control = function(g,l)
@@ -73,10 +79,12 @@ offgrid.level.make = function(g,l,index)
 
 	supper.run(offgrid,{"level",l.t,"make"},g,l)
 
+--[[
 	if l.description then
 		l.menu.description=l.description
 		module.make(l.menu,EM.transition,easing.linear,"text_trans",0,string.len(l.menu.description),360)
 	end
+--]]
 end
 
 offgrid.level.control = function(g,l)

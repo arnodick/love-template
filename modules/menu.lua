@@ -1,7 +1,12 @@
 local menu={}
 
 menu.make = function(a,m,t,x,y,w,h,text,c1,c2,align,...)
-	m.t=t
+	--TODO put if type(t)=="number" then m.t=t else m.t=EMM[t]
+	if type(t)=="number" then
+		m.t=t
+	else 
+		m.t=EMM[t]
+	end
 	m.x=math.floor(x)
 	m.y=math.floor(y)
 	m.w=w
@@ -11,14 +16,9 @@ menu.make = function(a,m,t,x,y,w,h,text,c1,c2,align,...)
 	m.c2=c2
 	m.align=align or "left"
 	m.font=LG.newFont("fonts/Kongtext Regular.ttf",8)--TODO make fonts an array in game, then menu can select from them
---[[
-	local modulename=t
-	if type(t)=="number" then
-		modulename=EMM[t]
-	end
---]]
-	local modulename=EMM[t]
-	run(modulename,"make",m,...)
+
+	local menuname=EMM[m.t]
+	run(menuname,"make",m,...)
 end
 
 menu.control = function(m,gs)
