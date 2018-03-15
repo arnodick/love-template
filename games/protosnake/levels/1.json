@@ -10,6 +10,11 @@
 			"walls",
 		]
 	},
+	"drawmodes":
+	[
+		"grid",
+		"sprites"
+	],
 	"enemies":
 	[
 		"snake",

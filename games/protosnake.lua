@@ -23,7 +23,6 @@ protosnake.level.store=
 			if storeitem then
 				local dropname=storeitem.drop
 				local x=g.level.map.width/2-40+(i-1)*40
-				--local drop=actor.make(g,love.math.random(#EA),x,g.height/2-40)
 				local drop=actor.make(g,EA[dropname],x,g.level.map.height/2-40)
 				drop.flags=flags.set(drop.flags,EF.shopitem)
 				local cost=0
@@ -71,6 +70,7 @@ protosnake.level.control = function(g,l)
 end
 
 protosnake.level.draw = function(g,l)
+--[[
 	if l.bgdraw==true then
 		if l.canvas then
 			if l.canvas.background then
@@ -85,6 +85,7 @@ protosnake.level.draw = function(g,l)
 		LG.setCanvas(g.canvas.main)
 		l.bgdraw=false
 	end
+--]]
 end
 
 protosnake.player =
@@ -114,21 +115,23 @@ protosnake.player =
 			if g.ease then
 				if g.speed<a.vel then
 					g.speed=g.speed+0.01
-					g.screen.clear=false
+					--g.screen.clear=false
 				else
 					g.speed=a.vel
 					g.ease=false
-					g.screen.clear=false
+					--g.screen.clear=false
 				end
 			elseif g.level.t=="store" then--TODO make this a level value (level.time = time slow or not)
 				g.speed=1
 			else
 				g.speed=math.clamp(a.vel,0.1,1)
+--[[
 				if g.speed==1 then
 					g.screen.clear=true
 				else
 					g.screen.clear=false
 				end
+--]]
 			end
 			--g.camera.zoom=1/g.speed--too weird but potentially neat
 		end
