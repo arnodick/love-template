@@ -2,6 +2,11 @@
 	"t":"store",
 	"c":8,
 	"map":"arn",
+	"drawmodes":
+	[
+		"grid",
+		"sprites"
+	],
 	"enemies":
 	[
 		"squid_store",

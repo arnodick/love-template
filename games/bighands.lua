@@ -2,11 +2,6 @@ local bighands={}
 
 bighands.level={}
 
-bighands.level.draw = function(g,l)
-	--map.draw(l.map,{"sprites","grid"})
-	map.draw(l.map,{"sprites"})
-end
-
 bighands.player =
 {
 	make = function(g,a)

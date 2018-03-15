@@ -1,4 +1,6 @@
 DONE
+generalize level map draw out of protosnake
+ALL canvases draw to a screen canvas, like the temp canvas in transition in screen, except it is always there. this then does actual drawing to monitor
 fill out flags folder with 16 flags files, just make dummies if need to, so maps don't get screwed up everytime a new flag is made
 THERES NO SUCH THING AS GAME-SPECIFIC ACTORS
 	actors folder then everything is in that, beam, scorpion, etc

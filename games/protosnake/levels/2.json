@@ -2,6 +2,11 @@
 	"t":"arena",
 	"c":3,
 	"map":"arn",
+	"drawmodes":
+	[
+		"grid",
+		"sprites"
+	],
 	"enemies":
 	[
 		"snake",

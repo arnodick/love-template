@@ -225,20 +225,22 @@ game.draw = function(g)
 		LG.setCanvas(g.canvas.main) --sets drawing to the primary canvas that refreshes every frame
 			LG.clear() --cleans that messy ol canvas all up, makes it all fresh and new and good you know
 
-			if g.level then
-				if l.bgdraw==true then
-					if l.canvas then
-						if l.canvas.background then
-							LG.setCanvas(l.canvas.background)
-							local xcamoff,ycamoff=g.camera.x-g.width/2,g.camera.y-g.height/2
-							LG.translate(xcamoff,ycamoff)
-							map.draw(l.map,l.drawmodes)
-							LG.translate(-xcamoff,-ycamoff)
-							--LG.clear(190,10,136,30)
+			if l then
+				if l.drawmodes then
+					if l.bgdraw==true then
+						if l.canvas then
+							if l.canvas.background then
+								LG.setCanvas(l.canvas.background)
+								local xcamoff,ycamoff=g.camera.x-g.width/2,g.camera.y-g.height/2
+								LG.translate(xcamoff,ycamoff)
+								map.draw(l.map,l.drawmodes)
+								LG.translate(-xcamoff,-ycamoff)
+								--LG.clear(190,10,136,30)
+							end
 						end
+						LG.setCanvas(g.canvas.main)
+						l.bgdraw=false
 					end
-					LG.setCanvas(g.canvas.main)
-					l.bgdraw=false
 				end
 				game.state.run(g.name,"level","draw",g,g.level)
 			end

@@ -6,12 +6,6 @@ end
 
 template.level={}
 
-template.level.draw = function(g,l)
-	--template.level[l.t].draw(g,l)
-	--map.draw(l.map,"grid")
-	map.draw(l.map,{"numbers"})
-end
-
 template.gameplay =
 {
 	make = function(g)

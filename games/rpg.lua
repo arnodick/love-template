@@ -59,10 +59,6 @@ rpg.gameplay =
 			game.state.make(g,"title")
 		end
 	end,
-
-	draw = function(g)
-		map.draw(g.level.map,{"grid","sprites"})
-	end,
 }
 
 rpg.title =

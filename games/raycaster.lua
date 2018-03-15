@@ -6,10 +6,6 @@ end
 
 raycaster.level={}
 
-raycaster.level.draw = function(g,l)
-	map.draw(l.map,{"numbers"})
-end
-
 raycaster.gameplay =
 {
 	make = function(g)
