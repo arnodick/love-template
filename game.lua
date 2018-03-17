@@ -165,7 +165,15 @@ game.keypressed = function(g,key,scancode,isrepeat)
 
 	if g.state=="intro" then
 		if key=="escape" then
-			game.make(Enums.games.multigame)
+			if Excludes then
+				if not Excludes[g.name] then
+					game.make(Enums.games.multigame)
+				else
+					love.event.quit()
+				end
+			else
+				love.event.quit()
+			end
 		end
 	end
 

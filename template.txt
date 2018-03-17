@@ -92,4 +92,5 @@ all the games start to blend together near the end, level modes seemingly from o
 puzzle: "more" should be on the menu
 	make a puzzle out of the fact the text gets filled up in menu's 2nd entry if you press keys
 	at one point there is a menu where the 2nd option is "mo" if you use it nothing happens, but if you type in "re" and use it, go somewhere
+	when "mo" puzzle is solved, go to beautiful beach scene. press right, nothing happens, press left, hear footsteps, eventually show up on screen
 isometric is a little world you can observe, creatures walk around in it and do things, but you can't affect it, only float around and look at it

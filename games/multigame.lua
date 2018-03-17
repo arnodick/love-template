@@ -3,12 +3,13 @@ local multigame={}
 multigame.intro =
 {
 	make = function(g)
+		Excludes={dawngame="dawngame",offgrid="offgrid"}
 		local gamenames={}
 		local gamemakes={}
 		local gameargs={}
 		local no={}
 		for i,v in ipairs(Enums.games) do
-			if v~="dawngame" and v~="offgrid" then
+			if Excludes[v]==nil then
 				table.insert(gamenames,v)
 				table.insert(gamemakes,game.make)
 				table.insert(gameargs,{i})
