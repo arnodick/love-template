@@ -239,11 +239,11 @@ game.draw = function(g)
 						if l.canvas then
 							if l.canvas.background then
 								LG.setCanvas(l.canvas.background)
+								LG.clear(190,10,136,30)
 								local xcamoff,ycamoff=g.camera.x-g.width/2,g.camera.y-g.height/2
 								LG.translate(xcamoff,ycamoff)
 								map.draw(l.map,l.drawmodes)
 								LG.translate(-xcamoff,-ycamoff)
-								--LG.clear(190,10,136,30)
 							end
 						end
 						LG.setCanvas(g.canvas.main)

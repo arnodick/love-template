@@ -1,5 +1,5 @@
 YES
-detect when a game is part of game-pak and only go back to menu if it is
+consolidate supper stuff
 make it so background in protosnake transfer over to next level then get wiped away, replaced with grid
 make foregrouynd, like background also doesn't redraw, draws AFTER rest of game
 do WE really need flag files? could just make it a simple table if we can remove all the code from flags
@@ -21,7 +21,6 @@ namespace (ughhhhhh) game-specific functions, like player? so, protosnake.player
 give animations option to have string input as well as enums for their inputs, give option to take table of animations as well
 table input option for transitions too, so actors can have multiple transitions
 	maybe the name of the transition is the name of the value that it affects? ie: a.transition.zoom or Game.transition.speed
-synth should be a module
 what is in Game? make sure no debris is left over during state changes
 	what should i put in game? Spritesheet, Quads
 things that couold be modules maybe

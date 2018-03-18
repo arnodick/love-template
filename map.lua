@@ -172,11 +172,12 @@ drawmodes.sprites = function(m,x,y)
 end
 
 drawmodes.isometric = function(m,x,y)
-	local tw,th=Game.tile.width,Game.tile.height
+	--local tw,th=Game.tile.width,Game.tile.height
+	local tw,th=Game.level.tile.width,Game.level.tile.height
 	local t=Game.timer
 
 	--if (y-1)*#m[y]+x<=t then
-	local isox,isoy=(x-1)*tw/2,(y-1)*th/4
+	local isox,isoy=(x-1)*tw/2+m.width/2,(y-1)*th/4+m.height/2
 	local value=flags.strip(m[y][x])
 
 	--LG.draw(Spritesheet[3],Quads[3][value],isox+230,isoy+50,0,1,1,(y-1)*tw/2,(x-1)*-th/4)

@@ -1,5 +1,7 @@
 local iso={}
 
+iso.level={}
+
 iso.make = function(g)
 
 end
@@ -7,14 +9,14 @@ end
 iso.gameplay =
 {
 	make = function(g)
-		local mw,mh=g.width/g.tile.width,g.height/g.tile.height
-		g.map=map.generate({"random","walls"},mw,mh,{pool={1,1,1,1,2,3,4}})
-		--g.map=map.generate({"random"},mw,mh,{pool={1,1,1,1,2,3,4}})
+		--local mw,mh=g.width/g.tile.width,g.height/g.tile.height
+		--g.map=map.generate({"random","walls"},mw,mh,{pool={1,1,1,1,2,3,4}})
+		level.make(g,1,Enums.modes.isometric)
 
-		g.player=actor.make(g,EA.iso_player,g.width/2,g.height/2)
+		--g.player=actor.make(g,EA.iso_player,g.width/2,g.height/2)
 
-		g.camera.x=50
-		g.camera.y=100
+		--g.camera.x=0
+		--g.camera.y=60
 	end,
 
 	keypressed = function(g,key)
@@ -23,7 +25,7 @@ iso.gameplay =
 		elseif key=='space' then
 			local mw,mh=g.width/g.tile.width,g.height/g.tile.height
 			g.timer=0
-			g.map=map.generate("random",mw,mh,{pool={1,1,1,1,2,3,4}})
+			--g.map=map.generate("random",mw,mh,{pool={1,1,1,1,2,3,4}})
 		end
 
 		local ease=easing.outElastic
@@ -45,10 +47,6 @@ iso.gameplay =
 			module.make(g.camera,EM.transition,ease,"zoom",g.camera.zoom,-4,d)
 		end
 	end,
-
-	draw = function(g)
-		map.draw(g.map,"isometric")--TODO make isometric levels so this draw doesn't go over the actors
-	end
 }
 
 iso.title =

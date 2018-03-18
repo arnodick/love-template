@@ -5,10 +5,15 @@
 	{
 		"w":42,
 		"h":32,
-		"args":
+		"generators":
 		[
 			"walls",
 		]
+	},
+	"tile":
+	{
+		"width":8,
+		"height":8
 	},
 	"drawmodes":
 	[

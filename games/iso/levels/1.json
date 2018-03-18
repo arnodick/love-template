@@ -1,0 +1,26 @@
+{
+	"map_generate":
+	{
+		"w":10,
+		"h":10,
+		"generators":
+		[
+			"random",
+			"walls"
+		],
+		"args":
+		{
+			"pool":[1,1,1,1,2,3,4]
+		}
+		
+	},
+	"tile":
+	{
+		"width":32,
+		"height":32
+	},
+	"drawmodes":
+	[
+		"isometric",
+	]
+}
