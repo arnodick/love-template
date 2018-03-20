@@ -61,11 +61,10 @@ level.make = function(g,index,mode,tw,th)
 		l.canvas.background=LG.newCanvas(l.map.w*g.tile.width,l.map.h*g.tile.height)
 		l.bgdraw=true
 	elseif l.map_generate then
-		debugger.printtable(l.map_generate)
-		l.map=map.generate(l.map_generate.generators,l.map_generate.w,l.map_generate.h,l.map_generate.args)
+		--debugger.printtable(l.map_generate)
+		l.map=map.generate(l.map_generate.generators,l.map_generate.w,l.map_generate.h,l.map_generate.tile.width,l.map_generate.tile.height,l.map_generate.args)
 		l.canvas={}
-		--l.canvas.background=LG.newCanvas(l.map.w*g.tile.width,l.map.h*g.tile.height)
-		l.canvas.background=LG.newCanvas(l.map.w*l.tile.width,l.map.h*l.tile.height)
+		l.canvas.background=LG.newCanvas(l.map.w*l.map.tile.width,l.map.h*l.map.tile.height)
 		l.bgdraw=true
 	end
 	g.level=l

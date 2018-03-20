@@ -6,7 +6,7 @@ local map={}
 local generators={}
 local drawmodes={}
 
-map.generate = function(gen,w,h,args)
+map.generate = function(gen,w,h,tw,th,args)
 	local m={}
 
 	for y=1,h do
@@ -24,6 +24,13 @@ map.generate = function(gen,w,h,args)
 	end
 	m.w=w
 	m.h=h
+	m.tile={}
+	m.tile.width=8
+	m.tile.height=8
+	if tw and th then
+		m.tile.width=tw
+		m.tile.height=th
+	end
 	m.width=map.width(m)
 	m.height=map.height(m)
 	return m
@@ -46,6 +53,9 @@ map.load = function(filename)
 --]]
 	m.w=map.cellwidth(m)
 	m.h=map.cellheight(m)
+	m.tile={}
+	m.tile.width=8
+	m.tile.height=8
 	m.width=map.width(m)
 	m.height=map.height(m)
 	return m
@@ -74,7 +84,7 @@ map.cellwidth = function(m)
 end
 
 map.width = function(m)
-	return map.cellwidth(m)*Game.tile.width
+	return map.cellwidth(m)*m.tile.width
 end
 
 map.cellheight = function(m)
@@ -82,7 +92,7 @@ map.cellheight = function(m)
 end
 
 map.height = function(m)
-	return map.cellheight(m)*Game.tile.height
+	return map.cellheight(m)*m.tile.height
 end
 
 map.getcell = function(m,x,y)
@@ -172,8 +182,8 @@ drawmodes.sprites = function(m,x,y)
 end
 
 drawmodes.isometric = function(m,x,y)
-	--local tw,th=Game.tile.width,Game.tile.height
-	local tw,th=Game.level.tile.width,Game.level.tile.height
+	--local tw,th=Game.level.tile.width,Game.level.tile.height
+	local tw,th=m.tile.width,m.tile.height
 	local t=Game.timer
 
 	--if (y-1)*#m[y]+x<=t then
