@@ -6,8 +6,9 @@ local map={}
 local generators={}
 local drawmodes={}
 
-map.generate = function(gen,w,h,tw,th,args)
-	local m={}
+map.generate = function(m,gen)
+	local w,h=m.w,m.h
+	local args=m.args
 
 	for y=1,h do
 		table.insert(m,{})
@@ -22,18 +23,8 @@ map.generate = function(gen,w,h,tw,th,args)
 			end
 		end
 	end
-	m.w=w
-	m.h=h
-	m.tile={}
-	m.tile.width=8
-	m.tile.height=8
-	if tw and th then
-		m.tile.width=tw
-		m.tile.height=th
-	end
 	m.width=map.width(m)
 	m.height=map.height(m)
-	return m
 end
 
 map.load = function(filename)
@@ -51,14 +42,29 @@ map.load = function(filename)
 		end
 	end
 --]]
+--[[
 	m.w=map.cellwidth(m)
 	m.h=map.cellheight(m)
 	m.tile={}
 	m.tile.width=8
 	m.tile.height=8
+--]]
+	map.init(m,map.cellwidth(m),map.cellheight(m))
 	m.width=map.width(m)
 	m.height=map.height(m)
 	return m
+end
+
+--TODO could probably do away with this by just checking if m.tile exists in code
+map.init = function(m,w,h)
+	if w and h then
+		m.w,m.h=w,h
+	end
+	if not m.tile then
+		m.tile={width=8,height=8}
+	end
+	--m.width=map.width(m)
+	--m.height=map.height(m)
 end
 
 map.save = function(m,filename)
@@ -182,7 +188,6 @@ drawmodes.sprites = function(m,x,y)
 end
 
 drawmodes.isometric = function(m,x,y)
-	--local tw,th=Game.level.tile.width,Game.level.tile.height
 	local tw,th=m.tile.width,m.tile.height
 	local t=Game.timer
 

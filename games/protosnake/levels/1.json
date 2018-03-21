@@ -1,7 +1,7 @@
 {
 	"t":"arena",
 	"c":1,
-	"map_generate":
+	"map":
 	{
 		"w":42,
 		"h":32,

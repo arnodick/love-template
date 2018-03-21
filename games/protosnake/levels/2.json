@@ -1,7 +1,10 @@
 {
 	"t":"arena",
 	"c":3,
-	"map":"arn",
+	"map":
+	{
+		"file":"arn",
+	},
 	"drawmodes":
 	[
 		"grid",

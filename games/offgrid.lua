@@ -166,7 +166,11 @@ end
 offgrid.gameplay =
 {
 	make = function(g)
-		g.map=map.generate("increment",10,10)
+		g.map={}
+		map.init(g.map,10,10)
+		--g.map={w=10,h=10,tile={width=8,height=8}}
+		--g.map=map.generate("increment",10,10)
+		map.generate(g.map,"increment")
 		g.player={}
 		g.player.x=1
 		g.player.y=1

@@ -1,7 +1,10 @@
 {
 	"t":"store",
 	"c":8,
-	"map":"arn",
+	"map":
+	{
+		"file":"arn",
+	},
 	"drawmodes":
 	[
 		"grid",

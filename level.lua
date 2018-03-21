@@ -34,7 +34,7 @@ level.load = function(g,dir,ext)
 	g.levels=l
 end
 
-level.make = function(g,index,mode,tw,th)
+level.make = function(g,index,mode)
 	local l={}
 	if mode then
 	--TODO put if mode==string then l.modename=mode etc
@@ -46,26 +46,30 @@ level.make = function(g,index,mode,tw,th)
 		g.levels={}
 	end
 	g.levels.index=index
-	if tw and th then
-		l.tile={}
-		l.tile.width=tw
-		l.tile.height=th
-	end
 	if g.levels[index] then
 		copytable(l,g.levels[index])
 	end
+--[[
 	if l.map then
 		--l.map=map.load(l.map..".txt")
 		l.map=map.load("/maps/"..l.map..".txt")
 		l.canvas={}
 		l.canvas.background=LG.newCanvas(l.map.w*g.tile.width,l.map.h*g.tile.height)
 		l.bgdraw=true
-	elseif l.map_generate then
-		--debugger.printtable(l.map_generate)
-		l.map=map.generate(l.map_generate.generators,l.map_generate.w,l.map_generate.h,l.map_generate.tile.width,l.map_generate.tile.height,l.map_generate.args)
-		l.canvas={}
-		l.canvas.background=LG.newCanvas(l.map.w*l.map.tile.width,l.map.h*l.map.tile.height)
-		l.bgdraw=true
+--]]
+	--elseif l.map_generate then
+	if l.map then
+		if l.map.file then
+			l.map=map.load("/maps/"..l.map.file..".txt")
+			l.canvas={}
+			l.canvas.background=LG.newCanvas(l.map.w*g.tile.width,l.map.h*g.tile.height)
+			l.bgdraw=true
+		elseif l.map.generators then
+			map.generate(l.map,l.map.generators)
+			l.canvas={}
+			l.canvas.background=LG.newCanvas(l.map.w*l.map.tile.width,l.map.h*l.map.tile.height)
+			l.bgdraw=true
+		end
 	end
 	g.level=l
 	game.state.run(g.name,"level","make",g,l,index)

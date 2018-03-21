@@ -1,5 +1,8 @@
 {
-	"map":"maptest",
+	"map":
+	{
+		"file":"maptest",
+	},
 	"drawmodes":
 	[
 		"sprites"

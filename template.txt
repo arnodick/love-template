@@ -1,4 +1,5 @@
 YES
+don't make it map_generate in json, just map, then generators value. copy json into map, ie map.w=8 etc, then run generate if generators has stuff in it
 consolidate supper stuff
 make it so background in protosnake transfer over to next level then get wiped away, replaced with grid
 make foregrouynd, like background also doesn't redraw, draws AFTER rest of game
