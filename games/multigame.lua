@@ -7,7 +7,6 @@ multigame.intro =
 		local gamenames={}
 		local gamemakes={}
 		local gameargs={}
-		local no={}
 		for i,v in ipairs(Enums.games) do
 			if Excludes[v]==nil then
 				table.insert(gamenames,v)

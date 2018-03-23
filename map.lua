@@ -27,10 +27,12 @@ map.generate = function(m,gen)
 	m.height=map.height(m)
 end
 
-map.load = function(filename)
+map.load = function(m,filename)
 	--loads map sprites and walls/entities from a hex populated textfile
 	--returns map array
-	local m=textfile.load(filename) --each cell (flags + integer) is loaded into map array
+	local mapgrid=textfile.load(filename) --each cell (flags + integer) is loaded into map array
+	copytable(m,mapgrid)
+
 	--TODO do actorspawn flag stuff here to load actor from value of tile
 --[[
 	for a=1,map.width(m) do
@@ -41,13 +43,6 @@ map.load = function(filename)
 			end
 		end
 	end
---]]
---[[
-	m.w=map.cellwidth(m)
-	m.h=map.cellheight(m)
-	m.tile={}
-	m.tile.width=8
-	m.tile.height=8
 --]]
 	map.init(m,map.cellwidth(m),map.cellheight(m))
 	m.width=map.width(m)

@@ -39,6 +39,7 @@ level.make = function(g,index,mode)
 	if mode then
 	--TODO put if mode==string then l.modename=mode etc
 	--l.mode=Enums.games.modes[mode]
+	--TODO put this in json file
 		l.mode=mode
 		l.modename=Enums.modes[mode]
 	end
@@ -49,27 +50,15 @@ level.make = function(g,index,mode)
 	if g.levels[index] then
 		copytable(l,g.levels[index])
 	end
---[[
-	if l.map then
-		--l.map=map.load(l.map..".txt")
-		l.map=map.load("/maps/"..l.map..".txt")
-		l.canvas={}
-		l.canvas.background=LG.newCanvas(l.map.w*g.tile.width,l.map.h*g.tile.height)
-		l.bgdraw=true
---]]
-	--elseif l.map_generate then
 	if l.map then
 		if l.map.file then
-			l.map=map.load("/maps/"..l.map.file..".txt")
-			l.canvas={}
-			l.canvas.background=LG.newCanvas(l.map.w*g.tile.width,l.map.h*g.tile.height)
-			l.bgdraw=true
+			--l.map=map.load("/maps/"..l.map.file..".txt")
+			map.load(l.map,"/maps/"..l.map.file..".txt")
 		elseif l.map.generators then
 			map.generate(l.map,l.map.generators)
-			l.canvas={}
-			l.canvas.background=LG.newCanvas(l.map.w*l.map.tile.width,l.map.h*l.map.tile.height)
-			l.bgdraw=true
 		end
+		l.canvas={background=LG.newCanvas(l.map.w*l.map.tile.width,l.map.h*l.map.tile.height)}
+		l.bgdraw=true
 	end
 	g.level=l
 	game.state.run(g.name,"level","make",g,l,index)
