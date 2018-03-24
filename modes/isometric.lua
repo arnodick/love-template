@@ -15,7 +15,8 @@ local function control(a,gs)
 end
 
 local function draw(g,a)
-	local tw,th=g.tile.width,g.tile.height
+	local m=g.level.map
+	local tw,th=m.tile.width,m.tile.height
 	local x,y=map.getcell(g.level.map,a.x,a.y)
 	--local isox=(x-1)*tw/2
 	--local isoy=(y-1)*th/4

@@ -18,8 +18,7 @@ iso.gameplay =
 		if key=='escape' then
 			game.state.make(g,"title")
 		elseif key=='space' then
-			local mw,mh=g.width/g.tile.width,g.height/g.tile.height
-			g.timer=0
+			--g.timer=0
 		end
 
 		local ease=easing.outElastic

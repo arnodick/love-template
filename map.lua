@@ -97,7 +97,7 @@ map.height = function(m)
 end
 
 map.getcell = function(m,x,y)
-	local tw,th=Game.tile.width,Game.tile.height
+	local tw,th=m.tile.width,m.tile.height
 	local cx,cy=math.floor((x+tw)/tw),math.floor((y+th)/th)
 	cx=math.clamp(cx,1,m.w)
 	cy=math.clamp(cy,1,m.h)
@@ -153,7 +153,7 @@ end
 drawmodes.grid = function(m,x,y)
 	local g=Game
 	if x==1 or y==1 then
-		local tw,th=g.tile.width,g.tile.height
+		local tw,th=m.tile.width,m.tile.height
 --TODO make a palette.fromenum function or something to input EC.red and get r,gr,b
 		local c=g.palette[g.level.c or EC.white]
 		local r,gr,b=c[1],c[2],c[3]
@@ -171,13 +171,13 @@ drawmodes.grid = function(m,x,y)
 end
 
 drawmodes.numbers = function(m,x,y)
-	local tw,th=Game.tile.width,Game.tile.height
+	local tw,th=m.tile.width,m.tile.height
 	local value=m[y][x]
 	LG.print(value,(x-1)*tw,(y-1)*th)
 end
 
 drawmodes.sprites = function(m,x,y)
-	local tw,th=Game.tile.width,Game.tile.height
+	local tw,th=m.tile.width,m.tile.height
 	local value=flags.strip(m[y][x])
 	LG.draw(Spritesheet[1],Quads[1][value],(x-1)*tw,(y-1)*th)
 end

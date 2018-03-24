@@ -16,19 +16,8 @@ local function control(g,a)
 	end
 end
 
-local function draw(a)
-		--LG.setColor(Game.palette[EC.green])
-		--LG.draw(Spritesheet[a.size],Quads[a.size][a.spr],a.x,a.y,a.angle,1.2,1.2,(a.size*Game.tile.width)/2,(a.size*Game.tile.height)/2)
-end
-
-local function collision(a)
-
-end
-
 return
 {
 	make = make,
 	control = control,
-	draw = draw,
-	collision = collision,
 }

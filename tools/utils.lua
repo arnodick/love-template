@@ -118,7 +118,6 @@ local function textify(image,scale,chars,smallcanvas,bigcanvas,charw,charh)
 				local l=LG.lightness(r,gr,b)
 				l=math.ceil(l*10)
 				LG.setColor(r,gr,b)
-				--LG.print(chars[l+1],x*g.tile.width,y*g.tile.height)
 				LG.print(chars[l+1],x*charw,y*charh)
 			end
 		end
