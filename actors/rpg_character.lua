@@ -7,7 +7,7 @@ local function make(g,a,c,size,char,hp)
 	a.char=char or "X"
 	a.hp=hp or 8
 
-	a.flags=flags.set(a.flags,EF.character,EF.damageable,EF.shootable,EF.explosive)
+	a.flags=flags.set(a.flags,EF.damageable,EF.shootable,EF.explosive)
 end
 
 return

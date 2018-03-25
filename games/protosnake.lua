@@ -214,11 +214,12 @@ protosnake.gameplay =
 			LG.print("hp:"..g.player.hp,g.camera.x+h.hp.x,g.camera.y+h.hp.y)
 
 			for i=1,g.player.inventory.max do
+				local m=g.level.map
 				local x,y=g.camera.x+40-i*20,g.camera.y-g.height/2+20--20
 				LG.rectangle("line",x,y,15,15)
 				if g.player.inventory[i] then
 					local a=g.player.inventory[i]
-					LG.draw(Spritesheet[a.size],Quads[a.size][a.spr],x+7,y+7,a.angle,1,1,(a.size*g.tile.width)/2,(a.size*g.tile.height)/2)
+					LG.draw(Spritesheet[a.size],Quads[a.size][a.spr],x+7,y+7,a.angle,1,1,(a.size*m.tile.width)/2,(a.size*m.tile.height)/2)
 				end
 			end
 

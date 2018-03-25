@@ -44,24 +44,14 @@ game.state.make = function(g,state)
 	game.state.run(g.name,g.state,"make",g)
 end
 
-game.make = function(t,tw,th,gw,gh,sp)
+game.make = function(t,gw,gh)
 	local g={}
 	g.t=t
 	g.name=Enums.games[t]
-	g.tile={}
---[[
-	g.tile.width=tw or 8
-	g.tile.height=th or 8
-	g.width=gw or 640
-	g.height=gh or 480
---]]
----[[
-	g.tile.width=tw or 8
-	g.tile.height=th or 8
 	g.width=gw or 320
 	g.height=gh or 240
---]]
-	g.speed=sp or 1
+
+	g.speed=1
 	g.pause=false
 
 	game.graphics(g)
@@ -239,7 +229,7 @@ game.draw = function(g)
 						if l.canvas then
 							if l.canvas.background then
 								LG.setCanvas(l.canvas.background)
-								--LG.clear(190,10,136,30)
+								--LG.clear(190,10,136)
 								local xcamoff,ycamoff=g.camera.x-g.width/2,g.camera.y-g.height/2
 								LG.translate(xcamoff,ycamoff)
 								map.draw(l.map,l.drawmodes)

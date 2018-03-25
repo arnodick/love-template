@@ -1,4 +1,6 @@
 DONE
+background for map, drawn to persistent canvas. canvas will be have to be size of entire map? and will ahve to move around with camera maybe
+don't make it map_generate in json, just map, then generators value. copy json into map, ie map.w=8 etc, then run generate if generators has stuff in it
 synth should be a module
 detect when a game is part of game-pak and only go back to menu if it is
 generalize level map draw out of protosnake

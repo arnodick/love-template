@@ -16,18 +16,10 @@ Music = music.load()
 
 function love.load()
 	game.make(Enums.games.multigame)
-	--game.make(Enums.games.offgrid,8,8,640,960,1)
+	--game.make(Enums.games.offgrid,640,960)
 
-	--game.make(Enums.games.dawngame,8,8,320,240,1)
-	--game.make(Enums.games.iso,32,32,640,640,1)
-	--game.make(Enums.games.rpg,8,8,320,240,1)
-	--game.make(Enums.games.template,8,8,320,240,1)
+	--game.make(Enums.games.dawngame,8,8,320,240)
 	--debugger.printtable(Game)
---[[
-	for i,v in ipairs(Quads) do
-		print("quad count"..#v)
-	end
---]]
 end
 
 function love.update(dt)

@@ -1,5 +1,5 @@
 YES
-don't make it map_generate in json, just map, then generators value. copy json into map, ie map.w=8 etc, then run generate if generators has stuff in it
+get a.speed integrated, all code working with it and vel, not actor-specific declaration
 consolidate supper stuff
 make it so background in protosnake transfer over to next level then get wiped away, replaced with grid
 make foregrouynd, like background also doesn't redraw, draws AFTER rest of game
@@ -12,7 +12,6 @@ do that 30 fps thing you did with spacetank
 make module inputs flexible, can take enum or string ie: EM.menu OR "menu", EMM.text OR "text"
 make map.getcell return the m[y][x], takes input that says whether world x,y coords or map cell x,y coords, make current getcell into getcellcoords
 module delete function, resets values that need to be set back to init value ie: flashing sprite needs to be set back to having a sprite
-background for map, drawn to persistent canvas. canvas will be have to be size of entire map? and will ahve to move around with camera maybe
 within game if you press pause long enough, goes to 1st person arcade that has a bunch of ther games that aren't in multigame menu
 	multigame is just ONE arcade game in the arcade
 

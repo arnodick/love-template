@@ -5,6 +5,9 @@ offgrid.make = function(g)
 	g.window={}
 	g.window.width=640
 	g.window.height=960
+	g.tile={}
+	g.tile.width=8
+	g.tile.height=8
 
 	g.bufferscale=(ww/g.tile.width)/wh
 

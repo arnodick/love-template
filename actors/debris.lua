@@ -17,11 +17,12 @@ local function control(g,a)
 end
 
 local function draw(g,a)
+	local m=g.level.map
 	local xcamoff,ycamoff=g.camera.x-g.width/2,g.camera.y-g.height/2
 	if a.image then
-		LG.draw(a.image,a.x,a.y,a.angle,1,1,(g.tile.width)/2,(g.tile.height)/2)
+		LG.draw(a.image,a.x,a.y,a.angle,1,1,(m.tile.width)/2,(m.tile.height)/2)
 		if a.vel<=0 then
-			LG.drawtobackground(g.level.canvas.background,a.image,a.x,a.y,a.angle,1,1,(g.tile.width)/2,(g.tile.height)/2)
+			LG.drawtobackground(g.level.canvas.background,a.image,a.x,a.y,a.angle,1,1,(m.tile.width)/2,(m.tile.height)/2)
 		end
 	else
 		local xl,yl=math.cos(a.angle),math.sin(a.angle)
