@@ -1,4 +1,5 @@
 YES
+maybe just make all actors into json files? then just add modules to give them behaviours etc
 get a.speed integrated, all code working with it and vel, not actor-specific declaration
 consolidate supper stuff
 make it so background in protosnake transfer over to next level then get wiped away, replaced with grid
@@ -16,17 +17,11 @@ within game if you press pause long enough, goes to 1st person arcade that has a
 	multigame is just ONE arcade game in the arcade
 
 fix weirdness with angle vs direction (can't remember what this is about but maybe important?)
-namespace (ughhhhhh) game-specific functions, like player? so, protosnake.player instead of just player? or something to make actors game specific
-	maybe just make all actors into json files? then just add modules to give them behaviours etc
 give animations option to have string input as well as enums for their inputs, give option to take table of animations as well
 table input option for transitions too, so actors can have multiple transitions
 	maybe the name of the transition is the name of the value that it affects? ie: a.transition.zoom or Game.transition.speed
 what is in Game? make sure no debris is left over during state changes
 	what should i put in game? Spritesheet, Quads
-things that couold be modules maybe
-	player as module
-		put player functions in game, so protosnake.player.control
-		if a.player then player.control, which runs game.state.run(gamename,"player","control")
 
 make 2d array for multi dimensions by multiplying width by amount of Z levels ie 4x4 with 3 levels = 4x12
 redo all functions to make a local {} and add functions to it and just return that

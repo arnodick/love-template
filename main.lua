@@ -44,8 +44,7 @@ function love.keypressed(key,scancode,isrepeat)
 end
 
 function love.keyreleased(key)
-	local g=Game
-	game.keyreleased(g,key)
+	game.keyreleased(Game,key)
 end
 
 function love.mousepressed(x,y,button)

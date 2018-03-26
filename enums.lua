@@ -22,13 +22,13 @@ local function load(dir,...)
 				end
 			end
 			if enumdir then
-				local enumname=string.gsub(filename, ".*/", "")
+				local enumname=string.gsub(filename, ".*/", "")--gets rid of any directory strings in filename ie: actors/dog.lua becomes dog.lua
 				enumname=string.gsub(enumname, ".lua", "")
 				table.insert(e,enumname)
 				e[enumname]=#e
 			end
 		elseif love.filesystem.isDirectory(fileordir) then
-			local enumname=string.gsub(fileordir, ".*/", "")
+			local enumname=string.gsub(fileordir, ".*/", "")--gets rid of any directory strings in filename ie: actors/dog.lua becomes dog.lua
 			local enumdir=false
 			for j=1,#dirstoread do
 				if dir~="" or enumname==dirstoread[j] then

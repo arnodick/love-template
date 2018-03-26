@@ -1,4 +1,7 @@
 DONE
+namespace (ughhhhhh) game-specific functions, like player? so, protosnake.player instead of just player? or something to make actors game specific
+put player functions in game, so protosnake.player.control
+		if a.player then player.control, which runs game.state.run(gamename,"player","control")
 background for map, drawn to persistent canvas. canvas will be have to be size of entire map? and will ahve to move around with camera maybe
 don't make it map_generate in json, just map, then generators value. copy json into map, ie map.w=8 etc, then run generate if generators has stuff in it
 synth should be a module
@@ -100,6 +103,7 @@ graphics stuff in game library
 editor not as module but as its own .lua library
 
 NO
+player as module
 get rid of all enums for module making? just do string input. keep old EM[] module code commented out, in case we need it later
 different renderers or types or something for screen
 make Game.ease a transition module

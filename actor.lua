@@ -1,3 +1,23 @@
+local function load(g,name,x,y,d,vel)
+	local a=json.load("actors/"..name..".json")
+
+	a.t=EA[name]
+	print(a.t)
+	a.x=x or love.math.random(319)
+	a.y=y or love.math.random(239)
+	a.d=d or 0
+	a.vel=vel or 0
+	a.vec={math.cos(a.d),math.sin(a.d)}
+	a.angle=0
+	a.speed=1
+	a.delta=g.timer
+	a.delete=false
+	a.flags = 0x0
+	game.counters(g,a,1)
+
+	table.insert(g.actors,a)
+end
+
 local function make(g,t,x,y,d,vel,...)
 	local a={}
 	a.t=t
@@ -264,6 +284,7 @@ end
 
 return
 {
+	load = load,
 	make = make,
 	control = control,
 	draw = draw,
