@@ -56,7 +56,9 @@ game.make = function(t,gw,gh)
 
 	game.graphics(g)
 
-	level.load(g,"games/"..g.name.."/levels","json")
+	--TODO make actors.load sort of thing here ie actor.load(g,"games/"..g.name.."/actors","json")
+	--so there is g.actors={"bullet"={t=etc}}
+	level.load(g,"games/"..g.name.."/levels")
 
 --[[
 	g.window={}

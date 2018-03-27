@@ -6,6 +6,7 @@ level.load = function(g,dir,ext)
 	--each file in the folder gets its own table in l
 	--uses LIP, so each section of the ini gets its own table ie: l[1]={enemies={...},values={c=1},etc}
 	--as a result, a level in l can't have single values assigned to it, and each value must be part of a table
+	ext=ext or "json"
 	local l={}
 	local files=love.filesystem.getDirectoryItems(dir)
 	for i=1,#files do

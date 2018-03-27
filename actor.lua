@@ -1,8 +1,7 @@
 local function load(g,name,x,y,d,vel)
-	local a=json.load("actors/"..name..".json")
+	local a=json.load("games/"..g.name.."/actors/"..name..".json")
 
 	a.t=EA[name]
-	print(a.t)
 	a.x=x or love.math.random(319)
 	a.y=y or love.math.random(239)
 	a.d=d or 0
