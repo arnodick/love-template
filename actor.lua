@@ -1,17 +1,20 @@
-local function load(g,name,x,y,d,vel)
-	local a=json.load("games/"..g.name.."/actors/"..name..".json")
+local function load(g,name,x,y,d,angle,vel,c)
+	local a={}
+	copytable(a,g.actortemplates[name])
 
 	a.t=EA[name]
 	a.x=x or love.math.random(319)
 	a.y=y or love.math.random(239)
 	a.d=d or 0
+	a.angle=angle or 0
 	a.vel=vel or 0
+	a.c=c or 1
+	a.cinit=a.c
 	a.vec={math.cos(a.d),math.sin(a.d)}
-	a.angle=0
 	a.speed=1
 	a.delta=g.timer
 	a.delete=false
-	a.flags = 0x0
+	a.flags=0x0
 	game.counters(g,a,1)
 
 	table.insert(g.actors,a)

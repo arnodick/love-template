@@ -58,6 +58,8 @@ game.make = function(t,gw,gh)
 
 	--TODO make actors.load sort of thing here ie actor.load(g,"games/"..g.name.."/actors","json")
 	--so there is g.actors={"bullet"={t=etc}}
+	g.actortemplates=game.files(g,"games/"..g.name.."/actors")
+	debugger.printtable(g.actortemplates)
 	level.load(g,"games/"..g.name.."/levels")
 
 --[[
@@ -279,6 +281,31 @@ game.draw = function(g)
 	screen.control(g,g.screen,g.speed)
 end
 
+
+game.files = function(g,dir,ext)
+	ext=ext or "json"
+	local l={}
+	local files=love.filesystem.getDirectoryItems(dir)
+	for i=1,#files do
+		local file=files[i]
+		if love.filesystem.isFile(dir.."/"..file) then --if it isn't a directory
+			local filedata=love.filesystem.newFileData("code", file) --gets each file's filedata, so we can determine their extensions
+			local filename=filedata:getFilename() --get the file's name
+			if filedata:getExtension()==ext then
+				local f=string.gsub(filename, "."..ext, "")--strip the file extension
+				if tonumber(f) then
+					f=tonumber(f)
+				end
+				if ext=="ini" then
+					l[f]=LIP.load(dir.."/"..filename)
+				elseif ext=="json" then
+					l[f]=json.load(dir.."/"..filename)
+				end
+			end
+		end
+	end
+	return l
+end
 
 game.counters = function(g,a,amount)
 	local c=g.counters
