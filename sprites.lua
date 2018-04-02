@@ -19,7 +19,13 @@ end
 
 --TODO this should maybe just go in actor? actor.draw with drawmode?
 local function draw(a)
-	if a.spr then
+	local spr=a.spr
+	if Game.actortemplates[EA[a.t]] then
+		spr=Game.actortemplates[EA[a.t]].spr
+	end
+	if spr then
+		local size=a.size or Game.actortemplates[EA[a.t]].size
+
 		local anim={}
 		anim.frames=0
 
@@ -33,7 +39,8 @@ local function draw(a)
 		if a.scalex then scalex=a.scalex end
 		if a.scaley then scaley=a.scaley end
 		
-		LG.draw(Spritesheet[a.size],Quads[a.size][a.spr+anim.frames],a.x,a.y,a.angle,scalex,scaley,(a.size*8)/2,(a.size*8)/2)
+		--LG.draw(Spritesheet[a.size],Quads[a.size][a.spr+anim.frames],a.x,a.y,a.angle,scalex,scaley,(a.size*8)/2,(a.size*8)/2)
+		LG.draw(Spritesheet[size],Quads[size][spr+anim.frames],a.x,a.y,a.angle,scalex,scaley,(size*8)/2,(size*8)/2)
 	end
 end
 

@@ -57,7 +57,8 @@ local function draw(g,a)
 	run(EA[a.t],"predraw",a)
 --]]
 
-	local c=a.c or EC.pure_white
+	--local c=a.c or EC.pure_white
+	local c=a.c or g.actortemplates[EA[a.t]].c
 	local r,gr,b=unpack(g.palette[c])
 	local alpha=255
 	if a.alpha then

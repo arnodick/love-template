@@ -1,6 +1,6 @@
 local function load(g,name,x,y,d,angle,vel,c)
 	local a={}
-	copytable(a,g.actortemplates[name])
+	--copytable(a,g.actortemplates[name])
 
 	a.t=EA[name]
 	a.x=x or love.math.random(319)
