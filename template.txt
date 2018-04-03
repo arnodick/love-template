@@ -1,4 +1,6 @@
 YES
+give flags.set table input, put flags.set in actor.load and input flags{} from .json
+values input into actor.load can be set to go into actortemplates if it won't be changed?
 maybe just make all actors into json files? then just add modules to give them behaviours etc
 get a.speed integrated, all code working with it and vel, not actor-specific declaration
 consolidate supper stuff

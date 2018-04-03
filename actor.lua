@@ -15,6 +15,9 @@ local function load(g,name,x,y,d,angle,vel,c)
 	a.delta=g.timer
 	a.delete=false
 	a.flags=0x0
+	if g.actortemplates[name].flags then
+		a.flags=flags.set(a.flags,g.actortemplates[name].flags)
+	end
 	game.counters(g,a,1)
 
 	table.insert(g.actors,a)
@@ -85,8 +88,13 @@ local function control(g,a,gs)
 		flash.control(a,a.flash)
 	end
 
-	if a.decel then--TODO make decel module with speed OR velocity module? w speed and accel
-		a.vel=math.snap(a.vel,a.decel*(g.timer-a.delta)/4*gs,0)
+
+	local decel=a.decel
+	if g.actortemplates[EA[a.t]] then
+		decel=g.actortemplates[EA[a.t]].decel
+	end
+	if decel then--TODO make decel module with speed OR velocity module? w speed and accel
+		a.vel=math.snap(a.vel,decel*(g.timer-a.delta)/4*gs,0)
 		--a.vel=math.snap(a.vel,a.decel*gs,0)
 --[[
 		if not a.transition then

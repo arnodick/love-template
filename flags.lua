@@ -19,9 +19,17 @@ flags.set = function (bytes,...)
 	--SETS the bit pointed to by each flag position
 	--only turns ON bits pointed to by the flag positions input
 	local f={...}
-	for a=1,#f do
-		local flag=flags.fromenum(f[a])
-		bytes=bit.bor(bytes,flag)
+	if type(f[1])=="table" then
+		f=f[1]
+		for a=1,#f do
+			local flag=flags.fromenum(EF[f[a]])
+			bytes=bit.bor(bytes,flag)
+		end
+	else
+		for a=1,#f do
+			local flag=flags.fromenum(f[a])
+			bytes=bit.bor(bytes,flag)
+		end
 	end
 
 	--TODO maybe here do flag-specific function?
