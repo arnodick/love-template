@@ -2,4 +2,8 @@
 	"t":"bullet",
 	"spr":65,
 	"size":1,
+	"controls":
+	[
+		"bullet"
+	]
 }

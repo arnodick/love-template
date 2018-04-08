@@ -12,14 +12,7 @@ local function make(g,a,c,size,spr)
 	a.value=4
 end
 
---[[
-local function control(a,gs)
-
-end
---]]
-
 return
 {
 	make = make,
-	--control = control,
 }

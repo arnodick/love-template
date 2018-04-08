@@ -1,6 +1,6 @@
 local function load(g,name,x,y,d,angle,vel,c)
 	local a={}
-	--copytable(a,g.actortemplates[name])
+	copytable(a,g.actortemplates[name])
 
 	a.t=EA[name]
 	a.x=x or love.math.random(319)
@@ -19,6 +19,10 @@ local function load(g,name,x,y,d,angle,vel,c)
 		a.flags=flags.set(a.flags,g.actortemplates[name].flags)
 	end
 	game.counters(g,a,1)
+
+	if name=="hp" then
+		debugger.printtable(a)
+	end
 
 	table.insert(g.actors,a)
 end
@@ -61,6 +65,10 @@ local function control(g,a,gs)
 
 	run(EA[a.t],"control",g,a,gs)--actor's specific type control (ie snake.control)
 
+	if a.controls then
+		controls.run(g,a,gs)
+	end
+
 	if flags.get(a.flags,EF.player) then
 		player.control(g,a)
 	end
@@ -90,8 +98,8 @@ local function control(g,a,gs)
 
 
 	local decel=a.decel
-	if g.actortemplates[EA[a.t]] then
-		decel=g.actortemplates[EA[a.t]].decel
+	if g.actortemplates[EA[a.t] ] then
+		decel=g.actortemplates[EA[a.t] ].decel
 	end
 	if decel then--TODO make decel module with speed OR velocity module? w speed and accel
 		a.vel=math.snap(a.vel,decel*(g.timer-a.delta)/4*gs,0)

@@ -6,6 +6,7 @@ local function make(g,a,c)
 	a.angle=-a.d
 end
 
+--[[
 local function control(g,a)
 	local dam=1
 	for i,enemy in ipairs(g.actors) do
@@ -19,6 +20,7 @@ local function control(g,a)
 		end
 	end
 end
+--]]
 
 local function collision(a)
 	a.delete=true
@@ -27,6 +29,6 @@ end
 return
 {
 	make = make,
-	control = control,
+	--control = control,
 	collision = collision,
 }

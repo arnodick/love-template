@@ -22,10 +22,13 @@ end
 
 local function control(g,a)
 	if love.math.random(10000)==1 then
+		--actor.load(g,"hp",a.x,a.y)
+----[[
 		local smolhp=actor.make(g,EA.hp,a.x,a.y,0,0,EC.red,1,129)
 		smolhp.value=1
 		smolhp.scalex=0.5
 		smolhp.scaley=0.5
+--]]
 	end
 
 	local mindist=100
