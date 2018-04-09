@@ -20,11 +20,14 @@ end
 --TODO this should maybe just go in actor? actor.draw with drawmode?
 local function draw(a)
 	local spr=a.spr
-	if Game.actortemplates[EA[a.t]] then
-		spr=Game.actortemplates[EA[a.t]].spr
+--[[
+	if Game.actordata[EA[a.t] ] then
+		spr=Game.actordata[EA[a.t] ].spr
 	end
+--]]
 	if spr then
-		local size=a.size or Game.actortemplates[EA[a.t]].size
+		--local size=a.size or Game.actordata[EA[a.t]].size
+		local size=a.size or 1
 
 		local anim={}
 		anim.frames=0

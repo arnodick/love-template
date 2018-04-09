@@ -5,5 +5,9 @@
 	"controls":
 	[
 		"bullet"
+	],
+	"collisions":
+	[
+		"destroy"
 	]
 }

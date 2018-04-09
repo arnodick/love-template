@@ -1,8 +1,9 @@
 local function load(g,name,x,y,d,angle,vel,c)
 	local a={}
-	copytable(a,g.actortemplates[name])
+	copytable(a,g.actordata[name])
 
 	a.t=EA[name]
+	a.name=name
 	a.x=x or love.math.random(319)
 	a.y=y or love.math.random(239)
 	a.d=d or 0
@@ -15,14 +16,12 @@ local function load(g,name,x,y,d,angle,vel,c)
 	a.delta=g.timer
 	a.delete=false
 	a.flags=0x0
-	if g.actortemplates[name].flags then
-		a.flags=flags.set(a.flags,g.actortemplates[name].flags)
+	if g.actordata[name].flags then
+		a.flags=flags.set(a.flags,g.actordata[name].flags)
 	end
 	game.counters(g,a,1)
 
-	if name=="hp" then
-		debugger.printtable(a)
-	end
+	g.actordata[name].count=g.actordata[name].count+1
 
 	table.insert(g.actors,a)
 end
@@ -98,9 +97,11 @@ local function control(g,a,gs)
 
 
 	local decel=a.decel
-	if g.actortemplates[EA[a.t] ] then
-		decel=g.actortemplates[EA[a.t] ].decel
+--[[
+	if g.actordata[EA[a.t] ] then
+		decel=g.actordata[EA[a.t] ].decel
 	end
+--]]
 	if decel then--TODO make decel module with speed OR velocity module? w speed and accel
 		a.vel=math.snap(a.vel,decel*(g.timer-a.delta)/4*gs,0)
 		--a.vel=math.snap(a.vel,a.decel*gs,0)

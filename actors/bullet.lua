@@ -22,13 +22,15 @@ local function control(g,a)
 end
 --]]
 
+--[[
 local function collision(a)
 	a.delete=true
 end
+--]]
 
 return
 {
 	make = make,
 	--control = control,
-	collision = collision,
+	--collision = collision,
 }

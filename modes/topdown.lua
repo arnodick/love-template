@@ -38,6 +38,9 @@ local function control(a,m,gs)
 
 	if collx or colly then
 		run(EA[a.t],"collision",a)
+		if a.collisions then
+			collisions.run(g,a)
+		end
 
 		if flags.get(a.flags,EF.bouncy) then
 			if collx then
@@ -57,8 +60,8 @@ local function draw(g,a)
 	run(EA[a.t],"predraw",a)
 --]]
 
-	--local c=a.c or EC.pure_white
-	local c=a.c or g.actortemplates[EA[a.t]].c
+	local c=a.c or EC.pure_white
+	--local c=a.c or g.actordata[EA[a.t]].c
 	local r,gr,b=unpack(g.palette[c])
 	local alpha=255
 	if a.alpha then

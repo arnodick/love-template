@@ -1,4 +1,9 @@
 YES
+actortemplates to actordata
+	put count in each of the actordata entries
+	when load actor increase the count in that actordata
+	when delete, decrease that actirdata count
+	basically whenever counters gets incremented or decremented
 give flags.set table input, put flags.set in actor.load and input flags{} from .json
 values input into actor.load can be set to go into actortemplates if it won't be changed?
 maybe just make all actors into json files? then just add modules to give them behaviours etc

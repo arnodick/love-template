@@ -56,11 +56,13 @@ game.make = function(t,gw,gh)
 
 	game.graphics(g)
 
-	--TODO make actors.load sort of thing here ie actor.load(g,"games/"..g.name.."/actors","json")
-	--so there is g.actors={"bullet"={t=etc}}
-	g.actortemplates=game.files(g,"games/"..g.name.."/actors")
-	debugger.printtable(g.actortemplates)
-	level.load(g,"games/"..g.name.."/levels")
+	g.actordata=game.files(g,"games/"..g.name.."/actors")
+	for i,v in pairs(g.actordata) do
+		v.count=0
+	end
+	debugger.printtable(g.actordata)
+	g.levels=game.files(g,"games/"..g.name.."/levels")
+	--level.load(g,"games/"..g.name.."/levels")
 
 --[[
 	g.window={}
@@ -115,6 +117,9 @@ game.control = function(g)
 				end
 			end
 			game.counters(g,v,-1)
+			if v.name then
+				g.actordata[v.name].count=g.actordata[v.name].count-1
+			end
 			table.remove(g.actors,i)
 		end
 	end
