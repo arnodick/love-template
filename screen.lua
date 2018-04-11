@@ -57,17 +57,20 @@ local function control(g,s,gs)
 		s.pixelscale=math.clamp(s.pixelscale,0.1,1)
 	else
 		LG.setCanvas(s.canvas)
-			if s.clear==true then
-				LG.clear()
-			end
-			local xcamoff,ycamoff=g.camera.x-g.width/2,g.camera.y-g.height/2
-			LG.draw(g.canvas.background,0,0,0,s.pixelscale,s.pixelscale,xcamoff,ycamoff)
-			if g.level then
-				if g.level.canvas then
-					LG.draw(g.level.canvas.background,0,0,0,s.pixelscale,s.pixelscale,xcamoff,ycamoff)
+			local t=math.floor(g.timer/gs)%2 --this makes the game draw half as often, making it fake 30fps
+			if t==0 then
+				if s.clear==true then
+					LG.clear()
 				end
+				local xcamoff,ycamoff=g.camera.x-g.width/2,g.camera.y-g.height/2
+				LG.draw(g.canvas.background,0,0,0,s.pixelscale,s.pixelscale,xcamoff,ycamoff)
+				if g.level then
+					if g.level.canvas then
+						LG.draw(g.level.canvas.background,0,0,0,s.pixelscale,s.pixelscale,xcamoff,ycamoff)
+					end
+				end
+				LG.draw(g.canvas.main,0,0,0,s.pixelscale,s.pixelscale)
 			end
-			LG.draw(g.canvas.main,      0,0,0,s.pixelscale,s.pixelscale)
 		LG.setCanvas()
 		LG.draw(s.canvas,x,y,0,scale,scale,g.width/2*s.pixelscale,g.height/2*s.pixelscale)
 --[[
