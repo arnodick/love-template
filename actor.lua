@@ -134,10 +134,10 @@ local function control(g,a,gs)
 		end
 	end
 --]]
-
-	if a.x<-10--TODO make these limits dynamic or something
-	or a.x>330
-	or a.y>250
+	local m=g.level.map
+	if a.x<-10
+	or a.x>m.width+10
+	or a.y>m.height+10
 	or a.y<-10 then
 		if not flags.get(a.flags,EF.persistent) then
 			a.delete=true

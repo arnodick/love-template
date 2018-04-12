@@ -39,7 +39,11 @@ royalewe.gameplay =
 		love.keyboard.setTextInput(false)
 		level.make(g,1,Enums.modes.topdown_tank)
 		local m=g.level.map
-		actor.make(g,EA.witch,map.width(m)/2-5,map.height(m)/2-5)
+		--actor.make(g,EA.witch,map.width(m)/2-5,map.height(m)/2-5)
+		g.camera.zoom=2
+		for i=1,99 do
+			actor.make(g,EA.witch,love.math.random(m.w),love.math.random(m.h))
+		end
 	end,
 
 	keypressed = function(g,key)
@@ -55,7 +59,7 @@ royalewe.gameplay =
 			--print(joystick:getID())
 			if #Joysticks>#g.players then
 				local m=g.level.map
-				local a=actor.make(g,EA.witch,map.width(m)/2,map.height(m)/2)
+				local a=actor.make(g,EA.witch,20,20)
 				player.make(g,a)
 			end
 		end
