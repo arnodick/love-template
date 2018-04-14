@@ -19,11 +19,12 @@ local function load(g,name,x,y,d,angle,vel,c)
 	if g.actordata[name].flags then
 		a.flags=flags.set(a.flags,g.actordata[name].flags)
 	end
-	game.counters(g,a,1)
+	--game.counters(g,a,1)
 
 	g.actordata[name].count=g.actordata[name].count+1
 
 	table.insert(g.actors,a)
+	return a
 end
 
 local function make(g,t,x,y,d,vel,...)
@@ -62,7 +63,9 @@ local function control(g,a,gs)
 		end
 	end
 
-	run(EA[a.t],"control",g,a,gs)--actor's specific type control (ie snake.control)
+	if a.t then
+		run(EA[a.t],"control",g,a,gs)--actor's specific type control (ie snake.control)
+	end
 
 	if a.controls then
 		controls.run(g,a,gs)

@@ -74,7 +74,9 @@ local function draw(g,a)
 		LG.print(a.char,a.x,a.y)
 	end
 
-	run(EA[a.t],"draw",g,a)--actor's specific draw function (ie snake.draw)
+	if a.t then
+		run(EA[a.t],"draw",g,a)--actor's specific draw function (ie snake.draw)
+	end
 
 	if a.tail then
 		tail.draw(a.tail)

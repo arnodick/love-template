@@ -1,8 +1,8 @@
 local function make(g,a,c,size,spr,hp)
 	local e=Enums
 
-	a.size=size or 2
-	a.spr=spr or 48
+	a.size=size or 1
+	a.spr=spr or 193
 	a.hp=hp or 8
 
 	a.hand={l=8,d=math.pi/4,x=0,y=0}
@@ -28,7 +28,7 @@ local function control(g,a)
 
 	a.hand.x=a.x+(math.cos(a.angle+a.hand.d)*a.hand.l)
 	a.hand.y=a.y+(math.sin(a.angle+a.hand.d)*a.hand.l)
---[[
+
 	if a.controller then
 		local c=a.controller.move
 		if not a.controller.action.action then
@@ -50,10 +50,10 @@ local function control(g,a)
 			a.d=a.angle
 		end
 	end
---]]
+
 	if a.vel>0 then
 		if not a.animation then
-			module.make(a,EM.animation,EM.animations.frames,10,3)
+			module.make(a,EM.animation,EM.animations.frames,10,4)
 		end
 	else
 		if a.animation then
