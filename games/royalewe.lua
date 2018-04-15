@@ -14,7 +14,7 @@ royalewe.player =
 			module.make(a,EM.controller,EMC.action,EMCI.gamepad,playernum)
 		end
 
-		actor.make(g,EA.wand,a.x+20,a.y)
+		--actor.make(g,EA.wand,a.x+20,a.y)
 
 --[[
 		a.hand={l=8,d=math.pi/4,x=0,y=0}
@@ -42,11 +42,13 @@ royalewe.gameplay =
 		--actor.make(g,EA.witch,map.width(m)/2-5,map.height(m)/2-5)
 		--actor.load(g,"person",map.width(m)/2-5,map.height(m)/2-5)
 		g.camera.zoom=2
---[[
+
 		for i=1,99 do
-			actor.make(g,EA.witch,love.math.random(m.w),love.math.random(m.h))
+			actor.make(g,EA.person,love.math.random(m.w),love.math.random(m.h))
 		end
---]]
+		for i=1,50 do
+			actor.make(g,EA.handgun,love.math.random(m.w),love.math.random(m.h))
+		end
 	end,
 
 	keypressed = function(g,key)
@@ -62,8 +64,8 @@ royalewe.gameplay =
 			--print(joystick:getID())
 			if #Joysticks>#g.players then
 				local m=g.level.map
-				--local a=actor.make(g,EA.witch,20,20)
-				local a=actor.load(g,"person",20,20)
+				local a=actor.make(g,EA.person,20,20)
+				--local a=actor.load(g,"person",20,20)
 				player.make(g,a)
 			end
 		end
@@ -93,7 +95,7 @@ royalewe.title =
 	end,
 
 	draw = function(g)
-		LG.print("royalewe title", g.width/2, g.height/2)
+		LG.print("royalewe title",g.width/2,g.height/2)
 	end
 }
 

@@ -101,6 +101,16 @@ local function update(g,d)
 		for i,v in pairs(g.actordata) do
 			table.insert(debuglist,i.." count: "..v.count)
 		end
+--[[
+		if g.actors then
+			if g.actors.items then
+				for i,v in ipairs(g.actors.items) do
+					table.insert(debuglist,"item x "..v.x.." y "..v.y)
+				end
+			end
+		end
+--]]
+
 		if g.level then
 			if g.level.transition then
 				table.insert(debuglist,"trans timer "..g.level.transition_timer)

@@ -60,6 +60,11 @@ supper.names = function(t)
 	t.names=n
 end
 
+--gives a random entry in any integer-indexed table
+supper.random = function(t)
+	return t[math.random(#t)]
+end
+
 -- Supper:
 -- Don't walk for your supper... RUN!
 

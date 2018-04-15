@@ -1,4 +1,6 @@
-local function make(g,a,c)
+local bullet={}
+
+bullet.make = function(g,a,c)
 	a.cinit=c or EC.red
 	a.c=a.cinit
 	a.spr=65
@@ -6,8 +8,7 @@ local function make(g,a,c)
 	a.angle=-a.d
 end
 
---[[
-local function control(g,a)
+bullet.control = function(g,a)
 	local dam=1
 	for i,enemy in ipairs(g.actors) do
 		if flags.get(enemy.flags,EF.shootable) then
@@ -20,17 +21,9 @@ local function control(g,a)
 		end
 	end
 end
---]]
 
---[[
-local function collision(a)
+bullet.collision = function(a)
 	a.delete=true
 end
---]]
 
-return
-{
-	make = make,
-	--control = control,
-	--collision = collision,
-}
+return bullet

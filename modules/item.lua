@@ -3,6 +3,14 @@ local function make(a)
 	a.delta=0--NOTE need this bc actor.make sets delta to Game.timer, so any actor not spawning at Game.timer==0 can't shoot
 	
 	module.make(a,EM.sound,10,"get")
+
+	local g=Game
+	if not g.actors.items then
+		g.actors.items={}
+	else
+		table.insert(g.actors.items,a)
+	end
+	
 	return a
 end
 
