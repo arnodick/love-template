@@ -43,7 +43,7 @@ royalewe.gameplay =
 		--actor.load(g,"person",map.width(m)/2-5,map.height(m)/2-5)
 		g.camera.zoom=2
 
-		for i=1,99 do
+		for i=1,9 do
 			actor.make(g,EA.person,love.math.random(m.w),love.math.random(m.h))
 		end
 		for i=1,50 do

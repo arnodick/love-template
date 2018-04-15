@@ -20,9 +20,8 @@ person.make = function(g,a,c,size,spr,hp)
 
 	if not g.actors.persons then
 		g.actors.persons={}
-	else
-		table.insert(g.actors.persons,a)
 	end
+	table.insert(g.actors.persons,a)
 end
 
 person.control = function(g,a)

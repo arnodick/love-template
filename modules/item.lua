@@ -7,9 +7,8 @@ local function make(a)
 	local g=Game
 	if not g.actors.items then
 		g.actors.items={}
-	else
-		table.insert(g.actors.items,a)
 	end
+	table.insert(g.actors.items,a)
 	
 	return a
 end
