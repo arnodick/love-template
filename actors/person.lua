@@ -22,6 +22,8 @@ person.make = function(g,a,c,size,spr,hp)
 		g.actors.persons={}
 	end
 	table.insert(g.actors.persons,a)
+	--print(a)
+	--print(g.actors.persons[#g.actors.persons])
 end
 
 person.control = function(g,a)

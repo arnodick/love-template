@@ -51,6 +51,10 @@ local function make(g,t,x,y,d,vel,...)
 	--TODO in here do if inivalues.flags then flags.set(a,EF[flagname],...)
 
 	table.insert(g.actors,a)
+	--if t==EA.person then
+	--print(a)
+	--print(g.actors[#g.actors])
+	--end
 	return a
 end
 

@@ -121,6 +121,13 @@ game.control = function(g)
 				g.actordata[v.name].count=g.actordata[v.name].count-1
 			end
 			table.remove(g.actors,i)
+			if v.t==EA.person or v.item then
+				for k,j in ipairs(g.actors.persons) do
+					if v==j then
+						table.remove(g.actors.persons,k)
+					end
+				end
+			end
 		end
 	end
 
