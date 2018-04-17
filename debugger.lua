@@ -33,6 +33,9 @@ local function update(g,d)
 					table.insert(debuglist,"player angle:"..g.players[1].angle)
 				end
 			end
+			for i,v in ipairs(g.players) do
+				table.insert(debuglist,"player "..i..": "..tostring(v))
+			end
 		end
 		if g.player then
 			table.insert(debuglist,"player x:"..g.player.x)

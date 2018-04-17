@@ -1,4 +1,8 @@
 YES
+every actor puts itself in its own actor table like actor.persons
+	every actor deletes itself from this same table when deleting
+	no need for counters any more, because you just get length #actors.persons
+	maybe make a flag to tell the actor to do this, so things like debris/clouds don't have huge pointless tables
 actortemplates to actordata
 	put count in each of the actordata entries
 	when load actor increase the count in that actordata
