@@ -1,4 +1,6 @@
 YES
+item.held=t or f
+	can only be picked up if f
 everything just becomes a module
 	so person is just a module like person={}, and person.hand={}
 	person.lua goes into controls.lua?

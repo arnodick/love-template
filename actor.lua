@@ -166,6 +166,9 @@ local function draw(g,a)
 	if flags.get(a.flags,EF.player) then
 		player.draw(g,a)
 	end
+	if a.item then
+		LG.print("held: "..tostring(a.held),a.x,a.y)
+	end
 end
 
 local function damage(a,d)

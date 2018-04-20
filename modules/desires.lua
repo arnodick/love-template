@@ -31,6 +31,7 @@ desires.control = function(a,m)
 	else
 		local t=a.controller.move.target
 		if t.item then
+			--TODO item.pickup here?
 			if actor.collision(t.x,t.y,a) then
 				if t.sound then
 					if t.sound.get then
