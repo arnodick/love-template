@@ -131,6 +131,13 @@ game.control = function(g)
 				end
 				--]]
 			end
+			if v.item then
+				for k,j in ipairs(g.actors.items) do
+					if v==j then
+						table.remove(g.actors.items,k)
+					end
+				end
+			end
 			if flags.get(v.flags,EF.player) then
 				for k,j in ipairs(g.players) do
 					if v==j then

@@ -106,12 +106,16 @@ local function update(g,d)
 		end
 ---[[
 		if g.actors then
-			--if g.actors.items then
+--[[
 			if g.actors.persons then
-				--for i,v in ipairs(g.actors.items) do
 				for i,v in ipairs(g.actors.persons) do
-					--table.insert(debuglist,"item x "..v.x.." y "..v.y)
 					table.insert(debuglist,"persons x "..v.x.." y "..v.y)
+				end
+			end
+--]]
+			if g.actors.items then
+				for i,v in ipairs(g.actors.items) do
+					table.insert(debuglist,"item x "..v.x.." y "..v.y)
 				end
 			end
 		end

@@ -1,4 +1,7 @@
 YES
+everything just becomes a module
+	so person is just a module like person={}, and person.hand={}
+	person.lua goes into controls.lua?
 every actor puts itself in its own actor table like actor.persons
 	every actor deletes itself from this same table when deleting
 	no need for counters any more, because you just get length #actors.persons

@@ -148,6 +148,16 @@ generators.increment = function(m,w,h,x,y)
 	m[y][x]=x+(y-1)*w
 end
 
+generators.solid = function(m,w,h,x,y,args)
+	local c=m[y][x]
+	for i,v in ipairs(args.solids) do
+		if v==c then
+			--print(c)
+			map.setcellflag(m,x,y,EF.solid)
+		end
+	end
+end
+
 
 
 drawmodes.grid = function(m,x,y)

@@ -26,6 +26,13 @@ royalewe.player =
 	control = function(g,a)
 		g.camera.x=a.x
 		g.camera.y=a.y
+--[[
+		if love.keyboard.isDown('e') then
+			if a.inventory[1] then
+				a.inventory[1].delete=true
+			end
+		end
+--]]
 	end,
 }
 
@@ -46,9 +53,11 @@ royalewe.gameplay =
 		for i=1,9 do
 			actor.make(g,EA.person,love.math.random(m.w),love.math.random(m.h))
 		end
+--[[
 		for i=1,50 do
 			actor.make(g,EA.handgun,love.math.random(m.w),love.math.random(m.h))
 		end
+--]]
 	end,
 
 	keypressed = function(g,key)
@@ -67,7 +76,8 @@ royalewe.gameplay =
 				local a=actor.make(g,EA.person,20,20)
 				--local a=actor.load(g,"person",20,20)
 				player.make(g,a)
-			end
+				actor.make(g,EA.handgun,a.x,a.y)
+			end			
 		end
 	end,
 
