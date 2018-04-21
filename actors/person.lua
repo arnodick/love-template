@@ -82,8 +82,21 @@ end
 person.draw = function(g,a)
 	if Debugger.debugging then
 		if a.desires then
+---[[
 			for i,v in ipairs(a.desires.queue) do
 				LG.print(v,a.x+10,a.y+i*8)
+			end
+--]]
+			if a.controller then
+				if a.controller.move.target then
+					if a.blocked then
+						LG.setColor(g.palette[EC.red])
+					else
+						LG.setColor(g.palette[EC.green])
+					end
+					LG.line(a.x,a.y,a.controller.move.target.x,a.controller.move.target.y)
+					LG.setColor(g.palette[EC.pure_white])
+				end
 			end
 		end
 	end

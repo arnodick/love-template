@@ -43,7 +43,7 @@ end
 
 item.pickup = function(a,user)
 	local g=Game
-	game.state.run(g.name,"item","pickup",g,a,user)
+	return game.state.run(g.name,"item","pickup",g,a,user)
 end
 
 return item

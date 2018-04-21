@@ -6,7 +6,7 @@ game.state.run = function(gamename,statename,functionname,...)
 	--NOTE need this AND run because this uses a 3D table, maybe some tricky way to lump this in with run?
 	--if _G[gamename][statename] then
 		if _G[gamename][statename][functionname] then
-			_G[gamename][statename][functionname](...)
+			return _G[gamename][statename][functionname](...)
 		end
 	--end
 end

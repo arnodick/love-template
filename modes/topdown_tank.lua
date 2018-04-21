@@ -28,8 +28,10 @@ local function control(a,m,gs)
 	if a.inventory then
 		if #a.inventory>0 then
 			c=a.controller
-			item.use(a.inventory[1],gs,a,math.cos(a.angle),math.sin(a.angle),c.action.use)--this makes wand point player's direction
-			--item.use(a.inventory[1],gs,a,c.aim.horizontal,c.aim.vertical,c.action.use)--this make wand point in its own independent direction
+			if c then
+				item.use(a.inventory[1],gs,a,math.cos(a.angle),math.sin(a.angle),c.action.use)--this makes wand point player's direction
+				--item.use(a.inventory[1],gs,a,c.aim.horizontal,c.aim.vertical,c.action.use)--this make wand point in its own independent direction
+			end
 		end
 	end
 

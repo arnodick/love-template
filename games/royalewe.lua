@@ -42,14 +42,14 @@ royalewe.gameplay =
 		local m=g.level.map
 		--actor.make(g,EA.witch,map.width(m)/2-5,map.height(m)/2-5)
 		--actor.load(g,"person",map.width(m)/2-5,map.height(m)/2-5)
-		g.camera.zoom=2
+		g.camera.zoom=1
 
 		for i=1,99 do
-			actor.make(g,EA.person,love.math.random(m.w),love.math.random(m.h))
+			actor.make(g,EA.person,love.math.random(m.w)*m.tile.width,love.math.random(m.h)*m.tile.height)
 		end
 ---[[
 		for i=1,50 do
-			actor.make(g,EA.handgun,love.math.random(m.w),love.math.random(m.h))
+			actor.make(g,EA.handgun,love.math.random(m.w)*m.tile.width,love.math.random(m.h)*m.tile.height)
 		end
 --]]
 	end,
@@ -70,7 +70,7 @@ royalewe.gameplay =
 				local a=actor.make(g,EA.person,20,20)
 				--local a=actor.load(g,"person",20,20)
 				player.make(g,a)
-				actor.make(g,EA.handgun,a.x,a.y)
+				--actor.make(g,EA.handgun,a.x,a.y)
 			end			
 		end
 	end,
@@ -152,9 +152,11 @@ royalewe.item =
 					table.insert(user.inventory,1,a)
 					a.held=true
 					print("hpendo")
+					return true
 				end
 			end
 		end
+		return false
 	end,
 }
 
