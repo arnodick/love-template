@@ -31,7 +31,7 @@ desires.control = function(a,m)
 						person=supper.random(g.actors.persons)
 					end
 					module.make(a,EM.controller,EMC.move,EMCI.ai,person)
-					module.make(a,EM.controller,EMC.action,EMCI.ai,0.01,0)
+					module.make(a,EM.controller,EMC.action,EMCI.ai,1,0)
 					module.make(a,EM.controller,EMC.aim,EMCI.ai,person)
 				end
 			end
@@ -53,6 +53,12 @@ desires.control = function(a,m)
 					end
 				end
 				a.controller=nil
+			end
+		elseif m.queue[1]=="kill" then
+			if a.controller.aim.target then
+			if a.controller.aim.target.hp<=0 then
+				a.controller=nil
+			end
 			end
 		end
 	end

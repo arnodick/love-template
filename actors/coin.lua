@@ -35,10 +35,12 @@ local function control(g,a,gs)
 		a.scaley=a.scaley-0.1*gs
 	end
 	if a.follow then
-		local dist=vector.distance(a.x,a.y,g.player.x,g.player.y)
+		if g.player or g.players[1] then
+		local p=g.player or g.players[1]
+		local dist=vector.distance(a.x,a.y,p.x,p.y)
 		if dist<30 then
 			if not a.controller then
-				module.make(a,EM.controller,EMC.move,EMCI.ai,g.player)
+				module.make(a,EM.controller,EMC.move,EMCI.ai,p)
 			end
 			a.speed=8/dist
 		else
@@ -46,6 +48,7 @@ local function control(g,a,gs)
 				a.controller=nil
 			end
 			a.decel=a.decelinit
+		end
 		end
 	end
 	if g.timer-a.delta>=120 then

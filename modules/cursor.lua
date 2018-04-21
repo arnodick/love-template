@@ -68,6 +68,8 @@ cursor.editor.draw = function(c)
 	local m=g.level.map
 	local tw,th=m.tile.width,m.tile.height
 	if c.snap then
+
+--TODO make function out of this!
 		local cx,cy=map.getcell(g.level.map,c.x,c.y)
 		local cell=map.getcellvalue(g.level.map,c.x,c.y)
 

@@ -5,7 +5,7 @@ person.make = function(g,a,c,size,spr,hp)
 
 	a.size=size or 1
 	a.spr=spr or 193
-	a.hp=hp or 8
+	a.hp=hp or 2
 
 	a.hand={l=8,d=math.pi/4,x=0,y=0}
 	a.hand.x=a.x+(math.cos(a.d+a.hand.d)*a.hand.l)

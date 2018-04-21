@@ -96,7 +96,7 @@ map.height = function(m)
 	return map.cellheight(m)*m.tile.height
 end
 
-map.getcell = function(m,x,y)
+map.getcell = function(m,x,y)--returns the cell coords of worldspace coords
 	local tw,th=m.tile.width,m.tile.height
 	local cx,cy=math.floor((x+tw)/tw),math.floor((y+th)/th)
 	cx=math.clamp(cx,1,m.w)
@@ -106,7 +106,8 @@ end
 
 map.getcellvalue = function(m,x,y)--takes world x,y coordinates and returns the value of the cell under those coordinates
 	local cx,cy=map.getcell(m,x,y)
-	return m[cy][cx]
+	local c=flags.strip(m[cy][cx])
+	return c
 end
 
 map.setcellvalue = function(m,x,y,v,worldcoords)--sets the value of a map cell in the low 16 bits while retaining the flags in the high 16 bits
@@ -141,7 +142,12 @@ end
 
 generators.random = function(m,w,h,x,y,args)
 	local pool=args.pool
-	m[y][x]=pool[love.math.random(#pool)]
+	local v=pool[love.math.random(#pool)]
+	m[y][x]=v
+	--m[y][x]=pool[love.math.random(#pool)]
+	if v==2 or v==3 or v==4 then
+		map.setcellflag(m,x,y,EF.animated)
+	end
 end
 
 generators.increment = function(m,w,h,x,y)

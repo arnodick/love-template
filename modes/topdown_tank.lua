@@ -55,7 +55,11 @@ local function control(a,m,gs)
 	end
 
 	if collx or colly then
-		run(EA[a.t],"collision",a)
+		if collx then
+			run(EA[a.t],"collision",a,xcelldest,ycell)
+		elseif colly then
+			run(EA[a.t],"collision",a,xcell,ycelldest)
+		end
 		if flags.get(a.flags,EF.bouncy) then
 			if collx then
 				a.vec[1]=-a.vec[1]
