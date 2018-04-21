@@ -8,11 +8,9 @@ local function load(positional,pitchupdate)
 			local filedata = love.filesystem.newFileData("sound", files[i])
 			local filename = filedata:getFilename() --get the sound file's name
 			local ext = filedata:getExtension()
-			--local varname = string.gsub(filename, "."..ext, "")
 			if ext == "ogg" or ext == "wav" then --if it's a .ogg, add to SFX (maybe make this flexible for other sound files ie mp3)
-				table.insert(s.sources,love.audio.newSource("sfx/"..filename,"static"))
-				--s.sources[varname] = love.audio.newSource("sfx/"..filename,"static")
-				--s[varname] = filename
+				--table.insert(s.sources,love.audio.newSource("sfx/"..filename,"static"))
+				table.insert(s.sources,love.sound.newSoundData("sfx/"..filename))
 			end
 			table.insert(s.pitchoffs,0)
 		end
@@ -27,15 +25,18 @@ local function load(positional,pitchupdate)
 end
 
 local function play(index,x,y)
-	interrupt = interrupt or true
+	local interrupt = interrupt or true
 	--local i=tostring(index)
 	local i=index
 	local source = SFX.sources[i]
 	--local source = love.audio.newSource("sfx/"..SFX[tostring(index)],"static")
 	if source~=nil then
+--[[
 		if interrupt then
 			love.audio.stop(source)
 		end
+--]]
+		source=love.audio.newSource(source,"static")
 		if x~=nil and y~=nil and SFX.positional then
 			source:setRelative(false)
 			source:setPosition(x,y,0)
@@ -50,12 +51,14 @@ local function play(index,x,y)
 end
 
 local function update(s,gs)
+--[[
 	if s.pitchupdate then
 		for i,v in pairs(s.sources) do
 			local pitch=math.clamp(gs,0.2,1)
 			v:setPitch(pitch+s.pitchoffs[i])
 		end
 	end
+--]]
 end
 
 return

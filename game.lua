@@ -32,9 +32,11 @@ game.state.make = function(g,state)
 		LG.setCanvas(v)
 		LG.clear()
 	end
+--[[
 	for i,v in pairs(SFX.sources) do
 		v:stop()
 	end
+--]]
 	for i,v in pairs(Music.sources) do
 		v:stop()
 	end
