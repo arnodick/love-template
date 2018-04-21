@@ -158,7 +158,50 @@ generators.solid = function(m,w,h,x,y,args)
 	end
 end
 
+generators.buildings = function(m,w,h,x,y,args)
+	if love.math.random(args.buildings.chance)==1 then
+		local door=false
+		local width,height=love.math.random(args.buildings.width.min,args.buildings.width.max),love.math.random(args.buildings.width.min,args.buildings.width.max)
+		for i=x,x-width,-1 do
+			if i>0 and i<w then
+				if door==false and love.math.random(10)==1 then
+					m[y][i]=59
+					door=true
+				else
+					m[y][i]=43
+					map.setcellflag(m,i,y,EF.solid)
+				end
+				if y-height>0 and y-height<h then
+					m[y-height][i]=11
+					map.setcellflag(m,i,y-height,EF.solid)
+				end
+			end
+		end
+		for i=y,y-height,-1 do
+			if i>0 and i<h then
+				if i==y then
+					m[i][x]=44
+				elseif i==y-height then
+					m[i][x]=12
+				else
+					m[i][x]=28
+				end
+				map.setcellflag(m,x,i,EF.solid)
 
+				if x-width>0 and x-width<w then
+					if i==y then
+						m[i][x-width]=42
+					elseif i==y-height then
+						m[i][x-width]=10
+					else
+						m[i][x-width]=26
+					end
+					map.setcellflag(m,x-width,i,EF.solid)
+				end
+			end
+		end
+	end
+end
 
 drawmodes.grid = function(m,x,y)
 	local g=Game
