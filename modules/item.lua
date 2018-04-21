@@ -1,4 +1,6 @@
-local function make(a)
+local item={}
+
+item.make = function(a)
 	a.angle=-0.79--TODO put this in actor.make
 	a.delta=0--NOTE need this bc actor.make sets delta to Game.timer, so any actor not spawning at Game.timer==0 can't shoot
 	a.held=false
@@ -14,16 +16,16 @@ local function make(a)
 	return a
 end
 
-local function control(a,gs)
+item.control = function(a,gs)
 	local g=Game
 	game.state.run(g.name,"item","control",g,a,gs)
 end
 
-local function carry(a,user)
+item.carry = function(a,user)
 	game.state.run(Game.name,"item","carry",a,user)
 end
 
-local function use(a,gs,user,vx,vy,shoot)
+item.use = function(a,gs,user,vx,vy,shoot)
 	a.angle=vector.direction(vx,vy)
 	a.vec[1]=math.cos(a.angle)
 	a.vec[2]=math.sin(a.angle)
@@ -39,10 +41,9 @@ local function use(a,gs,user,vx,vy,shoot)
 	end
 end
 
-return
-{
-	make = make,
-	control = control,
-	carry = carry,
-	use = use,
-}
+item.pickup = function(a,user)
+	local g=Game
+	game.state.run(g.name,"item","pickup",g,a,user)
+end
+
+return item

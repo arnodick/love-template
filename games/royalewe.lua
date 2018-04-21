@@ -26,13 +26,7 @@ royalewe.player =
 	control = function(g,a)
 		g.camera.x=a.x
 		g.camera.y=a.y
---[[
-		if love.keyboard.isDown('e') then
-			if a.inventory[1] then
-				a.inventory[1].delete=true
-			end
-		end
---]]
+		love.audio.setPosition(a.x,a.y,0)
 	end,
 }
 
@@ -44,7 +38,7 @@ royalewe.gameplay =
 {
 	make = function(g)
 		love.keyboard.setTextInput(false)
-		level.make(g,1,Enums.modes.topdown)
+		level.make(g,1,Enums.modes.topdown_tank)
 		local m=g.level.map
 		--actor.make(g,EA.witch,map.width(m)/2-5,map.height(m)/2-5)
 		--actor.load(g,"person",map.width(m)/2-5,map.height(m)/2-5)
@@ -53,7 +47,7 @@ royalewe.gameplay =
 		for i=1,9 do
 			actor.make(g,EA.person,love.math.random(m.w),love.math.random(m.h))
 		end
---[[
+---[[
 		for i=1,50 do
 			actor.make(g,EA.handgun,love.math.random(m.w),love.math.random(m.h))
 		end
@@ -135,22 +129,7 @@ royalewe.item =
 	control = function(g,a,gs)
 		local players=g.players
 		for i,p in ipairs(players) do
-			if actor.collision(a.x,a.y,p) then
-				--TODO item.pickup here!
-				if a.held==false then
-					if p.controller.action.action and #p.inventory<1 then
-						if a.sound then
-							if a.sound.get then
-								sfx.play(a.sound.get)
-							end
-						end
-						a.flags=flags.set(a.flags,EF.persistent)
-						table.insert(p.inventory,1,a)
-						a.held=true
-						print("hpendo")
-					end
-				end
-			end
+			item.pickup(a,p)
 		end
 	end,
 
@@ -158,6 +137,24 @@ royalewe.item =
 		a.x=user.hand.x
 		a.y=user.hand.y
 		--a.angle=user.angle
+	end,
+
+	pickup = function(g,a,user)
+		if actor.collision(a.x,a.y,user) then
+			if a.held==false then
+				if user.controller.action.action and #user.inventory<1 then
+					if a.sound then
+						if a.sound.get then
+							sfx.play(a.sound.get)
+						end
+					end
+					a.flags=flags.set(a.flags,EF.persistent)
+					table.insert(user.inventory,1,a)
+					a.held=true
+					print("hpendo")
+				end
+			end
+		end
 	end,
 }
 

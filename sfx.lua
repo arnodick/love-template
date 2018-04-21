@@ -39,7 +39,8 @@ local function play(index,x,y)
 		if x~=nil and y~=nil and SFX.positional then
 			source:setRelative(false)
 			source:setPosition(x,y,0)
-			source:setRolloff(0.05)
+			--source:setRolloff(0.05)
+			source:setRolloff(0.1)
 		end
 		local pitch=math.clamp(Game.speed,0.2,1)
 		SFX.pitchoffs[i]=math.randomfraction(0.2)-0.1

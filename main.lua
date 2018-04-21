@@ -11,7 +11,7 @@ Debugger=debugger.make()
 love.keyboard.setKeyRepeat(false)
 love.keyboard.setTextInput(true)
 Joysticks={}
-SFX = sfx.load(false,true)
+SFX = sfx.load(true,true)
 Music = music.load()
 
 function love.load()

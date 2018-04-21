@@ -150,7 +150,7 @@ end
 
 generators.solid = function(m,w,h,x,y,args)
 	local c=m[y][x]
-	for i,v in ipairs(args.solids) do
+	for i,v in ipairs(args.solid) do
 		if v==c then
 			--print(c)
 			map.setcellflag(m,x,y,EF.solid)

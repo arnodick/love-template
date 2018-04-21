@@ -16,7 +16,7 @@ desires.control = function(a,m)
 				if m.queue[1]=="item" then
 					local item=supper.random(g.actors.items)
 					module.make(a,EM.controller,EMC.move,EMCI.ai,item)
-					module.make(a,EM.controller,EMC.action,EMCI.ai,0.01,0)
+					module.make(a,EM.controller,EMC.action,EMCI.ai,0.01,1)
 				elseif m.queue[1]=="kill" then
 					local person=supper.random(g.actors.persons)
 					module.make(a,EM.controller,EMC.move,EMCI.ai,person)
@@ -31,18 +31,9 @@ desires.control = function(a,m)
 	else
 		local t=a.controller.move.target
 		if t.item then
-			--TODO item.pickup here?
-			if actor.collision(t.x,t.y,a) then
-				if t.sound then
-					if t.sound.get then
-						sfx.play(t.sound.get)
-					end
-				end
-				t.flags=flags.set(t.flags,EF.persistent)
-				table.insert(a.inventory,1,t)
-				local person=supper.random(Game.actors.persons)
-				module.make(a,EM.controller,EMC.aim,EMCI.ai,person)
-			end
+			item.pickup(t,a)
+			local person=supper.random(Game.actors.persons)
+			module.make(a,EM.controller,EMC.aim,EMCI.ai,person)
 		end
 	end
 end
