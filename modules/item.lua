@@ -12,7 +12,7 @@ item.make = function(a)
 		g.actors.items={}
 	end
 	table.insert(g.actors.items,a)
-	
+	game.state.run(g.name,"item","make",g,a)
 	return a
 end
 

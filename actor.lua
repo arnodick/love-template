@@ -133,6 +133,12 @@ local function control(g,a,gs)
 		inventory.control(a,a.inventory)
 	end
 
+--[[
+	if a.item then
+		game.state.run(g.name,"item","control",g,a)
+	end
+--]]
+
 ---[[
 	if a.tail then
 		if a.controller then

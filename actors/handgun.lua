@@ -14,8 +14,10 @@ local function make(g,a,c,bc)
 	module.make(a,EM.sound,6,"get")
 end
 
-local function draw(a)
-
+local function draw(g,a)
+	if Debugger.debugging then
+		LG.print(a.hp,a.x,a.y)
+	end
 end
 
 local function shoot(a)

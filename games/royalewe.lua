@@ -77,7 +77,7 @@ royalewe.gameplay =
 			actor.make(g,EA.person,love.math.random(m.w)*m.tile.width,love.math.random(m.h)*m.tile.height)
 		end
 ---[[
-		for i=1,20 do
+		for i=1,200 do
 			actor.make(g,EA.handgun,love.math.random(m.w)*m.tile.width,love.math.random(m.h)*m.tile.height)
 		end
 --]]
@@ -252,10 +252,20 @@ royalewe.actor = {}
 
 royalewe.item =
 {
+	make = function(g,a)
+		flags.set(a.flags,EF.damageable)
+		a.hp=1
+	end,
+
 	control = function(g,a,gs)
 		local players=g.players
 		for i,p in ipairs(players) do
 			item.pickup(a,p)
+		end
+		local m=g.level.map
+		local cx,cy=map.getcell(m,a.x,a.y)
+		if flags.get(m[cy][cx],EF.kill,16) then
+			actor.damage(a,a.hp)
 		end
 	end,
 
