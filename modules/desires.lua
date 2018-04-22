@@ -55,7 +55,7 @@ desires.control = function(a,m)
 	else
 		local t=a.controller.move.target
 		if t.item then
-			if t.hp>0 then
+			if t.hp>0 and t.delete==false then
 				local pickedup=item.pickup(t,a)
 				--local person=supper.random(Game.actors.persons)
 				--module.make(a,EM.controller,EMC.aim,EMCI.ai,person)
@@ -66,15 +66,29 @@ desires.control = function(a,m)
 						end
 					end
 					a.controller=nil
+					a.vel=0
 				end
 			else
 				a.contoller=nil
+				a.vel=0
 			end
 		elseif m.queue[1]=="kill" then
+			local del=false
 			if a.controller.aim.target then
-			if a.controller.aim.target.hp<=0 then
-				a.controller=nil
+				if a.controller.aim.target.hp<=0 or a.delete==true then
+					--a.controller=nil
+					del=true
+				end
 			end
+			if a.controller.move.target then
+				if a.controller.move.target.hp<=0  or a.delete==true then
+					--a.controller=nil
+					del=true
+				end
+			end
+			if del then
+				a.controller=nil
+				a.vel=0
 			end
 		end
 	end
