@@ -13,7 +13,7 @@ desires.control = function(a,m)
 		local g=Game
 		if #m.queue>0 then
 			if g.players[1] then
-				if m.queue[1]=="item" then
+				if m.queue[1]=="item" and #g.actors.items>0 then
 					local item=supper.random(g.actors.items)
 --[[
 					local dir=vector.direction(vector.components(a.x,a.y,item.x,item.y))
@@ -24,18 +24,20 @@ desires.control = function(a,m)
 						a.blocked=true
 					end
 --]]
-					module.make(a,EM.controller,EMC.move,EMCI.ai,item)
-					module.make(a,EM.controller,EMC.action,EMCI.ai,0.01,1)
-					module.make(a,EM.controller,EMC.aim,EMCI.ai,item)
-				elseif m.queue[1]=="kill" then
+					if item.hp>0 and not item.held then					
+						module.make(a,EM.controller,EMC.move,EMCI.ai,item)
+						module.make(a,EM.controller,EMC.action,EMCI.ai,0.01,1)
+						module.make(a,EM.controller,EMC.aim,EMCI.ai,item)
+					end
+				elseif m.queue[1]=="kill" and #g.actors.persons>1 then
 					local person=supper.random(g.actors.persons)
-					if g.players[1] then
+					--if g.players[1] then
 						if g.players[1].t==EA.person then
 							if vector.distance(a.x,a.y,g.players[1].x,g.players[1].y)<300 and love.math.random(2)==1 then
 								person=g.players[1]
 							end
 						end
-					end
+					--end
 					
 					while person==a do
 						person=supper.random(g.actors.persons)
@@ -53,16 +55,20 @@ desires.control = function(a,m)
 	else
 		local t=a.controller.move.target
 		if t.item then
-			local pickedup=item.pickup(t,a)
-			--local person=supper.random(Game.actors.persons)
-			--module.make(a,EM.controller,EMC.aim,EMCI.ai,person)
-			if pickedup then
-				for i=#m.queue,1,-1 do
-					if m.queue[i]=="item" then
-						table.remove(m.queue,i)
+			if t.hp>0 then
+				local pickedup=item.pickup(t,a)
+				--local person=supper.random(Game.actors.persons)
+				--module.make(a,EM.controller,EMC.aim,EMCI.ai,person)
+				if pickedup then
+					for i=#m.queue,1,-1 do
+						if m.queue[i]=="item" then
+							table.remove(m.queue,i)
+						end
 					end
+					a.controller=nil
 				end
-				a.controller=nil
+			else
+				a.contoller=nil
 			end
 		elseif m.queue[1]=="kill" then
 			if a.controller.aim.target then

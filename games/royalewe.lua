@@ -6,12 +6,12 @@ royalewe.player =
 {
 	make = function(g,a)
 		local playernum=#g.players
-		print(playernum)
+		print("player count: "..playernum)
 
 		if #Joysticks>0 then
-			module.make(a,EM.controller,EMC.move,EMCI.gamepad,playernum)
-			module.make(a,EM.controller,EMC.aim,EMCI.gamepad,playernum)
-			module.make(a,EM.controller,EMC.action,EMCI.gamepad,playernum)
+			module.make(a,EM.controller,EMC.move,EMCI.gamepad,1)
+			module.make(a,EM.controller,EMC.aim,EMCI.gamepad,1)
+			module.make(a,EM.controller,EMC.action,EMCI.gamepad,1)
 		end
 		a.desires=nil
 		a.the_coin=0
@@ -77,7 +77,7 @@ royalewe.gameplay =
 			actor.make(g,EA.person,love.math.random(m.w)*m.tile.width,love.math.random(m.h)*m.tile.height)
 		end
 ---[[
-		for i=1,200 do
+		for i=1,20 do
 			actor.make(g,EA.handgun,love.math.random(m.w)*m.tile.width,love.math.random(m.h)*m.tile.height)
 		end
 --]]
@@ -92,7 +92,7 @@ royalewe.gameplay =
 
 	control = function(g)
 		local m=g.level.map
----[[
+--[[
 		local cycles=g.level.timer.cycles
 		if cycles<m.w/2 then
 			if g.actors.persons then
@@ -104,13 +104,14 @@ royalewe.gameplay =
 			end
 		end
 --]]
+		local gs=g.speed
 		if g.level.timer.count>=g.level.timer.limit then
 			g.level.timer.count=0
 			g.level.timer.cycles=g.level.timer.cycles+1
 			sfx.play(7,g.camera.x,g.camera.y)
 			g.level.draw=true
 		elseif g.level.timer.cycles<m.w/2 then
-			g.level.timer.count=g.level.timer.count+1
+			g.level.timer.count=g.level.timer.count+gs
 		end
 	end,
 
@@ -253,7 +254,7 @@ royalewe.actor = {}
 royalewe.item =
 {
 	make = function(g,a)
-		flags.set(a.flags,EF.damageable)
+		a.flags=flags.set(a.flags,EF.damageable)
 		a.hp=1
 	end,
 

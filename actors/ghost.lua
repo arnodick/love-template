@@ -30,6 +30,19 @@ ghost.control = function(g,a)
 			a.angle=vector.direction(a.controller.aim.horizontal,a.controller.aim.vertical)
 			a.d=a.angle
 		end
+		local done=false
+		for i,v in ipairs(g.actors.persons) do
+			if not v.delete and v.hp>0 then
+				if vector.distance(a.x,a.y,v.x,v.y)<10 then
+					a.delete=true
+					player.make(g,v)
+					done=true
+				end
+				if done then
+					break
+				end
+			end
+		end
 	end
 
 --[[

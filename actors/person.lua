@@ -91,7 +91,7 @@ person.damage = function(a)
 	end
 end
 
---[[
+---[[
 person.draw = function(g,a)
 	if Debugger.debugging then
 		if a.desires then
