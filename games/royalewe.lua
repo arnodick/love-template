@@ -22,7 +22,7 @@ royalewe.player =
 		g.camera.y=a.y
 		love.audio.setPosition(a.x,a.y,0)
 	end,
----[[
+--[[
 	draw = function(g,a)
 		local m=g.level.map
 		local tw,th=m.tile.width,m.tile.height
@@ -48,7 +48,7 @@ royalewe.player =
 			end
 		end
 	end,
-
+--]]
 	damage = function(g,a)
 		g.screen.shake=30
 	end,
@@ -56,7 +56,7 @@ royalewe.player =
 	dead = function(g,a)
 		g.score=g.score+a.the_coin
 	end,
---]]
+
 }
 
 royalewe.make = function(g)
@@ -91,13 +91,26 @@ royalewe.gameplay =
 	end,
 
 	control = function(g)
-		if g.actors.persons then
-			if #g.actors.persons<50 then
-				local m=g.level.map
-				for i=1,50 do
-					actor.make(g,EA.person,love.math.random(m.w)*m.tile.width,love.math.random(m.h)*m.tile.height)
+		local m=g.level.map
+---[[
+		local cycles=g.level.timer.cycles
+		if cycles<m.w/2 then
+			if g.actors.persons then
+				if #g.actors.persons<50 then
+					for i=1,50 do
+						actor.make(g,EA.person,love.math.random(cycles,m.w-cycles)*m.tile.width,love.math.random(cycles,m.h-cycles)*m.tile.height)
+					end
 				end
 			end
+		end
+--]]
+		if g.level.timer.count>=g.level.timer.limit then
+			g.level.timer.count=0
+			g.level.timer.cycles=g.level.timer.cycles+1
+			sfx.play(7,g.camera.x,g.camera.y)
+			g.level.draw=true
+		elseif g.level.timer.cycles<m.w/2 then
+			g.level.timer.count=g.level.timer.count+1
 		end
 	end,
 
@@ -124,7 +137,72 @@ royalewe.gameplay =
 	end,
 
 	draw = function(g)
-		--LG.print("royalewe gaem",g.width/2,g.height/2)
+		if g.level.draw then
+			local m=g.level.map
+			local tw,th=m.tile.width,m.tile.height
+			local v=166
+--[[
+			for y=1,m.h do
+				local x=g.level.timer.cycles
+				map.erasecellflags(m,x,y)
+				map.setcellvalue(m,x,y,v)
+				map.setcellflag(m,x,y,EF.kill)
+				
+				local cx,cy=(x-1)*tw,(y-1)*tw
+				LG.setCanvas(g.level.canvas.background)
+					LG.setBlendMode("replace")
+					LG.setColor(g.palette[EC.pure_white])
+					local xcamoff,ycamoff=g.camera.x-g.width/2,g.camera.y-g.height/2
+					LG.translate(xcamoff,ycamoff)
+						--LG.draw(Spritesheet[1],Quads[1][0],cx,cy)
+						LG.draw(Spritesheet[1],Quads[1][v],cx,cy)
+					LG.translate(-xcamoff,-ycamoff)
+					LG.setBlendMode("alpha")
+				LG.setCanvas(g.canvas.main)
+			end
+-]]
+			for x=1,m.w do
+				local y=g.level.timer.cycles
+				map.erasecellflags(m,x,y)
+				map.setcellvalue(m,x,y,v)
+				map.setcellflag(m,x,y,EF.kill)
+
+				local othersidey=m.h+1-y
+				map.erasecellflags(m,x,othersidey)
+				map.setcellvalue(m,x,othersidey,v)
+				map.setcellflag(m,x,othersidey,EF.kill)
+
+				local sidex=y
+				local sidey=x
+				local sideotherx=m.w+1-sidex
+				if x<=m.h then
+					map.erasecellflags(m,sidex,sidey)
+					map.setcellvalue(m,sidex,sidey,v)
+					map.setcellflag(m,sidex,sidey,EF.kill)
+
+					map.erasecellflags(m,sideotherx,sidey)
+					map.setcellvalue(m,sideotherx,sidey,v)
+					map.setcellflag(m,sideotherx,sidey,EF.kill)
+				end
+				
+				local cx,cy,cothery,csidex,csidey,csideotherx=(x-1)*tw,(y-1)*tw,(othersidey-1)*tw,(sidex-1)*tw,(sidey-1)*tw,(sideotherx-1)*tw
+				LG.setCanvas(g.level.canvas.background)
+					LG.setBlendMode("replace")
+					LG.setColor(g.palette[EC.pure_white])
+					local xcamoff,ycamoff=g.camera.x-g.width/2,g.camera.y-g.height/2
+					LG.translate(xcamoff,ycamoff)
+						LG.draw(Spritesheet[1],Quads[1][v],cx,cy)
+						LG.draw(Spritesheet[1],Quads[1][v],cx,cothery)
+						if x<=m.h then
+							LG.draw(Spritesheet[1],Quads[1][v],csidex,csidey)
+							LG.draw(Spritesheet[1],Quads[1][v],csideotherx,csidey)
+						end
+					LG.translate(-xcamoff,-ycamoff)
+					LG.setBlendMode("alpha")
+				LG.setCanvas(g.canvas.main)
+			end
+			g.level.draw=false
+		end
 	end
 }
 

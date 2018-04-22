@@ -22,6 +22,12 @@
 			"solid":[18]
 		}
 	},
+	"timer":
+	{
+		"count":0,
+		"limit":100,
+		"cycles":0
+	},
 	"drawmodes":
 	[
 		"sprites"

@@ -29,6 +29,11 @@ person.make = function(g,a,c,size,spr,hp)
 end
 
 person.control = function(g,a)
+	local m=g.level.map
+	local cx,cy=map.getcell(m,a.x,a.y)
+	if flags.get(m[cy][cx],EF.kill,16) then
+		actor.damage(a,a.hp)
+	end
 	if a.desires then
 		desires.control(a,a.desires)
 	end
@@ -42,6 +47,7 @@ person.control = function(g,a)
 		a.controller=nil
 	end
 --]]
+	
 
 	a.hand.x=a.x+(math.cos(a.angle+a.hand.d)*a.hand.l)
 	a.hand.y=a.y+(math.sin(a.angle+a.hand.d)*a.hand.l)
