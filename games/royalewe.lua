@@ -83,7 +83,7 @@ royalewe.gameplay =
 		end
 --]]
 		for i=1,100 do
-			actor.make(g,EA.coin,love.math.random(m.w)*m.tile.width,love.math.random(m.h)*m.tile.height)
+			actor.make(g,EA.the_coin,love.math.random(m.w)*m.tile.width,love.math.random(m.h)*m.tile.height)
 		end
 	end,
 
