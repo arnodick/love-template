@@ -126,10 +126,13 @@ local function textify(image,scale,chars,smallcanvas,bigcanvas,charw,charh)
 	return LG.newImage(mainimgdata)
 end
 
-local function drawtobackground(background,drawable,x,y,a,scale,scale,xoff,yoff)
+local function drawtobackground(background,drawable,x,y,a,scale,scale,xoff,yoff,alpha)
 	local g=Game
 	local xcamoff,ycamoff=g.camera.x-g.width/2,g.camera.y-g.height/2
 	LG.setCanvas(background)
+		if alpha then
+			LG.setColor(255,255,255,alpha)
+		end
 		LG.draw(drawable,x+xcamoff,y+ycamoff,a,scale,scale,xoff,yoff)
 	LG.setCanvas(g.canvas.main)
 end

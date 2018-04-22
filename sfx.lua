@@ -37,16 +37,24 @@ local function play(index,x,y)
 		end
 --]]
 		source=love.audio.newSource(source,"static")
-		if x~=nil and y~=nil and SFX.positional then
+		local play=false
+		if not SFX.positional then
+			play=true
+		elseif x~=nil and y~=nil and SFX.positional then
 			source:setRelative(false)
 			source:setPosition(x,y,0)
 			--source:setRolloff(0.05)
 			source:setRolloff(0.4)
+			if vector.distance(x,y,Game.camera.x,Game.camera.y)<320 then
+				play=true
+			end
 		end
-		local pitch=math.clamp(Game.speed,0.2,1)
-		SFX.pitchoffs[i]=math.randomfraction(0.2)-0.1
-		source:setPitch(pitch+SFX.pitchoffs[i])
-		love.audio.play(source)
+		if play then
+			local pitch=math.clamp(Game.speed,0.2,1)
+			SFX.pitchoffs[i]=math.randomfraction(0.2)-0.1
+			source:setPitch(pitch+SFX.pitchoffs[i])
+			love.audio.play(source)
+		end
 	end
 end
 

@@ -29,6 +29,14 @@ desires.control = function(a,m)
 					module.make(a,EM.controller,EMC.aim,EMCI.ai,item)
 				elseif m.queue[1]=="kill" then
 					local person=supper.random(g.actors.persons)
+					if g.players[1] then
+						if g.players[1].t==EA.person then
+							if vector.distance(a.x,a.y,g.players[1].x,g.players[1].y)<300 and love.math.random(2)==1 then
+								person=g.players[1]
+							end
+						end
+					end
+					
 					while person==a do
 						person=supper.random(g.actors.persons)
 					end

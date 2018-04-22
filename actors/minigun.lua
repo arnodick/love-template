@@ -1,13 +1,13 @@
 local function make(g,a,c,bc)
-	a.c=c or EC.green
-	a.bc=bc
+	a.c=c or EC.blue
+	a.bc=EC.blue
 	a.size=1
-	a.sprinit=178
+	a.sprinit=163
 	a.spr=a.sprinit
-	a.projvel=6
-	a.rof=10
-	a.num=1
-	a.acc=0.015
+	a.projvel=8
+	a.rof=1
+	a.num=2
+	a.acc=0.2
 	a.snd=2
 	a.proj=EA.bullet
 	module.make(a,EM.item)

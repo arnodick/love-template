@@ -57,8 +57,8 @@ local function control(g,s,gs)
 		s.pixelscale=math.clamp(s.pixelscale,0.1,1)
 	else
 		LG.setCanvas(s.canvas)
-			local t=math.floor(g.timer/gs)%2 --this makes the game draw half as often, making it fake 30fps
-			if t==0 then
+			--local t=math.floor(g.timer/gs)%2 --this makes the game draw half as often, making it fake 30fps
+			--if t==0 then
 				if s.clear==true then
 					LG.clear()
 				end
@@ -70,7 +70,7 @@ local function control(g,s,gs)
 					end
 				end
 				LG.draw(g.canvas.main,0,0,0,s.pixelscale,s.pixelscale)
-			end
+			--end
 		LG.setCanvas()
 		LG.draw(s.canvas,x,y,0,scale,scale,g.width/2*s.pixelscale,g.height/2*s.pixelscale)
 --[[

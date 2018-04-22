@@ -1,7 +1,7 @@
 local bullet={}
 
 bullet.make = function(g,a,c)
-	a.cinit=c or EC.red
+	a.cinit=c or EC.green
 	a.c=a.cinit
 	a.spr=65
 	a.size=1
@@ -49,6 +49,7 @@ bullet.draw = function(g,a)
 		cx,cy=(cx-1)*tw,(cy-1)*th
 		LG.setCanvas(g.level.canvas.background)
 			LG.setBlendMode("replace")
+			LG.setColor(g.palette[EC.pure_white])
 			local xcamoff,ycamoff=g.camera.x-g.width/2,g.camera.y-g.height/2
 			LG.translate(xcamoff,ycamoff)
 				--LG.draw(Spritesheet[1],Quads[1][0],cx,cy)

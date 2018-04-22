@@ -1,11 +1,11 @@
 local person={}
 
 person.make = function(g,a,c,size,spr,hp)
-	local e=Enums
-
+	--a.cinit=love.math.random(16)
+	--a.c=a.cinit
 	a.size=size or 1
-	a.spr=spr or 193
-	a.hp=hp or 2
+	a.spr=spr or math.choose(193,209,225,241)
+	a.hp=hp or 4
 
 	a.hand={l=8,d=math.pi/4,x=0,y=0}
 	a.hand.x=a.x+(math.cos(a.d+a.hand.d)*a.hand.l)
@@ -79,6 +79,12 @@ person.control = function(g,a)
 	end
 end
 
+person.damage = function(a)
+	for i=1,5 do
+		actor.make(Game,EA.blood,a.x,a.y)
+	end
+end
+
 --[[
 person.draw = function(g,a)
 	if Debugger.debugging then
@@ -104,7 +110,11 @@ end
 --]]
 
 person.dead = function(a)
-	actor.make(Game,EA.body,a.x,a.y)
+	local b=actor.make(Game,EA.body,a.x,a.y)
+	b.spr=a.spr+4
+	if flags.get(a.flags,EF.player) then
+		b.player=true
+	end
 end
 
 return person

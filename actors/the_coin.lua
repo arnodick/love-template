@@ -35,17 +35,19 @@ local function control(g,a,gs)
 	if a.follow then
 		if g.player or g.players[1] then
 			local p=g.player or g.players[1]
-			local dist=vector.distance(a.x,a.y,p.x,p.y)
-			if dist<30 then
-				if not a.controller then
-					module.make(a,EM.controller,EMC.move,EMCI.ai,p)
+			if p.t~=EA.ghost then
+				local dist=vector.distance(a.x,a.y,p.x,p.y)
+				if dist<30 then
+					if not a.controller then
+						module.make(a,EM.controller,EMC.move,EMCI.ai,p)
+					end
+					a.speed=8/dist
+				else
+					if a.controller then
+						a.controller=nil
+					end
+					a.decel=a.decelinit
 				end
-				a.speed=8/dist
-			else
-				if a.controller then
-					a.controller=nil
-				end
-				a.decel=a.decelinit
 			end
 		end
 	end

@@ -15,14 +15,6 @@ royalewe.player =
 		end
 		a.desires=nil
 		a.the_coin=0
-
-		--actor.make(g,EA.wand,a.x+20,a.y)
-
---[[
-		a.hand={l=8,d=math.pi/4,x=0,y=0}
-		a.hand.x=a.x+(math.cos(a.d+a.hand.d)*a.hand.l)
-		a.hand.y=a.y+(math.sin(a.d+a.hand.d)*a.hand.l)
---]]
 	end,
 
 	control = function(g,a)
@@ -43,8 +35,6 @@ royalewe.player =
 					LG.setCanvas(g.level.canvas.background)
 						LG.setBlendMode("replace")
 						LG.translate(xcamoff,ycamoff)
-							--LG.draw(Spritesheet[1],Quads[1][0],cx,cy)
-							--local v=map.getcellvalue(m,a.x,a.y)
 							local v=map.getcellvalue(m,cx,cy)
 							if math.floor(g.timer/20)%2==0 then
 								LG.draw(Spritesheet[1],Quads[1][v+1],cx,cy)
@@ -57,6 +47,10 @@ royalewe.player =
 				end
 			end
 		end
+	end,
+
+	damage = function(g,a)
+		g.screen.shake=30
 	end,
 
 	dead = function(g,a)
@@ -83,13 +77,15 @@ royalewe.gameplay =
 			actor.make(g,EA.person,love.math.random(m.w)*m.tile.width,love.math.random(m.h)*m.tile.height)
 		end
 ---[[
-		for i=1,200 do
+		for i=1,20 do
 			actor.make(g,EA.handgun,love.math.random(m.w)*m.tile.width,love.math.random(m.h)*m.tile.height)
 		end
 --]]
-		for i=1,100 do
+		for i=1,50 do
 			actor.make(g,EA.the_coin,love.math.random(m.w)*m.tile.width,love.math.random(m.h)*m.tile.height)
 		end
+
+		actor.make(g,EA.minigun,love.math.random(m.w)*m.tile.width,love.math.random(m.h)*m.tile.height)
 
 		g.score=0
 	end,

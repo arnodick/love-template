@@ -144,10 +144,11 @@ generators.random = function(m,w,h,x,y,args)
 	local pool=args.pool
 	local v=pool[love.math.random(#pool)]
 	m[y][x]=v
-	--m[y][x]=pool[love.math.random(#pool)]
+	--[[
 	if v==2 or v==3 or v==4 then
 		map.setcellflag(m,x,y,EF.animated)
 	end
+--]]
 end
 
 generators.increment = function(m,w,h,x,y)
