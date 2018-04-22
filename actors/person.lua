@@ -79,14 +79,14 @@ person.control = function(g,a)
 	end
 end
 
+--[[
 person.draw = function(g,a)
 	if Debugger.debugging then
 		if a.desires then
----[[
 			for i,v in ipairs(a.desires.queue) do
 				LG.print(v,a.x+10,a.y+i*8)
 			end
---]]
+
 			if a.controller then
 				if a.controller.move.target then
 					if a.blocked then
@@ -100,6 +100,11 @@ person.draw = function(g,a)
 			end
 		end
 	end
+end
+--]]
+
+person.dead = function(a)
+	actor.make(Game,EA.body,a.x,a.y)
 end
 
 return person

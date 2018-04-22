@@ -1,8 +1,8 @@
 local function make(g,a,c,bc)
-	a.c=c or EC.blue
+	a.c=c or EC.red
 	a.bc=bc
 	a.size=1
-	a.sprinit=161
+	a.sprinit=178
 	a.spr=a.sprinit
 	a.projvel=6
 	a.rof=10

@@ -15,6 +15,7 @@ desires.control = function(a,m)
 			if g.players[1] then
 				if m.queue[1]=="item" then
 					local item=supper.random(g.actors.items)
+--[[
 					local dir=vector.direction(vector.components(a.x,a.y,item.x,item.y))
 					local dist=vector.distance(a.x,a.y,item.x,item.y)
 					local r=ray.cast(a.x,a.y,dir,dist,1)
@@ -22,6 +23,7 @@ desires.control = function(a,m)
 					if r.len<dist then
 						a.blocked=true
 					end
+--]]
 					module.make(a,EM.controller,EMC.move,EMCI.ai,item)
 					module.make(a,EM.controller,EMC.action,EMCI.ai,0.01,1)
 					module.make(a,EM.controller,EMC.aim,EMCI.ai,item)

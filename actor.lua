@@ -198,6 +198,7 @@ local function damage(a,d)
 				a.delete=true
 
 				game.state.run(g.name,"actor","dead",g,a)
+				--run(EA[a.t],"dead",g,a)
 				if flags.get(a.flags,EF.player) then
 					player.dead(g,a)
 				end

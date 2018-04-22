@@ -14,6 +14,7 @@ royalewe.player =
 			module.make(a,EM.controller,EMC.action,EMCI.gamepad,playernum)
 		end
 		a.desires=nil
+		a.the_coin=0
 
 		--actor.make(g,EA.wand,a.x+20,a.y)
 
@@ -57,6 +58,10 @@ royalewe.player =
 			end
 		end
 	end,
+
+	dead = function(g,a)
+		g.score=g.score+a.the_coin
+	end,
 --]]
 }
 
@@ -85,6 +90,8 @@ royalewe.gameplay =
 		for i=1,100 do
 			actor.make(g,EA.the_coin,love.math.random(m.w)*m.tile.width,love.math.random(m.h)*m.tile.height)
 		end
+
+		g.score=0
 	end,
 
 	control = function(g)
