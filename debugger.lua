@@ -134,10 +134,12 @@ local function update(g,d)
 			end
 		end
 		if g.editor then
-			table.insert(debuglist,"e cursor x "..g.editor.cursor.x)
-			table.insert(debuglist,"e cursor y "..g.editor.cursor.y)
-			local cx,cy=map.getcell(g.level.map,g.editor.cursor.x,g.editor.cursor.y)
-			table.insert(debuglist,"cell value "..g.level.map[cy][cx])
+			if g.editor.cursor then
+				table.insert(debuglist,"e cursor x "..g.editor.cursor.x)
+				table.insert(debuglist,"e cursor y "..g.editor.cursor.y)
+				local cx,cy=map.getcell(g.level.map,g.editor.cursor.x,g.editor.cursor.y)
+				table.insert(debuglist,"cell value "..g.level.map[cy][cx])
+			end
 		end
 
 --[[

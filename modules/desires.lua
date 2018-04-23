@@ -9,8 +9,8 @@ desires.make = function(a,m,pool)
 end
 
 desires.control = function(a,m)
-	if not a.controller then
-		local g=Game
+	local g=Game
+	if not a.controller then		
 		if #m.queue>0 then
 			if g.players[1] then
 				if m.queue[1]=="item" and #g.actors.items>0 then
@@ -32,11 +32,13 @@ desires.control = function(a,m)
 				elseif m.queue[1]=="kill" and #g.actors.persons>1 then
 					local person=supper.random(g.actors.persons)
 					--if g.players[1] then
+--[[
 						if g.players[1].t==EA.person then
-							if vector.distance(a.x,a.y,g.players[1].x,g.players[1].y)<300 and love.math.random(2)==1 then
+							if vector.distance(a.x,a.y,g.players[1].x,g.players[1].y)<300 and love.math.random(5)==1 then
 								person=g.players[1]
 							end
 						end
+--]]
 					--end
 					
 					while person==a do
@@ -55,7 +57,8 @@ desires.control = function(a,m)
 	else
 		local t=a.controller.move.target
 		if t.item then
-			if t.hp>0 and t.delete==false then
+			local cx,cy=map.getcell(g.level.map,t.x,t.y)
+			if t.hp>0 and t.delete==false and not flags.get(g.level.map[cy][cx],EF.kill,16) then
 				local pickedup=item.pickup(t,a)
 				--local person=supper.random(Game.actors.persons)
 				--module.make(a,EM.controller,EMC.aim,EMCI.ai,person)
@@ -80,8 +83,10 @@ desires.control = function(a,m)
 					del=true
 				end
 			end
-			if a.controller.move.target then
-				if a.controller.move.target.hp<=0  or a.delete==true then
+			local mt=a.controller.move.target
+			if mt then
+				local cx,cy=map.getcell(g.level.map,mt.x,mt.y)
+				if mt.hp<=0 or mt.delete==true or flags.get(g.level.map[cy][cx],EF.kill,16) then
 					--a.controller=nil
 					del=true
 				end

@@ -7,7 +7,8 @@ person.make = function(g,a,c,size,spr,hp)
 	a.spr=spr or math.choose(193,209,225,241)
 	a.hp=hp or 4
 
-	a.hand={l=8,d=math.pi/4,x=0,y=0}
+	--a.hand={l=8,d=math.pi/4,x=0,y=0}
+	a.hand={l=8,d=math.pi/2,x=0,y=0}
 	a.hand.x=a.x+(math.cos(a.d+a.hand.d)*a.hand.l)
 	a.hand.y=a.y+(math.sin(a.d+a.hand.d)*a.hand.l)
 

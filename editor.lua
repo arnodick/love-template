@@ -3,11 +3,15 @@ local editor={}
 editor.make = function(g)
 	g.editor={}
 	--module.make(g.editor,EM.cursor,"editor",true)
-	module.make(g.editor,"cursor","editor",true)
+	if g.level then
+		module.make(g.editor,"cursor","editor",true)
+	end
 end
 
 editor.control = function(g)
-	cursor.update(g.editor.cursor)
+	if g.editor.cursor then
+		cursor.update(g.editor.cursor)
+	end
 end
 
 editor.keypressed = function(g,key)
@@ -41,14 +45,18 @@ function love.textinput(t)
 end
 
 editor.mousepressed = function(g,x,y,button)
-	cursor.mousepressed(g,g.editor.cursor,x,y,button)
+	if g.editor.cursor then
+		cursor.mousepressed(g,g.editor.cursor,x,y,button)
+	end
 end
 
 editor.wheelmoved = function(g,x,y)
 	if love.keyboard.isDown('lctrl') then
 		g.camera.zoom=g.camera.zoom+y/10
 	else
-		cursor.wheelmoved(g,g.editor.cursor,x,y)
+		if g.editor.cursor then
+			cursor.wheelmoved(g,g.editor.cursor,x,y)
+		end
 	end
 end
 

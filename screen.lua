@@ -84,6 +84,7 @@ local function control(g,s,gs)
 --]]
 	end
 	LG.draw(g.canvas.hud,(g.width*s.scale/2)+s.xoff,(g.height*s.scale/2)+s.yoff,0,s.scale,s.scale,g.width/2,g.height/2) --just like draws everything to the hud or whatever
+	--LG.draw(g.canvas.hud,g.camera.x,g.camera.y,0,1,1,0,0) --just like draws everything to the hud or whatever
 end
 
 return

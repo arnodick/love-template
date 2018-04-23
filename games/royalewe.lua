@@ -1,6 +1,27 @@
 local royalewe={}
 
-royalewe.level={}
+royalewe.level = 
+{
+	make = function(g,l)
+		local m=l.map
+
+		for i=1,199 do
+			actor.make(g,EA.person,love.math.random(m.w)*m.tile.width,love.math.random(m.h)*m.tile.height)
+		end
+---[[
+		for i=1,20 do
+			actor.make(g,EA.handgun,love.math.random(m.w)*m.tile.width,love.math.random(m.h)*m.tile.height)
+		end
+--]]
+		for i=1,50 do
+			actor.make(g,EA.the_coin,love.math.random(m.w)*m.tile.width,love.math.random(m.h)*m.tile.height)
+		end
+
+		actor.make(g,EA.minigun,love.math.random(m.w)*m.tile.width,love.math.random(m.h)*m.tile.height)
+
+		g.score=0
+	end
+}
 
 royalewe.player =
 {
@@ -68,29 +89,42 @@ royalewe.gameplay =
 	make = function(g)
 		love.keyboard.setTextInput(false)
 		level.make(g,1,Enums.modes.topdown_tank)
-		local m=g.level.map
+
+		g.starttimer=0
+		g.countdown=false
+
+			--actor.make(g,EA.handgun,a.x,a.y)
 		--actor.make(g,EA.witch,map.width(m)/2-5,map.height(m)/2-5)
 		--actor.load(g,"person",map.width(m)/2-5,map.height(m)/2-5)
-		g.camera.zoom=2
-
-		for i=1,99 do
-			actor.make(g,EA.person,love.math.random(m.w)*m.tile.width,love.math.random(m.h)*m.tile.height)
-		end
----[[
-		for i=1,20 do
-			actor.make(g,EA.handgun,love.math.random(m.w)*m.tile.width,love.math.random(m.h)*m.tile.height)
-		end
---]]
-		for i=1,50 do
-			actor.make(g,EA.the_coin,love.math.random(m.w)*m.tile.width,love.math.random(m.h)*m.tile.height)
-		end
-
-		actor.make(g,EA.minigun,love.math.random(m.w)*m.tile.width,love.math.random(m.h)*m.tile.height)
-
-		g.score=0
+		g.camera.zoom=1
 	end,
 
 	control = function(g)
+		if g.countdown then
+			g.starttimer=g.starttimer+1
+			if g.starttimer>180 then
+				if #Joysticks>#g.players then
+					local m=g.level.map
+
+					local a=supper.random(g.actors.persons)
+					player.make(g,a)
+				end
+				g.countdown=false
+			end
+		elseif not g.camera.transition and g.starttimer==0 then
+				--module.make(g.camera,EM.target,18,100)
+--module.make(g.camera,EM.transition,easing.linear,"zoom",g.camera.zoom,4,d)
+				local upordown=love.math.random(2)
+				if upordown==1 then
+					local dest=love.math.random(g.level.map.width)
+					local move=dest-g.camera.x
+					module.make(g.camera,EM.transition,easing.linear,"x",g.camera.x,move,120)
+				else
+					local dest=love.math.random(g.level.map.height)
+					local move=dest-g.camera.y
+					module.make(g.camera,EM.transition,easing.linear,"y",g.camera.y,move,120)
+				end
+		end
 		local m=g.level.map
 --[[
 		local cycles=g.level.timer.cycles
@@ -104,14 +138,25 @@ royalewe.gameplay =
 			end
 		end
 --]]
-		local gs=g.speed
-		if g.level.timer.count>=g.level.timer.limit then
-			g.level.timer.count=0
-			g.level.timer.cycles=g.level.timer.cycles+1
-			sfx.play(7,g.camera.x,g.camera.y)
-			g.level.draw=true
-		elseif g.level.timer.cycles<m.w/2 then
-			g.level.timer.count=g.level.timer.count+gs
+		if not g.pause and not g.countdown and g.starttimer~=0 then
+			local gs=g.speed
+			if g.level.timer.count>=g.level.timer.limit then
+				g.level.timer.count=0
+				g.level.timer.cycles=g.level.timer.cycles+1
+				sfx.play(7,g.camera.x,g.camera.y)
+				g.level.draw=true
+			elseif g.level.timer.cycles<m.w/2 then
+				g.level.timer.count=g.level.timer.count+gs
+			end
+		end
+		if #g.actors.persons<=1 then
+			--g.pause=true
+			if g.players[1] then
+				actor.damage(g.players[1],g.players[1].hp)
+			end
+			if not g.hud.menu then
+				module.make(g.hud,EM.menu,EMM.text,g.camera.x,g.camera.y,200,200,"you won! ya got "..g.score.." coinz ! coinz are very valuable to ghost goodjob",EC.orange,EC.dark_green,"center")
+			end
 		end
 	end,
 
@@ -122,22 +167,43 @@ royalewe.gameplay =
 	end,
 
 	gamepadpressed = function(g,joystick,button)
+		if g.starttimer==0 then
+			g.countdown=true
+		end
 		if button=="start" then
 			g.pause = not g.pause
+			if #g.actors.persons<=1 then
+				--level.make(g,1,Enums.modes.topdown_tank)
+				game.state.make(g,"gameplay")
+			end
 		elseif button=="a" then
 			--print(joystick:getID())
-			if #Joysticks>#g.players then
+			if #g.actors.persons<=1 then
+				--level.make(g,1,Enums.modes.topdown_tank)
+				game.state.make(g,"gameplay")
+--[[
+			elseif #Joysticks>#g.players then
 				local m=g.level.map
 				--local a=actor.make(g,EA.person,g.level.map.width/2,g.level.map.height/2)
 				--local a=actor.load(g,"person",20,20)
 				local a=supper.random(g.actors.persons)
 				player.make(g,a)
 				--actor.make(g,EA.handgun,a.x,a.y)
+--]]
 			end			
 		end
 	end,
 
 	draw = function(g)
+		if g.countdown then
+			local c=3
+			if g.starttimer>=120 then
+				c=1
+			elseif g.starttimer>=60 then
+				c=2
+			end
+			LG.print("COUNTDOWN..."..c,g.camera.x-40,g.camera.y)
+		end
 		if g.level.draw then
 			local m=g.level.map
 			local tw,th=m.tile.width,m.tile.height
@@ -226,12 +292,31 @@ royalewe.title =
 	end,
 
 	draw = function(g)
-		LG.print("royalewe title",g.width/2,g.height/2)
+		LG.printf("INSTRUCT ,",0,g.height/2-100,320,"center",0,1,1)
+
+		LG.draw(Spritesheet[1],Quads[1][193],g.width/2-20,g.height/2-70,0,4,4)
+		LG.printf("left stick move",0,g.height/2-40,320,"center",0,1,1)
+		LG.printf("x or r trigger shoot",0,g.height/2-30,320,"center",0,1,1)
+		LG.printf("a or l trigger aim",0,g.height/2-20,320,"center",0,1,1)
+		LG.printf("coin: get",0,g.height/2-10,320,"center",0,1,1)
+
+		LG.draw(Spritesheet[1],Quads[1][180],g.width/2-16,g.height/2+5,0,4,4)
+		LG.printf("left stick move",0,g.height/2+40,320,"center",0,1,1)
+		LG.printf("touch person to possess",0,g.height/2+50,320,"center",0,1,1)
+
+		LG.printf("f full screen",0,g.height/2+80,320,"center",0,1,1)
+		LG.printf("esc bye",0,g.height/2+90,320,"center",0,1,1)
+		LG.printf("~ tab",0,g.height/2+100,320,"center",0,1,1)
 	end
 }
 
 royalewe.intro =
 {
+	make = function(g)
+		g.hud.font=LG.newFont("fonts/Kongtext Regular.ttf",20)
+		
+	end,
+
 	keypressed = function(g,key)
 		if key=="space" or key=="return" then
 			game.state.make(g,"title")
@@ -245,7 +330,14 @@ royalewe.intro =
 	end,
 
 	draw = function(g)
-		LG.print("royalewe intro", g.width/2, g.height/2)
+		LG.setFont(g.hud.font)
+		LG.printf("THE",   0,g.height/2-30,320,"center",0,1,1,0,10,math.cos(g.timer/20))
+		LG.printf("ROYALE",0,g.height/2,   320,"center",0,1,1,0,10,math.cos(g.timer/20))
+		LG.printf("WE",    0,g.height/2+30,320,"center",0,1,1,0,10,math.cos(g.timer/20))
+		LG.setFont(g.font)
+		if math.floor(g.timer/40)%2==0 then
+			LG.printf("press a or start",0,g.height/2+70,320,"center",0,1,1)
+		end
 	end
 }
 

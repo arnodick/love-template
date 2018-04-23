@@ -92,6 +92,8 @@ end
 game.control = function(g)
 	if g.hud then
 		if g.hud.menu then
+			g.hud.menu.x=g.camera.x
+			g.hud.menu.y=g.camera.y
 			menu.control(g.hud.menu,g.speed)
 		end
 	end
