@@ -182,8 +182,8 @@ game.keypressed = function(g,key,scancode,isrepeat)
 		end
 	elseif key=="space" then
 		palette.set(g,2)
-	elseif key=="s" then
-		g.screen.clear = not g.screen.clear
+	--elseif key=="s" then
+	--	g.screen.clear = not g.screen.clear
 	end
 
 	if g.level then

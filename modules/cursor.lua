@@ -36,9 +36,13 @@ cursor.wheelmoved = function(g,c,x,y)
 end
 
 cursor.draw = function(c)
+	--cursor.editor.draw(c)
+	LG.rectangle("line",c.x-8,c.y-8,8,8)
+---[[
 	if c.t then
 		cursor[c.t].draw(c)
 	end
+--]]
 end
 
 cursor.editor={}
@@ -67,52 +71,49 @@ cursor.editor.draw = function(c)
 	local g=Game
 	local m=g.level.map
 	local tw,th=m.tile.width,m.tile.height
+
+	local cx,cy=c.x,c.y
+	local cell=map.getcellvalue(g.level.map,c.x,c.y)
 	if c.snap then
-
---TODO make function out of this!
-		local cx,cy=map.getcell(g.level.map,c.x,c.y)
-		local cell=map.getcellvalue(g.level.map,c.x,c.y)
-
-
+		cx,cy=map.getcell(g.level.map,c.x,c.y)
 		cx,cy=(cx-1)*tw,(cy-1)*th
-
-		if c.draw==true then
-			c.draw=false
-			LG.setCanvas(g.level.canvas.background)
-				local xcamoff,ycamoff=g.camera.x-g.width/2,g.camera.y-g.height/2
-				LG.translate(xcamoff,ycamoff)
-					LG.draw(Spritesheet[1],Quads[1][c.value],cx,cy)
-				LG.translate(-xcamoff,-ycamoff)
-			LG.setCanvas(g.canvas.main)
-		end
-		for i=1,#Enums.flags do
-			LG.setColor(g.palette[EC.white])
-			if flags.get(cell,i,16) then
-				LG.setColor(g.palette[EC.red])
-			end
-			LG.points(cx+i*2,cy-5)
-		end
-		LG.print(c.value,cx+tw,cy+th)
-		LG.draw(Spritesheet[1],Quads[1][c.value],cx,cy)
-
-		local p=g.palette[EC.red]
-		p[4]=180
-		LG.setColor(p)
-		if c.snap then
-			LG.line(cx-1,cy,cx+2,cy)
-			LG.line(cx,cy,cx,cy+2)
-			LG.line(cx+tw,cy,cx+tw-3,cy)
-			LG.line(cx+tw,cy,cx+tw,cy+2)
-			LG.line(cx,cy+th,cx,cy+th-3)
-			LG.line(cx,cy+th,cx+2,cy+th)
-			LG.line(cx+tw,cy+th-1,cx+tw,cy+th-3)
-			LG.line(cx+tw,cy+th,cx+tw-3,cy+th)
-		else
-			LG.rectangle("line",c.x-tw,c.y-th,tw,th)
-		end
-	else
-		LG.print(c.value,c.x,c.y)
 	end
+
+	if c.draw==true then
+		c.draw=false
+		LG.setCanvas(g.level.canvas.background)
+			local xcamoff,ycamoff=g.camera.x-g.width/2,g.camera.y-g.height/2
+			LG.translate(xcamoff,ycamoff)
+				LG.draw(Spritesheet[1],Quads[1][c.value],cx,cy)
+			LG.translate(-xcamoff,-ycamoff)
+		LG.setCanvas(g.canvas.main)
+	end
+	for i=1,#Enums.flags do
+		LG.setColor(g.palette[EC.white])
+		if flags.get(cell,i,16) then
+			LG.setColor(g.palette[EC.red])
+		end
+		LG.points(cx+i*2,cy-5)
+	end
+	LG.print(c.value,cx+tw,cy+th)
+	LG.draw(Spritesheet[1],Quads[1][c.value],cx,cy)
+
+	local p=g.palette[EC.red]
+	p[4]=180
+	LG.setColor(p)
+	if c.snap then
+		LG.line(cx-1,cy,cx+2,cy)
+		LG.line(cx,cy,cx,cy+2)
+		LG.line(cx+tw,cy,cx+tw-3,cy)
+		LG.line(cx+tw,cy,cx+tw,cy+2)
+		LG.line(cx,cy+th,cx,cy+th-3)
+		LG.line(cx,cy+th,cx+2,cy+th)
+		LG.line(cx+tw,cy+th-1,cx+tw,cy+th-3)
+		LG.line(cx+tw,cy+th,cx+tw-3,cy+th)
+	else
+		LG.rectangle("line",c.x-tw,c.y-th,tw,th)
+	end
+	
 	LG.setColor(g.palette[EC.pure_white])
 end
 

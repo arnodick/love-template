@@ -142,7 +142,7 @@ local function update(g,d)
 			end
 		end
 
---[[
+---[[
 		if #Joysticks>0 then
 			for i,v in ipairs(Joysticks) do
 				table.insert(debuglist,"joy id: "..v:getID())

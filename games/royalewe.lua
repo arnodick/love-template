@@ -27,13 +27,24 @@ royalewe.player =
 {
 	make = function(g,a)
 		local playernum=#g.players
-		print("player count: "..playernum)
-
+		print("joysrecik: "..#Joysticks)
+---[[
 		if #Joysticks>0 then
 			module.make(a,EM.controller,EMC.move,EMCI.gamepad,1)
 			module.make(a,EM.controller,EMC.aim,EMCI.gamepad,1)
 			module.make(a,EM.controller,EMC.action,EMCI.gamepad,1)
+		else
+			module.make(a,EM.controller,EMC.move,EMCI.keyboard)
+			module.make(a,EM.controller,EMC.aim,EMCI.mouse)
+			module.make(a,EM.controller,EMC.action,EMCI.mouse)
+			module.make(a,EM.cursor)
 		end
+--]]
+--[[
+			module.make(a,EM.controller,EMC.move,EMCI.keyboard)
+			module.make(a,EM.controller,EMC.aim,EMCI.mouse)
+			module.make(a,EM.controller,EMC.action,EMCI.mouse)
+--]]
 		a.desires=nil
 		a.the_coin=0
 	end,
@@ -42,6 +53,9 @@ royalewe.player =
 		g.camera.x=a.x
 		g.camera.y=a.y
 		love.audio.setPosition(a.x,a.y,0)
+		if a.cursor then
+			cursor.update(a.cursor)
+		end
 	end,
 --[[
 	draw = function(g,a)
@@ -70,6 +84,13 @@ royalewe.player =
 		end
 	end,
 --]]
+
+	draw = function(g,a)
+		if a.cursor then
+			cursor.draw(a.cursor)
+		end
+	end,
+
 	damage = function(g,a)
 		g.screen.shake=30
 	end,
@@ -103,12 +124,10 @@ royalewe.gameplay =
 		if g.countdown then
 			g.starttimer=g.starttimer+1
 			if g.starttimer>180 then
-				if #Joysticks>#g.players then
-					local m=g.level.map
+				local m=g.level.map
 
-					local a=supper.random(g.actors.persons)
-					player.make(g,a)
-				end
+				local a=supper.random(g.actors.persons)
+				player.make(g,a)
 				g.countdown=false
 			end
 		elseif not g.camera.transition and g.starttimer==0 then
@@ -126,9 +145,9 @@ royalewe.gameplay =
 				end
 		end
 		local m=g.level.map
---[[
+---[[
 		local cycles=g.level.timer.cycles
-		if cycles<m.w/2 then
+		if cycles<m.w/4 then
 			if g.actors.persons then
 				if #g.actors.persons<50 then
 					for i=1,50 do
@@ -155,12 +174,15 @@ royalewe.gameplay =
 				actor.damage(g.players[1],g.players[1].hp)
 			end
 			if not g.hud.menu then
-				module.make(g.hud,EM.menu,EMM.text,g.camera.x,g.camera.y,200,200,"you won! ya got "..g.score.." coinz ! coinz are very valuable to ghost goodjob",EC.orange,EC.dark_green,"center")
+				module.make(g.hud,EM.menu,EMM.text,g.camera.x,g.camera.y,200,200,"you won! ya got "..g.score.." coinz ! coinz are very valuable to ghost goodjob",EC.red,EC.black,"center")
 			end
 		end
 	end,
 
 	keypressed = function(g,key)
+		if g.starttimer==0 then
+			g.countdown=true
+		end
 		if key=='escape' then
 			game.state.make(g,"title")
 		end
@@ -177,19 +199,8 @@ royalewe.gameplay =
 				game.state.make(g,"gameplay")
 			end
 		elseif button=="a" then
-			--print(joystick:getID())
 			if #g.actors.persons<=1 then
-				--level.make(g,1,Enums.modes.topdown_tank)
 				game.state.make(g,"gameplay")
---[[
-			elseif #Joysticks>#g.players then
-				local m=g.level.map
-				--local a=actor.make(g,EA.person,g.level.map.width/2,g.level.map.height/2)
-				--local a=actor.load(g,"person",20,20)
-				local a=supper.random(g.actors.persons)
-				player.make(g,a)
-				--actor.make(g,EA.handgun,a.x,a.y)
---]]
 			end			
 		end
 	end,
@@ -276,7 +287,7 @@ royalewe.gameplay =
 royalewe.title =
 {
 	keypressed = function(g,key)
-		if key=="space" or key=="return" then
+		if key=="space" or key=="return" or key=="z" then
 			game.state.make(g,"gameplay")
 		elseif key=='escape' then
 			game.state.make(g,"intro")
@@ -318,7 +329,7 @@ royalewe.intro =
 	end,
 
 	keypressed = function(g,key)
-		if key=="space" or key=="return" then
+		if key=="space" or key=="return" or key=="z" then
 			game.state.make(g,"title")
 		end
 	end,

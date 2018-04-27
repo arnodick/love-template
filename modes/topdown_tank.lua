@@ -2,7 +2,7 @@ local function control(a,m,gs)
 	if a.controller then
 		local c=a.controller.move
 		if c then
-			if c.horizontal~=0 and c.vertical~=0 then
+			if c.horizontal~=0 or c.vertical~=0 then
 --[[
 				if not a.transition then
 					local controllerdirection=vector.direction(c.horizontal,-c.vertical)
