@@ -62,7 +62,7 @@ local function control(g,s,gs)
 				if s.clear==true then
 					LG.clear()
 				end
-				local xcamoff,ycamoff=g.camera.x-g.width/2,g.camera.y-g.height/2
+				xcamoff,ycamoff=g.camera.x-g.width/2,g.camera.y-g.height/2
 				LG.draw(g.canvas.background,0,0,0,s.pixelscale,s.pixelscale,xcamoff,ycamoff)
 				if g.level then
 					if g.level.canvas then

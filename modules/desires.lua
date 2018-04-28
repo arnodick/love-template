@@ -30,7 +30,7 @@ desires.control = function(a,m)
 --]]
 					if item.hp>0 and not item.held then					
 						module.make(a,EM.controller,EMC.move,EMCI.ai,item)
-						module.make(a,EM.controller,EMC.action,EMCI.ai,0.01,1)
+						module.make(a,EM.controller,EMC.action,EMCI.ai,0,1)
 						module.make(a,EM.controller,EMC.aim,EMCI.ai,item)
 					end
 				elseif m.queue[1]=="kill" and #g.actors.persons>1 then
@@ -49,7 +49,7 @@ desires.control = function(a,m)
 						person=supper.random(g.actors.persons)
 					end
 					module.make(a,EM.controller,EMC.move,EMCI.ai,person)
-					module.make(a,EM.controller,EMC.action,EMCI.ai,1,1)
+					module.make(a,EM.controller,EMC.action,EMCI.ai,1,0)
 					module.make(a,EM.controller,EMC.aim,EMCI.ai,person)
 				end
 			end
@@ -101,6 +101,7 @@ desires.control = function(a,m)
 						local playerdir=vector.direction(vector.components(a.x,a.y,mt.x,mt.y))
 						--a.controller.move.target.x,a.controller.move.target.y=a.x-(math.cos(playerdir)*playerdist),a.y-(math.sin(playerdir)*playerdist)
 						module.make(a,EM.controller,EMC.move,EMCI.ai,a.x-(math.cos(playerdir)*playerdist),a.y-(math.sin(playerdir)*playerdist))
+						module.make(a,EM.controller,EMC.action,EMCI.ai,1,1)
 					end
 				else
 					local dist=vector.distance(a.x,a.y,mt.x,mt.y)
