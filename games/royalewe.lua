@@ -112,7 +112,10 @@ royalewe.gameplay =
 			if g.actors.persons then
 				if #g.actors.persons<50 then
 					for i=1,50 do
-						actor.make(g,EA.person,love.math.random(cycles,m.w-cycles)*m.tile.width,love.math.random(cycles,m.h-cycles)*m.tile.height)
+						local x,y=love.math.random(cycles,m.w-cycles)*m.tile.width,love.math.random(cycles,m.h-cycles)*m.tile.height
+						if (x<g.camera.x-g.width/2 or x>g.camera.x+g.width) and (y<g.camera.y-g.height/2 or y>g.camera.y+g.height/2) then
+							actor.make(g,EA.person,x,y)
+						end
 					end
 				end
 			end

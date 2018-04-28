@@ -30,7 +30,7 @@ desires.control = function(a,m)
 --]]
 					if item.hp>0 and not item.held then					
 						module.make(a,EM.controller,EMC.move,EMCI.ai,item)
-						module.make(a,EM.controller,EMC.action,EMCI.ai,0,1)
+						module.make(a,EM.controller,EMC.action,EMCI.ai,0,0)
 						module.make(a,EM.controller,EMC.aim,EMCI.ai,item)
 					end
 				elseif m.queue[1]=="kill" and #g.actors.persons>1 then
@@ -63,7 +63,12 @@ desires.control = function(a,m)
 		if t.item then
 			local cx,cy=map.getcell(g.level.map,t.x,t.y)
 			if t.hp>0 and t.delete==false and not flags.get(g.level.map[cy][cx],EF.kill,16) then
-				local pickedup=item.pickup(t,a)
+				local pickedup=false
+				if actor.collision(t.x,t.y,a) then
+					a.controller.action.action=true
+					--module.make(a,EM.controller,EMC.action,EMCI.ai,0,1)
+					pickedup=item.pickup(t,a)
+				end
 				--local person=supper.random(Game.actors.persons)
 				--module.make(a,EM.controller,EMC.aim,EMCI.ai,person)
 				if pickedup then
@@ -107,17 +112,6 @@ desires.control = function(a,m)
 					local dist=vector.distance(a.x,a.y,mt.x,mt.y)
 					if dist<10 then
 						del=true
-					--if dist<10 and #g.actors.persons>1 then
---[[
-						local person=supper.random(g.actors.persons)
-
-						while person==a do
-							person=supper.random(g.actors.persons)
-						end
-						module.make(a,EM.controller,EMC.move,EMCI.ai,person)
-						module.make(a,EM.controller,EMC.action,EMCI.ai,1,1)
-						module.make(a,EM.controller,EMC.aim,EMCI.ai,person)
---]]
 					end
 				end
 			end

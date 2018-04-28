@@ -56,6 +56,7 @@ person.control = function(g,a)
 	if a.controller then
 		local c=a.controller.move
 		if not a.controller.action.action then
+			a.speed=1
 			if not a.transition then
 				if c then
 					if c.horizontal~=0 or c.vertical~=0 then
@@ -70,6 +71,7 @@ person.control = function(g,a)
 				end
 			end
 		else
+			a.speed=0.8
 			a.angle=vector.direction(a.controller.aim.horizontal,a.controller.aim.vertical)
 			a.d=a.angle
 		end
