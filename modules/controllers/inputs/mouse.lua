@@ -1,7 +1,8 @@
 local function aim()
 	local g=Game
-	local mx,my=love.mouse.getPosition()
-	return mx/(g.screen.width/g.width),my/(g.screen.height/g.height)
+	--local mx,my=love.mouse.getPosition()
+	--return mx/(g.screen.width/g.width),my/(g.screen.height/g.height)
+	return love.mouse.getPosition()
 end
 
 local function action()

@@ -4,7 +4,7 @@ local function make(g,a,c,bc)
 	a.size=1
 	a.sprinit=178
 	a.spr=a.sprinit
-	a.projvel=6
+	a.projvel=4
 	a.rof=10
 	a.num=1
 	a.acc=0.015

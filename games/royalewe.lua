@@ -37,17 +37,23 @@ royalewe.player =
 			module.make(a,EM.controller,EMC.action,EMCI.mouse)
 			module.make(a,EM.cursor)
 		end
+		module.make(g.camera,EM.target,a)
 --]]
 		a.desires=nil
 		a.the_coin=0
 	end,
 
 	control = function(g,a)
-		g.camera.x=a.x
-		g.camera.y=a.y
+		--g.camera.x=a.x
+		--g.camera.y=a.y
 		love.audio.setPosition(a.x,a.y,0)
 		if a.cursor then
 			cursor.update(a.cursor)
+--[[
+			local dir=vector.direction(a.x,a.y,a.cursor.x,a.cursor.y)
+			local length=30
+			a.cursor.x,a.cursor.y=a.x+math.cos(dir)*length,a.y+math.sin(dir)*length
+--]]
 		end
 	end,
 
@@ -319,9 +325,13 @@ royalewe.intro =
 
 	draw = function(g)
 		LG.setFont(g.hud.font)
-		LG.printf("THE",   0,g.height/2-30,320,"center",0,1,1,0,10,math.cos(g.timer/20))
-		LG.printf("ROYALE",0,g.height/2,   320,"center",0,1,1,0,10,math.cos(g.timer/20))
-		LG.printf("WE",    0,g.height/2+30,320,"center",0,1,1,0,10,math.cos(g.timer/20))
+		for i=1,16 do
+			--print((g.timer+i)%16+1)
+			LG.setColor(g.palette[((math.floor(g.timer/i)))%8+9])
+			LG.printf("THE",   0,-i*2+g.height/2-60,320,"center",0,1,1,0,10,math.cos(g.timer/20))
+			LG.printf("ROYALE",0,-i*2+g.height/2,   320,"center",0,1,1,0,10,math.cos(g.timer/20))
+			LG.printf("WE",    0,-i*2+g.height/2+60,320,"center",0,1,1,0,10,math.cos(g.timer/20))
+		end
 		LG.setFont(g.font)
 
 		local starttext="press a or start"

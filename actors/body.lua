@@ -9,8 +9,8 @@ end
 
 local function control(g,a)
 	if a.player then
-		g.camera.x=a.x
-		g.camera.y=a.y
+		--g.camera.x=a.x
+		--g.camera.y=a.y
 		love.audio.setPosition(a.x,a.y,0)
 	end
 	if a.vel<=0 then

@@ -66,7 +66,7 @@ person.control = function(g,a)
 						if math.abs(controllerdifference)>math.abs(controllerdifference2) then
 							controllerdifference=controllerdifference2
 						end
-						module.make(a,EM.transition,easing.linear,"angle",a.angle,-controllerdifference,math.abs(controllerdifference*5))
+						module.make(a,EM.transition,easing.linear,"angle",a.angle,-controllerdifference,math.abs(controllerdifference*20))
 					end
 				end
 			end
@@ -123,7 +123,11 @@ person.dead = function(a)
 	b.spr=a.spr+4
 	if flags.get(a.flags,EF.player) then
 		b.player=true
+		module.make(Game.camera,EM.target,b)
 	end
+	--if b.player==true then
+		--module.make(g.camera,EM.target,a)
+	--end
 end
 
 return person
