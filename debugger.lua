@@ -31,6 +31,8 @@ local function update(g,d)
 				if g.players[1].d then
 					table.insert(debuglist,"player dir:"..g.players[1].d)
 					table.insert(debuglist,"player angle:"..g.players[1].angle)
+					table.insert(debuglist,"player vecx:"..g.players[1].vec[1])
+					table.insert(debuglist,"player vecy:"..g.players[1].vec[2])
 				end
 			end
 			for i,v in ipairs(g.players) do

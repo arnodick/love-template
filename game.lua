@@ -227,6 +227,10 @@ game.mousepressed = function(g,x,y,button)
 	end
 end
 
+game.mousemoved = function(g,x,y,dx,dy)
+	game.state.run(g.name,g.state,"mousemoved",g,x,y,dx,dy)
+end
+
 game.wheelmoved = function(g,x,y)
 	game.state.run(g.name,g.state,"wheelmoved",g,x,y)
 

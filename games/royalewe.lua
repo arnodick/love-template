@@ -36,6 +36,7 @@ royalewe.player =
 			module.make(a,EM.controller,EMC.aim,EMCI.mouse)
 			module.make(a,EM.controller,EMC.action,EMCI.mouse)
 			module.make(a,EM.cursor)
+			a.cursor.x,a.cursor.y=a.x,a.y
 		end
 		module.make(g.camera,EM.target,a)
 --]]
@@ -47,14 +48,11 @@ royalewe.player =
 		--g.camera.x=a.x
 		--g.camera.y=a.y
 		love.audio.setPosition(a.x,a.y,0)
+---[[
 		if a.cursor then
-			cursor.update(a.cursor)
---[[
-			local dir=vector.direction(a.x,a.y,a.cursor.x,a.cursor.y)
-			local length=30
-			a.cursor.x,a.cursor.y=a.x+math.cos(dir)*length,a.y+math.sin(dir)*length
---]]
+			cursor.update(a.cursor,a)
 		end
+--]]
 	end,
 
 	draw = function(g,a)
@@ -179,6 +177,16 @@ royalewe.gameplay =
 		if g.starttimer==0 then
 			if button==1 then
 				g.countdown=true
+			end
+		end
+	end,
+
+	mousemoved = function(g,x,y,dx,dy)
+		if g.players[1] then
+			local a=g.players[1]
+			if a.cursor then
+				cursor.mousemoved(a.cursor,a,g,x,y,dx,dy)
+				--cursor.update(a.cursor,a,g,x,y,dx,dy)
 			end
 		end
 	end,

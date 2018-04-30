@@ -10,6 +10,7 @@ love.math.setRandomSeed(os.time())
 Debugger=debugger.make()
 love.keyboard.setKeyRepeat(false)
 love.keyboard.setTextInput(true)
+love.mouse.setRelativeMode(true)
 Joysticks={}
 SFX = sfx.load(true,true)
 Music = music.load()
@@ -51,6 +52,10 @@ end
 
 function love.mousepressed(x,y,button)
 	game.mousepressed(Game,x,y,button)
+end
+
+function love.mousemoved(x,y,dx,dy)
+	game.mousemoved(Game,x,y,dx,dy)
 end
 
 function love.wheelmoved(x,y)

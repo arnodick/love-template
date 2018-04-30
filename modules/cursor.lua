@@ -14,19 +14,39 @@ cursor.make = function(a,c,t,snap)
 	end
 end
 
-cursor.update = function(c)
+cursor.update = function(c,a)
+--[[
 	local g=Game
 	local x,y=love.mouse.getPosition()
-	x=math.clamp(x,0,map.width(g.level.map))
-	y=math.clamp(y,0,map.height(g.level.map))
+	--if a.vel>0 then
+		--x=x+a.controller.move.horizontal*a.vel*a.speed
+		--y=y+a.controller.move.vertical  *a.vel*a.speed
+		x=x+a.vec[1]*a.vel*a.speed
+		y=y-a.vec[2]*a.vel*a.speed
+		print(a.vec[2]*a.vel*a.speed)
+	--end
+	x=math.clamp(x,a.x-g.width/2+8,a.x+g.width/2)
+	y=math.clamp(y,a.y-g.height/2+8,a.y+g.height/2)
+
 	love.mouse.setPosition(x,y)
 	c.x,c.y=x,y
+--]]
+
+	c.x=c.x+a.vec[1]*a.vel*a.speed
+	c.y=c.y-a.vec[2]*a.vel*a.speed
+	--print(a.vec[2]*a.vel*a.speed)
 end
 
 cursor.mousepressed = function(g,c,x,y,button)
 	if c.t then
 		cursor[c.t].mousepressed(g,c,x,y,button)
 	end
+end
+
+cursor.mousemoved = function(c,a,g,x,y,dx,dy)
+	c.x,c.y=c.x+dx,c.y+dy
+	c.x=math.clamp(c.x,a.x-g.width/2+8,a.x+g.width/2)
+	c.y=math.clamp(c.y,a.y-g.height/2+8,a.y+g.height/2)
 end
 
 cursor.wheelmoved = function(g,c,x,y)
