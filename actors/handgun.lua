@@ -1,15 +1,18 @@
 local function make(g,a,c,bc)
-	a.c=c or EC.green
+	--a.c=c or EC.green
 	a.bc=bc
 	a.size=1
 	a.sprinit=178
 	a.spr=a.sprinit
-	a.projvel=4
+	--a.projvel=4
+	a.projvel=8
 	a.rof=10
 	a.num=1
 	a.acc=0.015
 	a.snd=2
 	a.proj=EA.bullet
+	a.scalex=1
+	a.scaley=1
 	module.make(a,EM.item)
 	module.make(a,EM.sound,6,"get")
 end

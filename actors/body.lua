@@ -25,8 +25,10 @@ local function control(g,a)
 end
 
 local function draw(g,a)
+	--LG.drawtobackground(g.level.canvas.background,a.image,a.x,a.y,a.angle,1,1,(tw)/2,(th)/2)
 	local mw,mh=g.level.map.width,g.level.map.height
 	local tw,th=g.level.map.tile.width*a.scalex,g.level.map.tile.height*a.scaley
+--TODO put all this in drawtobackground
 	if a.x>tw and a.x<mw-tw and a.y>th and a.y<mh-th then
 		if a.vel<=0 then
 			local m=g.level.map
@@ -39,7 +41,7 @@ local function draw(g,a)
 				local imgdata=g.canvas.main:newImageData(ix,iy,tw,th)
 				a.image=LG.newImage(imgdata)
 				--LG.drawtobackground(g.level.canvas.background,a.image,a.x,a.y,a.angle,a.scalex,a.scaley,(m.tile.width)/2,(m.tile.height)/2,230)
-				LG.drawtobackground(g.level.canvas.background,a.image,a.x,a.y,a.angle,1,1,(tw)/2,(th)/2)
+				LG.drawtobackground(g.level.canvas.background,a.image,a.x,a.y,a.angle,1,1,(tw)/2,(th)/2,220)
 			end
 		end
 	end

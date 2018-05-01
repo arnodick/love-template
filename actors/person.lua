@@ -8,9 +8,11 @@ person.make = function(g,a,c,size,spr,hp)
 	a.hp=hp or 4
 	a.scalex=2
 	a.scaley=2
+	a.angle=math.randomfraction(math.pi*2)
+	a.diveroll=false
 
 	--a.hand={l=8,d=math.pi/4,x=0,y=0}
-	a.hand={l=8,d=math.pi/2,x=0,y=0}
+	a.hand={l=10,d=math.pi/4,x=0,y=0}
 	a.hand.x=a.x+(math.cos(a.d+a.hand.d)*a.hand.l)
 	a.hand.y=a.y+(math.sin(a.d+a.hand.d)*a.hand.l)
 
@@ -57,25 +59,42 @@ person.control = function(g,a)
 
 	if a.controller then
 		local c=a.controller.move
-		if not a.controller.action.action then
-			a.speed=1
-			if not a.transition then
-				if c then
-					if c.horizontal~=0 or c.vertical~=0 then
-						local controllerdirection=vector.direction(c.horizontal,-c.vertical)
-						local controllerdifference=controllerdirection+a.angle
-						local controllerdifference2=a.angle-(math.pi*2-controllerdirection)
-						if math.abs(controllerdifference)>math.abs(controllerdifference2) then
-							controllerdifference=controllerdifference2
+		if not a.diveroll then
+			if not a.controller.action.action then
+				a.speed=1
+				if not a.transition then
+					if c then
+						if c.horizontal~=0 or c.vertical~=0 then
+							local controllerdirection=vector.direction(c.horizontal,-c.vertical)
+							local controllerdifference=controllerdirection+a.angle
+							local controllerdifference2=a.angle-(math.pi*2-controllerdirection)
+							if math.abs(controllerdifference)>math.abs(controllerdifference2) then
+								controllerdifference=controllerdifference2
+							end
+							module.make(a,EM.transition,easing.linear,"angle",a.angle,-controllerdifference,math.abs(controllerdifference*10))
 						end
-						module.make(a,EM.transition,easing.linear,"angle",a.angle,-controllerdifference,math.abs(controllerdifference*10))
 					end
 				end
+			else
+				a.speed=0.8
+				a.angle=vector.direction(a.controller.aim.horizontal,a.controller.aim.vertical)
+				a.d=a.angle
 			end
 		else
-			a.speed=0.8
-			a.angle=vector.direction(a.controller.aim.horizontal,a.controller.aim.vertical)
-			a.d=a.angle
+			a.angle=-a.d
+			a.speed=a.speed-0.1
+			if a.speed<=1 then
+				a.speed=1
+				a.diveroll=false
+			end
+		end
+		if #a.inventory<=0 then
+			if not a.diveroll then
+				if a.controller.action.use then
+					a.diveroll=true
+					a.speed=3
+				end
+			end
 		end
 	end
 
@@ -91,8 +110,10 @@ person.control = function(g,a)
 end
 
 person.damage = function(a)
-	for i=1,5 do
-		actor.make(Game,EA.blood,a.x,a.y)
+	local dir=math.randomfraction(math.pi*2)
+	local bloodcount=math.choose(1,2)
+	for i=1,bloodcount do
+		actor.make(Game,EA.blood,a.x,a.y,dir+math.randomfraction(math.pi/4))
 	end
 end
 

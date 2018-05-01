@@ -1,4 +1,4 @@
-	local function clamp(v,mi,ma,wrap)
+	local function clamp(v,mi,ma,wrap)--TODO recursive clamp
 	wrap=wrap or false
 	if not wrap then
 		if v<mi then v=mi
