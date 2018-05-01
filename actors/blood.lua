@@ -8,7 +8,7 @@ local function make(g,a,c)
 	a.scaley=2
 	--a.decel=0.02
 	a.decel=0.16
-	a.alpha=200+love.math.random(40)
+	a.alpha=220+love.math.random(35)
 	a.flags=flags.set(a.flags,EF.persistent)
 end
 
@@ -61,7 +61,7 @@ local function draw(g,a)
 				local imgdata=g.canvas.main:newImageData(ix,iy,tw,th)
 				a.image=LG.newImage(imgdata)
 				--LG.drawtobackground(g.level.canvas.background,a.image,a.x,a.y,a.angle,a.scalex,a.scaley,(m.tile.width)/2,(m.tile.height)/2,230)
-				LG.drawtobackground(g.level.canvas.background,a.image,a.x,a.y,0,1,1,(tw)/2,(th)/2,200)
+				LG.drawtobackground(g.level.canvas.background,a.image,a.x,a.y,0,1,1,(tw)/2,(th)/2,210)
 			end
 		end
 	end

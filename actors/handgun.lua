@@ -10,7 +10,7 @@ local function make(g,a,c,bc)
 	a.num=1
 	a.acc=0.015
 	a.snd=2
-	a.proj=EA.bullet
+	a.proj=EA.bigbullet
 	a.scalex=1
 	a.scaley=1
 	module.make(a,EM.item)
