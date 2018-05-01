@@ -4,6 +4,8 @@ local function make(g,a,c)
 	a.vel=math.randomfraction(1)+1
 	a.decel=0.01
 	a.anglespeed=(a.vec[1]+math.choose(0,0,1,3))*(a.vel/60)
+	a.scalex=2
+	a.scaley=2
 	a.flags=flags.set(a.flags,EF.bouncy,EF.persistent)
 end
 
@@ -24,20 +26,20 @@ end
 
 local function draw(g,a)
 	local mw,mh=g.level.map.width,g.level.map.height
-	if a.x>8 and a.x<mw-8 and a.y>8 and a.y<mh-8 then
+	local tw,th=g.level.map.tile.width*a.scalex,g.level.map.tile.height*a.scaley
+	if a.x>tw and a.x<mw-tw and a.y>th and a.y<mh-th then
 		if a.vel<=0 then
 			local m=g.level.map
 			local xcamoff,ycamoff=g.camera.x-g.width/2,g.camera.y-g.height/2
-
-			local tw,th=g.level.map.tile.width,g.level.map.tile.height
 			local ix,iy=a.x-tw/2-(xcamoff),a.y-th/2-(ycamoff)
 
 			local cw,ch=g.canvas.main:getWidth(),g.canvas.main:getHeight()
 
-			if ix>8 and ix<cw-8 and iy>8 and iy<ch-8 then
+			if ix>tw and ix<cw-tw and iy>th and iy<ch-th then
 				local imgdata=g.canvas.main:newImageData(ix,iy,tw,th)
 				a.image=LG.newImage(imgdata)
-				LG.drawtobackground(g.level.canvas.background,a.image,a.x,a.y,a.angle,1,1,(m.tile.width)/2,(m.tile.height)/2,230)
+				--LG.drawtobackground(g.level.canvas.background,a.image,a.x,a.y,a.angle,a.scalex,a.scaley,(m.tile.width)/2,(m.tile.height)/2,230)
+				LG.drawtobackground(g.level.canvas.background,a.image,a.x,a.y,a.angle,1,1,(tw)/2,(th)/2)
 			end
 		end
 	end

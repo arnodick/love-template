@@ -6,6 +6,8 @@ person.make = function(g,a,c,size,spr,hp)
 	a.size=size or 1
 	a.spr=spr or math.choose(193,209,225,241)
 	a.hp=hp or 4
+	a.scalex=2
+	a.scaley=2
 
 	--a.hand={l=8,d=math.pi/4,x=0,y=0}
 	a.hand={l=8,d=math.pi/2,x=0,y=0}
@@ -66,7 +68,7 @@ person.control = function(g,a)
 						if math.abs(controllerdifference)>math.abs(controllerdifference2) then
 							controllerdifference=controllerdifference2
 						end
-						module.make(a,EM.transition,easing.linear,"angle",a.angle,-controllerdifference,math.abs(controllerdifference*20))
+						module.make(a,EM.transition,easing.linear,"angle",a.angle,-controllerdifference,math.abs(controllerdifference*10))
 					end
 				end
 			end

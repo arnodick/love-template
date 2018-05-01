@@ -281,13 +281,13 @@ royalewe.title =
 	draw = function(g)
 		LG.printf("INSTRUCT ,",0,g.height/2-100,320,"center",0,1,1)
 
-		local movetext="left stick move"
-		local shoottext="x or r trigger shoot"
-		local aimtext="a or l trigger aim"
+		local movetext="left stick: move"
+		local shoottext="r trigger or x: shoot"
+		local aimtext="l trigger or a: pickup & aim"
 		if #Joysticks<=0 then
-			movetext="wasd or arrows move"
-			shoottext="mouse button 1 shoot"
-			aimtext="mouse button 2 aim"
+			movetext="wasd or arrows: move"
+			shoottext="mouse button 1: shoot"
+			aimtext="mouse button 2: pickup & aim"
 		end
 
 		LG.draw(Spritesheet[1],Quads[1][193],g.width/2-20,g.height/2-70,0,4,4)
@@ -309,8 +309,11 @@ royalewe.title =
 royalewe.intro =
 {
 	make = function(g)
-		g.hud.font=LG.newFont("fonts/Kongtext Regular.ttf",20)
-		
+		g.hud.font=LG.newFont("fonts/Kongtext Regular.ttf",30)
+		g.titlecolours={}
+		for i=1,21 do
+			table.insert(g.titlecolours,{love.math.random(255),love.math.random(255),love.math.random(255)})
+		end
 	end,
 
 	keypressed = function(g,key)
@@ -335,10 +338,14 @@ royalewe.intro =
 		LG.setFont(g.hud.font)
 		for i=1,16 do
 			--print((g.timer+i)%16+1)
-			LG.setColor(g.palette[((math.floor(g.timer/i)))%8+9])
-			LG.printf("THE",   0,-i*2+g.height/2-60,320,"center",0,1,1,0,10,math.cos(g.timer/20))
-			LG.printf("ROYALE",0,-i*2+g.height/2,   320,"center",0,1,1,0,10,math.cos(g.timer/20))
-			LG.printf("WE",    0,-i*2+g.height/2+60,320,"center",0,1,1,0,10,math.cos(g.timer/20))
+			if i==16 then 
+				LG.setColor(g.palette[EC.white])
+			else
+				LG.setColor(g.palette[((math.floor(g.timer/i)))%8+9])
+			end
+			LG.printf("THE",   0,-i*1+g.height/2-60,320,"center",0,1,1,0,10,math.cos(g.timer/20))
+			LG.printf("ROYALE",0,-i*1+g.height/2,   320,"center",0,1,1,0,10,math.cos(g.timer/20))
+			LG.printf("WE",    0,-i*1+g.height/2+60,320,"center",0,1,1,0,10,math.cos(g.timer/20))
 		end
 		LG.setFont(g.font)
 
@@ -346,9 +353,19 @@ royalewe.intro =
 		if #Joysticks<=0 then
 			starttext="press enter or mouse 1"
 		end
-		if math.floor(g.timer/40)%2==0 then
-			LG.printf(starttext,0,g.height/2+70,320,"center",0,1,1)
+		local colortexttable={}
+		local l=string.len(starttext)
+		for i=1,l do
+			--local index=math.clamp(i-math.floor(g.timer/10)%l,1,l,true)
+			local index=math.clamp(i-math.floor(g.timer/10)%l,1,#g.titlecolours,true)
+			--table.insert(colortexttable,{123-index*30,132,157})
+			table.insert(colortexttable,g.titlecolours[index])
+			table.insert(colortexttable,string.sub(starttext,i,i))
 		end
+		--if math.floor(g.timer/80)%2==0 then
+			--LG.printf(starttext,0,g.height/2+90,320,"center",0,1,1)
+			LG.printf(colortexttable,0,g.height/2+90,320,"center",0,1,1)
+		--end
 	end
 }
 
