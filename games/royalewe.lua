@@ -142,7 +142,7 @@ royalewe.gameplay =
 				actor.damage(g.players[1],g.players[1].hp)
 			end
 			if not g.hud.menu then
-				module.make(g.hud,EM.menu,EMM.text,g.camera.x,g.camera.y,200,200,"you won! ya got "..g.score.." coinz ! coinz are very valuable to ghost goodjob",EC.red,EC.black,"center")
+				module.make(g.hud,EM.menu,EMM.text,g.camera.x,g.camera.y+70,200,200,"you won! ya got "..g.score.." coinz ! coinz are very valuable to ghost goodjob",EC.red,EC.black,"center")
 			end
 		end
 	end,
@@ -203,6 +203,9 @@ royalewe.gameplay =
 			LG.printformat("COUNTDOWN..."..c,g.camera.x-g.width/2,g.camera.y,g.width,"center",EC.red,EC.black)
 		elseif g.starttimer==0 then
 			LG.printformat("PRESS BUTTON TO BEGIN",g.camera.x-g.width/2,g.camera.y,g.width,"center",EC.red,EC.black)
+		end
+		if g.pause==true then
+			LG.printformat("PAUSE",g.camera.x-g.width/2,g.camera.y,g.width,"center",EC.red,EC.black)
 		end
 		if g.level.draw then
 			local m=g.level.map
@@ -282,11 +285,11 @@ royalewe.title =
 		LG.printf("INSTRUCT ,",0,g.height/2-100,320,"center",0,1,1)
 
 		local movetext="left stick: move"
-		local shoottext="r trigger or x: shoot"
+		local shoottext="r trigger or x: dive or shoot"
 		local aimtext="l trigger or a: pickup & aim"
 		if #Joysticks<=0 then
 			movetext="wasd or arrows: move"
-			shoottext="mouse button 1: shoot"
+			shoottext="mouse button 1: dive or shoot"
 			aimtext="mouse button 2: pickup & aim"
 		end
 

@@ -6,8 +6,8 @@ ghost.make = function(g,a,c,size,spr,hp)
 	a.size=size or 1
 	a.spr=spr or 180
 	a.alpha=230
-	a.scalex=2
-	a.scaley=2
+	a.scalex=1
+	a.scaley=1
 	module.make(a,EM.animation,EM.animations.frames,10,6)
 end
 

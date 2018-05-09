@@ -1,7 +1,7 @@
 local function make(g,a,c)
 	a.c=c or EC.red
 --	a.d=math.randomfraction(math.pi*2)
-	a.spr=198+math.choose(0,1,2)
+	a.spr=150+math.choose(0,1,2)
 	a.angle=-a.d
 	a.vel=math.randomfraction(2)+8
 	a.scalex=4

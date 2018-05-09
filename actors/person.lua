@@ -5,6 +5,7 @@ person.make = function(g,a,c,size,spr,hp)
 	--a.c=a.cinit
 	a.size=size or 1
 	a.spr=spr or math.choose(193,209,225,241)
+	a.sprinit=a.spr
 	a.hp=hp or 4
 	a.scalex=2
 	a.scaley=2
@@ -12,7 +13,7 @@ person.make = function(g,a,c,size,spr,hp)
 	a.diveroll=false
 
 	--a.hand={l=8,d=math.pi/4,x=0,y=0}
-	a.hand={l=10,d=math.pi/4,x=0,y=0}
+	a.hand={l=6,d=math.pi/4,x=0,y=0}
 	a.hand.x=a.x+(math.cos(a.d+a.hand.d)*a.hand.l)
 	a.hand.y=a.y+(math.sin(a.d+a.hand.d)*a.hand.l)
 
@@ -60,6 +61,7 @@ person.control = function(g,a)
 	if a.controller then
 		local c=a.controller.move
 		if not a.diveroll then
+			a.spr=a.sprinit
 			if not a.controller.action.action then
 				a.speed=1
 				if not a.transition then
@@ -81,6 +83,7 @@ person.control = function(g,a)
 				a.d=a.angle
 			end
 		else
+			a.spr=a.sprinit+4
 			a.angle=-a.d
 			a.speed=a.speed-0.1
 			if a.speed<=1 then
@@ -143,7 +146,7 @@ end
 
 person.dead = function(a)
 	local b=actor.make(Game,EA.body,a.x,a.y)
-	b.spr=a.spr+4
+	b.spr=a.sprinit+4
 	if flags.get(a.flags,EF.player) then
 		b.player=true
 		module.make(Game.camera,EM.target,b)

@@ -1,4 +1,7 @@
 YES
+BROKEN
+	sound (behaves different when spatial sound is used)
+	editor (needs cursor types)
 item.held=t or f
 	can only be picked up if f
 everything just becomes a module
@@ -45,6 +48,9 @@ make 2d array for multi dimensions by multiplying width by amount of Z levels ie
 redo all functions to make a local {} and add functions to it and just return that
 give camera movement controller
 screen scaling smarter about dimensions (vertical orientation, taller than width)
+
+console has hints, or character that talks to you through the console
+massively long fake loading screen where you play a game, have to get a high score?
 
 IF YOU NEED TO
 printformat: printf but with even more options like

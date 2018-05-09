@@ -5,7 +5,7 @@ local function make(g,a,c,bc)
 	a.sprinit=178
 	a.spr=a.sprinit
 	--a.projvel=4
-	a.projvel=8
+	a.projvel=6
 	a.rof=10
 	a.num=1
 	a.acc=0.015
