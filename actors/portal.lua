@@ -36,6 +36,7 @@ local function control(g,a,gs)
 	if dist<20 then
 		--TODO make level.change or something
 		for i,v in pairs(g.actors) do
+			print(EA[v.t])
 			if flags.get(v.flags,EF.enemy) and v.hp then
 				actor.damage(v,v.hp)
 			elseif not flags.get(v.flags,EF.persistent) then
