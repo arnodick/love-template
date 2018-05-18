@@ -35,13 +35,16 @@ local function control(g,a,gs)
 	local dist=vector.distance(a.x,a.y,g.player.x,g.player.y)
 	if dist<20 then
 		--TODO make level.change or something
-		for i,v in pairs(g.actors) do
-			print(EA[v.t])
-			if flags.get(v.flags,EF.enemy) and v.hp then
-				actor.damage(v,v.hp)
-			elseif not flags.get(v.flags,EF.persistent) then
-				v.delete=true
-			end
+		for i,v in ipairs(g.actors) do
+			--if v.t then--TODO this needs to be here due to new actors.items list style! actors.items doesn't ahve any attributes like .t, it's just a list
+				--print(v.t)
+				--print(EA[v.t])
+				if flags.get(v.flags,EF.enemy) and v.hp then
+					actor.damage(v,v.hp)
+				elseif not flags.get(v.flags,EF.persistent) then
+					v.delete=true
+				end
+			--end
 		end
 		level.make(g,a.level,Enums.modes.topdown)
 		g.ease=true--TODO make easing function for this. works on any number
