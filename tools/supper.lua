@@ -1,7 +1,7 @@
 local supper =
 {
     _VERSION        = 'supper v1.0',
-    _DESCRIPTION    = 'A dynamic function runner.',
+    _DESCRIPTION    = 'A collection of convenient functions to make common table tasks easier.',
     _LICENSE        = [[
 Copyright (c) 2017 Ashley Pringle
 
@@ -63,6 +63,15 @@ end
 --gives a random entry in any integer-indexed table
 supper.random = function(t)
 	return t[math.random(#t)]
+end
+
+supper.contains = function(t,value)
+	for i,v in ipairs(t) do
+		if v==value then
+			return true
+		end
+	end
+	return false
 end
 
 -- Supper:
