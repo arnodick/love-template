@@ -6,7 +6,7 @@ bullet.make = function(g,a,c)
 	a.spr=65
 	a.size=1
 	a.angle=-a.d
-	a.draw=false
+	--a.draw=false
 end
 
 bullet.control = function(g,a)
@@ -23,6 +23,11 @@ bullet.control = function(g,a)
 	end
 end
 
+bullet.collision = function(g,a)
+	a.delete=true
+end
+
+--[[
 bullet.collision = function(a,cx,cy)
 	if cx and cy then
 		local m=Game.level.map
@@ -60,5 +65,6 @@ bullet.draw = function(g,a)
 		a.delete=true
 	end
 end
+--]]
 
 return bullet

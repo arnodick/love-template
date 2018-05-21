@@ -3,12 +3,12 @@ local function control(a,gs)
 		local g=Game
 		if g.player or g.players[1] then
 			local p=g.player or g.players[1]
-			if p.t~=EA.ghost then
+			--if p.t~=EA.ghost then
 				if actor.collision(a.x,a.y,p) then
 					if p[EA[a.t]] then
 						p[EA[a.t]] = p[EA[a.t]] + a.value
 					end
-		--[[
+		---[[
 					for i,v in pairs(Game.actors) do
 						if v.t==EA.coin then
 							v.scalex=4
@@ -28,7 +28,7 @@ local function control(a,gs)
 					run(EA[a.t],"get",a,gs)
 					a.delete=true
 				end
-			end
+			--end
 		end
 	end
 end

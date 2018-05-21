@@ -92,8 +92,8 @@ end
 game.control = function(g)
 	if g.hud then
 		if g.hud.menu then
-			g.hud.menu.x=g.camera.x
-			g.hud.menu.y=g.camera.y
+			--g.hud.menu.x=g.camera.x
+			--g.hud.menu.y=g.camera.y
 			menu.control(g.hud.menu,g.speed)
 		end
 	end
@@ -126,16 +126,6 @@ game.control = function(g)
 				g.actordata[v.name].count=g.actordata[v.name].count-1
 			end
 			table.remove(g.actors,i)
-			if v.t==EA.person then
-				--g.actors.persons[a]=nil
-				---[[
-				for k,j in ipairs(g.actors.persons) do
-					if v==j then
-						table.remove(g.actors.persons,k)
-					end
-				end
-				--]]
-			end
 			if v.item then
 				for k,j in ipairs(g.actors.items) do
 					if v==j then

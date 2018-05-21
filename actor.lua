@@ -2,7 +2,7 @@ local function load(g,name,x,y,d,angle,vel,c)
 	local a={}
 	copytable(a,g.actordata[name])
 
-	a.t=EA[name]
+	--a.t=EA[name]
 	a.name=name
 	a.x=x or love.math.random(319)
 	a.y=y or love.math.random(239)
@@ -51,10 +51,6 @@ local function make(g,t,x,y,d,vel,...)
 	--TODO in here do if inivalues.flags then flags.set(a,EF[flagname],...)
 
 	table.insert(g.actors,a)
-	--if t==EA.person then
-	--print(a)
-	--print(g.actors[#g.actors])
-	--end
 	return a
 end
 
@@ -204,7 +200,6 @@ local function damage(a,d)
 				a.delete=true
 
 				game.state.run(g.name,"actor","dead",g,a)
-				--run(EA[a.t],"dead",g,a)
 				if flags.get(a.flags,EF.player) then
 					player.dead(g,a)
 				end

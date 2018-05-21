@@ -37,8 +37,7 @@ local function update(g,d)
 			end
 			for i,v in ipairs(g.players) do
 				table.insert(debuglist,"player "..i..": "..tostring(v))
-				table.insert(debuglist,"player coins: "..v.the_coin)
-				table.insert(debuglist,"score: "..g.score)
+				--table.insert(debuglist,"score: "..g.score)
 			end
 		end
 		if g.player then
@@ -110,13 +109,6 @@ local function update(g,d)
 		end
 --[[
 		if g.actors then
-
-			if g.actors.persons then
-				for i,v in ipairs(g.actors.persons) do
-					table.insert(debuglist,"persons x "..v.x.." y "..v.y)
-				end
-			end
-
 			if g.actors.items then
 				for i,v in ipairs(g.actors.items) do
 					table.insert(debuglist,"item x "..v.x.." y "..v.y)

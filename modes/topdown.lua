@@ -37,7 +37,7 @@ local function control(a,m,gs)
 	end
 
 	if collx or colly then
-		run(EA[a.t],"collision",a)
+		run(EA[a.t],"collision",g,a)
 		if a.collisions then
 			collisions.run(g,a)
 		end
