@@ -1,4 +1,4 @@
-local function move()
+local function move(a,c)
 	local horizontal,vertical=0,0
 	local moving=false
 
@@ -18,9 +18,11 @@ local function move()
 		moving=true
 	end
 
-	if moving then
-		local direction=vector.direction(horizontal,vertical)
-		horizontal,vertical=math.cos(direction),math.sin(direction)
+	if c.vector then
+		if moving then
+			local direction=vector.direction(horizontal,vertical)
+			horizontal,vertical=math.cos(direction),math.sin(direction)
+		end
 	end
 
 	return horizontal,vertical

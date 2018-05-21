@@ -77,7 +77,7 @@ protosnake.player =
 			module.make(a,EM.controller,EMC.aim,EMCI.gamepad)
 			module.make(a,EM.controller,EMC.action,EMCI.gamepad)
 		else
-			module.make(a,EM.controller,EMC.move,EMCI.keyboard)
+			module.make(a,EM.controller,EMC.move,EMCI.keyboard,true)
 			module.make(a,EM.controller,EMC.aim,EMCI.mouse)
 			module.make(a,EM.controller,EMC.action,EMCI.mouse)
 		end
@@ -116,6 +116,9 @@ protosnake.player =
 			end
 			--g.camera.zoom=1/g.speed--too weird but potentially neat
 		end
+
+		g.camera.x=g.player.x
+		g.camera.y=g.player.y
 		--[[
 		if a.controller.aim.action then
 			if #a.inventory>1 then

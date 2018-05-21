@@ -90,6 +90,8 @@ game.make = function(t,gw,gh)
 end
 
 game.control = function(g)
+	hud.control(g,g.hud)
+--[[
 	if g.hud then
 		if g.hud.menu then
 			--g.hud.menu.x=g.camera.x
@@ -97,6 +99,7 @@ game.control = function(g)
 			menu.control(g.hud.menu,g.speed)
 		end
 	end
+--]]
 	game.state.run(g.name,g.state,"control",g)
 
 	sfx.update(SFX,g.speed)

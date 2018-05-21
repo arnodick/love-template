@@ -1,11 +1,21 @@
-local function make(g,...)
+local hud={}
+
+hud.make = function(g,...)
 	g.hud={}
 	if _G[g.name][g.state].hud then
 		_G[g.name][g.state].hud.make(g,g.hud,...)
 	end
 end
 
-local function draw(g,h,...)
+hud.control = function(g,h)
+	if h.menu then
+		--g.hud.menu.x=g.camera.x
+		--g.hud.menu.y=g.camera.y
+		menu.control(h.menu,g.speed)
+	end
+end
+
+hud.draw = function(g,h,...)
 	if _G[g.name][g.state].hud then
 		_G[g.name][g.state].hud.draw(g,h,...)
 	end
@@ -15,7 +25,7 @@ local function draw(g,h,...)
 	end
 end
 
-local function gamepadpressed(g,joystick,button)
+hud.gamepadpressed = function(g,joystick,button)
 	local m=g.hud.menu
 --TODO comment this out and see if it still works after generalized to game
 	if m then
@@ -23,9 +33,4 @@ local function gamepadpressed(g,joystick,button)
 	end
 end
 
-return
-{
-	make = make,
-	draw = draw,
-	gamepadpressed = gamepadpressed,
-}
+return hud
