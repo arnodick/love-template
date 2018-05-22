@@ -4,7 +4,7 @@ cursor.make = function(a,c,t,snap)
 	local g=Game
 	c.t=t
 	local x,y=g.camera.x,g.camera.y
-	love.mouse.setPosition(x,y)
+	--love.mouse.setPosition(x,y)
 	c.x=x
 	c.y=y
 	c.snap=snap or false
@@ -14,21 +14,17 @@ cursor.make = function(a,c,t,snap)
 	end
 end
 
-cursor.update = function(c,a)
-	--c.x=c.x+a.vec[1]*a.vel*a.speed
-	--c.y=c.y-a.vec[2]*a.vel*a.speed
-end
-
 cursor.mousepressed = function(g,c,x,y,button)
 	if c.t then
 		cursor[c.t].mousepressed(g,c,x,y,button)
 	end
 end
 
-cursor.mousemoved = function(c,a,g,x,y,dx,dy)
+cursor.mousemoved = function(g,c,x,y,dx,dy)
 	c.x,c.y=c.x+dx,c.y+dy
-	--c.x=math.clamp(c.x,a.x-g.width/2+8,a.x+g.width/2)
-	--c.y=math.clamp(c.y,a.y-g.height/2+8,a.y+g.height/2)
+	c.x=math.clamp(c.x,g.camera.x-g.width/2+8,g.camera.x+g.width/2)
+	c.y=math.clamp(c.y,g.camera.y-g.height/2+8,g.camera.y+g.height/2)
+	cursor[c.t].mousemoved(g,c,x,y,dx,dy)
 end
 
 cursor.wheelmoved = function(g,c,x,y)
@@ -62,6 +58,11 @@ cursor.editor.mousepressed = function(g,c,x,y,button)
 	elseif button==3 then
 		map.erasecellflags(g.level.map,c.x,c.y,true)
 	end
+end
+
+cursor.editor.mousemoved = function(g,c,x,y,dx,dy)
+	c.x=math.clamp(c.x,0,g.level.map.width)
+	c.y=math.clamp(c.y,0,g.level.map.height)
 end
 
 cursor.editor.wheelmoved = function(g,c,x,y)

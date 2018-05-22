@@ -214,7 +214,7 @@ game.mousemoved = function(g,x,y,dx,dy)
 	game.state.run(g.name,g.state,"mousemoved",g,x,y,dx,dy)
 
 	if g.editor then
-		cursor.mousemoved(g.editor.cursor,nil,g,x,y,dx,dy)
+		cursor.mousemoved(g,g.editor.cursor,x,y,dx,dy)
 	end
 end
 

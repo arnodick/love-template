@@ -8,9 +8,6 @@ editor.make = function(g)
 end
 
 editor.control = function(g)
-	if g.editor.cursor then
-		cursor.update(g.editor.cursor)
-	end
 end
 
 editor.keypressed = function(g,key)

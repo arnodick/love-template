@@ -129,12 +129,6 @@ protosnake.player =
 		end
 	--]]
 
-	--TODO put this in actor
-		if a.cursor then
-			cursor.update(a.cursor)
-		end
-		--if a.controller.action then	
-		--end
 		if SFX.positonal then
 			love.audio.setPosition(a.x,a.y,0)
 		end
