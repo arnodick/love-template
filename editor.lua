@@ -2,7 +2,6 @@ local editor={}
 
 editor.make = function(g)
 	g.editor={}
-	--module.make(g.editor,EM.cursor,"editor",true)
 	if g.level then
 		module.make(g.editor,"cursor","editor",true)
 	end

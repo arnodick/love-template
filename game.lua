@@ -167,8 +167,6 @@ game.keypressed = function(g,key,scancode,isrepeat)
 		end
 	elseif key=="space" then
 		palette.set(g,2)
-	--elseif key=="s" then
-	--	g.screen.clear = not g.screen.clear
 	end
 
 	if g.level then
@@ -214,6 +212,10 @@ end
 
 game.mousemoved = function(g,x,y,dx,dy)
 	game.state.run(g.name,g.state,"mousemoved",g,x,y,dx,dy)
+
+	if g.editor then
+		cursor.mousemoved(g.editor.cursor,nil,g,x,y,dx,dy)
+	end
 end
 
 game.wheelmoved = function(g,x,y)
