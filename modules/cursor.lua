@@ -24,7 +24,9 @@ cursor.mousemoved = function(g,c,x,y,dx,dy)
 	c.x,c.y=c.x+dx,c.y+dy
 	c.x=math.clamp(c.x,g.camera.x-g.width/2+8,g.camera.x+g.width/2)
 	c.y=math.clamp(c.y,g.camera.y-g.height/2+8,g.camera.y+g.height/2)
-	cursor[c.t].mousemoved(g,c,x,y,dx,dy)
+	if c.t then
+		cursor[c.t].mousemoved(g,c,x,y,dx,dy)
+	end
 end
 
 cursor.wheelmoved = function(g,c,x,y)
@@ -35,13 +37,17 @@ end
 
 cursor.draw = function(c)
 	--cursor.editor.draw(c)
-	--LG.rectangle("line",c.x-8,c.y-8,8,8)
+	LG.rectangle("line",c.x-8,c.y-8,8,8)
 ---[[
 	if c.t then
 		cursor[c.t].draw(c)
 	end
 --]]
 end
+
+cursor.reticle={}
+
+
 
 cursor.editor={}
 

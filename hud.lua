@@ -25,6 +25,13 @@ hud.draw = function(g,h,...)
 	end
 end
 
+hud.keypressed = function(g,key)
+	local m=g.hud.menu
+	if m then
+		menu.keypressed(m,key)
+	end
+end
+
 hud.gamepadpressed = function(g,joystick,button)
 	local m=g.hud.menu
 --TODO comment this out and see if it still works after generalized to game

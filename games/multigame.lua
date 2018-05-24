@@ -26,6 +26,7 @@ multigame.intro =
 			g.hud.menu.y=g.hud.menu.y-10
 			g.camera.y=g.hud.menu.y
 		end
+		hud.keypressed(g,key)
 	end,
 
 	draw = function(g)
