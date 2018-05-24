@@ -9,9 +9,11 @@ cursor.make = function(a,c,t,snap)
 	c.y=y
 	c.snap=snap or false
 
-	if c.t then
-		cursor[c.t].make(c)
-	end
+	game.state.run("cursor",c.t,"make",c)
+end
+
+cursor.control = function(g,c,a)
+	game.state.run("cursor",c.t,"control",g,c,a)
 end
 
 cursor.mousepressed = function(g,c,x,y,button)
@@ -24,9 +26,7 @@ cursor.mousemoved = function(g,c,x,y,dx,dy)
 	c.x,c.y=c.x+dx,c.y+dy
 	c.x=math.clamp(c.x,g.camera.x-g.width/2+8,g.camera.x+g.width/2)
 	c.y=math.clamp(c.y,g.camera.y-g.height/2+8,g.camera.y+g.height/2)
-	if c.t then
-		cursor[c.t].mousemoved(g,c,x,y,dx,dy)
-	end
+	game.state.run("cursor",c.t,"mousemoved",g,c,x,y,dx,dy)
 end
 
 cursor.wheelmoved = function(g,c,x,y)
@@ -36,18 +36,21 @@ cursor.wheelmoved = function(g,c,x,y)
 end
 
 cursor.draw = function(c)
-	--cursor.editor.draw(c)
-	LG.rectangle("line",c.x-8,c.y-8,8,8)
----[[
 	if c.t then
 		cursor[c.t].draw(c)
 	end
---]]
 end
 
 cursor.reticle={}
 
+cursor.reticle.control = function(g,c,a)
+	c.x=c.x+a.vec[1]*a.vel*a.speed
+	c.y=c.y-a.vec[2]*a.vel*a.speed
+end
 
+cursor.reticle.draw = function(c)
+	LG.rectangle("line",c.x-8,c.y-8,8,8)
+end
 
 cursor.editor={}
 

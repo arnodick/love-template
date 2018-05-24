@@ -80,7 +80,7 @@ protosnake.player =
 			module.make(a,EM.controller,EMC.move,EMCI.keyboard,true)
 			module.make(a,EM.controller,EMC.aim,EMCI.mouse)
 			module.make(a,EM.controller,EMC.action,EMCI.mouse)
-			module.make(a,EM.cursor)
+			module.make(a,EM.cursor,"reticle")
 		end
 
 		a.coin=0
@@ -93,8 +93,7 @@ protosnake.player =
 			function love.mousemoved(x,y,dx,dy)
 				cursor.mousemoved(g,a.cursor,x,y,dx,dy)
 			end
-			a.cursor.x=a.cursor.x+a.vec[1]*a.vel
-			a.cursor.y=a.cursor.y-a.vec[2]*a.vel
+			cursor.control(g,a.cursor,a)
 		end
 		--a.cinit=math.floor((g.timer/2)%16)+1 --SWEET COLOUR CYCLE
 		if g.pause then
