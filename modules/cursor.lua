@@ -83,7 +83,7 @@ cursor.editor.draw = function(c)
 	local cx,cy=c.x,c.y
 	local cell=map.getcellvalue(g.level.map,c.x,c.y)
 	if c.snap then
-		cx,cy=map.getcell(g.level.map,c.x,c.y)
+		cx,cy=map.getcellcoords(g.level.map,c.x,c.y)
 		cx,cy=(cx-1)*tw,(cy-1)*th
 	end
 

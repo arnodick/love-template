@@ -90,9 +90,11 @@ protosnake.player =
 
 	control = function(g,a)
 		if a.cursor then
+--[[
 			function love.mousemoved(x,y,dx,dy)
 				cursor.mousemoved(g,a.cursor,x,y,dx,dy)
 			end
+--]]
 			cursor.control(g,a.cursor,a)
 		end
 		--a.cinit=math.floor((g.timer/2)%16)+1 --SWEET COLOUR CYCLE
@@ -140,6 +142,10 @@ protosnake.player =
 		end
 	end,
 
+	mousemoved = function(g,p,x,y,dx,dy)
+		cursor.mousemoved(g,p.cursor,x,y,dx,dy)
+	end,
+
 	draw = function(g,a)
 		--TODO put this in actor
 		if a.cursor then
@@ -180,6 +186,14 @@ protosnake.gameplay =
 			end
 		elseif key=='escape' then
 			game.state.make(g,"title")
+		end
+	end,
+
+	mousemoved = function(g,x,y,dx,dy)
+		if not g.pause then
+			if g.player.cursor then
+				protosnake.player.mousemoved(g,g.player,x,y,dx,dy)
+			end
 		end
 	end,
 
