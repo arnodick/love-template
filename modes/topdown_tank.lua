@@ -36,9 +36,9 @@ local function control(a,m,gs)
 	end
 
 	local g=Game
-	local xcell,ycell=map.getcell(m,a.x,a.y)
+	local xcell,ycell=map.getcellcoords(m,a.x,a.y)
 	local xdest,ydest=a.x+a.vec[1]*a.vel*a.speed*gs,a.y-a.vec[2]*a.vel*a.speed*gs
-	local xcelldest,ycelldest=map.getcell(m,xdest,ydest)
+	local xcelldest,ycelldest=map.getcellcoords(m,xdest,ydest)
 	
 	local xmapcell=m[ycell][xcelldest]
 	local ymapcell=m[ycelldest][xcell]

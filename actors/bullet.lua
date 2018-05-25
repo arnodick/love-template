@@ -48,7 +48,7 @@ bullet.draw = function(g,a)
 
 		local m=g.level.map
 		local tw,th=m.tile.width,m.tile.height
-		--local cx,cy=map.getcell(m,a.x,a.y)
+		--local cx,cy=map.getcellcoords(m,a.x,a.y)
 		--cx,cy=(cx-1)*tw,(cy-1)*th
 		local cx,cy=a.cx,a.cy
 		cx,cy=(cx-1)*tw,(cy-1)*th

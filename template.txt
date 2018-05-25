@@ -1,5 +1,6 @@
 YES
 BROKEN
+	joystick not loaded for multigame at startup
 	sound (behaves different when spatial sound is used)
 	editor (needs cursor types)
 	hud (janky, only draws in one spot)

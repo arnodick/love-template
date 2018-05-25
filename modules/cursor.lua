@@ -1,14 +1,14 @@
 local cursor={}
+cursor.reticle={}
+cursor.editor={}
 
 cursor.make = function(a,c,t,snap)
 	local g=Game
 	c.t=t
-	local x,y=g.camera.x,g.camera.y
-	--love.mouse.setPosition(x,y)
-	c.x=x
-	c.y=y
+	c.x=g.camera.x
+	c.y=g.camera.y
 	c.snap=snap or false
-
+	print("Yes")
 	game.state.run("cursor",c.t,"make",c)
 end
 
@@ -41,8 +41,6 @@ cursor.draw = function(c)
 	end
 end
 
-cursor.reticle={}
-
 cursor.reticle.control = function(g,c,a)
 	c.x=c.x+a.vec[1]*a.vel*a.speed
 	c.y=c.y-a.vec[2]*a.vel*a.speed
@@ -51,8 +49,6 @@ end
 cursor.reticle.draw = function(c)
 	LG.rectangle("line",c.x-8,c.y-8,8,8)
 end
-
-cursor.editor={}
 
 cursor.editor.make = function(c)
 	c.value=1

@@ -45,7 +45,7 @@ local function update(g,d)
 			table.insert(debuglist,"player y:"..g.player.y)
 			if g.level then
 				if g.level.map then
-					local xc,yc=map.getcell(g.level.map,g.player.x,g.player.y)
+					local xc,yc=map.getcellcoords(g.level.map,g.player.x,g.player.y)
 					table.insert(debuglist,"player x cell:"..xc)
 					table.insert(debuglist,"player y cell:"..yc)
 				end
@@ -131,7 +131,7 @@ local function update(g,d)
 			if g.editor.cursor then
 				table.insert(debuglist,"e cursor x "..g.editor.cursor.x)
 				table.insert(debuglist,"e cursor y "..g.editor.cursor.y)
-				local cx,cy=map.getcell(g.level.map,g.editor.cursor.x,g.editor.cursor.y)
+				local cx,cy=map.getcellcoords(g.level.map,g.editor.cursor.x,g.editor.cursor.y)
 				table.insert(debuglist,"cell value "..g.level.map[cy][cx])
 			end
 		end

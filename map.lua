@@ -96,7 +96,7 @@ map.height = function(m)
 	return map.cellheight(m)*m.tile.height
 end
 
-map.getcell = function(m,x,y)--returns the cell coords of worldspace coords
+map.getcellcoords = function(m,x,y)--returns the cell coords of worldspace coords
 	local tw,th=m.tile.width,m.tile.height
 	local cx,cy=math.floor((x+tw)/tw),math.floor((y+th)/th)
 	cx=math.clamp(cx,1,m.w)
@@ -105,14 +105,14 @@ map.getcell = function(m,x,y)--returns the cell coords of worldspace coords
 end
 
 map.getcellvalue = function(m,x,y)--takes world x,y coordinates and returns the value of the cell under those coordinates
-	local cx,cy=map.getcell(m,x,y)
+	local cx,cy=map.getcellcoords(m,x,y)
 	local c=flags.strip(m[cy][cx])
 	return c
 end
 
 map.setcellvalue = function(m,x,y,v,worldcoords)--sets the value of a map cell in the low 16 bits while retaining the flags in the high 16 bits
 	if worldcoords then
-		x,y=map.getcell(m,x,y)
+		x,y=map.getcellcoords(m,x,y)
 	end
 	m[y][x]=bit.bor(flags.isolate(m[y][x]),v)
 end
@@ -121,14 +121,14 @@ map.setcellflag = function(m,x,y,v,worldcoords)--sets a flag on the high 16 bits
 	local f=flags.fromenum(v)
 	f=bit.lshift(f,16)
 	if worldcoords then
-		x,y=map.getcell(m,x,y)
+		x,y=map.getcellcoords(m,x,y)
 	end
 	m[y][x]=bit.bor(m[y][x],f)
 end
 
 map.erasecellflags = function(m,x,y,worldcoords)
 	if worldcoords then
-		x,y=map.getcell(m,x,y)
+		x,y=map.getcellcoords(m,x,y)
 	end
 	m[y][x]=flags.strip(m[y][x])
 end
