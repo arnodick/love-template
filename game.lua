@@ -112,8 +112,7 @@ game.control = function(g)
 		if v.delete==true then
 			if v.inventory then
 				for j,k in ipairs(v.inventory) do
-					--k.delete=true
-					k.held=false
+					item.drop(k,v)
 				end
 			end
 			game.counters(g,v,-1)

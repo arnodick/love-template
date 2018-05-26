@@ -46,4 +46,9 @@ item.pickup = function(a,user)
 	return game.state.run(g.name,"item","pickup",g,a,user)
 end
 
+item.drop = function(a,user)
+	local g=Game
+	game.state.run(g.name,"item","drop",g,a,user)
+end
+
 return item

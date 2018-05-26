@@ -425,6 +425,10 @@ protosnake.item =
 		a.x=user.tail.x
 		a.y=user.tail.y
 	end,
+
+	drop = function(g,a,user)
+		a.delete=true
+	end,
 }
 
 return protosnake
