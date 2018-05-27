@@ -35,8 +35,7 @@ local function control(g,a,gs)
 		a.scaley=a.scaley-0.1*gs
 	end
 	if a.follow then
-		if g.player or g.players[1] then
-		local p=g.player or g.players[1]
+		local p=g.player
 		local dist=vector.distance(a.x,a.y,p.x,p.y)
 		if dist<30 then
 			if not a.controller then
@@ -48,7 +47,6 @@ local function control(g,a,gs)
 				a.controller=nil
 			end
 			a.decel=a.decelinit
-		end
 		end
 	end
 	if g.timer-a.delta>=120 then
