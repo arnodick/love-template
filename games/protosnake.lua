@@ -82,25 +82,18 @@ protosnake.player =
 			module.make(a,EM.controller,EMC.action,EMCI.mouse)
 			module.make(a,EM.cursor,"reticle")
 		end
-
 		a.coin=0
-
 		actor.make(g,EA.machinegun,a.x,a.y,0,0,EC.dark_purple,EC.dark_purple)
 	end,
 
 	control = function(g,a)
-		if a.cursor then
---[[
-			function love.mousemoved(x,y,dx,dy)
-				cursor.mousemoved(g,a.cursor,x,y,dx,dy)
-			end
---]]
-			cursor.control(g,a.cursor,a)
-		end
 		--a.cinit=math.floor((g.timer/2)%16)+1 --SWEET COLOUR CYCLE
 		if g.pause then
 			g.speed=0
 		else
+			if a.cursor then
+				cursor.control(g,a.cursor,a)
+			end
 			if g.ease then
 				if g.speed<a.vel then
 					g.speed=g.speed+0.01
@@ -429,6 +422,36 @@ protosnake.item =
 	drop = function(g,a,user)
 		a.delete=true
 	end,
+}
+
+protosnake.collectible =
+{
+	control = function(g,a,gs)
+		if not flags.get(a.flags,EF.shopitem) then
+			local p=g.player
+			if actor.collision(a.x,a.y,p) then
+				if p[EA[a.t] ] then
+					p[EA[a.t] ]=p[EA[a.t] ]+a.value
+				end
+				for i,v in pairs(Game.actors) do
+					if v.t==EA.coin then
+						v.scalex=4
+						v.scaley=4
+						v.deltimer=0
+						v.delta=Game.timer
+					end
+				end
+				if a.sound then
+					if a.sound.get then
+						sfx.play(a.sound.get,a.x,a.y)
+					end
+				end
+				actor.make(Game,EA.collectibleget,a.x,a.y,math.pi/2,1,EC.pure_white,1,a.sprinit)
+				run(EA[a.t],"get",a,gs)
+				a.delete=true
+			end
+		end
+	end
 }
 
 return protosnake
