@@ -110,11 +110,7 @@ game.control = function(g)
 	
 	for i,v in ipairs(g.actors) do
 		if v.delete==true then
-			if v.inventory then
-				for j,k in ipairs(v.inventory) do
-					item.drop(k,v)
-				end
-			end
+			inventory.dead(v,v.inventory)
 			game.counters(g,v,-1)
 			if v.name then
 				g.actordata[v.name].count=g.actordata[v.name].count-1

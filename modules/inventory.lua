@@ -1,16 +1,22 @@
-local function make(a,m,size)
+local inventory={}
+
+inventory.make = function(a,m,size)
 	m.i=1
 	m.max=size or 1
 end
 
-local function control(a,inventory)
-	for i,v in ipairs(inventory) do
+inventory.control = function(a,inv)
+	for i,v in ipairs(inv) do
 		item.carry(v,a)
 	end
 end
 
-return
-{
-	make = make,
-	control = control,
-}
+inventory.dead = function(a,inv)
+	if inv then
+		for i,v in ipairs(inv) do
+			item.drop(v,a)
+		end
+	end
+end
+
+return inventory
