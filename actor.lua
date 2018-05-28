@@ -63,9 +63,10 @@ local function control(g,a,gs)
 		end
 	end
 
-	if a.t then
+	--actordata
+	--if a.t then
 		run(EA[a.t],"control",g,a,gs)--actor's specific type control (ie snake.control)
-	end
+	--end
 
 	if a.controls then
 		controls.run(g,a,gs)

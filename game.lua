@@ -58,11 +58,13 @@ game.make = function(t,gw,gh)
 
 	game.graphics(g)
 
+--[[
 	g.actordata=game.files(g,"games/"..g.name.."/actors")
 	for i,v in pairs(g.actordata) do
 		v.count=0
 	end
 	debugger.printtable(g.actordata)
+--]]
 	g.levels=game.files(g,"games/"..g.name.."/levels")
 	--level.load(g,"games/"..g.name.."/levels")
 
@@ -112,9 +114,11 @@ game.control = function(g)
 		if v.delete==true then
 			inventory.dead(v,v.inventory)
 			game.counters(g,v,-1)
+--[[
 			if v.name then
 				g.actordata[v.name].count=g.actordata[v.name].count-1
 			end
+--]]
 			table.remove(g.actors,i)
 			if v.item then
 				for k,j in ipairs(g.actors.items) do
