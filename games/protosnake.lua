@@ -401,22 +401,26 @@ protosnake.item =
 {
 	control = function(g,a,gs)
 		local p=g.player
-		if actor.collision(a.x,a.y,p) then
-			if p.controller.action.action or #p.inventory<1 then
+		item.pickup(g,a,p)
+	end,
+
+	carry = function(a,user)
+		a.x=user.tail.x
+		a.y=user.tail.y
+	end,
+
+	pickup = function(g,a,user)
+		if actor.collision(a.x,a.y,user) then
+			if user.controller.action.action or #user.inventory<1 then
 				if a.sound then
 					if a.sound.get then
 						sfx.play(a.sound.get)
 					end
 				end
 				a.flags=flags.set(a.flags,EF.persistent)
-				table.insert(p.inventory,1,a)
+				table.insert(user.inventory,1,a)
 			end
 		end
-	end,
-
-	carry = function(a,user)
-		a.x=user.tail.x
-		a.y=user.tail.y
 	end,
 
 	drop = function(g,a,user)

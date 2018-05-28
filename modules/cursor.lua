@@ -47,7 +47,7 @@ cursor.reticle.control = function(g,c,a)
 end
 
 cursor.reticle.draw = function(c)
-	LG.rectangle("line",c.x-8,c.y-8,8,8)
+	LG.draw(Spritesheet[1],Quads[1][254],c.x-4,c.y-4)
 end
 
 cursor.editor.make = function(c)
@@ -109,19 +109,7 @@ cursor.editor.draw = function(c)
 	local p=g.palette[EC.red]
 	p[4]=180
 	LG.setColor(p)
-	if c.snap then
-		LG.line(cx-1,cy,cx+2,cy)
-		LG.line(cx,cy,cx,cy+2)
-		LG.line(cx+tw,cy,cx+tw-3,cy)
-		LG.line(cx+tw,cy,cx+tw,cy+2)
-		LG.line(cx,cy+th,cx,cy+th-3)
-		LG.line(cx,cy+th,cx+2,cy+th)
-		LG.line(cx+tw,cy+th-1,cx+tw,cy+th-3)
-		LG.line(cx+tw,cy+th,cx+tw-3,cy+th)
-	else
-		LG.rectangle("line",c.x-tw,c.y-th,tw,th)
-	end
-	
+	LG.draw(Spritesheet[1],Quads[1][254],cx,cy)
 	LG.setColor(g.palette[EC.pure_white])
 end
 

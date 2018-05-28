@@ -19,7 +19,6 @@ local function load(g,name,x,y,d,angle,vel,c)
 	if g.actordata[name].flags then
 		a.flags=flags.set(a.flags,g.actordata[name].flags)
 	end
-	--game.counters(g,a,1)
 
 	g.actordata[name].count=g.actordata[name].count+1
 

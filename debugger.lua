@@ -104,9 +104,11 @@ local function update(g,d)
 			table.insert(debuglist,i.." count: "..g.counters[i])
 		end
 --]]
+--[[
 		for i,v in pairs(g.actordata) do
 			table.insert(debuglist,i.." count: "..v.count)
 		end
+--]]
 --[[
 		if g.actors then
 			if g.actors.items then

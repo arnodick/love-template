@@ -41,8 +41,7 @@ item.use = function(a,gs,user,vx,vy,shoot)
 	end
 end
 
-item.pickup = function(a,user)
-	local g=Game
+item.pickup = function(g,a,user)
 	return game.state.run(g.name,"item","pickup",g,a,user)
 end
 
