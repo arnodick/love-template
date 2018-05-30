@@ -118,8 +118,8 @@ protosnake.player =
 			--g.camera.zoom=1/g.speed--too weird but potentially neat
 		end
 
-		g.camera.x=g.player.x
-		g.camera.y=g.player.y
+		--g.camera.x=g.player.x
+		--g.camera.y=g.player.y
 		--[[
 		if a.controller.aim.action then
 			if #a.inventory>1 then
@@ -153,7 +153,7 @@ protosnake.player =
 	dead = function(g,a)
 		g.speed=math.randomfraction(0.2)+0.25
 		--Game.speed=1
-		scores.save()
+		scores.update()
 	end,
 }
 
@@ -175,9 +175,13 @@ protosnake.gameplay =
 	keypressed = function(g,key)
 		if key=='space' then
 			if g.player.hp<=0 then
+				scores.save()
 				game.state.make(g,"gameplay")
 			end
 		elseif key=='escape' then
+			if g.hud.menu then
+				scores.save()
+			end
 			game.state.make(g,"title")
 		end
 	end,

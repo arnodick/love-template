@@ -1,16 +1,17 @@
-local function load()
+local scores={}
+
+scores.load = function()
 	if not love.filesystem.exists("scores.ini") then
 		local h={}
 		local n={}
-		for i=1,5 do
-			table.insert(h,i*5)
+		for i=1,8 do
+			table.insert(h,i*2)
 			table.insert(n,"ASH")
 		end
 		local scores=
 		{
 			high=h,
 			names=n,
-			--saved=false
 		}
 		
 		LIP.save("scores.ini",scores)
@@ -18,7 +19,7 @@ local function load()
 	return LIP.load("scores.ini")
 end
 
-local function update()
+scores.update = function()
 	local scores=scores.load()
 	local s={}
 	for j=1,#scores.high do
@@ -38,7 +39,7 @@ local function update()
 	table.sort(s,scoresort)
 
 	for i=#s,1,-1 do
-		if i>5 then
+		if i>8 then
 			table.remove(s,i)
 		end
 	end
@@ -53,19 +54,13 @@ local function update()
 	Game.scores=scores
 end
 
-local function save()
+scores.save = function()
 	for i=1,#Game.scores.names do
 		if Game.scores.names[i]=="" then
 			Game.scores.names[i]="X"
 		end
 	end
 	LIP.save("scores.ini",Game.scores)
-	Game.scores.saved=true
 end
 
-return
-{
-	load = load,
-	update = update,
-	save = save,
-}
+return scores
