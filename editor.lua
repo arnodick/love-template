@@ -33,12 +33,14 @@ editor.keypressed = function(g,key)
 	end
 end
 
+--[[
 function love.textinput(t)
 	local g=Game
 	if g.hud.menu then
 		g.hud.menu.text[2]=g.hud.menu.text[2]..t
 	end
 end
+--]]
 
 editor.mousepressed = function(g,x,y,button)
 	if g.editor.cursor then

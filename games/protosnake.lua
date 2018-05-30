@@ -168,6 +168,23 @@ protosnake.gameplay =
 		if g.player.hp<=0 then
 			if not g.hud.menu then
 				module.make(g.hud,EM.menu,EMM.highscores,g.camera.x,g.camera.y,66,110,"",g.hud.c,g.hud.c2,"center")
+			else
+				function love.textinput(t)
+					local m=g.hud.menu
+					if m then
+						if m.index==0 then
+							for i=1,#g.scores.names do
+								if g.scores.names[i]=="" then
+									m.index=i
+								end
+							end
+						end
+						if m.index~=0 and #g.scores.names[m.index]<3 then
+							g.scores.names[m.index]=g.scores.names[m.index]..t
+						end
+					end
+				end
+				menu.control(g.hud.menu)
 			end
 		end
 	end,

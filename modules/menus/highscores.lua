@@ -1,4 +1,6 @@
-local function make(m)
+local highscores={}
+
+highscores.make = function(m)
 	local scoretext={}
 	for i=1,#Game.scores.names do
 		scoretext[i]=Game.scores.names[i].." "..Game.scores.high[i]
@@ -8,7 +10,7 @@ local function make(m)
 	module.make(m,EM.border,EC.dark_purple,EC.indigo)
 end
 
-local function control(m)
+highscores.control = function(m)
 	local scoretext={}
 	for i=1,#Game.scores.names do
 		scoretext[i]=Game.scores.names[i].." "..Game.scores.high[i]
@@ -16,12 +18,4 @@ local function control(m)
 	m.text=scoretext
 end
 
-local function draw(m)
-
-end
-
-return
-{
-	make = make,
-	control = control,
-}
+return highscores
