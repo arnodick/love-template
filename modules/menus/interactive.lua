@@ -17,7 +17,7 @@ interactive.make = function(m,menu_functions,menu_function_args)
 
 end
 
-interactive.control = function(m,gs)
+interactive.control = function(g,m,gs)
 	controller.update(m,gs)
 	local c=m.controller.move
 

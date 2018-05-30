@@ -11,7 +11,7 @@ hud.control = function(g,h)
 	if h.menu then
 		--g.hud.menu.x=g.camera.x
 		--g.hud.menu.y=g.camera.y
-		menu.control(h.menu,g.speed)
+		menu.control(g,h.menu,g.speed)
 	end
 end
 

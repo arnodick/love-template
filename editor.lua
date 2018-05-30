@@ -33,7 +33,7 @@ editor.keypressed = function(g,key)
 	end
 end
 
---[[
+---[[
 function love.textinput(t)
 	local g=Game
 	if g.hud.menu then

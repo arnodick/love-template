@@ -21,8 +21,8 @@ menu.make = function(a,m,t,x,y,w,h,text,c1,c2,align,...)
 	run(menuname,"make",m,...)
 end
 
-menu.control = function(m,gs)
-	run(EMM[m.t],"control",m,gs)
+menu.control = function(g,m,gs)
+	run(EMM[m.t],"control",g,m,gs)
 end
 
 menu.keypressed = function(m,key)

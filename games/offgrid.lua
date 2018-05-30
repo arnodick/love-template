@@ -93,7 +93,7 @@ end
 offgrid.level.control = function(g,l)
 	if not l.transition then
 		if l.menu then
-			menu.control(l.menu,1)
+			menu.control(g,l.menu,1)
 		end
 	end
 	synth.control(l,l.synth)
