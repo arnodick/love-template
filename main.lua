@@ -12,7 +12,7 @@ love.keyboard.setKeyRepeat(false)
 love.keyboard.setTextInput(true)
 love.mouse.setRelativeMode(true)
 Joysticks={}
-SFX = sfx.load(false,true)
+SFX = sfx.load(true,true)
 Music = music.load()
 
 function love.load()

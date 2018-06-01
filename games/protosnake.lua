@@ -130,7 +130,8 @@ protosnake.player =
 		end
 	--]]
 
-		if SFX.positonal then
+		if SFX.positional then
+			--print("yessss")
 			love.audio.setPosition(a.x,a.y,0)
 		end
 	end,
