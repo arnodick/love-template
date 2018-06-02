@@ -44,7 +44,7 @@ protosnake.level.store=
 protosnake.level.make = function(g,l,index)
 	if not g.player or g.player.hp<=0 then
 		local a=actor.make(g,EA.scorpion,l.map.width/2,l.map.height/2)
-		player.make(g,a,true)
+		game.player.make(g,a,true)
 	end
 	if index~=g.levelpath[#g.levelpath] then
 		table.insert(g.levelpath,index)

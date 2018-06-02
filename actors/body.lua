@@ -19,7 +19,7 @@ local function control(g,a)
 		a.delete=true
 		if a.player then
 			local gh=actor.make(g,EA.ghost,a.x,a.y)
-			player.make(g,gh)
+			game.player.make(g,gh)
 		end
 	end
 end

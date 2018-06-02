@@ -72,7 +72,7 @@ local function control(g,a,gs)
 	end
 
 	if flags.get(a.flags,EF.player) then
-		player.control(g,a)
+		game.player.control(g,a)
 	end
 
 	if a.item then--if a IS an item, do its item stuff
@@ -166,7 +166,7 @@ local function draw(g,a)
 	end
 
 	if flags.get(a.flags,EF.player) then
-		player.draw(g,a)
+		game.player.draw(g,a)
 	end
 end
 
@@ -186,7 +186,7 @@ local function damage(a,d)
 			a.hp=a.hp-d
 			run(EA[a.t],"damage",a)
 			if flags.get(a.flags,EF.player) then
-				player.damage(g,a)
+				game.player.damage(g,a)
 			end
 
 			game.state.run(g.name,"actor","damage",g,a,d)
@@ -201,7 +201,7 @@ local function damage(a,d)
 
 				game.state.run(g.name,"actor","dead",g,a)
 				if flags.get(a.flags,EF.player) then
-					player.dead(g,a)
+					game.player.dead(g,a)
 				end
 
 				--TODO sort of game-specific

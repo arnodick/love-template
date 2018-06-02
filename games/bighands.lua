@@ -58,7 +58,7 @@ bighands.gameplay =
 			if #Joysticks>#g.players then
 				local m=g.level.map
 				local a=actor.make(g,EA.witch,map.width(m)/2,map.height(m)/2)
-				player.make(g,a)
+				game.player.make(g,a)
 			end
 		end
 	end,

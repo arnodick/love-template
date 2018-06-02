@@ -46,6 +46,33 @@ game.state.make = function(g,state)
 	game.state.run(g.name,g.state,"make",g)
 end
 
+game.player={}
+game.player.make = function(g,a,singleplayer)
+	if singleplayer then
+		g.player=a
+	else
+		table.insert(g.players,a)
+	end
+	a.flags=flags.set(a.flags,EF.player,EF.persistent)
+	game.state.run(g.name,"player","make",g,a)
+end
+
+game.player.control = function(g,a)
+	game.state.run(g.name,"player","control",g,a)
+end
+
+game.player.draw = function(g,a)
+	game.state.run(g.name,"player","draw",g,a)
+end
+
+game.player.damage = function(g,a)
+	game.state.run(g.name,"player","damage",g,a)
+end
+
+game.player.dead = function(g,a)
+	game.state.run(g.name,"player","dead",g,a)
+end
+
 game.make = function(t,gw,gh)
 	local g={}
 	g.t=t
@@ -235,11 +262,6 @@ game.gamepadpressed = function(g,joystick,button)
 	if g.hud then
 		hud.gamepadpressed(g,joystick,button)
 	end
---[[
-	if g.editor then
-		editor.gamepadpressed(g,button)
-	end
---]]
 end
 
 game.draw = function(g)

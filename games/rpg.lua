@@ -46,7 +46,7 @@ rpg.gameplay =
 		g.step=false
 
 		local a=actor.make(g,EA.rpg_character,g.level.map.w/2,g.level.map.h/2)
-		player.make(g,a,true)
+		game.player.make(g,a,true)
 		actor.make(g,EA.rpg_character,2,2)
 	end,
 
