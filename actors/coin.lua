@@ -58,7 +58,7 @@ local function control(g,a,gs)
 		end
 		if a.deltimer>=120 then
 			if a.vel==0 then
-				sfx.play(7)
+				sfx.play(7,a.x,a.y)
 				for i=1,20 do
 					actor.make(g,EA.cloud,a.x,a.y,math.randomfraction(math.pi*2),math.randomfraction(1))
 				end

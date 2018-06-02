@@ -1,4 +1,7 @@
 DONE
+sound (behaves different when spatial sound is used)
+editor (needs cursor types)
+hi score (transfer from royale we, clean up)
 namespace (ughhhhhh) game-specific functions, like player? so, protosnake.player instead of just player? or something to make actors game specific
 put player functions in game, so protosnake.player.control
 		if a.player then player.control, which runs game.state.run(gamename,"player","control")

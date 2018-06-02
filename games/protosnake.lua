@@ -401,6 +401,16 @@ protosnake.actor =
 				end
 			end
 		end
+		if flags.get(a.flags,EF.character) then
+			local m=g.level.map
+			actor.corpse(a,m.tile.width,m.tile.height)
+			g.ease=true--TODO make easing function for this. works on any number
+			local maxdist=vector.distance(0,0,g.width,g.height)
+			g.speed=0.05+vector.distance(g.player.x,g.player.y,a.x,a.y)/maxdist+math.choose(-0.02,0.03,0.05)
+			if a.drop then
+				drop.spawn(a,a.x,a.y)
+			end
+		end
 	end,
 }
 
@@ -421,7 +431,7 @@ protosnake.item =
 			if user.controller.action.action or #user.inventory<1 then
 				if a.sound then
 					if a.sound.get then
-						sfx.play(a.sound.get)
+						sfx.play(a.sound.get,a.x,a.y)
 					end
 				end
 				a.flags=flags.set(a.flags,EF.persistent)
@@ -444,12 +454,12 @@ protosnake.collectible =
 				if p[EA[a.t] ] then
 					p[EA[a.t] ]=p[EA[a.t] ]+a.value
 				end
-				for i,v in pairs(Game.actors) do
+				for i,v in pairs(g.actors) do
 					if v.t==EA.coin then
 						v.scalex=4
 						v.scaley=4
 						v.deltimer=0
-						v.delta=Game.timer
+						v.delta=g.timer
 					end
 				end
 				if a.sound then
@@ -457,7 +467,7 @@ protosnake.collectible =
 						sfx.play(a.sound.get,a.x,a.y)
 					end
 				end
-				actor.make(Game,EA.collectibleget,a.x,a.y,math.pi/2,1,EC.pure_white,1,a.sprinit)
+				actor.make(g,EA.collectibleget,a.x,a.y,math.pi/2,1,EC.pure_white,1,a.sprinit)
 				run(EA[a.t],"get",a,gs)
 				a.delete=true
 			end

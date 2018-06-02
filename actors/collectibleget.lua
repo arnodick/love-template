@@ -8,7 +8,7 @@ end
 local function control(g,a)
 	a.scalex=math.sin(g.timer)
 	if g.timer-a.delta>=30 then
-		sfx.play(8)
+		sfx.play(8,a.x,a.y)
 		for i=1,20 do
 			actor.make(g,EA.spark,a.x,a.y)
 			--actor.load(g,"spark",a.x,a.y,math.randomfraction(math.pi*2),nil,math.randomfraction(2)+2,EC.yellow)

@@ -1,10 +1,7 @@
 YES
 BROKEN
 	joystick not loaded for multigame at startup
-	sound (behaves different when spatial sound is used)
-	editor (needs cursor types)
 	hud (janky, only draws in one spot)
-	hi score (transfer from royale we, clean up)
 item.held=t or f
 	can only be picked up if f
 everything just becomes a module

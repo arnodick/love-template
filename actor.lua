@@ -208,11 +208,6 @@ local function damage(a,d)
 				if flags.get(a.flags,EF.explosive) then
 					actor.make(g,EA.explosion,a.x,a.y,0,0,EC.white,20*(a.size))
 				end
-
-				--TODO also sort of game specific
-				if flags.get(a.flags,EF.character) then
-					character.dead(a)
-				end
 				
 				run(EA[a.t],"dead",a)
 			end

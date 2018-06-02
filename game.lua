@@ -96,7 +96,7 @@ game.control = function(g)
 
 	game.state.run(g.name,g.state,"control",g)
 
-	sfx.update(SFX,g.speed)
+	sfx.control(SFX,g.speed)
 
 	if not g.pause then
 		for i,v in ipairs(g.actors) do
