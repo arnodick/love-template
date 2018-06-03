@@ -122,7 +122,8 @@ local function control(g,a,gs)
 	end
 
 	if flags.get(a.flags,EF.shopitem) then
-		shopitem.control(a,g.player)
+		--TODO this only works for single player right now
+		game.state.run(g.name,"shopitem","control",a,g.player)
 	end
 
 	if a.inventory then
