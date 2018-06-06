@@ -63,9 +63,8 @@ local function constants(e) --NOTE this function has side effects! makes global 
 		end
 
 	end
-	if e.flags then
-		EF=e.flags
-	end
+	e.flags=flags.load()
+	EF=e.flags
 	LG=love.graphics
 end
 

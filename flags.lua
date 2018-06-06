@@ -1,5 +1,27 @@
 local flags={}
 
+flags.load = function()
+	local f=
+	{
+		"actorspawn",
+		"animated",
+		"bouncy",
+		"character",
+		"damageable",
+		"enemy",
+		"explodable",
+		"explosive",
+		"persistent",
+		"player",
+		"queue",
+		"shootable",
+		"shopitem",
+		"solid",
+	}
+	supper.numbers(f)
+	return f
+end
+
 flags.get = function(bytes,flag,shift)
 	--takes a hex flag variable and an integer flag position
 	--returns true if that flag position is set

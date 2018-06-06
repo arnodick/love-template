@@ -1,7 +1,7 @@
 --game initialization stuff (just boring stuff you need to maek Video Game)
 libraries = require("tools/libraries")--have to load the libraries.lua library to use it to dynamically load the rest of the libraries
 libraries.load("")--loads all the .lua libraries
-Enums = enums.load("","games","actors","modules","modes","flags")--enumerators
+Enums = enums.load("","games","actors","modules","modes")--enumerators
 enums.constants(Enums)--constants derived from enums, they're shorthand so you can type EM instead of Enums.modules
 debugger.printtable(Enums)
 
