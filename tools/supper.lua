@@ -60,7 +60,7 @@ supper.names = function(t)
 	t.names=n
 end
 
---gives a table key indexed integers for each integer indexed value
+--puts key indexed integers in a table for each integer indexed value
 supper.numbers = function(t)
 	for i,v in ipairs(t) do
 		t[v]=i

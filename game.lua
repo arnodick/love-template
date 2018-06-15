@@ -376,7 +376,7 @@ game.graphics = function(g)
 	LG.setLineWidth(1)
 	LG.setLineStyle("rough") --clean SHAPE scaling
 	LG.setBlendMode("alpha")
-	love.mouse.setVisible(false)
+	love.mouse.setVisible(true)
 
 	--g.font = LG.newFont("fonts/pico8.ttf",8)
 	g.font=LG.newFont("fonts/Kongtext Regular.ttf",8)

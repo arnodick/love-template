@@ -117,5 +117,5 @@ end
 return
 {
 	control = control,
-	draw = draw,
+	--draw = draw,
 }

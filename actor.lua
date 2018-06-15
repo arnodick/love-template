@@ -161,9 +161,14 @@ local function draw(g,a)
 	end
 
 	if g.level then
+		if g.level.drawmode then
+			run(g.level.drawmode,"draw",g,a)
+		end
+--[[
 		if g.level.mode then
 			run(g.level.modename,"draw",g,a)
 		end
+--]]
 	end
 
 	if flags.get(a.flags,EF.player) then

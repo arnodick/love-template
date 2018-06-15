@@ -1,4 +1,10 @@
 YES
+delete table in actors table
+	when actor is marke for deletion, actors.delete[their index in actors] = actor
+drawmode and control mode
+	Drawmode 2d, roguelike (have an off grid value for actors not drawn on the grid) 
+	Change mode so you are a dot moving on the background and colliding with all the pixels including the grid itself
+cursor follow vs not follow actor movement, camera movement
 BROKEN
 	joystick not loaded for multigame at startup
 	hud (janky, only draws in one spot)
