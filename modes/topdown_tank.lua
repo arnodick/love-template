@@ -73,49 +73,7 @@ local function control(a,m,gs)
 	end
 end
 
-local function draw(g,a)
---[[
-	run(EA[a.t],"predraw",a)
---]]
-
-	local c=a.c or EC.pure_white
-	local r,gr,b=unpack(g.palette[c])
-	local alpha=255
-	if a.alpha then
-		alpha=a.alpha
-	end
-	LG.setColor(r,gr,b,alpha)
-	sprites.draw(a)
-
-	if a.char then
-		LG.print(a.char,a.x,a.y)
-	end
-
-	run(EA[a.t],"draw",g,a)--actor's specific draw function (ie snake.draw)
-
-	if a.tail then
-		tail.draw(a.tail)
-	end
-
-	if Debugger.debugging then
-		LG.setColor(g.palette[EC.blue])
-		if a.hitradius then
-			hitradius.draw(a)
-		elseif a.hitbox then
-			hitbox.draw(a)
-		end
-		LG.points(a.x,a.y)
-		if a.deltimer then
-			LG.print(a.deltimer,a.x,a.y)
-		end
-		--LG.print(a.flags,a.x+8,a.y-8)
-	end
-
-	LG.setColor(g.palette[EC.pure_white])
-end
-
 return
 {
 	control = control,
-	--draw = draw,
 }

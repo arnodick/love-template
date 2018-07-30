@@ -1,4 +1,5 @@
 {
+	"drawmode":"roguelikedraw",
 	"map":
 	{
 		"file":"maptest",

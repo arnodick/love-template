@@ -23,8 +23,7 @@ rpg.player =
 			if a.controller.move.last.horizontal==0 then
 				g.step=true
 			end
-		end
-		if a.controller.move.vertical~=0 then
+		elseif a.controller.move.vertical~=0 then
 			if a.controller.move.last.vertical==0 then
 				g.step=true
 			end

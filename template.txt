@@ -1,4 +1,7 @@
 YES
+maybe make a modes just a file
+put drawmodes in map array
+MAKE A ROGUELIKE VERSION OF KEYBOARD! how? it's own controller type? or just bool in normal keyboard.lua
 delete table in actors table
 	when actor is marke for deletion, actors.delete[their index in actors] = actor
 drawmode and control mode

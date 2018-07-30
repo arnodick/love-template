@@ -15,9 +15,11 @@ twodimensional.draw = function(g,a)
 	LG.setColor(r,gr,b,alpha)
 	sprites.draw(a)
 
+--[[
 	if a.char then
 		LG.print(a.char,a.x,a.y)
 	end
+--]]
 
 	--actordata
 	--if a.t then

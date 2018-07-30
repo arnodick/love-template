@@ -274,13 +274,15 @@ game.draw = function(g)
 
 			if l then
 				if l.drawmodes then
-					if l.bgdraw==true then
+					if l.bgdraw==true then--TODO move this up, should check this earlier
 						if l.canvas then
 							if l.canvas.background then
 								LG.setCanvas(l.canvas.background)
 								--LG.clear(190,10,136)
 								local xcamoff,ycamoff=g.camera.x-g.width/2,g.camera.y-g.height/2
 								LG.translate(xcamoff,ycamoff)
+
+								--TODO this should be l.map.drawmodes?
 								map.draw(l.map,l.drawmodes)
 								LG.translate(-xcamoff,-ycamoff)
 							end
