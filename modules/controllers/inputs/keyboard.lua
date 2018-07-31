@@ -1,4 +1,7 @@
-local function move(a,c)
+local keyboard={}
+local types={}
+
+keyboard.move = function(a,c)
 	local horizontal,vertical=0,0
 	local moving=false
 
@@ -28,7 +31,7 @@ local function move(a,c)
 	return horizontal,vertical
 end
 
-local function action()
+keyboard.action = function()
 	local use,action=false,false
 
 	if love.keyboard.isDown('z') then
@@ -46,8 +49,65 @@ local function action()
 	return use,action
 end
 
-return
-{
-	move = move,
-	action = action,
-}
+types.vector = function(a,c)
+	local horizontal,vertical=0,0
+	local moving=false
+
+	if love.keyboard.isDown('left') or love.keyboard.isDown('a') then
+		horizontal=-1
+		moving=true
+	elseif love.keyboard.isDown('right') or love.keyboard.isDown('d')  then
+		horizontal=1
+		moving=true
+	end
+
+	if love.keyboard.isDown('up') or love.keyboard.isDown('w') then
+		vertical=-1
+		moving=true
+	elseif love.keyboard.isDown('down') or love.keyboard.isDown('s') then
+		vertical=1
+		moving=true
+	end
+
+	if c.vector then
+		if moving then
+			local direction=vector.direction(horizontal,vertical)
+			horizontal,vertical=math.cos(direction),math.sin(direction)
+		end
+	end
+
+	return horizontal,vertical
+end
+
+types.direct = function(a,c)
+	local horizontal,vertical=0,0
+	local moving=false
+
+	if love.keyboard.isDown('left') or love.keyboard.isDown('a') then
+		if a.controller.move.last.horizontal==0 then
+			horizontal=-1
+			vertical=0
+			moving=true
+		end
+	elseif love.keyboard.isDown('right') or love.keyboard.isDown('d')  then
+		if a.controller.move.last.horizontal==0 then
+			horizontal=1
+			vertical=0
+			moving=true
+		end
+	elseif love.keyboard.isDown('up') or love.keyboard.isDown('w') then
+		if a.controller.move.last.vertical==0 then
+			horizontal=0
+			vertical=-1
+			moving=true
+		end
+	elseif love.keyboard.isDown('down') or love.keyboard.isDown('s') then
+		if a.controller.move.last.vertical==0 then
+			horizontal=0
+			vertical=1
+			moving=true
+		end
+	end
+end
+
+return keyboard
