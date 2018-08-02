@@ -77,6 +77,21 @@ offgrid.level.city =
 	end
 }
 
+offgrid.level.offgrid =
+{
+	make = function(g,l)
+		--TODO here will maybe be the options that you can go to from here? offgrid areas (usually won't have option to go back, choices of where you can go aren't based on the grid, but are instead linked lists sort of. will need a menu where you can use items, talk to people, etc. more like a story than an exploration)
+	end,
+
+	control = function(g,l)
+		
+	end,
+
+	draw = function(g,l)
+		
+	end
+}
+
 offgrid.level.make = function(g,l,index)
 	g.timer=0
 
