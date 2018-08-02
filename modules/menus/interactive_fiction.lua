@@ -115,7 +115,17 @@ local function draw(m)
 		for i=1,string.len(m.description) do
 			--table.insert(colourtext,{love.math.random(255),love.math.random(255),love.math.random(255)})
 			if i<=m.text_trans then
-				table.insert(colourtext,{255,255,255})
+				if m.options then
+					for index,v in ipairs(m.options) do
+						if i>=v.first and i<=v.last then
+							table.insert(colourtext,{0,0,255})
+						else
+							table.insert(colourtext,{255,255,255})
+						end
+					end
+				else
+					table.insert(colourtext,{255,255,255})
+				end
 			else
 				table.insert(colourtext,{0,0,0})
 			end

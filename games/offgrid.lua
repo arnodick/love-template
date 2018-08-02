@@ -51,6 +51,8 @@ offgrid.level.city =
 
 		--module.make(l,EM.menu,EMM.interactive_fiction,320,800,640,320,m.text,EC.white,EC.dark_gray,"left",m.functions,m.arguments)
 		module.make(l,EM.menu,"interactive_fiction",320,800,640,320,m.text,EC.white,EC.dark_gray,"left",m.functions,m.arguments)
+		l.menu.options=l.options
+		--debugger.printtable(l.menu.options)
 		--local args={l,EM.menu,EMM.interactive_fiction,320,800,640,320,m.text,EC.white,EC.dark_gray,"left",m.functions,m.arguments}
 		--module.make(l,EM.transition,easing.linear,"transition_timer",0,1,240,module.make,args,EM.transitions.screen_transition_blocksreverse)
 		module.make(l,EM.transition,easing.linear,"transition_timer",0,1,240,nil,nil,EM.transitions.screen_transition_blocksreverse)
@@ -221,7 +223,7 @@ offgrid.gameplay =
 offgrid.title =
 {
 	keypressed = function(g,key)
-		if key=="space" or key=="return" then
+		if key=="space" or key=="return" or key=="z" then
 			game.state.make(g,"gameplay")
 		elseif key=='escape' then
 			game.state.make(g,"intro")
@@ -244,7 +246,7 @@ offgrid.title =
 offgrid.intro =
 {
 	keypressed = function(g,key)
-		if key=="space" or key=="return" then
+		if key=="space" or key=="return" or key=="z" then
 			game.state.make(g,"title")
 		end
 	end,

@@ -2,5 +2,9 @@
 	"t":"city",
 	"title":"The Show",
 	"animspeed":60,
-	"description":"THIS PARTY IS VERY VERY VERY VERY VERY VERY VERY GREAT"
+	"description":"THIS PARTY IS VERY VERY VERY VERY VERY VERY VERY GREAT",
+	"options":
+	[
+		{"first":6, "last":10},
+	]
 }
