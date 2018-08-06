@@ -31,11 +31,9 @@ offgrid.make = function(g)
 	table.insert(g.chars,"_")
 	table.insert(g.chars,"~")
 
-	offgrid.loadimages(g)
-	local imgs=game.files(g,"images/offgrid","jpg")
-	print("IMAGES TEST")
-	debugger.printtable(imgs)
-	--debugger.printtable(g.images)
+	local images=game.files(g,"images/offgrid","jpg")
+	g.images={}
+	offgrid.convertimages(g,g.images,images)
 	--debugger.printtable(_G)--NOTE DON'T DO THIS! gets stuck in loop printing forever, because _G is a member of _G
 end
 
@@ -206,7 +204,6 @@ offgrid.gameplay =
 		g.player={}
 		g.player.x=1
 		g.player.y=1
-		--g.levels.index=g.map[g.player.y][g.player.x]
 		local levelindex=g.map[g.player.y][g.player.x]
 		level.make(g,levelindex)
 	end,
@@ -274,35 +271,48 @@ offgrid.intro =
 	end
 }
 
-offgrid.loadimages = function(g)
-	local dir="images/offgrid"
+offgrid.convertimages = function(g,gameimages,images)
 	local buffer = LG.newCanvas(640*g.bufferscale,640*g.bufferscale)
-	g.images={}
 
+	for index,v in pairs(images) do--loop through all tables and images in images table
+		if type(v)=="table" then
+			if tonumber(index) then
+				index=tonumber(index)
+			end
+			gameimages[index]={}
+			offgrid.convertimages(g,gameimages[index],v)
+		--elseif type(v)=="Image" then
+		elseif v:typeOf("Image") then
+			gameimages[index]=LG.textify(v,g.bufferscale,g.chars,buffer,g.canvas.main,g.tile.width,g.tile.height)
+		end
+	end
+--[[
+	g.images={}
 	local files = love.filesystem.getDirectoryItems(dir) --get all the files+directories in working dir
-	--TODO MAKE THIS INDEX BY NAME TOO
-	--use game.files?
-	for j=1,#files do--loop through all files and dirs in images/offgrid
-		local fileordir=files[j]
+	--for j=1,#files do--loop through all files and dirs in images/offgrid
+	for index,v in pairs(files) do--loop through all files and dirs in images/offgrid
+		--local fileordir=files[j]
+		local fileordir=v
 		local imagedir=dir.."/"..fileordir
+		print("image load index: "..index)
 		if love.filesystem.isDirectory(imagedir) then --if it's a dir, then load the images from the dir
-			g.images[j]={}--make a table in the game's image table for the dir
+			g.images[index]={}--make a table in the game's images table for the dir
 			local imagefiles=love.filesystem.getfiles(imagedir,"jpg")--gets all the image files from images/offgrid/dirnumber
 			--for i,v in ipairs(imagefiles) do
 			--TODO this decrements because getfiles() decrements, don't know why, will have to change that
 			for i=#imagefiles,1,-1 do--loop through all the image files in images/offgrid/dirnumber
 				local v=imagefiles[i]
 				local plainimage=LG.newImage(v)
-				table.insert(g.images[j],LG.textify(plainimage,g.bufferscale,g.chars,buffer,g.canvas.main,g.tile.width,g.tile.height))--insert the textified image into the sub-table images[dirnumber]
+				table.insert(g.images[index],LG.textify(plainimage,g.bufferscale,g.chars,buffer,g.canvas.main,g.tile.width,g.tile.height))--insert the textified image into the sub-table images[dirnumber]
 			end
 		end
 	end
+--]]
 	--debugger.printtable(g.images)
 end
 
 offgrid.move = function(g,x,y)
 	g.player.x,g.player.y=x,y
-	--g.levels.index=g.map[y][x]
 	local levelindex=g.map[y][x]
 	print(levelindex)
 	level.make(g,levelindex)
