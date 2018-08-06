@@ -93,6 +93,7 @@ game.make = function(t,gw,gh)
 	debugger.printtable(g.actordata)
 --]]
 	g.levels=game.files(g,"games/"..g.name.."/levels")
+	debugger.printtable(g.levels)
 	--level.load(g,"games/"..g.name.."/levels")
 
 --[[
@@ -329,27 +330,33 @@ game.draw = function(g)
 	screen.control(g,g.screen,g.speed)
 end
 
-
+--TODO make this recursive so it goes through all sub-folders in the folder
 game.files = function(g,dir,ext)
 	ext=ext or "json"
 	local l={}
 	local files=love.filesystem.getDirectoryItems(dir)
-	for i=1,#files do
-		local file=files[i]
-		if love.filesystem.isFile(dir.."/"..file) then --if it isn't a directory
-			local filedata=love.filesystem.newFileData("code", file) --gets each file's filedata, so we can determine their extensions
-			local filename=filedata:getFilename() --get the file's name
+	for i=1,#files do--through all files and dirs
+		--local file=files[i]
+		local filedata=love.filesystem.newFileData("code", files[i]) --gets each file's filedata, so we can determine their extensions
+		local filename=filedata:getFilename() --get the file's name
+		local filepath=dir.."/"..filename
+		--if love.filesystem.isFile(dir.."/"..file) then --if it isn't a directory
+		if love.filesystem.isFile(filepath) then --if it isn't a directory
 			if filedata:getExtension()==ext then
 				local f=string.gsub(filename, "."..ext, "")--strip the file extension
-				if tonumber(f) then
+				if tonumber(f) then--if the filename (without extension) is a number then index the file in the table by integer
 					f=tonumber(f)
 				end
 				if ext=="ini" then
-					l[f]=LIP.load(dir.."/"..filename)
+					l[f]=LIP.load(filepath)
 				elseif ext=="json" then
-					l[f]=json.load(dir.."/"..filename)
+					l[f]=json.load(filepath)
+				elseif ext=="jpg" then
+					l[f]=LG.newImage(filepath)
 				end
 			end
+		elseif love.filesystem.isDirectory(filepath) then
+			l[filename]=game.files(g,filepath,ext)
 		end
 	end
 	return l

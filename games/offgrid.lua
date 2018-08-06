@@ -32,6 +32,10 @@ offgrid.make = function(g)
 	table.insert(g.chars,"~")
 
 	offgrid.loadimages(g)
+	local imgs=game.files(g,"images/offgrid","jpg")
+	print("IMAGES TEST")
+	debugger.printtable(imgs)
+	--debugger.printtable(g.images)
 	--debugger.printtable(_G)--NOTE DON'T DO THIS! gets stuck in loop printing forever, because _G is a member of _G
 end
 
@@ -44,10 +48,10 @@ offgrid.level.city =
 		m.arguments={}
 		m.functions={}
 		
-		offgrid.level.makemenuoption(g,m,g.player.x,g.player.y-1,"North",1)
-		offgrid.level.makemenuoption(g,m,g.player.x+1,g.player.y,"East",2)
-		offgrid.level.makemenuoption(g,m,g.player.x,g.player.y+1,"South",3)
-		offgrid.level.makemenuoption(g,m,g.player.x-1,g.player.y,"West",4)
+		offgrid.level.makemoveoption(g,m,g.player.x,g.player.y-1,"North",1)
+		offgrid.level.makemoveoption(g,m,g.player.x+1,g.player.y,"East",2)
+		offgrid.level.makemoveoption(g,m,g.player.x,g.player.y+1,"South",3)
+		offgrid.level.makemoveoption(g,m,g.player.x-1,g.player.y,"West",4)
 
 		--module.make(l,EM.menu,EMM.interactive_fiction,320,800,640,320,m.text,EC.white,EC.dark_gray,"left",m.functions,m.arguments)
 		module.make(l,EM.menu,"interactive_fiction",320,800,640,320,m.text,EC.white,EC.dark_gray,"left",m.functions,m.arguments)
@@ -139,6 +143,9 @@ offgrid.level.keypressed = function(g,l,key)
 		if l.menu then
 			menu.keypressed(l.menu,key)
 		end
+		if key=='x' then
+			level.make(g,"car")
+		end
 	end
 end
 
@@ -166,7 +173,7 @@ offgrid.level.draw = function(g,l)
 	offgrid.level[l.t].draw(g,l)
 end
 
-offgrid.level.makemenuoption = function(g,m,x,y,dir,index)
+offgrid.level.makemoveoption = function(g,m,x,y,dir,index)
 --checks if a point on the map has a level in it
 --if so, puts that in the menu as an option
 	if g.map[y] then
@@ -174,13 +181,18 @@ offgrid.level.makemenuoption = function(g,m,x,y,dir,index)
 			local value=g.map[y][x]
 			if g.levels[value] then
 				local destination=g.levels[value].title
+				--this code sets what the menu option says, what it does, and the parameters for what it does
 				table.insert(m.text,"Go "..dir.." to "..destination)
-
 				table.insert(m.functions,offgrid.move)
 				table.insert(m.arguments,{g,x,y})
 			end
 		end
 	end
+end
+
+offgrid.level.makeinspectoption = function(g,name)
+--makes an option in the right menu area open an inspect level by its name
+	
 end
 
 offgrid.gameplay =
@@ -268,17 +280,20 @@ offgrid.loadimages = function(g)
 	g.images={}
 
 	local files = love.filesystem.getDirectoryItems(dir) --get all the files+directories in working dir
-	for j=1,#files do
+	--TODO MAKE THIS INDEX BY NAME TOO
+	--use game.files?
+	for j=1,#files do--loop through all files and dirs in images/offgrid
 		local fileordir=files[j]
 		local imagedir=dir.."/"..fileordir
-		if love.filesystem.isDirectory(imagedir) then --if it's a dir, then load the images fromt he dir
-			g.images[j]={}
-			local imagefiles=love.filesystem.getfiles(imagedir,"jpg")
+		if love.filesystem.isDirectory(imagedir) then --if it's a dir, then load the images from the dir
+			g.images[j]={}--make a table in the game's image table for the dir
+			local imagefiles=love.filesystem.getfiles(imagedir,"jpg")--gets all the image files from images/offgrid/dirnumber
 			--for i,v in ipairs(imagefiles) do
-			for i=#imagefiles,1,-1 do --TODO this decrements because getfiles() decrements, don't know why, will have to change that
+			--TODO this decrements because getfiles() decrements, don't know why, will have to change that
+			for i=#imagefiles,1,-1 do--loop through all the image files in images/offgrid/dirnumber
 				local v=imagefiles[i]
 				local plainimage=LG.newImage(v)
-				table.insert(g.images[j],LG.textify(plainimage,g.bufferscale,g.chars,buffer,g.canvas.main,g.tile.width,g.tile.height))
+				table.insert(g.images[j],LG.textify(plainimage,g.bufferscale,g.chars,buffer,g.canvas.main,g.tile.width,g.tile.height))--insert the textified image into the sub-table images[dirnumber]
 			end
 		end
 	end
@@ -291,6 +306,10 @@ offgrid.move = function(g,x,y)
 	local levelindex=g.map[y][x]
 	print(levelindex)
 	level.make(g,levelindex)
+end
+
+offgrid.inspect = function(g,index)
+	level.make(g,index)
 end
 
 return offgrid

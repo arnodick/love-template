@@ -5,6 +5,6 @@
 	"description":"THIS PARTY IS VERY VERY VERY VERY VERY VERY VERY GREAT",
 	"options":
 	[
-		{"first":6, "last":10},
+		{"first":6, "last":10, "name":"car"},
 	]
 }

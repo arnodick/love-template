@@ -7,7 +7,7 @@ local function make(m,menu_functions,menu_function_args)
 end
 
 local function control(g,m,gs)
-	local g=Game
+	--local g=Game
 	controller.update(m,gs)
 	local c=m.controller.move
 
