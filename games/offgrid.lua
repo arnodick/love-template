@@ -33,7 +33,8 @@ offgrid.make = function(g)
 
 	local images=game.files(g,"images/offgrid","jpg")
 	g.images={}
-	offgrid.convertimages(g,g.images,images)
+	local buffer=LG.newCanvas(640*g.bufferscale,640*g.bufferscale)
+	offgrid.convertimages(g,g.images,images,buffer)
 	--debugger.printtable(_G)--NOTE DON'T DO THIS! gets stuck in loop printing forever, because _G is a member of _G
 end
 
@@ -52,8 +53,14 @@ offgrid.level.city =
 		offgrid.level.makemoveoption(g,m,g.player.x-1,g.player.y,"West",4)
 
 		--module.make(l,EM.menu,EMM.interactive_fiction,320,800,640,320,m.text,EC.white,EC.dark_gray,"left",m.functions,m.arguments)
+		if l.options then
+			--l.menu.options=l.options
+			offgrid.level.makeinspectoption(g,m,l.options[1].name,5)
+		end
 		module.make(l,EM.menu,"interactive_fiction",320,800,640,320,m.text,EC.white,EC.dark_gray,"left",m.functions,m.arguments)
-		l.menu.options=l.options
+		if l.options then
+			l.menu.options=l.options
+		end
 		--debugger.printtable(l.menu.options)
 		--local args={l,EM.menu,EMM.interactive_fiction,320,800,640,320,m.text,EC.white,EC.dark_gray,"left",m.functions,m.arguments}
 		--module.make(l,EM.transition,easing.linear,"transition_timer",0,1,240,module.make,args,EM.transitions.screen_transition_blocksreverse)
@@ -141,9 +148,11 @@ offgrid.level.keypressed = function(g,l,key)
 		if l.menu then
 			menu.keypressed(l.menu,key)
 		end
+--[[
 		if key=='x' then
 			level.make(g,"car")
 		end
+--]]
 	end
 end
 
@@ -188,9 +197,12 @@ offgrid.level.makemoveoption = function(g,m,x,y,dir,index)
 	end
 end
 
-offgrid.level.makeinspectoption = function(g,name)
+offgrid.level.makeinspectoption = function(g,m,name,index)
 --makes an option in the right menu area open an inspect level by its name
-	
+	m.functions[index]=offgrid.inspect
+	m.arguments[index]={g,name}
+	--print("MMMMMMMMM")
+	--debugger.printtable(m)
 end
 
 offgrid.gameplay =
@@ -271,44 +283,18 @@ offgrid.intro =
 	end
 }
 
-offgrid.convertimages = function(g,gameimages,images)
-	local buffer = LG.newCanvas(640*g.bufferscale,640*g.bufferscale)
-
+offgrid.convertimages = function(g,gameimages,images,buffer)
 	for index,v in pairs(images) do--loop through all tables and images in images table
 		if type(v)=="table" then
 			if tonumber(index) then
 				index=tonumber(index)
 			end
 			gameimages[index]={}
-			offgrid.convertimages(g,gameimages[index],v)
-		--elseif type(v)=="Image" then
+			offgrid.convertimages(g,gameimages[index],v,buffer)
 		elseif v:typeOf("Image") then
 			gameimages[index]=LG.textify(v,g.bufferscale,g.chars,buffer,g.canvas.main,g.tile.width,g.tile.height)
 		end
 	end
---[[
-	g.images={}
-	local files = love.filesystem.getDirectoryItems(dir) --get all the files+directories in working dir
-	--for j=1,#files do--loop through all files and dirs in images/offgrid
-	for index,v in pairs(files) do--loop through all files and dirs in images/offgrid
-		--local fileordir=files[j]
-		local fileordir=v
-		local imagedir=dir.."/"..fileordir
-		print("image load index: "..index)
-		if love.filesystem.isDirectory(imagedir) then --if it's a dir, then load the images from the dir
-			g.images[index]={}--make a table in the game's images table for the dir
-			local imagefiles=love.filesystem.getfiles(imagedir,"jpg")--gets all the image files from images/offgrid/dirnumber
-			--for i,v in ipairs(imagefiles) do
-			--TODO this decrements because getfiles() decrements, don't know why, will have to change that
-			for i=#imagefiles,1,-1 do--loop through all the image files in images/offgrid/dirnumber
-				local v=imagefiles[i]
-				local plainimage=LG.newImage(v)
-				table.insert(g.images[index],LG.textify(plainimage,g.bufferscale,g.chars,buffer,g.canvas.main,g.tile.width,g.tile.height))--insert the textified image into the sub-table images[dirnumber]
-			end
-		end
-	end
---]]
-	--debugger.printtable(g.images)
 end
 
 offgrid.move = function(g,x,y)

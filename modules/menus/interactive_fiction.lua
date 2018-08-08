@@ -7,7 +7,6 @@ local function make(m,menu_functions,menu_function_args)
 end
 
 local function control(g,m,gs)
-	--local g=Game
 	controller.update(m,gs)
 	local c=m.controller.move
 
@@ -25,13 +24,26 @@ local function control(g,m,gs)
 	end
 	if c.horizontal<0 then
 		if c.last.horizontal>=0 then
-			local x,y=g.player.x-1,g.player.y
-			interactive_fiction.getindexfrompoint(m,x,y)
+			local oldindex=m.text.index
+			if oldindex<5 then
+				local x,y=g.player.x-1,g.player.y
+				interactive_fiction.getindexfrompoint(m,x,y)
+			end
 		end
 	elseif c.horizontal>0 then
 		if c.last.horizontal<=0 then
 			local x,y=g.player.x+1,g.player.y
-			interactive_fiction.getindexfrompoint(m,x,y)
+
+			local oldindex=m.text.index
+			if oldindex<5 then
+				interactive_fiction.getindexfrompoint(m,x,y)
+			end
+			if oldindex==m.text.index then
+				print("YUUUUUP")
+				if m.options then
+					m.text.index=5
+				end
+			end
 		end
 	end
 
@@ -61,7 +73,9 @@ local function keyreleased(m,key)
 	if key=='z' then
 		sfx.play(14)
 		local i=m.text.index
+		print("INDEX: "..i)
 		if m.menu_functions[i] then
+			print("FUNCTIONS YES")
 			local g=Game
 			module.make(g.level,EM.transition,easing.linear,"transition_timer",0,1,240,m.menu_functions[i],m.menu_function_args[i],EM.transitions.screen_transition_blocks)
 			--module.make(g.level,EM.transition,easing.linear,"transition_timer",0,1,40,m.menu_functions[i],m.menu_function_args[i],EM.transitions.screen_transition_blocks)
@@ -118,7 +132,11 @@ local function draw(m)
 				if m.options then
 					for index,v in ipairs(m.options) do
 						if i>=v.first and i<=v.last then
-							table.insert(colourtext,{0,0,255})
+							if m.text.index<5 then
+								table.insert(colourtext,{0,0,100})
+							else
+								table.insert(colourtext,{0,0,255})
+							end
 						else
 							table.insert(colourtext,{255,255,255})
 						end
