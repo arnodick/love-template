@@ -35,6 +35,7 @@ offgrid.make = function(g)
 	g.images={}
 	local buffer=LG.newCanvas(640*g.bufferscale,640*g.bufferscale)
 	offgrid.convertimages(g,g.images,images,buffer)
+	debugger.printtable(g.images)
 	--debugger.printtable(_G)--NOTE DON'T DO THIS! gets stuck in loop printing forever, because _G is a member of _G
 end
 
@@ -199,7 +200,9 @@ end
 
 offgrid.level.makeinspectoption = function(g,m,name,index)
 --makes an option in the right menu area open an inspect level by its name
-	m.functions[index]=offgrid.inspect
+	--m.functions[index]=offgrid.inspect
+	m.functions[index]=level.make
+	print("INSPECT OPTION NAME "..name)
 	m.arguments[index]={g,name}
 	--print("MMMMMMMMM")
 	--debugger.printtable(m)
@@ -304,8 +307,10 @@ offgrid.move = function(g,x,y)
 	level.make(g,levelindex)
 end
 
+--[[
 offgrid.inspect = function(g,index)
 	level.make(g,index)
 end
+--]]
 
 return offgrid
