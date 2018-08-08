@@ -193,6 +193,11 @@ offgrid.level.makemoveoption = function(g,m,x,y,dir,index)
 				table.insert(m.text,"Go "..dir.." to "..destination)
 				table.insert(m.functions,offgrid.move)
 				table.insert(m.arguments,{g,x,y})
+--[[
+				m.text[index]="Go "..dir.." to "..destination
+				m.functions[index]=offgrid.move
+				m.arguments[index]={g,x,y}
+--]]
 			end
 		end
 	end

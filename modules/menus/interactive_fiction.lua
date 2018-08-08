@@ -12,14 +12,24 @@ local function control(g,m,gs)
 
 	if c.vertical<0 then
 		if c.last.vertical>=0 then
-			local x,y=g.player.x,g.player.y-1
-			interactive_fiction.getindexfrompoint(m,x,y)
+			local oldindex=m.text.index
+			if oldindex<5 then
+				local x,y=g.player.x,g.player.y-1
+				interactive_fiction.getindexfrompoint(m,x,y)
+			elseif oldindex>5 then
+				m.text.index=m.text.index-1
+			end
 			--m.text.index=math.clamp(m.text.index-1,1,#m.text,true)
 		end
 	elseif c.vertical>0 then
 		if c.last.vertical<=0 then
-			local x,y=g.player.x,g.player.y+1
-			interactive_fiction.getindexfrompoint(m,x,y)
+			local oldindex=m.text.index
+			if oldindex<5 then
+				local x,y=g.player.x,g.player.y+1
+				interactive_fiction.getindexfrompoint(m,x,y)
+			elseif oldindex>=5 and oldindex<4+#m.options then
+				m.text.index=m.text.index+1
+			end
 		end
 	end
 	if c.horizontal<0 then
@@ -28,18 +38,18 @@ local function control(g,m,gs)
 			if oldindex<5 then
 				local x,y=g.player.x-1,g.player.y
 				interactive_fiction.getindexfrompoint(m,x,y)
+			else
+				m.text.index=1
 			end
 		end
 	elseif c.horizontal>0 then
 		if c.last.horizontal<=0 then
-			local x,y=g.player.x+1,g.player.y
-
 			local oldindex=m.text.index
 			if oldindex<5 then
+				local x,y=g.player.x+1,g.player.y
 				interactive_fiction.getindexfrompoint(m,x,y)
 			end
 			if oldindex==m.text.index then
-				print("YUUUUUP")
 				if m.options then
 					m.text.index=5
 				end
@@ -130,17 +140,17 @@ local function draw(m)
 			--table.insert(colourtext,{love.math.random(255),love.math.random(255),love.math.random(255)})
 			if i<=m.text_trans then
 				if m.options then
+					local colour={255,255,255}
 					for index,v in ipairs(m.options) do
 						if i>=v.first and i<=v.last then
-							if m.text.index<5 then
-								table.insert(colourtext,{0,0,100})
+							if m.text.index~=index+4 then
+								colour={0,0,100}
 							else
-								table.insert(colourtext,{0,0,255})
+								colour={0,0,255}
 							end
-						else
-							table.insert(colourtext,{255,255,255})
 						end
 					end
+					table.insert(colourtext,colour)
 				else
 					table.insert(colourtext,{255,255,255})
 				end
