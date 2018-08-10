@@ -20,6 +20,8 @@ local function control(a,m)
 	local timeelapsed=Game.timer-m.starttime
 	a[m.variablename]=m.easing(timeelapsed,m.startvalue,m.change,m.duration)
 
+	--print(a[m.variablename])
+
 	if m.t then
 		run(EM.transitions[m.t],"control",a,m)
 	end

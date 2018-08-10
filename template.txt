@@ -1,4 +1,5 @@
 YES
+make move towards a function for actors
 maybe make modes just a file
 put drawmodes in map array
 MAKE A ROGUELIKE VERSION OF KEYBOARD! how? it's own controller type? or just bool in normal keyboard.lua
