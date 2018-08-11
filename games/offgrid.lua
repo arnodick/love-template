@@ -56,7 +56,9 @@ offgrid.level.city =
 		--module.make(l,EM.menu,EMM.interactive_fiction,320,800,640,320,m.text,EC.white,EC.dark_gray,"left",m.functions,m.arguments)
 		if l.options then
 			--l.menu.options=l.options
-			offgrid.level.makeinspectoption(g,m,l.options[1].name,5)
+			for i,v in ipairs(l.options) do
+				offgrid.level.makeinspectoption(g,m,l.options[i].name,4+i)
+			end
 		end
 		module.make(l,EM.menu,"interactive_fiction",320,800,640,320,m.text,EC.white,EC.dark_gray,"left",m.functions,m.arguments)
 		if l.options then
@@ -72,6 +74,14 @@ offgrid.level.city =
 		if l.description then
 			l.menu.description=l.description
 			module.make(l.menu,EM.transition,easing.linear,"text_trans",0,string.len(l.menu.description),360)
+		end
+		if l.item then
+			if not g.player.items[l.item] then
+				print(l.item)
+				debugger.printtable(g.player.items)
+				g.player.items[l.item]=l.item
+				debugger.printtable(g.player.items)
+			end
 		end
 	end,
 
@@ -224,6 +234,7 @@ offgrid.gameplay =
 		g.player={}
 		g.player.x=1
 		g.player.y=1
+		g.player.items={}
 		local levelindex=g.map[g.player.y][g.player.x]
 		level.make(g,levelindex)
 	end,
