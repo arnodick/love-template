@@ -57,7 +57,13 @@ offgrid.level.city =
 		if l.options then
 			--l.menu.options=l.options
 			for i,v in ipairs(l.options) do
-				offgrid.level.makeinspectoption(g,m,l.options[i].name,4+i)
+				if v.unlock then
+					if g.player.items[v.unlock] then
+						offgrid.level.makeinspectoption(g,m,l.options[i].name,4+i)
+					end
+				else
+					offgrid.level.makeinspectoption(g,m,l.options[i].name,4+i)
+				end
 			end
 		end
 		module.make(l,EM.menu,"interactive_fiction",320,800,640,320,m.text,EC.white,EC.dark_gray,"left",m.functions,m.arguments)

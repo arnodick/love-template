@@ -5,7 +5,7 @@
 	"description":"THIS PARTY IS VERY VERY VERY VERY VERY VERY VERY GREAT",
 	"options":
 	[
-		{"first":6, "last":10, "name":"party"},
+		{"first":6, "last":10, "name":"party", "unlock":"trinket"},
 		{"first":45, "last":49, "name":"box"},
 	]
 }
