@@ -88,9 +88,13 @@ local function keyreleased(m,key)
 			local i=m.text.index
 			print("INDEX: "..i)
 			if m.menu_functions[i] then
-				print("FUNCTIONS YES")
 				local g=Game
-				module.make(g.level,EM.transition,easing.linear,"transition_timer",0,1,240,m.menu_functions[i],m.menu_function_args[i],EM.transitions.screen_transition_blocks)
+				if g.level.transition_out then
+					--module.make(g.level,EM.transition,easing.linear,"transition_timer",0,1,240,m.menu_functions[i],m.menu_function_args[i],EM.transitions.screen_transition_blocks)
+					module.make(g.level,EM.transition,easing.linear,"transition_timer",0,1,240,m.menu_functions[i],m.menu_function_args[i],EM.transitions[g.level.transition_out])
+				else
+					m.menu_functions[i](unpack(m.menu_function_args[i]))
+				end
 				--module.make(g.level,EM.transition,easing.linear,"transition_timer",0,1,40,m.menu_functions[i],m.menu_function_args[i],EM.transitions.screen_transition_blocks)
 				--module.make(g.level,EM.transition,easing.linear,"transition_timer",0,1,40,m.menu_functions[i],m.menu_function_args[i],EM.transitions.screen_transition_crush)
 				--module.make(g.level,EM.transition,easing.linear,"transition_timer",1,6400,64,m.menu_functions[i],m.menu_function_args[i],EM.transitions.screen_transition_text)

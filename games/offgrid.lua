@@ -73,9 +73,11 @@ offgrid.level.city =
 		--debugger.printtable(l.menu.options)
 		--local args={l,EM.menu,EMM.interactive_fiction,320,800,640,320,m.text,EC.white,EC.dark_gray,"left",m.functions,m.arguments}
 		--module.make(l,EM.transition,easing.linear,"transition_timer",0,1,240,module.make,args,EM.transitions.screen_transition_blocksreverse)
-		module.make(l,EM.transition,easing.linear,"transition_timer",0,1,240,nil,nil,EM.transitions.screen_transition_blocksreverse)
-
-		module.make(l,EM.synth,"sinus",440,60,{"A","B","C","D","E","F","F","G",})
+		if l.transition_in then
+			--module.make(l,EM.transition,easing.linear,"transition_timer",0,1,240,nil,nil,EM.transitions.screen_transition_blocksreverse)
+			module.make(l,EM.transition,easing.linear,"transition_timer",0,1,240,nil,nil,EM.transitions[l.transition_in])
+			module.make(l,EM.synth,"sinus",440,60,{"A","B","C","D","E","F","F","G",})
+		end
 
 		if l.description then
 			l.menu.description=l.description
@@ -140,6 +142,7 @@ offgrid.level.control = function(g,l)
 		end
 	end
 	synth.control(l,l.synth)
+
 --[[
 	local saw = denver.get({waveform='sawtooth', frequency="G", length=2})
 	--local saw = denver.get({waveform='sawtooth', frequency="G", length=1/60})
