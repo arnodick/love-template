@@ -154,11 +154,13 @@ local function draw(m)
 				if m.options then
 					local colour={255,255,255}
 					for index,v in ipairs(m.options) do
-						if i>=v.first and i<=v.last then
-							if m.text.index~=index+4 then
-								colour={0,0,100}
-							else
-								colour={0,0,255}
+						if not v.unlock or (v.unlock and g.player.items[v.unlock]) then
+							if i>=v.first and i<=v.last then
+								if m.text.index~=index+4 then
+									colour={0,0,100}
+								else
+									colour={0,0,255}
+								end
 							end
 						end
 					end
