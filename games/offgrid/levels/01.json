@@ -6,7 +6,7 @@
 	"options":
 	[
 		{"first":6, "last":10, "name":"party", "unlock":"trinket"},
-		{"first":45, "last":49, "name":"box"},
+		{"first":45, "last":49, "name":"box",},
 	],
 	"transition_in":"screen_transition_blocksreverse",
 	"transition_out":"screen_transition_blocks"

@@ -119,32 +119,36 @@ end
 
 local function draw(m)
 	local g=Game
-	for i=1,#m.text do
-		local points={}
-		local xoff=220
-		local arrowx,arrowy=m.x-180,m.y
-		local arrowlength=30
+	if not m.back then
+		for i=1,#m.text do
+			local points={}
+			local xoff=220
+			local arrowx,arrowy=m.x-180,m.y
+			local arrowlength=30
 
-		if m.menu_function_args[i][2]<g.player.x then
-			points={m.x-m.w/8-xoff,m.y}
-		elseif m.menu_function_args[i][2]>g.player.x then
-			points={m.x+m.w/8-xoff,m.y}
-		elseif m.menu_function_args[i][3]<g.player.y then
-			points={m.x-xoff,m.y-m.h/4}
-		elseif m.menu_function_args[i][3]>g.player.y then
-			points={m.x-xoff,m.y+m.h/8}
-		end
-
-		LG.line(arrowx,arrowy+arrowlength,arrowx,arrowy-arrowlength)
-		LG.line(arrowx-arrowlength,arrowy,arrowx+arrowlength,arrowy)
-
-		local linealpha=255
-		if m.text.index then
-			if m.text.index~=i then
-				linealpha=50
+			if m.menu_function_args[i][2]<g.player.x then
+				points={m.x-m.w/8-xoff,m.y}
+			elseif m.menu_function_args[i][2]>g.player.x then
+				points={m.x+m.w/8-xoff,m.y}
+			elseif m.menu_function_args[i][3]<g.player.y then
+				points={m.x-xoff,m.y-m.h/4}
+			elseif m.menu_function_args[i][3]>g.player.y then
+				points={m.x-xoff,m.y+m.h/8}
 			end
+
+			LG.line(arrowx,arrowy+arrowlength,arrowx,arrowy-arrowlength)
+			LG.line(arrowx-arrowlength,arrowy,arrowx+arrowlength,arrowy)
+
+			local linealpha=255
+			if m.text.index then
+				if m.text.index~=i then
+					linealpha=50
+				end
+			end
+			LG.printformat(m.text[i],points[1],points[2],m.w/8,"center",m.c1,m.c2,linealpha)
 		end
-		LG.printformat(m.text[i],points[1],points[2],m.w/8,"center",m.c1,m.c2,linealpha)
+	else
+		LG.printformat(m.text[1],m.x-m.w/8-220,m.y,m.w/8,"center",m.c1,m.c2,255)
 	end
 	if m.description then
 		local colourtext={}

@@ -48,10 +48,14 @@ offgrid.level.city =
 		m.arguments={}
 		m.functions={}
 		
-		offgrid.level.makemoveoption(g,m,g.player.x,g.player.y-1,"North",1)
-		offgrid.level.makemoveoption(g,m,g.player.x+1,g.player.y,"East",2)
-		offgrid.level.makemoveoption(g,m,g.player.x,g.player.y+1,"South",3)
-		offgrid.level.makemoveoption(g,m,g.player.x-1,g.player.y,"West",4)
+		if l.back then
+			offgrid.level.makebackoption(g,m,l.back)
+		else
+			offgrid.level.makemoveoption(g,m,g.player.x,g.player.y-1,"North",1)
+			offgrid.level.makemoveoption(g,m,g.player.x+1,g.player.y,"East",2)
+			offgrid.level.makemoveoption(g,m,g.player.x,g.player.y+1,"South",3)
+			offgrid.level.makemoveoption(g,m,g.player.x-1,g.player.y,"West",4)
+		end
 
 		--module.make(l,EM.menu,EMM.interactive_fiction,320,800,640,320,m.text,EC.white,EC.dark_gray,"left",m.functions,m.arguments)
 		if l.options then
@@ -69,6 +73,9 @@ offgrid.level.city =
 		module.make(l,EM.menu,"interactive_fiction",320,800,640,320,m.text,EC.white,EC.dark_gray,"left",m.functions,m.arguments)
 		if l.options then
 			l.menu.options=l.options
+		end
+		if l.back then
+			l.menu.back=l.back
 		end
 		--debugger.printtable(l.menu.options)
 		--local args={l,EM.menu,EMM.interactive_fiction,320,800,640,320,m.text,EC.white,EC.dark_gray,"left",m.functions,m.arguments}
@@ -126,13 +133,6 @@ offgrid.level.make = function(g,l,index)
 	g.timer=0
 
 	supper.run(offgrid,{"level",l.t,"make"},g,l)
-
---[[
-	if l.description then
-		l.menu.description=l.description
-		module.make(l.menu,EM.transition,easing.linear,"text_trans",0,string.len(l.menu.description),360)
-	end
---]]
 end
 
 offgrid.level.control = function(g,l)
@@ -230,6 +230,12 @@ offgrid.level.makeinspectoption = function(g,m,name,index)
 	m.arguments[index]={g,name}
 	--print("MMMMMMMMM")
 	--debugger.printtable(m)
+end
+
+offgrid.level.makebackoption = function(g,m,name)
+	m.text[1]="Go back to "..g.levels[name].title
+	m.functions[1]=level.make
+	m.arguments[1]={g,name}
 end
 
 offgrid.gameplay =

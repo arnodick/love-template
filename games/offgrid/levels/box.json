@@ -3,5 +3,6 @@
 	"title":"the box",
 	"animspeed":60,
 	"description":"in the box you find a trinket",
-	"item":"trinket"
+	"item":"trinket",
+	"back":1,
 }
