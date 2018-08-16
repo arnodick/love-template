@@ -17,7 +17,10 @@ local function control(g,m,gs)
 				local x,y=g.player.x,g.player.y-1
 				interactive_fiction.getindexfrompoint(m,x,y)
 			elseif oldindex>5 then
-				m.text.index=m.text.index-1
+				local v=m.options[m.text.index-4-1]
+				if not v.unlock or (v.unlock and g.player.items[v.unlock]) then
+					m.text.index=m.text.index-1
+				end
 			end
 			--m.text.index=math.clamp(m.text.index-1,1,#m.text,true)
 		end
@@ -28,7 +31,10 @@ local function control(g,m,gs)
 				local x,y=g.player.x,g.player.y+1
 				interactive_fiction.getindexfrompoint(m,x,y)
 			elseif oldindex>=5 and oldindex<4+#m.options then
-				m.text.index=m.text.index+1
+				local v=m.options[m.text.index-4+1]
+				if not v.unlock or (v.unlock and g.player.items[v.unlock]) then
+					m.text.index=m.text.index+1
+				end
 			end
 		end
 	end
@@ -51,7 +57,12 @@ local function control(g,m,gs)
 			end
 			if oldindex==m.text.index then
 				if m.options then
-					m.text.index=5
+					for i,v in ipairs(m.options) do
+						if not v.unlock or (v.unlock and g.player.items[v.unlock]) then
+							m.text.index=4+i
+							print("INDEX "..4+i)
+						end
+					end
 				end
 			end
 		end

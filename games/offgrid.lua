@@ -73,6 +73,7 @@ offgrid.level.city =
 		module.make(l,EM.menu,"interactive_fiction",320,800,640,320,m.text,EC.white,EC.dark_gray,"left",m.functions,m.arguments)
 		if l.options then
 			l.menu.options=l.options
+			debugger.printtable(l.menu.options)
 		end
 		if l.back then
 			l.menu.back=l.back
