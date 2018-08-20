@@ -177,6 +177,12 @@ local function draw(m)
 									colour={0,0,255}
 								end
 							end
+						elseif v.locked_colour then
+							if i>=v.first and i<=v.last then
+								if v.locked_colour=="black" then
+									colour={0,0,0}
+								end
+							end
 						end
 					end
 					table.insert(colourtext,colour)

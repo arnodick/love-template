@@ -1,0 +1,11 @@
+{
+	"t":"city",
+	"title":"Outside the Office",
+	"description":"It's 2AM. You find yourself standing in the parking lot of an office building. The lights are bright and cold. You see something shiny under Stanford's car...",
+	"transition_in":"screen_transition_blocksreverse",
+	"transition_out":"screen_transition_blocks",
+	"options":
+	[
+		{"first":111, "last":158, "locked_colour":"black", "name":"party", "unlock":"stanfords_key_knowledge"},
+	],
+}

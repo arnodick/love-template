@@ -248,8 +248,8 @@ offgrid.gameplay =
 		--g.map=map.generate("increment",10,10)
 		map.generate(g.map,"increment")
 		g.player={}
-		g.player.x=1
-		g.player.y=1
+		g.player.x=5
+		g.player.y=5
 		g.player.items={}
 		local levelindex=g.map[g.player.y][g.player.x]
 		level.make(g,levelindex)
