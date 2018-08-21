@@ -100,16 +100,14 @@ local function keyreleased(m,key)
 			print("INDEX: "..i)
 			if m.menu_functions[i] then
 				local g=Game
-				if g.level.transition_out then
-					--module.make(g.level,EM.transition,easing.linear,"transition_timer",0,1,240,m.menu_functions[i],m.menu_function_args[i],EM.transitions.screen_transition_blocks)
-					module.make(g.level,EM.transition,easing.linear,"transition_timer",0,1,240,m.menu_functions[i],m.menu_function_args[i],EM.transitions[g.level.transition_out])
-				else
-					m.menu_functions[i](unpack(m.menu_function_args[i]))
+				local l=g.levels[g.map[m.menu_function_args[i][3]][m.menu_function_args[i][2]]]
+				if not l.unlock or (l.unlock and g.player.items[l.unlock]) then
+					if g.level.transition_out then
+						module.make(g.level,EM.transition,easing.linear,"transition_timer",0,1,240,m.menu_functions[i],m.menu_function_args[i],EM.transitions[g.level.transition_out])
+					else
+						m.menu_functions[i](unpack(m.menu_function_args[i]))
+					end
 				end
-				--module.make(g.level,EM.transition,easing.linear,"transition_timer",0,1,40,m.menu_functions[i],m.menu_function_args[i],EM.transitions.screen_transition_blocks)
-				--module.make(g.level,EM.transition,easing.linear,"transition_timer",0,1,40,m.menu_functions[i],m.menu_function_args[i],EM.transitions.screen_transition_crush)
-				--module.make(g.level,EM.transition,easing.linear,"transition_timer",1,6400,64,m.menu_functions[i],m.menu_function_args[i],EM.transitions.screen_transition_text)
-				--module.make(g.level,EM.transition,easing.linear,"transition_timer",1,6400,64,m.menu_functions[i],m.menu_function_args[i],EM.transitions.screen_transition_text_dissolve)
 			end
 		end
 	else
@@ -137,13 +135,19 @@ local function draw(m)
 			local arrowx,arrowy=m.x-180,m.y
 			local arrowlength=30
 
+			local mapx=g.player.x
+			local mapy=g.player.y
 			if m.menu_function_args[i][2]<g.player.x then
+				mapx=mapx-1
 				points={m.x-m.w/8-xoff,m.y}
 			elseif m.menu_function_args[i][2]>g.player.x then
+				mapx=mapx+1
 				points={m.x+m.w/8-xoff,m.y}
 			elseif m.menu_function_args[i][3]<g.player.y then
+				mapy=mapy-1
 				points={m.x-xoff,m.y-m.h/4}
 			elseif m.menu_function_args[i][3]>g.player.y then
+				mapy=mapy+1
 				points={m.x-xoff,m.y+m.h/8}
 			end
 
@@ -156,7 +160,12 @@ local function draw(m)
 					linealpha=50
 				end
 			end
-			LG.printformat(m.text[i],points[1],points[2],m.w/8,"center",m.c1,m.c2,linealpha)
+			local c1,c2=m.c1,m.c2
+			local l=g.levels[g.map[mapy][mapx]]
+			if l.unlock and not g.player.items[l.unlock] then
+				c1=EC.black
+			end
+			LG.printformat(m.text[i],points[1],points[2],m.w/8,"center",c1,c2,linealpha)
 		end
 	else
 		LG.printformat(m.text[1],m.x-m.w/8-220,m.y,m.w/8,"center",m.c1,m.c2,255)

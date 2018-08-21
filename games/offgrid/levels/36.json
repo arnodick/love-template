@@ -1,0 +1,8 @@
+{
+	"t":"city",
+	"title":"What's in there?...",
+	"description":"NOTHING",
+	"transition_in":"screen_transition_blocksreverse",
+	"transition_out":"screen_transition_blocks",
+	"unlock":"time"
+}
