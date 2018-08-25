@@ -1,8 +1,11 @@
 {
 	"t":"city",
 	"title":"The Office",
-	"description":"You step through the glass doors into the flat hum of flourescent lights. 'You're still here at this hour, Stanford?' you ask. 'I lost my keys somehow' he says. 'I always have them on my belt...'",
+	"description":"You step through the glass doors into the flat hum of flourescent lights. 'You're still here at this hour, Cherine?' you ask.",
 	"transition_in":"screen_transition_blocksreverse",
 	"transition_out":"screen_transition_blocks",
-	"item":"stanfords_key_knowledge",
+	"options":
+	[
+		{"first":107, "last":114, "name":"cherine",},
+	],
 }

@@ -80,14 +80,14 @@ local function drawbox(x,y,w,a)
 end
 
 local function printformat(text,x,y,limit,align,c1,c2,alpha)
-	limit=limit or Game.width - x
+	limit=limit or Game.width-x
 	align=align or "left"
 	alpha=alpha or 255
-	for xoff=0,1 do
+	for xoff=-1,1 do
 		for yoff=1,1 do
 			local r,g,b=unpack(Game.palette[c2])
 			LG.setColor(r,g,b,alpha)
-			LG.printf(text,x+xoff,y+yoff,limit,align)
+			LG.printf(text,x+xoff*2,y+yoff*2,limit,align)
 
 			r,g,b=unpack(Game.palette[c1])
 			LG.setColor(r,g,b,alpha)

@@ -102,7 +102,11 @@ local function keyreleased(m,key)
 				local g=Game
 				local l={}
 				if i<5 then
-					l=g.levels[g.map[m.menu_function_args[i][3]][m.menu_function_args[i][2]]]
+					if not m.back then
+						l=g.levels[g.map[m.menu_function_args[i][3]][m.menu_function_args[i][2]]]
+					else
+						l=g.levels[m.back]
+					end
 				else
 					l=g.levels[m.menu_function_args[i][2]]
 				end
