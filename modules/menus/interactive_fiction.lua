@@ -100,7 +100,12 @@ local function keyreleased(m,key)
 			print("INDEX: "..i)
 			if m.menu_functions[i] then
 				local g=Game
-				local l=g.levels[g.map[m.menu_function_args[i][3]][m.menu_function_args[i][2]]]
+				local l={}
+				if i<5 then
+					l=g.levels[g.map[m.menu_function_args[i][3]][m.menu_function_args[i][2]]]
+				else
+					l=g.levels[m.menu_function_args[i][2]]
+				end
 				if not l.unlock or (l.unlock and g.player.items[l.unlock]) then
 					if g.level.transition_out then
 						module.make(g.level,EM.transition,easing.linear,"transition_timer",0,1,240,m.menu_functions[i],m.menu_function_args[i],EM.transitions[g.level.transition_out])
@@ -128,25 +133,34 @@ end
 
 local function draw(m)
 	local g=Game
+	local xoff=320
+	--local printwidth=8
+	local printwidth=80
 	if not m.back then
 		for i=1,#m.text do
 			local points={}
-			local xoff=220
+			
 			local arrowx,arrowy=m.x-180,m.y
 			local arrowlength=30
 
 			local mapx=g.player.x
 			local mapy=g.player.y
 			if m.menu_function_args[i][2]<g.player.x then
+				xoff=220
 				mapx=mapx-1
-				points={m.x-m.w/8-xoff,m.y}
+				points={m.x-m.w/8-xoff,m.y-80}
 			elseif m.menu_function_args[i][2]>g.player.x then
+				xoff=220
 				mapx=mapx+1
-				points={m.x+m.w/8-xoff,m.y}
+				points={m.x+m.w/8-xoff,m.y-80}
 			elseif m.menu_function_args[i][3]<g.player.y then
+				--printwidth=2
+				printwidth=300
 				mapy=mapy-1
 				points={m.x-xoff,m.y-m.h/4}
 			elseif m.menu_function_args[i][3]>g.player.y then
+				--printwidth=2
+				printwidth=300
 				mapy=mapy+1
 				points={m.x-xoff,m.y+m.h/8}
 			end
@@ -165,10 +179,11 @@ local function draw(m)
 			if l.unlock and not g.player.items[l.unlock] then
 				c1=EC.black
 			end
-			LG.printformat(m.text[i],points[1],points[2],m.w/8,"center",c1,c2,linealpha)
+			--LG.printformat(m.text[i],points[1],points[2],m.w/printwidth,"center",c1,c2,linealpha)
+			LG.printformat(m.text[i],points[1],points[2],printwidth,"center",c1,c2,linealpha)
 		end
 	else
-		LG.printformat(m.text[1],m.x-m.w/8-220,m.y,m.w/8,"center",m.c1,m.c2,255)
+		LG.printformat(m.text[1],m.x-m.w/8-220,m.y,printwidth,"center",m.c1,m.c2,255)
 	end
 	if m.description then
 		local colourtext={}

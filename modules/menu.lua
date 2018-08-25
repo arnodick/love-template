@@ -15,7 +15,8 @@ menu.make = function(a,m,t,x,y,w,h,text,c1,c2,align,...)
 	m.c1=c1
 	m.c2=c2
 	m.align=align or "left"
-	m.font=LG.newFont("fonts/Kongtext Regular.ttf",8)--TODO make fonts an array in game, then menu can select from them
+	--m.font=LG.newFont("fonts/Kongtext Regular.ttf",8)--TODO make fonts an array in game, then menu can select from them
+	m.font=LG.newFont("fonts/Kongtext Regular.ttf",16)--TODO make fonts an array in game, then menu can select from them
 
 	local menuname=EMM[m.t]
 	run(menuname,"make",m,...)
