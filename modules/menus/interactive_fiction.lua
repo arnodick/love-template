@@ -137,11 +137,11 @@ end
 
 local function draw(m)
 	local g=Game
-	local xoff=320
 	--local printwidth=8
 	local printwidth=80
 	if not m.back then
 		for i=1,#m.text do
+			local xoff=320
 			local points={}
 			
 			local arrowx,arrowy=m.x-180,m.y
@@ -149,20 +149,20 @@ local function draw(m)
 
 			local mapx=g.player.x
 			local mapy=g.player.y
-			if m.menu_function_args[i][2]<g.player.x then
+			if m.menu_function_args[i][2]<mapx then
 				xoff=220
 				mapx=mapx-1
 				points={m.x-m.w/8-xoff,m.y-80}
-			elseif m.menu_function_args[i][2]>g.player.x then
+			elseif m.menu_function_args[i][2]>mapx then
 				xoff=220
 				mapx=mapx+1
 				points={m.x+m.w/8-xoff,m.y-80}
-			elseif m.menu_function_args[i][3]<g.player.y then
+			elseif m.menu_function_args[i][3]<mapy then
 				--printwidth=2
 				printwidth=300
 				mapy=mapy-1
 				points={m.x-xoff,m.y-m.h/4}
-			elseif m.menu_function_args[i][3]>g.player.y then
+			elseif m.menu_function_args[i][3]>mapy then
 				--printwidth=2
 				printwidth=300
 				mapy=mapy+1
