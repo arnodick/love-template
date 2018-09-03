@@ -1,0 +1,11 @@
+{
+	"t":"city",
+	"title":"The Highway",
+	"description":"You walk along the highway in a direction you've never gone before. Cement barriers funneling you down cement sidewalks, yellow street lamps buzzing. There's a wrecked car here!",
+	"transition_in":"screen_transition_blocksreverse",
+	"transition_out":"screen_transition_blocks",
+	"options":
+	[
+		{"first":150, "last":177, "locked_colour":"black", "name":"car_crash", "unlock":"car_crash"},
+	],
+}

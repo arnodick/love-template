@@ -1,4 +1,5 @@
 YES
+make music take string index as well
 make move towards a function for actors
 maybe make modes just a file
 put drawmodes in map array

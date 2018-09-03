@@ -102,6 +102,9 @@ offgrid.level.city =
 				debugger.printtable(g.player.items)
 			end
 		end
+		if l.music then
+			music.play(l.music)
+		end
 	end,
 
 	control = function(g,l)
@@ -135,7 +138,6 @@ offgrid.level.offgrid =
 
 offgrid.level.make = function(g,l,index)
 	g.timer=0
-
 	supper.run(offgrid,{"level",l.t,"make"},g,l)
 end
 
@@ -212,10 +214,21 @@ offgrid.level.makemoveoption = function(g,m,x,y,dir,index)
 			local value=g.map[y][x]
 			if g.levels[value] then
 				local destination=g.levels[value].title
-				--this code sets what the menu option says, what it does, and the parameters for what it does
-				table.insert(m.text,"Go "..dir.." to "..destination)
-				table.insert(m.functions,offgrid.move)
-				table.insert(m.arguments,{g,x,y})
+				local make=true
+				if g.levels[value].restricted_entry_directions then
+					for i,v in ipairs(g.levels[value].restricted_entry_directions) do
+						if dir==v then
+							print("RESTRICTED")
+							make=false
+						end
+					end
+				end
+				if make==true then
+					--this code sets what the menu option says, what it does, and the parameters for what it does
+					table.insert(m.text,"Go "..dir.." to "..destination)
+					table.insert(m.functions,offgrid.move)
+					table.insert(m.arguments,{g,x,y})
+				end
 --[[
 				m.text[index]="Go "..dir.." to "..destination
 				m.functions[index]=offgrid.move
@@ -336,6 +349,9 @@ offgrid.convertimages = function(g,gameimages,images,buffer)
 end
 
 offgrid.move = function(g,x,y)
+	if g.level.music then
+		music.stop(g.level.music)
+	end
 	g.player.x,g.player.y=x,y
 	local levelindex=g.map[y][x]
 	print(levelindex)

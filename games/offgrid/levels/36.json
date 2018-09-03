@@ -4,5 +4,9 @@
 	"description":"NOTHING",
 	"transition_in":"screen_transition_blocksreverse",
 	"transition_out":"screen_transition_blocks",
-	"unlock":"time"
+	"unlock":"time",
+	"restricted_entry_directions":
+	[
+		"North"
+	],
 }
