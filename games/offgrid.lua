@@ -90,7 +90,10 @@ offgrid.level.city =
 			module.make(l,EM.synth,"sinus",440,60,{"A","B","C","D","E","F","F","G",})
 		end
 
-		if l.description then
+		if l.unlock_description and g.player.items[l.unlock_description_item] then
+			l.menu.description=l.unlock_description
+			module.make(l.menu,EM.transition,easing.linear,"text_trans",0,string.len(l.menu.description),360)
+		elseif l.description then
 			l.menu.description=l.description
 			module.make(l.menu,EM.transition,easing.linear,"text_trans",0,string.len(l.menu.description),360)
 		end
