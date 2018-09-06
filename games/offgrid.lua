@@ -115,6 +115,9 @@ offgrid.level.city =
 
 	draw = function(g,l)
 		local images=g.images[g.levels.index]
+		if l.unlock_description_image and g.player.items[l.unlock_description_item] then
+			images=g.images[l.unlock_description_image]
+		end
 		local animspeed=30
 		if g.level.animspeed then
 			animspeed=g.level.animspeed

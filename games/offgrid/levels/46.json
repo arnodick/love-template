@@ -3,7 +3,8 @@
 	"title":"The Highway",
 	"description":"You walk along the highway in a direction you've never gone before. Cement barriers funneling you down cement sidewalks, yellow street lamps buzzing.",
 	"unlock_description_item":"car_crash",
-	"unlock_description":"What is that!? Is that an overturned car in the road? The back wheels are spinning freely and the tail lights are blinking. You cna't see any movement inside...",
+	"unlock_description":"What is that!? Is that an overturned car in the road? The back wheels are spinning freely and the tail lights are blinking. You can't see any movement inside...",
+	"unlock_description_image":"crash",
 	"transition_in":"screen_transition_blocksreverse",
 	"transition_out":"screen_transition_blocks",
 }
