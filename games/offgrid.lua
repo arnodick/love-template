@@ -129,13 +129,15 @@ offgrid.level.city =
 offgrid.level.word =
 {
 	make = function(g,l)
+		sfx.play(18)
 		local m={}
 		m.text={}
 		m.arguments={}
 		m.functions={}
 		offgrid.level.makebackoption(g,m,l.back)
 
-		module.make(l,EM.menu,"interactive_fiction",320,450,640,320,m.text,EC.white,EC.dark_gray,"center",m.functions,m.arguments)
+		module.make(l,EM.menu,"interactive_fiction",320,600,640,320,m.text,EC.white,EC.dark_gray,"center",m.functions,m.arguments)
+		l.menu.wordlearned=true
 		l.menu.back=l.back
 		l.menu.description=l.description
 		module.make(l.menu,EM.transition,easing.linear,"text_trans",0,string.len(l.menu.description),360)

@@ -189,7 +189,11 @@ local function draw(m)
 			LG.printformat(m.text[i],points[1],points[2],printwidth,"center",c1,c2,linealpha)
 		end
 	else
-		LG.printformat(m.text[1],m.x-m.w/8-220,m.y,printwidth,"center",m.c1,m.c2,255)
+		if not m.wordlearned then
+			LG.printformat(m.text[1],m.x-m.w/8-220,m.y,printwidth,"center",m.c1,m.c2,255)
+		elseif not m.transition then
+			LG.printformat(m.text[1],m.x-m.w/8-220,m.y,printwidth,"center",m.c1,m.c2,255)
+		end
 	end
 	if m.description then
 		local colourtext={}
@@ -225,7 +229,11 @@ local function draw(m)
 			table.insert(colourtext,string.sub(m.description,i,i))
 		end
 		--LG.printformat(colourtext,300,700,g.width/2,"left",EC.white,EC.blue,255)
-		LG.printf(colourtext,300,700,g.width/2,"left")	
+		if not m.wordlearned then
+			LG.printf(colourtext,300,700,g.width/2,"left")
+		else
+			LG.printf(colourtext,0,450,g.width,"center")
+		end
 	end
 end
 
