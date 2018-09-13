@@ -101,22 +101,26 @@ local function keyreleased(m,key)
 			local i=m.text.index
 			print("INDEX: "..i)
 			if m.menu_functions[i] then
-				local g=Game
-				local l={}
-				if i<5 then
-					if not m.back then
-						l=g.levels[g.map[m.menu_function_args[i][3]][m.menu_function_args[i][2]]]
-					else
-						l=g.levels[m.back]
-					end
+				if m.menu_functions[i]==game.make then
+					m.menu_functions[i](unpack(m.menu_function_args[i]))
 				else
-					l=g.levels[m.menu_function_args[i][2]]
-				end
-				if not l.unlock or (l.unlock and g.player.items[l.unlock]) then
-					if g.level.transition_out then
-						module.make(g.level,EM.transition,easing.linear,"transition_timer",0,1,240,m.menu_functions[i],m.menu_function_args[i],EM.transitions[g.level.transition_out])
+					local g=Game
+					local l={}
+					if i<5 then
+						if not m.back then
+							l=g.levels[g.map[m.menu_function_args[i][3]][m.menu_function_args[i][2]]]
+						else
+							l=g.levels[m.back]
+						end
 					else
-						m.menu_functions[i](unpack(m.menu_function_args[i]))
+						l=g.levels[m.menu_function_args[i][2]]
+					end
+					if not l.unlock or (l.unlock and g.player.items[l.unlock]) then
+						if g.level.transition_out then
+							module.make(g.level,EM.transition,easing.linear,"transition_timer",0,1,240,m.menu_functions[i],m.menu_function_args[i],EM.transitions[g.level.transition_out])
+						else
+							m.menu_functions[i](unpack(m.menu_function_args[i]))
+						end
 					end
 				end
 			end

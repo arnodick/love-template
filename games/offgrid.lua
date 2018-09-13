@@ -65,7 +65,7 @@ offgrid.level.city =
 						offgrid.level.makeinspectoption(g,m,l.options[i].name,4+i)
 					end
 				else
-					offgrid.level.makeinspectoption(g,m,l.options[i].name,4+i)
+					offgrid.level.makeinspectoption(g,m,l.options[i].name,4+i,l.options[i].game_name)
 				end
 			end
 		end
@@ -159,6 +159,7 @@ offgrid.level.offgrid =
 {
 	make = function(g,l)
 		--TODO here will maybe be the options that you can go to from here? offgrid areas (usually won't have option to go back, choices of where you can go aren't based on the grid, but are instead linked lists sort of. will need a menu where you can use items, talk to people, etc. more like a story than an exploration)
+		module.make(l,EM.menu,EMM.interactive,g.width/2,120,160,50,g.player.words,EC.orange,EC.dark_green,"center")
 	end,
 
 	control = function(g,l)
@@ -273,12 +274,18 @@ offgrid.level.makemoveoption = function(g,m,x,y,dir,index)
 	end
 end
 
-offgrid.level.makeinspectoption = function(g,m,name,index)
+offgrid.level.makeinspectoption = function(g,m,name,index,gamename)
 --makes an option in the right menu area open an inspect level by its name
 	--m.functions[index]=offgrid.inspect
-	m.functions[index]=level.make
-	print("INSPECT OPTION NAME "..name)
-	m.arguments[index]={g,name}
+	if gamename then
+		m.functions[index]=game.make
+		print("GAME MAKE NAME "..gamename)
+		m.arguments[index]={Enums.games[gamename]}
+	else
+		m.functions[index]=level.make
+		print("INSPECT OPTION NAME "..name)
+		m.arguments[index]={g,name}
+	end
 	--print("MMMMMMMMM")
 	--debugger.printtable(m)
 end
