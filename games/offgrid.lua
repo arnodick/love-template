@@ -85,7 +85,16 @@ offgrid.level.city =
 		--module.make(l,EM.transition,easing.linear,"transition_timer",0,1,240,module.make,args,EM.transitions.screen_transition_blocksreverse)
 		if l.transition_in then
 			--module.make(l,EM.transition,easing.linear,"transition_timer",0,1,240,nil,nil,EM.transitions.screen_transition_blocksreverse)
-			module.make(l,EM.transition,easing.linear,"transition_timer",0,1,240,nil,nil,EM.transitions[l.transition_in])
+			if l.music then
+				module.make(l,EM.transition,easing.linear,"transition_timer",0,1,240,music.play,{l.music},EM.transitions[l.transition_in])
+			elseif l.unlock_description and g.player.items[l.unlock_description_item] then
+				if l.unlock_sound then
+					--sfx.play(l.unlock_sound)
+					module.make(l,EM.transition,easing.linear,"transition_timer",0,1,240,sfx.play,{l.unlock_sound},EM.transitions[l.transition_in])
+				end
+			else
+				module.make(l,EM.transition,easing.linear,"transition_timer",0,1,240,nil,nil,EM.transitions[l.transition_in])
+			end
 			module.make(l,EM.synth,"sinus",440,60,{"A","B","C","D","E","F","F","G",})
 		end
 
@@ -103,9 +112,6 @@ offgrid.level.city =
 				g.player.items[l.item]=l.item
 				debugger.printtable(g.player.items)
 			end
-		end
-		if l.music then
-			music.play(l.music)
 		end
 	end,
 
