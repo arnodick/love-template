@@ -1,10 +1,14 @@
 {
 	"t":"city",
 	"title":"What's in there?...",
-	"description":"NOTHING",
+	"description":"Oh, the key worked! As you investigate the room you realize you've never been in here before. There's a book about snakes on the floor...",
 	"transition_in":"screen_transition_blocksreverse",
 	"transition_out":"screen_transition_blocks",
-	"unlock":"time",
+	"unlock":"whats_in_there_key",
+	"options":
+	[
+		{"first":116, "last":122, "name":"snakes"},
+	],
 	"restricted_entry_directions":
 	[
 		"North"

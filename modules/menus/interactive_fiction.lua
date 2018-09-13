@@ -104,6 +104,7 @@ local function keyreleased(m,key)
 				if m.menu_functions[i]==game.make then
 					m.menu_functions[i](unpack(m.menu_function_args[i]))
 				else
+					print("MENU INDEX: "..i)
 					local g=Game
 					local l={}
 					if i<5 then
@@ -193,10 +194,15 @@ local function draw(m)
 			LG.printformat(m.text[i],points[1],points[2],printwidth,"center",c1,c2,linealpha)
 		end
 	else
+		local printwidth=120
 		if not m.wordlearned then
-			LG.printformat(m.text[1],m.x-m.w/8-220,m.y,printwidth,"center",m.c1,m.c2,255)
+			if m.text.index==1 then
+				LG.printformat(m.text[1],m.x-m.w/8-140,m.y-40,printwidth,"center",m.c1,m.c2,255)
+			else
+				LG.printformat(m.text[1],m.x-m.w/8-140,m.y-40,printwidth,"center",m.c1,m.c2,50)
+			end
 		elseif not m.transition then
-			LG.printformat(m.text[1],m.x-m.w/8-220,m.y,printwidth,"center",m.c1,m.c2,255)
+			LG.printformat(m.text[1],0,m.y,g.width,"center",m.c1,m.c2,255)
 		end
 	end
 	if m.description then

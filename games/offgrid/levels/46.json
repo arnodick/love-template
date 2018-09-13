@@ -8,4 +8,8 @@
 	"unlock_sound":19,
 	"transition_in":"screen_transition_blocksreverse",
 	"transition_out":"screen_transition_blocks",
+	"restricted_entry_directions":
+	[
+		"South"
+	],
 }

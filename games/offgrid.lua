@@ -59,13 +59,15 @@ offgrid.level.city =
 
 		--module.make(l,EM.menu,EMM.interactive_fiction,320,800,640,320,m.text,EC.white,EC.dark_gray,"left",m.functions,m.arguments)
 		if l.options then
-			for i,v in ipairs(l.options) do
-				if v.unlock then
-					if g.player.items[v.unlock] then
-						offgrid.level.makeinspectoption(g,m,l.options[i].name,4+i)
+			if not (l.unlock_description and g.player.items[l.unlock_description_item]) then
+				for i,v in ipairs(l.options) do
+					if v.unlock then
+						if g.player.items[v.unlock] then
+							offgrid.level.makeinspectoption(g,m,l.options[i].name,4+i)
+						end
+					else
+						offgrid.level.makeinspectoption(g,m,l.options[i].name,4+i,l.options[i].game_name)
 					end
-				else
-					offgrid.level.makeinspectoption(g,m,l.options[i].name,4+i,l.options[i].game_name)
 				end
 			end
 		end
@@ -74,8 +76,10 @@ offgrid.level.city =
 			l.menu.text.index=l.selected_index
 		end
 		if l.options then
-			l.menu.options=l.options
-			debugger.printtable(l.menu.options)
+			if not (l.unlock_description and g.player.items[l.unlock_description_item]) then
+				l.menu.options=l.options
+				debugger.printtable(l.menu.options)
+			end
 		end
 		if l.back then
 			l.menu.back=l.back
@@ -101,6 +105,14 @@ offgrid.level.city =
 		if l.unlock_description and g.player.items[l.unlock_description_item] then
 			l.menu.description=l.unlock_description
 			module.make(l.menu,EM.transition,easing.linear,"text_trans",0,string.len(l.menu.description),360)
+			if l.unlock_item_get then
+				if not g.player.items[l.unlock_item_get] then
+					print(l.unlock_item_get)
+					debugger.printtable(g.player.items)
+					g.player.items[l.unlock_item_get]=l.unlock_item_get
+					debugger.printtable(g.player.items)
+				end
+			end
 		elseif l.description then
 			l.menu.description=l.description
 			module.make(l.menu,EM.transition,easing.linear,"text_trans",0,string.len(l.menu.description),360)
@@ -135,7 +147,7 @@ offgrid.level.city =
 offgrid.level.word =
 {
 	make = function(g,l)
-		sfx.play(18)
+		sfx.play(20)
 		local m={}
 		m.text={}
 		m.arguments={}
