@@ -91,6 +91,9 @@ offgrid.level.city =
 			--module.make(l,EM.transition,easing.linear,"transition_timer",0,1,240,nil,nil,EM.transitions.screen_transition_blocksreverse)
 			if l.music then
 				module.make(l,EM.transition,easing.linear,"transition_timer",0,1,240,music.play,{l.music},EM.transitions[l.transition_in])
+			elseif l.sound then
+				print("SOUND MAD")
+				module.make(l,EM.transition,easing.linear,"transition_timer",0,1,240,sfx.play,{l.sound},EM.transitions[l.transition_in])
 			elseif l.unlock_description and g.player.items[l.unlock_description_item] then
 				if l.unlock_sound then
 					--sfx.play(l.unlock_sound)
@@ -100,6 +103,18 @@ offgrid.level.city =
 				module.make(l,EM.transition,easing.linear,"transition_timer",0,1,240,nil,nil,EM.transitions[l.transition_in])
 			end
 			module.make(l,EM.synth,"sinus",440,60,{"A","B","C","D","E","F","F","G",})
+		else
+			if l.music then
+				music.play(l.music)
+			elseif l.sound then
+				print("SOUND MADEEEE")
+				sfx.play(l.sound)
+			elseif l.unlock_description and g.player.items[l.unlock_description_item] then
+				if l.unlock_sound then
+					--sfx.play(l.unlock_sound)
+					sfx.play(l.unlock_sound)
+				end
+			end
 		end
 
 		if l.unlock_description and g.player.items[l.unlock_description_item] then
@@ -354,6 +369,10 @@ offgrid.gameplay =
 
 offgrid.title =
 {
+	make = function(g)
+		g.introstart=true
+	end,
+
 	keypressed = function(g,key)
 		if key=="space" or key=="return" or key=="z" then
 			game.state.make(g,"gameplay")
@@ -371,12 +390,25 @@ offgrid.title =
 	end,
 
 	draw = function(g)
-		LG.print("offgrid title", g.width/2, g.height/2)
+		if g.introstart==true then
+			LG.setFont(g.font)
+		end
+		LG.print("ARROWS keys and Z", g.width/2, g.height/2)
 	end
 }
 
 offgrid.intro =
 {
+	make = function(g)
+		g.introstart=true
+	end,
+
+	control = function(g)
+		if g.transition then
+			transition.control(g,g.transition)
+		end
+	end,
+
 	keypressed = function(g,key)
 		if key=="space" or key=="return" or key=="z" then
 			game.state.make(g,"title")
@@ -390,7 +422,23 @@ offgrid.intro =
 	end,
 
 	draw = function(g)
-		LG.print("offgrid intro", g.width/2, g.height/2)
+		if g.introstart==true then
+			g.introstart=false
+			module.make(g,EM.transition,easing.linear,"letter_timer",0,1,100)
+			local f=LG.newFont("fonts/Kongtext Regular.ttf",100)
+			f:setFilter("nearest","nearest",0) --clean TEXT scaling
+			LG.setFont(f)
+		end
+		--LG.print("offgrid intro", g.width/2, g.height/2)
+		LG.print("O",g.width-(g.letter_timer*(g.width-20)),g.height/2)
+		LG.print("N",120,g.height/2*g.letter_timer)
+		LG.print("T",320,g.height-(g.letter_timer*g.height/2))
+		LG.print("H",g.width-(g.letter_timer*(g.width-420)),g.height/2*g.letter_timer)
+		LG.print("E",520*g.letter_timer,g.height/2*g.letter_timer)
+		LG.print("G",120*g.letter_timer,g.height/2*g.letter_timer+100)
+		LG.print("R",220,g.height-(g.letter_timer*g.height/2)+100)
+		LG.print("I",g.width-(g.letter_timer*(g.width-320)),g.height/2*g.letter_timer+100)
+		LG.print("D",g.width-(g.letter_timer*(g.width-420)),g.height/2+100)
 	end
 }
 

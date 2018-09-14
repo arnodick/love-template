@@ -4,6 +4,7 @@
 	"animspeed":30,
 	"description":"There's something shiny down there!",
 	"back":45,
+	"sound":6,
 	"options":
 	[
 		{"first":19, "last":24, "name":"no_key"},
