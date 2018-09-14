@@ -116,7 +116,7 @@ game.make = function(t,gw,gh)
 	end
 --]]
 	--return g
-	Game = g
+	Game=g
 end
 
 game.control = function(g)
@@ -388,7 +388,8 @@ game.graphics = function(g)
 	love.mouse.setVisible(true)
 
 	--g.font = LG.newFont("fonts/pico8.ttf",8)
-	g.font=LG.newFont("fonts/Kongtext Regular.ttf",8)
+	--g.font=LG.newFont("fonts/Kongtext Regular.ttf",8)
+	g.font=LG.newFont("fonts/Kongtext Regular.ttf",20)
 	g.font:setFilter("nearest","nearest",0) --clean TEXT scaling
 	g.font:setLineHeight(1.8)
 	LG.setFont(g.font)

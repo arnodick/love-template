@@ -374,7 +374,7 @@ offgrid.title =
 	end,
 
 	keypressed = function(g,key)
-		if key=="space" or key=="return" or key=="z" then
+		if key=="z" then
 			game.state.make(g,"gameplay")
 		elseif key=='escape' then
 			game.state.make(g,"intro")
@@ -393,7 +393,8 @@ offgrid.title =
 		if g.introstart==true then
 			LG.setFont(g.font)
 		end
-		LG.print("ARROWS keys and Z", g.width/2, g.height/2)
+		--LG.print("ARROWS keys and Z",g.width/2,g.height/2)
+		LG.printformat("ARROWS keys and Z",0,800,640,"center",EC.white,EC.dark_gray,100+math.sin(g.timer/10)*100)
 	end
 }
 
@@ -401,6 +402,7 @@ offgrid.intro =
 {
 	make = function(g)
 		g.introstart=true
+		g.drawoffgrid=false
 	end,
 
 	control = function(g)
@@ -410,7 +412,7 @@ offgrid.intro =
 	end,
 
 	keypressed = function(g,key)
-		if key=="space" or key=="return" or key=="z" then
+		if key=="z" then
 			game.state.make(g,"title")
 		end
 	end,
@@ -422,23 +424,54 @@ offgrid.intro =
 	end,
 
 	draw = function(g)
+		local shakey = function()
+			g.screen.shake=40
+			g.drawoffgrid=true
+		end
 		if g.introstart==true then
 			g.introstart=false
-			module.make(g,EM.transition,easing.linear,"letter_timer",0,1,100)
-			local f=LG.newFont("fonts/Kongtext Regular.ttf",100)
-			f:setFilter("nearest","nearest",0) --clean TEXT scaling
-			LG.setFont(f)
+			sfx.play(22)
+			module.make(g,EM.transition,easing.linear,"letter_timer",0,1,100,shakey,{})
 		end
+		local f=LG.newFont("fonts/Kongtext Regular.ttf",90)
+		f:setFilter("nearest","nearest",0) --clean TEXT scaling
+		LG.setFont(f)
+
+		local yoff=-200
 		--LG.print("offgrid intro", g.width/2, g.height/2)
-		LG.print("O",g.width-(g.letter_timer*(g.width-20)),g.height/2)
-		LG.print("N",120,g.height/2*g.letter_timer)
-		LG.print("T",320,g.height-(g.letter_timer*g.height/2))
-		LG.print("H",g.width-(g.letter_timer*(g.width-420)),g.height/2*g.letter_timer)
-		LG.print("E",520*g.letter_timer,g.height/2*g.letter_timer)
-		LG.print("G",120*g.letter_timer,g.height/2*g.letter_timer+100)
-		LG.print("R",220,g.height-(g.letter_timer*g.height/2)+100)
-		LG.print("I",g.width-(g.letter_timer*(g.width-320)),g.height/2*g.letter_timer+100)
-		LG.print("D",g.width-(g.letter_timer*(g.width-420)),g.height/2+100)
+		LG.print("O",g.width-(g.letter_timer*(g.width-20)),g.height/2+yoff)
+		LG.print("N",120,g.height/2*g.letter_timer+yoff)
+		LG.print("T",320,g.height-(g.letter_timer*g.height/2)+yoff)
+		LG.print("H",g.width-(g.letter_timer*(g.width-420)),g.height/2*g.letter_timer+yoff)
+		LG.print("E",520*g.letter_timer,g.height/2*g.letter_timer+yoff)
+		LG.print("G",120*g.letter_timer,g.height/2*g.letter_timer+100+yoff)
+		LG.print("R",220,g.height-(g.letter_timer*g.height/2)+100+yoff)
+		LG.print("I",g.width-(g.letter_timer*(g.width-320)),g.height/2*g.letter_timer+100+yoff)
+		LG.print("D",g.width-(g.letter_timer*(g.width-420)),g.height/2+100+yoff)
+
+		if g.drawoffgrid==true then
+			LG.setCanvas(g.canvas.buffer)
+				LG.clear()
+				LG.printformat("OFF THE GRID",0,0,g.width,"center",EC.dark_gray,EC.dark_gray,255)
+			LG.setCanvas(g.canvas.main)
+
+			local imgdata=g.canvas.buffer:newImageData(0,0,640,320)
+			local iw,ih=imgdata:getWidth(),imgdata:getHeight()
+			--imgdata:mapPixel(pixelmaps.crush)
+	
+			for x=iw-1,0,-1 do
+			    for y=ih-1,0,-1 do
+					local xoff=math.clamp(math.floor(x+math.sin(g.timer+y*10)*10),0,iw-1)
+					local r,gr,b,a = imgdata:getPixel(x,y)
+					imgdata:setPixel(xoff,y,r,gr,b,a)
+			    end
+			end
+			local image=LG.newImage(imgdata)
+			love.graphics.draw(image,0,550,0,1,1)
+
+			LG.setFont(g.font)
+			LG.printformat("press Z to start",0,800,640,"center",EC.white,EC.dark_gray,100+math.sin(g.timer/10)*100)
+		end
 	end
 }
 
