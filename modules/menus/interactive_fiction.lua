@@ -1,6 +1,7 @@
 local function make(m,menu_functions,menu_function_args)
 	m.menu_functions=menu_functions
 	m.menu_function_args=menu_function_args
+	debugger.printtable(m.menu_functions)
 	if m.text then
 		m.text.index=1
 	end
@@ -195,7 +196,22 @@ local function draw(m)
 		end
 	else
 		local printwidth=120
-		if not m.wordlearned then
+		if m.words_list==true then
+			--print("YESSSSSSSSS")
+--[[
+			for i=5,#g.player.words+4 do
+				print(m.text[i])
+				LG.printformat(m.text[i],0,10*i,printwidth,"center",m.c1,m.c2,255)
+			end
+--]]
+			if m.text[5] then
+				LG.printformat(m.text[5],0,10*5,printwidth,"center",m.c1,m.c2,255)
+			end
+			for i,v in ipairs(m.text) do
+				--print(v)
+				LG.printformat(m.text[i],0,450+i*10,640,"center",m.c1,m.c2,255)
+			end
+		elseif not m.wordlearned then
 			if m.text.index==1 then
 				LG.printformat(m.text[1],m.x-m.w/8-140,m.y-40,printwidth,"center",m.c1,m.c2,255)
 			else

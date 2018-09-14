@@ -1,0 +1,12 @@
+{
+	"t":"city",
+	"title":"Harold...",
+	"description":"Harold isn't smoking. He glares at you. \"What WORDS do you know?\"\nDo you know of PROTOSNAKE?",
+	"transition_in":"screen_transition_blocksreverse",
+	"transition_out":"screen_transition_blocks",
+	"back":44,
+	"options":
+	[
+		{"first":82, "last":92, "locked_colour":"black", "game_name":"protosnake", "unlock":"protosnake"},
+	],
+}

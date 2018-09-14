@@ -3,8 +3,9 @@
 	"title":"it's the car",
 	"animspeed":30,
 	"description":"There's something shiny down there!",
-	"back":45,
 	"sound":6,
+	"no_back":true,
+	"selected_index":5,
 	"options":
 	[
 		{"first":19, "last":24, "name":"no_key"},

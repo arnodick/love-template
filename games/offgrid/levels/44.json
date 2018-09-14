@@ -1,0 +1,13 @@
+{
+	"t":"city",
+	"title":"The Smoke Stack",
+	"description":"The old Smoke Stack. Everyone comes out here to smoke during their break. Is that's why it's called The Smoke Stack, or because it used to have smoke coming out of it when the furnace was still running? Harold is here.",
+	"transition_in":"screen_transition_blocksreverse",
+	"transition_out":"screen_transition_blocks",
+	"unlock":"smokestack_knowledge",
+	"options":
+	[
+		{"first":203, "last":218, "name":"harold",},
+	],
+	"music":3
+}

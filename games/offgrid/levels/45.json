@@ -7,11 +7,16 @@
 	"options":
 	[
 		{"first":111, "last":158, "locked_colour":"black", "name":"car", "unlock":"cherines_key_knowledge"},
+{"first":60, "last":70, "game_name":"protosnake"},
 	],
 	"unlock_description_item":"douglas_appears",
-	"unlock_description":"Oh no, it's Douglas...\n'Hey man are looking for Cherine's key I found this key over by the smoke stack but I don't know who it belongs to maybe they're-'\nYou stop listening and take the key. Maybe it DOES belong to Cherine?",
+	"unlock_description":"Oh no, it's Douglas...\n'Hey man are you looking for Cherine's key I found this key over by the smoke stack but I don't know who it belongs to maybe they're-'\nYou stop listening and take the key. Maybe it DOES belong to Cherine?",
 	"unlock_description_image":"douglas",
 	"unlock_sound":19,
-	"unlock_item_get":"not_cherines_key",
+	"unlock_items_get":
+	[
+		"not_cherines_key",
+		"smokestack_knowledge"
+	],
 	"music":3
 }

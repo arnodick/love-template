@@ -8,6 +8,7 @@ offgrid.make = function(g)
 	g.tile={}
 	g.tile.width=8
 	g.tile.height=8
+	g.titlefont=LG.newFont("fonts/Kongtext Regular.ttf",20)
 
 	g.bufferscale=(ww/g.tile.width)/wh
 
@@ -50,7 +51,7 @@ offgrid.level.city =
 		
 		if l.back then
 			offgrid.level.makebackoption(g,m,l.back)
-		else
+		elseif not l.no_back then
 			offgrid.level.makemoveoption(g,m,g.player.x,g.player.y-1,"North",1)
 			offgrid.level.makemoveoption(g,m,g.player.x+1,g.player.y,"East",2)
 			offgrid.level.makemoveoption(g,m,g.player.x,g.player.y+1,"South",3)
@@ -63,7 +64,7 @@ offgrid.level.city =
 				for i,v in ipairs(l.options) do
 					if v.unlock then
 						if g.player.items[v.unlock] then
-							offgrid.level.makeinspectoption(g,m,l.options[i].name,4+i)
+							offgrid.level.makeinspectoption(g,m,l.options[i].name,4+i,l.options[i].game_name)
 						end
 					else
 						offgrid.level.makeinspectoption(g,m,l.options[i].name,4+i,l.options[i].game_name)
@@ -127,6 +128,12 @@ offgrid.level.city =
 					g.player.items[l.unlock_item_get]=l.unlock_item_get
 					debugger.printtable(g.player.items)
 				end
+			elseif l.unlock_items_get then
+				for i,v in ipairs(l.unlock_items_get) do
+					if not g.player.items[v] then
+						g.player.items[v]=v
+					end
+				end
 			end
 		elseif l.description then
 			l.menu.description=l.description
@@ -178,6 +185,51 @@ offgrid.level.word =
 		print(l.item)
 		debugger.printtable(g.player.words)
 		g.player.words[l.word]=l.word
+		g.player.items[l.word]=l.word
+		debugger.printtable(g.player.words)
+	end,
+
+	control = function(g,l)
+	end,
+
+	draw = function(g,l)
+	end
+}
+
+offgrid.level.words_list =
+{
+	make = function(g,l)
+		sfx.play(20)
+		local m={}
+		m.text={}
+		m.arguments={}
+		m.functions={}
+		offgrid.level.makebackoption(g,m,l.back)
+
+		if g.player.words["protosnake"] then
+		end
+---[[
+		local index=5
+		for i,v in pairs(g.player.words) do
+			m.text[index]=v
+			print(index.." "..m.text[index])
+			m.functions[index]=game.make
+			m.arguments[index]={Enums.games[v]}
+			index=index+1
+		end
+
+		module.make(l,EM.menu,"interactive_fiction",320,600,640,320,m.text,EC.white,EC.dark_gray,"center",m.functions,m.arguments)
+
+		--debugger.printtable(l.menu.text)
+
+		l.menu.words_list=true
+		l.menu.back=l.back
+		l.menu.description=l.description
+		
+		--l.menu.options=l.options
+---]]
+		module.make(l.menu,EM.transition,easing.linear,"text_trans",0,string.len(l.menu.description),360)
+
 		debugger.printtable(g.player.words)
 	end,
 
@@ -341,7 +393,10 @@ offgrid.gameplay =
 		g.player.x=5
 		g.player.y=5
 		g.player.items={}
+		g.player.items["smokestack_knowledge"]="smokestack_knowledge"
 		g.player.words={}
+		g.player.words["protosnake"]="protosnake"
+		g.player.items["protosnake"]="protosnake"
 		local levelindex=g.map[g.player.y][g.player.x]
 		level.make(g,levelindex)
 	end,
@@ -391,7 +446,7 @@ offgrid.title =
 
 	draw = function(g)
 		if g.introstart==true then
-			LG.setFont(g.font)
+			LG.setFont(g.titlefont)
 		end
 		--LG.print("ARROWS keys and Z",g.width/2,g.height/2)
 		LG.printformat("ARROWS keys and Z",0,800,640,"center",EC.white,EC.dark_gray,100+math.sin(g.timer/10)*100)
@@ -469,7 +524,7 @@ offgrid.intro =
 			local image=LG.newImage(imgdata)
 			love.graphics.draw(image,0,550,0,1,1)
 
-			LG.setFont(g.font)
+			LG.setFont(g.titlefont)
 			LG.printformat("press Z to start",0,800,640,"center",EC.white,EC.dark_gray,100+math.sin(g.timer/10)*100)
 		end
 	end

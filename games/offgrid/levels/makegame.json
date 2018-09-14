@@ -1,7 +1,7 @@
 {
 	"t":"city",
-	"title":"Outside the Office",
-	"description":"It's 2AM. You find yourself standing in the parking lot of an office building. The lights are bright and cold. You spot something shiny under Cherine's car...",
+	"title":"CHOOSE YOUR WORDS",
+	"description":"YOU KNOW THE WORDS:",
 	"transition_in":"screen_transition_blocksreverse",
 	"transition_out":"screen_transition_blocks",
 	"options":

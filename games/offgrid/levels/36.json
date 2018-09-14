@@ -1,7 +1,7 @@
 {
 	"t":"city",
 	"title":"What's in there?...",
-	"description":"Oh, the key worked! As you investigate the room you realize you've never been in here before. There's a book about snakes on the floor...",
+	"description":"Oh, the key worked! As you investigate the room you realize you've never been in here before. There's a book about snakes on a shelf...",
 	"transition_in":"screen_transition_blocksreverse",
 	"transition_out":"screen_transition_blocks",
 	"unlock":"whats_in_there_key",
