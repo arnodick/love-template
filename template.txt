@@ -1,5 +1,4 @@
 YES
-branch template when a game is ready to be released, rather than copying the whole folder over
 make funciton inputs into transition take non-table arguments optionally
 make music take string index as well
 make move towards a function for actors
@@ -67,7 +66,6 @@ console has hints, or character that talks to you through the console
 massively long fake loading screen where you play a game, have to get a high score?
 
 IF YOU NEED TO
-when iterating through tables in lua, for debug printing or serialization, make a list of table ids that have been iterated through so if they show up again in the table you can not iterate through them (Game being referenced in a function within game, causing infiinite loop)
 printformat: printf but with even more options like
 	drop shadow
 	individual character colouration

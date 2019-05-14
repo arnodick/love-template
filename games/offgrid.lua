@@ -14,18 +14,6 @@ offgrid.make = function(g)
 
 	g.chars={}
 	table.insert(g.chars," ")
-	table.insert(g.chars,"█")
-	table.insert(g.chars,"█")
-	table.insert(g.chars,"█")
-	table.insert(g.chars,"█")
-	table.insert(g.chars,"█")
-	table.insert(g.chars,"█")
-	table.insert(g.chars,"█")
-	table.insert(g.chars,"█")
-	table.insert(g.chars,"█")
-	table.insert(g.chars,"█")
---[[
-	table.insert(g.chars," ")
 	table.insert(g.chars,"\\")
 	table.insert(g.chars,"/")
 	--table.insert(g.chars,",")
@@ -43,7 +31,6 @@ offgrid.make = function(g)
 	--table.insert(g.chars,"@")
 	table.insert(g.chars,"_")
 	table.insert(g.chars,"~")
---]]
 
 	local images=game.files(g,"images/offgrid","jpg")
 	g.images={}
