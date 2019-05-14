@@ -40,7 +40,7 @@ pixelmaps.crush = function(x, y, r, g, b, a)
 	return r,g,b,a
 end
 
-pixelmaps.crush = function(x, y, r, g, b, a)
+pixelmaps.wave = function(x, y, r, g, b, a)
 	x=x+math.sin(g.timer*100)
 	return r,g,b,a
 end

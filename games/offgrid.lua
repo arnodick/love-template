@@ -14,6 +14,18 @@ offgrid.make = function(g)
 
 	g.chars={}
 	table.insert(g.chars," ")
+	table.insert(g.chars,"█")
+	table.insert(g.chars,"█")
+	table.insert(g.chars,"█")
+	table.insert(g.chars,"█")
+	table.insert(g.chars,"█")
+	table.insert(g.chars,"█")
+	table.insert(g.chars,"█")
+	table.insert(g.chars,"█")
+	table.insert(g.chars,"█")
+	table.insert(g.chars,"█")
+--[[
+	table.insert(g.chars," ")
 	table.insert(g.chars,"\\")
 	table.insert(g.chars,"/")
 	--table.insert(g.chars,",")
@@ -31,6 +43,7 @@ offgrid.make = function(g)
 	--table.insert(g.chars,"@")
 	table.insert(g.chars,"_")
 	table.insert(g.chars,"~")
+--]]
 
 	local images=game.files(g,"images/offgrid","jpg")
 	g.images={}
@@ -196,50 +209,6 @@ offgrid.level.word =
 	end
 }
 
-offgrid.level.words_list =
-{
-	make = function(g,l)
-		sfx.play(20)
-		local m={}
-		m.text={}
-		m.arguments={}
-		m.functions={}
-		offgrid.level.makebackoption(g,m,l.back)
-
-		if g.player.words["protosnake"] then
-		end
----[[
-		local index=5
-		for i,v in pairs(g.player.words) do
-			m.text[index]=v
-			print(index.." "..m.text[index])
-			m.functions[index]=game.make
-			m.arguments[index]={Enums.games[v]}
-			index=index+1
-		end
-
-		module.make(l,EM.menu,"interactive_fiction",320,600,640,320,m.text,EC.white,EC.dark_gray,"center",m.functions,m.arguments)
-
-		--debugger.printtable(l.menu.text)
-
-		l.menu.words_list=true
-		l.menu.back=l.back
-		l.menu.description=l.description
-		
-		--l.menu.options=l.options
----]]
-		module.make(l.menu,EM.transition,easing.linear,"text_trans",0,string.len(l.menu.description),360)
-
-		debugger.printtable(g.player.words)
-	end,
-
-	control = function(g,l)
-	end,
-
-	draw = function(g,l)
-	end
-}
-
 offgrid.level.offgrid =
 {
 	make = function(g,l)
@@ -393,10 +362,10 @@ offgrid.gameplay =
 		g.player.x=5
 		g.player.y=5
 		g.player.items={}
-		g.player.items["smokestack_knowledge"]="smokestack_knowledge"
+		--g.player.items["smokestack_knowledge"]="smokestack_knowledge"
 		g.player.words={}
-		g.player.words["protosnake"]="protosnake"
-		g.player.items["protosnake"]="protosnake"
+		--g.player.words["protosnake"]="protosnake"
+		--g.player.items["protosnake"]="protosnake"
 		local levelindex=g.map[g.player.y][g.player.x]
 		level.make(g,levelindex)
 	end,

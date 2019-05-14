@@ -116,7 +116,7 @@ game.make = function(t,gw,gh)
 	end
 --]]
 	--return g
-	Game=g
+	Game = g
 end
 
 game.control = function(g)

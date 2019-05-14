@@ -117,7 +117,12 @@ local function textify(image,scale,chars,smallcanvas,bigcanvas,charw,charh)
 				local r,gr,b=imgdata:getPixel(x,y)
 				local l=LG.lightness(r,gr,b)
 				l=math.ceil(l*10)
-				LG.setColor(r,gr,b)
+				--LG.setColor(r,gr,b)
+				if l>3 then
+					LG.setColor(255,255,255)
+				else
+					LG.setColor(r,gr,b)
+				end
 				LG.print(chars[l+1],x*charw,y*charh)
 			end
 		end
