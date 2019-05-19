@@ -25,24 +25,23 @@ THE SOFTWARE.
 ]]
 }
 
---takes in a table t and a list of strings args
---recursively digs through the table to see if it has members tables whose keys match the string args
---if the last arg matches the key of a function in the table, run that function
---returns the results of the function that was found nested in the table, if possible
---ie: t = game (a table), args = {"level","cave","make"} will do the same as:
---game.level.cave.make(...)
-supper.run = function(t,args,...)
-	local r=nil
-	if #args>0 then
-		local f=t[args[1]]
-		if f then
-			table.remove(args,1)
-			r=supper.run(f,args,...)
+--runs the function described by the dynamic input
+--t = supper.run(gamename, {"level", "cave", "make"}, ...) will run gamename.level.cave.make(...)
+--used to run different code by varying the input of the string key args
+--this means we aren't limited to static functions like gamename.level.cave.make, and so don't need if or switch logic to do something like run game.level.desert.make instead of game.level.cave.make
+supper.run = function(t,args,...)--takes in a table t, a list of strings args, and function parameters
+	local r=nil--if we find a function in t it will be returned as r, otherwise WE return r as nil so nothing happens
+	--TODO should we just check if table here?
+	if #args>0 then--if we are dealing with a table, recursively dig through it to see if it contains any tables with keys matching the string args
+		local f=t[args[1]]--check if first key in args is in the table
+		if f then--if it is
+			table.remove(args,1)--remove it froms args
+			r=supper.run(f,args,...)--check f with next key in args, get the result (either r is a function or still nil)
 		end
-	elseif type(t)=="function" then
+	elseif type(t)=="function" then--if we've run out of args and t is a function instead this iteration, then pass it back up the recursion chain
 		r=t(...)
 	end
-	if r then
+	if r then--if all goes well and a function was found in the table with the provided args, r will be the function that is returned and run, otherwise r is still nil, so nothing happens
 		return r
 	end
 end

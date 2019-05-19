@@ -13,6 +13,8 @@ what is difference btwn run, supper.run, game.state.run? can they be smooshed to
 	how about compared to old spacetank?
 		how many objects can they handle atonce before slowdown?
 
+	they run functions dynamically
+
 make funciton inputs into transition take non-table arguments optionally
 make music take string index as well
 make move towards a function for actors
