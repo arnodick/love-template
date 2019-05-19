@@ -1,5 +1,18 @@
 YES
-branch template when a game is ready to be released, rather than copying the whole folder over
+polish up interactive fiction, make general menus
+game.lua stuff, make sure nothing game specific is in there, should go in game itself instead
+can WE get rid of choosing game in main, put it in config instead?
+always use g.players, but make player = players[1] if singleplayer
+clean up utils, comment, put stuff in supper maybe
+could game.files be used more widely? what does it do exactly? comment it, figure out if it can be generalized elsewhere
+clean up libraries
+tools folder, can it be better organized?
+can we get rid of lip, use only json instead?
+what is difference btwn run, supper.run, game.state.run? can they be smooshed together?
+	would using supper.run be less efficient?
+	how about compared to old spacetank?
+		how many objects can they handle atonce before slowdown?
+
 make funciton inputs into transition take non-table arguments optionally
 make music take string index as well
 make move towards a function for actors

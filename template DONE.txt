@@ -1,4 +1,5 @@
 DONE
+branch template when a game is ready to be released, rather than copying the whole folder over
 sound (behaves different when spatial sound is used)
 editor (needs cursor types)
 hi score (transfer from royale we, clean up)
