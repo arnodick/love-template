@@ -1,6 +1,7 @@
+--TODO this is unused right now, but may be used if WE decide to use genereic templates for actors rather than assigning them all their own values
 local function load(g,name,x,y,d,angle,vel,c)
 	local a={}
-	copytable(a,g.actordata[name])
+	supper.copy(a,g.actordata[name])
 
 	--a.t=EA[name]
 	a.name=name

@@ -25,11 +25,11 @@ THE SOFTWARE.
 ]]
 }
 
---runs the function described by the dynamic input
+--runs the function defined by input args
 --t = supper.run(gamename, {"level", "cave", "make"}, ...) will run gamename.level.cave.make(...)
---used to run different code by varying the input of the string key args
+--use this to run different code by varying the input of the string key args
 --this means we aren't limited to static functions like gamename.level.cave.make, and so don't need if or switch logic to do something like run game.level.desert.make instead of game.level.cave.make
-supper.run = function(t,args,...)--takes in a table t, a list of strings args, and function parameters
+supper.run = function(t,args,...)--takes in a table t, a list of strings args to identify the function, and function parameters for the function that will be run
 	local r=nil--if we find a function in t it will be returned as r, otherwise WE return r as nil so nothing happens
 	--TODO should we just check if table here?
 	if #args>0 then--if we are dealing with a table, recursively dig through it to see if it contains any tables with keys matching the string args
@@ -59,7 +59,17 @@ supper.names = function(t)
 	t.names=n
 end
 
---puts key indexed integers in a table for each integer indexed value
+--[[
+--can we just do this instead?
+supper.names = function(t)
+	for k,v in pairs(t) do
+		table.insert(t,k)
+	end
+end
+--]]
+
+--takes a table t of strings indexed by integer and makes integers with the strings as keys
+--ie: t = {"boss", "enemy"} becomes {"boss", "enemy", boss = 1, enemy = 2}
 supper.numbers = function(t)
 	for i,v in ipairs(t) do
 		t[v]=i
@@ -78,6 +88,20 @@ supper.contains = function(t,value)
 		end
 	end
 	return false
+end
+
+--copies all values and tables from a source table and adds them to the target table
+--a new table is NOT made, so references to the target table are not broken
+--also retains any values that were in the target table before copying (unless the source table has a value with the same key, in which case the value in the target table with that key is overwritten)
+supper.copy = function(target,source)
+	for k,v in pairs(source) do
+		if type(v)~="table" then--any value in the source that isn't a table is put in the target
+			target[k]=v
+		else
+			target[k]={}--any table in the source is recreated in the target, then has its values and tables recursively copied
+			supper.copy(target[k],v)
+		end
+	end
 end
 
 -- Supper:

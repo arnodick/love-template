@@ -31,7 +31,7 @@ map.load = function(m,filename)
 	--loads map sprites and walls/entities from a hex populated textfile
 	--returns map array
 	local mapgrid=textfile.load(filename) --each cell (flags + integer) is loaded into map array
-	copytable(m,mapgrid)
+	supper.copy(m,mapgrid)
 
 	--TODO do actorspawn flag stuff here to load actor from value of tile
 --[[

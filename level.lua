@@ -14,7 +14,7 @@ level.make = function(g,index,mode)
 	end
 	g.levels.index=index
 	if g.levels[index] then
-		copytable(l,g.levels[index])
+		supper.copy(l,g.levels[index])
 	end
 	if l.map then
 		if l.map.file then
