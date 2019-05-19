@@ -16,11 +16,8 @@ SFX = sfx.load()
 Music = music.load()
 
 function love.load()
-	game.make(Enums.games.multigame)--do string input here, can ref Enums.games in game.make
+	game.make("multigame")
 	-- game.make(Enums.games.offgrid,640,960)
-
-	--game.make(Enums.games.dawngame,8,8,320,240)
-	--debugger.printtable(Game)
 end
 
 function love.update(dt)

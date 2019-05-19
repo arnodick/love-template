@@ -60,7 +60,7 @@ supper.names = function(t)
 end
 
 --[[
---can we just do this instead?
+--can WE just do this instead? this happens with Enums, doesn't it?
 supper.names = function(t)
 	for k,v in pairs(t) do
 		table.insert(t,k)

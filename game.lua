@@ -75,8 +75,13 @@ end
 
 game.make = function(t,gw,gh)
 	local g={}
-	g.t=t
-	g.name=Enums.games[t]
+	if type(t)=="string" then
+		g.t=Enums.games[t]
+		g.name=t
+	else
+		g.t=t
+		g.name=Enums.games[t]
+	end
 	g.width=gw or 320
 	g.height=gh or 240
 
