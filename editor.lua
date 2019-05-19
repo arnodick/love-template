@@ -2,12 +2,16 @@ local editor={}
 
 editor.make = function(g)
 	g.editor={}
+	--module.make(g.editor,EM.cursor,"editor",true)
 	if g.level then
 		module.make(g.editor,"cursor","editor",true)
 	end
 end
 
 editor.control = function(g)
+	if g.editor.cursor then
+		cursor.update(g.editor.cursor)
+	end
 end
 
 editor.keypressed = function(g,key)
@@ -33,14 +37,12 @@ editor.keypressed = function(g,key)
 	end
 end
 
----[[
 function love.textinput(t)
 	local g=Game
 	if g.hud.menu then
 		g.hud.menu.text[2]=g.hud.menu.text[2]..t
 	end
 end
---]]
 
 editor.mousepressed = function(g,x,y,button)
 	if g.editor.cursor then

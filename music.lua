@@ -17,19 +17,16 @@ local function load()
 end
 
 local function play(index)
-	local source=Music.sources[index]
+	local i=index
+	local source = Music.sources[i]
 	if source~=nil then
 		love.audio.play(source)
 	end
-end
-
-local function stop(index)
-	love.audio.stop(Music.sources[index])
 end
 
 return
 {
 	load = load,
 	play = play,
-	stop = stop,
+	update = update,
 }

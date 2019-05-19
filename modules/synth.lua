@@ -13,25 +13,24 @@ local function make(a,m,waveform,note,length,notes)
 end
 
 local function control(a,m)
-	if m then
-		local g=Game
-		if g.timer-m.start<=m.length then
-			local note=m.note
-			if m.notes then
-				note=m.notes[math.ceil(((g.timer-m.start)/m.length)*m.range)]
-			end
-			
-			--if g.timer%2==0 then
-			--local saw = denver.get({waveform=m.waveform, frequency=m.note+math.sin(g.timer/10)*100, length=1/60})
-
-			--+noteoff+math.sin(g.timer/10)*100
-			local saw = denver.get({waveform=m.waveform, frequency=note, length=1/60})
-			saw:setLooping(false)
-			love.audio.play(saw)
-			--end
-		else
-			m.synth=nil
+	
+	local g=Game
+	if g.timer-m.start<=m.length then
+		local note=m.note
+		if m.notes then
+			note=m.notes[math.ceil(((g.timer-m.start)/m.length)*m.range)]
 		end
+		
+		--if g.timer%2==0 then
+		--local saw = denver.get({waveform=m.waveform, frequency=m.note+math.sin(g.timer/10)*100, length=1/60})
+
+		--+noteoff+math.sin(g.timer/10)*100
+		local saw = denver.get({waveform=m.waveform, frequency=note, length=1/60})
+		saw:setLooping(false)
+		love.audio.play(saw)
+		--end
+	else
+		m.synth=nil
 	end
 end
 

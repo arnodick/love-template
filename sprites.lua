@@ -13,6 +13,10 @@ local function load(spr,tw,th)
 	return spritesheet,quads
 end
 
+local function make(a)
+--TODO this sprinit
+end
+
 --TODO this should maybe just go in actor? actor.draw with drawmode?
 local function draw(a)
 	local spr=a.spr

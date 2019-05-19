@@ -16,10 +16,8 @@ local function make(g,a,c,size,spr)
 	a.anglespeeddecel=0.01
 	a.scalex=1
 	a.scaley=1
-	a.deltimer=0
 	a.follow=false
 	a.value=1
-	a.alpha=255
 	a.flags=flags.set(a.flags,EF.bouncy)
 end
 
@@ -36,35 +34,20 @@ local function control(g,a,gs)
 	end
 	if a.follow then
 		if g.player or g.players[1] then
-		local p=g.player or g.players[1]
-		local dist=vector.distance(a.x,a.y,p.x,p.y)
-		if dist<30 then
-			if not a.controller then
-				module.make(a,EM.controller,EMC.move,EMCI.ai,p)
-			end
-			a.speed=8/dist
-		else
-			if a.controller then
-				a.controller=nil
-			end
-			a.decel=a.decelinit
-		end
-		end
-	end
-	if g.timer-a.delta>=120 then
-		a.deltimer = a.deltimer+gs
-		if a.deltimer<=80 then
-			sprites.blink(a,14)
-		else
-			sprites.blink(a,6)
-		end
-		if a.deltimer>=120 then
-			if a.vel==0 then
-				sfx.play(7)
-				for i=1,20 do
-					actor.make(g,EA.cloud,a.x,a.y,math.randomfraction(math.pi*2),math.randomfraction(1))
+			local p=g.player or g.players[1]
+			if p.t~=EA.ghost then
+				local dist=vector.distance(a.x,a.y,p.x,p.y)
+				if dist<30 then
+					if not a.controller then
+						module.make(a,EM.controller,EMC.move,EMCI.ai,p)
+					end
+					a.speed=8/dist
+				else
+					if a.controller then
+						a.controller=nil
+					end
+					a.decel=a.decelinit
 				end
-				a.delete=true
 			end
 		end
 	end

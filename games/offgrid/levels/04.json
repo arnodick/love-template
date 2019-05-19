@@ -1,8 +1,0 @@
-{
-	"t":"city",
-	"title":"BUGS",
-	"animspeed":30,
-	"description":"Where did all these bugs come from!?",
-	"transition_in":"screen_transition_blocksreverse",
-	"transition_out":"screen_transition_blocks"
-}

@@ -1,6 +1,4 @@
-local pixelmaps={}
-
-pixelmaps.melt = function(x, y, r, g, b, a)
+local function melt(x, y, r, g, b, a)
 	if r~=0 or g~=0 or b~=0 then
 		if love.math.random(2)==1 then
 			r=math.max(r-4,0)
@@ -11,7 +9,7 @@ pixelmaps.melt = function(x, y, r, g, b, a)
 	return r,g,b,a
 end
 
-pixelmaps.sparkle = function(x, y, r, g, b, a)
+local function sparkle(x, y, r, g, b, a)
 	if r~=0 or g~=0 or b~=0 then
 		if love.math.random(2)==1 then
 			r=r-10
@@ -27,7 +25,7 @@ pixelmaps.sparkle = function(x, y, r, g, b, a)
 	return r,g,b,a
 end
 
-pixelmaps.crush = function(x, y, r, g, b, a)
+local function crush(x, y, r, g, b, a)
 	local xmid,ymid=20,20
 	local dist=vector.distance(xmid,ymid,x,y)
 	--if dist>=16 then
@@ -40,9 +38,9 @@ pixelmaps.crush = function(x, y, r, g, b, a)
 	return r,g,b,a
 end
 
-pixelmaps.wave = function(x, y, r, g, b, a)
-	x=x+math.sin(g.timer*100)
-	return r,g,b,a
-end
-
-return pixelmaps
+return
+{
+	melt = melt,
+	sparkle = sparkle,
+	crush = crush,
+}

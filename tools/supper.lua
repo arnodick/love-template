@@ -1,7 +1,7 @@
 local supper =
 {
     _VERSION        = 'supper v1.0',
-    _DESCRIPTION    = 'A collection of convenient functions to make common table tasks easier.',
+    _DESCRIPTION    = 'A dynamic function runner.',
     _LICENSE        = [[
 Copyright (c) 2017 Ashley Pringle
 
@@ -60,25 +60,9 @@ supper.names = function(t)
 	t.names=n
 end
 
---puts key indexed integers in a table for each integer indexed value
-supper.numbers = function(t)
-	for i,v in ipairs(t) do
-		t[v]=i
-	end
-end
-
 --gives a random entry in any integer-indexed table
 supper.random = function(t)
 	return t[math.random(#t)]
-end
-
-supper.contains = function(t,value)
-	for i,v in ipairs(t) do
-		if v==value then
-			return true
-		end
-	end
-	return false
 end
 
 -- Supper:

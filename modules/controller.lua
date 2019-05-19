@@ -7,8 +7,6 @@ local function make(a,cont,t,input,ai1,ai2)
 
 	if input==EMCI.gamepad then
 		c.id=ai1 or 1
-	elseif input==EMCI.keyboard then
-		c.vector=ai1
 	end
 
 	if t==EMC["action"] then

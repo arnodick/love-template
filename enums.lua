@@ -1,5 +1,11 @@
 local function load(dir,...)
 	local e={}
+--[[
+	--NOTE bring this back if you want to load manually generated enums from the enums.ini files in enums directory!
+	if dir=="" then
+		e=LIP.load("enums/enums.ini")
+	end
+--]]
 	local dirstoread={...}
 	local filesindir = love.filesystem.getDirectoryItems(dir)
 	for i,fileordir in pairs(filesindir) do
@@ -57,8 +63,9 @@ local function constants(e) --NOTE this function has side effects! makes global 
 		end
 
 	end
-	e.flags=flags.load()
-	EF=e.flags
+	if e.flags then
+		EF=e.flags
+	end
 	LG=love.graphics
 end
 

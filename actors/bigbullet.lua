@@ -1,9 +1,9 @@
 local bullet={}
 
 bullet.make = function(g,a,c)
-	a.cinit=c or EC.green
-	a.c=a.cinit
-	a.spr=65
+	--a.cinit=c or EC.green
+	--a.c=a.cinit
+	a.spr=66
 	a.size=1
 	a.angle=-a.d
 	a.draw=false

@@ -1,9 +1,0 @@
-{
-	"t":"city",
-	"title":".....",
-	"description":"You don't recognize this place... The quiet streets feel so far home... You feel like you should turn around...",
-	"transition_in":"screen_transition_blocksreverse",
-	"transition_out":"screen_transition_blocks",
-	"item":"car_crash",
-	"music":4
-}

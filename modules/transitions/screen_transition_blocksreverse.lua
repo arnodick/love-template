@@ -8,7 +8,6 @@ local function make(a,m)
 	local blockamount=8
 	m.change=blockamount*blockamount
 	m.duration=blockamount*blockamount
-	print("g.levels.index: "..g.levels.index)
 	local image=g.images[g.levels.index][1]
 	LG.setCanvas(g.canvas.buffer)
 	LG.clear()

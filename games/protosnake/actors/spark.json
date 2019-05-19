@@ -1,9 +1,0 @@
-{
-	"t":"spark",
-	"decel":0.1,
-	"flags":
-	[
-		"bouncy",
-		"persistent"
-	]
-}

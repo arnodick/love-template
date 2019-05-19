@@ -38,11 +38,11 @@ local function control(g,s,gs)
 	local y=(g.height*s.scale/2)+s.yoff
 	local scale=(s.scale/s.pixelscale)*g.camera.zoom
 
-	local xcamoff,ycamoff=g.camera.x-g.width/2,g.camera.y-g.height/2
 	if s.transition then
 		
 		local tempcanvas=LG.newCanvas(g.width*s.pixelscale,g.height*s.pixelscale)
 		LG.setCanvas(tempcanvas)
+			local xcamoff,ycamoff=g.camera.x-g.width/2,g.camera.y-g.height/2
 			LG.draw(g.canvas.background,0,0,0,s.pixelscale,s.pixelscale,xcamoff,ycamoff)
 			if g.level then
 				if g.level.canvas then

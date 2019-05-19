@@ -37,7 +37,8 @@ local function update(g,d)
 			end
 			for i,v in ipairs(g.players) do
 				table.insert(debuglist,"player "..i..": "..tostring(v))
-				--table.insert(debuglist,"score: "..g.score)
+				table.insert(debuglist,"player coins: "..v.the_coin)
+				table.insert(debuglist,"score: "..g.score)
 			end
 		end
 		if g.player then
@@ -45,7 +46,7 @@ local function update(g,d)
 			table.insert(debuglist,"player y:"..g.player.y)
 			if g.level then
 				if g.level.map then
-					local xc,yc=map.getcellcoords(g.level.map,g.player.x,g.player.y)
+					local xc,yc=map.getcell(g.level.map,g.player.x,g.player.y)
 					table.insert(debuglist,"player x cell:"..xc)
 					table.insert(debuglist,"player y cell:"..yc)
 				end
@@ -104,13 +105,18 @@ local function update(g,d)
 			table.insert(debuglist,i.." count: "..g.counters[i])
 		end
 --]]
---[[
 		for i,v in pairs(g.actordata) do
 			table.insert(debuglist,i.." count: "..v.count)
 		end
---]]
 --[[
 		if g.actors then
+
+			if g.actors.persons then
+				for i,v in ipairs(g.actors.persons) do
+					table.insert(debuglist,"persons x "..v.x.." y "..v.y)
+				end
+			end
+
 			if g.actors.items then
 				for i,v in ipairs(g.actors.items) do
 					table.insert(debuglist,"item x "..v.x.." y "..v.y)
@@ -133,7 +139,7 @@ local function update(g,d)
 			if g.editor.cursor then
 				table.insert(debuglist,"e cursor x "..g.editor.cursor.x)
 				table.insert(debuglist,"e cursor y "..g.editor.cursor.y)
-				local cx,cy=map.getcellcoords(g.level.map,g.editor.cursor.x,g.editor.cursor.y)
+				local cx,cy=map.getcell(g.level.map,g.editor.cursor.x,g.editor.cursor.y)
 				table.insert(debuglist,"cell value "..g.level.map[cy][cx])
 			end
 		end

@@ -2,7 +2,7 @@ local function load(g,name,x,y,d,angle,vel,c)
 	local a={}
 	copytable(a,g.actordata[name])
 
-	--a.t=EA[name]
+	a.t=EA[name]
 	a.name=name
 	a.x=x or love.math.random(319)
 	a.y=y or love.math.random(239)
@@ -19,6 +19,7 @@ local function load(g,name,x,y,d,angle,vel,c)
 	if g.actordata[name].flags then
 		a.flags=flags.set(a.flags,g.actordata[name].flags)
 	end
+	--game.counters(g,a,1)
 
 	g.actordata[name].count=g.actordata[name].count+1
 
@@ -50,6 +51,10 @@ local function make(g,t,x,y,d,vel,...)
 	--TODO in here do if inivalues.flags then flags.set(a,EF[flagname],...)
 
 	table.insert(g.actors,a)
+	--if t==EA.person then
+	--print(a)
+	--print(g.actors[#g.actors])
+	--end
 	return a
 end
 
@@ -62,17 +67,16 @@ local function control(g,a,gs)
 		end
 	end
 
-	--actordata
-	--if a.t then
+	if a.t then
 		run(EA[a.t],"control",g,a,gs)--actor's specific type control (ie snake.control)
-	--end
+	end
 
 	if a.controls then
 		controls.run(g,a,gs)
 	end
 
 	if flags.get(a.flags,EF.player) then
-		game.player.control(g,a)
+		player.control(g,a)
 	end
 
 	if a.item then--if a IS an item, do its item stuff
@@ -122,8 +126,7 @@ local function control(g,a,gs)
 	end
 
 	if flags.get(a.flags,EF.shopitem) then
-		--TODO this only works for single player right now
-		game.state.run(g.name,"shopitem","control",a,g.player)
+		shopitem.control(a,g.player)
 	end
 
 	if a.inventory then
@@ -161,18 +164,13 @@ local function draw(g,a)
 	end
 
 	if g.level then
-		if g.level.drawmode then
-			run(g.level.drawmode,"draw",g,a)
-		end
---[[
 		if g.level.mode then
 			run(g.level.modename,"draw",g,a)
 		end
---]]
 	end
 
 	if flags.get(a.flags,EF.player) then
-		game.player.draw(g,a)
+		player.draw(g,a)
 	end
 end
 
@@ -192,7 +190,7 @@ local function damage(a,d)
 			a.hp=a.hp-d
 			run(EA[a.t],"damage",a)
 			if flags.get(a.flags,EF.player) then
-				game.player.damage(g,a)
+				player.damage(g,a)
 			end
 
 			game.state.run(g.name,"actor","damage",g,a,d)
@@ -206,13 +204,19 @@ local function damage(a,d)
 				a.delete=true
 
 				game.state.run(g.name,"actor","dead",g,a)
+				--run(EA[a.t],"dead",g,a)
 				if flags.get(a.flags,EF.player) then
-					game.player.dead(g,a)
+					player.dead(g,a)
 				end
 
 				--TODO sort of game-specific
 				if flags.get(a.flags,EF.explosive) then
 					actor.make(g,EA.explosion,a.x,a.y,0,0,EC.white,20*(a.size))
+				end
+
+				--TODO also sort of game specific
+				if flags.get(a.flags,EF.character) then
+					character.dead(a)
 				end
 				
 				run(EA[a.t],"dead",a)

@@ -4,8 +4,8 @@ local function make(g,a,c)
 	a.vel=math.randomfraction(1)+1
 	a.decel=0.01
 	a.anglespeed=(a.vec[1]+math.choose(0,0,1,3))*(a.vel/100)
-	a.scalex=2
-	a.scaley=2
+	a.scalex=1
+	a.scaley=1
 	a.flags=flags.set(a.flags,EF.bouncy,EF.persistent)
 end
 
@@ -19,7 +19,7 @@ local function control(g,a)
 		a.delete=true
 		if a.player then
 			local gh=actor.make(g,EA.ghost,a.x,a.y)
-			game.player.make(g,gh)
+			player.make(g,gh)
 		end
 	end
 end

@@ -1,5 +1,14 @@
 local level={}
 
+--[[
+level.load = function(g,dir,ext)
+	--loads a folder of ini files from a folder into the g.levels table, so they can be accessed quickly by the game
+	--ie: ALL level info is loaded at the start of the game, each level is then accessed from the g.levels when it is loaded
+	--each file in the folder gets its own table in l
+	g.levels=game.files(g,dir,ext)
+end
+--]]
+
 level.make = function(g,index,mode)
 	local l={}
 	if mode then

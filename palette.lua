@@ -10,7 +10,7 @@ palette.load = function(g,...)
 	g.palettes=pal
 	palette.set(g,g.palettes.i)
 	EC=g.palettes[g.palettes.i].colours
-	--debugger.printtable(EC)
+	debugger.printtable(EC)
 	return pal
 end
 

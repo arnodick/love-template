@@ -46,33 +46,6 @@ game.state.make = function(g,state)
 	game.state.run(g.name,g.state,"make",g)
 end
 
-game.player={}
-game.player.make = function(g,a,singleplayer)
-	if singleplayer then
-		g.player=a
-	else
-		table.insert(g.players,a)
-	end
-	a.flags=flags.set(a.flags,EF.player,EF.persistent)
-	game.state.run(g.name,"player","make",g,a)
-end
-
-game.player.control = function(g,a)
-	game.state.run(g.name,"player","control",g,a)
-end
-
-game.player.draw = function(g,a)
-	game.state.run(g.name,"player","draw",g,a)
-end
-
-game.player.damage = function(g,a)
-	game.state.run(g.name,"player","damage",g,a)
-end
-
-game.player.dead = function(g,a)
-	game.state.run(g.name,"player","dead",g,a)
-end
-
 game.make = function(t,gw,gh)
 	local g={}
 	g.t=t
@@ -85,15 +58,12 @@ game.make = function(t,gw,gh)
 
 	game.graphics(g)
 
---[[
 	g.actordata=game.files(g,"games/"..g.name.."/actors")
 	for i,v in pairs(g.actordata) do
 		v.count=0
 	end
 	debugger.printtable(g.actordata)
---]]
 	g.levels=game.files(g,"games/"..g.name.."/levels")
-	debugger.printtable(g.levels)
 	--level.load(g,"games/"..g.name.."/levels")
 
 --[[
@@ -116,15 +86,20 @@ game.make = function(t,gw,gh)
 	end
 --]]
 	--return g
-	Game=g
+	Game = g
 end
 
 game.control = function(g)
-	hud.control(g,g.hud)
-
+	if g.hud then
+		if g.hud.menu then
+			g.hud.menu.x=g.camera.x
+			g.hud.menu.y=g.camera.y+63
+			menu.control(g.hud.menu,g.speed)
+		end
+	end
 	game.state.run(g.name,g.state,"control",g)
 
-	sfx.control(SFX,g.speed)
+	sfx.update(SFX,g.speed)
 
 	if not g.pause then
 		for i,v in ipairs(g.actors) do
@@ -140,14 +115,27 @@ game.control = function(g)
 	
 	for i,v in ipairs(g.actors) do
 		if v.delete==true then
-			inventory.dead(v,v.inventory)
+			if v.inventory then
+				for j,k in ipairs(v.inventory) do
+					--k.delete=true
+					k.held=false
+				end
+			end
 			game.counters(g,v,-1)
---[[
 			if v.name then
 				g.actordata[v.name].count=g.actordata[v.name].count-1
 			end
---]]
 			table.remove(g.actors,i)
+			if v.t==EA.person then
+				--g.actors.persons[a]=nil
+				---[[
+				for k,j in ipairs(g.actors.persons) do
+					if v==j then
+						table.remove(g.actors.persons,k)
+					end
+				end
+				--]]
+			end
 			if v.item then
 				for k,j in ipairs(g.actors.items) do
 					if v==j then
@@ -184,18 +172,6 @@ game.control = function(g)
 end
 
 game.keypressed = function(g,key,scancode,isrepeat)
-	if key=="tab" then
-		if not g.editor then
-			g.pause=true
-			editor.make(g)
-		else
-			g.pause=false
-			g.editor=nil
-		end
-	elseif key=="space" then
-		palette.set(g,2)
-	end
-
 	if g.level then
 		game.state.run(g.name,"level","keypressed",g,g.level,key)
 	end
@@ -239,10 +215,6 @@ end
 
 game.mousemoved = function(g,x,y,dx,dy)
 	game.state.run(g.name,g.state,"mousemoved",g,x,y,dx,dy)
-
-	if g.editor then
-		cursor.mousemoved(g,g.editor.cursor,x,y,dx,dy)
-	end
 end
 
 game.wheelmoved = function(g,x,y)
@@ -263,6 +235,11 @@ game.gamepadpressed = function(g,joystick,button)
 	if g.hud then
 		hud.gamepadpressed(g,joystick,button)
 	end
+--[[
+	if g.editor then
+		editor.gamepadpressed(g,button)
+	end
+--]]
 end
 
 game.draw = function(g)
@@ -275,15 +252,13 @@ game.draw = function(g)
 
 			if l then
 				if l.drawmodes then
-					if l.bgdraw==true then--TODO move this up, should check this earlier
+					if l.bgdraw==true then
 						if l.canvas then
 							if l.canvas.background then
 								LG.setCanvas(l.canvas.background)
 								--LG.clear(190,10,136)
 								local xcamoff,ycamoff=g.camera.x-g.width/2,g.camera.y-g.height/2
 								LG.translate(xcamoff,ycamoff)
-
-								--TODO this should be l.map.drawmodes?
 								map.draw(l.map,l.drawmodes)
 								LG.translate(-xcamoff,-ycamoff)
 							end
@@ -330,33 +305,27 @@ game.draw = function(g)
 	screen.control(g,g.screen,g.speed)
 end
 
---TODO make this recursive so it goes through all sub-folders in the folder
+
 game.files = function(g,dir,ext)
 	ext=ext or "json"
 	local l={}
 	local files=love.filesystem.getDirectoryItems(dir)
-	for i=1,#files do--through all files and dirs
-		--local file=files[i]
-		local filedata=love.filesystem.newFileData("code", files[i]) --gets each file's filedata, so we can determine their extensions
-		local filename=filedata:getFilename() --get the file's name
-		local filepath=dir.."/"..filename
-		--if love.filesystem.isFile(dir.."/"..file) then --if it isn't a directory
-		if love.filesystem.isFile(filepath) then --if it isn't a directory
+	for i=1,#files do
+		local file=files[i]
+		if love.filesystem.isFile(dir.."/"..file) then --if it isn't a directory
+			local filedata=love.filesystem.newFileData("code", file) --gets each file's filedata, so we can determine their extensions
+			local filename=filedata:getFilename() --get the file's name
 			if filedata:getExtension()==ext then
 				local f=string.gsub(filename, "."..ext, "")--strip the file extension
-				if tonumber(f) then--if the filename (without extension) is a number then index the file in the table by integer
+				if tonumber(f) then
 					f=tonumber(f)
 				end
 				if ext=="ini" then
-					l[f]=LIP.load(filepath)
+					l[f]=LIP.load(dir.."/"..filename)
 				elseif ext=="json" then
-					l[f]=json.load(filepath)
-				elseif ext=="jpg" then
-					l[f]=LG.newImage(filepath)
+					l[f]=json.load(dir.."/"..filename)
 				end
 			end
-		elseif love.filesystem.isDirectory(filepath) then
-			l[filename]=game.files(g,filepath,ext)
 		end
 	end
 	return l
@@ -385,10 +354,9 @@ game.graphics = function(g)
 	LG.setLineWidth(1)
 	LG.setLineStyle("rough") --clean SHAPE scaling
 	LG.setBlendMode("alpha")
-	love.mouse.setVisible(true)
+	love.mouse.setVisible(false)
 
 	--g.font = LG.newFont("fonts/pico8.ttf",8)
-	--g.font=LG.newFont("fonts/Kongtext Regular.ttf",8)
 	g.font=LG.newFont("fonts/Kongtext Regular.ttf",8)
 	g.font:setFilter("nearest","nearest",0) --clean TEXT scaling
 	g.font:setLineHeight(1.8)
