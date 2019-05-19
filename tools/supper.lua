@@ -51,19 +51,26 @@ end
 --ie: t = {desert=function(...),cave=function(...),sewer=function(...)}
 --then t.names[1]="desert", t.names[2]="cave", t.names[3]="sewer"
 --these names can then be used to dynamically call member functions of the table t
-supper.names = function(t)
+
+supper.names = function(t,names)
+	names=names or "names"
 	local n={}
 	for k,v in pairs(t) do
 		table.insert(n,k)
 	end
-	t.names=n
+	t[names]=n
 end
 
 --[[
+--maybe this is impossible actually? can't iterate through table while adding keys because those new keys are iterated over. can maybe just copy table in?
 --can WE just do this instead? this happens with Enums, doesn't it?
 supper.names = function(t)
+	i=1
 	for k,v in pairs(t) do
-		table.insert(t,k)
+		--table.insert(t,k)
+		t[i]=k
+		i=i+1
+		-- print(#t.." = "..t[#t])
 	end
 end
 --]]

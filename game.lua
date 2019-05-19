@@ -399,7 +399,8 @@ game.graphics = function(g)
 	g.font:setLineHeight(1.8)
 	LG.setFont(g.font)
 
-	palette.load(g,unpack(love.filesystem.getfiles("palettes","ini")))
+	-- palette.load(g,unpack(love.filesystem.getfiles("palettes","ini")))
+	palette.load(g,unpack(love.filesystem.getfiles("palettes","json")))
 
 	--TODO put this in g.?
 	Spritesheet={}

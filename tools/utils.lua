@@ -40,6 +40,7 @@ end
 --loads a bunch of files that share an extension from a specific directory
 --returns a table with all the directory/filenames of those files
 --NOTE: unpack() the output to use it as an argument in another function
+--is this any different than game.files?
 local function getfiles(dir,ext)
 	local filelist = {}
 	local files = love.filesystem.getDirectoryItems(dir)
