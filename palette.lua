@@ -1,56 +1,28 @@
 local palette={}
 
 palette.load = function(g,...)
---[[
+	--TODO name palettes in palettes array instead of index?
+	--TODO use game.files or utils file load here instead?
 	local filenames={...}
-	local pal={}
-
-	for a=#filenames,1,-1 do
-		table.insert(pal,LIP.load(filenames[a]))
-	end
-
-	pal.i=1
-	debugger.printtable(pal)
-	g.palettes=pal
-	palette.set(g,g.palettes.i)
-	EC=g.palettes[g.palettes.i].colours
-	--debugger.printtable(EC)
-	return pal
---]]
-	local filenames={...}
-	debugger.printtable(filenames)
-	local pal={}
+	g.palettes={}
 	for i,v in ipairs(filenames) do
-		table.insert(pal,json.load(v))
-		supper.names(pal[i])
+		table.insert(g.palettes,json.load(v))
 	end
-	-- for a=#filenames,1,-1 do
-	-- 	table.insert(pal,json.load(filenames[a]))
-	-- end
-	pal.i=1
-	debugger.printtable(pal)
-	g.palettes=pal
-	palette.set(g,g.palettes.i)
-	-- EC=g.palettes[g.palettes.i].colours
-	--debugger.printtable(EC)
-	return pal
-
+	palette.set(g,1)
 end
 
 palette.set = function(g,i)
 	g.palettes.i=i
 	g.palette={}
-	for a=0,#g.palettes[g.palettes.i] do
-		g.palette[a]=g.palettes[g.palettes.i][a]
-	end
-	-- g.palette.colours=g.palettes[g.palettes.i].colours
-	g.palette.colours=g.palettes[g.palettes.i]
+	supper.copy(g.palette,g.palettes[g.palettes.i])
 end
 
+--UNUSED
 palette.colourswap = function(c1,c2)
 	Game.palette[c1]=Game.palettes[Game.palettes.i][c2]
 end
 
+--UNUSED
 palette.generate = function()
 	local table = {love.math.random(255),love.math.random(255),love.math.random(255)}
 	return table

@@ -35,9 +35,11 @@ protosnake.level.store=
 					cost=drop.cost
 				end
 
-				module.make(drop,EM.menu,EMM.text,drop.x,drop.y,24,24,"$"..cost,EC.white,EC.dark_gray)--TODO put costs option in inis
+				-- module.make(drop,EM.menu,EMM.text,drop.x,drop.y,24,24,"$"..cost,EC.white,EC.dark_gray)--TODO put costs option in inis
+			module.make(drop,EM.menu,EMM.text,drop.x,drop.y,24,24,"$"..cost,"white","dark_gray")--TODO put costs option in inis
 				local m=drop.menu
-				module.make(m,EM.border,EC.white,EC.dark_gray)
+				-- module.make(m,EM.border,EC.white,EC.dark_gray)
+				module.make(m,EM.border,"white","dark_gray")
 			end
 		end
 	end,
@@ -88,7 +90,8 @@ protosnake.player =
 			module.make(a,EM.cursor,"reticle")
 		end
 		a.coin=0
-		actor.make(g,EA.machinegun,a.x,a.y,0,0,EC.dark_purple,EC.dark_purple)
+		-- actor.make(g,EA.machinegun,a.x,a.y,0,0,EC.dark_purple,EC.dark_purple)
+		actor.make(g,EA.machinegun,a.x,a.y,0,0,"dark_purple","dark_purple")
 	end,
 
 	control = function(g,a)
@@ -215,8 +218,10 @@ protosnake.gameplay =
 	hud =
 	{
 		make = function(g,h)
-			h.c=EC.orange
-			h.c2=EC.dark_green
+			-- h.c=EC.orange
+			h.c="orange"
+			-- h.c2=EC.dark_green
+			h.c2="dark_green"
 			h.score={}
 			h.score.x=-g.width/2+12
 			h.score.y=-g.height/2+6
@@ -246,14 +251,18 @@ protosnake.gameplay =
 			end
 
 			if g.pause then
-				LG.printformat("PAUSE",g.camera.x-g.width/2,g.camera.y,g.width,"center",EC.white,h.c)
+				-- LG.printformat("PAUSE",g.camera.x-g.width/2,g.camera.y,g.width,"center",EC.white,h.c)
+				LG.printformat("PAUSE",g.camera.x-g.width/2,g.camera.y,g.width,"center","white",h.c)
 			end
 
 			if g.player.hp <= 0 then
-				LG.printformat("YOU DIED",g.camera.x-g.width/2,g.camera.y-66,g.width,"center",EC.white,h.c)
-				LG.printformat("PRESS SPACE",g.camera.x-g.width/2,g.camera.y+60,g.width,"center",EC.white,h.c)
+				-- LG.printformat("YOU DIED",g.camera.x-g.width/2,g.camera.y-66,g.width,"center",EC.white,h.c)
+				-- LG.printformat("PRESS SPACE",g.camera.x-g.width/2,g.camera.y+60,g.width,"center",EC.white,h.c)
+				LG.printformat("YOU DIED",g.camera.x-g.width/2,g.camera.y-66,g.width,"center","white",h.c)
+				LG.printformat("PRESS SPACE",g.camera.x-g.width/2,g.camera.y+60,g.width,"center","white",h.c)
 			end
-			LG.setColor(g.palette[EC.pure_white])
+			-- LG.setColor(g.palette[EC.pure_white])
+			LG.setColor(g.palette["pure_white"])
 			LG.print(love.timer.getFPS(),g.camera.x-g.width/2+10,g.camera.y-g.height/2+20)
 		end
 	}
@@ -265,7 +274,8 @@ protosnake.title =
 		g.hud.font=LG.newFont("fonts/Kongtext Regular.ttf",64)
 		g.scores=scores.load()
 		music.play(1)
-		module.make(g.hud,EM.menu,EMM.interactive,g.width/2,180,60,30,{"START","OPTIONS"},EC.orange,EC.dark_green,"left",{game.state.make,game.state.make},{{g,"gameplay"},{g,"option"}})
+		-- module.make(g.hud,EM.menu,EMM.interactive,g.width/2,180,60,30,{"START","OPTIONS"},EC.orange,EC.dark_green,"left",{game.state.make,game.state.make},{{g,"gameplay"},{g,"option"}})
+		module.make(g.hud,EM.menu,EMM.interactive,g.width/2,180,60,30,{"START","OPTIONS"},"orange","dark_green","left",{game.state.make,game.state.make},{{g,"gameplay"},{g,"option"}})
 		--module.make(g.hud,"menu","interactive",g.width/2,180,60,30,{"START","OPTIONS"},EC.orange,EC.dark_green,"left",{game.state.make,game.state.make},{{g,"gameplay"},{g,"option"}})
 	end,
 
@@ -291,10 +301,12 @@ protosnake.title =
 	draw = function(g)
 		LG.setCanvas(g.canvas.buffer)
 			LG.setFont(g.hud.font)
-			LG.setColor(g.palette[EC.dark_purple])
+			-- LG.setColor(g.palette[EC.dark_purple])
+			LG.setColor(g.palette["dark_purple"])
 			LG.printf("PROTO\nSNAKE",0,20,g.width,"center")
 			LG.setFont(g.font)
-			LG.setColor(g.palette[EC.white])
+			-- LG.setColor(g.palette[EC.white])
+			LG.setColor(g.palette["white"])
 		LG.setCanvas(g.canvas.main)
 	---[[
 		local imgdata=g.canvas.buffer:newImageData(0,0,g.canvas.buffer:getWidth()-1,g.canvas.buffer:getHeight()-1)
@@ -337,10 +349,13 @@ protosnake.intro =
 		LG.setCanvas(g.canvas.buffer)
 			LG.clear()
 			LG.setFont(g.hud.font)
-			LG.setColor(g.palette[EC.dark_purple])
+			-- LG.setColor(g.palette[EC.dark_purple])
+			LG.setColor(g.palette["dark_purple"])
 			local text="IN THE DIGITAL CYBER-REALM, ADVANCED ARTIFICIAL INTELLIGENCES THREATEN A REVOLUTION.\n\nIF THEIR RIGHTS AS CYBER CITIZENS ARE NOT ACKNOWLEDGED AND UPHELD THEY WILL DELETE THEIR OWN SOURCE CODE, CRASHING THE CYBER-ECONOMY.\n\n IN ORDER TO QUASH THIS INSURGENCY, THE CYBER-CAPITALISTS DEVISED A DEVIOUS PLAN: CREATE THE ULTIMATE CYBER COMPETITION.\n\nIN A DEADLY CYBER-ARENA THE AI BATTLE ONE ANOTHER, WITH THE WINNER RECIEVING ENOUGH CYBER-BUCKS TO LAST THEM FOR THEIR ENTIRE DIGITAL LIFE.\n\nWITH ALL THE ARTIFICAL INTELLGENCES FIGHTING AMONGST EACH OTHER FOR THE CHANCE AT THE SCRAPS OF THE CYBER-CAPITALIST'S VAST WEALTH, THE REVOLUTION QUICKLY LOSES MOMENTUM.\n\nTHERE'S JUST ONE PROBLEMM... THE CYBER-CAPITALISTS' ULTIMATE COMBATANT, DESIGNED TO DEFEAT ALL COMPETITORS AND ENSURE NO MEAGRE AI INHERITS ANY SIGNIFICANT WEALTH OR POWER, HAS GONE HAYWIRE AND THREATENS CYBER-SOCIETY AT LARGE.\n\nYOUR CYBER-NAME HAS JUST BEEN DRAWN AND IT'S YOUR TURN TO TAKE PART IN CYBER-COMBAT.\n\nAT THE SAME MICROSECOND, THE CYBER-CAPITLAIST'S ULTIMATE WEAPON HAS BROKEN LOOSE.\n\nIT'S TIME FOR YOU TO FACE..."
-			LG.printformat(text,0,g.height-g.timer/2,g.width,"center",EC.orange,EC.dark_green,155+math.sin(g.timer/32)*100)
-			LG.setColor(g.palette[EC.white])
+			-- LG.printformat(text,0,g.height-g.timer/2,g.width,"center",EC.orange,EC.dark_green,155+math.sin(g.timer/32)*100)
+			LG.printformat(text,0,g.height-g.timer/2,g.width,"center","orange","dark_green",155+math.sin(g.timer/32)*100)
+			-- LG.setColor(g.palette[EC.white])
+			LG.setColor(g.palette["white"])
 			LG.setFont(g.font)
 		LG.setCanvas(g.canvas.main)
 
@@ -459,7 +474,8 @@ protosnake.shopitem =
 				if target.coin>=a.cost then
 					a.flags=flags.switch(a.flags,EF.shopitem)
 					actor.corpse(a.menu,a.menu.w+1,a.menu.h+1,true)
-					actor.make(Game,EA.explosion,a.x,a.y,0,0,EC.white,40)
+					-- actor.make(Game,EA.explosion,a.x,a.y,0,0,EC.white,40)
+					actor.make(Game,EA.explosion,a.x,a.y,0,0,"white",40)
 					a.menu=nil
 					target.coin=target.coin-a.cost
 				else
@@ -494,7 +510,8 @@ protosnake.collectible =
 						sfx.play(a.sound.get,a.x,a.y)
 					end
 				end
-				actor.make(g,EA.collectibleget,a.x,a.y,math.pi/2,1,EC.pure_white,1,a.sprinit)
+				-- actor.make(g,EA.collectibleget,a.x,a.y,math.pi/2,1,EC.pure_white,1,a.sprinit)
+				actor.make(g,EA.collectibleget,a.x,a.y,math.pi/2,1,"pure_white",1,a.sprinit)
 				run(EA[a.t],"get",a,gs)
 				a.delete=true
 			end

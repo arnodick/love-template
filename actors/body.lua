@@ -1,5 +1,6 @@
 local function make(g,a,c)
-	a.c=c or EC.pure_white
+	-- a.c=c or EC.pure_white
+	a.c=c or "pure_white"
 	a.d=math.randomfraction(math.pi*2)
 	a.vel=math.randomfraction(1)+1
 	a.decel=0.01

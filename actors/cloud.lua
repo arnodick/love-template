@@ -3,7 +3,8 @@
 -- [modulename ie explosion]
 -- r=12
 local function make(g,a,c,size)
-	a.cinit=c or EC.indigo
+	-- a.cinit=c or EC.indigo
+	a.cinit=c or "indigo"
 	a.c=a.cinit
 	a.size=size or 6
 	a.angle=-a.d
@@ -45,9 +46,11 @@ local function draw(g,a)
 	--]]
 
 	if Debugger.debugging then
-		LG.setColor(g.palette[EC.green])
+		-- LG.setColor(g.palette[EC.green])
+		LG.setColor(g.palette["green"])
 		LG.points(a.x,a.y)
-		LG.setColor(g.palette[EC.red])
+		-- LG.setColor(g.palette[EC.red])
+		LG.setColor(g.palette["red"])
 		for i=1,#points,2 do
 			LG.points(points[i],points[i+1])
 		end

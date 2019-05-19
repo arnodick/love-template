@@ -93,7 +93,8 @@ local function printformat(text,x,y,limit,align,c1,c2,alpha)
 			LG.printf(text,x,y,limit,align)
 		end
 	end
-	LG.setColor(Game.palette[EC.pure_white])
+	-- LG.setColor(Game.palette[EC.pure_white])
+	LG.setColor(Game.palette["pure_white"])
 end
 
 --returns the lightness value of a colour

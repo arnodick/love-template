@@ -1,7 +1,8 @@
 local bullet={}
 
 bullet.make = function(g,a,c)
-	a.cinit=c or EC.green
+	-- a.cinit=c or EC.green
+	a.cinit=c or "green"
 	a.c=a.cinit
 	a.spr=65
 	a.size=1

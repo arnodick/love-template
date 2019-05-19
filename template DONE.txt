@@ -1,4 +1,6 @@
 DONE
+	need to rework palettes. what do WE want from them? easily listed in json by key, but with int indexes for colour names too
+		want int indexes so colours can be procedurally accessed. do we need ints for this? maybe not.
 clean up utils, comment, put stuff in supper maybe
 branch template when a game is ready to be released, rather than copying the whole folder over
 sound (behaves different when spatial sound is used)

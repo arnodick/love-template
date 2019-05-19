@@ -11,7 +11,8 @@ local function draw(m,border)
 	local x,y=math.floor(m.x-m.w/2),math.floor(m.y-m.h/2)
 	LG.rectangle("fill",x+1,y+1,m.w+1,m.h+1)
 
-	LG.setColor(Game.palette[EC.black])
+	-- LG.setColor(Game.palette[EC.black])
+	LG.setColor(Game.palette["black"])
 	LG.rectangle("fill",x,y,m.w,m.h)
 
 	LG.setColor(Game.palette[border.c1])

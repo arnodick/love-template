@@ -1,5 +1,6 @@
 local function make(a,t,c,len)
-	t.c=c or EC.red
+	-- t.c=c or EC.red
+	t.c=c or "red"
 	t.leninit=len or 9
 	t.len=t.leninit
 	t.angle=0

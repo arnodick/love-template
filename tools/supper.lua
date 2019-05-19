@@ -65,7 +65,7 @@ end
 --maybe this is impossible actually? can't iterate through table while adding keys because those new keys are iterated over. can maybe just copy table in?
 --can WE just do this instead? this happens with Enums, doesn't it?
 supper.names = function(t)
-	names={}
+	local names={}
 	for k,v in pairs(t) do
 		table.insert(names,k)
 	end

@@ -181,7 +181,8 @@ local function damage(a,d)
 	local g=Game
 	if not a.delete then
 		--TODO game-specific
-		module.make(a,EM.flash,"c",EC.white,a.cinit,6)
+		-- module.make(a,EM.flash,"c",EC.white,a.cinit,6)
+		module.make(a,EM.flash,"c","white",a.cinit,6)
 		if a.sound then
 			if a.sound.damage then
 				sfx.play(a.sound.damage,a.x,a.y)
@@ -213,7 +214,8 @@ local function damage(a,d)
 
 				--TODO sort of game-specific
 				if flags.get(a.flags,EF.explosive) then
-					actor.make(g,EA.explosion,a.x,a.y,0,0,EC.white,20*(a.size))
+					-- actor.make(g,EA.explosion,a.x,a.y,0,0,EC.white,20*(a.size))
+					actor.make(g,EA.explosion,a.x,a.y,0,0,"white",20*(a.size))
 				end
 				
 				run(EA[a.t],"dead",a)

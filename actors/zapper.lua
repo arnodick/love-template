@@ -1,5 +1,6 @@
 local function make(g,a)
-	a.c=c or EC.blue
+	-- a.c=c or EC.blue
+	a.c=c or "blue"
 	a.projvel=0
 	a.rof=20
 	a.num=1

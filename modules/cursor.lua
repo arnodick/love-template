@@ -97,20 +97,24 @@ cursor.editor.draw = function(c)
 		c.draw=false
 	end
 	for i=1,#Enums.flags do
-		LG.setColor(g.palette[EC.white])
+		-- LG.setColor(g.palette[EC.white])
+		LG.setColor(g.palette["white"])
 		if flags.get(cell,i,16) then
-			LG.setColor(g.palette[EC.red])
+			-- LG.setColor(g.palette[EC.red])
+			LG.setColor(g.palette["red"])
 		end
 		LG.points(cx+i*2,cy-5)
 	end
 	LG.print(c.value,cx+tw,cy+th)
 	LG.draw(Spritesheet[1],Quads[1][c.value],cx,cy)
 
-	local p=g.palette[EC.red]
+	-- local p=g.palette[EC.red]
+	local p=g.palette["red"]
 	p[4]=180
 	LG.setColor(p)
 	LG.draw(Spritesheet[1],Quads[1][254],cx,cy)
-	LG.setColor(g.palette[EC.pure_white])
+	-- LG.setColor(g.palette[EC.pure_white])
+	LG.setColor(g.palette["pure_white"])
 end
 
 return cursor

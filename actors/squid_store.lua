@@ -1,5 +1,6 @@
 local function make(g,a,c,size,spr,hp)
-	a.cinit=c or EC.yellow
+	-- a.cinit=c or EC.yellow
+	a.cinit=c or "yellow"
 	a.c=a.cinit
 	a.size=size or 1
 	a.spr=spr or 97
@@ -21,9 +22,11 @@ local function control(g,a)
 		if not a.menu then
 			local zoomchange=2.5-g.camera.zoom
 			module.make(g.camera,EM.transition,easing.inOutSine,"zoom",g.camera.zoom,zoomchange,180)
-			module.make(a,EM.menu,EMM.text,a.x,a.y-38,50,50,{"what you buy do you want to buy the powerup ?"},EC.orange,EC.dark_green)
+			-- module.make(a,EM.menu,EMM.text,a.x,a.y-38,50,50,{"what you buy do you want to buy the powerup ?"},EC.orange,EC.dark_green)
+			module.make(a,EM.menu,EMM.text,a.x,a.y-38,50,50,{"what you buy do you want to buy the powerup ?"},"orange","dark_green")
 			local m=a.menu
-			module.make(m,EM.border,EC.indigo,EC.dark_purple)
+			-- module.make(m,EM.border,EC.indigo,EC.dark_purple)
+			module.make(m,EM.border,"indigo","dark_purple")
 			m.font=LG.newFont("fonts/pico8.ttf",8)--TODO put font in menu makey
 		end
 	elseif a.menu then

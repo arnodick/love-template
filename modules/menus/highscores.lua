@@ -7,7 +7,8 @@ highscores.make = function(m)
 	end
 	m.text=scoretext
 	m.index=0
-	module.make(m,EM.border,EC.dark_purple,EC.indigo)
+	-- module.make(m,EM.border,EC.dark_purple,EC.indigo)
+	module.make(m,EM.border,"dark_purple","indigo")
 end
 
 highscores.control = function(g,m)
