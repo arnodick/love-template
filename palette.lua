@@ -4,9 +4,11 @@ palette.load = function(g,...)
 --[[
 	local filenames={...}
 	local pal={}
+
 	for a=#filenames,1,-1 do
 		table.insert(pal,LIP.load(filenames[a]))
 	end
+
 	pal.i=1
 	debugger.printtable(pal)
 	g.palettes=pal
@@ -20,7 +22,7 @@ palette.load = function(g,...)
 	local pal={}
 	for i,v in ipairs(filenames) do
 		table.insert(pal,json.load(v))
-		supper.names(pal[i],"colours")
+		supper.names(pal[i])
 	end
 	-- for a=#filenames,1,-1 do
 	-- 	table.insert(pal,json.load(filenames[a]))
@@ -29,9 +31,10 @@ palette.load = function(g,...)
 	debugger.printtable(pal)
 	g.palettes=pal
 	palette.set(g,g.palettes.i)
-	EC=g.palettes[g.palettes.i].colours
+	-- EC=g.palettes[g.palettes.i].colours
 	--debugger.printtable(EC)
 	return pal
+
 end
 
 palette.set = function(g,i)
