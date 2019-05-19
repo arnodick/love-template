@@ -3,7 +3,6 @@ polish up interactive fiction, make general menus
 game.lua stuff, make sure nothing game specific is in there, should go in game itself instead
 can WE get rid of choosing game in main, put it in config instead?
 always use g.players, but make player = players[1] if singleplayer
-clean up utils, comment, put stuff in supper maybe
 could game.files be used more widely? what does it do exactly? comment it, figure out if it can be generalized elsewhere
 clean up libraries
 tools folder, can it be better organized?

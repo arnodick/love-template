@@ -1,31 +1,33 @@
---TODO goes in MATH?
-local function clamp(v,mi,ma,wrap)--TODO recursive clamp
+--MATH
+--clamps a value between a min and max inclusive, with an option to wrap from max to min or vice versa
+local function clamp(v,min,max,wrap)--TODO recursive clamp (what does this mean again?)
 	wrap=wrap or false
-	if not wrap then
-		if v<mi then v=mi
-		elseif v>ma then v=ma
+	if not wrap then--if no wrapping, then hard clamp to min or max limit
+		if v<min then v=min
+		elseif v>max then v=max
 		end
 	else
-		--if v<mi then v=ma
-		if v<mi then v=ma+1+v-mi
-		elseif v>ma then v=mi-1+v-ma
+		if v<min then v=max+1+v-min--not sure what is going on here?
+		elseif v>max then v=min-1+v-max
 		end
 	end
 	return v
 end
 
---TODO goes in MATH?
+--choose one value from an input of any amount of args
 local function choose(...)
-	local arg={...}
-	return arg[love.math.random(#arg)]
+	local args={...}--make a table from all the args
+	return args[love.math.random(#args)]--choose one arg at random
 end
 
---TODO goes in MATH?
-local function randomfraction(n)
-	return love.math.random(n*1000000)/1000000
+--takes number n, returns a fraction greater than 0 but less than or equal to n
+--ie: n = 4 may give results like 0.1 or 3.9, but not 0 or 4.1
+local function randomfraction(n,d)
+	d=d or 1000000
+	return love.math.random(n*d)/d--get a random integer from 1 to 4000000 if n = 4 and d = 1000000, then divide that by d to get a fraction
 end
 
---TODO goes in MATH?
+--snaps a value v to a target value if the difference between v and snapto is greater than inc
 local function snap(v,inc,snapto)--TODO does this need a negative version
 	if v-inc<=snapto+inc then--TODO make this addition instead of subtraction?
 		return snapto
@@ -34,7 +36,7 @@ local function snap(v,inc,snapto)--TODO does this need a negative version
 	end
 end
 
---TODO goes in FILES?
+--FILESYSTEM
 --loads a bunch of files that share an extension from a specific directory
 --returns a table with all the directory/filenames of those files
 --NOTE: unpack() the output to use it as an argument in another function
@@ -53,7 +55,7 @@ local function getfiles(dir,ext)
 	return filelist
 end
 
---TODO goes in FILES?
+--gets all the files in a folder and returns a table containing only the files that matched the input extension string
 local function filterfiles(folder,ext)
 	local files = love.filesystem.getDirectoryItems(folder)
 	for i=#files,1,-1 do
@@ -65,14 +67,16 @@ local function filterfiles(folder,ext)
 	return files
 end
 
---TODO goes in GRAPHICS?
+--GRAPHICS
+--draws a box that can be rotated!
 local function drawbox(x,y,w,a)
 	for i=0,3 do
 		LG.line(x+math.cos(a+i*0.25*math.pi*2)*w/2,y+math.sin(a+i*0.25*math.pi*2)*w/2,x+math.cos(a+(i+1)*0.25*math.pi*2)*w/2,y+math.sin(a+(i+1)*0.25*math.pi*2)*w/2)
 	end
 end
 
---TODO goes in GRAPHICS?
+--prints text with shadow, different colours, etc.
+--TODO needs work
 local function printformat(text,x,y,limit,align,c1,c2,alpha)
 	limit=limit or Game.width-x
 	align=align or "left"
@@ -91,7 +95,7 @@ local function printformat(text,x,y,limit,align,c1,c2,alpha)
 	LG.setColor(Game.palette[EC.pure_white])
 end
 
---TODO goes in GRAPHICS?
+--returns the lightness value of a colour
 local function lightness(r,g,b)
 	r,g,b=r/255,g/255,b/255
 	max=math.max(r,g,b)
@@ -99,7 +103,7 @@ local function lightness(r,g,b)
 	return (max+min)/2
 end
 
---TODO goes in GRAPHICS?
+--makes an image in ascii art
 local function textify(image,scale,chars,smallcanvas,bigcanvas,charw,charh)
 	--local g=Game
 	LG.setCanvas(smallcanvas)
@@ -122,7 +126,8 @@ local function textify(image,scale,chars,smallcanvas,bigcanvas,charw,charh)
 	return LG.newImage(mainimgdata)
 end
 
---TODO goes in GRAPHICS?
+--draws an image to the background canvas, which is not refreshed every frame
+--TODO needs work, take g as input?
 local function drawtobackground(background,drawable,x,y,a,scale,scale,xoff,yoff,alpha)
 	local g=Game
 	local xcamoff,ycamoff=g.camera.x-g.width/2,g.camera.y-g.height/2
