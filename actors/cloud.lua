@@ -3,7 +3,6 @@
 -- [modulename ie explosion]
 -- r=12
 local function make(g,a,c,size)
-	-- a.cinit=c or EC.indigo
 	a.cinit=c or "indigo"
 	a.c=a.cinit
 	a.size=size or 6

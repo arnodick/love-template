@@ -7,8 +7,6 @@ local function make(g,a,c,size,spr,hp)
 		module.make(a,EM.controller,EMC.action,EMCI.gamepad)
 	end
 
-	-- a.cinit=c or EC.dark_blue
-	-- a.c=a.cinit or EC.blue
 	a.cinit=c or "dark_blue"
 	a.c=a.cinit or "blue"
 	a.size=size or 2

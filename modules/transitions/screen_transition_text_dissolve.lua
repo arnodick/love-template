@@ -26,7 +26,6 @@ local function draw(g,l,m)
 				if #m.letters>0 then
 					local randindex=love.math.random(#m.letters)
 					local letter=m.letters[randindex]
-					-- LG.setColor(g.palette[EC.black])
 					LG.setColor(g.palette["black"])
 					LG.rectangle("fill",letter.x*g.tile.width,letter.y*g.tile.height,g.tile.width,g.tile.height)
 					table.remove(m.letters,randindex)
@@ -34,7 +33,6 @@ local function draw(g,l,m)
 			end
 		end
 
-		-- LG.setColor(g.palette[EC.pure_white])
 		LG.setColor(g.palette["pure_white"])
 --]]
 	LG.setCanvas() --sets drawing back to screen

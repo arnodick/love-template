@@ -14,10 +14,7 @@ multigame.intro =
 				table.insert(gameargs,{i})
 			end
 		end
-		--module.make(g.hud,EM.menu,EMM.interactive,g.width/2,120,160,120,gamenames,EC.orange,EC.dark_green,"center",gamemakes,gameargs)
 
-		-- module.make(g.hud,EM.menu,EMM.interactive,g.width/2,120,160,(#gamenames+2)*12,gamenames,EC.orange,EC.dark_green,"center",gamemakes,gameargs)
-		-- module.make(g.hud.menu,EM.border,EC.orange,EC.dark_green)
 		module.make(g.hud,EM.menu,EMM.interactive,g.width/2,120,160,(#gamenames+2)*12,gamenames,"orange","dark_green","center",gamemakes,gameargs)
 		module.make(g.hud.menu,EM.border,"orange","dark_green")
 	end,

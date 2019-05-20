@@ -1,5 +1,4 @@
 local function make(g,a,c,bc)
-	-- a.c=c or EC.blue
 	a.c=c or "blue"
 	a.bc=bc
 	a.size=1

@@ -14,7 +14,6 @@ editor.keypressed = function(g,key)
 	if love.keyboard.isDown('lctrl') then
 		if key=="s" then
 			love.keyboard.setTextInput(true)
-			-- module.make(g.hud,EM.menu,EMM.text,100,100,200,200,{"type file name",""},EC.orange,EC.dark_green)
 			module.make(g.hud,EM.menu,EMM.text,100,100,200,200,{"type file name",""},"orange","dark_green")
 		end
 	elseif key=="return" then
@@ -60,7 +59,6 @@ editor.wheelmoved = function(g,x,y)
 end
 
 editor.draw = function(g)
-	-- LG.printformat("EDITOR",g.camera.x-g.width/2,g.camera.y-15,g.width,"center",EC.red,EC.blue)
 	LG.printformat("EDITOR",g.camera.x-g.width/2,g.camera.y-15,g.width,"center","red","blue")
 end
 

@@ -189,7 +189,6 @@ local function draw(m)
 			local c1,c2=m.c1,m.c2
 			local l=g.levels[g.map[mapy][mapx]]
 			if l.unlock and not g.player.items[l.unlock] then
-				-- c1=EC.black
 				c1="black"
 			end
 			--LG.printformat(m.text[i],points[1],points[2],m.w/printwidth,"center",c1,c2,linealpha)
@@ -240,7 +239,6 @@ local function draw(m)
 			end
 			table.insert(colourtext,string.sub(m.description,i,i))
 		end
-		--LG.printformat(colourtext,300,700,g.width/2,"left",EC.white,EC.blue,255)
 		if not m.wordlearned then
 			LG.printf(colourtext,300,700,g.width/2,"left")
 		else

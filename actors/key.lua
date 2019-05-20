@@ -1,5 +1,4 @@
 local function make(g,a,c,size,spr)
-	-- a.cinit=c or EC.blue
 	a.cinit=c or "blue"
 	a.c=a.cinit
 	a.size=size or 1

@@ -30,7 +30,6 @@ rpg.player =
 		end
 
 		if a.controller.action.use then
-			-- a.c=EC.red
 			a.c="red"
 		else
 			a.c=a.cinit

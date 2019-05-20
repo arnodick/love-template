@@ -1,5 +1,4 @@
 local function make(g,a,c)
-	-- a.c=c or EC.red
 	a.c=c or "red"
 --	a.d=math.randomfraction(math.pi*2)
 	a.spr=150+math.choose(0,1,2)

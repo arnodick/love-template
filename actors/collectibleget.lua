@@ -1,5 +1,4 @@
 local function make(g,a,c,size,spr)
-	-- a.c=c or EC.pure_white
 	a.c=c or "pure_white"
 	a.size=size or 1
 	a.spr=spr or 1
@@ -12,7 +11,7 @@ local function control(g,a)
 		sfx.play(8,a.x,a.y)
 		for i=1,20 do
 			actor.make(g,EA.spark,a.x,a.y)
-			--actor.load(g,"spark",a.x,a.y,math.randomfraction(math.pi*2),nil,math.randomfraction(2)+2,EC.yellow)
+			--actor.load(g,"spark",a.x,a.y,math.randomfraction(math.pi*2),nil,math.randomfraction(2)+2,"yellow")
 		end
 		a.delete=true
 	end

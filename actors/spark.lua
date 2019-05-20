@@ -1,5 +1,4 @@
 local function make(g,a,c)
-	-- a.c=c or EC.yellow
 	a.c=c or "yellow"
 	a.d=math.randomfraction(math.pi*2)
 	a.vel=math.randomfraction(2)+2

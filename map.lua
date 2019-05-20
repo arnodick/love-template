@@ -214,8 +214,6 @@ drawmodes.grid = function(m,x,y)
 	local g=Game
 	if x==1 or y==1 then
 		local tw,th=m.tile.width,m.tile.height
---TODO make a palette.fromenum function or something to input EC.red and get r,gr,b
-		-- local c=g.palette[g.level.c or EC.white]
 		local c=g.palette[g.level.c or "white"]
 		local r,gr,b=c[1],c[2],c[3]
 		LG.setColor(r,gr,b,120)

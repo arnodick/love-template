@@ -5,7 +5,6 @@ twodimensional.draw = function(g,a)
 	run(EA[a.t],"predraw",a)
 --]]
 
-	-- local c=a.c or EC.pure_white
 	local c=a.c or "pure_white"
 	--local c=a.c or g.actordata[EA[a.t]].c
 	local r,gr,b=unpack(g.palette[c])
@@ -32,7 +31,6 @@ twodimensional.draw = function(g,a)
 	end
 
 	if Debugger.debugging then
-		-- LG.setColor(g.palette[EC.blue])
 		LG.setColor(g.palette["blue"])
 		if a.hitradius then
 			hitradius.draw(a)
@@ -46,7 +44,6 @@ twodimensional.draw = function(g,a)
 		--LG.print(a.flags,a.x+8,a.y-8)
 	end
 
-	-- LG.setColor(g.palette[EC.pure_white])
 	LG.setColor(g.palette["pure_white"])
 end
 

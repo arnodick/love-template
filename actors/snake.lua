@@ -1,5 +1,4 @@
 local function make(g,a,c,size,spr,hp)
-	-- a.cinit=c or EC.dark_green
 	a.cinit=c or "dark_green"
 	a.c=a.cinit
 	a.size=size or 1
@@ -13,7 +12,6 @@ local function make(g,a,c,size,spr,hp)
 	module.make(a,EM.sound,3,"damage")
 	module.make(a,EM.tail,a.cinit,9)
 	module.make(a,EM.inventory,1)
-	-- table.insert(a.inventory,actor.make(g,EA.machinegun,a.x,a.y,0,0,a.cinit,EC.green))
 	table.insert(a.inventory,actor.make(g,EA.machinegun,a.x,a.y,0,0,a.cinit,"green"))
 	module.make(a,EM.animation,EM.animations.frames,10,2)
 	module.make(a,EM.hitradius,4)
@@ -41,10 +39,8 @@ local function control(g,a)
 		end
 		if math.floor(g.timer/(20-a.rage*5))%2==0 then
 			if a.rage==1 then
-				-- a.c=EC.yellow
 				a.c="yellow"
 			else
-				-- a.c=EC.red
 				a.c="red"
 			end
 		else

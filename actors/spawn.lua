@@ -1,7 +1,6 @@
 local function make(g,a,c)
 	a.x=love.math.random(319)
 	a.y=love.math.random(239)
-	-- a.cinit=EC.blue
 	a.cinit="blue"
 	a.c=a.cinit
 	a.d=0
@@ -60,7 +59,6 @@ local function control(g,a,gs)
 
 		for i=1,20 do
 			local spark=actor.make(g,EA.spark,a.x,a.y)
-			-- spark.c=EC.dark_blue
 			spark.c="dark_blue"
 		end
 		a.delete=true
