@@ -1,22 +1,31 @@
 local scores={}
 
+--TODO take g in, has settings for amount of scores etc
+--TODO score.make? makes a {"name",score} table
+--TODO score.sort, orders scores by value, descending ascending option
 scores.load = function()
-	if not love.filesystem.exists("scores.ini") then
-		local h={}
-		local n={}
+	if not love.filesystem.exists("scores.json") then
+		local s={}
 		for i=1,8 do
-			table.insert(h,i*2)
-			table.insert(n,"ASH")
+			table.insert(s,{name="ASH",score=love.math.random(10)})
 		end
-		local scores=
-		{
-			high=h,
-			names=n,
-		}
-		
-		LIP.save("scores.ini",scores)
+		scores.sort(s)
+		json.save("scores.json",s)
 	end
-	return LIP.load("scores.ini")
+	-- return json.load("scores.json")
+	return s
+end
+
+scores.sort = function(s,descending)
+	descending=descending or false
+	local function scoresort(a,b)
+		if a.score<b.score then
+			return descending
+		else
+			return not descending
+		end
+	end
+	table.sort(s,scoresort)
 end
 
 scores.update = function()

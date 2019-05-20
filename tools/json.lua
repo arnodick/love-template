@@ -381,5 +381,10 @@ function json.load(filepath)
   return json.decode(love.filesystem.read(filepath))
 end
 
+function json.save(filename,t)
+  --TODO check for extension in filename here, if not, put .json in
+  love.filesystem.write(filename,json.encode(t))
+end
+
 
 return json
