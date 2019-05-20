@@ -1,7 +1,7 @@
 local function make(m,menu_functions,menu_function_args)
 	m.menu_functions=menu_functions
 	m.menu_function_args=menu_function_args
-	debugger.printtable(m.menu_functions)
+	supper.print(m.menu_functions)
 	if m.text then
 		m.text.index=1
 	end

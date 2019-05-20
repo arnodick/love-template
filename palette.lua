@@ -3,14 +3,20 @@ local palette={}
 palette.load = function(g,...)
 	--TODO name palettes in palettes array instead of index?
 	--TODO use game.files or utils file load here instead?
+--[[
+	local x=game.files(g,"palettes")
+	supper.print(x)
+--]]
 	local filenames={...}
 	g.palettes={}
 	for i,v in ipairs(filenames) do
 		table.insert(g.palettes,json.load(v))
 	end
 	palette.set(g,1)
+	supper.print(g.palettes,"palette")
 end
 
+--TODO make i an integer index or string key
 palette.set = function(g,i)
 	g.palettes.i=i
 	g.palette={}

@@ -109,6 +109,19 @@ supper.copy = function(target,source)
 	end
 end
 
+--prints everything in a table to console by recursively travelling through every subtable
+supper.print = function(table,name,space)
+	name=name or "parent"--this is printed in the first line, to identify the table
+	space=space or " "--space is just included for indentation, so each recursive iteration of print is indented by its recursion depth, for readability
+	if space==" " then print(name.." table = "..tostring(table)) end--only print parent table name on first iteration (when there is only one space)
+	for k,v in pairs(table) do
+		print(space..k.." = "..tostring(v))--print the key and value of the entry in the table
+		if type(v)=="table" then
+			supper.print(v,name,space.." ")--if it is also a table, print it out as well, indented one more space
+		end
+	end
+end
+
 -- Supper:
 -- Don't walk for your supper... RUN!
 

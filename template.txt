@@ -6,7 +6,7 @@ always use g.players, but make player = players[1] if singleplayer
 could game.files be used more widely? what does it do exactly? comment it, figure out if it can be generalized elsewhere
 clean up libraries
 tools folder, can it be better organized?
-make debugger.printtable show parent table, put in supper, make optional print function input so can print to whatever
+make supper.print show parent table, put in supper, make optional print function input so can print to whatever
 can we get rid of lip, use only json instead?
 update nanogenmo etc with new supper.names
 what is difference btwn run, supper.run, game.state.run? can they be smooshed together?

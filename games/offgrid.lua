@@ -49,8 +49,8 @@ offgrid.make = function(g)
 	g.images={}
 	local buffer=LG.newCanvas(640*g.bufferscale,640*g.bufferscale)
 	offgrid.convertimages(g,g.images,images,buffer)
-	debugger.printtable(g.images)
-	--debugger.printtable(_G)--NOTE DON'T DO THIS! gets stuck in loop printing forever, because _G is a member of _G
+	supper.print(g.images)
+	--supper.print(_G)--NOTE DON'T DO THIS! gets stuck in loop printing forever, because _G is a member of _G
 end
 
 offgrid.level={}
@@ -92,13 +92,13 @@ offgrid.level.city =
 		if l.options then
 			if not (l.unlock_description and g.player.items[l.unlock_description_item]) then
 				l.menu.options=l.options
-				debugger.printtable(l.menu.options)
+				supper.print(l.menu.options)
 			end
 		end
 		if l.back then
 			l.menu.back=l.back
 		end
-		--debugger.printtable(l.menu.options)
+		--supper.print(l.menu.options)
 		--local args={l,EM.menu,EMM.interactive_fiction,320,800,640,320,m.text,EC.white,EC.dark_gray,"left",m.functions,m.arguments}
 		--module.make(l,EM.transition,easing.linear,"transition_timer",0,1,240,module.make,args,EM.transitions.screen_transition_blocksreverse)
 		if l.transition_in then
@@ -137,9 +137,9 @@ offgrid.level.city =
 			if l.unlock_item_get then
 				if not g.player.items[l.unlock_item_get] then
 					print(l.unlock_item_get)
-					debugger.printtable(g.player.items)
+					supper.print(g.player.items)
 					g.player.items[l.unlock_item_get]=l.unlock_item_get
-					debugger.printtable(g.player.items)
+					supper.print(g.player.items)
 				end
 			elseif l.unlock_items_get then
 				for i,v in ipairs(l.unlock_items_get) do
@@ -155,9 +155,9 @@ offgrid.level.city =
 		if l.item then
 			if not g.player.items[l.item] then
 				print(l.item)
-				debugger.printtable(g.player.items)
+				supper.print(g.player.items)
 				g.player.items[l.item]=l.item
-				debugger.printtable(g.player.items)
+				supper.print(g.player.items)
 			end
 		end
 	end,
@@ -196,10 +196,10 @@ offgrid.level.word =
 		module.make(l.menu,EM.transition,easing.linear,"text_trans",0,string.len(l.menu.description),360)
 
 		print(l.item)
-		debugger.printtable(g.player.words)
+		supper.print(g.player.words)
 		g.player.words[l.word]=l.word
 		g.player.items[l.word]=l.word
-		debugger.printtable(g.player.words)
+		supper.print(g.player.words)
 	end,
 
 	control = function(g,l)
@@ -341,7 +341,7 @@ offgrid.level.makeinspectoption = function(g,m,name,index,gamename)
 		m.arguments[index]={g,name}
 	end
 	--print("MMMMMMMMM")
-	--debugger.printtable(m)
+	--supper.print(m)
 end
 
 offgrid.level.makebackoption = function(g,m,name)

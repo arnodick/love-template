@@ -95,10 +95,10 @@ game.make = function(t,gw,gh)
 	for i,v in pairs(g.actordata) do
 		v.count=0
 	end
-	debugger.printtable(g.actordata)
+	supper.print(g.actordata)
 --]]
 	g.levels=game.files(g,"games/"..g.name.."/levels")
-	debugger.printtable(g.levels)
+	supper.print(g.levels)
 	--level.load(g,"games/"..g.name.."/levels")
 
 --[[
@@ -400,7 +400,9 @@ game.graphics = function(g)
 	LG.setFont(g.font)
 
 	-- palette.load(g,unpack(love.filesystem.getfiles("palettes","ini")))
+	game.files(g,"games/"..g.name.."/levels")
 	palette.load(g,unpack(love.filesystem.getfiles("palettes","json")))
+	-- palette.load(g,"palettes")--TODO should this be game-specific? game-specific optional
 
 	--TODO put this in g.?
 	Spritesheet={}

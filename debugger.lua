@@ -1,4 +1,6 @@
-local function make()
+local debugger={}
+
+debugger.make = function()
 	local d={}
 	d.debugging=false
 	d.debuglist={}
@@ -7,7 +9,7 @@ local function make()
 	return d
 end
 
-local function update(g,d)
+debugger.update = function(g,d)
 	if d.debugging then
 		local debuglist={}
 		table.insert(debuglist,g.timer)
@@ -157,7 +159,7 @@ local function update(g,d)
 	end
 end
 
-local function draw(d)
+debugger.draw = function(d)
 	if d.debugging then
 		local g=Game
 		LG.setCanvas(d.canvas) --sets drawing to the 1280 x 960 debug canvas
@@ -178,20 +180,4 @@ local function draw(d)
 	end
 end
 
-local function printtable(table,space)
-	space=space or ""--space is just included for indentation, so each recursive iteration of print is indented by its recursion depth, for readability
-	for i,v in pairs(table) do
-		print(space..i.." = "..tostring(v))
-		if type(v)=="table" then
-			printtable(v,space.." ")
-		end
-	end
-end
-
-return
-{
-	make = make,
-	update = update,
-	draw = draw,
-	printtable = printtable,
-}
+return debugger
