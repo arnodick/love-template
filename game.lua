@@ -352,9 +352,7 @@ game.files = function(g,dir,ext)
 				if tonumber(f) then--if the filename (without extension) is a number then index the file in the table by integer
 					f=tonumber(f)
 				end
-				if ext=="ini" then
-					l[f]=LIP.load(filepath)
-				elseif ext=="json" then
+				if ext=="json" then
 					l[f]=json.load(filepath)
 				elseif ext=="jpg" then
 					l[f]=LG.newImage(filepath)

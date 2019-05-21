@@ -8,7 +8,7 @@ cursor.make = function(a,c,t,snap)
 	c.x=g.camera.x
 	c.y=g.camera.y
 	c.snap=snap or false
-	print("Yes")
+	-- print("Yes")
 	game.state.run("cursor",c.t,"make",c)
 end
 

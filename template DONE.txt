@@ -1,4 +1,5 @@
 DONE
+can we get rid of lip, use only json instead?
 make supper.print show parent table, put in supper, make optional print function input so can print to whatever
 	need to rework palettes. what do WE want from them? easily listed in json by key, but with int indexes for colour names too
 		want int indexes so colours can be procedurally accessed. do we need ints for this? maybe not.

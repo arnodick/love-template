@@ -5,7 +5,7 @@ interactive.make = function(m,menu_functions,menu_function_args)
 	m.menu_function_args=menu_function_args
 	m.text.index=1
 
-	print("yo")
+	-- print("yo")
 	if #Joysticks>0 then
 		print("ya")
 		module.make(m,EM.controller,EMC.move,EMCI.gamepad)
