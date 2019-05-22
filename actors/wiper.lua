@@ -9,7 +9,7 @@ local function draw(g,a)
 	LG.setCanvas(g.level.canvas.background)
 		local xcamoff,ycamoff=g.camera.x-g.width/2,g.camera.y-g.height/2
 		LG.translate(xcamoff,ycamoff)
-			LG.setColor(g.palette[EC.black])
+			LG.setColor(g.palette["black"])
 			LG.line(a.x,0,a.x,g.level.map.height)
 		LG.translate(-xcamoff,-ycamoff)
 	LG.setCanvas(g.canvas.main)

@@ -20,10 +20,8 @@ scores.sort = function(s,descending)
 	descending=descending or false
 	local function scoresort(a,b)
 		if a.score<=b.score then
-			print(descending)
 			return descending
 		elseif a.score>b.score then
-			print(not descending)
 			return not descending
 		end
 	end
@@ -35,8 +33,6 @@ scores.update = function()
 	local s=scores.load()
 
 	table.insert(s,{name="",score=Game.score})
-
-	supper.print(s,"score update")
 
 	scores.sort(s)
 

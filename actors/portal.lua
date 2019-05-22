@@ -57,7 +57,6 @@ local function draw(g,a)
 	local xcamoff,ycamoff=g.camera.x-g.width/2,g.camera.y-g.height/2
 	LG.setCanvas(g.level.canvas.background)
 		LG.translate(xcamoff,ycamoff)
-		-- LG.setColor(g.palette[EC.pure_white])
 		LG.setColor(g.palette["pure_white"])
 		LG.draw(a.image,a.x,a.y,0,1,1,a.sizeinit,a.sizeinit)
 		LG.setColor(g.palette[a.c])

@@ -1,6 +1,29 @@
 YES
 could game.files be used more widely? what does it do exactly? comment it, figure out if it can be generalized elsewhere
+	game.files
+		RECURSIVELY uses getDirectoryItems to load all jsons or jpegs
+		returns a table populated with the assets
+			used in game to load actors, levels, offgrid to load images
+	libraries
+		RECURSIVELY uses getDirectoryItems to use require on all lua files
+		returns nothing, just uses require
+			only used in main, but have to use it there
+		maybe pass in table to add stuff to? so for levels libraries.load(g.levels,...) but for lua files, libraries.load(_G,...)
+		problem is, libraries loads in stuff only by one global name, converting to game.files style will make subfoldered .lua files to be nested in other tables eg: modules.menus.interactive
+			maybe we just go with it and have subfolder'd tables for code
+				if so:
+				actor.run thing has to be changed
+				folders with lua code: actors, flags, tools, (has subfolders) modules, modes, games
+					
+	utils.getfiles
+		NON-recursively uses getDirectoryItems to get the directory paths of files with a specific extension
+		returns a table populated with directory path strings
+			only used in palette.load
 
+	use libraries on music, sfx, gfx, palettes
+	use filterfiles in other things like libraries?
+
+what's going on with cursor? config setting or something else? why not drawing it?
 polish up interactive fiction, make general menus
 game.lua stuff, make sure nothing game specific is in there, should go in game itself instead
 can WE get rid of choosing game in main, put it in config instead?

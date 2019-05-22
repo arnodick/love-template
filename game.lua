@@ -32,6 +32,7 @@ game.state.make = function(g,state)
 		LG.setCanvas(v)
 		LG.clear()
 	end
+	LG.setCanvas()
 --[[
 	for i,v in pairs(SFX.sources) do
 		v:stop()
@@ -335,7 +336,6 @@ game.draw = function(g)
 	screen.control(g,g.screen,g.speed)
 end
 
---TODO make this recursive so it goes through all sub-folders in the folder
 game.files = function(g,dir,ext)
 	ext=ext or "json"
 	local l={}
@@ -398,7 +398,7 @@ game.graphics = function(g)
 	LG.setFont(g.font)
 
 	-- palette.load(g,unpack(love.filesystem.getfiles("palettes","ini")))
-	game.files(g,"games/"..g.name.."/levels")
+	game.files(g,"games/"..g.name.."/levels")--TODO why is this here?
 	palette.load(g,unpack(love.filesystem.getfiles("palettes","json")))
 	-- palette.load(g,"palettes")--TODO should this be game-specific? game-specific optional
 

@@ -65,6 +65,7 @@ local function control(g,a,gs)
 
 	--actordata
 	--if a.t then
+		--TODO if use multilevel tables for code libraries then this would have to do run("actor",EA[a.t],"control",g,a,gs)--actor's specific type control (ie snake.control)
 		run(EA[a.t],"control",g,a,gs)--actor's specific type control (ie snake.control)
 	--end
 

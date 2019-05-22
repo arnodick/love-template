@@ -13,7 +13,6 @@ end
 
 local function get(a)
 	local port=actor.make(Game,EA.portal,Game.level.map.width/2,Game.level.map.height/2+40)
-	-- port.c=EC.red
 	port.c="red"
 	port.level=2
 end

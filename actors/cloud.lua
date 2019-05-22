@@ -45,10 +45,8 @@ local function draw(g,a)
 	--]]
 
 	if Debugger.debugging then
-		-- LG.setColor(g.palette[EC.green])
 		LG.setColor(g.palette["green"])
 		LG.points(a.x,a.y)
-		-- LG.setColor(g.palette[EC.red])
 		LG.setColor(g.palette["red"])
 		for i=1,#points,2 do
 			LG.points(points[i],points[i+1])
