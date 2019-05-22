@@ -98,8 +98,6 @@ game.make = function(t,gw,gh)
 	end
 	supper.print(g.actordata)
 --]]
-	-- g.levels={}
-	-- libraries.load(g.levels,"games/"..g.name.."/levels","json")
 	g.levels=game.files(g,"games/"..g.name.."/levels")
 	supper.print(g.levels)
 	--level.load(g,"games/"..g.name.."/levels")
@@ -350,6 +348,8 @@ game.files = function(g,dir,ext)
 		--if love.filesystem.isFile(dir.."/"..file) then --if it isn't a directory
 		if love.filesystem.isFile(filepath) then --if it isn't a directory
 			if filedata:getExtension()==ext then
+				--TODO this is where specific function can be called, what is commonalities btwn this and libraries?
+				--filename, f, ext, optional table l
 				local f=string.gsub(filename, "."..ext, "")--strip the file extension
 				if tonumber(f) then--if the filename (without extension) is a number then index the file in the table by integer
 					f=tonumber(f)
