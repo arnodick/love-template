@@ -98,6 +98,8 @@ game.make = function(t,gw,gh)
 	end
 	supper.print(g.actordata)
 --]]
+	-- g.levels={}
+	-- libraries.load(g.levels,"games/"..g.name.."/levels","json")
 	g.levels=game.files(g,"games/"..g.name.."/levels")
 	supper.print(g.levels)
 	--level.load(g,"games/"..g.name.."/levels")
@@ -397,10 +399,8 @@ game.graphics = function(g)
 	g.font:setLineHeight(1.8)
 	LG.setFont(g.font)
 
-	-- palette.load(g,unpack(love.filesystem.getfiles("palettes","ini")))
-	game.files(g,"games/"..g.name.."/levels")--TODO why is this here?
-	palette.load(g,unpack(love.filesystem.getfiles("palettes","json")))
-	-- palette.load(g,"palettes")--TODO should this be game-specific? game-specific optional
+	-- game.files(g,"games/"..g.name.."/levels")--TODO why is this here?
+	palette.load(g,unpack(love.filesystem.getfiles("palettes","json")))--game-specific?
 
 	--TODO put this in g.?
 	Spritesheet={}
