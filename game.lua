@@ -98,7 +98,8 @@ game.make = function(t,gw,gh)
 	end
 	supper.print(g.actordata)
 --]]
-	g.levels=game.files(g,"games/"..g.name.."/levels")
+	-- g.levels=game.files(g,"games/"..g.name.."/levels")
+	g.levels=libraries.files("games/"..g.name.."/levels")
 	supper.print(g.levels)
 	--level.load(g,"games/"..g.name.."/levels")
 
@@ -400,7 +401,11 @@ game.graphics = function(g)
 	LG.setFont(g.font)
 
 	-- game.files(g,"games/"..g.name.."/levels")--TODO why is this here?
-	palette.load(g,unpack(love.filesystem.getfiles("palettes","json")))--game-specific?
+
+	palette.load(g)
+	-- g.palettes=libraries.files("palettes")
+	-- supper.print(g.palettes,"palettes")
+	-- palette.load(g,unpack(love.filesystem.getfiles("palettes","json")))--game-specific?
 
 	--TODO put this in g.?
 	Spritesheet={}

@@ -7,12 +7,14 @@ palette.load = function(g,...)
 	local x=game.files(g,"palettes")
 	supper.print(x)
 --]]
-	local filenames={...}
-	g.palettes={}
-	for i,v in ipairs(filenames) do
-		table.insert(g.palettes,json.load(v))
-	end
+	-- local filenames={...}
+	-- g.palettes={}
+	-- for i,v in ipairs(filenames) do
+	-- 	table.insert(g.palettes,json.load(v))
+	-- end
+	g.palettes=libraries.files("palettes")
 	palette.set(g,1)
+	-- palette.set(g,"palette")
 	supper.print(g.palettes,"palette")
 end
 

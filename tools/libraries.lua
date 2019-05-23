@@ -33,6 +33,35 @@ end
 --TODO this whole thing isn't really working. instead, return all them, THEN require() them? this way can have return and require processing
 --l[globalname]=f returned from filter or whatever WE call it, then foreach i,v in l do _G = require(f)
 
+library.files = function(dir,ext)
+	ext=ext or "json"
+	local l={}
+	local files=love.filesystem.getDirectoryItems(dir)
+	-- for i=1,#files do--through all files and dirs
+	for i,v in ipairs(files) do--through all files and dirs
+		-- local filedata=love.filesystem.newFileData("code", files[i]) --gets each file's filedata, so we can determine their extensions
+		local filedata=love.filesystem.newFileData("code", v) --gets each file's filedata, so we can determine their extensions
+		local filename=filedata:getFilename() --get the file's name
+		local filepath=dir.."/"..filename
+		if love.filesystem.isFile(filepath) then --if it isn't a directory
+			if filedata:getExtension()==ext then
+				local f=string.gsub(filename, "."..ext, "")--strip the file extension
+				if tonumber(f) then--if the filename (without extension) is a number then index the file in the table by integer
+					f=tonumber(f)
+				end
+				if ext=="json" then
+					l[f]=json.load(filepath)
+				elseif ext=="jpg" then
+					l[f]=LG.newImage(filepath)
+				end
+			end
+		elseif love.filesystem.isDirectory(filepath) then
+			l[filename]=game.files(filepath,ext)
+		end
+	end
+	return l
+end
+
 library.filter2 = function(dir,ext)
 	local t={}
 	local files = love.filesystem.getDirectoryItems(dir) --get all the files+directories in working dir
