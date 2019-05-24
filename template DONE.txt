@@ -1,4 +1,24 @@
 DONE
+could game.files be used more widely? what does it do exactly? comment it, figure out if it can be generalized elsewhere
+	game.files
+		RECURSIVELY uses getDirectoryItems to load all jsons or jpegs
+		returns a table populated with the assets
+			used in game to load actors, levels, offgrid to load images
+	libraries
+		RECURSIVELY uses getDirectoryItems to use require on all lua files
+		returns nothing, just uses require
+			only used in main, but have to use it there
+		maybe pass in table to add stuff to? so for levels library.load(g.levels,...) but for lua files, library.load(_G,...)
+		problem is, library loads in stuff only by one global name, converting to game.files style will make subfoldered .lua files to be nested in other tables eg: modules.menus.interactive
+			maybe we just go with it and have subfolder'd tables for code
+				if so:
+				actor.run thing has to be changed
+				folders with lua code: actors, flags, tools, (has subfolders) modules, modes, games
+					
+	utils.getfiles
+		NON-recursively uses getDirectoryItems to get the directory paths of files with a specific extension
+		returns a table populated with directory path strings
+			only used in palette.load
 can we get rid of lip, use only json instead?
 make supper.print show parent table, put in supper, make optional print function input so can print to whatever
 	need to rework palettes. what do WE want from them? easily listed in json by key, but with int indexes for colour names too
@@ -113,6 +133,7 @@ graphics stuff in game library
 editor not as module but as its own .lua library
 
 NO
+use filterfiles in other things like library?
 player as module
 get rid of all enums for module making? just do string input. keep old EM[] module code commented out, in case we need it later
 different renderers or types or something for screen
@@ -126,7 +147,7 @@ things that couold be modules maybe
 	camera
 menu x,y offset or something
 maybe enums generation just goes in libraries load?
-	figure out how enums.lua and libraries.lua are different, merge them
+	figure out how enums.lua and library.lua are different, merge them
 	if folder is one of the recursive enum ones, make it put functions into its parent
 	enum generator automatically adds modules to its parent's table ie actor.drop.make
 maybe actor.calltype and actor.callsubtype? EA[nameof[a.t]] and EA[nameof[a.t][nameof[a.st]]] respectively

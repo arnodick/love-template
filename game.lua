@@ -92,16 +92,14 @@ game.make = function(t,gw,gh)
 	game.graphics(g)
 
 --[[
-	g.actordata=game.files(g,"games/"..g.name.."/actors")
+	g.actordata=library.load("games/"..g.name.."/actors")
 	for i,v in pairs(g.actordata) do
 		v.count=0
 	end
 	supper.print(g.actordata)
 --]]
-	-- g.levels=game.files(g,"games/"..g.name.."/levels")
-	g.levels=libraries.files("games/"..g.name.."/levels")
-	supper.print(g.levels)
-	--level.load(g,"games/"..g.name.."/levels")
+	g.levels=library.load("games/"..g.name.."/levels")
+	-- supper.print(g.levels)
 
 --[[
 	g.window={}
@@ -337,37 +335,6 @@ game.draw = function(g)
 	screen.control(g,g.screen,g.speed)
 end
 
-game.files = function(g,dir,ext)
-	ext=ext or "json"
-	local l={}
-	local files=love.filesystem.getDirectoryItems(dir)
-	for i=1,#files do--through all files and dirs
-		--local file=files[i]
-		local filedata=love.filesystem.newFileData("code", files[i]) --gets each file's filedata, so we can determine their extensions
-		local filename=filedata:getFilename() --get the file's name
-		local filepath=dir.."/"..filename
-		--if love.filesystem.isFile(dir.."/"..file) then --if it isn't a directory
-		if love.filesystem.isFile(filepath) then --if it isn't a directory
-			if filedata:getExtension()==ext then
-				--TODO this is where specific function can be called, what is commonalities btwn this and libraries?
-				--filename, f, ext, optional table l
-				local f=string.gsub(filename, "."..ext, "")--strip the file extension
-				if tonumber(f) then--if the filename (without extension) is a number then index the file in the table by integer
-					f=tonumber(f)
-				end
-				if ext=="json" then
-					l[f]=json.load(filepath)
-				elseif ext=="jpg" then
-					l[f]=LG.newImage(filepath)
-				end
-			end
-		elseif love.filesystem.isDirectory(filepath) then
-			l[filename]=game.files(g,filepath,ext)
-		end
-	end
-	return l
-end
-
 game.counters = function(g,a,amount)
 	local c=g.counters
 	local actorname=EA[a.t]
@@ -400,12 +367,7 @@ game.graphics = function(g)
 	g.font:setLineHeight(1.8)
 	LG.setFont(g.font)
 
-	-- game.files(g,"games/"..g.name.."/levels")--TODO why is this here?
-
 	palette.load(g)
-	-- g.palettes=libraries.files("palettes")
-	-- supper.print(g.palettes,"palettes")
-	-- palette.load(g,unpack(love.filesystem.getfiles("palettes","json")))--game-specific?
 
 	--TODO put this in g.?
 	Spritesheet={}

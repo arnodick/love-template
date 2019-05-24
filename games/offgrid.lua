@@ -45,7 +45,7 @@ offgrid.make = function(g)
 	table.insert(g.chars,"~")
 --]]
 
-	local images=game.files(g,"images/offgrid","jpg")
+	local images=library.load("images/offgrid","jpg")
 	g.images={}
 	local buffer=LG.newCanvas(640*g.bufferscale,640*g.bufferscale)
 	offgrid.convertimages(g,g.images,images,buffer)
@@ -85,7 +85,7 @@ offgrid.level.city =
 				end
 			end
 		end
-		module.make(l,EM.menu,"interactive_fiction",320,800,640,320,m.text,EC.white,EC.dark_gray,"left",m.functions,m.arguments)
+		module.make(l,EM.menu,"interactive_fiction",320,800,640,320,m.text,"white","dark_gray","left",m.functions,m.arguments)
 		if l.selected_index then
 			l.menu.text.index=l.selected_index
 		end
@@ -189,7 +189,7 @@ offgrid.level.word =
 		m.functions={}
 		offgrid.level.makebackoption(g,m,l.back)
 
-		module.make(l,EM.menu,"interactive_fiction",320,600,640,320,m.text,EC.white,EC.dark_gray,"center",m.functions,m.arguments)
+		module.make(l,EM.menu,"interactive_fiction",320,600,640,320,m.text,"white","dark_gray","center",m.functions,m.arguments)
 		l.menu.wordlearned=true
 		l.menu.back=l.back
 		l.menu.description=l.description
@@ -213,7 +213,7 @@ offgrid.level.offgrid =
 {
 	make = function(g,l)
 		--TODO here will maybe be the options that you can go to from here? offgrid areas (usually won't have option to go back, choices of where you can go aren't based on the grid, but are instead linked lists sort of. will need a menu where you can use items, talk to people, etc. more like a story than an exploration)
-		module.make(l,EM.menu,EMM.interactive,g.width/2,120,160,50,g.player.words,EC.orange,EC.dark_green,"center")
+		module.make(l,EM.menu,EMM.interactive,g.width/2,120,160,50,g.player.words,"orange","dark_green","center")
 	end,
 
 	control = function(g,l)
@@ -418,7 +418,7 @@ offgrid.title =
 			LG.setFont(g.titlefont)
 		end
 		--LG.print("ARROWS keys and Z",g.width/2,g.height/2)
-		LG.printformat("ARROWS keys and Z",0,800,640,"center",EC.white,EC.dark_gray,100+math.sin(g.timer/10)*100)
+		LG.printformat("ARROWS keys and Z",0,800,640,"center","white","dark_gray",100+math.sin(g.timer/10)*100)
 	end
 }
 
@@ -476,7 +476,7 @@ offgrid.intro =
 		if g.drawoffgrid==true then
 			LG.setCanvas(g.canvas.buffer)
 				LG.clear()
-				LG.printformat("OFF THE GRID",0,0,g.width,"center",EC.dark_gray,EC.dark_gray,255)
+				LG.printformat("OFF THE GRID",0,0,g.width,"center","dark_gray","dark_gray",255)
 			LG.setCanvas(g.canvas.main)
 
 			local imgdata=g.canvas.buffer:newImageData(0,0,640,320)
@@ -494,7 +494,7 @@ offgrid.intro =
 			love.graphics.draw(image,0,550,0,1,1)
 
 			LG.setFont(g.titlefont)
-			LG.printformat("press Z to start",0,800,640,"center",EC.white,EC.dark_gray,100+math.sin(g.timer/10)*100)
+			LG.printformat("press Z to start",0,800,640,"center","white","dark_gray",100+math.sin(g.timer/10)*100)
 		end
 	end
 }

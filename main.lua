@@ -1,11 +1,8 @@
 --game initialization stuff (just boring stuff you need to maek Video Game)
-libraries = require("tools/libraries")--have to load the libraries.lua library to use it to dynamically load the rest of the libraries
-libraries.load("","lua")--loads all the .lua libraries
+library=require("tools/library")--have to load the library.lua library to use it to dynamically load the rest of the libraries
+library.load("","lua")--loads all the .lua libraries
 
-local t=libraries.filter2("","lua")
-supper.print(t,"test library tables")
-
-Enums = enums.load("","games","actors","modules","modes")--enumerators
+Enums=enums.load("","games","actors","modules","modes")--enumerators
 enums.constants(Enums)--constants derived from enums, they're shorthand so you can type EM instead of Enums.modules
 supper.print(Enums)
 
@@ -16,12 +13,12 @@ love.keyboard.setKeyRepeat(false)
 love.keyboard.setTextInput(true)
 love.mouse.setRelativeMode(true)
 Joysticks={}
-SFX = sfx.load()
-Music = music.load()
+SFX=sfx.load()
+Music=music.load()
 
 function love.load()
 	game.make("multigame")
-	-- game.make(Enums.games.offgrid,640,960)
+	-- game.make("offgrid",640,960)
 end
 
 function love.update(dt)
@@ -40,7 +37,7 @@ function love.keypressed(key,scancode,isrepeat)
 		elseif key == 'f' then
 			love.window.setFullscreen(not love.window.getFullscreen())
 			screen.update(g)
-			Debugger.canvas = LG.newCanvas(g.screen.width,g.screen.height) --sets width and height of debug overlay (size of window)
+			Debugger.canvas=LG.newCanvas(g.screen.width,g.screen.height)--sets width and height of debug overlay (size of window)
 		end
 	--end
 end

@@ -37,25 +37,6 @@ local function snap(v,inc,snapto)--TODO does this need a negative version
 end
 
 --FILESYSTEM
---loads a bunch of files that share an extension from a specific directory
---returns a table with all the directory/filenames of those files
---NOTE: unpack() the output to use it as an argument in another function
---is this any different than game.files?
-local function getfiles(dir,ext)
-	local filelist = {}
-	local files = love.filesystem.getDirectoryItems(dir)
-	for i = #files,1,-1 do --decrements bc had to delete files from a table before
-		local filedata = love.filesystem.newFileData("code", files[i])
-		local filename = filedata:getFilename() --get the file's name
-		if filedata:getExtension() == ext
-		and filename ~= "conf.lua"
-		and filename ~= "main.lua" then --it's a library, so include it
-			table.insert(filelist,dir.."/"..filename)
-		end
-	end
-	return filelist
-end
-
 --gets all the files in a folder and returns a table containing only the files that matched the input extension string
 local function filterfiles(folder,ext)
 	local files = love.filesystem.getDirectoryItems(folder)
@@ -144,7 +125,6 @@ math.clamp = clamp
 math.choose = choose
 math.randomfraction = randomfraction
 math.snap = snap
-love.filesystem.getfiles = getfiles
 love.filesystem.filterfiles = filterfiles
 love.graphics.drawbox = drawbox
 love.graphics.printformat = printformat
