@@ -1,4 +1,5 @@
 DONE
+clean up library
 could game.files be used more widely? what does it do exactly? comment it, figure out if it can be generalized elsewhere
 	game.files
 		RECURSIVELY uses getDirectoryItems to load all jsons or jpegs

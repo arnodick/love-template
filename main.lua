@@ -7,11 +7,12 @@ enums.constants(Enums)--constants derived from enums, they're shorthand so you c
 supper.print(Enums)
 
 love.math.setRandomSeed(os.time())
---love.math.setRandomSeed(1)
+--love.math.setRandomSeed(1)--for debuggin purposes
 Debugger=debugger.make()
 love.keyboard.setKeyRepeat(false)
 love.keyboard.setTextInput(true)
-love.mouse.setRelativeMode(true)
+love.mouse.setRelativeMode(true)--TODO what does this do again?
+--TODO should any of the be part of Game?
 Joysticks={}
 SFX=sfx.load()
 Music=music.load()
@@ -24,6 +25,7 @@ end
 function love.update(dt)
 	game.control(Game)
 
+	--TODO only do this if console is on? or better yet, only allow debugger to utrn on if console is on?
 	debugger.update(Game,Debugger)
 end
 

@@ -5,13 +5,11 @@ get rid of filterfiles
 	use library on music, sfx, gfx, palettes
 
 figure out weird mouse shit, why is not showing up?
-
-what's going on with cursor? config setting or something else? why not drawing it?
+	what's going on with cursor? config setting or something else? why not drawing it?
 polish up interactive fiction, make general menus
 game.lua stuff, make sure nothing game specific is in there, should go in game itself instead
 can WE get rid of choosing game in main, put it in config instead?
 always use g.players, but make player = players[1] if singleplayer
-clean up library
 tools folder, can it be better organized?
 update nanogenmo etc with new supper.names
 what is difference btwn run, supper.run, game.state.run? can they be smooshed together?
