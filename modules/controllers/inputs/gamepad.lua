@@ -1,5 +1,8 @@
+--TODO cleanup
+
 local function move(a)
 	local j=Joysticks[a.controller.move.id]
+	-- print(j:getGamepadAxis("leftx").." "..j:getGamepadAxis("lefty"))
 	return j:getGamepadAxis("leftx"),j:getGamepadAxis("lefty")
 end
 

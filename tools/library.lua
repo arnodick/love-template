@@ -5,10 +5,12 @@ local library={}
 --jpg files are load into a table of images
 --lua files are included as code libraries
 library.load = function(dir,ext)
+	--TODO make this take multiple ext for ogg and wav ie?
 	ext=ext or "json"--default to json bc most other file types are usually only loaded at startup
 	local l={}--make a table to put the loaded stuff into (this is unused when loading lua files)
 	local files=love.filesystem.getDirectoryItems(dir)
 	for i,v in ipairs(files) do
+		--TODO do we need to specify contents as "sound" or whatever? what does this even do?
 		local filedata=love.filesystem.newFileData("code", v) --gets each file's filedata, so we can determine their extensions and names
 		local filename=filedata:getFilename() --get the file's name
 		local filepath=filename--start building the diectory path to the file
@@ -25,6 +27,9 @@ library.load = function(dir,ext)
 					l[f]=json.load(filepath)--load json data into the table
 				elseif ext=="jpg" then
 					l[f]=LG.newImage(filepath)--load image objects into the table
+				elseif ext=="wav" then
+					l[f]=love.audio.newSource(dir.."/"..filename,"static")
+					l[f]:setLooping(true)
 				elseif ext=="lua" --if it's a lua file and isn't a reserved file
 				and filename~=".git"
 				and filename~="conf.lua"

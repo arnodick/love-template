@@ -77,10 +77,12 @@ protosnake.player =
 {
 	make = function(g,a)
 		if #Joysticks>0 then
+			print("JOYTSICK")
 			module.make(a,EM.controller,EMC.move,EMCI.gamepad)
 			module.make(a,EM.controller,EMC.aim,EMCI.gamepad)
 			module.make(a,EM.controller,EMC.action,EMCI.gamepad)
 		else
+			print("KEYBOARD")
 			module.make(a,EM.controller,EMC.move,EMCI.keyboard,true)
 			module.make(a,EM.controller,EMC.aim,EMCI.mouse)
 			module.make(a,EM.controller,EMC.action,EMCI.mouse)

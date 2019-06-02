@@ -15,7 +15,7 @@ love.mouse.setRelativeMode(true)--TODO what does this do again?
 --TODO should any of the be part of Game?
 Joysticks={}
 SFX=sfx.load()
-Music=music.load()
+Music=library.load("music","wav")
 
 function love.load()
 	game.make("multigame")

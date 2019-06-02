@@ -166,12 +166,12 @@ debugger.draw = function(d)
 		LG.clear() --cleans that messy ol canvas all up, makes it all fresh and new and good you know
 
 		LG.setFont(d.font)
-		LG.setColor(g.palette[11])
+		LG.setColor(g.palette["yellow"])
 		LG.print("DEBUG",130,0)
 		for i,v in ipairs(d.debuglist) do
 			LG.print(v,10,10+d.font:getHeight()*i)
 		end
-		LG.setColor(g.palette[16]) --sets draw colour back to normal
+		LG.setColor(g.palette["peach"]) --sets draw colour back to normal
 		LG.setFont(g.font)
 
 		LG.setCanvas() --sets drawing back to screen

@@ -38,7 +38,7 @@ game.state.make = function(g,state)
 		v:stop()
 	end
 --]]
-	for i,v in pairs(Music.sources) do
+	for i,v in pairs(Music) do
 		v:stop()
 	end
 	screen.update(g)

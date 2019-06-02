@@ -1,8 +1,9 @@
 YES
+figure out why xbone controller no worky?
 figure out why it locks up when alt tabbing to console and back that shit is fucking ANNOYING
 get rid of filterfiles
 
-	use library on music, sfx, gfx, palettes
+	use library on sfx, gfx, DONE music, palettes
 
 figure out weird mouse shit, why is not showing up?
 	what's going on with cursor? config setting or something else? why not drawing it?
