@@ -1,10 +1,7 @@
 YES
-figure out why xbone controller no worky?
-figure out why it locks up when alt tabbing to console and back that shit is fucking ANNOYING
+install love latest version 11.2 in frameworks folder, make shrotcuts to run game and build game with it
 get rid of filterfiles
-
 	use library on sfx, gfx, DONE music, palettes
-
 figure out weird mouse shit, why is not showing up?
 	what's going on with cursor? config setting or something else? why not drawing it?
 polish up interactive fiction, make general menus
@@ -33,7 +30,10 @@ drawmode and control mode
 	Drawmode 2d, roguelike (have an off grid value for actors not drawn on the grid) 
 	Change mode so you are a dot moving on the background and colliding with all the pixels including the grid itself
 cursor follow vs not follow actor movement, camera movement
+
 BROKEN
+figure out why xbone controller no worky?
+figure out why it locks up when alt tabbing to console and back that shit is fucking ANNOYING
 	joystick not loaded for multigame at startup
 	hud (janky, only draws in one spot)
 item.held=t or f
@@ -139,6 +139,7 @@ change controller input so impulses will work
 	put controller commands in actor.control? Must be some way to make impulses stick
 
 IDEAS
+Load any library necessities before every other library, eg json, then don't load them during recursive stuff, since these need to be available to do any other loads besides .lua
 zoom in real close to an item "ah yes, i can see all the details" but it's huge chunky pixels that are indiscernible
 don't encrypt passwords, let people change it manually. make it a puzzle, say change your score to 1,465,000, unlocks a level
 all the games start to blend together near the end, level modes seemingly from other games creep in to other games

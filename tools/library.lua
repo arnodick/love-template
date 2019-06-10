@@ -4,9 +4,14 @@ local library={}
 --json files have all their data, tables and values, loaded into a table
 --jpg files are load into a table of images
 --lua files are included as code libraries
-library.load = function(dir,ext)
+library.load = function(dir,...)
 	--TODO make this take multiple ext for ogg and wav ie?
-	ext=ext or "json"--default to json bc most other file types are usually only loaded at startup
+	local ext={...}--ext can be a table containing multiple extensions
+	if #ext==1 then--if ext only has one value, make it into a string equal to the one value
+		ext=ext[1]
+	elseif #ext==0 then--if empty, ext defaults to "json" bc most other file types are usually only loaded at startup
+		 ext = "json"
+	end
 	local l={}--make a table to put the loaded stuff into (this is unused when loading lua files)
 	local files=love.filesystem.getDirectoryItems(dir)
 	for i,v in ipairs(files) do
@@ -18,24 +23,33 @@ library.load = function(dir,ext)
 			filepath=dir.."/"..filename--otherwise, prepend the filename with the dir
 		end
 		if love.filesystem.isFile(filepath) then--if file isn't a directory
-			if filedata:getExtension()==ext then--and it has the extension we are looking for
-				local f=string.gsub(filename, "."..ext, "")--strip the file extension so we can use the result as a key in the table to be returned
-				if tonumber(f) then--if the filename (without extension) is a number then index the file in the table by integer
-					f=tonumber(f)
+			local fileext=filedata:getExtension()
+			if type(ext)=="table" then--if we want to load multiple different types of files (eg wav or ogg)
+				if supper.contains(ext,fileext) then
+					if fileext=="ogg" or fileext=="wav" then
+						print(filename.. " is a wav or ogg")
+					end
 				end
-				if ext=="json" then
-					l[f]=json.load(filepath)--load json data into the table
-				elseif ext=="jpg" then
-					l[f]=LG.newImage(filepath)--load image objects into the table
-				elseif ext=="wav" then
-					l[f]=love.audio.newSource(dir.."/"..filename,"static")
-					l[f]:setLooping(true)
-				elseif ext=="lua" --if it's a lua file and isn't a reserved file
-				and filename~=".git"
-				and filename~="conf.lua"
-				and filename~="main.lua" then --it's a library, so include it
-					filepath=string.gsub(filepath, "."..ext, "")--strip the extension from the filepath, because require does not REQUIRE them ( hah hah hah (: )
-					_G[f]=require(filepath)--load the library into lua
+			elseif type(ext)=="string" then
+				if ext==fileext then--and it has the extension we are looking for
+					local f=string.gsub(filename, "."..ext, "")--strip the file extension so we can use the result as a key in the table to be returned
+					if tonumber(f) then--if the filename (without extension) is a number then index the file in the table by integer
+						f=tonumber(f)
+					end
+					if ext=="json" then
+						l[f]=json.load(filepath)--load json data into the table
+					elseif ext=="jpg" then
+						l[f]=LG.newImage(filepath)--load image objects into the table
+					elseif ext=="wav" then
+						l[f]=love.audio.newSource(dir.."/"..filename,"static")
+						l[f]:setLooping(true)
+					elseif ext=="lua" --if it's a lua file and isn't a reserved file
+					and filename~=".git"
+					and filename~="conf.lua"
+					and filename~="main.lua" then --it's a library, so include it
+						filepath=string.gsub(filepath, "."..ext, "")--strip the extension from the filepath, because require does not REQUIRE them ( hah hah hah (: )
+						_G[f]=require(filepath)--load the library into lua
+					end
 				end
 			end
 		elseif love.filesystem.isDirectory(filepath) then--if file is a folder
