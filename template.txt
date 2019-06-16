@@ -1,4 +1,5 @@
 YES
+make sure library.load of sfx can handle index or string keys for sounds (positional might cause problems here, because it is string indexed and we're using ipairs right now)
 install love latest version 11.2 in frameworks folder, make shrotcuts to run game and build game with it
 get rid of filterfiles
 	use library on sfx, gfx, DONE music, palettes
