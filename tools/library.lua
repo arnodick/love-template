@@ -28,6 +28,16 @@ library.load = function(dir,...)
 				if supper.contains(ext,fileext) then
 					if fileext=="ogg" or fileext=="wav" then
 						print(filename.. " is a wav or ogg")
+						local soundfx={}
+						-- if positional then
+						-- 	soundfx.source=love.sound.newSoundData("sfx/"..filename)
+						-- 	table.insert(s,love.sound.newSoundData("sfx/"..filename))
+						-- else
+							soundfx.source=love.audio.newSource(dir.."/"..filename,"static")
+							soundfx.pitchoffs=0
+							table.insert(l,soundfx)
+							supper.print(soundfx)
+						-- end
 					end
 				end
 			elseif type(ext)=="string" then

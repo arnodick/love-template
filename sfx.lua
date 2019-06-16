@@ -1,32 +1,9 @@
 local sfx={}
 
+--TODO how to handle positional?
 sfx.load = function(positional)
-	local s={}
+	local s=library.load("sfx","wav","ogg")
 	s.positional=positional or false
-	local files=love.filesystem.getDirectoryItems("sfx") --get all the files+directories in sfx dir
-	for i = 1,#files do
-		if love.filesystem.isFile("sfx/"..files[i]) then --if it isn't a directory
-			local filedata = love.filesystem.newFileData("sound", files[i])
-			local filename = filedata:getFilename() --get the sound file's name
-			local ext = filedata:getExtension()
-			if ext=="ogg" or ext=="wav" then --if it's a .ogg, add to SFX (maybe make this flexible for other sound files ie mp3)
-				local soundfx={}
-				if positional then
-					soundfx.source=love.sound.newSoundData("sfx/"..filename)
-					table.insert(s,love.sound.newSoundData("sfx/"..filename))
-				else
-					soundfx.source=love.audio.newSource("sfx/"..filename,"static")
-					soundfx.pitchoffs=0
-					table.insert(s,soundfx)
-					supper.print(soundfx)
-				end
-			end
-		end
-	end
-	if positional then
-		love.audio.setDistanceModel("exponent")
-		love.audio.setOrientation(0,0,-1,0,1,0)
-	end
 	return s
 end
 
