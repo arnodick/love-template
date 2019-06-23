@@ -1,6 +1,7 @@
 local sprites={}
 
-sprites.load = function(spr,tw,th)
+sprites.load = function(spr,i)
+	local tw,th=8*2^(i-1),8*2^(i-1)--originally tw*2^(i-1),th*2^(i-1) where tw=8,th=8
 	--takes in a spritesheet file(PNG) and some tile sizes
 	--returns the spritesheet object and its QUADS
 	local s={}
@@ -8,9 +9,9 @@ sprites.load = function(spr,tw,th)
 	s.quads={}
 	local spritesheetW,spritesheetH=s.spritesheet:getWidth(),s.spritesheet:getHeight()
 	local spritesheetTilesW,spritesheetTilesH=spritesheetW/tw,spritesheetH/th
-	for b=0, spritesheetTilesH-1 do
-		for a=0, spritesheetTilesW-1 do
-			s.quads[a+b*spritesheetTilesW]=LG.newQuad(a*tw,b*th,tw,th,spritesheetW,spritesheetH)
+	for y=0,spritesheetTilesH-1 do
+		for x=0,spritesheetTilesW-1 do
+			s.quads[x+y*spritesheetTilesW]=LG.newQuad(x*tw,y*th,tw,th,spritesheetW,spritesheetH)
 		end
 	end
 	return s

@@ -2,6 +2,7 @@ local library={}
 
 --given a folder and a file type, recursively loads all the files of that type from the folder and its subfolders into the game
 --json files have all their data, tables and values, loaded into a table
+--pngs are loaded as sprite tables including a spritesheet and quads
 --jpg files are load into a table of images
 --lua files are included as code libraries
 library.load = function(dir,...)
@@ -9,13 +10,13 @@ library.load = function(dir,...)
 	local ext={...}--ext can be a table containing multiple extensions
 	if #ext==1 then--if ext only has one value, make it into a string equal to the one value
 		ext=ext[1]
-	elseif #ext==0 then--if empty, ext defaults to "json" bc most other file types are usually only loaded at startup
+	elseif #ext==0 then--if empty, ext defaults to "json" bc most other file types are usually only loaded at startup so aren't used as much as json
 		 ext = "json"
 	end
 	local l={}--make a table to put the loaded stuff into (this is unused when loading lua files)
 	local files=love.filesystem.getDirectoryItems(dir)
 	for i,v in ipairs(files) do
-		--TODO do we need to specify contents as "sound" or whatever? what does this even do?
+		--TODO do we need to specify contents as "sound" or whatever? what does this ("code") even do?
 		local filedata=love.filesystem.newFileData("code", v) --gets each file's filedata, so we can determine their extensions and names
 		local filename=filedata:getFilename() --get the file's name
 		local filepath=filename--start building the diectory path to the file
@@ -54,11 +55,10 @@ library.load = function(dir,...)
 						l[f]=love.audio.newSource(filepath,"static")
 						l[f]:setLooping(true)
 					elseif ext=="png" then
-						local tw,th=8,8
-						--TODO maybe input tw, th, and i? do calcs in sprites.load
-						l[f]=sprites.load(filepath,tw*2^(i-1),th*2^(i-1))--for now sprites files have to be named with integer ie 1.png
+						-- print(i) print(f)--i and f should always be the same but if there are extra files in gfx folder i can be wrong
+						l[f]=sprites.load(filepath,f)--for now sprites files have to be named with integer ie 1.png
 					elseif ext=="lua" --if it's a lua file and isn't a reserved file
-					and filename~=".git"
+					and filename~=".git"--TODO does this do anything or work?
 					and filename~="conf.lua"
 					and filename~="main.lua" then --it's a library, so include it
 						filepath=string.gsub(filepath, "."..ext, "")--strip the extension from the filepath, because require does not REQUIRE them ( hah hah hah (: )
