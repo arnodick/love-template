@@ -51,8 +51,12 @@ library.load = function(dir,...)
 					elseif ext=="jpg" then
 						l[f]=LG.newImage(filepath)--load image objects into the table
 					elseif ext=="wav" then
-						l[f]=love.audio.newSource(dir.."/"..filename,"static")
+						l[f]=love.audio.newSource(filepath,"static")
 						l[f]:setLooping(true)
+					elseif ext=="png" then
+						local tw,th=8,8
+						--TODO maybe input tw, th, and i? do calcs in sprites.load
+						l[f]=sprites.load(filepath,tw*2^(i-1),th*2^(i-1))--for now sprites files have to be named with integer ie 1.png
 					elseif ext=="lua" --if it's a lua file and isn't a reserved file
 					and filename~=".git"
 					and filename~="conf.lua"

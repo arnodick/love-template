@@ -1,15 +1,11 @@
 YES
+make sprites.load use library.load, not other way around
+	how to solve problem with thumbs.db causing issues with library.load file count? just make sure thumbs.db not in there?
+	Put gfx in g?
 make sure library.load of sfx can handle index or string keys for sounds (positional might cause problems here, because it is string indexed and we're using ipairs right now)
 install love latest version 11.2 in frameworks folder, make shrotcuts to run game and build game with it
-get rid of filterfiles
-	use library on gfx, DONE music,palettes,sfx
-		gfx uses filterfiles
-			how to handle spritesheet and quadsheet?
-		is sfx.positional necessary? maybe make it a game setting?
-			make sfx.loadpositional and sfx.loadnotpositional, call one or the other depending?
-		Put spritesheets and quad sheets in GFX table
-			Put gfx in g?
-			maybe spritesheet can be table with sprites and wuads as members ie spritesheets[1]={sprites,quads}
+is sfx.positional necessary? maybe make it a game setting?
+	make sfx.loadpositional and sfx.loadnotpositional, call one or the other depending?
 figure out weird mouse shit, why is not showing up?
 	what's going on with cursor? config setting or something else? why not drawing it?
 polish up interactive fiction, make general menus

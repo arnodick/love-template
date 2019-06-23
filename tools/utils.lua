@@ -36,19 +36,6 @@ local function snap(v,inc,snapto)--TODO does this need a negative version
 	end
 end
 
---FILESYSTEM
---gets all the files in a folder and returns a table containing only the files that matched the input extension string
-local function filterfiles(folder,ext)
-	local files = love.filesystem.getDirectoryItems(folder)
-	for i=#files,1,-1 do
-		local filedata = love.filesystem.newFileData("code", files[i])
-		if filedata:getExtension()~=ext then
-			table.remove(files,i)
-		end
-	end
-	return files
-end
-
 --GRAPHICS
 --draws a box that can be rotated!
 local function drawbox(x,y,w,a)
@@ -125,7 +112,6 @@ math.clamp = clamp
 math.choose = choose
 math.randomfraction = randomfraction
 math.snap = snap
-love.filesystem.filterfiles = filterfiles
 love.graphics.drawbox = drawbox
 love.graphics.printformat = printformat
 love.graphics.lightness = lightness

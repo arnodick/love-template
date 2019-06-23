@@ -1,4 +1,10 @@
 DONE
+get rid of filterfiles
+	use library on DONE music,palettes,sfx,gfx
+		gfx uses filterfiles
+			how to handle spritesheet and quadsheet?
+		Put spritesheets and quad sheets in GFX table
+			maybe spritesheet can be table with sprites and wuads as members ie spritesheets[1]={sprites,quads}
 clean up library
 could game.files be used more widely? what does it do exactly? comment it, figure out if it can be generalized elsewhere
 	game.files
