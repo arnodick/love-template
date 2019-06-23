@@ -47,7 +47,7 @@ cursor.reticle.control = function(g,c,a)
 end
 
 cursor.reticle.draw = function(c)
-	LG.draw(Spritesheet[1],Quads[1][254],c.x-4,c.y-4)
+	LG.draw(Sprites[1].spritesheet,Sprites[1].quads[254],c.x-4,c.y-4)
 end
 
 cursor.editor.make = function(c)
@@ -91,7 +91,7 @@ cursor.editor.draw = function(c)
 		LG.setCanvas(g.level.canvas.background)
 			local xcamoff,ycamoff=g.camera.x-g.width/2,g.camera.y-g.height/2
 			LG.translate(xcamoff,ycamoff)
-				LG.draw(Spritesheet[1],Quads[1][c.value],cx,cy)
+				LG.draw(Sprites[1].spritesheet,Sprites[1].quads[c.value],cx,cy)
 			LG.translate(-xcamoff,-ycamoff)
 		LG.setCanvas(g.canvas.main)
 		c.draw=false
@@ -104,12 +104,12 @@ cursor.editor.draw = function(c)
 		LG.points(cx+i*2,cy-5)
 	end
 	LG.print(c.value,cx+tw,cy+th)
-	LG.draw(Spritesheet[1],Quads[1][c.value],cx,cy)
+	LG.draw(Sprites[1].spritesheet,Sprites[1].quads[c.value],cx,cy)
 
 	local p=g.palette["red"]
 	p[4]=180
 	LG.setColor(p)
-	LG.draw(Spritesheet[1],Quads[1][254],cx,cy)
+	LG.draw(Sprites[1].spritesheet,Sprites[1].quads[254],cx,cy)
 	LG.setColor(g.palette["pure_white"])
 end
 

@@ -238,7 +238,7 @@ end
 drawmodes.sprites = function(m,x,y)
 	local tw,th=m.tile.width,m.tile.height
 	local value=flags.strip(m[y][x])
-	LG.draw(Spritesheet[1],Quads[1][value],(x-1)*tw,(y-1)*th)
+	LG.draw(Sprites[1].spritesheet,Sprites[1].quads[value],(x-1)*tw,(y-1)*th)
 end
 
 drawmodes.isometric = function(m,x,y)
@@ -249,8 +249,7 @@ drawmodes.isometric = function(m,x,y)
 	local isox,isoy=(x-1)*tw/2+m.width/2,(y-1)*th/4+m.height/2
 	local value=flags.strip(m[y][x])
 
-	--LG.draw(Spritesheet[3],Quads[3][value],isox+230,isoy+50,0,1,1,(y-1)*tw/2,(x-1)*-th/4)
-	LG.draw(Spritesheet[3],Quads[3][value],isox,isoy,0,1,1,(y-1)*tw/2,(x-1)*-th/4)
+	LG.draw(Sprites[3].spritesheet,Sprites[3].quads[value],isox,isoy,0,1,1,(y-1)*tw/2,(x-1)*-th/4)
 	if Debugger.debugging then
 		LG.points(isox,isoy)
 	end	

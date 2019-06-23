@@ -19,9 +19,10 @@ sfx.play = function(index,x,y)
 			love.audio.play(source)
 		end
 	else
+		--TODO seems like we can just do this in library.load instead?
 		local source=SFX[index].source
 		if source then
-			source=love.audio.newSource(source,"static")
+			source=love.audio.newSource(source,"static")--DON'T want to be calling this a lot https://love2d.org/wiki/love.audio.newSource
 			local play=false
 			if vector.distance(x,y,g.camera.x,g.camera.y)<320 then
 				play=true

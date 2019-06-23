@@ -242,7 +242,7 @@ protosnake.gameplay =
 				LG.rectangle("line",x,y,15,15)
 				if g.player.inventory[i] then
 					local a=g.player.inventory[i]
-					LG.draw(Spritesheet[a.size],Quads[a.size][a.spr],x+7,y+7,a.angle,1,1,(a.size*m.tile.width)/2,(a.size*m.tile.height)/2)
+					LG.draw(Sprites[a.size].spritesheet,Sprites[a.size].quads[a.spr],x+7,y+7,a.angle,1,1,(a.size*m.tile.width)/2,(a.size*m.tile.height)/2)
 				end
 			end
 

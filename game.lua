@@ -370,15 +370,13 @@ game.graphics = function(g)
 	palette.load(g)
 
 	--TODO put this in g.?
-	Spritesheet={}
-	Quads={}
+	Sprites={}
 	local files = love.filesystem.filterfiles("gfx","png")
 
 	local tw,th=8,8
 	for a=1,#files do
-		local ss,qs = sprites.load("gfx/"..files[a],tw*2^(a-1),th*2^(a-1))
-		table.insert(Spritesheet,ss)
-		table.insert(Quads,qs)
+		local ss = sprites.load("gfx/"..files[a],tw*2^(a-1),th*2^(a-1))
+		table.insert(Sprites,ss)
 	end
 
 	--Shader = shader.make()
