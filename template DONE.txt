@@ -140,6 +140,7 @@ graphics stuff in game library
 editor not as module but as its own .lua library
 
 NO
+make sprites.load use library.load, not other way around
 use filterfiles in other things like library?
 player as module
 get rid of all enums for module making? just do string input. keep old EM[] module code commented out, in case we need it later

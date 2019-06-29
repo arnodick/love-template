@@ -46,6 +46,7 @@ supper.run = function(t,args,...)--takes in a table t, a list of strings args to
 	end
 end
 
+--TODO THIS IS THE ONE YOU USED IN NANOGENMO AND INFINITE ADVENTURES
 --puts a table called "names" in a table t
 --the "names" tables is an enumerated list of all the key strings of the members of the table
 --ie: t = {desert=function(...),cave=function(...),sewer=function(...)}
@@ -62,8 +63,7 @@ supper.names = function(t,names)
 end
 --]]
 
---maybe this is impossible actually? can't iterate through table while adding keys because those new keys are iterated over. can maybe just copy table in?
---can WE just do this instead? this happens with Enums, doesn't it?
+--this version doesn't make a table called names
 supper.names = function(t)
 	local names={}
 	for k,v in pairs(t) do

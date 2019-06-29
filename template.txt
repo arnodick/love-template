@@ -1,9 +1,39 @@
 YES
-make sprites.load use library.load, not other way around
-	how to solve problem with thumbs.db causing issues with library.load file count? just make sure thumbs.db not in there?
-	Put gfx in g?
-make sure library.load of sfx can handle index or string keys for sounds (positional might cause problems here, because it is string indexed and we're using ipairs right now)
 install love latest version 11.2 in frameworks folder, make shrotcuts to run game and build game with it
+	list of breaking changes:
+	Removed the default source type for love.audio.newSource.
+    Removed Source:isStopped and Source:isPaused. Use Source:isPlaying instead.
+    Removed Source:rewind. Use Source:stop or Source:seek(0) instead.
+    Removed Source:resume and love.audio.resume. Use Source:play and love.audio.play instead.
+    Removed variant of love.filesystem.newFileData which takes base64 data, use love.data.decode instead.
+    Removed the no-argument variant of Text:set, use Text:clear instead.
+    Removed Image:getData and Image:refresh, use Image:replacePixels instead.
+    Removed love.graphics.getCompressedImageFormats, use love.graphics.getImageFormats instead.
+    Removed the 'void effects(...)' pixel shader entry point. Use the new 'void effect()' instead.
+    Removed Shader:getExternVariable, use Shader:hasUniform instead.
+    Removed love.graphics.newScreenshot, use love.graphics.captureScreenshot instead.
+    Removed SpriteBatch:setBufferSize, spritebatches now automatically grow when they run out of space.
+    Removed deprecated enet function host:socket_get_address.
+    Removed functions deprecated in LÖVE 0.10.2:
+    Removed undocumented Shader:sendInt, Shader:sendBoolean, Shader:sentFloat, Shader:sendMatrix, and Shader:sendTexture methods (use Shader:send instead).
+    Removed love.window.isCreated (use love.window.isOpen instead).
+	Changed all color values to be in the range 0-1, rather than 0-255. This affects the following functions:
+	    love.graphics.setColor, love.graphics.getColor, love.graphics.setBackgroundColor, and love.graphics.getBackgroundColor.
+	    SpriteBatch:setColor and SpriteBatch:getColor.
+	    ParticleSystem:setColors and ParticleSystem:getColors.
+	    love.graphics.clear.
+	    love.graphics.newMesh, Mesh:setVertex, and Mesh:getVertex.
+	    The colored text variants of love.graphics.print, love.graphics.printf, love.graphics.newText, Text:set, Text:setf, Text:add, and Text:addf.
+	    Shader:sendColor.
+	    love.graphics.points.
+	    ImageData:setPixel, ImageData:getPixel, and ImageData:mapPixel.
+	    love.math.gammaToLinear and love.math.linearToGamma.
+	maybe other stuff in changes of v11
+
+how to solve problem with thumbs.db causing issues with library.load file count? just make sure thumbs.db not in there?
+Put gfx in g?
+make sure library.load of sfx can handle index or string keys for sounds (positional might cause problems here, because it is string indexed and we're using ipairs right now)
+
 is sfx.positional necessary? maybe make it a game setting?
 	make sfx.loadpositional and sfx.loadnotpositional, call one or the other depending?
 figure out weird mouse shit, why is not showing up?
