@@ -369,6 +369,26 @@ game.graphics = function(g)
 
 	palette.load(g)
 
+	-- local p={}
+	-- supper.copy(p,g.palette)
+	-- for k,v in pairs(p) do
+	-- 	for i,colourvalue in ipairs(v) do
+	-- 		v[i]=math.floor((colourvalue/255)*100)*0.01
+	-- 	end
+	-- end
+	-- supper.print(p,"PALETTE AFTER DIVIDE")
+	-- json.save("palette.json",p)
+
+	-- local p2={}
+	-- supper.copy(p2,g.palettes[2])
+	-- supper.print(p2,"PALETTE 2 BEFORE DIVIDE")
+	-- for k,v in pairs(p2) do
+	-- 	for i,colourvalue in ipairs(v) do
+	-- 		v[i]=math.floor((colourvalue/255)*100)*0.01
+	-- 	end
+	-- end
+	-- json.save("palette2.json",p2)
+
 	--TODO put this in g.?
 	Sprites=library.load("gfx","png")
 
