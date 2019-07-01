@@ -297,7 +297,8 @@ protosnake.title =
 			LG.setColor(g.palette["white"])
 		LG.setCanvas(g.canvas.main)
 	---[[
-		local imgdata=g.canvas.buffer:newImageData(0,0,g.canvas.buffer:getWidth()-1,g.canvas.buffer:getHeight()-1)
+		-- local imgdata=g.canvas.buffer:newImageData(0,0,g.canvas.buffer:getWidth()-1,g.canvas.buffer:getHeight()-1)
+		local imgdata=g.canvas.buffer:newImageData()
 		imgdata:mapPixel(pixelmaps.sparkle)
 		imgdata:mapPixel(pixelmaps.crush)
 		local image=LG.newImage(imgdata)
@@ -310,7 +311,8 @@ protosnake.title =
 protosnake.intro =
 {
 	make = function(g)
-		g.hud.imgdata=love.image.newImageData(g.canvas.buffer:getWidth()-1,g.canvas.buffer:getHeight()-1)
+		-- g.hud.imgdata=love.image.newImageData(g.canvas.buffer:getWidth()-1,g.canvas.buffer:getHeight()-1)
+		g.hud.imgdata=love.image.newImageData(g.canvas.buffer:getWidth(),g.canvas.buffer:getHeight())
 		g.hud.font=LG.newFont("fonts/Kongtext Regular.ttf",20)
 		music.play(2)
 	end,
@@ -345,7 +347,8 @@ protosnake.intro =
 		LG.setCanvas(g.canvas.main)
 
 		local cw,ch=g.canvas.buffer:getWidth(),g.canvas.buffer:getHeight()
-		local imgdata=g.canvas.buffer:newImageData(0,0,cw-1,ch-1)
+		-- local imgdata=g.canvas.buffer:newImageData(0,0,cw-1,ch-1)
+		local imgdata=g.canvas.buffer:newImageData()
 		imgdata:mapPixel(pixelmaps.crush)
 		local iw,ih=imgdata:getWidth(),imgdata:getHeight()
 		local mid=math.floor(iw/2)
