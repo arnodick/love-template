@@ -15,20 +15,20 @@ pixelmaps.melt = function(x, y, r, g, b, a)
 end
 
 pixelmaps.sparkle = function(x, y, r, g, b, a)
-	-- if r~=0 or g~=0 or b~=0 then
-	if r>=0 or g>=0 or b>=0 then
+	if r~=0 or g~=0 or b~=0 then
+	-- if r>=0 or g>=0 or b>=0 then
 		if love.math.random(2)==1 then
 			-- r=r-10
 			-- --g=g-10
 			-- b=b-10
-			r=r-0.01
+			r=r-0.04
 			--g=g-10
-			g=g-0.01
-			b=b-0.01
+			-- g=g-0.01
+			b=b-0.04
 		end
-		r=math.snap(r,0.01,0)
-		g=math.snap(g,0.01,0)
-		b=math.snap(b,0.01,0)
+		r=math.clamp(r,0.04,1,true)
+		-- g=math.snap(g,0.01,0)
+		b=math.clamp(b,0.04,1,true)
 --[[
 		if love.math.random(100)==1 then
 			r=0 g=0 b=0
