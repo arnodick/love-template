@@ -479,7 +479,7 @@ offgrid.intro =
 				LG.printformat("OFF THE GRID",0,0,g.width,"center","dark_gray","dark_gray",255)
 			LG.setCanvas(g.canvas.main)
 
-			local imgdata=g.canvas.buffer:newImageData(0,0,640,320)
+			local imgdata=g.canvas.buffer:newImageData(1,1,0,0,640,320)
 			local iw,ih=imgdata:getWidth(),imgdata:getHeight()
 			--imgdata:mapPixel(pixelmaps.crush)
 	

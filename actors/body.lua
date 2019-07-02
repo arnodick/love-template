@@ -38,7 +38,7 @@ local function draw(g,a)
 			local cw,ch=g.canvas.main:getWidth(),g.canvas.main:getHeight()
 
 			if ix>tw and ix<cw-tw and iy>th and iy<ch-th then
-				local imgdata=g.canvas.main:newImageData(ix,iy,tw,th)
+				local imgdata=g.canvas.main:newImageData(1,1,ix,iy,tw,th)
 				a.image=LG.newImage(imgdata)
 				--LG.drawtobackground(g.level.canvas.background,a.image,a.x,a.y,a.angle,a.scalex,a.scaley,(m.tile.width)/2,(m.tile.height)/2,230)
 				--LG.drawtobackground(g.level.canvas.background,a.image,a.x,a.y,a.angle,1,1,(tw)/2,(th)/2,220)

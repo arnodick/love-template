@@ -25,7 +25,7 @@ local function control(g,a,gs)
 			th=th-diff
 		end
 
-	local imgdata=g.level.canvas.background:newImageData(ix,iy,tw,th)
+	local imgdata=g.level.canvas.background:newImageData(1,1,ix,iy,tw,th)
 
 	imgdata:mapPixel(pixelmaps.sparkle)
 	imgdata:mapPixel(pixelmaps.crush)

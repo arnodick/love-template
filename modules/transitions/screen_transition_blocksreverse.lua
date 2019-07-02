@@ -36,7 +36,7 @@ local function draw(g,l,m)
 		--if l.transition_timer-math.floor(l.transition_timer)<0.1 then
 			if #m.blocks>0 then
 				local randblockindex=love.math.random(#m.blocks)
-				local imgdata=g.canvas.buffer:newImageData(m.blocks[randblockindex].x,m.blocks[randblockindex].y,m.blocks[randblockindex].w,m.blocks[randblockindex].h)
+				local imgdata=g.canvas.buffer:newImageData(1,1,m.blocks[randblockindex].x,m.blocks[randblockindex].y,m.blocks[randblockindex].w,m.blocks[randblockindex].h)
 				local image=LG.newImage(imgdata)
 				LG.draw(image,m.blocks[randblockindex].x,m.blocks[randblockindex].y)
 				table.remove(m.blocks,randblockindex)
