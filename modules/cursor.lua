@@ -47,6 +47,7 @@ cursor.reticle.control = function(g,c,a)
 end
 
 cursor.reticle.draw = function(c)
+	-- LG.rectangle("fill",c.x-4,c.y-4,16,16)
 	LG.draw(Sprites[1].spritesheet,Sprites[1].quads[254],c.x-4,c.y-4)
 end
 

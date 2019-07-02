@@ -20,8 +20,8 @@ Music=library.load("music","wav")
 print(MipmapMode)
 
 function love.load()
-	-- game.make("multigame")
-	game.make("offgrid",640,960)
+	game.make("multigame")
+	-- game.make("offgrid",640,960)
 end
 
 function love.update(dt)
