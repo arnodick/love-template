@@ -4,7 +4,8 @@ local function make(a,b,c1,c2)
 end
 
 local function draw(m,border)
-	local alpha=230
+	-- local alpha=230
+	local alpha=0.9
 
 	local r,g,b=unpack(Game.palette[border.c2])
 	LG.setColor(r,g,b,alpha)

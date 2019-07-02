@@ -32,7 +32,7 @@ install love latest version 11.2 in frameworks folder, make shrotcuts to run gam
 	    love.math.gammaToLinear and love.math.linearToGamma.
 	maybe other stuff in changes of v11
 
-post q about canvas:newImageData slice & mipmaps
+post q about canvas:newImageData slice & mipmapswrite to sprite canvas during game?
 conf.lua, how is it generated? make a new one for v11
 
 how to solve problem with thumbs.db causing issues with library.load file count? just make sure thumbs.db not in there?

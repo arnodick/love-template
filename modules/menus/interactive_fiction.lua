@@ -180,10 +180,10 @@ local function draw(m)
 			LG.line(arrowx,arrowy+arrowlength,arrowx,arrowy-arrowlength)
 			LG.line(arrowx-arrowlength,arrowy,arrowx+arrowlength,arrowy)
 
-			local linealpha=255
+			local linealpha=1
 			if m.text.index then
 				if m.text.index~=i then
-					linealpha=50
+					linealpha=0.2
 				end
 			end
 			local c1,c2=m.c1,m.c2

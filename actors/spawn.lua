@@ -38,21 +38,21 @@ local function control(g,a,gs)
 			local p1=l.portal1
 			if p1 then
 				if p1.droppedby==spawnnum then
-					module.make(enemy,EM.drop,"portal",1)
+					module.make(enemy,EM.drop,"portal",1)--portal that goes to level 1
 				end
 			end
 
 			local p2=l.portal2
 			if p2 then
 				if p2.droppedby==spawnnum then
-					module.make(enemy,EM.drop,"portal",2)
+					module.make(enemy,EM.drop,"portal",2)--portal that goes to level 1
 				end
 			end
 
 			local pstore=l.portalstore
 			if pstore then
 				if pstore.droppedby==spawnnum then
-					module.make(enemy,EM.drop,"portal","store")
+					module.make(enemy,EM.drop,"portal","store")--portal that goes to level 1
 				end
 			end
 		end

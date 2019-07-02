@@ -49,7 +49,7 @@ end
 local function printformat(text,x,y,limit,align,c1,c2,alpha)
 	limit=limit or Game.width-x
 	align=align or "left"
-	alpha=alpha or 255
+	alpha=alpha or 1
 	for xoff=-1,1 do
 		for yoff=1,1 do
 			local r,g,b=unpack(Game.palette[c2])
@@ -105,7 +105,8 @@ local function drawtobackground(background,drawable,x,y,a,scale,scale,xoff,yoff,
 	local xcamoff,ycamoff=g.camera.x-g.width/2,g.camera.y-g.height/2
 	LG.setCanvas(background)
 		if alpha then
-			LG.setColor(255,255,255,alpha)
+			-- LG.setColor(255,255,255,alpha)
+			LG.setColor(1,1,1,alpha)
 		end
 		LG.draw(drawable,x+xcamoff,y+ycamoff,a,scale,scale,xoff,yoff)
 	LG.setCanvas(g.canvas.main)

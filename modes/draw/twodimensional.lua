@@ -8,7 +8,7 @@ twodimensional.draw = function(g,a)
 	local c=a.c or "pure_white"
 	--local c=a.c or g.actordata[EA[a.t]].c
 	local r,gr,b=unpack(g.palette[c])
-	local alpha=255
+	local alpha=1
 	if a.alpha then
 		alpha=a.alpha
 	end

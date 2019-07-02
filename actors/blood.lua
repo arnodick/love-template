@@ -8,7 +8,8 @@ local function make(g,a,c)
 	a.scaley=2
 	--a.decel=0.02
 	a.decel=0.16
-	a.alpha=220+love.math.random(35)
+	--a.alpha=220+love.math.random(35)
+	a.alpha=0.86+love.math.random(0.14)
 	a.flags=flags.set(a.flags,EF.persistent)
 end
 

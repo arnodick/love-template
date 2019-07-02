@@ -3,21 +3,32 @@ local pixelmaps={}
 pixelmaps.melt = function(x, y, r, g, b, a)
 	if r~=0 or g~=0 or b~=0 then
 		if love.math.random(2)==1 then
-			r=math.max(r-4,0)
-			g=math.max(g-1,0)
-			b=math.max(b-4,0)
+			-- r=math.max(r-4,0)
+			-- g=math.max(g-1,0)
+			-- b=math.max(b-4,0)
+			r=math.max(r-0.02,0)
+			g=math.max(g-0.01,0)
+			b=math.max(b-0.02,0)
 		end
 	end
 	return r,g,b,a
 end
 
 pixelmaps.sparkle = function(x, y, r, g, b, a)
-	if r~=0 or g~=0 or b~=0 then
+	-- if r~=0 or g~=0 or b~=0 then
+	if r>=0 or g>=0 or b>=0 then
 		if love.math.random(2)==1 then
-			r=r-10
+			-- r=r-10
+			-- --g=g-10
+			-- b=b-10
+			r=r-0.01
 			--g=g-10
-			b=b-10
+			g=g-0.01
+			b=b-0.01
 		end
+		r=math.snap(r,0.01,0)
+		g=math.snap(g,0.01,0)
+		b=math.snap(b,0.01,0)
 --[[
 		if love.math.random(100)==1 then
 			r=0 g=0 b=0
@@ -34,7 +45,7 @@ pixelmaps.crush = function(x, y, r, g, b, a)
 		local factor=dist/20
 		local chance=math.floor(100/factor)
 		if love.math.random(chance)==1 then
-			r=0 g=0 b=0
+			r=0 g=0 b=0 a=0
 		end
 	--end
 	return r,g,b,a
