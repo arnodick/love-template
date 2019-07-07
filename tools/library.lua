@@ -23,7 +23,9 @@ library.load = function(dir,...)
 		if dir~="" then--if this is the first iteration, leave the filepath un-prepended
 			filepath=dir.."/"..filename--otherwise, prepend the filename with the dir
 		end
-		if love.filesystem.isFile(filepath) then--if file isn't a directory
+		-- local fileinfo=love.filesystem.getInfo(filepath, filtertype )--TODO do filter instead of fileext stuff below
+		local fileinfo=love.filesystem.getInfo(filepath)
+		if fileinfo.type=="file" then--if file isn't a directory
 			local fileext=filedata:getExtension()
 			if type(ext)=="table" then--if we want to load multiple different types of files (eg wav or ogg)
 				if supper.contains(ext,fileext) then
@@ -66,7 +68,7 @@ library.load = function(dir,...)
 					end
 				end
 			end
-		elseif love.filesystem.isDirectory(filepath) then--if file is a folder
+		elseif fileinfo.type=="directory" then--if file is a folder
 			if filepath~=".git" then--TODO does this actually work?
 				l[filename]=library.load(filepath,ext)--start a new iteration of recursion on the folder, passing in the filepath we built earlier in this iteration
 			end

@@ -1,4 +1,9 @@
 DONE
+install love latest version 11.2 in frameworks folder, make shrotcuts to run game and build game with it
+	list of breaking changes:
+
+
+	Changed the variant of Canvas:newImageData which accepts x/y/width/height to also require slice and mipmap index parameters, which are used when the Canvas isn't a 2D type or has mipmaps.
 get rid of filterfiles
 	use library on DONE music,palettes,sfx,gfx
 		gfx uses filterfiles

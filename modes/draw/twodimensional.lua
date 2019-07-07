@@ -13,7 +13,9 @@ twodimensional.draw = function(g,a)
 		alpha=a.alpha
 	end
 	LG.setColor(r,gr,b,alpha)
+	-- love.graphics.setShader(Shader)
 	sprites.draw(a)
+	-- love.graphics.setShader()
 
 --[[
 	if a.char then

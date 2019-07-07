@@ -80,7 +80,6 @@ local function textify(image,scale,chars,smallcanvas,bigcanvas,charw,charh)
 		LG.draw(image,0,0,0,scale,scale)
 	LG.setCanvas(bigcanvas)
 		LG.clear()
-		-- local imgdata=smallcanvas:newImageData(0,0,smallcanvas:getWidth(),smallcanvas:getHeight())
 		local imgdata=smallcanvas:newImageData()
 		for y=0,imgdata:getWidth()-1 do
 			for x=0,imgdata:getHeight()-1 do
@@ -92,7 +91,6 @@ local function textify(image,scale,chars,smallcanvas,bigcanvas,charw,charh)
 			end
 		end
 		LG.setColor(1,1,1) --sets draw colour back to normal
-		-- local mainimgdata=bigcanvas:newImageData(0,0,bigcanvas:getWidth(),bigcanvas:getHeight())
 	LG.setCanvas()
 	local mainimgdata=bigcanvas:newImageData()
 	return LG.newImage(mainimgdata)

@@ -6,7 +6,8 @@ local function load(dir,...)
 		if dir~="" then --just to make subfolders have the proper syntax
 			fileordir=dir.."/"..fileordir
 		end
-		if love.filesystem.isFile(fileordir) then
+		local fileinfo=love.filesystem.getInfo(fileordir)
+		if fileinfo.type=="file" then--if file isn't a directory
 			local filedata = love.filesystem.newFileData("code", fileordir)
 			local filename = filedata:getFilename()
 			local enumdir=false
@@ -21,7 +22,7 @@ local function load(dir,...)
 				table.insert(e,enumname)
 				e[enumname]=#e
 			end
-		elseif love.filesystem.isDirectory(fileordir) then
+		elseif fileinfo.type=="directory" then--if file is a folder
 			local enumname=string.gsub(fileordir, ".*/", "")--gets rid of any directory strings in filename ie: actors/dog.lua becomes dog.lua
 			local enumdir=false
 			for j=1,#dirstoread do

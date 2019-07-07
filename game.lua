@@ -333,6 +333,8 @@ game.draw = function(g)
 	LG.origin()
 
 	screen.control(g,g.screen,g.speed)
+
+	-- love.graphics.setShader()
 end
 
 game.counters = function(g,a,amount)
@@ -392,7 +394,8 @@ game.graphics = function(g)
 	--TODO put this in g.?
 	Sprites=library.load("gfx","png")
 
-	--Shader = shader.make()
+	Shader = shader.make()
+	Shader:send("screenHeight",g.height)
 
 	screen.update(g)
 

@@ -24,7 +24,6 @@ local function control(a,m)
 end
 
 local function draw(g,l,m)
-	-- local imgdata=g.canvas.main:newImageData(0,0,g.canvas.main:getWidth()-1,g.canvas.main:getHeight()-1)
 	local imgdata=g.canvas.main:newImageData()
 	--imgdata:mapPixel(pixelmaps.melt)
 	imgdata:mapPixel(pixelmaps.sparkle)

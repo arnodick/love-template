@@ -1,8 +1,7 @@
 YES
 install love latest version 11.2 in frameworks folder, make shrotcuts to run game and build game with it
 	list of breaking changes:
-	Changed the variant of Canvas:newImageData which accepts x/y/width/height to also require slice and mipmap index parameters, which are used when the Canvas isn't a 2D type or has mipmaps.
-
+	
 	Removed the default source type for love.audio.newSource.
     Removed Source:isStopped and Source:isPaused. Use Source:isPlaying instead.
     Removed Source:rewind. Use Source:stop or Source:seek(0) instead.
@@ -32,8 +31,15 @@ install love latest version 11.2 in frameworks folder, make shrotcuts to run gam
 	    love.math.gammaToLinear and love.math.linearToGamma.
 	maybe other stuff in changes of v11
 
+GET RID OF ENUMS! just use strings
+
+make it so mouse can select shop item if it is over it
+	make mouse not follow player in protosnake
+		switch to follow or not follow character?
 post q about canvas:newImageData slice & mipmapswrite to sprite canvas during game?
 conf.lua, how is it generated? make a new one for v11
+beautify json script?
+	line for each value, value's values indented, tabbed so values are all in a column
 
 how to solve problem with thumbs.db causing issues with library.load file count? just make sure thumbs.db not in there?
 Put gfx in g?

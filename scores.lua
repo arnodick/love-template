@@ -4,7 +4,8 @@ local scores={}
 --TODO score.make? makes a {"name",score} table
 scores.load = function()
 	local s={}
-	if not love.filesystem.exists("scores.json") then	
+	local fileinfo=love.filesystem.getInfo("scores.json")
+	if fileinfo.type~=nil then--if file isn't a directory
 		for i=1,8 do
 			table.insert(s,{name="ASH",score=love.math.random(10)})
 		end
