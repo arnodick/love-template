@@ -33,6 +33,9 @@ install love latest version 11.2 in frameworks folder, make shrotcuts to run gam
 
 GET RID OF ENUMS! just use strings
 
+clean up screen.lua stuff
+	start with commenting it
+
 make it so mouse can select shop item if it is over it
 	make mouse not follow player in protosnake
 		switch to follow or not follow character?
