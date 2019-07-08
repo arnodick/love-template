@@ -71,7 +71,7 @@ offgrid.level.city =
 			offgrid.level.makemoveoption(g,m,g.player.x-1,g.player.y,"West",4)
 		end
 
-		--module.make(l,EM.menu,EMM.interactive_fiction,320,800,640,320,m.text,EC.white,EC.dark_gray,"left",m.functions,m.arguments)
+		--module.make(l,EM.menu,EMM.interactive_fiction,320,800,640,320,m.text,"white","dark_gray","left",m.functions,m.arguments)
 		if l.options then
 			if not (l.unlock_description and g.player.items[l.unlock_description_item]) then
 				for i,v in ipairs(l.options) do
@@ -99,7 +99,7 @@ offgrid.level.city =
 			l.menu.back=l.back
 		end
 		--supper.print(l.menu.options)
-		--local args={l,EM.menu,EMM.interactive_fiction,320,800,640,320,m.text,EC.white,EC.dark_gray,"left",m.functions,m.arguments}
+		--local args={l,EM.menu,EMM.interactive_fiction,320,800,640,320,m.text,"white","dark_gray","left",m.functions,m.arguments}
 		--module.make(l,EM.transition,easing.linear,"transition_timer",0,1,240,module.make,args,EM.transitions.screen_transition_blocksreverse)
 		if l.transition_in then
 			--module.make(l,EM.transition,easing.linear,"transition_timer",0,1,240,nil,nil,EM.transitions.screen_transition_blocksreverse)

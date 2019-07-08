@@ -46,9 +46,9 @@ local function draw(g,l,m)
 		if m.remove then
 			if #m.blocks>0 then
 				local randblockindex=love.math.random(#m.blocks)
-				LG.setColor(g.palette[EC.white])
+				LG.setColor(g.palette["white"])
 				LG.rectangle("fill",m.blocks[randblockindex].x,m.blocks[randblockindex].y,m.blocks[randblockindex].w,m.blocks[randblockindex].h)
-				LG.setColor(g.palette[EC.pure_white])
+				LG.setColor(g.palette["pure_white"])
 				table.remove(m.blocks,randblockindex)
 			end
 			m.remove=false

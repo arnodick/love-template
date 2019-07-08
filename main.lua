@@ -17,8 +17,6 @@ Joysticks={}
 SFX=sfx.load()
 Music=library.load("music","wav")
 
-print(MipmapMode)
-
 function love.load()
 	game.make("multigame")
 	-- game.make("offgrid",640,960)

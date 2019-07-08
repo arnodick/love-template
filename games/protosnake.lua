@@ -87,6 +87,10 @@ protosnake.player =
 			module.make(a,EM.controller,EMC.aim,EMCI.mouse)
 			module.make(a,EM.controller,EMC.action,EMCI.mouse)
 			module.make(a,EM.cursor,"reticle")
+		-- 	module.make(a,"controller","move","keyboard",true)
+		-- 	module.make(a,"controller","aim","mouse")
+		-- 	module.make(a,"controller","action","mouse")
+		-- 	module.make(a,"cursor","reticle")
 		end
 		a.coin=0
 		actor.make(g,EA.machinegun,a.x,a.y,0,0,"dark_purple","dark_purple")

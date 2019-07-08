@@ -1,3 +1,4 @@
+--[[
 function love.conf(t)
 
     t.identity = nil                    -- The name of the save directory (string)
@@ -48,3 +49,4 @@ function love.conf(t)
     t.modules.video = true              -- Enable the video module (boolean)
     t.modules.window = true             -- Enable the window module (boolean)
 end
+--]]
