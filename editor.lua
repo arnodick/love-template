@@ -14,7 +14,7 @@ editor.keypressed = function(g,key)
 	if love.keyboard.isDown('lctrl') then
 		if key=="s" then
 			love.keyboard.setTextInput(true)
-			module.make(g.hud,EM.menu,EMM.text,100,100,200,200,{"type file name",""},"orange","dark_green")
+			module.make(g.hud,EM.menu,"text",100,100,200,200,{"type file name",""},"orange","dark_green")
 		end
 	elseif key=="return" then
 		if g.hud.menu then

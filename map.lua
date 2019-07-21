@@ -217,6 +217,7 @@ drawmodes.grid = function(m,x,y)
 		local c=g.palette[g.level.c or "white"]
 		local r,gr,b=c[1],c[2],c[3]
 		-- LG.setColor(r,gr,b,120)
+		--TODO does this work w new color values?
 		LG.setColor(r,gr,b,0.47)
 
 		if x==1 then

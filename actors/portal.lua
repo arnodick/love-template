@@ -60,7 +60,7 @@ local function draw(g,a)
 		LG.setColor(g.palette["pure_white"])
 		-- LG.setColor(g.palette["black"])
 		LG.draw(a.image,a.x,a.y,0,1,1,a.sizeinit,a.sizeinit)
-		LG.setColor(g.palette[a.c])
+		LG.setColor(g.palette[a.c])--TODO new color worky?
 		local curve=love.math.newBezierCurve(
 			a.x,
 			a.y,

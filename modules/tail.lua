@@ -40,7 +40,7 @@ local function control(t,gs,a,vx,vy)
 end
 
 local function draw(t)
-	LG.setColor(Game.palette[t.c])
+	LG.setColor(Game.palette[t.c])--TODO WORK Y COLUR>
 	local curve=love.math.newBezierCurve(t.sx,t.sy,t.mx,t.my,t.x,t.y)
 	LG.line(curve:render(2))
 end

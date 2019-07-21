@@ -108,7 +108,7 @@ cursor.editor.draw = function(c)
 	LG.draw(Sprites[1].spritesheet,Sprites[1].quads[c.value],cx,cy)
 
 	local p=g.palette["red"]
-	p[4]=180
+	p[4]=180--TODO this colour changey
 	LG.setColor(p)
 	LG.draw(Sprites[1].spritesheet,Sprites[1].quads[254],cx,cy)
 	LG.setColor(g.palette["pure_white"])

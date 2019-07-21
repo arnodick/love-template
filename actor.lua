@@ -182,7 +182,7 @@ local function damage(a,d)
 	local g=Game
 	if not a.delete then
 		--TODO game-specific
-		module.make(a,EM.flash,"c","white",a.cinit,6)
+		module.make(a,"flash","c","white",a.cinit,6)
 		if a.sound then
 			if a.sound.damage then
 				sfx.play(a.sound.damage,a.x,a.y)

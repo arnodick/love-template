@@ -71,7 +71,7 @@ offgrid.level.city =
 			offgrid.level.makemoveoption(g,m,g.player.x-1,g.player.y,"West",4)
 		end
 
-		--module.make(l,EM.menu,EMM.interactive_fiction,320,800,640,320,m.text,"white","dark_gray","left",m.functions,m.arguments)
+		--module.make(l,EM.menu,"interactive_fiction",320,800,640,320,m.text,"white","dark_gray","left",m.functions,m.arguments)
 		if l.options then
 			if not (l.unlock_description and g.player.items[l.unlock_description_item]) then
 				for i,v in ipairs(l.options) do
@@ -99,7 +99,7 @@ offgrid.level.city =
 			l.menu.back=l.back
 		end
 		--supper.print(l.menu.options)
-		--local args={l,EM.menu,EMM.interactive_fiction,320,800,640,320,m.text,"white","dark_gray","left",m.functions,m.arguments}
+		--local args={l,EM.menu,"interactive_fiction",320,800,640,320,m.text,"white","dark_gray","left",m.functions,m.arguments}
 		--module.make(l,EM.transition,easing.linear,"transition_timer",0,1,240,module.make,args,EM.transitions.screen_transition_blocksreverse)
 		if l.transition_in then
 			--module.make(l,EM.transition,easing.linear,"transition_timer",0,1,240,nil,nil,EM.transitions.screen_transition_blocksreverse)
@@ -213,7 +213,7 @@ offgrid.level.offgrid =
 {
 	make = function(g,l)
 		--TODO here will maybe be the options that you can go to from here? offgrid areas (usually won't have option to go back, choices of where you can go aren't based on the grid, but are instead linked lists sort of. will need a menu where you can use items, talk to people, etc. more like a story than an exploration)
-		module.make(l,EM.menu,EMM.interactive,g.width/2,120,160,50,g.player.words,"orange","dark_green","center")
+		module.make(l,EM.menu,"interactive",g.width/2,120,160,50,g.player.words,"orange","dark_green","center")
 	end,
 
 	control = function(g,l)

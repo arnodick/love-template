@@ -1,3 +1,5 @@
+START PORTING SPACETANK
+	lesson from not being sure about enums is you should just make spacetank and see how it runs compared to your original code, ie how many actors it can handle at once
 YES
 	list of breaking changes:
 	
@@ -31,6 +33,7 @@ YES
 	maybe other stuff in changes of v11
 
 GET RID OF ENUMS! just use strings
+	how to programmatically make things then? have supper.names, but would need a table to run it on. maybe if WE start doing something like modules.menu.make instead of menu.make, then can use numbers/names on modules table
 
 clean up screen.lua stuff
 	start with commenting it

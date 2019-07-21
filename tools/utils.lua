@@ -53,7 +53,7 @@ local function printformat(text,x,y,limit,align,c1,c2,alpha)
 	for xoff=-1,1 do
 		for yoff=1,1 do
 			local r,g,b=unpack(Game.palette[c2])
-			LG.setColor(r,g,b,alpha)
+			LG.setColor(r,g,b,alpha)--TODO WORK?
 			LG.printf(text,x+xoff*2,y+yoff*2,limit,align)
 
 			r,g,b=unpack(Game.palette[c1])
