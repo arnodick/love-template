@@ -34,6 +34,7 @@ YES
 
 GET RID OF ENUMS! just use strings
 	how to programmatically make things then? have supper.names, but would need a table to run it on. maybe if WE start doing something like modules.menu.make instead of menu.make, then can use numbers/names on modules table
+	can we just use names instead of enums?
 
 clean up screen.lua stuff
 	start with commenting it
