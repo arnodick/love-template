@@ -191,6 +191,8 @@ supper.load = function(dir,extensions,folders)
 					and filename~="main.lua" then --it's a library, so include it
 						filepath=string.gsub(filepath, "."..ext, "")--strip the extension from the filepath, because require does not REQUIRE them ( hah hah hah (: )
 						_G[f]=require(filepath)--load the library into lua
+						table.insert(l,f)--insert the name of the lua library into the table that will be returned so it is indexed by integer
+						l[f]=#l--make a key in the table that will be returned out of the name of the lua library whose value is the index the name of the lua library was inserted at
 					end
 				end
 			end
