@@ -1,7 +1,9 @@
 --game initialization stuff (just boring stuff you need to maek Video Game)
-library=require("tools/library")--have to load the library.lua library to use it to dynamically load the rest of the libraries
-library.load("","lua")--loads all the .lua libraries
--- supper.print(l,"LIBRARY TABLE")
+--TODO maybe just load tools first in library?
+supper=require("tools/supper")--have to load the supper.lua library to use supper.load to dynamically load the rest of the libraries
+-- local l=supper.load("","lua",{"games","actors","modules","modes","flags","tools"})--loads all the .lua libraries
+local l=supper.load("","lua")--loads all the .lua libraries
+supper.print(l,"LIBRARY TABLE")
 
 Enums=enums.load("","games","actors","modules","modes")--enumerators
 enums.constants(Enums)--constants derived from enums, they're shorthand so you can type EM instead of Enums.modules
@@ -16,7 +18,7 @@ love.mouse.setRelativeMode(true)--TODO what does this do again?
 --TODO should any of the be part of Game?
 Joysticks={}
 SFX=sfx.load()
-Music=library.load("music","wav")
+Music=supper.load("music","wav")
 
 function love.load()
 	game.make("multigame")

@@ -1,6 +1,9 @@
 START PORTING SPACETANK
 	lesson from not being sure about enums is you should just make spacetank and see how it runs compared to your original code, ie how many actors it can handle at once
 YES
+maybe put all media in a folder, then exclude that when loading libraries?
+	what to call this? media? bit vague. assets too nondescript.
+
 	list of breaking changes:
 	
 	Removed the default source type for love.audio.newSource.

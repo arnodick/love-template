@@ -2,7 +2,7 @@ local menu={}
 
 menu.make = function(a,m,t,x,y,w,h,text,c1,c2,align,...)
 	m.t=t
-	//maybe keep it basically this way
+	-- maybe keep it basically this way
 	-- if type(t)=="number" then
 	-- 	m.t=t
 	-- else 

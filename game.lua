@@ -92,13 +92,13 @@ game.make = function(t,gw,gh)
 	game.graphics(g)
 
 --[[
-	g.actordata=library.load("games/"..g.name.."/actors")
+	g.actordata=supper.load("games/"..g.name.."/actors")
 	for i,v in pairs(g.actordata) do
 		v.count=0
 	end
 	supper.print(g.actordata)
 --]]
-	g.levels=library.load("games/"..g.name.."/levels")
+	g.levels=supper.load("games/"..g.name.."/levels")
 	-- supper.print(g.levels)
 
 --[[
@@ -392,7 +392,7 @@ game.graphics = function(g)
 	-- json.save("palette2.json",p2)
 
 	--TODO put this in g.?
-	Sprites=library.load("gfx","png")
+	Sprites=supper.load("gfx","png")
 
 	Shader = shader.make()
 	Shader:send("screenHeight",g.height)

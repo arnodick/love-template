@@ -45,7 +45,7 @@ offgrid.make = function(g)
 	table.insert(g.chars,"~")
 --]]
 
-	local images=library.load("images/offgrid","jpg")
+	local images=supper.load("images/offgrid","jpg")
 	g.images={}
 	local buffer=LG.newCanvas(640*g.bufferscale,640*g.bufferscale)
 	offgrid.convertimages(g,g.images,images,buffer)

@@ -2,7 +2,7 @@ local sfx={}
 
 --TODO how to handle positional?
 sfx.load = function(positional)
-	local s=library.load("sfx","wav","ogg")
+	local s=supper.load("sfx",{"wav","ogg"})
 	s.positional=positional or false
 	return s
 end
