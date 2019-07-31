@@ -127,16 +127,10 @@ end
 --pngs are loaded as sprite tables including a spritesheet and quads
 --jpg files are load into a table of images
 --lua files are included as code libraries
-supper.load = function(dir,extensions,folders)
-	--TODO make this take multiple ext for ogg and wav ie?
-	-- local ext={...}--ext can be a table containing multiple extensions
-	-- if #ext==1 then--if ext only has one value, make it into a string equal to the one value
-	-- 	ext=ext[1]
-	-- elseif #ext==0 then--if empty, ext defaults to "json" bc most other file types are usually only loaded at startup so aren't used as much as json
-	-- 	 ext="json"
-	-- end
+supper.load = function(dir,extensions,excludes)
+	--TODO just use extensions througohout
 	local ext=extensions--ext can be a table containing multiple extensions
-	if ext==nil then
+	if ext==nil then--if not extension(s) provided, ext defaults to "json" bc most other file types are usually only loaded at startup so aren't used as much as json
 		ext="json"
 	end
 	local l={}--make a table to put the loaded stuff into (this is unused when loading lua files)

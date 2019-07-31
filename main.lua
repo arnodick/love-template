@@ -2,7 +2,7 @@
 --TODO maybe just load tools first in library?
 supper=require("tools/supper")--have to load the supper.lua library to use supper.load to dynamically load the rest of the libraries
 -- local l=supper.load("","lua",{"games","actors","modules","modes","flags","tools"})--loads all the .lua libraries
-local l=supper.load("","lua")--loads all the .lua libraries
+local l=supper.load("","lua",{"tools"})--loads all the .lua libraries
 supper.print(l,"LIBRARY")
 
 Enums=enums.load("","games","actors","modules","modes")--enumerators
