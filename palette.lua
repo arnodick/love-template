@@ -3,7 +3,7 @@ local palette={}
 palette.load = function(g,...)
 	g.palettes=supper.load("palettes")
 	palette.set(g,1)--can also do palette.set(g,"palette")
-	supper.print(g.palettes,"palette")
+	-- supper.print(g.palettes,"palette")
 end
 
 palette.set = function(g,i)

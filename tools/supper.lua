@@ -150,7 +150,7 @@ supper.load = function(dir,extensions,excludes)
 			if type(ext)=="table" then--if we want to load multiple different types of files (eg wav or ogg)
 				if supper.contains(ext,fileext) then
 					if fileext=="ogg" or fileext=="wav" then
-						print(filename.. " is a wav or ogg")
+						-- print(filename.. " is a wav or ogg")
 						local soundfx={}
 						-- if positional then
 						-- 	soundfx.source=love.sound.newSoundData("sfx/"..filename)
@@ -159,7 +159,7 @@ supper.load = function(dir,extensions,excludes)
 							soundfx.source=love.audio.newSource(dir.."/"..filename,"static")
 							soundfx.pitchoffs=0
 							table.insert(l,soundfx)
-							supper.print(soundfx)
+							-- supper.print(soundfx)
 						-- end
 					end
 				end

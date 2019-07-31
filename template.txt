@@ -1,3 +1,5 @@
+I think palettes are getting added many times? console is huge after multiple startups
+
 START PORTING SPACETANK
 	lesson from not being sure about enums is you should just make spacetank and see how it runs compared to your original code, ie how many actors it can handle at once
 YES
