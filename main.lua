@@ -5,7 +5,7 @@ supper=require("tools/supper")--have to load the supper.lua library to use suppe
 -- local l=supper.load("","lua")--loads all the .lua libraries
 -- supper.print(l,"LIBRARY")
 
-Enums=supper.load("","lua")--loads all the .lua libraries
+Enums=supper.load("","lua",{"images","gfx","fonts","sfx","maps","palettes","music","videos"})--loads all the .lua libraries
 -- Enums=enums.load("","games","actors","modules","modes")--enumerators
 enums.constants(Enums)--constants derived from enums, they're shorthand so you can type EM instead of Enums.modules
 supper.print(Enums,"ENUMS")

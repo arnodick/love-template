@@ -117,7 +117,7 @@ supper.print = function(table,name,space)
 	for k,v in pairs(table) do
 		print(space..k.." = "..tostring(v))--print the key and value of the entry in the table
 		if type(v)=="table" then
-			supper.print(v,name,space.." ")--if it is also a table, print it out as well, indented one more space
+			supper.print(v,name,space.."   ")--if it is also a table, print it out as well, indented one more space
 		end
 	end
 end
@@ -192,7 +192,9 @@ supper.load = function(dir,extensions,excludes)
 			end
 		elseif fileinfo.type=="directory" then--if file is a folder
 			if filepath~=".git" then--TODO does this actually work?
-				l[filename]=supper.load(filepath,ext)--start a new iteration of recursion on the folder, passing in the filepath we built earlier in this iteration
+				if excludes==nil or not supper.contains(excludes,filename) then--if there are folders to exclude, don't load those folders, otherwise load every folder
+					l[filename]=supper.load(filepath,ext,excludes)--start a new iteration of recursion on the folder, passing in the filepath we built earlier in this iteration
+				end
 			end
 		end
 	end
