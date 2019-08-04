@@ -1,12 +1,6 @@
 --game initialization stuff (just boring stuff you need to maek Video Game)
---TODO maybe just load tools first in library?
 supper=require("tools/supper")--have to load the supper.lua library to use supper.load to dynamically load the rest of the libraries
--- local l=supper.load("","lua",{"games","actors","modules","modes","flags","tools"})--loads all the .lua libraries
--- local l=supper.load("","lua")--loads all the .lua libraries
--- supper.print(l,"LIBRARY")
-
-Enums=supper.load("","lua",{"images","gfx","fonts","sfx","maps","palettes","music","videos"})--loads all the .lua libraries
--- Enums=enums.load("","games","actors","modules","modes")--enumerators
+Enums=supper.load("","lua",{"images","gfx","fonts","sfx","maps","palettes","music","videos"})--loads all the .lua libraries, returns a table of enums of their functions
 enums.constants(Enums)--constants derived from enums, they're shorthand so you can type EM instead of Enums.modules
 supper.print(Enums,"ENUMS")
 
@@ -15,7 +9,7 @@ love.math.setRandomSeed(os.time())
 Debugger=debugger.make()
 love.keyboard.setKeyRepeat(false)
 love.keyboard.setTextInput(true)
-love.mouse.setRelativeMode(true)--TODO what does this do again?
+love.mouse.setRelativeMode(true)--this makes the mouse invisible and makes it so it never reaches the end of the screen TODO maybe make this only come on when playing game with cursor?
 --TODO should any of the be part of Game?
 Joysticks={}
 SFX=sfx.load()

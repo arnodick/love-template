@@ -1,10 +1,8 @@
-I think palettes are getting added many times? console is huge after multiple startups
-
 START PORTING SPACETANK
 	lesson from not being sure about enums is you should just make spacetank and see how it runs compared to your original code, ie how many actors it can handle at once
 YES
 maybe put all media in a folder, then exclude that when loading libraries?
-	what to call this? media? bit vague. assets too nondescript.
+	what to call this? media? bit vague. assets too nondescript. CONTENT
 
 	list of breaking changes:
 	
@@ -37,10 +35,6 @@ maybe put all media in a folder, then exclude that when loading libraries?
 	    love.math.gammaToLinear and love.math.linearToGamma.
 	maybe other stuff in changes of v11
 
-GET RID OF ENUMS! just use strings
-	how to programmatically make things then? have supper.names, but would need a table to run it on. maybe if WE start doing something like modules.menu.make instead of menu.make, then can use numbers/names on modules table
-	can we just use names instead of enums?
-
 clean up screen.lua stuff
 	start with commenting it
 
@@ -58,8 +52,6 @@ make sure library.load of sfx can handle index or string keys for sounds (positi
 
 is sfx.positional necessary? maybe make it a game setting?
 	make sfx.loadpositional and sfx.loadnotpositional, call one or the other depending?
-figure out weird mouse shit, why is not showing up?
-	what's going on with cursor? config setting or something else? why not drawing it?
 polish up interactive fiction, make general menus
 game.lua stuff, make sure nothing game specific is in there, should go in game itself instead
 can WE get rid of choosing game in main, put it in config instead?

@@ -122,16 +122,15 @@ supper.print = function(table,name,space)
 	end
 end
 
---given a folder and a file type, recursively loads all the files of that type from the folder and its subfolders into a table
+--given a folder and file type(s), recursively loads all the files of that type from the folder and its subfolders into a table
 --json files have all their data, tables and values, loaded into a table
 --pngs are loaded as sprite tables including a spritesheet and quads
 --jpg files are load into a table of images
---lua files are included as code libraries
+--lua files are included as code libraries and have their names loaded in an enum table
 supper.load = function(dir,extensions,excludes)
-	--TODO just use extensions througohout
-	local ext=extensions--ext can be a table containing multiple extensions
-	if ext==nil then--if not extension(s) provided, ext defaults to "json" bc most other file types are usually only loaded at startup so aren't used as much as json
-		ext="json"
+	--extensions can be a table containing multiple strings or a single string
+	if extensions==nil then--if not extension(s) provided, extensions defaults to "json" bc most other file types are usually only loaded at startup so aren't used as much as json
+		extensions="json"
 	end
 	local l={}--make a table to put the loaded stuff into (this is unused when loading lua files)
 	local files=love.filesystem.getDirectoryItems(dir)
@@ -147,10 +146,9 @@ supper.load = function(dir,extensions,excludes)
 		local fileinfo=love.filesystem.getInfo(filepath)
 		if fileinfo.type=="file" then--if file isn't a directory
 			local fileext=filedata:getExtension()
-			if type(ext)=="table" then--if we want to load multiple different types of files (eg wav or ogg)
-				if supper.contains(ext,fileext) then
+			if type(extensions)=="table" then--if we want to load multiple different types of files (eg wav or ogg)
+				if supper.contains(extensions,fileext) then
 					if fileext=="ogg" or fileext=="wav" then
-						-- print(filename.. " is a wav or ogg")
 						local soundfx={}
 						-- if positional then
 						-- 	soundfx.source=love.sound.newSoundData("sfx/"..filename)
@@ -163,27 +161,26 @@ supper.load = function(dir,extensions,excludes)
 						-- end
 					end
 				end
-			elseif type(ext)=="string" then
-				if ext==fileext then--and it has the extension we are looking for
-					local f=string.gsub(filename, "."..ext, "")--strip the file extension so we can use the result as a key in the table to be returned
+			elseif type(extensions)=="string" then
+				if extensions==fileext then--and it has the extension we are looking for
+					local f=string.gsub(filename, "."..extensions, "")--strip the file extension so we can use the result as a key in the table to be returned
 					if tonumber(f) then--if the filename (without extension) is a number then index the file in the table by integer
 						f=tonumber(f)
 					end
-					if ext=="json" then
+					if extensions=="json" then
 						l[f]=json.load(filepath)--load json data into the table
-					elseif ext=="jpg" then
+					elseif extensions=="jpg" then
 						l[f]=LG.newImage(filepath)--load image objects into the table
-					elseif ext=="wav" then
+					elseif extensions=="wav" then
 						l[f]=love.audio.newSource(filepath,"static")
 						l[f]:setLooping(true)
-					elseif ext=="png" then
-						-- print(i) print(f)--i and f should always be the same but if there are extra files in gfx folder i can be wrong
+					elseif extensions=="png" then
 						l[f]=sprites.load(filepath,f)--for now sprites files have to be named with integer ie 1.png
-					elseif ext=="lua" --if it's a lua file and isn't a reserved file
+					elseif extensions=="lua" --if it's a lua file and isn't a reserved file
 					and filename~=".git"--TODO does this do anything or work?
 					and filename~="conf.lua"
 					and filename~="main.lua" then --it's a library, so include it
-						filepath=string.gsub(filepath, "."..ext, "")--strip the extension from the filepath, because require does not REQUIRE them ( hah hah hah (: )
+						filepath=string.gsub(filepath, "."..extensions, "")--strip the extension from the filepath, because require does not REQUIRE them ( hah hah hah (: )
 						_G[f]=require(filepath)--load the library into lua
 						table.insert(l,f)--insert the name of the lua library into the table that will be returned so it is indexed by integer
 						l[f]=#l--make a key in the table that will be returned out of the name of the lua library whose value is the index the name of the lua library was inserted at
@@ -193,7 +190,7 @@ supper.load = function(dir,extensions,excludes)
 		elseif fileinfo.type=="directory" then--if file is a folder
 			if filepath~=".git" then--TODO does this actually work?
 				if excludes==nil or not supper.contains(excludes,filename) then--if there are folders to exclude, don't load those folders, otherwise load every folder
-					l[filename]=supper.load(filepath,ext,excludes)--start a new iteration of recursion on the folder, passing in the filepath we built earlier in this iteration
+					l[filename]=supper.load(filepath,extensions,excludes)--start a new iteration of recursion on the folder, passing in the filepath we built earlier in this iteration
 				end
 			end
 		end
