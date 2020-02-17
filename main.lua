@@ -17,8 +17,8 @@ SFX=sfx.load()
 Music=supper.load("music","wav")
 
 function love.load()
-	game.make("multigame")
-	-- game.make("offgrid",640,960)
+	-- game.make("multigame")
+	game.make("policesquad",640,480)
 end
 
 function love.update(dt)
