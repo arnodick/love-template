@@ -1,5 +1,6 @@
 --game initialization stuff (just boring stuff you need to maek Video Game)
 supper=require("tools/supper")--have to load the supper.lua library to use supper.load to dynamically load the rest of the libraries
+--TODO DON'T EXCLUDE PALETTES HERE
 Enums=supper.load("","lua",{"images","gfx","fonts","sfx","maps","palettes","music","videos"})--loads all the .lua libraries, returns a table of enums of their functions
 enums.constants(Enums)--constants derived from enums, they're shorthand so you can type EM instead of Enums.modules
 supper.print(Enums,"ENUMS")

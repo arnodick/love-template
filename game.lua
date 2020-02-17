@@ -370,6 +370,7 @@ game.graphics = function(g)
 	LG.setFont(g.font)
 
 	palette.load(g)
+	-- supper.print(g.palette,"PALETTE")
 
 	-- local p={}
 	-- supper.copy(p,g.palette)

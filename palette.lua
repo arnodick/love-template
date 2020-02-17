@@ -2,7 +2,10 @@ local palette={}
 
 palette.load = function(g,...)
 	g.palettes=supper.load("palettes")
-	palette.set(g,1)--can also do palette.set(g,"palette")
+	for k,v in pairs(g.palettes) do
+		supper.names(v)
+	end
+	palette.set(g,1)--can also do palette.set(g,"palette")--TODO how to deal with this when using supper.load? it's just a json
 	-- supper.print(g.palettes,"palette")
 end
 
@@ -10,6 +13,7 @@ palette.set = function(g,i)
 	g.palettes.i=i
 	g.palette={}
 	supper.copy(g.palette,g.palettes[g.palettes.i])--copy palette
+	supper.print(g.palette,"GAME PALETTE")
 end
 
 --UNUSED
