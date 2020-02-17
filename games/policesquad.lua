@@ -23,9 +23,13 @@ policesquad.gameplay =
 	end,
 
 	keypressed = function(g,key)
-		-- if key=='escape' then
-		-- 	game.state.make(g,"title")
-		-- end
+ 		if love.keyboard.isDown("lctrl") then
+			if key=='s' then
+				json.save("plcesqd.json",g.character)
+			end
+		elseif key=='escape' then
+			game.state.make(g,"title")
+		end
 	end,
 
 	gamepadpressed = function(g,joystick,button)
