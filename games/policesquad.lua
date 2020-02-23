@@ -42,6 +42,11 @@ policesquad.gameplay =
 			end
 		elseif key=='escape' then
 			game.state.make(g,"title")
+		elseif key=='d' then
+			d={}
+			for i=1,10 do
+				local d=dicey.dice(6,5)
+			end
 		end
 	end,
 
