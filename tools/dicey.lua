@@ -79,17 +79,24 @@ end
 dicey.iterate = function(iterationcount,sides,count,printeach)
 	local d={}
 	d.sum=0
+	d.successes=0
+	d.failures=0
 
 	print("ROLLING "..count.."D"..sides.." "..iterationcount.." TIMES")
 	for i=1,iterationcount do
 		local r=dicey.dice(sides,count,printeach)
 		d.sum=d.sum+r.sum
+		d.successes=d.successes+#r.successes
+		d.failures=d.failures+#r.failures
 	end
-	print("AVERAGE: "..d.sum/(iterationcount*count))
-	print("SUM: "..d.sum)
+	print("AVERAGE ROLL: "..d.sum/(iterationcount*count))
+	print("   SUM / (ITERATIONS x ROLLS): "..d.sum.." / ("..iterationcount.." x "..count..")")
+	print("SUCCESSES: "..d.successes)
+	print("SUCCESSES AVERAGE: "..d.successes/iterationcount)
+	print("SUCCESSES AVERAGE ROUNDED: "..math.round(d.successes/iterationcount))
 end
 
 -- Dicey:
--- Keep rolling, rolling, rolling... yeah.
+-- Keep rolling, rolling, rolling, rolling... yeah.
 
 return dicey

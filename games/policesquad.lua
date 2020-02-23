@@ -45,7 +45,7 @@ policesquad.gameplay =
 		elseif key=='d' then
 			dicey.dice(6,5,true)
 		elseif key=='r' then
-			dicey.iterate(5,6,3,true)
+			dicey.iterate(10,6,3,true)
 		end
 	end,
 

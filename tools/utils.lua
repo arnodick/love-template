@@ -36,6 +36,10 @@ local function snap(v,inc,snapto)--TODO does this need a negative version
 	end
 end
 
+local function round(n)
+	return math.floor(n+0.5)
+end
+
 --GRAPHICS
 --draws a box that can be rotated!
 local function drawbox(x,y,w,a)
@@ -114,6 +118,7 @@ math.clamp = clamp
 math.choose = choose
 math.randomfraction = randomfraction
 math.snap = snap
+math.round = round
 love.graphics.drawbox = drawbox
 love.graphics.printformat = printformat
 love.graphics.lightness = lightness

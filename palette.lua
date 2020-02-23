@@ -13,7 +13,7 @@ palette.set = function(g,i)
 	g.palettes.i=i
 	g.palette={}
 	supper.copy(g.palette,g.palettes[g.palettes.i])--copy palette
-	supper.print(g.palette,"GAME PALETTE")
+	-- supper.print(g.palette,"GAME PALETTE")
 end
 
 --UNUSED

@@ -3,7 +3,7 @@ supper=require("tools/supper")--have to load the supper.lua library to use suppe
 --TODO DON'T EXCLUDE PALETTES HERE
 Enums=supper.load("","lua",{"images","gfx","fonts","sfx","maps","palettes","music","videos"})--loads all the .lua libraries, returns a table of enums of their functions
 enums.constants(Enums)--constants derived from enums, they're shorthand so you can type EM instead of Enums.modules
-supper.print(Enums,"ENUMS")
+-- supper.print(Enums,"ENUMS")
 
 love.math.setRandomSeed(os.time())
 --love.math.setRandomSeed(1)--for debuggin purposes
