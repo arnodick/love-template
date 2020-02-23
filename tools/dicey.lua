@@ -30,6 +30,8 @@ THE SOFTWARE.
 --use this to run different code by varying the input of the string key args
 --this means we aren't limited to static functions like gamename.level.cave.make, and so don't need if or switch logic to do something like run game.level.desert.make instead of game.level.cave.make
 
+--rolls an individual die with an amount of faces == sides
+--inserts result info into dice pool d
 dicey.roll = function(d,sides,printeach)
 	local r=love.math.random(sides)
 	table.insert(d,r)
@@ -42,9 +44,9 @@ dicey.roll = function(d,sides,printeach)
 	else
 		table.insert(d.failures, r)
 	end
-	if printeach then
-		print(r.." "..s)
-	end
+	-- if printeach then
+	-- 	print(r.." "..s)
+	-- end
 end
 
 dicey.dice = function(sides,count,printeach)
@@ -60,17 +62,34 @@ dicey.dice = function(sides,count,printeach)
 	for i=1,count do
 		dicey.roll(d,sides,printeach)
 	end
-	print("total successes: "..#d.successes)
-	print("total failures:  "..#d.failures)
-	print("sum: "..d.sum)
-	print("average: "..d.sum/count)
-	for i,v in ipairs(d.results) do
-		print(i.."s: "..v)
+	if printeach then
+		print("")
+		print("rolled "..count.."D"..sides)
+		print("total successes: "..#d.successes)
+		print("total failures:  "..#d.failures)
+		for i,v in ipairs(d.results) do
+			print("   "..i.."s: "..v)
+		end
 	end
+	-- print("sum: "..d.sum)
+	-- print("average: "..d.sum/count)
 	return d
 end
 
--- Supper:
--- Don't walk for your supper... RUN!
+dicey.iterate = function(iterationcount,sides,count,printeach)
+	local d={}
+	d.sum=0
+
+	print("ROLLING "..count.."D"..sides.." "..iterationcount.." TIMES")
+	for i=1,iterationcount do
+		local r=dicey.dice(sides,count,printeach)
+		d.sum=d.sum+r.sum
+	end
+	print("AVERAGE: "..d.sum/(iterationcount*count))
+	print("SUM: "..d.sum)
+end
+
+-- Dicey:
+-- Keep rolling, rolling, rolling... yeah.
 
 return dicey
