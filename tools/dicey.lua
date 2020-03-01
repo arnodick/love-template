@@ -31,22 +31,25 @@ THE SOFTWARE.
 --this means we aren't limited to static functions like gamename.level.cave.make, and so don't need if or switch logic to do something like run game.level.desert.make instead of game.level.cave.make
 
 --rolls an individual die with an amount of faces == sides
---inserts result info into dice pool d
-dicey.roll = function(d,sides,printeach)
+dicey.roll = function(sides,printeach)
 	local r=love.math.random(sides)
-	table.insert(d,r)
-	d.sum=d.sum+r
-	d.results[r]=d.results[r]+1
-	local s="failed"
-	if r>=4 then
-		s="succeeded"
-		table.insert(d.successes,r)
-	else
-		table.insert(d.failures, r)
+	if printeach then
+		print("D"..sides.." roll result: "..r)
 	end
-	-- if printeach then
-	-- 	print(r.." "..s)
-	-- end
+	return r
+end
+
+dicey.success = function(d,result,difficulty,printeach)
+	local s="failed"
+	if result>=difficulty then
+		s="succeeded"
+		table.insert(d.successes,result)
+	else
+		table.insert(d.failures, result)
+	end
+	if printeach then
+		print("   "..s)
+	end
 end
 
 dicey.dice = function(sides,count,printeach)
@@ -60,8 +63,14 @@ dicey.dice = function(sides,count,printeach)
 	end
 
 	for i=1,count do
-		dicey.roll(d,sides,printeach)
+		local r=dicey.roll(sides,printeach)
+		--insert dice roll result info into dice pool d
+		table.insert(d,r)
+		d.sum=d.sum+r--sum of all dice roll results
+		d.results[r]=d.results[r]+1--counts of each die roll result (eg if 4 dice had a result of 3 were rolled, d.result[3]==4)
+		dicey.success(d,r,4,printeach)
 	end
+
 	if printeach then
 		print("")
 		print("rolled "..count.."D"..sides)
@@ -70,9 +79,9 @@ dicey.dice = function(sides,count,printeach)
 		for i,v in ipairs(d.results) do
 			print("   "..i.."s: "..v)
 		end
+		print("sum: "..d.sum)
+		print("average: "..d.sum/count)
 	end
-	-- print("sum: "..d.sum)
-	-- print("average: "..d.sum/count)
 	return d
 end
 
