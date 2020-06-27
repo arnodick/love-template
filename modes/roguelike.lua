@@ -1,5 +1,6 @@
 local roguelike={}
 
+--TODO input g here
 roguelike.control = function(a,m,gs)
 	if a.controller then
 		local c=a.controller.move
@@ -9,27 +10,28 @@ roguelike.control = function(a,m,gs)
 		end
 	end
 
-	local xdest,ydest=a.x+a.vec[1],a.y+a.vec[2]
-	
-	local xmapcell=m[a.y][xdest]
-	local ymapcell=m[ydest][a.x]
-	local collx,colly=false,false
-
 	if Game.step==true then
-		if not flags.get(xmapcell,EF.solid,16) then
-			a.x = xdest
-		else
-			collx=true
-		end
-		if not flags.get(ymapcell,EF.solid,16) then
-			a.y = ydest
-		else
-			colly=true
+		local xdest,ydest=a.x+a.vec[1],a.y+a.vec[2]
+
+		local ibx=map.inbounds(m,xdest,a.y)
+		local iby=map.inbounds(m,a.x,ydest)
+		print(ibx)
+		print(iby)
+		if ibx and iby then
+			local collx,colly=map.solid(m,xdest,a.y),map.solid(m,a.x,ydest)
+			if not collx then
+				a.x=xdest
+			end
+			if not colly then
+				a.y=ydest
+			end
+
+			if collx or colly then
+				print("COLLISION")
+				run(EA[a.t],"collision",a)
+			end
 		end
 
-		if collx or colly then
-			run(EA[a.t],"collision",a)
-		end
 	end
 end
 

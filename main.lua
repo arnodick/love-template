@@ -16,9 +16,18 @@ Joysticks={}
 SFX=sfx.load()
 Music=supper.load("music","wav")
 
+-- local http=require("socket.http")
+-- local ssl = require("ssl")
+
 function love.load()
-	-- game.make("multigame")
-	game.make("policesquad",640,480)
+	game.make("multigame")
+	-- game.make("policesquad",640,480)
+
+	-- print(love.getVersion())
+	-- local b,c,h=http.request("http://www.random.org/integers/?num=10&min=1&max=6&col=1&base=10&format=plain&rnd=new")--this doesn't work bc random.org uses https, so need to use luasec to get from https
+	-- print(b)
+	-- print(c)
+	-- supper.print(h)
 end
 
 function love.update(dt)

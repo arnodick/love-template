@@ -163,6 +163,7 @@ local function draw(g,a)
 	end
 
 	if g.level then
+		-- TODO make this level.actor.drawmode?
 		if g.level.drawmode then
 			run(g.level.drawmode,"draw",g,a)
 		end

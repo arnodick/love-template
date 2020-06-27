@@ -96,6 +96,15 @@ map.height = function(m)
 	return map.cellheight(m)*m.tile.height
 end
 
+map.inbounds = function(m,x,y)
+	return m[y][x]
+end
+
+map.solid = function(m,x,y)
+	local mapcell=m[y][x]
+	return flags.get(mapcell,EF.solid,16)
+end
+
 map.getcellcoords = function(m,x,y)--returns the cell coords of worldspace coords
 	local tw,th=m.tile.width,m.tile.height
 	local cx,cy=math.floor((x+tw)/tw),math.floor((y+th)/th)
