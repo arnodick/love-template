@@ -3,14 +3,17 @@ local roguelike={}
 --TODO input g here
 roguelike.control = function(a,m,gs,g)
 	if g.step==true then
-		-- if a.controller then
-		-- 	local c=a.controller.move
-		-- 	if c then
-		-- 		a.vec[1]=c.horizontal
-		-- 		a.vec[2]=c.vertical
-		-- 	end
-		-- end
+		if a.controller then
+			local c=a.controller.move
+			if c then
+				a.vec[1]=c.horizontal
+				a.vec[2]=c.vertical
+			end
+		end
 	
+		if flags.get(a.flags,EF.player) then
+			print("PLAYER VEC1 "..a.vec[1])
+		end
 		local xdest,ydest=a.x+a.vec[1],a.y+a.vec[2]
 
 		local ibx=map.inbounds(m,xdest,a.y)

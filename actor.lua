@@ -57,6 +57,10 @@ end
 --TODO make this way less game-specific, take out everthing but abstract stuff for the most part
 local function control(g,a,gs)
 	controller.update(a,gs)
+
+	if flags.get(a.flags,EF.player) then
+		game.player.control(g,a)
+	end
 	
 	if g.level then
 		if g.level.mode then
@@ -72,10 +76,6 @@ local function control(g,a,gs)
 
 	if a.controls then
 		controls.run(g,a,gs)
-	end
-
-	if flags.get(a.flags,EF.player) then
-		game.player.control(g,a)
 	end
 
 	if a.item then--if a IS an item, do its item stuff

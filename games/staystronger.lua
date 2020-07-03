@@ -19,6 +19,8 @@ staystronger.player =
 			love.audio.setPosition(a.x,a.y,0)
 		end
 
+		-- print(g.step)
+
 		g.step=false
 		if a.controller.move.horizontal~=0 then
 			if a.controller.move.last.horizontal==0 then

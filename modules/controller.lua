@@ -28,14 +28,13 @@ controller.update = function(a,gs)
 
 	-- print("CONTROLLER UPDATE")
 	if c then
-		for k,v in pairs(c) do
-			local controllername=EMC[v.t]
+		for k,v in pairs(c) do--this runs all the actor's controllers eg move, action
+			local controllertype=EMC[v.t]--controllertype will be "move", "action", etc
 
-			if _G[controllername]["control"] then
-				local inputname=EMCI[v.input]
-				-- print(inputname)
-				local command1,command2=_G[inputname][controllername](a,v)
-				_G[controllername]["control"](a,v,gs,command1,command2)
+			if _G[controllertype]["control"] then
+				local inputname=EMCI[v.input]--inputname will be "keyboard", "gamepad" etc
+				local command1,command2=_G[inputname][controllertype](a,v)--will run input's type eg keyboard.move, returns commands eg horizontal, vertical movement
+				_G[controllertype]["control"](a,v,gs,command1,command2)--will run controller type's control, eg move.control, which sets controller's values eg, c.horizontal = horizontal etc
 			end
 		end
 	end

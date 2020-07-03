@@ -134,6 +134,7 @@ game.control = function(g)
 	if not g.pause then
 		for i,v in ipairs(g.actors) do
 			if not v.delete then
+				-- print(i)
 				actor.control(g,v,g.speed)
 			end
 		end
