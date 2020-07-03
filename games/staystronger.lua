@@ -25,14 +25,12 @@ staystronger.player =
 		if a.controller.move.horizontal~=0 then
 			if a.controller.move.last.horizontal==0 then
 				print(g.turn)
-				-- a.controller.move.vertical=0--TODO stops diagonal movement, better way? only allow input from x XOR y
 				g.step=true
 				g.turn=g.turn+1
 			end
 		elseif a.controller.move.vertical~=0 then
 			if a.controller.move.last.vertical==0 then
 				print(g.turn)
-				-- a.controller.move.horizontal=0
 				g.step=true
 				g.turn=g.turn+1
 			end

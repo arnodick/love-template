@@ -48,6 +48,8 @@ function love.keypressed(key,scancode,isrepeat)
 			love.window.setFullscreen(not love.window.getFullscreen())
 			screen.update(g)
 			Debugger.canvas=LG.newCanvas(g.screen.width,g.screen.height)--sets width and height of debug overlay (size of window)
+		-- elseif key=='o' then
+		-- 	game.control(g)
 		end
 	--end
 end

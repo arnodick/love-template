@@ -63,32 +63,33 @@ types.direct = function(a,c,horizontal,vertical,moving)
 	-- local moving=false
 
 	if love.keyboard.isDown('left') or love.keyboard.isDown('a') then
-		if a.controller.move.last.horizontal==0 then
+		-- if a.controller.move.last.horizontal==0 then
 			horizontal=-1
 			vertical=0
 			moving=true
-		end
+		-- end
 	elseif love.keyboard.isDown('right') or love.keyboard.isDown('d')  then
-		if a.controller.move.last.horizontal==0 then
+		-- if a.controller.move.last.horizontal==0 then
 			horizontal=1
 			vertical=0
 			moving=true
-		end
+		-- end
 	elseif love.keyboard.isDown('up') or love.keyboard.isDown('w') then
-		if a.controller.move.last.vertical==0 then
+		-- if a.controller.move.last.vertical==0 then
 			horizontal=0
 			vertical=-1
 			moving=true
-		end
+		-- end
 	elseif love.keyboard.isDown('down') or love.keyboard.isDown('s') then
-		if a.controller.move.last.vertical==0 then
+		-- if a.controller.move.last.vertical==0 then
 			horizontal=0
 			vertical=1
 			moving=true
-		end
+		-- end
 	end
 
 	if moving and flags.get(a.flags,EF.player) then
+		print("TURN "..Game.turn)
 		print("PLAYER HOR "..horizontal)
 		print("PLAYER VER "..vertical)
 	end
