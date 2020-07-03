@@ -1,4 +1,6 @@
-local function make(a,cont,t,input,ai1,ai2)
+local controller={}
+
+controller.make = function(a,cont,t,input,ai1,ai2)
 	local controllertypename=EMC[t]
 	cont[controllertypename]={}--this gives the controller a table named after the controller's type (ie controller.move)
 	local c=cont[controllertypename]--c is the controller's type sub-table (ie move)
@@ -8,7 +10,8 @@ local function make(a,cont,t,input,ai1,ai2)
 	if input==EMCI.gamepad then
 		c.id=ai1 or 1
 	elseif input==EMCI.keyboard then
-		c.vector=ai1
+		c.inputtype=ai1 or "vector"
+		-- c.vector=ai1
 	end
 
 	if t==EMC["action"] then
@@ -20,16 +23,17 @@ local function make(a,cont,t,input,ai1,ai2)
 	run(EMC[t],"make",a,c)
 end
 
-local function update(a,gs)
+controller.update = function(a,gs)
 	local c=a.controller
 
+	-- print("CONTROLLER UPDATE")
 	if c then
 		for k,v in pairs(c) do
 			local controllername=EMC[v.t]
 
 			if _G[controllername]["control"] then
 				local inputname=EMCI[v.input]
-				
+				-- print(inputname)
 				local command1,command2=_G[inputname][controllername](a,v)
 				_G[controllername]["control"](a,v,gs,command1,command2)
 			end
@@ -37,7 +41,7 @@ local function update(a,gs)
 	end
 end
 
-local function gamepadpressed(a,button)
+controller.gamepadpressed = function(a,button)
 	local c=a.controller
 	if c then
 		for k,v in pairs(c) do
@@ -48,7 +52,7 @@ local function gamepadpressed(a,button)
 	end
 end
 
-local function deadzone(c,dz)
+controller.deadzone = function(c,dz)
 	local l=vector.length(c.horizontal,c.vertical)
 	if l<dz then
 		c.horizontal=0
@@ -68,10 +72,4 @@ local function deadzone(c,dz)
 --]]
 end
 
-return
-{
-	make = make,
-	update = update,
-	gamepadpressed = gamepadpressed,
-	deadzone = deadzone
-}
+return controller

@@ -54,12 +54,13 @@ local function make(g,t,x,y,d,vel,...)
 	return a
 end
 
+--TODO make this way less game-specific, take out everthing but abstract stuff for the most part
 local function control(g,a,gs)
 	controller.update(a,gs)
 	
 	if g.level then
 		if g.level.mode then
-			run(g.level.modename,"control",a,g.level.map,gs)
+			run(g.level.modename,"control",a,g.level.map,gs,g)--TODO CLEAN THIS UP! input g first, can get map in there? ALSO, game.state.run(g.level.modename,"actor","control")
 		end
 	end
 

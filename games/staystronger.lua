@@ -1,15 +1,16 @@
-local rpg={}
+--TODO RENAME TO STAY STRONGER
+local staystronger={}
 
-rpg.make = function(g)
-
+staystronger.make = function(g)
+	g.turn=0
 end
 
-rpg.level={}
+staystronger.level={}
 
-rpg.player =
+staystronger.player =
 {
 	make = function(g,a)
-		module.make(a,EM.controller,EMC.move,EMCI.keyboard)
+		module.make(a,EM.controller,EMC.move,EMCI.keyboard,"direct")
 		module.make(a,EM.controller,EMC.action,EMCI.keyboard)
 	end,
 
@@ -21,11 +22,17 @@ rpg.player =
 		g.step=false
 		if a.controller.move.horizontal~=0 then
 			if a.controller.move.last.horizontal==0 then
+				print(g.turn)
+				-- a.controller.move.vertical=0--TODO stops diagonal movement, better way? only allow input from x XOR y
 				g.step=true
+				g.turn=g.turn+1
 			end
 		elseif a.controller.move.vertical~=0 then
 			if a.controller.move.last.vertical==0 then
+				print(g.turn)
+				-- a.controller.move.horizontal=0
 				g.step=true
+				g.turn=g.turn+1
 			end
 		end
 
@@ -37,7 +44,7 @@ rpg.player =
 	end,
 }
 
-rpg.gameplay =
+staystronger.gameplay =
 {
 	make = function(g)
 		level.make(g,1,Enums.modes.roguelike)
@@ -60,7 +67,7 @@ rpg.gameplay =
 	end,
 }
 
-rpg.title =
+staystronger.title =
 {
 	keypressed = function(g,key)
 		if key=="space" or key=="return" then
@@ -79,11 +86,11 @@ rpg.title =
 	end,
 
 	draw = function(g)
-		LG.print("rpg title", g.width/2, g.height/2)
+		LG.print("staystronger title", g.width/2, g.height/2)
 	end
 }
 
-rpg.intro =
+staystronger.intro =
 {
 	keypressed = function(g,key)
 		if key=="space" or key=="return" then
@@ -98,11 +105,11 @@ rpg.intro =
 	end,
 
 	draw = function(g)
-		LG.print("rpg intro", g.width/2, g.height/2)
+		LG.print("staystronger intro", g.width/2, g.height/2)
 	end
 }
 
-rpg.option =
+staystronger.option =
 {
 	keypressed = function(g,key)
 		if key=='escape' then
@@ -117,8 +124,8 @@ rpg.option =
 	end,
 
 	draw = function(g)
-		LG.print("rpg options",g.width/2,g.height/2)
+		LG.print("staystronger options",g.width/2,g.height/2)
 	end
 }
 
-return rpg
+return staystronger

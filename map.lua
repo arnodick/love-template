@@ -97,11 +97,18 @@ map.height = function(m)
 end
 
 map.inbounds = function(m,x,y)
-	return m[y][x]
+	if m[y] then
+		return m[y][x]
+	end
+	return nil
 end
 
 map.solid = function(m,x,y)
-	local mapcell=m[y][x]
+	local mapcell=m
+	if type(m)=="table" then
+		--TODO if x and y here?
+		mapcell=m[y][x]
+	end
 	return flags.get(mapcell,EF.solid,16)
 end
 

@@ -83,7 +83,7 @@ protosnake.player =
 			module.make(a,EM.controller,EMC.action,EMCI.gamepad)
 		else
 			print("KEYBOARD")
-			module.make(a,EM.controller,EMC.move,EMCI.keyboard,true)
+			module.make(a,EM.controller,EMC.move,EMCI.keyboard)
 			module.make(a,EM.controller,EMC.aim,EMCI.mouse)
 			module.make(a,EM.controller,EMC.action,EMCI.mouse)
 			module.make(a,EM.cursor,"reticle")
