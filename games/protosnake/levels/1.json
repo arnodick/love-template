@@ -1,7 +1,6 @@
 {
 	"t":"arena",
 	"c":"dark_blue",
-	"drawmode":"twodimensional",
 	"map":
 	{
 		"w":42,

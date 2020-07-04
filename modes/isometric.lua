@@ -1,4 +1,7 @@
-local function control(a,gs)
+local isometric={}
+isometric.actor={}
+
+isometric.actor.control = function(a,gs)
 	if a.controller then
 		local c=a.controller.move
 		if c then
@@ -14,7 +17,7 @@ local function control(a,gs)
 	a.y = ydest
 end
 
-local function draw(g,a)
+isometric.actor.draw = function(g,a)
 	local m=g.level.map
 	local tw,th=m.tile.width,m.tile.height
 	local x,y=map.getcellcoords(m,a.x,a.y)
@@ -28,8 +31,4 @@ local function draw(g,a)
 	end
 end
 
-return
-{
-	control = control,
-	draw = draw,
-}
+return isometric

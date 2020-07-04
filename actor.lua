@@ -1,5 +1,8 @@
+local actor={}
+actor.twodimensional={}
+
 --TODO this is unused right now, but may be used if WE decide to use genereic templates for actors rather than assigning them all their own values
-local function load(g,name,x,y,d,angle,vel,c)
+actor.load = function(g,name,x,y,d,angle,vel,c)
 	local a={}
 	supper.copy(a,g.actordata[name])
 
@@ -27,7 +30,7 @@ local function load(g,name,x,y,d,angle,vel,c)
 	return a
 end
 
-local function make(g,t,x,y,d,vel,...)
+actor.make = function(g,t,x,y,d,vel,...)
 	local a={}
 	a.t=t
 	a.x=x or love.math.random(319)
@@ -55,7 +58,7 @@ local function make(g,t,x,y,d,vel,...)
 end
 
 --TODO make this way less game-specific, take out everthing but abstract stuff for the most part
-local function control(g,a,gs)
+actor.control = function(g,a,gs)
 	controller.update(a,gs)
 
 	if flags.get(a.flags,EF.player) then
@@ -64,7 +67,8 @@ local function control(g,a,gs)
 	
 	if g.level then
 		if g.level.mode then
-			run(g.level.modename,"control",a,g.level.map,gs,g)--TODO CLEAN THIS UP! input g first, can get map in there? ALSO, game.state.run(g.level.modename,"actor","control")
+			game.state.run(g.level.modename,"actor","control",a,g.level.map,gs,g)
+			-- run(g.level.modename,"control",a,g.level.map,gs,g)--TODO CLEAN THIS UP! input g first, can get map in there? ALSO, game.state.run(g.level.modename,"actor","control")
 		end
 	end
 
@@ -158,21 +162,15 @@ local function control(g,a,gs)
 	end
 end
 
-local function draw(g,a)
+actor.draw = function(g,a)
 	if a.menu then
 		menu.draw(a.menu)
 	end
 
 	if g.level then
-		-- TODO make this level.actor.drawmode?
-		if g.level.drawmode then
-			run(g.level.drawmode,"draw",g,a)
-		end
---[[
 		if g.level.mode then
-			run(g.level.modename,"draw",g,a)
+			game.state.run(g.level.modename,"actor","draw",g,a)
 		end
---]]
 	end
 
 	if flags.get(a.flags,EF.player) then
@@ -180,7 +178,7 @@ local function draw(g,a)
 	end
 end
 
-local function damage(a,d)
+actor.damage = function(a,d)
 	local g=Game
 	if not a.delete then
 		--TODO game-specific
@@ -225,7 +223,7 @@ local function damage(a,d)
 	end
 end
 
-local function impulse(a,dir,vel,glitch)
+actor.impulse = function(a,dir,vel,glitch)
 	glitch=glitch or false
 	local vecx=math.cos(a.d)
 	local vecy=math.sin(a.d)
@@ -242,7 +240,7 @@ local function impulse(a,dir,vel,glitch)
 	return vector.direction(outx,outy), outvel
 end
 
-local function collision(x,y,enemy)--TODO something other than enemy here?
+actor.collision = function(x,y,enemy)--TODO something other than enemy here?
 	local dist=vector.distance(enemy.x,enemy.y,x,y)
 	if enemy.hitradius then
 		return hitradius.collision(enemy.hitradius.r,dist)
@@ -252,7 +250,7 @@ local function collision(x,y,enemy)--TODO something other than enemy here?
 	return false
 end
 
-local function corpse(a,tw,th,hack)
+actor.corpse = function(a,tw,th,hack)
 	local g=Game
 	local dir=math.randomfraction(math.pi*2)
 	--local ix,iy=a.x-tw/2,a.y-th/2
@@ -315,14 +313,53 @@ local function corpse(a,tw,th,hack)
 	end
 end
 
-return
-{
-	load = load,
-	make = make,
-	control = control,
-	draw = draw,
-	collision = collision,
-	damage = damage,
-	impulse = impulse,
-	corpse = corpse,
-}
+actor.twodimensional.draw = function(g,a)
+--[[
+	run(EA[a.t],"predraw",a)
+--]]
+
+	local c=a.c or "pure_white"
+	--local c=a.c or g.actordata[EA[a.t]].c
+	local r,gr,b=unpack(g.palette[c])
+	local alpha=1
+	if a.alpha then
+		alpha=a.alpha
+	end
+	LG.setColor(r,gr,b,alpha)--TODO COL
+	-- love.graphics.setShader(Shader)
+	sprites.draw(a)
+	-- love.graphics.setShader()
+
+--[[
+	if a.char then
+		LG.print(a.char,a.x,a.y)
+	end
+--]]
+
+	--actordata
+	--if a.t then
+		run(EA[a.t],"draw",g,a)--actor's specific draw function (ie snake.draw)
+	--end
+
+	if a.tail then
+		tail.draw(a.tail)
+	end
+
+	if Debugger.debugging then
+		LG.setColor(g.palette["blue"])
+		if a.hitradius then
+			hitradius.draw(a)
+		elseif a.hitbox then
+			hitbox.draw(a)
+		end
+		LG.points(a.x,a.y)
+		if a.deltimer then
+			LG.print(a.deltimer,a.x,a.y)
+		end
+		--LG.print(a.flags,a.x+8,a.y-8)
+	end
+
+	LG.setColor(g.palette["pure_white"])
+end
+
+return actor

@@ -1,7 +1,6 @@
 {
 	"t":"store",
 	"c":"red",
-	"drawmode":"twodimensional",
 	"map":
 	{
 		"file":"arn",

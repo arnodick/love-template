@@ -14,11 +14,7 @@ end
 move.control = function(a,c,gs,c1,c2)
 	c.last.vertical=c.vertical
 	c.last.horizontal=c.horizontal
-	if a.flags then
-		if flags.get(a.flags,EF.player) then
-			print("PLAYER LAST HOR "..c.last.horizontal)
-		end
-	end
+
 	if c.last.vertical~=0 then
 		c.duration.vertical=c.duration.vertical+gs
 	else

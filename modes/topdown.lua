@@ -1,4 +1,7 @@
-local function control(a,m,gs)
+local topdown={}
+topdown.actor={}
+
+topdown.actor.control = function(a,m,gs)
 	if a.controller then
 		local c=a.controller.move
 		if c then
@@ -55,7 +58,8 @@ local function control(a,m,gs)
 	end
 end
 
-return
-{
-	control = control,
-}
+topdown.actor.draw = function(g,a)
+	actor.twodimensional.draw(g,a)
+end
+
+return topdown

@@ -1,7 +1,8 @@
 local roguelike={}
+roguelike.actor={}
 
 --TODO input g here
-roguelike.control = function(a,m,gs,g)
+roguelike.actor.control = function(a,m,gs,g)
 	if g.step==true then
 		if a.controller then
 			local c=a.controller.move
@@ -39,15 +40,12 @@ roguelike.control = function(a,m,gs,g)
 	end
 end
 
---[[
-roguelike.draw = function(g,a)
+roguelike.actor.draw = function(g,a)
 	if a.char then
-		print("true")
 		local m=g.level.map
 		LG.setColor(100,200,100)--TODO
 		LG.print(a.char,(a.x-1)*m.tile.width,(a.y-1)*m.tile.height)
 	end
 end
---]]
 
 return roguelike

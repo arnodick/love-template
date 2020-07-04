@@ -27,11 +27,8 @@ keyboard.action = function()
 	return use,action
 end
 
---TODO implement these! when create keyboard controller default to above style, otherwise use types below
+--vector control can return both horizontal and vertical movement values that != 0, but disallow pressing left and right or up and down
 types.vector = function(a,c,horizontal,vertical,moving)
-	-- local horizontal,vertical=0,0
-	-- local moving=false
-
 	if love.keyboard.isDown('left') or love.keyboard.isDown('a') then
 		horizontal=-1
 		moving=true
@@ -48,44 +45,32 @@ types.vector = function(a,c,horizontal,vertical,moving)
 		moving=true
 	end
 
-	-- if c.vector then
-		if moving then
-			local direction=vector.direction(horizontal,vertical)
-			horizontal,vertical=math.cos(direction),math.sin(direction)
-		end
-	-- end
+	if moving then
+		local direction=vector.direction(horizontal,vertical)
+		horizontal,vertical=math.cos(direction),math.sin(direction)
+	end
 
 	return horizontal,vertical
 end
 
+--direct control only allows one direction to be pressed at a time
 types.direct = function(a,c,horizontal,vertical,moving)
-	-- local horizontal,vertical=0,0
-	-- local moving=false
-
 	if love.keyboard.isDown('left') or love.keyboard.isDown('a') then
-		-- if a.controller.move.last.horizontal==0 then
-			horizontal=-1
-			vertical=0
-			moving=true
-		-- end
+		horizontal=-1
+		vertical=0
+		moving=true
 	elseif love.keyboard.isDown('right') or love.keyboard.isDown('d')  then
-		-- if a.controller.move.last.horizontal==0 then
-			horizontal=1
-			vertical=0
-			moving=true
-		-- end
+		horizontal=1
+		vertical=0
+		moving=true
 	elseif love.keyboard.isDown('up') or love.keyboard.isDown('w') then
-		-- if a.controller.move.last.vertical==0 then
-			horizontal=0
-			vertical=-1
-			moving=true
-		-- end
+		horizontal=0
+		vertical=-1
+		moving=true
 	elseif love.keyboard.isDown('down') or love.keyboard.isDown('s') then
-		-- if a.controller.move.last.vertical==0 then
-			horizontal=0
-			vertical=1
-			moving=true
-		-- end
+		horizontal=0
+		vertical=1
+		moving=true
 	end
 
 	if moving and flags.get(a.flags,EF.player) then
