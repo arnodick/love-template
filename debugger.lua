@@ -134,10 +134,23 @@ debugger.update = function(g,d)
 		end
 		if g.editor then
 			if g.editor.cursor then
+				local cx,cy=map.getcellcoords(g.level.map,g.editor.cursor.x,g.editor.cursor.y)
+				local mapcell=g.level.map[cy][cx]
 				table.insert(debuglist,"e cursor x "..g.editor.cursor.x)
 				table.insert(debuglist,"e cursor y "..g.editor.cursor.y)
-				local cx,cy=map.getcellcoords(g.level.map,g.editor.cursor.x,g.editor.cursor.y)
-				table.insert(debuglist,"cell value "..g.level.map[cy][cx])
+				table.insert(debuglist,"cell value "..map.getcellvalue(g.level.map,g.editor.cursor.x,g.editor.cursor.y))
+				-- table.insert(debuglist,"cell shitfed "..bit.rshift(mapcell,16))
+				table.insert(debuglist,"cell solid "..tostring(flags.get(mapcell,EF.solid,16)))
+
+				
+				local f=""
+				for i,v in ipairs(EF) do
+					if flags.get(mapcell,i,16) then
+						f=f..v.." "
+					end
+				end
+				table.insert(debuglist,"cell flags "..f)
+				table.insert(debuglist,"cell raw value "..mapcell)
 			end
 		end
 
