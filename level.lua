@@ -27,7 +27,7 @@ level.make = function(g,index,mode)
 		l.bgdraw=true
 	end
 	g.level=l
-	game.state.run(g.name,"level","make",g,l,index)
+	game.state.run(g.name,"level","make",g,l,index,mode)
 end
 
 return level

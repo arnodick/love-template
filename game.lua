@@ -4,11 +4,12 @@ game.state={}
 game.state.run = function(gamename,statename,functionname,...)
 	--dynamically runs a function from the current game's current state
 	--NOTE need this AND run because this uses a 3D table, maybe some tricky way to lump this in with run?
-	--if _G[gamename][statename] then
-		if _G[gamename][statename][functionname] then
-			return _G[gamename][statename][functionname](...)
+	local gamestate = _G[gamename][statename]
+	if gamestate then
+		if gamestate[functionname] then
+			return gamestate[functionname](...)
 		end
-	--end
+	end
 end
 
 game.state.make = function(g,state)
@@ -208,8 +209,8 @@ game.keypressed = function(g,key,scancode,isrepeat)
 
 	if g.state=="intro" then
 		if key=="escape" then
-			if Excludes then
-				if not Excludes[g.name] then
+			if g.excludes then
+				if not g.excludes[g.name] then
 					game.make(Enums.games.multigame)
 				else
 					love.event.quit()

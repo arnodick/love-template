@@ -1,4 +1,8 @@
 DONE
+The enum ARE the returns from library load of lua files
+	Have exclude instead of include in library load, so can not load certain folders into enums when lua library load
+	Do numbers for every table made with library load?
+	Maybe load is part of supper?
 conf.lua, how is it generated? make a new one for v11
 figure out weird mouse shit, why is not showing up? IT IS BECAUSE OF mouse.setRelativeMode
 	what's going on with cursor? config setting or something else? why not drawing it?

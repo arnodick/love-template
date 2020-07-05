@@ -1,16 +1,16 @@
-local function make(a,m,t,...)
+local animation={}
+
+--TODO what is going on here?
+animation.make = function(a,m,t,...)
 	m[EM.animations[t]]={}
 	run(EM.animations[t],"make",m[EM.animations[t]],...)
 end
 
-local function draw(animname,anim)
+--TODO clean this up, use run?
+animation.draw = function(animname,anim)
 	if _G[animname]["draw"] then
-		return _G[animname]["draw"](anim)--TODO why return here?
+		return _G[animname]["draw"](anim)
 	end
 end
 
-return
-{
-	make = make,
-	draw = draw,
-}
+return animation

@@ -6,6 +6,10 @@ staystronger.make = function(g)
 end
 
 staystronger.level={}
+staystronger.level.make = function(g,l,index,mode)
+	l.mode=mode or Enums.modes.roguelike
+	l.modename=Enums.modes[mode] or Enums.modes[Enums.modes.roguelike]
+end
 
 staystronger.player =
 {
@@ -47,7 +51,8 @@ staystronger.player =
 staystronger.gameplay =
 {
 	make = function(g)
-		level.make(g,1,Enums.modes.roguelike)
+		-- level.make(g,1,Enums.modes.roguelike)
+		level.make(g,1)
 
 		g.step=false
 

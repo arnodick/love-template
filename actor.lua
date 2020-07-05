@@ -143,14 +143,8 @@ actor.control = function(g,a,gs)
 	end
 --]]
 
----[[
-	if a.tail then
-		if a.controller then
-			local c=a.controller.aim
-			tail.control(a.tail,gs,a,c.horizontal,c.vertical)
-		end
-	end
---]]
+	game.state.run(g.name,"actor","control",g,a,gs)
+
 	local m=g.level.map
 	if a.x<-10
 	or a.x>m.width+10

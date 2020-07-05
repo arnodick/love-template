@@ -3,19 +3,19 @@ local multigame={}
 multigame.intro =
 {
 	make = function(g)
-		Excludes={dawngame="dawngame",offgrid="offgrid",royalewe="royalewe"}
+		g.excludes={dawngame="dawngame",offgrid="offgrid",royalewe="royalewe"}
 		local gamenames={}
 		local gamemakes={}
 		local gameargs={}
 		for i,v in ipairs(Enums.games) do
-			if Excludes[v]==nil then
+			if g.excludes[v]==nil then
 				table.insert(gamenames,v)
 				table.insert(gamemakes,game.make)
 				table.insert(gameargs,{i})
 			end
 		end
 
-		module.make(g.hud,EM.menu,"interactive",g.width/2,120,160,(#gamenames+2)*12,gamenames,"orange","dark_green","center",gamemakes,gameargs)
+		module.make(g.hud,EM.menu,"interactive",g.width/2,120,g.width-2,(#gamenames+2)*16,gamenames,"orange","dark_green","center",gamemakes,gameargs)
 		module.make(g.hud.menu,EM.border,"orange","dark_green")
 	end,
 

@@ -395,6 +395,15 @@ protosnake.option =
 
 protosnake.actor =
 {
+	control = function(g,a,gs)
+		if a.tail then
+			if a.controller then
+				local c=a.controller.aim
+				tail.control(a.tail,gs,a,c.horizontal,c.vertical)
+			end
+		end
+	end,
+
 	damage = function(g,a,d)
 		for i=1,4 do
 			actor.make(g,EA.debris,a.x,a.y)

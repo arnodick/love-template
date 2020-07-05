@@ -23,8 +23,7 @@ end
 
 --UNUSED
 palette.generate = function()
-	local table = {love.math.random(255),love.math.random(255),love.math.random(255)}
-	return table
+	return {love.math.random(255),love.math.random(255),love.math.random(255)}
 end
 
 return palette
