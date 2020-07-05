@@ -259,6 +259,13 @@ drawmodes.sprites = function(m,x,y)
 	LG.draw(Sprites[1].spritesheet,Sprites[1].quads[value],(x-1)*tw,(y-1)*th)
 end
 
+drawmodes.characters = function(m,x,y)
+	local tw,th=m.tile.width,m.tile.height
+	local value=flags.strip(m[y][x])
+	-- LG.draw(Sprites[1].spritesheet,Sprites[1].quads[value],(x-1)*tw,(y-1)*th)
+	LG.print(string.char(value),(x-1)*tw,(y-1)*th)
+end
+
 drawmodes.isometric = function(m,x,y)
 	local tw,th=m.tile.width,m.tile.height
 	local t=Game.timer

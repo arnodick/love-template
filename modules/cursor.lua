@@ -23,9 +23,8 @@ cursor.mousepressed = function(g,c,x,y,button)
 end
 
 cursor.mousemoved = function(g,c,x,y,dx,dy)
-	c.x,c.y=c.x+dx,c.y+dy
-	c.x=math.clamp(c.x,g.camera.x-g.width/2+8,g.camera.x+g.width/2)
-	c.y=math.clamp(c.y,g.camera.y-g.height/2+8,g.camera.y+g.height/2)
+	c.x=math.clamp(c.x+dx,g.camera.x-g.width/2,g.camera.x+g.width/2)
+	c.y=math.clamp(c.y+dy,g.camera.y-g.height/2,g.camera.y+g.height/2)
 	game.state.run("cursor",c.t,"mousemoved",g,c,x,y,dx,dy)
 end
 
@@ -72,12 +71,18 @@ cursor.editor.mousemoved = function(g,c,x,y,dx,dy)
 end
 
 cursor.editor.wheelmoved = function(g,c,x,y)
-	c.value=math.clamp(c.value+y,0,255)--TODO make this limit more dynamic?
+	local m=g.level.modename
+	local min,max=0,255--TODO maybe just make this 127?
+	if m=="roguelike" then
+		max=127
+	end
+	c.value=math.clamp(c.value+y,min,max)
 end
 
 --TODO input Game into this
 cursor.editor.draw = function(c)
 	local g=Game
+	local l=g.level
 	local m=g.level.map
 	local tw,th=m.tile.width,m.tile.height
 
@@ -105,7 +110,12 @@ cursor.editor.draw = function(c)
 		LG.points(cx+i*2,cy-5)
 	end
 	LG.print(c.value,cx+tw,cy+th)
-	LG.draw(Sprites[1].spritesheet,Sprites[1].quads[c.value],cx,cy)
+	-- LG.draw(Sprites[1].spritesheet,Sprites[1].quads[c.value],cx,cy)
+	if l.modename=="roguelike" then
+		LG.print(string.char(c.value),cx,cy)--for printing ascii characters
+	else
+		LG.draw(Sprites[1].spritesheet,Sprites[1].quads[c.value],cx,cy)
+	end
 
 	local p=g.palette["red"]
 	p[4]=180--TODO this colour changey

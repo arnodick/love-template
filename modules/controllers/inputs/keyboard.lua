@@ -73,11 +73,11 @@ types.direct = function(a,c,horizontal,vertical,moving)
 		moving=true
 	end
 
-	if moving and flags.get(a.flags,EF.player) then
-		print("TURN "..Game.turn)
-		print("PLAYER HOR "..horizontal)
-		print("PLAYER VER "..vertical)
-	end
+	-- if moving and flags.get(a.flags,EF.player) then
+	-- 	print("TURN "..Game.turn)
+	-- 	print("PLAYER HOR "..horizontal)
+	-- 	print("PLAYER VER "..vertical)
+	-- end
 
 	return horizontal,vertical
 end

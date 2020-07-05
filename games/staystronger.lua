@@ -57,6 +57,8 @@ staystronger.gameplay =
 		g.step=false
 
 		local a=actor.make(g,EA.rpg_character,g.level.map.w/2,g.level.map.h/2)
+		print(a.char)
+		print(string.byte(a.char))
 		game.player.make(g,a,true)
 		actor.make(g,EA.rpg_character,2,2)
 	end,
