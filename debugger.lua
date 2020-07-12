@@ -135,6 +135,7 @@ debugger.update = function(g,d)
 		if g.editor then
 			if g.editor.cursor then
 				local cx,cy=map.getcellcoords(g.level.map,g.editor.cursor.x,g.editor.cursor.y)
+				--TODO MAP FLATTEN is this possible any more?
 				local mapcell=g.level.map[cy][cx]
 				table.insert(debuglist,"e cursor x "..g.editor.cursor.x)
 				table.insert(debuglist,"e cursor y "..g.editor.cursor.y)

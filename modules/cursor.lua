@@ -59,6 +59,7 @@ cursor.editor.mousepressed = function(g,c,x,y,button)
 		map.setcellvalue(g.level.map,c.x,c.y,c.value,true)
 		c.draw=true
 	elseif button==2 then
+		-- local map.getcellflags
 		map.setcellflag(g.level.map,c.x,c.y,EF.solid,true)
 	elseif button==3 then
 		map.erasecellflags(g.level.map,c.x,c.y,true)
@@ -102,9 +103,9 @@ cursor.editor.draw = function(c)
 		LG.setCanvas(g.canvas.main)
 		c.draw=false
 	end
-	for i=1,#Enums.flags do
+	for i,v in ipairs(EF) do
 		LG.setColor(g.palette["white"])
-		if flags.get(cell,i,16) then
+		if flags.get(map.getcellflags(m,c.x,c.y),i) then
 			LG.setColor(g.palette["red"])
 		end
 		LG.points(cx+i*2,cy-5)

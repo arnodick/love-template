@@ -110,6 +110,7 @@ local function keyreleased(m,key)
 					local l={}
 					if i<5 then
 						if not m.back then
+							--TODO MAP FLATTEN is this possible any more?
 							l=g.levels[g.map[m.menu_function_args[i][3]][m.menu_function_args[i][2]]]
 						else
 							l=g.levels[m.back]

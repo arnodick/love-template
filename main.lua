@@ -75,7 +75,15 @@ function love.gamepadpressed(joystick,button)
 end
 
 function love.joystickadded(joystick)
+	local g=Game
 	table.insert(Joysticks,joystick)
+
+	--TODO pass this down through game to multigame to make controller on its hud menu rather than here
+	-- local m=g.hud.menu
+	-- m.controller=nil
+	-- module.make(m,EM.controller,EMC.move,EMCI.gamepad)
+	-- module.make(m,EM.controller,EMC.action,EMCI.gamepad)
+
 	print("Joystick "..joystick:getID())
 	print(" GUID: "..joystick:getGUID())
 	print(" Name: "..joystick:getName())

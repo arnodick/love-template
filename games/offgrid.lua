@@ -298,6 +298,8 @@ end
 offgrid.level.makemoveoption = function(g,m,x,y,dir,index)
 --checks if a point on the map has a level in it
 --if so, puts that in the menu as an option
+
+	--TODO MAP FLATTEN
 	if g.map[y] then
 		if g.map[y][x] then	
 			local value=g.map[y][x]

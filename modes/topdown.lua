@@ -25,6 +25,7 @@ topdown.actor.control = function(a,m,gs)
 	local xdest,ydest=a.x + a.vec[1]*a.vel*a.speed*gs,a.y - a.vec[2]*a.vel*a.speed*gs
 	local xcelldest,ycelldest=map.getcellcoords(m,xdest,ydest)
 	
+	--TODO MAP FLATTEN how?
 	local xmapcell=m[ycell][xcelldest]
 	local ymapcell=m[ycelldest][xcell]
 	local collx,colly=false,false

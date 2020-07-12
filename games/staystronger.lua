@@ -3,12 +3,21 @@ local staystronger={}
 
 staystronger.make = function(g)
 	g.turn=0
+	g.flat=true
 end
 
 staystronger.level={}
 staystronger.level.make = function(g,l,index,mode)
 	l.mode=mode or Enums.modes.roguelike
 	l.modename=Enums.modes[mode] or Enums.modes[Enums.modes.roguelike]
+
+	--TODO put this in roguelike? need to add mode.level.make to level.make?
+	if l.map then
+		l.map.actors={}
+		map.init(l.map.actors,l.map.w,l.map.h)
+		map.generate(l.map.actors,"empty")
+		-- supper.print(l.map.actors)
+	end
 end
 
 staystronger.player =
@@ -29,6 +38,7 @@ staystronger.player =
 		if a.controller.move.horizontal~=0 then
 			if a.controller.move.last.horizontal==0 then
 				print(g.turn)
+				-- print(g.player.x)
 				g.step=true
 				g.turn=g.turn+1
 			end

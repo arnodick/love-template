@@ -30,6 +30,9 @@ editor.keypressed = function(g,key)
 		g.camera.x=g.camera.x-8
 	elseif key=="right" then
 		g.camera.x=g.camera.x+8
+	elseif tonumber(key) then
+		local c=g.editor.cursor
+		map.setcellflag(g.level.map,c.x,c.y,tonumber(key),true)
 	end
 end
 

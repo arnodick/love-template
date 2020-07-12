@@ -7,10 +7,11 @@ interactive.make = function(m,menu_functions,menu_function_args)
 
 	-- print("yo")
 	if #Joysticks>0 then
-		print("ya")
+		-- print("ya")
 		module.make(m,EM.controller,EMC.move,EMCI.gamepad)
 		module.make(m,EM.controller,EMC.action,EMCI.gamepad)
 	else
+		-- print("NAH")
 		module.make(m,EM.controller,EMC.move,EMCI.keyboard)
 		module.make(m,EM.controller,EMC.action,EMCI.keyboard)
 	end
@@ -22,11 +23,11 @@ interactive.control = function(g,m,gs)
 	local c=m.controller.move
 
 	if c.vertical<0 then
-		if c.last.vertical>=0 or (c.duration.vertical>30 and math.floor(Game.timer)%4==0) then
+		if c.last.vertical>=0 or (c.duration.vertical>30 and math.floor(g.timer)%4==0) then
 			m.text.index=math.clamp(m.text.index-1,1,#m.text,true)
 		end
 	elseif c.vertical>0 then
-		if c.last.vertical<=0 or (c.duration.vertical>30 and math.floor(Game.timer)%4==0) then
+		if c.last.vertical<=0 or (c.duration.vertical>30 and math.floor(g.timer)%4==0) then
 			m.text.index=math.clamp(m.text.index+1,1,#m.text,true)
 		end
 	end

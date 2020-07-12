@@ -5,11 +5,13 @@
 local map={}
 local generators={}
 local drawmodes={}
+map.flat={}
 
 map.generate = function(m,gen)
 	local w,h=m.w,m.h
 	local args=m.args
 
+	--TODO MAP FLATTEN
 	for y=1,h do
 		table.insert(m,{})
 		for x=1,w do
@@ -27,27 +29,40 @@ map.generate = function(m,gen)
 	m.height=map.height(m)
 end
 
-map.load = function(m,filename)
+map.load = function(m,filename,flat)
 	--loads map sprites and walls/entities from a hex populated textfile
 	--returns map array
-	local mapgrid=textfile.load(filename) --each cell (flags + integer) is loaded into map array
+	local mapgrid=textfile.load(filename,flat) --each cell (flags + integer) is loaded into map array
 	supper.copy(m,mapgrid)
+	m.flat=flat
 
 	--TODO do actorspawn flag stuff here to load actor from value of tile
---[[
-	for a=1,map.width(m) do
-		for b=1,map.height(m) do
-			--TODO make this dynamic, loads entities based on flag value
-			if getflag(m[a][b],Enums.wall) then
-				actor.make(Game,0,0,(b-1)*TileW+TileW/2, (a-1)*TileH+TileH/2, TileW, TileH) --each cell that has a wall flag loads a wall entity
-			end
-		end
+	if not flat then
+		map.init(m,map.cellwidth(m),map.cellheight(m))
+		m.width=map.width(m)
+		m.height=map.height(m)
 	end
---]]
-	map.init(m,map.cellwidth(m),map.cellheight(m))
-	m.width=map.width(m)
-	m.height=map.height(m)
+
+	supper.print(m)
+
 	return m
+end
+
+map.flat.generate = function(m,gen)
+end
+
+map.flat.load = function(m,filename)
+	local mapflat=textfile.flat.load(filename)
+	print(mapflat)
+	-- return mapflat
+end
+
+map.flat.save = function(m,filanme)
+	textfile.flat.save(m,filename)
+end
+
+map.flat.getxy = function(m,x,y)
+	return (y-1)*m.w+x
 end
 
 --TODO could probably do away with this by just checking if m.tile exists in code
@@ -62,6 +77,7 @@ map.init = function(m,w,h)
 	--m.height=map.height(m)
 end
 
+--this should work fine with flat maps, just does one row
 map.save = function(m,filename)
 	textfile.save(m,filename)
 end
@@ -81,28 +97,43 @@ map.draw = function(m,drawmode)
 end
 
 map.cellwidth = function(m)
+	--TODO MAP FLATTEN is this possible any more?
 	return #m[1]
 end
 
 map.width = function(m)
+	--TODO MAP FLATTEN is this possible any more?
 	return map.cellwidth(m)*m.tile.width
 end
 
 map.cellheight = function(m)
+	--TODO MAP FLATTEN is this possible any more?
 	return #m
 end
 
 map.height = function(m)
+	--TODO MAP FLATTEN is this possible any more?
 	return map.cellheight(m)*m.tile.height
 end
 
+--TODO MAP FLATTEN is this possible any more?
 map.inbounds = function(m,x,y)
-	if m[y] then
-		return m[y][x]
+	if not m.flat then
+		if m[y] then
+			return m[y][x]
+		end
+	else
+		local xy=map.flat.getxy(m,x,y)
+		if x>0 and x<=m.w then
+			if y>0 and y<=m.h then
+				return m[1][xy]
+			end
+		end
 	end
 	return nil
 end
 
+--TODO MAP FLATTEN
 map.solid = function(m,x,y)
 	local mapcell=m
 	if type(m)=="table" then
@@ -120,33 +151,67 @@ map.getcellcoords = function(m,x,y)--returns the cell coords of worldspace coord
 	return cx,cy
 end
 
+--TODO MAP FLATTEN
 map.getcellvalue = function(m,x,y)--takes world x,y coordinates and returns the value of the cell under those coordinates
 	local cx,cy=map.getcellcoords(m,x,y)
-	local c=flags.strip(m[cy][cx])
-	return c
+	if not m.flat then
+		return flags.strip(m[cy][cx])
+	else
+		return flags.strip(m[1][map.flat.getxy(m,cx,cy)])
+	end
 end
 
+--TODO MAP FLATTEN
 map.setcellvalue = function(m,x,y,v,worldcoords)--sets the value of a map cell in the low 16 bits while retaining the flags in the high 16 bits
 	if worldcoords then
 		x,y=map.getcellcoords(m,x,y)
 	end
-	m[y][x]=bit.bor(flags.isolate(m[y][x]),v)
+	if not m.flat then
+		m[y][x]=bit.bor(flags.isolate(m[y][x]),v)
+	else
+		local xy=map.flat.getxy(m,x,y)
+		m[1][xy]=bit.bor(flags.isolate(m[1][xy]),v)
+	end
 end
 
+--TODO MAP FLATTEN
+map.getcellflags = function(m,x,y,shift)
+	shift=shift or 16
+	local cx,cy=map.getcellcoords(m,x,y)
+	if not m.flat then
+		local c=m[cy][cx]
+		return bit.rshift(c,shift)
+	else
+		local c=m[1][map.flat.getxy(m,cx,cy)]
+		return bit.rshift(c,shift)
+	end
+end
+
+--TODO MAP FLATTEN
 map.setcellflag = function(m,x,y,v,worldcoords)--sets a flag on the high 16 bits of a map cell while retaining the value in the low 16 bits
 	local f=flags.fromenum(v)
 	f=bit.lshift(f,16)
 	if worldcoords then
 		x,y=map.getcellcoords(m,x,y)
 	end
-	m[y][x]=bit.bor(m[y][x],f)
+	if not m.flat then
+		m[y][x]=bit.bor(m[y][x],f)
+	else
+		local xy=map.flat.getxy(m,x,y)
+		m[1][xy]=bit.bor(m[1][xy],f)
+	end
 end
 
+--TODO MAP FLATTEN
 map.erasecellflags = function(m,x,y,worldcoords)
 	if worldcoords then
 		x,y=map.getcellcoords(m,x,y)
 	end
 	m[y][x]=flags.strip(m[y][x])
+end
+
+generators.empty = function(m,w,h,x,y)
+	map.setcellvalue(m,x,y,0)
 end
 
 generators.walls = function(m,w,h,x,y)
@@ -156,6 +221,7 @@ generators.walls = function(m,w,h,x,y)
 	end
 end
 
+--TODO MAP FLATTEN is this possible any more?
 generators.random = function(m,w,h,x,y,args)
 	local pool=args.pool
 	local v=pool[love.math.random(#pool)]
@@ -167,10 +233,12 @@ generators.random = function(m,w,h,x,y,args)
 --]]
 end
 
+--TODO MAP FLATTEN is this possible any more?
 generators.increment = function(m,w,h,x,y)
 	m[y][x]=x+(y-1)*w
 end
 
+--TODO MAP FLATTEN is this possible any more?
 generators.solid = function(m,w,h,x,y,args)
 	local c=m[y][x]
 	for i,v in ipairs(args.solid) do
@@ -181,6 +249,7 @@ generators.solid = function(m,w,h,x,y,args)
 	end
 end
 
+--TODO MAP FLATTEN is this possible any more?
 generators.buildings = function(m,w,h,x,y,args)
 	if love.math.random(args.buildings.chance)==1 then
 		local door=false
@@ -247,25 +316,35 @@ drawmodes.grid = function(m,x,y)
 	end
 end
 
+--TODO MAP FLATTEN
 drawmodes.numbers = function(m,x,y)
 	local tw,th=m.tile.width,m.tile.height
 	local value=m[y][x]
 	LG.print(value,(x-1)*tw,(y-1)*th)
 end
 
+--TODO MAP FLATTEN
 drawmodes.sprites = function(m,x,y)
 	local tw,th=m.tile.width,m.tile.height
 	local value=flags.strip(m[y][x])
 	LG.draw(Sprites[1].spritesheet,Sprites[1].quads[value],(x-1)*tw,(y-1)*th)
 end
 
+--TODO MAP FLATTEN
 drawmodes.characters = function(m,x,y)
 	local tw,th=m.tile.width,m.tile.height
-	local value=flags.strip(m[y][x])
-	-- LG.draw(Sprites[1].spritesheet,Sprites[1].quads[value],(x-1)*tw,(y-1)*th)
-	LG.print(string.char(value),(x-1)*tw,(y-1)*th)
+
+	if m.flat then
+		local xy=map.flat.getxy(m,x,y)
+		local value=flags.strip(m[1][xy])
+		LG.print(string.char(value),(x-1)*tw,(y-1)*th)
+	else
+		local value=flags.strip(m[y][x])
+		LG.print(string.char(value),(x-1)*tw,(y-1)*th)
+	end
 end
 
+--TODO MAP FLATTEN
 drawmodes.isometric = function(m,x,y)
 	local tw,th=m.tile.width,m.tile.height
 	local t=Game.timer

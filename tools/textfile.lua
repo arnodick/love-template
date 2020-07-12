@@ -1,30 +1,76 @@
 --TODO maybe put this in love.filesystem?
+local textfile={}
+textfile.flat={}
 
 local byteamount=4--4 bytes (8 hex digits) per cell
 
-function loadbytes(l)
+textfile.loadbytes = function(l,flatdata)
 	--converts a line of hex text into values and inserts them into a 1D array
 	--returns the 1D array
-	local ar={}
-	for a=1, #l, byteamount*2 do
-		table.insert( ar, tonumber(string.sub(l, a, a+byteamount*2-1),16) )
+	if flatdata then
+		local w=0
+		for a=1,#l,byteamount*2 do
+			w=w+1
+			table.insert(flatdata[1],tonumber(string.sub(l,a,a+byteamount*2-1),16))
+		end
+		if not flatdata.w then
+			flatdata.w=w
+		end
+	else
+		local ar={}
+		for a=1,#l,byteamount*2 do
+			table.insert(ar,tonumber(string.sub(l,a,a+byteamount*2-1),16))
+		end
+		return ar
 	end
-	return ar
 end
 
-function load(m)
+textfile.flat.load = function(m)
+	return love.filesystem.read(m)
+	-- local data=love.filesystem.read(m)
+	-- local ar={}
+	-- for a=1,#data,byteamount*2 do
+	-- 	table.insert(ar,tonumber(string.sub(l,a,a+byteamount*2-1),16))
+	-- end
+	-- return ar
+end
+
+textfile.flat.save = function(m,n)
+	--TODO this the only one you need, just loop like normal .save but save to (y-1)*w+x ?
+end
+
+textfile.load = function(m,flat)
 	--loads hex values from a textfile into an array row by row
 	--returns a 2D array of datums
 	local data={}
-	for row in love.filesystem.lines(m) do
-		table.insert(data,textfile.loadbytes(row))
+	if flat then
+		table.insert(data,{})
+		local h=0
+		for row in love.filesystem.lines(m) do
+			h=h+1
+			textfile.loadbytes(row,data)
+		end
+		if not data.h then
+			data.h=h
+		end
+		if not data.tile then
+			data.tile={width=8,height=8}
+		end
+		data.width=data.w*data.tile.width
+		data.height=data.h*data.tile.height
+	else
+		for row in love.filesystem.lines(m) do
+			table.insert(data,textfile.loadbytes(row))
+		end
 	end
 	return data
 end
 
-function save(m,n)
+textfile.save = function(m,n)
 	--takes an array of hex data and a filename string
 	--converts hex data into text and saves it in a file
+
+	--TODO MAP FLATTEN
 	local str=""
 	for y=1,#m do
 		for x=1,#m[y] do
@@ -35,9 +81,4 @@ function save(m,n)
 	love.filesystem.write(n,str)
 end
 
-return
-{
-	loadbytes = loadbytes,
-	load = load,
-	save = save,
-}
+return textfile

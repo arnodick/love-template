@@ -18,8 +18,9 @@ level.make = function(g,index,mode)
 	end
 	if l.map then
 		if l.map.file then
-			--l.map=map.load("/maps/"..l.map.file..".txt")
-			map.load(l.map,"/maps/"..l.map.file..".txt")
+			-- map.load(l.map,"/maps/"..l.map.file..".txt")
+
+			map.load(l.map,"/maps/"..l.map.file..".txt",g.flat)
 		elseif l.map.generators then
 			map.generate(l.map,l.map.generators)
 		end
