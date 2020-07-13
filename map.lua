@@ -103,7 +103,11 @@ end
 
 map.width = function(m)
 	--TODO MAP FLATTEN is this possible any more?
-	return map.cellwidth(m)*m.tile.width
+	if not m.flat then
+		return map.cellwidth(m)*m.tile.width
+	else
+		return m.width
+	end
 end
 
 map.cellheight = function(m)
@@ -126,7 +130,7 @@ map.inbounds = function(m,x,y)
 		local xy=map.flat.getxy(m,x,y)
 		if x>0 and x<=m.w then
 			if y>0 and y<=m.h then
-				return m[1][xy]
+				return m[xy]
 			end
 		end
 	end
@@ -157,7 +161,7 @@ map.getcellvalue = function(m,x,y)--takes world x,y coordinates and returns the 
 	if not m.flat then
 		return flags.strip(m[cy][cx])
 	else
-		return flags.strip(m[1][map.flat.getxy(m,cx,cy)])
+		return flags.strip(m[map.flat.getxy(m,cx,cy)])
 	end
 end
 
@@ -170,7 +174,7 @@ map.setcellvalue = function(m,x,y,v,worldcoords)--sets the value of a map cell i
 		m[y][x]=bit.bor(flags.isolate(m[y][x]),v)
 	else
 		local xy=map.flat.getxy(m,x,y)
-		m[1][xy]=bit.bor(flags.isolate(m[1][xy]),v)
+		m[xy]=bit.bor(flags.isolate(m[xy]),v)
 	end
 end
 
@@ -182,7 +186,7 @@ map.getcellflags = function(m,x,y,shift)
 		local c=m[cy][cx]
 		return bit.rshift(c,shift)
 	else
-		local c=m[1][map.flat.getxy(m,cx,cy)]
+		local c=m[map.flat.getxy(m,cx,cy)]
 		return bit.rshift(c,shift)
 	end
 end
@@ -198,7 +202,7 @@ map.setcellflag = function(m,x,y,v,worldcoords)--sets a flag on the high 16 bits
 		m[y][x]=bit.bor(m[y][x],f)
 	else
 		local xy=map.flat.getxy(m,x,y)
-		m[1][xy]=bit.bor(m[1][xy],f)
+		m[xy]=bit.bor(m[xy],f)
 	end
 end
 
@@ -336,7 +340,7 @@ drawmodes.characters = function(m,x,y)
 
 	if m.flat then
 		local xy=map.flat.getxy(m,x,y)
-		local value=flags.strip(m[1][xy])
+		local value=flags.strip(m[xy])
 		LG.print(string.char(value),(x-1)*tw,(y-1)*th)
 	else
 		local value=flags.strip(m[y][x])

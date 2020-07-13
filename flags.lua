@@ -1,6 +1,6 @@
 local flags={}
 
---TODO move solid too amp.flags or something?
+--TODO move solid too map.flags or something?
 flags.load = function()
 	local f=
 	{

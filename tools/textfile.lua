@@ -11,8 +11,9 @@ textfile.loadbytes = function(l,flatdata)
 		local w=0
 		for a=1,#l,byteamount*2 do
 			w=w+1
-			table.insert(flatdata[1],tonumber(string.sub(l,a,a+byteamount*2-1),16))
+			table.insert(flatdata,tonumber(string.sub(l,a,a+byteamount*2-1),16))
 		end
+		--TODO take this out of textfile, put in map
 		if not flatdata.w then
 			flatdata.w=w
 		end
@@ -44,7 +45,7 @@ textfile.load = function(m,flat)
 	--returns a 2D array of datums
 	local data={}
 	if flat then
-		table.insert(data,{})
+		-- table.insert(data,{})
 		local h=0
 		for row in love.filesystem.lines(m) do
 			h=h+1
