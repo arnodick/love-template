@@ -3,7 +3,7 @@ local multigame={}
 multigame.intro =
 {
 	make = function(g)
-		g.excludes={dawngame="dawngame",offgrid="offgrid",royalewe="royalewe"}
+		--excludes defined in game.make
 		local gamenames={}
 		local gamemakes={}
 		local gameargs={}

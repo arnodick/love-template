@@ -7,8 +7,15 @@ roguelike.actor.control = function(a,m,gs,g)
 		if a.controller then
 			local c=a.controller.move
 			if c then
-				a.vec[1]=c.horizontal
-				a.vec[2]=c.vertical
+				if c.input==EMCI.gamepad then
+					local vh=c.horizontal
+					local vv=c.vertical
+					a.vec[1]=vh/math.abs(vh)
+					a.vec[2]=vv/math.abs(vv)
+				else
+					a.vec[1]=c.horizontal
+					a.vec[2]=c.vertical
+				end
 			end
 		end
 	

@@ -1,6 +1,5 @@
-update to love 11.3
-	map flags, specifically for things like solid, enemy etc
-	menu that just takes in lines of text, dynamically builds around that
+map flags, specifically for things like solid, enemy etc
+menu that just takes in lines of text, dynamically builds around that
 
 only cells have flags? actors have modules
 
@@ -17,6 +16,9 @@ levels have modes, NOT games (can default a level's mode to eg roguelike if game
 	mode.map.draw instead of draw folder, like mode.actor.draw
 
 move Enums into Game, so g.enums etc
+
+make an argument that is added to executable ie template.exe -debug that turns on editor and debug
+	add this argument to dev shortcut, but in release it wont be there
 
 Only use ogg because they can do positional. Batch wav to ogg conversion.
 

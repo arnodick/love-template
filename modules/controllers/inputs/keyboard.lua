@@ -5,7 +5,6 @@ keyboard.move = function(a,c)
 	local horizontal,vertical=0,0
 	local moving=false
 
-	-- print("KEYBOARD MOVE CALLED")
 	return types[c.inputtype](a,c,horizontal,vertical,moving)
 end
 

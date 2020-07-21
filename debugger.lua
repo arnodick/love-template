@@ -134,12 +134,18 @@ debugger.update = function(g,d)
 		end
 		if g.editor then
 			if g.editor.cursor then
-				local cx,cy=map.getcellcoords(g.level.map,g.editor.cursor.x,g.editor.cursor.y)
+				local m=g.level.map
+				local cx,cy=map.getcellcoords(m,g.editor.cursor.x,g.editor.cursor.y)
 				--TODO MAP FLATTEN is this possible any more?
-				local mapcell=g.level.map[cy][cx]
+				local mapcell=0
+				if not m.flat then
+					mapcell=m[cy][cx]
+				else
+					mapcell=map.getcellvalue(m,cx,cy)
+				end
 				table.insert(debuglist,"e cursor x "..g.editor.cursor.x)
 				table.insert(debuglist,"e cursor y "..g.editor.cursor.y)
-				table.insert(debuglist,"cell value "..map.getcellvalue(g.level.map,g.editor.cursor.x,g.editor.cursor.y))
+				table.insert(debuglist,"cell value "..map.getcellvalue(m,g.editor.cursor.x,g.editor.cursor.y))
 				-- table.insert(debuglist,"cell shitfed "..bit.rshift(mapcell,16))
 				table.insert(debuglist,"cell solid "..tostring(flags.get(mapcell,EF.solid,16)))
 

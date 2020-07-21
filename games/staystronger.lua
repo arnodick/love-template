@@ -23,8 +23,13 @@ end
 staystronger.player =
 {
 	make = function(g,a)
-		module.make(a,EM.controller,EMC.move,EMCI.keyboard,"direct")
-		module.make(a,EM.controller,EMC.action,EMCI.keyboard)
+		if Joysticks[1] then
+			module.make(a,EM.controller,EMC.move,EMCI.gamepad)
+			module.make(a,EM.controller,EMC.action,EMCI.gamepad)
+		else
+			module.make(a,EM.controller,EMC.move,EMCI.keyboard,"direct")
+			module.make(a,EM.controller,EMC.action,EMCI.keyboard)
+		end
 	end,
 
 	control = function(g,a)

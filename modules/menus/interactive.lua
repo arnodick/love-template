@@ -22,6 +22,7 @@ interactive.control = function(g,m,gs)
 	controller.update(m,gs)
 	local c=m.controller.move
 
+	--TODO move this into
 	if c.vertical<0 then
 		if c.last.vertical>=0 or (c.duration.vertical>30 and math.floor(g.timer)%4==0) then
 			m.text.index=math.clamp(m.text.index-1,1,#m.text,true)

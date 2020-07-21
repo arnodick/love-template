@@ -1,4 +1,5 @@
 DONE
+update to love 11.3
 The enum ARE the returns from library load of lua files
 	Have exclude instead of include in library load, so can not load certain folders into enums when lua library load
 	Do numbers for every table made with library load?

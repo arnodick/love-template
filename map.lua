@@ -96,11 +96,14 @@ map.draw = function(m,drawmode)
 	end
 end
 
+--TODO ALL maps should have w h width height
+--TODO get rid of this once map is flattended
 map.cellwidth = function(m)
 	--TODO MAP FLATTEN is this possible any more?
 	return #m[1]
 end
 
+--TODO get rid of this once map is flattended
 map.width = function(m)
 	--TODO MAP FLATTEN is this possible any more?
 	if not m.flat then
@@ -110,17 +113,18 @@ map.width = function(m)
 	end
 end
 
+--TODO get rid of this once map is flattended
 map.cellheight = function(m)
 	--TODO MAP FLATTEN is this possible any more?
 	return #m
 end
 
+--TODO get rid of this once map is flattended
 map.height = function(m)
 	--TODO MAP FLATTEN is this possible any more?
 	return map.cellheight(m)*m.tile.height
 end
 
---TODO MAP FLATTEN is this possible any more?
 map.inbounds = function(m,x,y)
 	if not m.flat then
 		if m[y] then
@@ -155,7 +159,9 @@ map.getcellcoords = function(m,x,y)--returns the cell coords of worldspace coord
 	return cx,cy
 end
 
---TODO MAP FLATTEN
+map.getcellraw = function(m,x,y)
+end
+
 map.getcellvalue = function(m,x,y)--takes world x,y coordinates and returns the value of the cell under those coordinates
 	local cx,cy=map.getcellcoords(m,x,y)
 	if not m.flat then
@@ -165,7 +171,6 @@ map.getcellvalue = function(m,x,y)--takes world x,y coordinates and returns the 
 	end
 end
 
---TODO MAP FLATTEN
 map.setcellvalue = function(m,x,y,v,worldcoords)--sets the value of a map cell in the low 16 bits while retaining the flags in the high 16 bits
 	if worldcoords then
 		x,y=map.getcellcoords(m,x,y)
@@ -178,7 +183,6 @@ map.setcellvalue = function(m,x,y,v,worldcoords)--sets the value of a map cell i
 	end
 end
 
---TODO MAP FLATTEN
 map.getcellflags = function(m,x,y,shift)
 	shift=shift or 16
 	local cx,cy=map.getcellcoords(m,x,y)
@@ -191,7 +195,6 @@ map.getcellflags = function(m,x,y,shift)
 	end
 end
 
---TODO MAP FLATTEN
 map.setcellflag = function(m,x,y,v,worldcoords)--sets a flag on the high 16 bits of a map cell while retaining the value in the low 16 bits
 	local f=flags.fromenum(v)
 	f=bit.lshift(f,16)
@@ -206,12 +209,22 @@ map.setcellflag = function(m,x,y,v,worldcoords)--sets a flag on the high 16 bits
 	end
 end
 
---TODO MAP FLATTEN
+map.erase = function(m)
+	for i,v in ipairs(m) do
+		m[i]=0
+	end
+end
+
 map.erasecellflags = function(m,x,y,worldcoords)
 	if worldcoords then
 		x,y=map.getcellcoords(m,x,y)
 	end
-	m[y][x]=flags.strip(m[y][x])
+	if not m.flat then
+		m[y][x]=flags.strip(m[y][x])
+	else
+		local xy=map.flat.getxy(m,x,y,m.flat)
+		m[xy]=flags.strip(m[xy])
+	end
 end
 
 generators.empty = function(m,w,h,x,y)

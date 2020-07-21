@@ -8,6 +8,12 @@ editor.make = function(g)
 end
 
 editor.control = function(g)
+	if love.mouse.isDown(1) or love.mouse.isDown(2) then
+		local c=g.editor.cursor
+		if c then
+			cursor.mousepressed(g,c,c.x,c.y,1)
+		end
+	end
 end
 
 editor.keypressed = function(g,key)
@@ -15,6 +21,8 @@ editor.keypressed = function(g,key)
 		if key=="s" then
 			love.keyboard.setTextInput(true)
 			module.make(g.hud,EM.menu,"text",100,100,200,200,{"type file name",""},"orange","dark_green")
+		elseif key=="e" then
+			map.erase(g.level.map)
 		end
 	elseif key=="return" then
 		if g.hud.menu then

@@ -67,19 +67,30 @@ textfile.load = function(m,flat)
 	return data
 end
 
-textfile.save = function(m,n)
+--TODO move map stuff out of here. maybe map just does all this stuff, and has function for the str=str stuff below?
+textfile.save = function(m,name)
 	--takes an array of hex data and a filename string
 	--converts hex data into text and saves it in a file
 
-	--TODO MAP FLATTEN
-	local str=""
-	for y=1,#m do
-		for x=1,#m[y] do
-			str=str..string.format("%0"..tostring(byteamount*2).."x",m[y][x])
+	if not m.flat then
+		local str=""
+		for y=1,#m do
+			for x=1,#m[y] do
+				str=str..string.format("%0"..tostring(byteamount*2).."x",m[y][x])
+			end
+			str=str.."\n"
 		end
-		str=str.."\n"
+		love.filesystem.write(name,str)
+	else
+		local str=""
+		for y=1,m.h do
+			for x=1,m.w do
+				str=str..string.format("%0"..tostring(byteamount*2).."x",m[map.flat.getxy(m,x,y)])
+			end
+			str=str.."\n"
+		end
+		love.filesystem.write(name,str)
 	end
-	love.filesystem.write(n,str)
 end
 
 return textfile

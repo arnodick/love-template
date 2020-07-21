@@ -19,8 +19,13 @@ Music=supper.load("music","wav")
 -- local http=require("socket.http")
 -- local ssl = require("ssl")
 
-function love.load()
+function love.load(args)
 	game.make("multigame")
+	-- supper.print(Game.options)
+	-- supper.print(args)
+	if supper.contains(args,"development") then
+		Debugger.development=true
+	end
 	-- game.make("policesquad",640,480)
 
 	-- print(love.getVersion())
@@ -72,6 +77,7 @@ end
 
 function love.gamepadpressed(joystick,button)
 	game.gamepadpressed(Game,joystick,button)
+	-- print(button)
 end
 
 function love.joystickadded(joystick)
@@ -79,14 +85,30 @@ function love.joystickadded(joystick)
 	table.insert(Joysticks,joystick)
 
 	--TODO pass this down through game to multigame to make controller on its hud menu rather than here
-	-- local m=g.hud.menu
-	-- m.controller=nil
-	-- module.make(m,EM.controller,EMC.move,EMCI.gamepad)
-	-- module.make(m,EM.controller,EMC.action,EMCI.gamepad)
+	local m=g.hud.menu
+
+	--TODO make a function that assigns controllers to player and menus from g.options?
+	if g.options then
+		m.controller=nil
+		module.make(m,EM.controller,EMC.move,EMCI[g.options.controller])
+		module.make(m,EM.controller,EMC.action,EMCI[g.options.controller])
+	end
 
 	print("Joystick "..joystick:getID())
 	print(" GUID: "..joystick:getGUID())
 	print(" Name: "..joystick:getName())
+	local a,b,c=joystick:getDeviceInfo()
+	print(" Info:")
+	print("  "..a)
+	print("  "..b)
+	print("  "..c)
+
+	local p=g.player
+	if p then
+		p.controller=nil
+		module.make(p,EM.controller,EMC.move,EMCI.gamepad)
+		module.make(p,EM.controller,EMC.action,EMCI.gamepad)
+	end
 end
 
 function love.joystickremoved(joystick)

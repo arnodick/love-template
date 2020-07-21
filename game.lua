@@ -101,6 +101,9 @@ game.make = function(t,gw,gh)
 --]]
 	g.levels=supper.load("games/"..g.name.."/levels")
 	-- supper.print(g.levels)
+	g.excludes={dawngame="dawngame",offgrid="offgrid",royalewe="royalewe"}
+
+	g.options=json.load("options.json")
 
 --[[
 	g.window={}
@@ -191,16 +194,18 @@ game.control = function(g)
 end
 
 game.keypressed = function(g,key,scancode,isrepeat)
-	if key=="tab" then
-		if not g.editor then
-			g.pause=true
-			editor.make(g)
-		else
-			g.pause=false
-			g.editor=nil
+	if Debugger.development then
+		if key=="tab" then
+			if not g.editor then
+				g.pause=true
+				editor.make(g)
+			else
+				g.pause=false
+				g.editor=nil
+			end
+		elseif key=="space" then
+			palette.set(g,2)
 		end
-	elseif key=="space" then
-		palette.set(g,2)
 	end
 
 	if g.level then
@@ -210,6 +215,8 @@ game.keypressed = function(g,key,scancode,isrepeat)
 	if g.state=="intro" then
 		if key=="escape" then
 			if g.excludes then
+				local exc=not g.excludes[g.name]
+				print(exc)
 				if not g.excludes[g.name] then
 					game.make(Enums.games.multigame)
 				else
