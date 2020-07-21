@@ -43,7 +43,7 @@ map.load = function(m,filename,flat)
 		m.height=map.height(m)
 	end
 
-	supper.print(m)
+	-- supper.print(m)
 
 	return m
 end
@@ -160,6 +160,12 @@ map.getcellcoords = function(m,x,y)--returns the cell coords of worldspace coord
 end
 
 map.getcellraw = function(m,x,y)
+	local cx,cy=map.getcellcoords(m,x,y)
+	if not m.flat then
+		return m[cy][cx]
+	else
+		return m[map.flat.getxy(m,cx,cy)]
+	end
 end
 
 map.getcellvalue = function(m,x,y)--takes world x,y coordinates and returns the value of the cell under those coordinates
@@ -342,9 +348,10 @@ end
 
 --TODO MAP FLATTEN
 drawmodes.sprites = function(m,x,y)
+	local s=Sprites[1]
 	local tw,th=m.tile.width,m.tile.height
-	local value=flags.strip(m[y][x])
-	LG.draw(Sprites[1].spritesheet,Sprites[1].quads[value],(x-1)*tw,(y-1)*th)
+	local value=map.getcellvalue(m,x,y)
+	LG.draw(s.spritesheet,s.quads[value],(x-1)*tw,(y-1)*th)
 end
 
 --TODO MAP FLATTEN
