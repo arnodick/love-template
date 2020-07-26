@@ -45,9 +45,9 @@ map.generate = function(m,gen,flat)
 	else
 		for xy=1,w*h do
 			table.insert(m,0)
+			local x=(xy-1)%w+1
+			local y=math.floor(xy/h)+1
 			if type(gen)=="table" then
-				local x=(xy-1)%w+1
-				local y=math.floor(xy/8)--TODO input tilewidth to this function. why?
 				for i,v in ipairs(gen) do
 					generators[v](m,w,h,x,y,args)
 				end
@@ -55,7 +55,9 @@ map.generate = function(m,gen,flat)
 				generators[gen](m,w,h,x,y,args)
 			end
 		end
-		map.init(m)
+		-- map.init(m)
+		m.width=m.w*m.tile.width
+		m.height=m.h*m.tile.height
 	end
 end
 
@@ -89,11 +91,15 @@ map.flat.load = function(m,filename)
 	-- return mapflat
 end
 
-map.flat.save = function(m,filanme)
-	textfile.flat.save(m,filename)
-end
-
 map.flat.getxy = function(m,x,y)
+-- 	print("MAP")
+-- 	print(m)
+-- print("X")
+-- print(x)
+-- print("Y")
+-- print(y)
+-- 	print("M.W")
+-- 	print(m.w)
 	return (y-1)*m.w+x
 end
 
@@ -194,12 +200,21 @@ map.getcellraw = function(m,x,y)
 	end
 end
 
-map.getcellvalue = function(m,x,y)--takes world x,y coordinates and returns the value of the cell under those coordinates
-	local cx,cy=map.getcellcoords(m,x,y)
+-- TODO world coords weirdness
+map.getcellvalue = function(m,x,y,cell)--takes world x,y coordinates and returns the value of the cell under those coordinates
+	local cx,cy=x,y
+	if not cell then
+		print("NOT CELL")
+		cx,cy=map.getcellcoords(m,x,y)
+	end
+
 	if not m.flat then
 		return flags.strip(m[cy][cx])
 	else
-		return flags.strip(m[map.flat.getxy(m,cx,cy)])
+		local mval=m[map.flat.getxy(m,cx,cy)]
+		print("M VAL")
+		print(mval)
+		return flags.strip(mval)
 	end
 end
 
@@ -294,7 +309,7 @@ generators.increment = function(m,w,h,x,y)
 end
 
 generators.solid = function(m,w,h,x,y,args)
-	local c=map.getcellvalue(m,x,y)
+	local c=map.getcellvalue(m,x,y,true)
 	--args.solid is a list of numbers, if the value in the cell is in args.solid then set the solid cell flag
 	for i,v in ipairs(args.solid) do
 		if v==c then
@@ -374,20 +389,20 @@ end
 drawmodes.numbers = function(m,x,y)
 	local tw,th=m.tile.width,m.tile.height
 	-- local value=m[y][x]
-	local value=map.getcellvalue(m,x,y)--TODO getcellraw here instead?
+	local value=map.getcellvalue(m,x,y,true)--TODO getcellraw here instead?
 	LG.print(value,(x-1)*tw,(y-1)*th)
 end
 
 drawmodes.sprites = function(m,x,y)
 	local s=Sprites[1]
 	local tw,th=m.tile.width,m.tile.height
-	local value=map.getcellvalue(m,x,y)
+	local value=map.getcellvalue(m,x,y,true)
 	LG.draw(s.spritesheet,s.quads[value],(x-1)*tw,(y-1)*th)
 end
 
 drawmodes.characters = function(m,x,y)
 	local tw,th=m.tile.width,m.tile.height
-	local value=map.getcellvalue(m,x,y)
+	local value=map.getcellvalue(m,x,y,true)
 	LG.print(string.char(value),(x-1)*tw,(y-1)*th)
 
 	-- if m.flat then
@@ -407,7 +422,7 @@ drawmodes.isometric = function(m,x,y)
 	--if (y-1)*#m[y]+x<=t then
 	local isox,isoy=(x-1)*tw/2+m.width/2,(y-1)*th/4+m.height/2
 	-- local value=flags.strip(m[y][x])
-	local value=map.getcellvalue(m,x,y)
+	local value=map.getcellvalue(m,x,y,true)
 
 	LG.draw(Sprites[3].spritesheet,Sprites[3].quads[value],isox,isoy,0,1,1,(y-1)*tw/2,(x-1)*-th/4)
 	if Debugger.debugging then

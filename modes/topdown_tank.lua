@@ -44,8 +44,10 @@ topdown_tank.actor.control = function(a,m,gs)
 	local xcelldest,ycelldest=map.getcellcoords(m,xdest,ydest)
 	
 	--TODO MAP FLATTEN how?
-	local xmapcell=m[ycell][xcelldest]
-	local ymapcell=m[ycelldest][xcell]
+	-- local xmapcell=m[ycell][xcelldest]
+	-- local ymapcell=m[ycelldest][xcell]
+	local xmapcell=map.getcellraw(m,xdest,a.y)
+	local ymapcell=map.getcellraw(m,a.x,ydest)
 	local collx,colly=false,false
 	if not flags.get(xmapcell,EF.solid,16) then
 		a.x = xdest

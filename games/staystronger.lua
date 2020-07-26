@@ -12,12 +12,12 @@ staystronger.level.make = function(g,l,index,mode)
 	l.modename=Enums.modes[mode] or Enums.modes[Enums.modes.roguelike]
 
 	--TODO put this in roguelike? need to add mode.level.make to level.make?
-	if l.map then
-		l.map.actors={}
-		map.init(l.map.actors,l.map.w,l.map.h)
-		map.generate(l.map.actors,"empty")
-		-- supper.print(l.map.actors)
-	end
+	-- if l.map then
+	-- 	l.map.actors={}
+	-- 	map.init(l.map.actors,l.map.w,l.map.h)
+	-- 	map.generate(l.map.actors,"empty")
+	-- 	-- supper.print(l.map.actors)
+	-- end
 end
 
 staystronger.player =

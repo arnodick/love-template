@@ -3,24 +3,27 @@ local textfile={}
 textfile.flat={}
 
 local byteamount=4--4 bytes (8 hex digits) per cell
+local hexamount=byteamount*2--8 hex digits per cell
 
 textfile.loadbytes = function(l,flatdata)
 	--converts a line of hex text into values and inserts them into a 1D array
 	--returns the 1D array
 	if flatdata then
 		local w=0
-		for a=1,#l,byteamount*2 do
+		for a=1,#l,hexamount do
 			w=w+1
-			table.insert(flatdata,tonumber(string.sub(l,a,a+byteamount*2-1),16))
+			local val=tonumber(string.sub(l,a,a+hexamount-1),16)
+			table.insert(flatdata,val)
 		end
 		--TODO take this out of textfile, put in map
 		if not flatdata.w then
 			flatdata.w=w
+			print("MAP WIDTH: "..flatdata.w)
 		end
 	else
 		local ar={}
-		for a=1,#l,byteamount*2 do
-			table.insert(ar,tonumber(string.sub(l,a,a+byteamount*2-1),16))
+		for a=1,#l,hexamount do
+			table.insert(ar,tonumber(string.sub(l,a,a+hexamount-1),16))
 		end
 		return ar
 	end
@@ -30,14 +33,10 @@ textfile.flat.load = function(m)
 	return love.filesystem.read(m)
 	-- local data=love.filesystem.read(m)
 	-- local ar={}
-	-- for a=1,#data,byteamount*2 do
-	-- 	table.insert(ar,tonumber(string.sub(l,a,a+byteamount*2-1),16))
+	-- for a=1,#data,hexamount do
+	-- 	table.insert(ar,tonumber(string.sub(l,a,a+hexamount-1),16))
 	-- end
 	-- return ar
-end
-
-textfile.flat.save = function(m,n)
-	--TODO this the only one you need, just loop like normal .save but save to (y-1)*w+x ?
 end
 
 textfile.load = function(m,flat)
@@ -53,6 +52,7 @@ textfile.load = function(m,flat)
 		end
 		if not data.h then
 			data.h=h
+			print("MAP HEIGHT: "..data.h)
 		end
 		if not data.tile then
 			data.tile={width=8,height=8}
@@ -76,7 +76,7 @@ textfile.save = function(m,name)
 		local str=""
 		for y=1,#m do
 			for x=1,#m[y] do
-				str=str..string.format("%0"..tostring(byteamount*2).."x",m[y][x])
+				str=str..string.format("%0"..tostring(hexamount).."x",m[y][x])
 			end
 			str=str.."\n"
 		end
@@ -85,7 +85,7 @@ textfile.save = function(m,name)
 		local str=""
 		for y=1,m.h do
 			for x=1,m.w do
-				str=str..string.format("%0"..tostring(byteamount*2).."x",m[map.flat.getxy(m,x,y)])
+				str=str..string.format("%0"..tostring(hexamount).."x",m[map.flat.getxy(m,x,y)])
 			end
 			str=str.."\n"
 		end
