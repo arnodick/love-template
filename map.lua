@@ -7,16 +7,47 @@ local generators={}
 local drawmodes={}
 map.flat={}
 
-map.generate = function(m,gen)
+--TODO could probably do away with this by just checking if m.tile exists in code
+map.init = function(m,w,h)
+	if w and h then
+		m.w,m.h=w,h
+	end
+	if not m.tile then
+		m.tile={width=8,height=8}
+	end
+	m.width=map.width(m)
+	m.height=map.height(m)
+end
+
+map.generate = function(m,gen,flat)
 	local w,h=m.w,m.h
 	local args=m.args
 
+	m.flat=flat
+
 	--TODO MAP FLATTEN
-	for y=1,h do
-		table.insert(m,{})
-		for x=1,w do
-			table.insert(m[y],0)
+	if not m.flat then
+		for y=1,h do
+			table.insert(m,{})
+			for x=1,w do
+				table.insert(m[y],0)
+				if type(gen)=="table" then
+					for i,v in ipairs(gen) do
+						generators[v](m,w,h,x,y,args)
+					end
+				else
+					generators[gen](m,w,h,x,y,args)
+				end
+			end
+		end
+		m.width=map.width(m)
+		m.height=map.height(m)
+	else
+		for xy=1,w*h do
+			table.insert(m,0)
 			if type(gen)=="table" then
+				local x=(xy-1)%w+1
+				local y=math.floor(xy/8)--TODO input tilewidth to this function. why?
 				for i,v in ipairs(gen) do
 					generators[v](m,w,h,x,y,args)
 				end
@@ -24,9 +55,8 @@ map.generate = function(m,gen)
 				generators[gen](m,w,h,x,y,args)
 			end
 		end
+		map.init(m)
 	end
-	m.width=map.width(m)
-	m.height=map.height(m)
 end
 
 map.load = function(m,filename,flat)
@@ -35,12 +65,14 @@ map.load = function(m,filename,flat)
 	local mapgrid=textfile.load(filename,flat) --each cell (flags + integer) is loaded into map array
 	supper.copy(m,mapgrid)
 	m.flat=flat
+	print("MAP FLAT:")
+	print(m.flat)
 
 	--TODO do actorspawn flag stuff here to load actor from value of tile
 	if not flat then
 		map.init(m,map.cellwidth(m),map.cellheight(m))
-		m.width=map.width(m)
-		m.height=map.height(m)
+	else
+		map.init(m)
 	end
 
 	-- supper.print(m)
@@ -65,16 +97,8 @@ map.flat.getxy = function(m,x,y)
 	return (y-1)*m.w+x
 end
 
---TODO could probably do away with this by just checking if m.tile exists in code
-map.init = function(m,w,h)
-	if w and h then
-		m.w,m.h=w,h
-	end
-	if not m.tile then
-		m.tile={width=8,height=8}
-	end
-	--m.width=map.width(m)
-	--m.height=map.height(m)
+map.flat.setxy = function(m,x,y,v)
+	m[map.flat.getxy(m,x,y)]=v
 end
 
 --this should work fine with flat maps, just does one row
@@ -105,11 +129,10 @@ end
 
 --TODO get rid of this once map is flattended
 map.width = function(m)
-	--TODO MAP FLATTEN is this possible any more?
 	if not m.flat then
 		return map.cellwidth(m)*m.tile.width
 	else
-		return m.width
+		return m.w*m.tile.width
 	end
 end
 
@@ -121,8 +144,11 @@ end
 
 --TODO get rid of this once map is flattended
 map.height = function(m)
-	--TODO MAP FLATTEN is this possible any more?
-	return map.cellheight(m)*m.tile.height
+	if not m.flat then
+		return map.cellheight(m)*m.tile.height
+	else
+		return m.h*m.tile.height
+	end
 end
 
 map.inbounds = function(m,x,y)
@@ -244,11 +270,14 @@ generators.walls = function(m,w,h,x,y)
 	end
 end
 
---TODO MAP FLATTEN is this possible any more?
 generators.random = function(m,w,h,x,y,args)
 	local pool=args.pool
 	local v=pool[love.math.random(#pool)]
-	m[y][x]=v
+	if not m.flat then
+		m[y][x]=v
+	else
+		map.flat.setxy(m,x,y,v)
+	end
 	--[[
 	if v==2 or v==3 or v==4 then
 		map.setcellflag(m,x,y,EF.animated)
@@ -256,14 +285,17 @@ generators.random = function(m,w,h,x,y,args)
 --]]
 end
 
---TODO MAP FLATTEN is this possible any more?
 generators.increment = function(m,w,h,x,y)
-	m[y][x]=x+(y-1)*w
+	if not m.flat then
+		m[y][x]=x+(y-1)*w
+	else
+		map.setxy(m,x,y,x+(y-1)*w)
+	end
 end
 
---TODO MAP FLATTEN is this possible any more?
 generators.solid = function(m,w,h,x,y,args)
-	local c=m[y][x]
+	local c=map.getcellvalue(m,x,y)
+	--args.solid is a list of numbers, if the value in the cell is in args.solid then set the solid cell flag
 	for i,v in ipairs(args.solid) do
 		if v==c then
 			--print(c)
@@ -339,14 +371,13 @@ drawmodes.grid = function(m,x,y)
 	end
 end
 
---TODO MAP FLATTEN
 drawmodes.numbers = function(m,x,y)
 	local tw,th=m.tile.width,m.tile.height
-	local value=m[y][x]
+	-- local value=m[y][x]
+	local value=map.getcellvalue(m,x,y)--TODO getcellraw here instead?
 	LG.print(value,(x-1)*tw,(y-1)*th)
 end
 
---TODO MAP FLATTEN
 drawmodes.sprites = function(m,x,y)
 	local s=Sprites[1]
 	local tw,th=m.tile.width,m.tile.height
@@ -354,28 +385,29 @@ drawmodes.sprites = function(m,x,y)
 	LG.draw(s.spritesheet,s.quads[value],(x-1)*tw,(y-1)*th)
 end
 
---TODO MAP FLATTEN
 drawmodes.characters = function(m,x,y)
 	local tw,th=m.tile.width,m.tile.height
+	local value=map.getcellvalue(m,x,y)
+	LG.print(string.char(value),(x-1)*tw,(y-1)*th)
 
-	if m.flat then
-		local xy=map.flat.getxy(m,x,y)
-		local value=flags.strip(m[xy])
-		LG.print(string.char(value),(x-1)*tw,(y-1)*th)
-	else
-		local value=flags.strip(m[y][x])
-		LG.print(string.char(value),(x-1)*tw,(y-1)*th)
-	end
+	-- if m.flat then
+	-- 	local xy=map.flat.getxy(m,x,y)
+	-- 	local value=flags.strip(m[xy])
+	-- 	LG.print(string.char(value),(x-1)*tw,(y-1)*th)
+	-- else
+	-- 	local value=flags.strip(m[y][x])
+	-- 	LG.print(string.char(value),(x-1)*tw,(y-1)*th)
+	-- end
 end
 
---TODO MAP FLATTEN
 drawmodes.isometric = function(m,x,y)
 	local tw,th=m.tile.width,m.tile.height
 	local t=Game.timer
 
 	--if (y-1)*#m[y]+x<=t then
 	local isox,isoy=(x-1)*tw/2+m.width/2,(y-1)*th/4+m.height/2
-	local value=flags.strip(m[y][x])
+	-- local value=flags.strip(m[y][x])
+	local value=map.getcellvalue(m,x,y)
 
 	LG.draw(Sprites[3].spritesheet,Sprites[3].quads[value],isox,isoy,0,1,1,(y-1)*tw/2,(x-1)*-th/4)
 	if Debugger.debugging then
