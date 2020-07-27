@@ -25,7 +25,6 @@ map.generate = function(m,gen,flat)
 
 	m.flat=flat
 
-	--TODO MAP FLATTEN
 	if not m.flat then
 		for y=1,h do
 			table.insert(m,{})
@@ -45,8 +44,13 @@ map.generate = function(m,gen,flat)
 	else
 		for xy=1,w*h do
 			table.insert(m,0)
-			local x=(xy-1)%w+1
-			local y=math.floor(xy/h)+1
+			local x,y=map.flat.getxandy(m,xy)
+			-- local x=(xy-1)%w+1
+			-- local y=math.floor(xy/h)+1
+			-- print("X")
+			-- print(x)
+			-- print("Y")
+			-- print(y)
 			if type(gen)=="table" then
 				for i,v in ipairs(gen) do
 					generators[v](m,w,h,x,y,args)
@@ -82,9 +86,6 @@ map.load = function(m,filename,flat)
 	return m
 end
 
-map.flat.generate = function(m,gen)
-end
-
 map.flat.load = function(m,filename)
 	local mapflat=textfile.flat.load(filename)
 	print(mapflat)
@@ -92,15 +93,11 @@ map.flat.load = function(m,filename)
 end
 
 map.flat.getxy = function(m,x,y)
--- 	print("MAP")
--- 	print(m)
--- print("X")
--- print(x)
--- print("Y")
--- print(y)
--- 	print("M.W")
--- 	print(m.w)
 	return (y-1)*m.w+x
+end
+
+map.flat.getxandy = function(m,xy)
+	return (xy-1)%m.w+1,math.ceil(xy/m.w)
 end
 
 map.flat.setxy = function(m,x,y,v)
@@ -204,7 +201,6 @@ end
 map.getcellvalue = function(m,x,y,cell)--takes world x,y coordinates and returns the value of the cell under those coordinates
 	local cx,cy=x,y
 	if not cell then
-		print("NOT CELL")
 		cx,cy=map.getcellcoords(m,x,y)
 	end
 
@@ -212,8 +208,6 @@ map.getcellvalue = function(m,x,y,cell)--takes world x,y coordinates and returns
 		return flags.strip(m[cy][cx])
 	else
 		local mval=m[map.flat.getxy(m,cx,cy)]
-		print("M VAL")
-		print(mval)
 		return flags.strip(mval)
 	end
 end
@@ -366,8 +360,8 @@ generators.buildings = function(m,w,h,x,y,args)
 end
 
 drawmodes.grid = function(m,x,y)
-	local g=Game
 	if x==1 or y==1 then
+		local g=Game
 		local tw,th=m.tile.width,m.tile.height
 		local c=g.palette[g.level.c or "white"]
 		local r,gr,b=c[1],c[2],c[3]
@@ -376,11 +370,12 @@ drawmodes.grid = function(m,x,y)
 		LG.setColor(r,gr,b,0.47)
 
 		if x==1 then
-			--LG.line(0,y*th,map.width(m),y*th)
-			LG.line(0,y*th,map.width(m),y*th)
+			local yh=y*th
+			LG.line(0,yh,m.width,yh)
 		end
 		if y==1 then
-			LG.line(x*tw,0,x*tw,map.height(m))
+			local xw=x*tw
+			LG.line(xw,0,xw,m.height)
 		end
 		LG.setColor(g.palette["pure_white"])
 	end
@@ -394,10 +389,11 @@ drawmodes.numbers = function(m,x,y)
 end
 
 drawmodes.sprites = function(m,x,y)
-	local s=Sprites[1]
-	local tw,th=m.tile.width,m.tile.height
 	local value=map.getcellvalue(m,x,y,true)
-	LG.draw(s.spritesheet,s.quads[value],(x-1)*tw,(y-1)*th)
+	if value~=0 then--doing this because sprite 0 is all black and will overdraw other drawmodes
+		local s=Sprites[1]
+		LG.draw(s.spritesheet,s.quads[value],(x-1)*m.tile.width,(y-1)*m.tile.height)
+	end
 end
 
 drawmodes.characters = function(m,x,y)
