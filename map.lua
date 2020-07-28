@@ -126,7 +126,6 @@ end
 --TODO ALL maps should have w h width height
 --TODO get rid of this once map is flattended
 map.cellwidth = function(m)
-	--TODO MAP FLATTEN is this possible any more?
 	return #m[1]
 end
 
@@ -141,7 +140,6 @@ end
 
 --TODO get rid of this once map is flattended
 map.cellheight = function(m)
-	--TODO MAP FLATTEN is this possible any more?
 	return #m
 end
 
@@ -170,12 +168,15 @@ map.inbounds = function(m,x,y)
 	return nil
 end
 
---TODO MAP FLATTEN
 map.solid = function(m,x,y)
 	local mapcell=m
 	if type(m)=="table" then
 		--TODO if x and y here?
-		mapcell=m[y][x]
+		if not m.flat then
+			mapcell=m[y][x]
+		else
+			mapcell=map.getcellraw(m,x,y,true)
+		end
 	end
 	return flags.get(mapcell,EF.solid,16)
 end
@@ -188,8 +189,11 @@ map.getcellcoords = function(m,x,y)--returns the cell coords of worldspace coord
 	return cx,cy
 end
 
-map.getcellraw = function(m,x,y)
-	local cx,cy=map.getcellcoords(m,x,y)
+map.getcellraw = function(m,x,y,cell)
+	local cx,cy=x,y
+	if not cell then
+		cx,cy=map.getcellcoords(m,x,y)
+	end
 	if not m.flat then
 		return m[cy][cx]
 	else
