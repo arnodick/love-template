@@ -20,7 +20,8 @@ Music=supper.load("music","wav")
 -- local ssl = require("ssl")
 
 function love.load(args)
-	game.make("multigame")
+	-- game.make("multigame")
+	game.make("offgrid")
 	-- supper.print(Game.options)
 	-- supper.print(args)
 	if supper.contains(args,"development") then
@@ -48,7 +49,9 @@ function love.keypressed(key,scancode,isrepeat)
 		game.keypressed(g,key,scancode,isrepeat)
 
 		if key == '`' then
-			Debugger.debugging = not Debugger.debugging
+			if Debugger.development then
+				Debugger.debugging = not Debugger.debugging
+			end
 		elseif key == 'f' then
 			love.window.setFullscreen(not love.window.getFullscreen())
 			screen.update(g)
@@ -89,9 +92,11 @@ function love.joystickadded(joystick)
 
 	--TODO make a function that assigns controllers to player and menus from g.options?
 	if g.options then
-		m.controller=nil
-		module.make(m,EM.controller,EMC.move,EMCI[g.options.controller])
-		module.make(m,EM.controller,EMC.action,EMCI[g.options.controller])
+		if m then
+			m.controller=nil
+			module.make(m,EM.controller,EMC.move,EMCI[g.options.controller])
+			module.make(m,EM.controller,EMC.action,EMCI[g.options.controller])
+		end
 	end
 
 	print("Joystick "..joystick:getID())
