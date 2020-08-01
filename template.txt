@@ -8,9 +8,6 @@ controller options saved to config, player_controller: "gamepad" or "keyboard" t
 in roguelike mode, make map.actor grid. each cell is either nil if no actor, or actor's index (in g.actors) if actor in cell.
 	how to set/update? every time actor moves, or in one big loop at end of turn?
 
-flatten maps? ie instead of map[y][x] it would be map[x*y math magic here]
-	(y-1)*w+x ?
-
 levels have modes, NOT games (can default a level's mode to eg roguelike if game is all roguelike levels so don't have to put "mode":"roguelike" in every level)
 	put modes into level.lua?
 	mode.map.draw instead of draw folder, like mode.actor.draw

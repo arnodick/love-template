@@ -1,4 +1,6 @@
 DONE
+flatten maps? ie instead of map[y][x] it would be map[x*y math magic here]
+	(y-1)*w+x ?
 update to love 11.3
 The enum ARE the returns from library load of lua files
 	Have exclude instead of include in library load, so can not load certain folders into enums when lua library load

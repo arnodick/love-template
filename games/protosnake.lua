@@ -46,8 +46,9 @@ protosnake.level.store=
 }
 
 protosnake.level.make = function(g,l,index)
+	local m=l.map
 	if not g.player or g.player.hp<=0 then
-		local a=actor.make(g,EA.scorpion,l.map.width/2,l.map.height/2)
+		local a=actor.make(g,EA.scorpion,m.width/2,m.height/2)
 		game.player.make(g,a,true)
 	end
 	if index~=g.levelpath[#g.levelpath] then
@@ -58,8 +59,8 @@ protosnake.level.make = function(g,l,index)
 	end
 	l.spawnindex=1
 	protosnake.level[l.t].make(g,l)
-	g.camera.x=map.width(l.map)/2--TODO without -8 portal graphics all screwy, dynamicify portal effect
-	g.camera.y=map.height(l.map)/2-- -8 here too
+	g.camera.x=m.width/2--TODO without -8 portal graphics all screwy, dynamicify portal effect
+	g.camera.y=m.height/2-- -8 here too
 	return l
 end
 

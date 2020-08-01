@@ -14,8 +14,8 @@ map.init = function(m,w,h)
 	if not m.tile then
 		m.tile={width=8,height=8}
 	end
-	m.width=map.width(m)
-	m.height=map.height(m)
+	m.width=m.w*m.tile.width
+	m.height=m.h*m.tile.height
 end
 
 map.generate = function(m,gen)
@@ -83,17 +83,7 @@ map.draw = function(m,drawmode)
 	end
 end
 
---TODO ALL maps should have w h width height
-
---TODO get rid of this once map is flattended
-map.width = function(m)
-	return m.w*m.tile.width
-end
-
---TODO get rid of this once map is flattended
-map.height = function(m)
-	return m.h*m.tile.height
-end
+--TODO ALL maps should have w h width height, tile.width/height
 
 map.inbounds = function(m,x,y)
 	local xy=map.getxy(m,x,y)

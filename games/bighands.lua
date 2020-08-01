@@ -41,7 +41,7 @@ bighands.gameplay =
 		--module.make(g.camera,EM.transition,easing.inOutSine,"zoom",g.camera.zoom,zoomchange,60)
 		level.make(g,1,Enums.modes.topdown_tank)
 		local m=g.level.map
-		actor.make(g,EA.witch,map.width(m)/2-5,map.height(m)/2-5)
+		actor.make(g,EA.witch,m.width-5,m.height/2-5)
 	end,
 
 	keypressed = function(g,key)
@@ -57,7 +57,7 @@ bighands.gameplay =
 			--print(joystick:getID())
 			if #Joysticks>#g.players then
 				local m=g.level.map
-				local a=actor.make(g,EA.witch,map.width(m)/2,map.height(m)/2)
+				local a=actor.make(g,EA.witch,m.width/2+5,m.height/2)
 				game.player.make(g,a)
 			end
 		end

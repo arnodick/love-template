@@ -11,7 +11,7 @@ raycaster.gameplay =
 	make = function(g)
 		level.make(g,1,Enums.modes.topdown)
 		local m=g.level.map
-		actor.make(g,EA.template_actor,map.width(m)/2-5,map.height(m)/2-5)
+		actor.make(g,EA.template_actor,m.width/2-5,m.height/2-5)
 	end,
 
 	keypressed = function(g,key)
