@@ -1,7 +1,7 @@
 local function make(m,menu_functions,menu_function_args)
 	m.menu_functions=menu_functions
 	m.menu_function_args=menu_function_args
-	debugger.printtable(m.menu_functions)
+	supper.print(m.menu_functions)
 	if m.text then
 		m.text.index=1
 	end
@@ -110,6 +110,7 @@ local function keyreleased(m,key)
 					local l={}
 					if i<5 then
 						if not m.back then
+							--TODO MAP FLATTEN is this possible any more?
 							l=g.levels[g.map[m.menu_function_args[i][3]][m.menu_function_args[i][2]]]
 						else
 							l=g.levels[m.back]
@@ -180,16 +181,16 @@ local function draw(m)
 			LG.line(arrowx,arrowy+arrowlength,arrowx,arrowy-arrowlength)
 			LG.line(arrowx-arrowlength,arrowy,arrowx+arrowlength,arrowy)
 
-			local linealpha=255
+			local linealpha=1
 			if m.text.index then
 				if m.text.index~=i then
-					linealpha=50
+					linealpha=0.2
 				end
 			end
 			local c1,c2=m.c1,m.c2
 			local l=g.levels[g.map[mapy][mapx]]
 			if l.unlock and not g.player.items[l.unlock] then
-				c1=EC.black
+				c1="black"
 			end
 			--LG.printformat(m.text[i],points[1],points[2],m.w/printwidth,"center",c1,c2,linealpha)
 			LG.printformat(m.text[i],points[1],points[2],printwidth,"center",c1,c2,linealpha)
@@ -239,7 +240,6 @@ local function draw(m)
 			end
 			table.insert(colourtext,string.sub(m.description,i,i))
 		end
-		--LG.printformat(colourtext,300,700,g.width/2,"left",EC.white,EC.blue,255)
 		if not m.wordlearned then
 			LG.printf(colourtext,300,700,g.width/2,"left")
 		else

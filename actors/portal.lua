@@ -1,5 +1,5 @@
 local function make(g,a,c,size)
-	a.cinit=c or EC.dark_purple
+	a.cinit=c or "dark_purple"
 	a.c=a.cinit
 	a.sizeinit=size or 20
 	a.size=a.sizeinit
@@ -25,7 +25,7 @@ local function control(g,a,gs)
 			th=th-diff
 		end
 
-	local imgdata=g.level.canvas.background:newImageData(ix,iy,tw,th)
+	local imgdata=g.level.canvas.background:newImageData(1,1,ix,iy,tw,th)
 
 	imgdata:mapPixel(pixelmaps.sparkle)
 	imgdata:mapPixel(pixelmaps.crush)
@@ -57,9 +57,10 @@ local function draw(g,a)
 	local xcamoff,ycamoff=g.camera.x-g.width/2,g.camera.y-g.height/2
 	LG.setCanvas(g.level.canvas.background)
 		LG.translate(xcamoff,ycamoff)
-		LG.setColor(g.palette[EC.pure_white])
+		LG.setColor(g.palette["pure_white"])
+		-- LG.setColor(g.palette["black"])
 		LG.draw(a.image,a.x,a.y,0,1,1,a.sizeinit,a.sizeinit)
-		LG.setColor(g.palette[a.c])
+		LG.setColor(g.palette[a.c])--TODO new color worky?
 		local curve=love.math.newBezierCurve(
 			a.x,
 			a.y,

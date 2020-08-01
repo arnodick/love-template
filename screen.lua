@@ -26,6 +26,7 @@ local function update(g)
 	s.canvas=LG.newCanvas(gw,gh)
 	s.clear=true
 	g.screen=s
+	Shader:send("screenScale",s.scale)
 end
 
 local function control(g,s,gs)
@@ -51,6 +52,7 @@ local function control(g,s,gs)
 			end
 			LG.draw(g.canvas.main,      0,0,0,s.pixelscale,s.pixelscale)
 		LG.setCanvas()
+		
 		LG.draw(tempcanvas,x,y,0,scale,scale,g.width/2*s.pixelscale,g.height/2*s.pixelscale) --just like draws everything to the screen or whatever
 
 		transition.control(s,s.transition)
@@ -72,7 +74,9 @@ local function control(g,s,gs)
 				LG.draw(g.canvas.main,0,0,0,s.pixelscale,s.pixelscale)
 			--end
 		LG.setCanvas()
+		love.graphics.setShader(Shader)
 		LG.draw(s.canvas,x,y,0,scale,scale,g.width/2*s.pixelscale,g.height/2*s.pixelscale)
+		love.graphics.setShader()
 --[[
 		LG.draw(g.canvas.background,x,y,0,scale,scale,g.camera.x,g.camera.y)
 		if g.level then

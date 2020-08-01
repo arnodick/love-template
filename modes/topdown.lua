@@ -1,4 +1,7 @@
-local function control(a,m,gs)
+local topdown={}
+topdown.actor={}
+
+topdown.actor.control = function(a,m,gs)
 	if a.controller then
 		local c=a.controller.move
 		if c then
@@ -18,15 +21,13 @@ local function control(a,m,gs)
 
 	local g=Game
 
-	local xcell,ycell=map.getcellcoords(m,a.x,a.y)
-	local xdest,ydest=a.x + a.vec[1]*a.vel*a.speed*gs,a.y - a.vec[2]*a.vel*a.speed*gs
-	local xcelldest,ycelldest=map.getcellcoords(m,xdest,ydest)
-	
-	local xmapcell=m[ycell][xcelldest]
-	local ymapcell=m[ycelldest][xcell]
+	local xdest,ydest=a.x+a.vec[1]*a.vel*a.speed*gs,a.y-a.vec[2]*a.vel*a.speed*gs
+
+	local xmapcell=map.getcellraw(m,xdest,a.y)
+	local ymapcell=map.getcellraw(m,a.x,ydest)
 	local collx,colly=false,false
 	if not flags.get(xmapcell,EF.solid,16) then
-		a.x = xdest
+		a.x=xdest
 	else
 		collx=true
 	end
@@ -55,7 +56,8 @@ local function control(a,m,gs)
 	end
 end
 
-return
-{
-	control = control,
-}
+topdown.actor.draw = function(g,a)
+	actor.twodimensional.draw(g,a)
+end
+
+return topdown

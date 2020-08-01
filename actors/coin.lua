@@ -1,5 +1,5 @@
 local function make(g,a,c,size,spr)
-	a.cinit=c or EC.pure_white
+	a.cinit=c or "pure_white"
 	a.c=a.cinit
 	a.size=size or 1
 	a.spr=spr or 113
@@ -19,7 +19,7 @@ local function make(g,a,c,size,spr)
 	a.deltimer=0
 	a.follow=false
 	a.value=1
-	a.alpha=255
+	a.alpha=1
 	a.flags=flags.set(a.flags,EF.bouncy)
 end
 

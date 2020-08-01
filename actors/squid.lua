@@ -1,5 +1,5 @@
 local function make(g,a,c,size,spr,hp)
-	a.cinit=c or EC.yellow
+	a.cinit=c or "yellow"
 	a.c=a.cinit
 	a.size=size or 1
 	a.spr=spr or 97
@@ -24,7 +24,7 @@ local function control(g,a)
 	if love.math.random(10000)==1 then
 		--actor.load(g,"hp",a.x,a.y)
 ----[[
-		local smolhp=actor.make(g,EA.hp,a.x,a.y,0,0,EC.red,1,129)
+		local smolhp=actor.make(g,EA.hp,a.x,a.y,0,0,"red",1,129)
 		smolhp.value=1
 		smolhp.scalex=0.5
 		smolhp.scaley=0.5

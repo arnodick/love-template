@@ -1,4 +1,6 @@
-local function make(a,cont,t,input,ai1,ai2)
+local controller={}
+
+controller.make = function(a,cont,t,input,ai1,ai2)
 	local controllertypename=EMC[t]
 	cont[controllertypename]={}--this gives the controller a table named after the controller's type (ie controller.move)
 	local c=cont[controllertypename]--c is the controller's type sub-table (ie move)
@@ -8,7 +10,8 @@ local function make(a,cont,t,input,ai1,ai2)
 	if input==EMCI.gamepad then
 		c.id=ai1 or 1
 	elseif input==EMCI.keyboard then
-		c.vector=ai1
+		c.inputtype=ai1 or "vector"
+		-- c.vector=ai1
 	end
 
 	if t==EMC["action"] then
@@ -20,24 +23,23 @@ local function make(a,cont,t,input,ai1,ai2)
 	run(EMC[t],"make",a,c)
 end
 
-local function update(a,gs)
+controller.update = function(a,gs)
 	local c=a.controller
-
 	if c then
-		for k,v in pairs(c) do
-			local controllername=EMC[v.t]
+		for k,v in pairs(c) do--this runs all the actor's controllers eg move, action
+			local controllertype=EMC[v.t]--controllertype will be "move", "action", etc
+			local ct=_G[controllertype]["control"]
 
-			if _G[controllername]["control"] then
-				local inputname=EMCI[v.input]
-				
-				local command1,command2=_G[inputname][controllername](a,v)
-				_G[controllername]["control"](a,v,gs,command1,command2)
+			if ct then
+				local inputname=EMCI[v.input]--"keyboard" "gamepad" "ai"
+				local command1,command2=_G[inputname][controllertype](a,v)--will run input's type eg keyboard.move, returns commands eg horizontal, vertical movement
+				ct(a,v,gs,command1,command2)--will run controller type's control, eg move.control, which sets controller's values eg, c.horizontal = horizontal etc
 			end
 		end
 	end
 end
 
-local function gamepadpressed(a,button)
+controller.gamepadpressed = function(a,button)
 	local c=a.controller
 	if c then
 		for k,v in pairs(c) do
@@ -48,7 +50,7 @@ local function gamepadpressed(a,button)
 	end
 end
 
-local function deadzone(c,dz)
+controller.deadzone = function(c,dz)
 	local l=vector.length(c.horizontal,c.vertical)
 	if l<dz then
 		c.horizontal=0
@@ -68,10 +70,4 @@ local function deadzone(c,dz)
 --]]
 end
 
-return
-{
-	make = make,
-	update = update,
-	gamepadpressed = gamepadpressed,
-	deadzone = deadzone
-}
+return controller

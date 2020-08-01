@@ -9,6 +9,8 @@ local function make(a,m,easing,variablename,startvalue,change,duration,complete,
 	m.complete_args=complete_args
 	m.t=t
 	if m.t then
+		print("m.t "..m.t)
+		print("EM.transitions[m.t] "..EM.transitions[m.t])
 		run(EM.transitions[m.t],"make",a,m)
 	end
 	a[m.variablename]=startvalue
@@ -20,7 +22,7 @@ local function control(a,m)
 	local timeelapsed=Game.timer-m.starttime
 	a[m.variablename]=m.easing(timeelapsed,m.startvalue,m.change,m.duration)
 
-	--print(a[m.variablename])
+	-- print(a[m.variablename])
 
 	if m.t then
 		run(EM.transitions[m.t],"control",a,m)
@@ -28,7 +30,15 @@ local function control(a,m)
 
 	if timeelapsed>=m.duration then
 		if m.complete then
-			m.complete(unpack(m.complete_args))
+			print("TRANSITION COMPLETE "..tostring(m.complete_args))
+			if m.t==EM.transitions.destroy then
+				print("TRANSITION DESTROY")
+				m.complete(m.complete_args)
+			elseif type(m.complete_args)=="table" then
+					m.complete(unpack(m.complete_args))
+			else
+				m.complete(m.complete_args)
+			end
 		end
 		a[m.variablename]=m.startvalue+m.change
 		a.transition=nil

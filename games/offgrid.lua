@@ -32,12 +32,12 @@ offgrid.make = function(g)
 	table.insert(g.chars,"_")
 	table.insert(g.chars,"~")
 
-	local images=game.files(g,"images/offgrid","jpg")
+	local images=supper.load("images/offgrid","jpg")
 	g.images={}
 	local buffer=LG.newCanvas(640*g.bufferscale,640*g.bufferscale)
 	offgrid.convertimages(g,g.images,images,buffer)
-	debugger.printtable(g.images)
-	--debugger.printtable(_G)--NOTE DON'T DO THIS! gets stuck in loop printing forever, because _G is a member of _G
+	supper.print(g.images)
+	--supper.print(_G)--NOTE DON'T DO THIS! gets stuck in loop printing forever, because _G is a member of _G
 end
 
 offgrid.level={}
@@ -58,7 +58,7 @@ offgrid.level.city =
 			offgrid.level.makemoveoption(g,m,g.player.x-1,g.player.y,"West",4)
 		end
 
-		--module.make(l,EM.menu,EMM.interactive_fiction,320,800,640,320,m.text,EC.white,EC.dark_gray,"left",m.functions,m.arguments)
+		--module.make(l,EM.menu,"interactive_fiction",320,800,640,320,m.text,"white","dark_gray","left",m.functions,m.arguments)
 		if l.options then
 			if not (l.unlock_description and g.player.items[l.unlock_description_item]) then
 				for i,v in ipairs(l.options) do
@@ -72,21 +72,21 @@ offgrid.level.city =
 				end
 			end
 		end
-		module.make(l,EM.menu,"interactive_fiction",320,800,640,320,m.text,EC.white,EC.dark_gray,"left",m.functions,m.arguments)
+		module.make(l,EM.menu,"interactive_fiction",320,800,640,320,m.text,"white","dark_gray","left",m.functions,m.arguments)
 		if l.selected_index then
 			l.menu.text.index=l.selected_index
 		end
 		if l.options then
 			if not (l.unlock_description and g.player.items[l.unlock_description_item]) then
 				l.menu.options=l.options
-				debugger.printtable(l.menu.options)
+				supper.print(l.menu.options)
 			end
 		end
 		if l.back then
 			l.menu.back=l.back
 		end
-		--debugger.printtable(l.menu.options)
-		--local args={l,EM.menu,EMM.interactive_fiction,320,800,640,320,m.text,EC.white,EC.dark_gray,"left",m.functions,m.arguments}
+		--supper.print(l.menu.options)
+		--local args={l,EM.menu,"interactive_fiction",320,800,640,320,m.text,"white","dark_gray","left",m.functions,m.arguments}
 		--module.make(l,EM.transition,easing.linear,"transition_timer",0,1,240,module.make,args,EM.transitions.screen_transition_blocksreverse)
 		if l.transition_in then
 			--module.make(l,EM.transition,easing.linear,"transition_timer",0,1,240,nil,nil,EM.transitions.screen_transition_blocksreverse)
@@ -124,9 +124,9 @@ offgrid.level.city =
 			if l.unlock_item_get then
 				if not g.player.items[l.unlock_item_get] then
 					print(l.unlock_item_get)
-					debugger.printtable(g.player.items)
+					supper.print(g.player.items)
 					g.player.items[l.unlock_item_get]=l.unlock_item_get
-					debugger.printtable(g.player.items)
+					supper.print(g.player.items)
 				end
 			elseif l.unlock_items_get then
 				for i,v in ipairs(l.unlock_items_get) do
@@ -142,9 +142,9 @@ offgrid.level.city =
 		if l.item then
 			if not g.player.items[l.item] then
 				print(l.item)
-				debugger.printtable(g.player.items)
+				supper.print(g.player.items)
 				g.player.items[l.item]=l.item
-				debugger.printtable(g.player.items)
+				supper.print(g.player.items)
 			end
 		end
 	end,
@@ -176,17 +176,17 @@ offgrid.level.word =
 		m.functions={}
 		offgrid.level.makebackoption(g,m,l.back)
 
-		module.make(l,EM.menu,"interactive_fiction",320,600,640,320,m.text,EC.white,EC.dark_gray,"center",m.functions,m.arguments)
+		module.make(l,EM.menu,"interactive_fiction",320,600,640,320,m.text,"white","dark_gray","center",m.functions,m.arguments)
 		l.menu.wordlearned=true
 		l.menu.back=l.back
 		l.menu.description=l.description
 		module.make(l.menu,EM.transition,easing.linear,"text_trans",0,string.len(l.menu.description),360)
 
 		print(l.item)
-		debugger.printtable(g.player.words)
+		supper.print(g.player.words)
 		g.player.words[l.word]=l.word
 		g.player.items[l.word]=l.word
-		debugger.printtable(g.player.words)
+		supper.print(g.player.words)
 	end,
 
 	control = function(g,l)
@@ -200,7 +200,7 @@ offgrid.level.offgrid =
 {
 	make = function(g,l)
 		--TODO here will maybe be the options that you can go to from here? offgrid areas (usually won't have option to go back, choices of where you can go aren't based on the grid, but are instead linked lists sort of. will need a menu where you can use items, talk to people, etc. more like a story than an exploration)
-		module.make(l,EM.menu,EMM.interactive,g.width/2,120,160,50,g.player.words,EC.orange,EC.dark_green,"center")
+		module.make(l,EM.menu,"interactive",g.width/2,120,160,50,g.player.words,"orange","dark_green","center")
 	end,
 
 	control = function(g,l)
@@ -285,6 +285,8 @@ end
 offgrid.level.makemoveoption = function(g,m,x,y,dir,index)
 --checks if a point on the map has a level in it
 --if so, puts that in the menu as an option
+
+	--TODO MAP FLATTEN
 	if g.map[y] then
 		if g.map[y][x] then	
 			local value=g.map[y][x]
@@ -328,7 +330,7 @@ offgrid.level.makeinspectoption = function(g,m,name,index,gamename)
 		m.arguments[index]={g,name}
 	end
 	--print("MMMMMMMMM")
-	--debugger.printtable(m)
+	--supper.print(m)
 end
 
 offgrid.level.makebackoption = function(g,m,name)
@@ -405,7 +407,7 @@ offgrid.title =
 			LG.setFont(g.titlefont)
 		end
 		--LG.print("ARROWS keys and Z",g.width/2,g.height/2)
-		LG.printformat("ARROWS keys and Z",0,800,640,"center",EC.white,EC.dark_gray,100+math.sin(g.timer/10)*100)
+		LG.printformat("ARROWS keys and Z",0,800,640,"center","white","dark_gray",100+math.sin(g.timer/10)*100)
 	end
 }
 
@@ -463,10 +465,13 @@ offgrid.intro =
 		if g.drawoffgrid==true then
 			LG.setCanvas(g.canvas.buffer)
 				LG.clear()
-				LG.printformat("OFF THE GRID",0,0,g.width,"center",EC.dark_gray,EC.dark_gray,255)
+				LG.printformat("OFF THE GRID",0,0,g.width,"center","dark_gray","dark_gray",255)
 			LG.setCanvas(g.canvas.main)
 
-			local imgdata=g.canvas.buffer:newImageData(0,0,640,320)
+			print(g.canvas.buffer)
+			print(g.canvas.buffer.getDimensions(g.canvas.buffer))
+			--TODO because buffer is automatically made from size of game this fails, need to ahve bigger canvas, how big did offgrid make it before?
+			local imgdata=g.canvas.buffer:newImageData(1,1,0,0,640,320)
 			local iw,ih=imgdata:getWidth(),imgdata:getHeight()
 			--imgdata:mapPixel(pixelmaps.crush)
 	
@@ -481,7 +486,7 @@ offgrid.intro =
 			love.graphics.draw(image,0,550,0,1,1)
 
 			LG.setFont(g.titlefont)
-			LG.printformat("press Z to start",0,800,640,"center",EC.white,EC.dark_gray,100+math.sin(g.timer/10)*100)
+			LG.printformat("press Z to start",0,800,640,"center","white","dark_gray",100+math.sin(g.timer/10)*100)
 		end
 	end
 }

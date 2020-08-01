@@ -1,66 +1,57 @@
 local scores={}
 
+--TODO take g in, has settings for amount of scores etc
+--TODO score.make? makes a {"name",score} table
 scores.load = function()
-	if not love.filesystem.exists("scores.ini") then
-		local h={}
-		local n={}
+	local s={}
+	local fileinfo=love.filesystem.getInfo("scores.json")
+	if fileinfo.type~=nil then--if file isn't a directory
 		for i=1,8 do
-			table.insert(h,i*2)
-			table.insert(n,"ASH")
+			table.insert(s,{name="ASH",score=love.math.random(10)})
 		end
-		local scores=
-		{
-			high=h,
-			names=n,
-		}
-		
-		LIP.save("scores.ini",scores)
+		scores.sort(s)
+		json.save("scores.json",s)
+	else
+		s=json.load("scores.json")
 	end
-	return LIP.load("scores.ini")
+	return s
 end
 
-scores.update = function()
-	local scores=scores.load()
-	local s={}
-	for j=1,#scores.high do
-		table.insert(s,{scores.names[j],scores.high[j]})
-	end
-	local score=Game.score
-	table.insert(s,{"",score})
-
+scores.sort = function(s,descending)
+	descending=descending or false
 	local function scoresort(a,b)
-		if a[2]>b[2] then
-			return true
-		else
-			return false
+		if a.score<=b.score then
+			return descending
+		elseif a.score>b.score then
+			return not descending
 		end
 	end
-
 	table.sort(s,scoresort)
+end
+
+--TODO input g here
+scores.update = function()
+	local s=scores.load()
+
+	table.insert(s,{name="",score=Game.score})
+
+	scores.sort(s)
 
 	for i=#s,1,-1 do
-		if i>8 then
+		if i>8 then--TODO make this get its input from g.score or something
 			table.remove(s,i)
 		end
 	end
-
-	scores.high={}
-	scores.names={}
-	for k=1,#s do
-		scores.names[k]=s[k][1]
-		scores.high[k]=s[k][2]
-	end
-
-	Game.scores=scores
+	Game.scores=s
 end
 
 scores.save = function()
-	for i=1,#Game.scores.names do
-		if Game.scores.names[i]=="" then
-			Game.scores.names[i]="X"
+	for i,v in ipairs(Game.scores) do
+		if v.name=="" then
+			v.name="X"
 		end
 	end
-	LIP.save("scores.ini",Game.scores)
+	json.save("scores.json",Game.scores)
 end
 
 return scores

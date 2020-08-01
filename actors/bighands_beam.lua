@@ -2,7 +2,6 @@ local function make(g,a,gx,gy,ga)
 	a.gx=gx or 1
 	a.gy=gy or 1
 	a.ga=ga or 1
-	--a.c=c or EC.blue
 end
 
 local function control(g,a,gs)

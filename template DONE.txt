@@ -1,4 +1,53 @@
 DONE
+update to love 11.3
+The enum ARE the returns from library load of lua files
+	Have exclude instead of include in library load, so can not load certain folders into enums when lua library load
+	Do numbers for every table made with library load?
+	Maybe load is part of supper?
+conf.lua, how is it generated? make a new one for v11
+figure out weird mouse shit, why is not showing up? IT IS BECAUSE OF mouse.setRelativeMode
+	what's going on with cursor? config setting or something else? why not drawing it?
+GET RID OF ENUMS! just use strings
+	how to programmatically make things then? have supper.names, but would need a table to run it on. maybe if WE start doing something like modules.menu.make instead of menu.make, then can use numbers/names on modules table
+	can we just use names instead of enums?
+install love latest version 11.2 in frameworks folder, make shrotcuts to run game and build game with it
+	list of breaking changes:
+
+
+	Changed the variant of Canvas:newImageData which accepts x/y/width/height to also require slice and mipmap index parameters, which are used when the Canvas isn't a 2D type or has mipmaps.
+get rid of filterfiles
+	use library on DONE music,palettes,sfx,gfx
+		gfx uses filterfiles
+			how to handle spritesheet and quadsheet?
+		Put spritesheets and quad sheets in GFX table
+			maybe spritesheet can be table with sprites and wuads as members ie spritesheets[1]={sprites,quads}
+clean up library
+could game.files be used more widely? what does it do exactly? comment it, figure out if it can be generalized elsewhere
+	game.files
+		RECURSIVELY uses getDirectoryItems to load all jsons or jpegs
+		returns a table populated with the assets
+			used in game to load actors, levels, offgrid to load images
+	libraries
+		RECURSIVELY uses getDirectoryItems to use require on all lua files
+		returns nothing, just uses require
+			only used in main, but have to use it there
+		maybe pass in table to add stuff to? so for levels library.load(g.levels,...) but for lua files, library.load(_G,...)
+		problem is, library loads in stuff only by one global name, converting to game.files style will make subfoldered .lua files to be nested in other tables eg: modules.menus.interactive
+			maybe we just go with it and have subfolder'd tables for code
+				if so:
+				actor.run thing has to be changed
+				folders with lua code: actors, flags, tools, (has subfolders) modules, modes, games
+					
+	utils.getfiles
+		NON-recursively uses getDirectoryItems to get the directory paths of files with a specific extension
+		returns a table populated with directory path strings
+			only used in palette.load
+can we get rid of lip, use only json instead?
+make supper.print show parent table, put in supper, make optional print function input so can print to whatever
+	need to rework palettes. what do WE want from them? easily listed in json by key, but with int indexes for colour names too
+		want int indexes so colours can be procedurally accessed. do we need ints for this? maybe not.
+clean up utils, comment, put stuff in supper maybe
+branch template when a game is ready to be released, rather than copying the whole folder over
 sound (behaves different when spatial sound is used)
 editor (needs cursor types)
 hi score (transfer from royale we, clean up)
@@ -107,6 +156,8 @@ graphics stuff in game library
 editor not as module but as its own .lua library
 
 NO
+make sprites.load use library.load, not other way around
+use filterfiles in other things like library?
 player as module
 get rid of all enums for module making? just do string input. keep old EM[] module code commented out, in case we need it later
 different renderers or types or something for screen
@@ -120,7 +171,7 @@ things that couold be modules maybe
 	camera
 menu x,y offset or something
 maybe enums generation just goes in libraries load?
-	figure out how enums.lua and libraries.lua are different, merge them
+	figure out how enums.lua and library.lua are different, merge them
 	if folder is one of the recursive enum ones, make it put functions into its parent
 	enum generator automatically adds modules to its parent's table ie actor.drop.make
 maybe actor.calltype and actor.callsubtype? EA[nameof[a.t]] and EA[nameof[a.t][nameof[a.st]]] respectively

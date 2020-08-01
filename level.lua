@@ -14,20 +14,22 @@ level.make = function(g,index,mode)
 	end
 	g.levels.index=index
 	if g.levels[index] then
-		copytable(l,g.levels[index])
+		supper.copy(l,g.levels[index])
 	end
 	if l.map then
 		if l.map.file then
-			--l.map=map.load("/maps/"..l.map.file..".txt")
-			map.load(l.map,"/maps/"..l.map.file..".txt")
+			-- map.load(l.map,"/maps/"..l.map.file..".txt")
+
+			map.load(l.map,"/maps/"..l.map.file..".txt",g.flat)
 		elseif l.map.generators then
-			map.generate(l.map,l.map.generators)
+			map.generate(l.map,l.map.generators,g.flat)
+			-- supper.print(l.map)
 		end
 		l.canvas={background=LG.newCanvas(l.map.w*l.map.tile.width,l.map.h*l.map.tile.height)}
 		l.bgdraw=true
 	end
 	g.level=l
-	game.state.run(g.name,"level","make",g,l,index)
+	game.state.run(g.name,"level","make",g,l,index,mode)
 end
 
 return level

@@ -1,4 +1,6 @@
-local function make(a,c)
+local move={}
+
+move.make = function(a,c)
 	c.horizontal=0
 	c.vertical=0
 	c.last={}
@@ -9,9 +11,10 @@ local function make(a,c)
 	c.duration.vertical=0
 end
 
-local function control(a,c,gs,c1,c2)	
+move.control = function(a,c,gs,c1,c2)
 	c.last.vertical=c.vertical
 	c.last.horizontal=c.horizontal
+
 	if c.last.vertical~=0 then
 		c.duration.vertical=c.duration.vertical+gs
 	else
@@ -22,8 +25,4 @@ local function control(a,c,gs,c1,c2)
 	controller.deadzone(c,0.25)
 end
 
-return
-{
-	make = make,
-	control = control,
-}
+return move

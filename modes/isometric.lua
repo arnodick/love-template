@@ -1,4 +1,7 @@
-local function control(a,gs)
+local isometric={}
+isometric.actor={}
+
+isometric.actor.control = function(a,gs)
 	if a.controller then
 		local c=a.controller.move
 		if c then
@@ -14,7 +17,7 @@ local function control(a,gs)
 	a.y = ydest
 end
 
-local function draw(g,a)
+isometric.actor.draw = function(g,a)
 	local m=g.level.map
 	local tw,th=m.tile.width,m.tile.height
 	local x,y=map.getcellcoords(m,a.x,a.y)
@@ -22,15 +25,10 @@ local function draw(g,a)
 	--local isoy=(y-1)*th/4
 	local isox=a.x/2
 	local isoy=a.y/4
-	--LG.draw(Spritesheet[3],Quads[3][value],isox+230,isoy+50,0,1,1,(y-1)*tw/2,(x-1)*-th/4)
-	LG.draw(Spritesheet[a.size],Quads[a.size][a.spr],isox,isoy,0,1,1,(y-1)*tw/2,(x-1)*-th/4)
+	LG.draw(Sprites[a.size].spritesheet,Sprites[a.size].quads[a.spr],isox,isoy,0,1,1,(y-1)*tw/2,(x-1)*-th/4)
 	if Debugger.debugging then
 		LG.points(isox,isoy)
 	end
 end
 
-return
-{
-	control = control,
-	draw = draw,
-}
+return isometric

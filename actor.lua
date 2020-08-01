@@ -1,6 +1,10 @@
-local function load(g,name,x,y,d,angle,vel,c)
+local actor={}
+actor.twodimensional={}
+
+--TODO this is unused right now, but may be used if WE decide to use genereic templates for actors rather than assigning them all their own values
+actor.load = function(g,name,x,y,d,angle,vel,c)
 	local a={}
-	copytable(a,g.actordata[name])
+	supper.copy(a,g.actordata[name])
 
 	--a.t=EA[name]
 	a.name=name
@@ -26,7 +30,7 @@ local function load(g,name,x,y,d,angle,vel,c)
 	return a
 end
 
-local function make(g,t,x,y,d,vel,...)
+actor.make = function(g,t,x,y,d,vel,...)
 	local a={}
 	a.t=t
 	a.x=x or love.math.random(319)
@@ -53,26 +57,29 @@ local function make(g,t,x,y,d,vel,...)
 	return a
 end
 
-local function control(g,a,gs)
+--TODO make this way less game-specific, take out everthing but abstract stuff for the most part
+actor.control = function(g,a,gs)
 	controller.update(a,gs)
+
+	if flags.get(a.flags,EF.player) then
+		game.player.control(g,a)
+	end
 	
 	if g.level then
 		if g.level.mode then
-			run(g.level.modename,"control",a,g.level.map,gs)
+			game.state.run(g.level.modename,"actor","control",a,g.level.map,gs,g)
+			-- run(g.level.modename,"control",a,g.level.map,gs,g)--TODO CLEAN THIS UP! input g first, can get map in there? ALSO, game.state.run(g.level.modename,"actor","control")
 		end
 	end
 
 	--actordata
 	--if a.t then
+		--TODO if use multilevel tables for code libraries then this would have to do run("actor",EA[a.t],"control",g,a,gs)--actor's specific type control (ie snake.control)
 		run(EA[a.t],"control",g,a,gs)--actor's specific type control (ie snake.control)
 	--end
 
 	if a.controls then
 		controls.run(g,a,gs)
-	end
-
-	if flags.get(a.flags,EF.player) then
-		game.player.control(g,a)
 	end
 
 	if a.item then--if a IS an item, do its item stuff
@@ -136,14 +143,8 @@ local function control(g,a,gs)
 	end
 --]]
 
----[[
-	if a.tail then
-		if a.controller then
-			local c=a.controller.aim
-			tail.control(a.tail,gs,a,c.horizontal,c.vertical)
-		end
-	end
---]]
+	game.state.run(g.name,"actor","control",g,a,gs)
+
 	local m=g.level.map
 	if a.x<-10
 	or a.x>m.width+10
@@ -155,20 +156,15 @@ local function control(g,a,gs)
 	end
 end
 
-local function draw(g,a)
+actor.draw = function(g,a)
 	if a.menu then
 		menu.draw(a.menu)
 	end
 
 	if g.level then
-		if g.level.drawmode then
-			run(g.level.drawmode,"draw",g,a)
-		end
---[[
 		if g.level.mode then
-			run(g.level.modename,"draw",g,a)
+			game.state.run(g.level.modename,"actor","draw",g,a)
 		end
---]]
 	end
 
 	if flags.get(a.flags,EF.player) then
@@ -176,11 +172,11 @@ local function draw(g,a)
 	end
 end
 
-local function damage(a,d)
+actor.damage = function(a,d)
 	local g=Game
 	if not a.delete then
 		--TODO game-specific
-		module.make(a,EM.flash,"c",EC.white,a.cinit,6)
+		module.make(a,"flash","c","white",a.cinit,6)
 		if a.sound then
 			if a.sound.damage then
 				sfx.play(a.sound.damage,a.x,a.y)
@@ -212,7 +208,7 @@ local function damage(a,d)
 
 				--TODO sort of game-specific
 				if flags.get(a.flags,EF.explosive) then
-					actor.make(g,EA.explosion,a.x,a.y,0,0,EC.white,20*(a.size))
+					actor.make(g,EA.explosion,a.x,a.y,0,0,"white",20*(a.size))
 				end
 				
 				run(EA[a.t],"dead",a)
@@ -221,7 +217,7 @@ local function damage(a,d)
 	end
 end
 
-local function impulse(a,dir,vel,glitch)
+actor.impulse = function(a,dir,vel,glitch)
 	glitch=glitch or false
 	local vecx=math.cos(a.d)
 	local vecy=math.sin(a.d)
@@ -238,7 +234,7 @@ local function impulse(a,dir,vel,glitch)
 	return vector.direction(outx,outy), outvel
 end
 
-local function collision(x,y,enemy)--TODO something other than enemy here?
+actor.collision = function(x,y,enemy)--TODO something other than enemy here?
 	local dist=vector.distance(enemy.x,enemy.y,x,y)
 	if enemy.hitradius then
 		return hitradius.collision(enemy.hitradius.r,dist)
@@ -248,7 +244,7 @@ local function collision(x,y,enemy)--TODO something other than enemy here?
 	return false
 end
 
-local function corpse(a,tw,th,hack)
+actor.corpse = function(a,tw,th,hack)
 	local g=Game
 	local dir=math.randomfraction(math.pi*2)
 	--local ix,iy=a.x-tw/2,a.y-th/2
@@ -272,53 +268,92 @@ local function corpse(a,tw,th,hack)
 	if not hack then
 		local choice=math.choose(1,2)
 		if choice==1 then
-			local imgdata=g.canvas.main:newImageData(ix,iy,tw,th)
+			local imgdata=g.canvas.main:newImageData(1,1,ix,iy,tw,th)
 			body.image=LG.newImage(imgdata)
 		else
-			local imgdata=g.canvas.main:newImageData(ix,iy,tw/2,th)
+			local imgdata=g.canvas.main:newImageData(1,1,ix,iy,tw/2,th)
 			body.image=LG.newImage(imgdata)
 			body.d=dir
 
 			local body2=actor.make(g,EA.debris,a.x,a.y)
 			body2.decel=0.1
-			local imgdata2=g.canvas.main:newImageData(ix+tw/2,iy,tw/2,th)
+			local imgdata2=g.canvas.main:newImageData(1,1,ix+tw/2,iy,tw/2,th)
 			body2.image=LG.newImage(imgdata2)
 			body2.d=dir+math.randomfraction(0.5)-0.25
 		end
 	else
 		body.decel=0.2
-		local imgdata=g.canvas.main:newImageData(ix,iy,tw/2,th/2)
+		local imgdata=g.canvas.main:newImageData(1,1,ix,iy,tw/2,th/2)
 		body.image=LG.newImage(imgdata)
 		body.d=math.randomfraction(math.pi*2)
 
 		local body2=actor.make(g,EA.debris,a.x,a.y)
 		body2.decel=0.2
-		local imgdata2=g.canvas.main:newImageData(ix+tw/2,iy+th/2,tw/2,th/2)
+		local imgdata2=g.canvas.main:newImageData(1,1,ix+tw/2,iy+th/2,tw/2,th/2)
 		body2.image=LG.newImage(imgdata2)
 		body2.d=math.randomfraction(math.pi*2)
 
 		local body3=actor.make(g,EA.debris,a.x,a.y)
 		body3.decel=0.2
-		local imgdata3=g.canvas.main:newImageData(ix+tw/2,iy,tw/2,th/2)
+		local imgdata3=g.canvas.main:newImageData(1,1,ix+tw/2,iy,tw/2,th/2)
 		body3.image=LG.newImage(imgdata3)
 		body3.d=math.randomfraction(math.pi*2)
 
 		local body4=actor.make(g,EA.debris,a.x,a.y)
 		body4.decel=0.2
-		local imgdata4=g.canvas.main:newImageData(ix,iy,tw/2,th/2)
+		local imgdata4=g.canvas.main:newImageData(1,1,ix,iy,tw/2,th/2)
 		body4.image=LG.newImage(imgdata4)
 		body4.d=math.randomfraction(math.pi*2)
 	end
 end
 
-return
-{
-	load = load,
-	make = make,
-	control = control,
-	draw = draw,
-	collision = collision,
-	damage = damage,
-	impulse = impulse,
-	corpse = corpse,
-}
+actor.twodimensional.draw = function(g,a)
+--[[
+	run(EA[a.t],"predraw",a)
+--]]
+
+	local c=a.c or "pure_white"
+	--local c=a.c or g.actordata[EA[a.t]].c
+	local r,gr,b=unpack(g.palette[c])
+	local alpha=1
+	if a.alpha then
+		alpha=a.alpha
+	end
+	LG.setColor(r,gr,b,alpha)--TODO COL
+	-- love.graphics.setShader(Shader)
+	sprites.draw(a)
+	-- love.graphics.setShader()
+
+--[[
+	if a.char then
+		LG.print(a.char,a.x,a.y)
+	end
+--]]
+
+	--actordata
+	--if a.t then
+		run(EA[a.t],"draw",g,a)--actor's specific draw function (ie snake.draw)
+	--end
+
+	if a.tail then
+		tail.draw(a.tail)
+	end
+
+	if Debugger.debugging then
+		LG.setColor(g.palette["blue"])
+		if a.hitradius then
+			hitradius.draw(a)
+		elseif a.hitbox then
+			hitbox.draw(a)
+		end
+		LG.points(a.x,a.y)
+		if a.deltimer then
+			LG.print(a.deltimer,a.x,a.y)
+		end
+		--LG.print(a.flags,a.x+8,a.y-8)
+	end
+
+	LG.setColor(g.palette["pure_white"])
+end
+
+return actor

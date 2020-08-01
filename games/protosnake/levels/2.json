@@ -1,7 +1,6 @@
 {
 	"t":"arena",
-	"c":3,
-	"drawmode":"twodimensional",
+	"c":"dark_green",
 	"map":
 	{
 		"file":"arn",

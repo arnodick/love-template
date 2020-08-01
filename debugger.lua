@@ -1,4 +1,6 @@
-local function make()
+local debugger={}
+
+debugger.make = function()
 	local d={}
 	d.debugging=false
 	d.debuglist={}
@@ -7,7 +9,7 @@ local function make()
 	return d
 end
 
-local function update(g,d)
+debugger.update = function(g,d)
 	if d.debugging then
 		local debuglist={}
 		table.insert(debuglist,g.timer)
@@ -80,6 +82,7 @@ local function update(g,d)
 		table.insert(debuglist,"camx:"..g.camera.x)
 		table.insert(debuglist,"camy:"..g.camera.y)
 		table.insert(debuglist,"cam zoom:"..g.camera.zoom)
+		table.insert(debuglist,"screen scale:"..g.screen.scale)
 		table.insert(debuglist,"screen p scale:"..g.screen.pixelscale)
 		table.insert(debuglist,"bg w:"..g.canvas.background:getWidth())
 		table.insert(debuglist,"bg h:"..g.canvas.background:getHeight())
@@ -131,10 +134,29 @@ local function update(g,d)
 		end
 		if g.editor then
 			if g.editor.cursor then
+				local m=g.level.map
+				local cx,cy=map.getcellcoords(m,g.editor.cursor.x,g.editor.cursor.y)
+				local mapcell=0
+				if not m.flat then
+					mapcell=m[cy][cx]
+				else
+					mapcell=map.getcellvalue(m,cx,cy)
+				end
 				table.insert(debuglist,"e cursor x "..g.editor.cursor.x)
 				table.insert(debuglist,"e cursor y "..g.editor.cursor.y)
-				local cx,cy=map.getcellcoords(g.level.map,g.editor.cursor.x,g.editor.cursor.y)
-				table.insert(debuglist,"cell value "..g.level.map[cy][cx])
+				table.insert(debuglist,"cell value "..map.getcellvalue(m,g.editor.cursor.x,g.editor.cursor.y))
+				-- table.insert(debuglist,"cell shitfed "..bit.rshift(mapcell,16))
+				table.insert(debuglist,"cell solid "..tostring(flags.get(mapcell,EF.solid,16)))
+
+				
+				local f=""
+				for i,v in ipairs(EF) do
+					if flags.get(mapcell,i,16) then
+						f=f..v.." "
+					end
+				end
+				table.insert(debuglist,"cell flags "..f)
+				table.insert(debuglist,"cell raw value "..mapcell)
 			end
 		end
 
@@ -157,19 +179,19 @@ local function update(g,d)
 	end
 end
 
-local function draw(d)
+debugger.draw = function(d)
 	if d.debugging then
 		local g=Game
 		LG.setCanvas(d.canvas) --sets drawing to the 1280 x 960 debug canvas
 		LG.clear() --cleans that messy ol canvas all up, makes it all fresh and new and good you know
 
 		LG.setFont(d.font)
-		LG.setColor(g.palette[11])
+		LG.setColor(g.palette["yellow"])
 		LG.print("DEBUG",130,0)
 		for i,v in ipairs(d.debuglist) do
 			LG.print(v,10,10+d.font:getHeight()*i)
 		end
-		LG.setColor(g.palette[16]) --sets draw colour back to normal
+		LG.setColor(g.palette["peach"]) --sets draw colour back to normal
 		LG.setFont(g.font)
 
 		LG.setCanvas() --sets drawing back to screen
@@ -178,20 +200,4 @@ local function draw(d)
 	end
 end
 
-local function printtable(table,space)
-	space=space or ""--space is just included for indentation, so each recursive iteration of print is indented by its recursion depth, for readability
-	for i,v in pairs(table) do
-		print(space..i.." = "..tostring(v))
-		if type(v)=="table" then
-			printtable(v,space.." ")
-		end
-	end
-end
-
-return
-{
-	make = make,
-	update = update,
-	draw = draw,
-	printtable = printtable,
-}
+return debugger

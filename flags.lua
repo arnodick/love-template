@@ -1,5 +1,6 @@
 local flags={}
 
+--TODO move solid too map.flags or something?
 flags.load = function()
 	local f=
 	{
@@ -29,7 +30,7 @@ flags.get = function(bytes,flag,shift)
 	if shift then
 		bytes=bit.rshift(bytes,shift)
 	end
-	if bit.band(bytes,flag) == flag then --checks if flag f is set in flags. ignores other flags.
+	if bit.band(bytes,flag)==flag then --checks if flag f is set in flags. ignores other flags.
 		return true
 	else
 		return false

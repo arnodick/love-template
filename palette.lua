@@ -1,35 +1,29 @@
 local palette={}
 
 palette.load = function(g,...)
-	local filenames={...}
-	local pal={}
-	for a=#filenames,1,-1 do
-		table.insert(pal,LIP.load(filenames[a]))
+	g.palettes=supper.load("palettes")
+	for k,v in pairs(g.palettes) do
+		supper.names(v)
 	end
-	pal.i=1
-	g.palettes=pal
-	palette.set(g,g.palettes.i)
-	EC=g.palettes[g.palettes.i].colours
-	--debugger.printtable(EC)
-	return pal
+	palette.set(g,1)--can also do palette.set(g,"palette")--TODO how to deal with this when using supper.load? it's just a json
+	-- supper.print(g.palettes,"palette")
 end
 
 palette.set = function(g,i)
 	g.palettes.i=i
 	g.palette={}
-	for a=0,#g.palettes[g.palettes.i] do
-		g.palette[a]=g.palettes[g.palettes.i][a]
-	end
-	g.palette.colours=g.palettes[g.palettes.i].colours
+	supper.copy(g.palette,g.palettes[g.palettes.i])--copy palette
+	-- supper.print(g.palette,"GAME PALETTE")
 end
 
+--UNUSED
 palette.colourswap = function(c1,c2)
 	Game.palette[c1]=Game.palettes[Game.palettes.i][c2]
 end
 
+--UNUSED
 palette.generate = function()
-	local table = {love.math.random(255),love.math.random(255),love.math.random(255)}
-	return table
+	return {love.math.random(255),love.math.random(255),love.math.random(255)}
 end
 
 return palette

@@ -8,13 +8,21 @@ editor.make = function(g)
 end
 
 editor.control = function(g)
+	if love.mouse.isDown(1) or love.mouse.isDown(2) then
+		local c=g.editor.cursor
+		if c then
+			cursor.mousepressed(g,c,c.x,c.y,1)
+		end
+	end
 end
 
 editor.keypressed = function(g,key)
 	if love.keyboard.isDown('lctrl') then
 		if key=="s" then
 			love.keyboard.setTextInput(true)
-			module.make(g.hud,EM.menu,EMM.text,100,100,200,200,{"type file name",""},EC.orange,EC.dark_green)
+			module.make(g.hud,EM.menu,"text",100,100,200,200,{"type file name",""},"orange","dark_green")
+		elseif key=="e" then
+			map.erase(g.level.map)
 		end
 	elseif key=="return" then
 		if g.hud.menu then
@@ -30,6 +38,9 @@ editor.keypressed = function(g,key)
 		g.camera.x=g.camera.x-8
 	elseif key=="right" then
 		g.camera.x=g.camera.x+8
+	elseif tonumber(key) then
+		local c=g.editor.cursor
+		map.setcellflag(g.level.map,c.x,c.y,tonumber(key),true)
 	end
 end
 
@@ -59,7 +70,7 @@ editor.wheelmoved = function(g,x,y)
 end
 
 editor.draw = function(g)
-	LG.printformat("EDITOR",g.camera.x-g.width/2,g.camera.y-15,g.width,"center",EC.red,EC.blue)
+	LG.printformat("EDITOR",g.camera.x-g.width/2,g.camera.y-15,g.width,"center","red","blue")
 end
 
 return editor

@@ -2,6 +2,7 @@ local function make()
 	ShaderTimer = 0
 
  	return LG.newShader
+--[[
 	[[
 	extern number red;
 	extern number green;
@@ -25,21 +26,26 @@ local function make()
 		return pixel;
     }
  	]]
+--]]
 
---[[
+---[[
 	[[
 	//extern number screenWidth;
 	extern number screenHeight;
+	extern number screenScale;
+
 	vec4 effect(vec4 color,Image texture,vec2 texture_coords,vec2 screen_coords)
 	{
-		vec2 neigh = texture_coords;
-		neigh.x = neigh.x + 1;
+		//vec2 neigh = texture_coords;
+		//neigh.x = neigh.x + 1;
 		vec4 pixel = Texel(texture, texture_coords);
-		vec4 pixel_n = Texel(texture, neigh);
-		//number xx = floor(texture_coords.x * screenWidth * 4);
-		number yy = floor(texture_coords.y * screenHeight * 4);
-		number ym = mod(yy,3);
-
+		//vec4 pixel_n = Texel(texture, neigh);
+		////number xx = floor(texture_coords.x * screenWidth * 4);
+		number yy = floor(texture_coords.y * screenHeight * screenScale);
+		//number yy = floor(texture_coords.y * screenHeight);
+		//number yy = floor(texture_coords.y * screenHeight);
+		//number yy = texture_coords.y;
+		//number ym = mod(yy,3);
 
 		if (mod(yy,2) == 0)
 		{

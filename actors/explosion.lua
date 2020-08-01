@@ -1,6 +1,6 @@
 local function make(g,a,c,size)
 	sfx.play(1,a.x,a.y)
-	a.cinit=c or EC.white
+	a.cinit=c or "white"
 	a.c=a.cinit
 	a.size=size or 20
 	a.r=0
@@ -26,7 +26,7 @@ end
 local function draw(g,a)
 	LG.circle("fill",a.x,a.y,a.r,16)
 	if Debugger.debugging then
-		LG.setColor(g.palette[11])
+		LG.setColor(g.palette["yellow"])--TODO what was 11 beofre? yellow?
 		LG.circle("line",a.x,a.y,a.r)
 	end
 end

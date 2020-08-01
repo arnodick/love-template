@@ -1,5 +1,5 @@
 local function make(g,a,c,size,spr,hp)
-	a.cinit=c or EC.red
+	a.cinit=c or "red"
 	a.c=a.cinit
 	a.size=size or 2
 	a.spr=spr or 8

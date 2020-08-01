@@ -1,5 +1,5 @@
 local function make(a,t,c,len)
-	t.c=c or EC.red
+	t.c=c or "red"
 	t.leninit=len or 9
 	t.len=t.leninit
 	t.angle=0
@@ -40,7 +40,7 @@ local function control(t,gs,a,vx,vy)
 end
 
 local function draw(t)
-	LG.setColor(Game.palette[t.c])
+	LG.setColor(Game.palette[t.c])--TODO WORK Y COLUR>
 	local curve=love.math.newBezierCurve(t.sx,t.sy,t.mx,t.my,t.x,t.y)
 	LG.line(curve:render(2))
 end

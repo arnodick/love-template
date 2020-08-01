@@ -3,7 +3,7 @@
 -- [modulename ie explosion]
 -- r=12
 local function make(g,a,c,size)
-	a.cinit=c or EC.indigo
+	a.cinit=c or "indigo"
 	a.c=a.cinit
 	a.size=size or 6
 	a.angle=-a.d
@@ -13,22 +13,21 @@ local function make(g,a,c,size)
 		table.insert(a.pointdirs, math.randomfraction(math.pi/2) + (math.pi/2)*i )
 	end
 	a.r=size
-	a.alpha=255
+	a.alpha=1
 	a.flags=flags.set(a.flags,EF.bouncy)
 end
 
 local function control(g,a)
 	local delta=g.timer-a.delta
 	a.r=a.size-delta/5
-	a.alpha=a.alpha-2
+	-- a.alpha=a.alpha-2
+	a.alpha=a.alpha-0.01
 	if a.r<1 then
 		a.delete=true
 	end
 end
 
 local function draw(g,a)
-	--local r,g,b=
-	--LG.setColor(100,100,100,a.alpha)
 	local points={}
 	for i=1,#a.pointdirs do
 		table.insert(points,a.x+math.cos(a.pointdirs[i]+a.angle)*a.r)
@@ -45,9 +44,9 @@ local function draw(g,a)
 	--]]
 
 	if Debugger.debugging then
-		LG.setColor(g.palette[EC.green])
+		LG.setColor(g.palette["green"])
 		LG.points(a.x,a.y)
-		LG.setColor(g.palette[EC.red])
+		LG.setColor(g.palette["red"])
 		for i=1,#points,2 do
 			LG.points(points[i],points[i+1])
 		end

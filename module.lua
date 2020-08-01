@@ -1,8 +1,8 @@
 local module={}
 
 module.make = function(a,t,...)
-	local modulename=t
-	if type(t)=="number" then
+	local modulename=t--TODO can get rid of this, just input string
+	if type(t)=="number" then--TODO this will go too
 		modulename=EM[t]
 	end
 	if not a[modulename] then

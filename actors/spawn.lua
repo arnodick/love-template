@@ -1,7 +1,7 @@
 local function make(g,a,c)
 	a.x=love.math.random(319)
 	a.y=love.math.random(239)
-	a.cinit=EC.blue
+	a.cinit="blue"
 	a.c=a.cinit
 	a.d=0
 	a.vel=0
@@ -38,28 +38,28 @@ local function control(g,a,gs)
 			local p1=l.portal1
 			if p1 then
 				if p1.droppedby==spawnnum then
-					module.make(enemy,EM.drop,"portal",1)
+					module.make(enemy,EM.drop,"portal",1)--portal that goes to level 1
 				end
 			end
 
 			local p2=l.portal2
 			if p2 then
 				if p2.droppedby==spawnnum then
-					module.make(enemy,EM.drop,"portal",2)
+					module.make(enemy,EM.drop,"portal",2)--portal that goes to level 1
 				end
 			end
 
 			local pstore=l.portalstore
 			if pstore then
 				if pstore.droppedby==spawnnum then
-					module.make(enemy,EM.drop,"portal","store")
+					module.make(enemy,EM.drop,"portal","store")--portal that goes to level 1
 				end
 			end
 		end
 
 		for i=1,20 do
 			local spark=actor.make(g,EA.spark,a.x,a.y)
-			spark.c=EC.dark_blue
+			spark.c="dark_blue"
 		end
 		a.delete=true
 	end

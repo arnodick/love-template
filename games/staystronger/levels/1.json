@@ -1,0 +1,11 @@
+{
+	"map":
+	{
+		"file":"rx",
+	},
+	"drawmodes":
+	[
+		"grid",
+		"characters"
+	]
+}

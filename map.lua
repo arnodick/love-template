@@ -5,50 +5,7 @@
 local map={}
 local generators={}
 local drawmodes={}
-
-map.generate = function(m,gen)
-	local w,h=m.w,m.h
-	local args=m.args
-
-	for y=1,h do
-		table.insert(m,{})
-		for x=1,w do
-			table.insert(m[y],0)
-			if type(gen)=="table" then
-				for i,v in ipairs(gen) do
-					generators[v](m,w,h,x,y,args)
-				end
-			else
-				generators[gen](m,w,h,x,y,args)
-			end
-		end
-	end
-	m.width=map.width(m)
-	m.height=map.height(m)
-end
-
-map.load = function(m,filename)
-	--loads map sprites and walls/entities from a hex populated textfile
-	--returns map array
-	local mapgrid=textfile.load(filename) --each cell (flags + integer) is loaded into map array
-	copytable(m,mapgrid)
-
-	--TODO do actorspawn flag stuff here to load actor from value of tile
---[[
-	for a=1,map.width(m) do
-		for b=1,map.height(m) do
-			--TODO make this dynamic, loads entities based on flag value
-			if getflag(m[a][b],Enums.wall) then
-				actor.make(Game,0,0,(b-1)*TileW+TileW/2, (a-1)*TileH+TileH/2, TileW, TileH) --each cell that has a wall flag loads a wall entity
-			end
-		end
-	end
---]]
-	map.init(m,map.cellwidth(m),map.cellheight(m))
-	m.width=map.width(m)
-	m.height=map.height(m)
-	return m
-end
+map.flat={}
 
 --TODO could probably do away with this by just checking if m.tile exists in code
 map.init = function(m,w,h)
@@ -58,10 +15,96 @@ map.init = function(m,w,h)
 	if not m.tile then
 		m.tile={width=8,height=8}
 	end
-	--m.width=map.width(m)
-	--m.height=map.height(m)
+	m.width=map.width(m)
+	m.height=map.height(m)
 end
 
+map.generate = function(m,gen,flat)
+	local w,h=m.w,m.h
+	local args=m.args
+
+	m.flat=flat
+
+	if not m.flat then
+		for y=1,h do
+			table.insert(m,{})
+			for x=1,w do
+				table.insert(m[y],0)
+				if type(gen)=="table" then
+					for i,v in ipairs(gen) do
+						generators[v](m,w,h,x,y,args)
+					end
+				else
+					generators[gen](m,w,h,x,y,args)
+				end
+			end
+		end
+		m.width=map.width(m)
+		m.height=map.height(m)
+	else
+		for xy=1,w*h do
+			table.insert(m,0)
+			local x,y=map.flat.getxandy(m,xy)
+			-- local x=(xy-1)%w+1
+			-- local y=math.floor(xy/h)+1
+			-- print("X")
+			-- print(x)
+			-- print("Y")
+			-- print(y)
+			if type(gen)=="table" then
+				for i,v in ipairs(gen) do
+					generators[v](m,w,h,x,y,args)
+				end
+			else
+				generators[gen](m,w,h,x,y,args)
+			end
+		end
+		-- map.init(m)
+		m.width=m.w*m.tile.width
+		m.height=m.h*m.tile.height
+	end
+end
+
+map.load = function(m,filename,flat)
+	--loads map sprites and walls/entities from a hex populated textfile
+	--returns map array
+	local mapgrid=textfile.load(filename,flat) --each cell (flags + integer) is loaded into map array
+	supper.copy(m,mapgrid)
+	m.flat=flat
+	print("MAP FLAT:")
+	print(m.flat)
+
+	--TODO do actorspawn flag stuff here to load actor from value of tile
+	if not flat then
+		map.init(m,map.cellwidth(m),map.cellheight(m))
+	else
+		map.init(m)
+	end
+
+	-- supper.print(m)
+
+	return m
+end
+
+map.flat.load = function(m,filename)
+	local mapflat=textfile.flat.load(filename)
+	print(mapflat)
+	-- return mapflat
+end
+
+map.flat.getxy = function(m,x,y)
+	return (y-1)*m.w+x
+end
+
+map.flat.getxandy = function(m,xy)
+	return (xy-1)%m.w+1,math.ceil(xy/m.w)
+end
+
+map.flat.setxy = function(m,x,y,v)
+	m[map.flat.getxy(m,x,y)]=v
+end
+
+--this should work fine with flat maps, just does one row
 map.save = function(m,filename)
 	textfile.save(m,filename)
 end
@@ -80,20 +123,62 @@ map.draw = function(m,drawmode)
 	end
 end
 
+--TODO ALL maps should have w h width height
+--TODO get rid of this once map is flattended
 map.cellwidth = function(m)
 	return #m[1]
 end
 
+--TODO get rid of this once map is flattended
 map.width = function(m)
-	return map.cellwidth(m)*m.tile.width
+	if not m.flat then
+		return map.cellwidth(m)*m.tile.width
+	else
+		return m.w*m.tile.width
+	end
 end
 
+--TODO get rid of this once map is flattended
 map.cellheight = function(m)
 	return #m
 end
 
+--TODO get rid of this once map is flattended
 map.height = function(m)
-	return map.cellheight(m)*m.tile.height
+	if not m.flat then
+		return map.cellheight(m)*m.tile.height
+	else
+		return m.h*m.tile.height
+	end
+end
+
+map.inbounds = function(m,x,y)
+	if not m.flat then
+		if m[y] then
+			return m[y][x]
+		end
+	else
+		local xy=map.flat.getxy(m,x,y)
+		if x>0 and x<=m.w then
+			if y>0 and y<=m.h then
+				return m[xy]
+			end
+		end
+	end
+	return nil
+end
+
+map.solid = function(m,x,y)
+	local mapcell=m
+	if type(m)=="table" then
+		--TODO if x and y here?
+		if not m.flat then
+			mapcell=m[y][x]
+		else
+			mapcell=map.getcellraw(m,x,y,true)
+		end
+	end
+	return flags.get(mapcell,EF.solid,16)
 end
 
 map.getcellcoords = function(m,x,y)--returns the cell coords of worldspace coords
@@ -104,17 +189,55 @@ map.getcellcoords = function(m,x,y)--returns the cell coords of worldspace coord
 	return cx,cy
 end
 
-map.getcellvalue = function(m,x,y)--takes world x,y coordinates and returns the value of the cell under those coordinates
-	local cx,cy=map.getcellcoords(m,x,y)
-	local c=flags.strip(m[cy][cx])
-	return c
+map.getcellraw = function(m,x,y,cell)
+	local cx,cy=x,y
+	if not cell then
+		cx,cy=map.getcellcoords(m,x,y)
+	end
+	if not m.flat then
+		return m[cy][cx]
+	else
+		return m[map.flat.getxy(m,cx,cy)]
+	end
+end
+
+-- TODO world coords weirdness
+map.getcellvalue = function(m,x,y,cell)--takes world x,y coordinates and returns the value of the cell under those coordinates
+	local cx,cy=x,y
+	if not cell then
+		cx,cy=map.getcellcoords(m,x,y)
+	end
+
+	if not m.flat then
+		return flags.strip(m[cy][cx])
+	else
+		local mval=m[map.flat.getxy(m,cx,cy)]
+		return flags.strip(mval)
+	end
 end
 
 map.setcellvalue = function(m,x,y,v,worldcoords)--sets the value of a map cell in the low 16 bits while retaining the flags in the high 16 bits
 	if worldcoords then
 		x,y=map.getcellcoords(m,x,y)
 	end
-	m[y][x]=bit.bor(flags.isolate(m[y][x]),v)
+	if not m.flat then
+		m[y][x]=bit.bor(flags.isolate(m[y][x]),v)
+	else
+		local xy=map.flat.getxy(m,x,y)
+		m[xy]=bit.bor(flags.isolate(m[xy]),v)
+	end
+end
+
+map.getcellflags = function(m,x,y,shift)
+	shift=shift or 16
+	local cx,cy=map.getcellcoords(m,x,y)
+	if not m.flat then
+		local c=m[cy][cx]
+		return bit.rshift(c,shift)
+	else
+		local c=m[map.flat.getxy(m,cx,cy)]
+		return bit.rshift(c,shift)
+	end
 end
 
 map.setcellflag = function(m,x,y,v,worldcoords)--sets a flag on the high 16 bits of a map cell while retaining the value in the low 16 bits
@@ -123,14 +246,34 @@ map.setcellflag = function(m,x,y,v,worldcoords)--sets a flag on the high 16 bits
 	if worldcoords then
 		x,y=map.getcellcoords(m,x,y)
 	end
-	m[y][x]=bit.bor(m[y][x],f)
+	if not m.flat then
+		m[y][x]=bit.bor(m[y][x],f)
+	else
+		local xy=map.flat.getxy(m,x,y)
+		m[xy]=bit.bor(m[xy],f)
+	end
+end
+
+map.erase = function(m)
+	for i,v in ipairs(m) do
+		m[i]=0
+	end
 end
 
 map.erasecellflags = function(m,x,y,worldcoords)
 	if worldcoords then
 		x,y=map.getcellcoords(m,x,y)
 	end
-	m[y][x]=flags.strip(m[y][x])
+	if not m.flat then
+		m[y][x]=flags.strip(m[y][x])
+	else
+		local xy=map.flat.getxy(m,x,y,m.flat)
+		m[xy]=flags.strip(m[xy])
+	end
+end
+
+generators.empty = function(m,w,h,x,y)
+	map.setcellvalue(m,x,y,0)
 end
 
 generators.walls = function(m,w,h,x,y)
@@ -143,7 +286,11 @@ end
 generators.random = function(m,w,h,x,y,args)
 	local pool=args.pool
 	local v=pool[love.math.random(#pool)]
-	m[y][x]=v
+	if not m.flat then
+		m[y][x]=v
+	else
+		map.flat.setxy(m,x,y,v)
+	end
 	--[[
 	if v==2 or v==3 or v==4 then
 		map.setcellflag(m,x,y,EF.animated)
@@ -152,11 +299,16 @@ generators.random = function(m,w,h,x,y,args)
 end
 
 generators.increment = function(m,w,h,x,y)
-	m[y][x]=x+(y-1)*w
+	if not m.flat then
+		m[y][x]=x+(y-1)*w
+	else
+		map.setxy(m,x,y,x+(y-1)*w)
+	end
 end
 
 generators.solid = function(m,w,h,x,y,args)
-	local c=m[y][x]
+	local c=map.getcellvalue(m,x,y,true)
+	--args.solid is a list of numbers, if the value in the cell is in args.solid then set the solid cell flag
 	for i,v in ipairs(args.solid) do
 		if v==c then
 			--print(c)
@@ -165,6 +317,7 @@ generators.solid = function(m,w,h,x,y,args)
 	end
 end
 
+--TODO MAP FLATTEN is this possible any more?
 generators.buildings = function(m,w,h,x,y,args)
 	if love.math.random(args.buildings.chance)==1 then
 		local door=false
@@ -211,35 +364,55 @@ generators.buildings = function(m,w,h,x,y,args)
 end
 
 drawmodes.grid = function(m,x,y)
-	local g=Game
 	if x==1 or y==1 then
+		local g=Game
 		local tw,th=m.tile.width,m.tile.height
---TODO make a palette.fromenum function or something to input EC.red and get r,gr,b
-		local c=g.palette[g.level.c or EC.white]
+		local c=g.palette[g.level.c or "white"]
 		local r,gr,b=c[1],c[2],c[3]
-		LG.setColor(r,gr,b,120)
+		-- LG.setColor(r,gr,b,120)
+		--TODO does this work w new color values?
+		LG.setColor(r,gr,b,0.47)
 
 		if x==1 then
-			--LG.line(0,y*th,map.width(m),y*th)
-			LG.line(0,y*th,map.width(m),y*th)
+			local yh=y*th
+			LG.line(0,yh,m.width,yh)
 		end
 		if y==1 then
-			LG.line(x*tw,0,x*tw,map.height(m))
+			local xw=x*tw
+			LG.line(xw,0,xw,m.height)
 		end
-		LG.setColor(g.palette[16])
+		LG.setColor(g.palette["pure_white"])
 	end
 end
 
 drawmodes.numbers = function(m,x,y)
 	local tw,th=m.tile.width,m.tile.height
-	local value=m[y][x]
+	-- local value=m[y][x]
+	local value=map.getcellvalue(m,x,y,true)--TODO getcellraw here instead?
 	LG.print(value,(x-1)*tw,(y-1)*th)
 end
 
 drawmodes.sprites = function(m,x,y)
+	local value=map.getcellvalue(m,x,y,true)
+	if value~=0 then--doing this because sprite 0 is all black and will overdraw other drawmodes
+		local s=Sprites[1]
+		LG.draw(s.spritesheet,s.quads[value],(x-1)*m.tile.width,(y-1)*m.tile.height)
+	end
+end
+
+drawmodes.characters = function(m,x,y)
 	local tw,th=m.tile.width,m.tile.height
-	local value=flags.strip(m[y][x])
-	LG.draw(Spritesheet[1],Quads[1][value],(x-1)*tw,(y-1)*th)
+	local value=map.getcellvalue(m,x,y,true)
+	LG.print(string.char(value),(x-1)*tw,(y-1)*th)
+
+	-- if m.flat then
+	-- 	local xy=map.flat.getxy(m,x,y)
+	-- 	local value=flags.strip(m[xy])
+	-- 	LG.print(string.char(value),(x-1)*tw,(y-1)*th)
+	-- else
+	-- 	local value=flags.strip(m[y][x])
+	-- 	LG.print(string.char(value),(x-1)*tw,(y-1)*th)
+	-- end
 end
 
 drawmodes.isometric = function(m,x,y)
@@ -248,10 +421,10 @@ drawmodes.isometric = function(m,x,y)
 
 	--if (y-1)*#m[y]+x<=t then
 	local isox,isoy=(x-1)*tw/2+m.width/2,(y-1)*th/4+m.height/2
-	local value=flags.strip(m[y][x])
+	-- local value=flags.strip(m[y][x])
+	local value=map.getcellvalue(m,x,y,true)
 
-	--LG.draw(Spritesheet[3],Quads[3][value],isox+230,isoy+50,0,1,1,(y-1)*tw/2,(x-1)*-th/4)
-	LG.draw(Spritesheet[3],Quads[3][value],isox,isoy,0,1,1,(y-1)*tw/2,(x-1)*-th/4)
+	LG.draw(Sprites[3].spritesheet,Sprites[3].quads[value],isox,isoy,0,1,1,(y-1)*tw/2,(x-1)*-th/4)
 	if Debugger.debugging then
 		LG.points(isox,isoy)
 	end	

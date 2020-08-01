@@ -4,11 +4,12 @@ game.state={}
 game.state.run = function(gamename,statename,functionname,...)
 	--dynamically runs a function from the current game's current state
 	--NOTE need this AND run because this uses a 3D table, maybe some tricky way to lump this in with run?
-	--if _G[gamename][statename] then
-		if _G[gamename][statename][functionname] then
-			return _G[gamename][statename][functionname](...)
+	local gamestate = _G[gamename][statename]
+	if gamestate then
+		if gamestate[functionname] then
+			return gamestate[functionname](...)
 		end
-	--end
+	end
 end
 
 game.state.make = function(g,state)
@@ -32,12 +33,13 @@ game.state.make = function(g,state)
 		LG.setCanvas(v)
 		LG.clear()
 	end
+	LG.setCanvas()
 --[[
 	for i,v in pairs(SFX.sources) do
 		v:stop()
 	end
 --]]
-	for i,v in pairs(Music.sources) do
+	for i,v in pairs(Music) do
 		v:stop()
 	end
 	screen.update(g)
@@ -75,8 +77,13 @@ end
 
 game.make = function(t,gw,gh)
 	local g={}
-	g.t=t
-	g.name=Enums.games[t]
+	if type(t)=="string" then
+		g.t=Enums.games[t]
+		g.name=t
+	else
+		g.t=t
+		g.name=Enums.games[t]
+	end
 	g.width=gw or 320
 	g.height=gh or 240
 
@@ -86,15 +93,17 @@ game.make = function(t,gw,gh)
 	game.graphics(g)
 
 --[[
-	g.actordata=game.files(g,"games/"..g.name.."/actors")
+	g.actordata=supper.load("games/"..g.name.."/actors")
 	for i,v in pairs(g.actordata) do
 		v.count=0
 	end
-	debugger.printtable(g.actordata)
+	supper.print(g.actordata)
 --]]
-	g.levels=game.files(g,"games/"..g.name.."/levels")
-	debugger.printtable(g.levels)
-	--level.load(g,"games/"..g.name.."/levels")
+	g.levels=supper.load("games/"..g.name.."/levels")
+	-- supper.print(g.levels)
+	g.excludes={dawngame="dawngame",offgrid="offgrid",royalewe="royalewe"}
+
+	g.options=json.load("options.json")
 
 --[[
 	g.window={}
@@ -116,7 +125,7 @@ game.make = function(t,gw,gh)
 	end
 --]]
 	--return g
-	Game = g
+	Game=g
 end
 
 game.control = function(g)
@@ -129,6 +138,7 @@ game.control = function(g)
 	if not g.pause then
 		for i,v in ipairs(g.actors) do
 			if not v.delete then
+				-- print(i)
 				actor.control(g,v,g.speed)
 			end
 		end
@@ -184,16 +194,18 @@ game.control = function(g)
 end
 
 game.keypressed = function(g,key,scancode,isrepeat)
-	if key=="tab" then
-		if not g.editor then
-			g.pause=true
-			editor.make(g)
-		else
-			g.pause=false
-			g.editor=nil
+	if Debugger.development then
+		if key=="tab" then
+			if not g.editor then
+				g.pause=true
+				editor.make(g)
+			else
+				g.pause=false
+				g.editor=nil
+			end
+		elseif key=="space" then
+			palette.set(g,2)
 		end
-	elseif key=="space" then
-		palette.set(g,2)
 	end
 
 	if g.level then
@@ -202,8 +214,10 @@ game.keypressed = function(g,key,scancode,isrepeat)
 
 	if g.state=="intro" then
 		if key=="escape" then
-			if Excludes then
-				if not Excludes[g.name] then
+			if g.excludes then
+				local exc=not g.excludes[g.name]
+				print(exc)
+				if not g.excludes[g.name] then
 					game.make(Enums.games.multigame)
 				else
 					love.event.quit()
@@ -328,38 +342,8 @@ game.draw = function(g)
 	LG.origin()
 
 	screen.control(g,g.screen,g.speed)
-end
 
---TODO make this recursive so it goes through all sub-folders in the folder
-game.files = function(g,dir,ext)
-	ext=ext or "json"
-	local l={}
-	local files=love.filesystem.getDirectoryItems(dir)
-	for i=1,#files do--through all files and dirs
-		--local file=files[i]
-		local filedata=love.filesystem.newFileData("code", files[i]) --gets each file's filedata, so we can determine their extensions
-		local filename=filedata:getFilename() --get the file's name
-		local filepath=dir.."/"..filename
-		--if love.filesystem.isFile(dir.."/"..file) then --if it isn't a directory
-		if love.filesystem.isFile(filepath) then --if it isn't a directory
-			if filedata:getExtension()==ext then
-				local f=string.gsub(filename, "."..ext, "")--strip the file extension
-				if tonumber(f) then--if the filename (without extension) is a number then index the file in the table by integer
-					f=tonumber(f)
-				end
-				if ext=="ini" then
-					l[f]=LIP.load(filepath)
-				elseif ext=="json" then
-					l[f]=json.load(filepath)
-				elseif ext=="jpg" then
-					l[f]=LG.newImage(filepath)
-				end
-			end
-		elseif love.filesystem.isDirectory(filepath) then
-			l[filename]=game.files(g,filepath,ext)
-		end
-	end
-	return l
+	-- love.graphics.setShader()
 end
 
 game.counters = function(g,a,amount)
@@ -394,21 +378,34 @@ game.graphics = function(g)
 	g.font:setLineHeight(1.8)
 	LG.setFont(g.font)
 
-	palette.load(g,unpack(love.filesystem.getfiles("palettes","ini")))
+	palette.load(g)
+	-- supper.print(g.palette,"PALETTE")
+
+	-- local p={}
+	-- supper.copy(p,g.palette)
+	-- for k,v in pairs(p) do
+	-- 	for i,colourvalue in ipairs(v) do
+	-- 		v[i]=math.floor((colourvalue/255)*100)*0.01
+	-- 	end
+	-- end
+	-- supper.print(p,"PALETTE AFTER DIVIDE")
+	-- json.save("palette.json",p)
+
+	-- local p2={}
+	-- supper.copy(p2,g.palettes[2])
+	-- supper.print(p2,"PALETTE 2 BEFORE DIVIDE")
+	-- for k,v in pairs(p2) do
+	-- 	for i,colourvalue in ipairs(v) do
+	-- 		v[i]=math.floor((colourvalue/255)*100)*0.01
+	-- 	end
+	-- end
+	-- json.save("palette2.json",p2)
 
 	--TODO put this in g.?
-	Spritesheet={}
-	Quads={}
-	local files = love.filesystem.filterfiles("gfx","png")
+	Sprites=supper.load("gfx","png")
 
-	local tw,th=8,8
-	for a=1,#files do
-		local ss,qs = sprites.load("gfx/"..files[a],tw*2^(a-1),th*2^(a-1))
-		table.insert(Spritesheet,ss)
-		table.insert(Quads,qs)
-	end
-
-	--Shader = shader.make()
+	Shader = shader.make()
+	Shader:send("screenHeight",g.height)
 
 	screen.update(g)
 
