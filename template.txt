@@ -1,4 +1,96 @@
+map flags, specifically for things like solid, enemy etc
+menu that just takes in lines of text, dynamically builds around that
+
+only cells have flags? actors have modules
+
+controller options saved to config, player_controller: "gamepad" or "keyboard" this is used to select default controller when a new one is plugged in
+
+in roguelike mode, make map.actor grid. each cell is either nil if no actor, or actor's index (in g.actors) if actor in cell.
+	how to set/update? every time actor moves, or in one big loop at end of turn?
+
+flatten maps? ie instead of map[y][x] it would be map[x*y math magic here]
+	(y-1)*w+x ?
+
+levels have modes, NOT games (can default a level's mode to eg roguelike if game is all roguelike levels so don't have to put "mode":"roguelike" in every level)
+	put modes into level.lua?
+	mode.map.draw instead of draw folder, like mode.actor.draw
+
+move Enums into Game, so g.enums etc
+
+make an argument that is added to executable ie template.exe -debug that turns on editor and debug
+	add this argument to dev shortcut, but in release it wont be there
+
+Only use ogg because they can do positional. Batch wav to ogg conversion.
+
+LOAD PALETTES WITH EVERY OTHER LIBRARY SO THEY ARE STRING AND INTEGER INDEXED
+
+START PORTING SPACETANK
+	lesson from not being sure about enums is you should just make spacetank and see how it runs compared to your original code, ie how many actors it can handle at once
+
 YES
+maybe put all media in a folder, then exclude that when loading libraries?
+	what to call this? media? bit vague. assets too nondescript. CONTENT
+
+	list of breaking changes:
+	
+	Removed the default source type for love.audio.newSource.
+    Removed Source:isStopped and Source:isPaused. Use Source:isPlaying instead.
+    Removed Source:rewind. Use Source:stop or Source:seek(0) instead.
+    Removed Source:resume and love.audio.resume. Use Source:play and love.audio.play instead.
+    Removed variant of love.filesystem.newFileData which takes base64 data, use love.data.decode instead.
+    Removed the no-argument variant of Text:set, use Text:clear instead.
+    Removed Image:getData and Image:refresh, use Image:replacePixels instead.
+    Removed love.graphics.getCompressedImageFormats, use love.graphics.getImageFormats instead.
+    Removed the 'void effects(...)' pixel shader entry point. Use the new 'void effect()' instead.
+    Removed Shader:getExternVariable, use Shader:hasUniform instead.
+    Removed love.graphics.newScreenshot, use love.graphics.captureScreenshot instead.
+    Removed SpriteBatch:setBufferSize, spritebatches now automatically grow when they run out of space.
+    Removed deprecated enet function host:socket_get_address.
+    Removed functions deprecated in LÖVE 0.10.2:
+    Removed undocumented Shader:sendInt, Shader:sendBoolean, Shader:sentFloat, Shader:sendMatrix, and Shader:sendTexture methods (use Shader:send instead).
+    Removed love.window.isCreated (use love.window.isOpen instead).
+	Changed all color values to be in the range 0-1, rather than 0-255. This affects the following functions:
+	    love.graphics.setColor, love.graphics.getColor, love.graphics.setBackgroundColor, and love.graphics.getBackgroundColor.
+	    SpriteBatch:setColor and SpriteBatch:getColor.
+	    ParticleSystem:setColors and ParticleSystem:getColors.
+	    love.graphics.clear.
+	    love.graphics.newMesh, Mesh:setVertex, and Mesh:getVertex.
+	    The colored text variants of love.graphics.print, love.graphics.printf, love.graphics.newText, Text:set, Text:setf, Text:add, and Text:addf.
+	    Shader:sendColor.
+	    love.graphics.points.
+	    ImageData:setPixel, ImageData:getPixel, and ImageData:mapPixel.
+	    love.math.gammaToLinear and love.math.linearToGamma.
+	maybe other stuff in changes of v11
+
+clean up screen.lua stuff
+	start with commenting it
+
+make it so mouse can select shop item if it is over it
+	make mouse not follow player in protosnake
+		switch to follow or not follow character?
+post q about canvas:newImageData slice & mipmapswrite to sprite canvas during game?
+beautify json script?
+	line for each value, value's values indented, tabbed so values are all in a column
+
+how to solve problem with thumbs.db causing issues with library.load file count? just make sure thumbs.db not in there?
+Put gfx in g?
+make sure library.load of sfx can handle index or string keys for sounds (positional might cause problems here, because it is string indexed and we're using ipairs right now)
+
+is sfx.positional necessary? maybe make it a game setting?
+	make sfx.loadpositional and sfx.loadnotpositional, call one or the other depending?
+polish up interactive fiction, make general menus
+game.lua stuff, make sure nothing game specific is in there, should go in game itself instead
+can WE get rid of choosing game in main, put it in config instead?
+always use g.players, but make player = players[1] if singleplayer
+tools folder, can it be better organized?
+update nanogenmo etc with new supper.names
+what is difference btwn run, supper.run, game.state.run? can they be smooshed together?
+	would using supper.run be less efficient?
+	how about compared to old spacetank?
+		how many objects can they handle at once before slowdown?
+
+	they run functions dynamically
+
 make funciton inputs into transition take non-table arguments optionally
 make music take string index as well
 make move towards a function for actors
@@ -12,7 +104,10 @@ drawmode and control mode
 	Drawmode 2d, roguelike (have an off grid value for actors not drawn on the grid) 
 	Change mode so you are a dot moving on the background and colliding with all the pixels including the grid itself
 cursor follow vs not follow actor movement, camera movement
+
 BROKEN
+figure out why xbone controller no worky?
+figure out why it locks up when alt tabbing to console and back that shit is fucking ANNOYING
 	joystick not loaded for multigame at startup
 	hud (janky, only draws in one spot)
 item.held=t or f
@@ -66,6 +161,7 @@ console has hints, or character that talks to you through the console
 massively long fake loading screen where you play a game, have to get a high score?
 
 IF YOU NEED TO
+when iterating through tables in lua, for debug printing or serialization, make a list of table ids that have been iterated through so if they show up again in the table you can not iterate through them (Game being referenced in a function within game, causing infiinite loop)
 printformat: printf but with even more options like
 	drop shadow
 	individual character colouration
@@ -117,6 +213,7 @@ change controller input so impulses will work
 	put controller commands in actor.control? Must be some way to make impulses stick
 
 IDEAS
+Load any library necessities before every other library, eg json, then don't load them during recursive stuff, since these need to be available to do any other loads besides .lua
 zoom in real close to an item "ah yes, i can see all the details" but it's huge chunky pixels that are indiscernible
 don't encrypt passwords, let people change it manually. make it a puzzle, say change your score to 1,465,000, unlocks a level
 all the games start to blend together near the end, level modes seemingly from other games creep in to other games
