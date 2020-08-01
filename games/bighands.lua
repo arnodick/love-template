@@ -30,7 +30,7 @@ bighands.player =
 }
 
 bighands.make = function(g)
-	g.flat=true
+
 end
 
 bighands.gameplay =

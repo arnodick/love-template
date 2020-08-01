@@ -24,8 +24,8 @@ roguelike.actor.control = function(a,m,gs,g)
 		end
 		local xdest,ydest=a.x+a.vec[1],a.y+a.vec[2]
 
-		local ibx=map.inbounds(m,xdest,a.y,m.flat)
-		local iby=map.inbounds(m,a.x,ydest,m.flat)
+		local ibx=map.inbounds(m,xdest,a.y)
+		local iby=map.inbounds(m,a.x,ydest)
 		-- print(ibx)
 		-- print(iby)
 		if ibx and iby then

@@ -3,7 +3,7 @@ local iso={}
 iso.level={}
 
 iso.make = function(g)
-	g.flat=true
+
 end
 
 iso.gameplay =

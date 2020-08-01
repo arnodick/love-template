@@ -3,7 +3,6 @@ local staystronger={}
 
 staystronger.make = function(g)
 	g.turn=0
-	g.flat=true
 end
 
 staystronger.level={}

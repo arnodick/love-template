@@ -20,8 +20,7 @@ Music=supper.load("music","wav")
 -- local ssl = require("ssl")
 
 function love.load(args)
-	-- game.make("multigame")
-	game.make("offgrid")
+	game.make("multigame")
 	-- supper.print(Game.options)
 	-- supper.print(args)
 	if supper.contains(args,"development") then

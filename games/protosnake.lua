@@ -7,7 +7,6 @@ protosnake.make = function(g)
     g.window.height=480
 	--]]
 	g.levelpath={}
-	g.flat=true
 end
 
 protosnake.level={}

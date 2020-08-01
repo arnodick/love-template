@@ -20,9 +20,9 @@ level.make = function(g,index,mode)
 		if l.map.file then
 			-- map.load(l.map,"/maps/"..l.map.file..".txt")
 
-			map.load(l.map,"/maps/"..l.map.file..".txt",g.flat)
+			map.load(l.map,"/maps/"..l.map.file..".txt")
 		elseif l.map.generators then
-			map.generate(l.map,l.map.generators,g.flat)
+			map.generate(l.map,l.map.generators)
 			-- supper.print(l.map)
 		end
 		l.canvas={background=LG.newCanvas(l.map.w*l.map.tile.width,l.map.h*l.map.tile.height)}

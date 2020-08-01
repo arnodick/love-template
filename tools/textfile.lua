@@ -1,70 +1,38 @@
 --TODO maybe put this in love.filesystem?
 local textfile={}
-textfile.flat={}
 
 local byteamount=4--4 bytes (8 hex digits) per cell
 local hexamount=byteamount*2--8 hex digits per cell
 
-textfile.loadbytes = function(l,flatdata)
-	--converts a line of hex text into values and inserts them into a 1D array
-	--returns the 1D array
-	if flatdata then
-		local w=0
-		for a=1,#l,hexamount do
-			w=w+1
-			local val=tonumber(string.sub(l,a,a+hexamount-1),16)
-			table.insert(flatdata,val)
-		end
-		--TODO take this out of textfile, put in map
-		if not flatdata.w then
-			flatdata.w=w
-			print("MAP WIDTH: "..flatdata.w)
-		end
-	else
-		local ar={}
-		for a=1,#l,hexamount do
-			table.insert(ar,tonumber(string.sub(l,a,a+hexamount-1),16))
-		end
-		return ar
+--converts a line of hex text into values and inserts them into a 1D array
+--data is the table we will load hex data into as a 1D array, l is a line of hex data as a string
+textfile.loadbytes = function(data,l)
+	local w=0
+	for a=1,#l,hexamount do
+		w=w+1
+		local val=tonumber(string.sub(l,a,a+hexamount-1),16)
+		table.insert(data,val)
 	end
+	return w
 end
 
-textfile.flat.load = function(m)
-	return love.filesystem.read(m)
-	-- local data=love.filesystem.read(m)
-	-- local ar={}
-	-- for a=1,#data,hexamount do
-	-- 	table.insert(ar,tonumber(string.sub(l,a,a+hexamount-1),16))
-	-- end
-	-- return ar
-end
-
-textfile.load = function(m,flat)
-	--loads hex values from a textfile into an array row by row
-	--returns a 2D array of datums
+--loads hex values from a textfile row by row into an array
+--returns a 1D array of datums, the width of the textfile's data (how many values are in each row) and the height in rows of the textfile's data
+--f is the file name of the textfile we are loading from
+textfile.load = function(f)
 	local data={}
-	if flat then
-		-- table.insert(data,{})
-		local h=0
-		for row in love.filesystem.lines(m) do
-			h=h+1
-			textfile.loadbytes(row,data)
-		end
-		if not data.h then
-			data.h=h
-			print("MAP HEIGHT: "..data.h)
-		end
-		if not data.tile then
-			data.tile={width=8,height=8}
-		end
-		data.width=data.w*data.tile.width
-		data.height=data.h*data.tile.height
-	else
-		for row in love.filesystem.lines(m) do
-			table.insert(data,textfile.loadbytes(row))
+	local w=nil
+	local h=0
+
+	for row in love.filesystem.lines(f) do
+		h=h+1
+		local cellwidth=textfile.loadbytes(data,row)
+		if w==nil then
+			w=cellwidth
 		end
 	end
-	return data
+
+	return data,w,h
 end
 
 --TODO move map stuff out of here. maybe map just does all this stuff, and has function for the str=str stuff below?
@@ -72,25 +40,14 @@ textfile.save = function(m,name)
 	--takes an array of hex data and a filename string
 	--converts hex data into text and saves it in a file
 
-	if not m.flat then
-		local str=""
-		for y=1,#m do
-			for x=1,#m[y] do
-				str=str..string.format("%0"..tostring(hexamount).."x",m[y][x])
-			end
-			str=str.."\n"
+	local str=""
+	for y=1,m.h do
+		for x=1,m.w do
+			str=str..string.format("%0"..tostring(hexamount).."x",m[map.getxy(m,x,y)])
 		end
-		love.filesystem.write(name,str)
-	else
-		local str=""
-		for y=1,m.h do
-			for x=1,m.w do
-				str=str..string.format("%0"..tostring(hexamount).."x",m[map.flat.getxy(m,x,y)])
-			end
-			str=str.."\n"
-		end
-		love.filesystem.write(name,str)
+		str=str.."\n"
 	end
+	love.filesystem.write(name,str)
 end
 
 return textfile
