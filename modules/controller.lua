@@ -9,6 +9,7 @@ controller.make = function(a,cont,t,input,ai1,ai2)
 
 	if input==EMCI.gamepad then
 		c.id=ai1 or 1
+		c.inputtype=ai2 or "analog"
 	elseif input==EMCI.keyboard then
 		c.inputtype=ai1 or "vector"
 		-- c.vector=ai1

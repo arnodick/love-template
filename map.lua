@@ -22,9 +22,9 @@ map.generate = function(m,gen)
 	local w,h=m.w,m.h
 	local args=m.args
 
-	for xy=1,w*h do
+	for index=1,w*h do
 		table.insert(m,0)
-		local x,y=map.getxandy(m,xy)
+		local x,y=map.getxy(m,index)
 		if type(gen)=="table" then
 			for i,v in ipairs(gen) do
 				generators[v](m,w,h,x,y,args)
@@ -33,9 +33,7 @@ map.generate = function(m,gen)
 			generators[gen](m,w,h,x,y,args)
 		end
 	end
-	-- map.init(m)
-	m.width=m.w*m.tile.width
-	m.height=m.h*m.tile.height
+	map.init(m)
 end
 
 map.load = function(m,filename)
@@ -53,16 +51,21 @@ map.load = function(m,filename)
 	return m
 end
 
-map.getxy = function(m,x,y)
+--converts x and y coordinates into the corresponding index value in a map
+--ie if map w and h are 8, if x==1 and y==1, then index==1, if x==1 and y==2, then index==9
+map.getindex = function(m,x,y)
 	return (y-1)*m.w+x
 end
 
-map.getxandy = function(m,xy)
-	return (xy-1)%m.w+1,math.ceil(xy/m.w)
+--converts an index from a map into x and y values
+--ie if map w and h are 8, if index==1 then x==1 and y==1, if index==9 then x==1 and y==2
+map.getxy = function(m,index)
+	return (index-1)%m.w+1,math.ceil(index/m.w)
 end
 
-map.setxy = function(m,x,y,v)
-	m[map.getxy(m,x,y)]=v
+--sets an index of a map using x and y values to v
+map.setindex = function(m,x,y,v)
+	m[map.getindex(m,x,y)]=v
 end
 
 map.save = function(m,filename)
@@ -86,10 +89,10 @@ end
 --TODO ALL maps should have w h width height, tile.width/height
 
 map.inbounds = function(m,x,y)
-	local xy=map.getxy(m,x,y)
+	local index=map.getindex(m,x,y)
 	if x>0 and x<=m.w then
 		if y>0 and y<=m.h then
-			return m[xy]
+			return m[index]
 		end
 	end
 	return nil
@@ -117,7 +120,7 @@ map.getcellraw = function(m,x,y,cell)
 	if not cell then
 		cx,cy=map.getcellcoords(m,x,y)
 	end
-	return m[map.getxy(m,cx,cy)]
+	return m[map.getindex(m,cx,cy)]
 end
 
 -- TODO world coords weirdness
@@ -127,7 +130,7 @@ map.getcellvalue = function(m,x,y,cell)--takes world x,y coordinates and returns
 		cx,cy=map.getcellcoords(m,x,y)
 	end
 
-	local mval=m[map.getxy(m,cx,cy)]
+	local mval=m[map.getindex(m,cx,cy)]
 	return flags.strip(mval)
 end
 
@@ -136,14 +139,14 @@ map.setcellvalue = function(m,x,y,v,worldcoords)--sets the value of a map cell i
 		x,y=map.getcellcoords(m,x,y)
 	end
 
-	local xy=map.getxy(m,x,y)
-	m[xy]=bit.bor(flags.isolate(m[xy]),v)
+	local index=map.getindex(m,x,y)
+	m[index]=bit.bor(flags.isolate(m[index]),v)
 end
 
 map.getcellflags = function(m,x,y,shift)
 	shift=shift or 16
 	local cx,cy=map.getcellcoords(m,x,y)
-	local c=m[map.getxy(m,cx,cy)]
+	local c=m[map.getindex(m,cx,cy)]
 	return bit.rshift(c,shift)
 end
 
@@ -154,8 +157,8 @@ map.setcellflag = function(m,x,y,v,worldcoords)--sets a flag on the high 16 bits
 		x,y=map.getcellcoords(m,x,y)
 	end
 
-	local xy=map.getxy(m,x,y)
-	m[xy]=bit.bor(m[xy],f)
+	local index=map.getindex(m,x,y)
+	m[index]=bit.bor(m[index],f)
 end
 
 map.erase = function(m)
@@ -169,8 +172,8 @@ map.erasecellflags = function(m,x,y,worldcoords)
 		x,y=map.getcellcoords(m,x,y)
 	end
 
-	local xy=map.getxy(m,x,y)
-	m[xy]=flags.strip(m[xy])
+	local index=map.getindex(m,x,y)
+	m[index]=flags.strip(m[index])
 end
 
 generators.empty = function(m,w,h,x,y)
@@ -188,7 +191,7 @@ generators.random = function(m,w,h,x,y,args)
 	local pool=args.pool
 	local v=pool[love.math.random(#pool)]
 
-	map.setxy(m,x,y,v)
+	map.setindex(m,x,y,v)
 	--[[
 	if v==2 or v==3 or v==4 then
 		map.setcellflag(m,x,y,EF.animated)
@@ -197,7 +200,7 @@ generators.random = function(m,w,h,x,y,args)
 end
 
 generators.increment = function(m,w,h,x,y)
-	map.setxy(m,x,y,x+(y-1)*w)
+	map.setindex(m,x,y,x+(y-1)*w)
 end
 
 generators.solid = function(m,w,h,x,y,args)

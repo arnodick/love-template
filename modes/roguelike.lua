@@ -10,8 +10,16 @@ roguelike.actor.control = function(a,m,gs,g)
 				if c.input==EMCI.gamepad then
 					local vh=c.horizontal
 					local vv=c.vertical
-					a.vec[1]=vh/math.abs(vh)
-					a.vec[2]=vv/math.abs(vv)
+					if vh~=0 then
+						a.vec[1]=vh/math.abs(vh)
+					else
+						a.vec[1]=0
+					end
+					if vv~=0 then
+						a.vec[2]=vv/math.abs(vv)
+					else
+						a.vec[2]=0
+					end
 				else
 					a.vec[1]=c.horizontal
 					a.vec[2]=c.vertical

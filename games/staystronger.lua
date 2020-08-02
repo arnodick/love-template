@@ -23,7 +23,7 @@ staystronger.player =
 {
 	make = function(g,a)
 		if Joysticks[1] then
-			module.make(a,EM.controller,EMC.move,EMCI.gamepad)
+			module.make(a,EM.controller,EMC.move,EMCI.gamepad,1,"digital")
 			module.make(a,EM.controller,EMC.action,EMCI.gamepad)
 		else
 			module.make(a,EM.controller,EMC.move,EMCI.keyboard,"direct")
