@@ -7,12 +7,9 @@ controller.make = function(a,cont,t,input,ai1,ai2)
 	c.t=t
 	c.input=input
 
+	c.inputtype=ai1 or "vector"
 	if input==EMCI.gamepad then
-		c.id=ai1 or 1
-		c.inputtype=ai2 or "analog"
-	elseif input==EMCI.keyboard then
-		c.inputtype=ai1 or "vector"
-		-- c.vector=ai1
+		c.id=ai2 or 1
 	end
 
 	if t==EMC["action"] then

@@ -56,6 +56,18 @@ game.player.make = function(g,a,singleplayer)
 		table.insert(g.players,a)
 	end
 	a.flags=flags.set(a.flags,EF.player,EF.persistent)
+	if g.options then
+		if g.settings then
+			if Joysticks[1] and g.options.controller=="gamepad" then
+				module.make(a,EM.controller,EMC.move,EMCI.gamepad,g.settings.inputtype)
+				module.make(a,EM.controller,EMC.action,EMCI.gamepad)
+				--TODO add aim gere
+			else
+				module.make(a,EM.controller,EMC.move,EMCI.keyboard,g.settings.inputtype)
+				module.make(a,EM.controller,EMC.action,EMCI.keyboard)
+			end
+		end
+	end
 	game.state.run(g.name,"player","make",g,a)
 end
 

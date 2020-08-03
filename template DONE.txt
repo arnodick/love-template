@@ -1,6 +1,7 @@
 DONE
 flatten maps? ie instead of map[y][x] it would be map[x*y math magic here]
 	(y-1)*w+x ?
+controller options saved to config, player_controller: "gamepad" or "keyboard" this is used to select default controller when a new one is plugged in
 update to love 11.3
 The enum ARE the returns from library load of lua files
 	Have exclude instead of include in library load, so can not load certain folders into enums when lua library load
@@ -158,6 +159,8 @@ graphics stuff in game library
 editor not as module but as its own .lua library
 
 NO
+move Enums into Game, so g.enums etc
+	NO, just localize enums whenever they are use
 make sprites.load use library.load, not other way around
 use filterfiles in other things like library?
 player as module

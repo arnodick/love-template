@@ -53,7 +53,7 @@ types.vector = function(a,c,horizontal,vertical,moving)
 end
 
 --direct control only allows one direction to be pressed at a time
-types.direct = function(a,c,horizontal,vertical,moving)
+types.digital = function(a,c,horizontal,vertical,moving)
 	if love.keyboard.isDown('left') or love.keyboard.isDown('a') then
 		horizontal=-1
 		vertical=0

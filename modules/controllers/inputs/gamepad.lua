@@ -1,14 +1,9 @@
 local gamepad={}
 local output={}
 
---TODO input move controller here
 gamepad.move = function(a,c)
-	local j=Joysticks[a.controller.move.id]
-	-- print(j:getGamepadAxis("leftx").." "..j:getGamepadAxis("lefty"))
-
-	--TODO return normalized values here if digital or vector if analog, make local functions output.digital and output.analog and run like output[c.outputtype]
-	--give controllers a diagonal option as well, whether only one dir at a time or two
-
+	local j=Joysticks[c.id]
+	--TODO give controllers a diagonal option as well, whether only one dir at a time or two
 	return output[c.inputtype](a,j)
 end
 
@@ -31,7 +26,7 @@ gamepad.action = function(a)
 	return use,action
 end
 
-output.analog = function(a,j)
+output.vector = function(a,j)
 	return j:getGamepadAxis("leftx"),j:getGamepadAxis("lefty")
 end
 
