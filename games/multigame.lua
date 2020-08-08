@@ -15,7 +15,8 @@ multigame.intro =
 			end
 		end
 
-		module.make(g.hud,EM.menu,"interactive",g.width/2,120,g.width-2,(#gamenames+2)*16,gamenames,"orange","dark_green","center",gamemakes,gameargs)
+		--TODO send in a menusettings table or something that has textbgcolor="orange" etc?
+		module.make(g.hud,EM.menu,"interactive",g.width/2,120,g.width-2,(#gamenames+2)*16,gamenames,"orange","dark_green","center",gamemakes,gameargs,g.options.controller)
 		module.make(g.hud.menu,EM.border,"orange","dark_green")
 	end,
 

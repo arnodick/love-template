@@ -12,7 +12,6 @@ local function make(g,a,c,size,spr,hp)
 	module.make(a,EM.sound,3,"damage")
 	module.make(a,EM.tail,a.cinit,9)
 	module.make(a,EM.inventory,1)
-	table.insert(a.inventory,actor.make(g,EA.machinegun,a.x,a.y,0,0,a.cinit,"green"))
 	module.make(a,EM.animation,EM.animations.frames,10,2)
 	module.make(a,EM.hitradius,4)
 	module.make(a,EM.drop,"coin")
@@ -21,6 +20,9 @@ local function make(g,a,c,size,spr,hp)
 	a.d=math.choose(math.pi)
 	a.vel=1
 	a.rage=0
+
+	local gun=actor.make(g,EA.machinegun,a.x,a.y,0,0,a.cinit,"green")
+	item.pickup(g,gun,a)
 end
 
 local function control(g,a)

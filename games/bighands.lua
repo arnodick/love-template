@@ -8,11 +8,11 @@ bighands.player =
 		local playernum=#g.players
 		print(playernum)
 
-		if #Joysticks>0 then
-			module.make(a,EM.controller,EMC.move,EMCI.gamepad,"vector",playernum)
-			module.make(a,EM.controller,EMC.aim,EMCI.gamepad,"vector",playernum)
-			module.make(a,EM.controller,EMC.action,EMCI.gamepad,"vector",playernum)
-		end
+		-- if #Joysticks>0 then
+		-- 	module.make(a,EM.controller,EMC.move,EMCI.gamepad,"vector",playernum)
+		-- 	module.make(a,EM.controller,EMC.aim,EMCI.gamepad,"vector",playernum)
+		-- 	module.make(a,EM.controller,EMC.action,EMCI.gamepad,"vector",playernum)
+		-- end
 
 		actor.make(g,EA.wand,a.x+20,a.y)
 

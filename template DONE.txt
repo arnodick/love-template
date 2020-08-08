@@ -1,4 +1,5 @@
 DONE
+MODS have settings (ie vector vs digital controls) not games?
 flatten maps? ie instead of map[y][x] it would be map[x*y math magic here]
 	(y-1)*w+x ?
 controller options saved to config, player_controller: "gamepad" or "keyboard" this is used to select default controller when a new one is plugged in

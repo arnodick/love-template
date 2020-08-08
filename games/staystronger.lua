@@ -3,22 +3,23 @@ local staystronger={}
 
 staystronger.make = function(g)
 	g.turn=0
-	g.settings={inputtype="digital"}
 end
 
-staystronger.level={}
-staystronger.level.make = function(g,l,index,mode)
-	l.mode=mode or Enums.modes.roguelike
-	l.modename=Enums.modes[mode] or Enums.modes[Enums.modes.roguelike]
+-- staystronger.level={}
+-- staystronger.level.make = function(g,l,index,mode)
+-- 	l.mode=mode or Enums.modes.roguelike
+-- 	l.modename=Enums.modes[mode] or Enums.modes[Enums.modes.roguelike]
 
-	--TODO put this in roguelike? need to add mode.level.make to level.make?
-	-- if l.map then
-	-- 	l.map.actors={}
-	-- 	map.init(l.map.actors,l.map.w,l.map.h)
-	-- 	map.generate(l.map.actors,"empty")
-	-- 	-- supper.print(l.map.actors)
-	-- end
-end
+-- 	print(l.modename)
+
+-- 	--TODO put this in roguelike? need to add mode.level.make to level.make?
+-- 	-- if l.map then
+-- 	-- 	l.map.actors={}
+-- 	-- 	map.init(l.map.actors,l.map.w,l.map.h)
+-- 	-- 	map.generate(l.map.actors,"empty")
+-- 	-- 	-- supper.print(l.map.actors)
+-- 	-- end
+-- end
 
 staystronger.player =
 {
@@ -60,7 +61,7 @@ staystronger.gameplay =
 {
 	make = function(g)
 		-- level.make(g,1,Enums.modes.roguelike)
-		level.make(g,1)
+		level.make(g,1,Enums.modes.roguelike)
 
 		g.step=false
 

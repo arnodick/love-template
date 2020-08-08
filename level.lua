@@ -9,6 +9,7 @@ level.make = function(g,index,mode)
 		l.mode=mode
 		l.modename=Enums.modes[mode]
 	end
+	--if _G[modename].settings then l.settings=_G[modename].settings
 	if not g.levels then
 		g.levels={}
 	end
@@ -29,6 +30,9 @@ level.make = function(g,index,mode)
 		l.bgdraw=true
 	end
 	g.level=l
+	if l.modename then
+		game.state.run(l.modename,"level","make",g,l,index)
+	end
 	game.state.run(g.name,"level","make",g,l,index,mode)
 end
 

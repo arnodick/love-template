@@ -56,18 +56,52 @@ game.player.make = function(g,a,singleplayer)
 		table.insert(g.players,a)
 	end
 	a.flags=flags.set(a.flags,EF.player,EF.persistent)
+
+	local c="keyboard"
 	if g.options then
-		if g.settings then
+		if g.options.controller then
 			if Joysticks[1] and g.options.controller=="gamepad" then
-				module.make(a,EM.controller,EMC.move,EMCI.gamepad,g.settings.inputtype)
-				module.make(a,EM.controller,EMC.action,EMCI.gamepad)
-				--TODO add aim gere
-			else
-				module.make(a,EM.controller,EMC.move,EMCI.keyboard,g.settings.inputtype)
-				module.make(a,EM.controller,EMC.action,EMCI.keyboard)
+				c=g.options.controller
 			end
 		end
 	end
+
+	local inputtypesetting=nil
+	local gls=g.level.settings
+	if gls then
+		inputtypesetting=gls.inputtype
+	end
+
+	--default to keyboard if no gamepad plugged in
+	-- if c=="gamepad" then
+	-- 	if not Joysticks[1] then
+	-- 		c="keyboard"
+	-- 	end
+	-- end
+
+	local inputaim=nil
+	if gls then
+		inputaim=gls.inputaim
+	end
+	module.make(a,EM.controller,EMC.move,EMCI[c],inputtypesetting)
+	if inputaim then
+		print("C")
+		print(c)
+		if c=="keyboard" then
+			print("KEYBOARD MOUSE RETICLE")
+			module.make(a,EM.controller,EMC.action,EMCI.mouse)
+			module.make(a,EM.controller,EMC.aim,EMCI.mouse)
+			module.make(a,EM.cursor,"reticle")
+		else
+			module.make(a,EM.controller,EMC.action,EMCI.gamepad)
+			module.make(a,EM.controller,EMC.aim,EMCI.gamepad)
+		end
+	else
+		module.make(a,EM.controller,EMC.action,EMCI[c])
+	end
+
+	--TODO reticle if keyboard and mouse and settings for reticle in gls
+
 	game.state.run(g.name,"player","make",g,a)
 end
 

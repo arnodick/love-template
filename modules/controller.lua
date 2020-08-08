@@ -1,23 +1,49 @@
 local controller={}
 
+--TODO just input g here
 controller.make = function(a,cont,t,input,ai1,ai2)
+	-- print(a.t)
+	local g=Game
 	local controllertypename=EMC[t]
 	cont[controllertypename]={}--this gives the controller a table named after the controller's type (ie controller.move)
 	local c=cont[controllertypename]--c is the controller's type sub-table (ie move)
 	c.t=t
-	c.input=input
 
-	c.inputtype=ai1 or "vector"
 	if input==EMCI.gamepad then
 		c.id=ai2 or 1
 	end
 
+	c.input=input
+	--will this put inputtype onto controllers that don't need it? ie ai controllers
+	c.inputtype=ai1 or "vector"
+
+	--TODO just do this in game.make as well, but put settings into level, so no _G stuff
+	-- if controllertypename=="move" then
+	-- 	--TODO do we need ai1 here?
+	-- 	--will this put inputtype onto controllers that don't need it? ie ai controllers
+	-- 	c.inputtype=ai1 or "vector"
+
+	-- 	--TODO make ai1 _G[g.level.modename].settings input, also put settings into level when making
+	-- 	if g then
+	-- 		if g.level then
+	-- 			local settings=g.level.settings
+	-- 			if settings then
+	-- 				c.inputtype=settings.inputtype
+	-- 			end
+	-- 		end
+	-- 	end
+	-- end
+
+	-- print(c.input)
+
+	--what is this about? is every controller ending up with this?
 	if t==EMC["action"] then
 		module.make(c,EM.chance,ai1,ai2)
 	else
 		module.make(c,EM.target,ai1,ai2)
 	end
 
+	--TODO do we need EMC here? controllertypename instead
 	run(EMC[t],"make",a,c)
 end
 

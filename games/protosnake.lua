@@ -34,7 +34,7 @@ protosnake.level.store=
 				if drop.cost then
 					cost=drop.cost
 				end
-			module.make(drop,EM.menu,"text",drop.x,drop.y,24,24,"$"..cost,"white","dark_gray")--TODO put costs option in inis
+				module.make(drop,EM.menu,"text",drop.x,drop.y,24,24,"$"..cost,"white","dark_gray")--TODO put costs option in inis
 				local m=drop.menu
 				module.make(m,EM.border,"white","dark_gray")
 			end
@@ -77,24 +77,25 @@ end
 protosnake.player =
 {
 	make = function(g,a)
-		if #Joysticks>0 then
-			print("JOYTSICK")
-			module.make(a,EM.controller,EMC.move,EMCI.gamepad)
-			module.make(a,EM.controller,EMC.aim,EMCI.gamepad)
-			module.make(a,EM.controller,EMC.action,EMCI.gamepad)
-		else
-			print("KEYBOARD")
-			module.make(a,EM.controller,EMC.move,EMCI.keyboard)
-			module.make(a,EM.controller,EMC.aim,EMCI.mouse)
-			module.make(a,EM.controller,EMC.action,EMCI.mouse)
-			module.make(a,EM.cursor,"reticle")
-		-- 	module.make(a,"controller","move","keyboard",true)
-		-- 	module.make(a,"controller","aim","mouse")
-		-- 	module.make(a,"controller","action","mouse")
-		-- 	module.make(a,"cursor","reticle")
-		end
+		-- if #Joysticks>0 then
+		-- 	print("JOYTSICK")
+		-- 	module.make(a,EM.controller,EMC.move,EMCI.gamepad)
+		-- 	module.make(a,EM.controller,EMC.aim,EMCI.gamepad)
+		-- 	module.make(a,EM.controller,EMC.action,EMCI.gamepad)
+		-- else
+		-- 	print("KEYBOARD")
+		-- 	module.make(a,EM.controller,EMC.move,EMCI.keyboard)
+		-- 	module.make(a,EM.controller,EMC.aim,EMCI.mouse)
+		-- 	module.make(a,EM.controller,EMC.action,EMCI.mouse)
+		-- 	module.make(a,EM.cursor,"reticle")
+		-- -- 	module.make(a,"controller","move","keyboard",true)
+		-- -- 	module.make(a,"controller","aim","mouse")
+		-- -- 	module.make(a,"controller","action","mouse")
+		-- -- 	module.make(a,"cursor","reticle")
+		-- end
 		a.coin=0
-		actor.make(g,EA.machinegun,a.x,a.y,0,0,"dark_purple","dark_purple")
+		local gun=actor.make(g,EA.machinegun,a.x,a.y,0,0,"dark_purple","dark_purple")
+		item.pickup(g,gun,a)
 	end,
 
 	control = function(g,a)
@@ -247,6 +248,13 @@ protosnake.gameplay =
 				LG.rectangle("line",x,y,15,15)
 				if g.player.inventory[i] then
 					local a=g.player.inventory[i]
+					-- print(a.spr)
+					if not a.spr then
+						print("NO a.spr")
+					end
+					if not a.size then
+						print("NO a.size")
+					end
 					LG.draw(Sprites[a.size].spritesheet,Sprites[a.size].quads[a.spr],x+7,y+7,a.angle,1,1,(a.size*m.tile.width)/2,(a.size*m.tile.height)/2)
 				end
 			end
@@ -438,7 +446,9 @@ protosnake.item =
 {
 	control = function(g,a,gs)
 		local p=g.player
-		item.pickup(g,a,p)
+		if p.controller.action.action then
+			item.pickup(g,a,p)
+		end
 	end,
 
 	carry = function(a,user)
@@ -448,14 +458,26 @@ protosnake.item =
 
 	pickup = function(g,a,user)
 		if actor.collision(a.x,a.y,user) then
-			if user.controller.action.action or #user.inventory<1 then
-				if a.sound then
-					if a.sound.get then
-						sfx.play(a.sound.get,a.x,a.y)
+			-- if user.controller.action.action or #user.inventory<1 then
+			if not a.carried then
+			-- if user.controller.action.action or #user.inventory<1 then
+				-- if user.controller.action.useduration==0 then
+					print(a.t)
+					if a.sound then
+						if a.sound.get then
+							sfx.play(a.sound.get,a.x,a.y)
+						end
 					end
-				end
-				a.flags=flags.set(a.flags,EF.persistent)
-				table.insert(user.inventory,1,a)
+					--TODO only if user is player
+					if flags.get(user.flags,EF.player) then
+						a.flags=flags.set(a.flags,EF.persistent)
+					end
+					a.carried=true
+					print("PICKUP a.spr")
+					print(a.spr)
+					table.insert(user.inventory,1,a)
+				-- end
+			-- end
 			end
 		end
 	end,

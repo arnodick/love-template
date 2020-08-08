@@ -1,5 +1,6 @@
 local topdown={}
 topdown.actor={}
+topdown.level={}
 
 topdown.actor.control = function(a,m,gs)
 	if a.controller then
@@ -58,6 +59,12 @@ end
 
 topdown.actor.draw = function(g,a)
 	actor.twodimensional.draw(g,a)
+end
+
+topdown.level.make = function(g,l)
+	print("INPUT AIM")
+	l.settings={inputaim=true, inputretical=true}
+	print(l.settings.inputaim)
 end
 
 return topdown

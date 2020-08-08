@@ -1,5 +1,6 @@
 local roguelike={}
 roguelike.actor={}
+roguelike.level={}
 
 --TODO input g here
 roguelike.actor.control = function(a,m,gs,g)
@@ -61,6 +62,12 @@ roguelike.actor.draw = function(g,a)
 		LG.setColor(100,200,100)--TODO
 		LG.print(a.char,(a.x-1)*m.tile.width,(a.y-1)*m.tile.height)
 	end
+end
+
+roguelike.level.make = function(g,l)
+	l.settings={inputtype="digital"}
+	print("RL SETTINGS")
+	print(l.settings.inputtype)
 end
 
 return roguelike

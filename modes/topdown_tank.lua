@@ -1,5 +1,6 @@
 local topdown_tank={}
 topdown_tank.actor={}
+topdown_tank.level={}
 
 topdown_tank.actor.control = function(a,m,gs)
 	if a.controller then
@@ -78,6 +79,12 @@ end
 
 topdown_tank.actor.draw = function(g,a)
 	actor.twodimensional.draw(g,a)
+end
+
+topdown_tank.level.make = function(g,l)
+	print("INPUT AIM")
+	l.settings={inputaim=true}
+	print(l.settings.inputaim)
 end
 
 return topdown_tank

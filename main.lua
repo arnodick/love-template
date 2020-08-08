@@ -93,7 +93,7 @@ function love.joystickadded(joystick)
 	if g.options then
 		if m then
 			m.controller=nil
-			module.make(m,EM.controller,EMC.move,EMCI[g.options.controller])
+			module.make(m,EM.controller,EMC.move,EMCI[g.options.controller],"digital")
 			module.make(m,EM.controller,EMC.action,EMCI[g.options.controller])
 		end
 	end
