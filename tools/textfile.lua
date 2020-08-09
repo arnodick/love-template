@@ -26,7 +26,7 @@ textfile.load = function(f)
 
 	for row in love.filesystem.lines(f) do
 		h=h+1
-		local cellwidth=textfile.loadbytes(data,row)
+		local cellwidth=textfile.loadbytes(data,row)z
 		if w==nil then
 			w=cellwidth
 		end
@@ -43,7 +43,7 @@ textfile.save = function(m,name)
 	local str=""
 	for y=1,m.h do
 		for x=1,m.w do
-			str=str..string.format("%0"..tostring(hexamount).."x",m[map.getxy(m,x,y)])
+			str=str..string.format("%0"..tostring(hexamount).."x",m[map.getindex(m,x,y)])
 		end
 		str=str.."\n"
 	end

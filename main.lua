@@ -87,14 +87,36 @@ function love.joystickadded(joystick)
 	table.insert(Joysticks,joystick)
 
 	--TODO pass this down through game to multigame to make controller on its hud menu rather than here
-	local m=g.hud.menu
 
 	--TODO make a function that assigns controllers to player and menus from g.options?
 	if g.options then
-		if m then
-			m.controller=nil
-			module.make(m,EM.controller,EMC.move,EMCI[g.options.controller],"digital")
-			module.make(m,EM.controller,EMC.action,EMCI[g.options.controller])
+		if g.options.controller then
+			if g.options.controller=="gamepad" then
+				local m=g.hud.menu
+				if m then
+					m.controller=nil
+					module.make(m,EM.controller,EMC.move,EMCI[g.options.controller],"digital")
+					module.make(m,EM.controller,EMC.action,EMCI[g.options.controller])
+				end
+				local p=g.player
+				if p then
+					local inputtypesetting=nil
+					local gls=g.level.settings
+					if gls then
+						inputtypesetting=gls.inputtype
+					end
+					p.controller=nil
+					module.make(p,EM.controller,EMC.move,EMCI.gamepad,inputtypesetting)
+					module.make(p,EM.controller,EMC.action,EMCI.gamepad)
+					local inputaim=nil
+					if gls then
+						inputaim=gls.inputaim
+					end
+					if inputaim then
+						module.make(a,EM.controller,EMC.aim,EMCI.gamepad)
+					end
+				end
+			end
 		end
 	end
 
@@ -107,11 +129,12 @@ function love.joystickadded(joystick)
 	print("  "..b)
 	print("  "..c)
 
-	local p=g.player
-	if p then
-		p.controller=nil
-		module.make(p,EM.controller,EMC.move,EMCI.gamepad)
-		module.make(p,EM.controller,EMC.action,EMCI.gamepad)
+	if g.options then
+		if g.options.controller then
+			if Joysticks[1] and g.options.controller=="gamepad" then
+				c=g.options.controller
+			end
+		end
 	end
 end
 
