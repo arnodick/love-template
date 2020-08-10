@@ -8,12 +8,12 @@ local function make(g,a,c,size,spr,hp)
 	a.value=1
 	a.speed=2
 
-	module.make(a,EM.target,g.player)
+	module.make(g,a,EM.target,g.player)
 
-	module.make(a,EM.controller,EMC.move,EMCI.ai,a.x,a.y)
-	module.make(a,EM.sound,3,"damage")
-	module.make(a,EM.animation,EM.animations.frames,10,2)
-	module.make(a,EM.hitradius,4)
+	module.make(g,a,EM.controller,EMC.move,EMCI.ai,a.x,a.y)
+	module.make(g,a,EM.sound,3,"damage")
+	module.make(g,a,EM.animation,EM.animations.frames,10,2)
+	module.make(g,a,EM.hitradius,4)
 	a.flags=flags.set(a.flags,EF.character,EF.enemy,EF.damageable, EF.shootable, EF.explosive)
 
 	--g.level.enemies.max=math.clamp(g.level.enemies.max+1,1,g.level.enemies.maxlimit)
@@ -59,7 +59,7 @@ local function control(g,a)
 			a.controller.move.target.x,a.controller.move.target.y=x,y
 		end
 	elseif movedist<=a.vel then--if you've made it to safety then look out for player again
-		module.make(a,EM.target,g.player)
+		module.make(g,a,EM.target,g.player)
 	end
 end
 

@@ -8,18 +8,18 @@ local function make(g,a,c,size,spr,hp)
 	a.value=1
 	a.speed=1.5
 
-	module.make(a,EM.target,g.player)
+	module.make(g,a,EM.target,g.player)
 	
 	--TODO make this stuff into some sort of function?
 	local dir=vector.direction(vector.components(a.x,a.y,a.target.x,a.target.y))
 	local dist=vector.distance(a.x,a.y,a.target.x,a.target.y)*1.5
 	local x=math.clamp(a.x+math.cos(dir)*dist,0,g.width)
 	local y=math.clamp(a.y+math.sin(dir)*dist,0,g.height)
-	module.make(a,EM.controller,EMC.move,EMCI.ai,x,y)
+	module.make(g,a,EM.controller,EMC.move,EMCI.ai,x,y)
 
-	module.make(a,EM.sound,3,"damage")
-	module.make(a,EM.animation,EM.animations.frames,6,2)
-	module.make(a,EM.hitradius,8)
+	module.make(g,a,EM.sound,3,"damage")
+	module.make(g,a,EM.animation,EM.animations.frames,6,2)
+	module.make(g,a,EM.hitradius,8)
 	a.flags=flags.set(a.flags,EF.character,EF.enemy,EF.damageable, EF.shootable, EF.explosive)
 
 	sfx.play(12)
@@ -43,7 +43,7 @@ local function control(g,a)
 		local dist=vector.distance(a.x,a.y,a.target.x,a.target.y)*1.5
 		local x=math.clamp(a.x+math.cos(dir)*dist,0,g.width)
 		local y=math.clamp(a.y+math.sin(dir)*dist,0,g.height)
-		module.make(a,EM.controller,EMC.move,EMCI.ai,x,y)
+		module.make(g,a,EM.controller,EMC.move,EMCI.ai,x,y)
 		sfx.play(12)
 	end
 

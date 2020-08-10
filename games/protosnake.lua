@@ -34,9 +34,9 @@ protosnake.level.store=
 				if drop.cost then
 					cost=drop.cost
 				end
-				module.make(drop,EM.menu,"text",drop.x,drop.y,24,24,"$"..cost,"white","dark_gray")--TODO put costs option in inis
+				module.make(g,drop,EM.menu,"text",drop.x,drop.y,24,24,"$"..cost,"white","dark_gray")--TODO put costs option in inis
 				local m=drop.menu
-				module.make(m,EM.border,"white","dark_gray")
+				module.make(g,m,EM.border,"white","dark_gray")
 			end
 		end
 	end,
@@ -77,22 +77,6 @@ end
 protosnake.player =
 {
 	make = function(g,a)
-		-- if #Joysticks>0 then
-		-- 	print("JOYTSICK")
-		-- 	module.make(a,EM.controller,EMC.move,EMCI.gamepad)
-		-- 	module.make(a,EM.controller,EMC.aim,EMCI.gamepad)
-		-- 	module.make(a,EM.controller,EMC.action,EMCI.gamepad)
-		-- else
-		-- 	print("KEYBOARD")
-		-- 	module.make(a,EM.controller,EMC.move,EMCI.keyboard)
-		-- 	module.make(a,EM.controller,EMC.aim,EMCI.mouse)
-		-- 	module.make(a,EM.controller,EMC.action,EMCI.mouse)
-		-- 	module.make(a,EM.cursor,"reticle")
-		-- -- 	module.make(a,"controller","move","keyboard",true)
-		-- -- 	module.make(a,"controller","aim","mouse")
-		-- -- 	module.make(a,"controller","action","mouse")
-		-- -- 	module.make(a,"cursor","reticle")
-		-- end
 		a.coin=0
 		local gun=actor.make(g,EA.machinegun,a.x,a.y,0,0,"dark_purple","dark_purple")
 		item.pickup(g,gun,a)
@@ -160,7 +144,7 @@ protosnake.player =
 	end,
 
 	damage = function(g,a)--TODO input g here
-		module.make(g.screen,EM.transition,easing.linear,"pixelscale",0.1,1-0.1,22)
+		module.make(g,g.screen,EM.transition,easing.linear,"pixelscale",0.1,1-0.1,22)
 	end,
 
 	dead = function(g,a)
@@ -180,7 +164,7 @@ protosnake.gameplay =
 	control = function(g)
 		if g.player.hp<=0 then
 			if not g.hud.menu then
-				module.make(g.hud,EM.menu,"highscores",g.camera.x,g.camera.y,66,110,"",g.hud.c,g.hud.c2,"center")
+				module.make(g,g.hud,EM.menu,"highscores",g.camera.x,g.camera.y,66,110,"",g.hud.c,g.hud.c2,"center")
 			else
 				menu.control(g,g.hud.menu)
 			end
@@ -279,7 +263,7 @@ protosnake.title =
 		g.hud.font=LG.newFont("fonts/Kongtext Regular.ttf",64)
 		g.scores=scores.load()
 		music.play(1)
-		module.make(g.hud,EM.menu,"interactive",g.width/2,180,60,30,{"START","OPTIONS"},"orange","dark_green","left",{game.state.make,game.state.make},{{g,"gameplay"},{g,"option"}})
+		module.make(g,g.hud,EM.menu,"interactive",g.width/2,180,60,30,{"START","OPTIONS"},"orange","dark_green","left",{game.state.make,game.state.make},{{g,"gameplay"},{g,"option"}})
 	end,
 
 	control = function(g)

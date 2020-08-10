@@ -7,7 +7,7 @@ local function make(g,a,c,user)
 	a.tip={x=0,y=0}
 	--a.angle=a.d
 	--a.d=-a.d
-	module.make(a,EM.item)
+	module.make(g,a,EM.item)
 end
 
 ---[[

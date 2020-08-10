@@ -1,9 +1,8 @@
 local controller={}
 
 --TODO just input g here
-controller.make = function(a,cont,t,input,ai1,ai2)
+controller.make = function(g,a,cont,t,input,ai1,ai2)
 	-- print(a.t)
-	local g=Game
 	local controllertypename=EMC[t]
 	cont[controllertypename]={}--this gives the controller a table named after the controller's type (ie controller.move)
 	local c=cont[controllertypename]--c is the controller's type sub-table (ie move)
@@ -38,9 +37,9 @@ controller.make = function(a,cont,t,input,ai1,ai2)
 
 	--what is this about? is every controller ending up with this?
 	if t==EMC["action"] then
-		module.make(c,EM.chance,ai1,ai2)
+		module.make(g,c,EM.chance,ai1,ai2)
 	else
-		module.make(c,EM.target,ai1,ai2)
+		module.make(g,c,EM.target,ai1,ai2)
 	end
 
 	--TODO do we need EMC here? controllertypename instead
@@ -92,6 +91,43 @@ controller.deadzone = function(c,dz)
 		end
 	end
 --]]
+end
+
+--assigns a controller (either gamepad or keyboard) to a player or menu (or whatever) based on input options (default to gamepad or keyboard) and settings (input aim, digital vs vector, etc)
+controller.assign = function(g,a,options,settings)
+	--TODO this will do all the stuff that is in joystick added and player.make
+	local c="keyboard"
+	if options.controller then
+		if Joysticks[1] and options.controller=="gamepad" then
+			c=options.controller
+		end
+	end
+
+	local inputtypesetting=settings.inputtype
+	local inputaimsetting=settings.inputaim
+
+	module.make(g,a,EM.controller,EMC.move,EMCI[c],inputtypesetting)
+	if inputaimsetting then
+		print("C")
+		print(c)
+		if c=="keyboard" then
+			print("KEYBOARD MOUSE RETICLE")
+			module.make(g,a,EM.controller,EMC.action,EMCI.mouse)
+			module.make(g,a,EM.controller,EMC.aim,EMCI.mouse)
+			module.make(g,a,EM.cursor,"reticle")
+		else
+			module.make(g,a,EM.controller,EMC.action,EMCI.gamepad)
+			module.make(g,a,EM.controller,EMC.aim,EMCI.gamepad)
+		end
+	else
+		module.make(g,a,EM.controller,EMC.action,EMCI[c])
+	end
+
+	--TODO reticle if keyboard and mouse and settings for reticle in gls
+end
+
+controller.unassign = function(g,a,options,settings)
+	--TODO CONTROLLER UNASSIGN
 end
 
 return controller

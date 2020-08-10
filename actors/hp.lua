@@ -5,8 +5,8 @@ local function make(g,a,c,size,spr)
 	a.spr=spr or 129
 	a.sprinit=a.spr
 
-	module.make(a,EM.collectible)
-	module.make(a,EM.sound,6,"get")
+	module.make(g,a,EM.collectible)
+	module.make(g,a,EM.sound,6,"get")
 
 	a.cost=2
 	a.value=4

@@ -1,7 +1,7 @@
 local animation={}
 
 --TODO what is going on here?
-animation.make = function(a,m,t,...)
+animation.make = function(g,a,m,t,...)
 	m[EM.animations[t]]={}
 	run(EM.animations[t],"make",m[EM.animations[t]],...)
 end

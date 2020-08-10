@@ -1,4 +1,4 @@
-local function make(a,m,easing,variablename,startvalue,change,duration,complete,complete_args,t)
+local function make(g,a,m,easing,variablename,startvalue,change,duration,complete,complete_args,t)
 	m.starttime=Game.timer
 	m.easing=easing
 	m.variablename=variablename

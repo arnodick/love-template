@@ -117,7 +117,7 @@ actor.control = function(g,a,gs)
 		--a.vel=math.snap(a.vel,a.decel*gs,0)
 --[[
 		if not a.transition then
-			module.make(a,EM.transition,easing.linear,"vel",a.vel,-a.vel,30)
+			module.make(g,a,EM.transition,easing.linear,"vel",a.vel,-a.vel,30)
 		else
 			transition.control(a,a.transition)
 		end
@@ -176,7 +176,7 @@ actor.damage = function(a,d)
 	local g=Game
 	if not a.delete then
 		--TODO game-specific
-		module.make(a,"flash","c","white",a.cinit,6)
+		module.make(g,a,"flash","c","white",a.cinit,6)
 		if a.sound then
 			if a.sound.damage then
 				sfx.play(a.sound.damage,a.x,a.y)
@@ -334,10 +334,6 @@ actor.twodimensional.draw = function(g,a)
 	--if a.t then
 		run(EA[a.t],"draw",g,a)--actor's specific draw function (ie snake.draw)
 	--end
-
-	if a.tail then
-		tail.draw(a.tail)
-	end
 
 	if Debugger.debugging then
 		LG.setColor(g.palette["blue"])

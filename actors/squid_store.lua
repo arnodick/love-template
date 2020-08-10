@@ -7,10 +7,10 @@ local function make(g,a,c,size,spr,hp)
 
 	a.speed=2
 
-	module.make(a,EM.controller,EMC.move,EMCI.ai,g.level.map.width/2,g.level.map.height/4*3)
-	module.make(a,EM.sound,3,"damage")
-	module.make(a,EM.animation,EM.animations.frames,10,2)
-	module.make(a,EM.hitradius,4)
+	module.make(g,a,EM.controller,EMC.move,EMCI.ai,g.level.map.width/2,g.level.map.height/4*3)
+	module.make(g,a,EM.sound,3,"damage")
+	module.make(g,a,EM.animation,EM.animations.frames,10,2)
+	module.make(g,a,EM.hitradius,4)
 	a.flags=flags.set(a.flags,EF.character,EF.enemy,EF.damageable, EF.shootable, EF.explosive)
 end
 
@@ -20,15 +20,15 @@ local function control(g,a)
 	if dist<30 then
 		if not a.menu then
 			local zoomchange=2.5-g.camera.zoom
-			module.make(g.camera,EM.transition,easing.inOutSine,"zoom",g.camera.zoom,zoomchange,180)
-			module.make(a,EM.menu,"text",a.x,a.y-38,50,50,{"what you buy do you want to buy the powerup ?"},"orange","dark_green")
+			module.make(g,g.camera,EM.transition,easing.inOutSine,"zoom",g.camera.zoom,zoomchange,180)
+			module.make(g,a,EM.menu,"text",a.x,a.y-38,50,50,{"what you buy do you want to buy the powerup ?"},"orange","dark_green")
 			local m=a.menu
-			module.make(m,EM.border,"indigo","dark_purple")
+			module.make(g,m,EM.border,"indigo","dark_purple")
 			m.font=LG.newFont("fonts/pico8.ttf",8)--TODO put font in menu makey
 		end
 	elseif a.menu then
 		local zoomchange=-(g.camera.zoom-1)
-		module.make(g.camera,EM.transition,easing.inOutSine,"zoom",g.camera.zoom,zoomchange,20)
+		module.make(g,g.camera,EM.transition,easing.inOutSine,"zoom",g.camera.zoom,zoomchange,20)
 		a.menu=nil
 	end
 
@@ -43,7 +43,7 @@ end
 
 local function dead(a)
 	local zoomchange=-(Game.camera.zoom-1)
-	module.make(Game.camera,EM.transition,easing.inOutSine,"zoom",Game.camera.zoom,zoomchange,10)
+	module.make(g,Game.camera,EM.transition,easing.inOutSine,"zoom",Game.camera.zoom,zoomchange,10)
 end
 
 return

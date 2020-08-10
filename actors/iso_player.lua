@@ -2,9 +2,9 @@ local function make(g,a,c,size,spr,hp)
 	local e=Enums
 
 	if #Joysticks>0 then
-		module.make(a,EM.controller,EMC.move,EMCI.gamepad)
-		module.make(a,EM.controller,EMC.aim,EMCI.gamepad)
-		module.make(a,EM.controller,EMC.action,EMCI.gamepad)
+		module.make(g,a,EM.controller,EMC.move,EMCI.gamepad)
+		module.make(g,a,EM.controller,EMC.aim,EMCI.gamepad)
+		module.make(g,a,EM.controller,EMC.action,EMCI.gamepad)
 	end
 
 	a.cinit=c or "dark_blue"

@@ -1,6 +1,6 @@
 local menu={}
 
-menu.make = function(a,m,t,x,y,w,h,text,c1,c2,align,...)
+menu.make = function(g,a,m,t,x,y,w,h,text,c1,c2,align,...)
 	m.t=t
 	-- maybe keep it basically this way
 	-- if type(t)=="number" then
@@ -19,7 +19,7 @@ menu.make = function(a,m,t,x,y,w,h,text,c1,c2,align,...)
 	--m.font=LG.newFont("fonts/Kongtext Regular.ttf",8)--TODO make fonts an array in game, then menu can select from them
 	m.font=LG.newFont("fonts/Kongtext Regular.ttf",16)--TODO make fonts an array in game, then menu can select from them
 
-	run(m.t,"make",m,...)
+	run(m.t,"make",g,m,...)
 end
 
 menu.control = function(g,m,gs)

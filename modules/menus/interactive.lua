@@ -1,21 +1,24 @@
 local interactive={}
 
-interactive.make = function(m,menu_functions,menu_function_args,c)
+interactive.make = function(g,m,menu_functions,menu_function_args)
 	m.menu_functions=menu_functions
 	m.menu_function_args=menu_function_args
 	m.text.index=1
 
-	c=c or "keyboard"
-	-- print("yo")
-	if #Joysticks>0 and c=="gamepad" then
-		-- print("ya")
-		module.make(m,EM.controller,EMC.move,EMCI.gamepad,"digital")
-		module.make(m,EM.controller,EMC.action,EMCI.gamepad)
-	else
-		-- print("NAH")
-		module.make(m,EM.controller,EMC.move,EMCI.keyboard)
-		module.make(m,EM.controller,EMC.action,EMCI.keyboard)
-	end
+	--TDOD CONTROLLER ASSIGN HERE
+
+	controller.assign(g,m,g.options,{inputtype="digital"})
+	-- c=c or "keyboard"
+	-- -- print("yo")
+	-- if #Joysticks>0 and c=="gamepad" then
+	-- 	-- print("ya")
+	-- 	module.make(g,m,EM.controller,EMC.move,EMCI.gamepad,"digital")
+	-- 	module.make(g,m,EM.controller,EMC.action,EMCI.gamepad)
+	-- else
+	-- 	-- print("NAH")
+	-- 	module.make(g,m,EM.controller,EMC.move,EMCI.keyboard)
+	-- 	module.make(g,m,EM.controller,EMC.action,EMCI.keyboard)
+	-- end
 
 end
 

@@ -1,4 +1,4 @@
-local function make(a,m,sfxnum,sfxname)
+local function make(g,a,m,sfxnum,sfxname)
 	m[sfxname]=sfxnum
 end
 

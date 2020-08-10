@@ -9,9 +9,9 @@ local function make(g,a,c,size,spr,hp)
 	a.hand.x=a.x+(math.cos(a.d+a.hand.d)*a.hand.l)
 	a.hand.y=a.y+(math.sin(a.d+a.hand.d)*a.hand.l)
 
-	module.make(a,EM.sound,4,"damage")
-	module.make(a,EM.hitradius,4)
-	module.make(a,EM.inventory,1)
+	module.make(g,a,EM.sound,4,"damage")
+	module.make(g,a,EM.hitradius,4)
+	module.make(g,a,EM.inventory,1)
 
 	a.flags=flags.set(a.flags,EF.damageable,EF.shootable)
 end
@@ -19,8 +19,8 @@ end
 local function control(g,a)
 	if g.players[1] then
 		if not a.controller then
-			module.make(a,EM.controller,EMC.move,EMCI.ai,g.players[1])
-			module.make(a,EM.controller,EMC.action,EMCI.ai,0.01,0)
+			module.make(g,a,EM.controller,EMC.move,EMCI.ai,g.players[1])
+			module.make(g,a,EM.controller,EMC.action,EMCI.ai,0.01,0)
 		end
 	else
 		a.controller=nil
@@ -41,7 +41,7 @@ local function control(g,a)
 						if math.abs(controllerdifference)>math.abs(controllerdifference2) then
 							controllerdifference=controllerdifference2
 						end
-						module.make(a,EM.transition,easing.linear,"angle",a.angle,-controllerdifference,math.abs(controllerdifference*5))
+						module.make(g,a,EM.transition,easing.linear,"angle",a.angle,-controllerdifference,math.abs(controllerdifference*5))
 					end
 				end
 			end
@@ -53,7 +53,7 @@ local function control(g,a)
 
 	if a.vel>0 then
 		if not a.animation then
-			module.make(a,EM.animation,EM.animations.frames,10,4)
+			module.make(g,a,EM.animation,EM.animations.frames,10,4)
 		end
 	else
 		if a.animation then

@@ -1,6 +1,6 @@
 local inventory={}
 
-inventory.make = function(a,m,size)
+inventory.make = function(g,a,m,size)
 	m.i=1
 	m.max=size or 1
 end

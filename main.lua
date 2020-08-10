@@ -89,14 +89,15 @@ function love.joystickadded(joystick)
 	--TODO pass this down through game to multigame to make controller on its hud menu rather than here
 
 	--TODO make a function that assigns controllers to player and menus from g.options?
+	--TODO CONTROLLER ASSIGN HERE
 	if g.options then
 		if g.options.controller then
 			if g.options.controller=="gamepad" then
 				local m=g.hud.menu
 				if m then
 					m.controller=nil
-					module.make(m,EM.controller,EMC.move,EMCI[g.options.controller],"digital")
-					module.make(m,EM.controller,EMC.action,EMCI[g.options.controller])
+					module.make(g,m,EM.controller,EMC.move,EMCI[g.options.controller],"digital")
+					module.make(g,m,EM.controller,EMC.action,EMCI[g.options.controller])
 				end
 				local p=g.player
 				if p then
@@ -106,14 +107,14 @@ function love.joystickadded(joystick)
 						inputtypesetting=gls.inputtype
 					end
 					p.controller=nil
-					module.make(p,EM.controller,EMC.move,EMCI.gamepad,inputtypesetting)
-					module.make(p,EM.controller,EMC.action,EMCI.gamepad)
+					module.make(g,p,EM.controller,EMC.move,EMCI.gamepad,inputtypesetting)
+					module.make(g,p,EM.controller,EMC.action,EMCI.gamepad)
 					local inputaim=nil
 					if gls then
 						inputaim=gls.inputaim
 					end
 					if inputaim then
-						module.make(a,EM.controller,EMC.aim,EMCI.gamepad)
+						module.make(g,a,EM.controller,EMC.aim,EMCI.gamepad)
 					end
 				end
 			end
@@ -145,6 +146,7 @@ function love.joystickremoved(joystick)
 			table.remove(Joysticks,i)
 		end
 	end
+	--TODO CONTROLLER UNASSIGN HERE
 end
 
 function love.draw(dt)

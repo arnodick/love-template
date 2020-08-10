@@ -21,9 +21,9 @@ template.gameplay =
 		if key=='escape' then
 			game.state.make(g,"title")
 		elseif key=='z' then
-			module.make(g.camera,EM.transition,ease,"zoom",g.camera.zoom,4,d)
+			module.make(g,g.camera,EM.transition,ease,"zoom",g.camera.zoom,4,d)
 		elseif key=='x' then
-			module.make(g.camera,EM.transition,ease,"zoom",g.camera.zoom,-4,d)
+			module.make(g,g.camera,EM.transition,ease,"zoom",g.camera.zoom,-4,d)
 		end
 	end,
 

@@ -71,7 +71,7 @@ offgrid.level.city =
 			offgrid.level.makemoveoption(g,m,g.player.x-1,g.player.y,"West",4)
 		end
 
-		--module.make(l,EM.menu,"interactive_fiction",320,800,640,320,m.text,"white","dark_gray","left",m.functions,m.arguments)
+		--module.make(g,l,EM.menu,"interactive_fiction",320,800,640,320,m.text,"white","dark_gray","left",m.functions,m.arguments)
 		if l.options then
 			if not (l.unlock_description and g.player.items[l.unlock_description_item]) then
 				for i,v in ipairs(l.options) do
@@ -85,7 +85,7 @@ offgrid.level.city =
 				end
 			end
 		end
-		module.make(l,EM.menu,"interactive_fiction",320,800,640,320,m.text,"white","dark_gray","left",m.functions,m.arguments)
+		module.make(g,l,EM.menu,"interactive_fiction",320,800,640,320,m.text,"white","dark_gray","left",m.functions,m.arguments)
 		if l.selected_index then
 			l.menu.text.index=l.selected_index
 		end
@@ -100,23 +100,23 @@ offgrid.level.city =
 		end
 		--supper.print(l.menu.options)
 		--local args={l,EM.menu,"interactive_fiction",320,800,640,320,m.text,"white","dark_gray","left",m.functions,m.arguments}
-		--module.make(l,EM.transition,easing.linear,"transition_timer",0,1,240,module.make,args,EM.transitions.screen_transition_blocksreverse)
+		--module.make(g,l,EM.transition,easing.linear,"transition_timer",0,1,240,module.make,args,EM.transitions.screen_transition_blocksreverse)
 		if l.transition_in then
-			--module.make(l,EM.transition,easing.linear,"transition_timer",0,1,240,nil,nil,EM.transitions.screen_transition_blocksreverse)
+			--module.make(g,l,EM.transition,easing.linear,"transition_timer",0,1,240,nil,nil,EM.transitions.screen_transition_blocksreverse)
 			if l.music then
-				module.make(l,EM.transition,easing.linear,"transition_timer",0,1,240,music.play,{l.music},EM.transitions[l.transition_in])
+				module.make(g,l,EM.transition,easing.linear,"transition_timer",0,1,240,music.play,{l.music},EM.transitions[l.transition_in])
 			elseif l.sound then
 				print("SOUND MAD")
-				module.make(l,EM.transition,easing.linear,"transition_timer",0,1,240,sfx.play,{l.sound},EM.transitions[l.transition_in])
+				module.make(g,l,EM.transition,easing.linear,"transition_timer",0,1,240,sfx.play,{l.sound},EM.transitions[l.transition_in])
 			elseif l.unlock_description and g.player.items[l.unlock_description_item] then
 				if l.unlock_sound then
 					--sfx.play(l.unlock_sound)
-					module.make(l,EM.transition,easing.linear,"transition_timer",0,1,240,sfx.play,{l.unlock_sound},EM.transitions[l.transition_in])
+					module.make(g,l,EM.transition,easing.linear,"transition_timer",0,1,240,sfx.play,{l.unlock_sound},EM.transitions[l.transition_in])
 				end
 			else
-				module.make(l,EM.transition,easing.linear,"transition_timer",0,1,240,nil,nil,EM.transitions[l.transition_in])
+				module.make(g,l,EM.transition,easing.linear,"transition_timer",0,1,240,nil,nil,EM.transitions[l.transition_in])
 			end
-			module.make(l,EM.synth,"sinus",440,60,{"A","B","C","D","E","F","F","G",})
+			module.make(g,l,EM.synth,"sinus",440,60,{"A","B","C","D","E","F","F","G",})
 		else
 			if l.music then
 				music.play(l.music)
@@ -133,7 +133,7 @@ offgrid.level.city =
 
 		if l.unlock_description and g.player.items[l.unlock_description_item] then
 			l.menu.description=l.unlock_description
-			module.make(l.menu,EM.transition,easing.linear,"text_trans",0,string.len(l.menu.description),360)
+			module.make(g,l.menu,EM.transition,easing.linear,"text_trans",0,string.len(l.menu.description),360)
 			if l.unlock_item_get then
 				if not g.player.items[l.unlock_item_get] then
 					print(l.unlock_item_get)
@@ -150,7 +150,7 @@ offgrid.level.city =
 			end
 		elseif l.description then
 			l.menu.description=l.description
-			module.make(l.menu,EM.transition,easing.linear,"text_trans",0,string.len(l.menu.description),360)
+			module.make(g,l.menu,EM.transition,easing.linear,"text_trans",0,string.len(l.menu.description),360)
 		end
 		if l.item then
 			if not g.player.items[l.item] then
@@ -189,11 +189,11 @@ offgrid.level.word =
 		m.functions={}
 		offgrid.level.makebackoption(g,m,l.back)
 
-		module.make(l,EM.menu,"interactive_fiction",320,600,640,320,m.text,"white","dark_gray","center",m.functions,m.arguments)
+		module.make(g,l,EM.menu,"interactive_fiction",320,600,640,320,m.text,"white","dark_gray","center",m.functions,m.arguments)
 		l.menu.wordlearned=true
 		l.menu.back=l.back
 		l.menu.description=l.description
-		module.make(l.menu,EM.transition,easing.linear,"text_trans",0,string.len(l.menu.description),360)
+		module.make(g,l.menu,EM.transition,easing.linear,"text_trans",0,string.len(l.menu.description),360)
 
 		print(l.item)
 		supper.print(g.player.words)
@@ -213,7 +213,7 @@ offgrid.level.offgrid =
 {
 	make = function(g,l)
 		--TODO here will maybe be the options that you can go to from here? offgrid areas (usually won't have option to go back, choices of where you can go aren't based on the grid, but are instead linked lists sort of. will need a menu where you can use items, talk to people, etc. more like a story than an exploration)
-		module.make(l,EM.menu,"interactive",g.width/2,120,160,50,g.player.words,"orange","dark_green","center")
+		module.make(g,l,EM.menu,"interactive",g.width/2,120,160,50,g.player.words,"orange","dark_green","center")
 	end,
 
 	control = function(g,l)
@@ -457,7 +457,7 @@ offgrid.intro =
 		if g.introstart==true then
 			g.introstart=false
 			sfx.play(22)
-			module.make(g,EM.transition,easing.linear,"letter_timer",0,1,100,shakey,{})
+			module.make(g,g,EM.transition,easing.linear,"letter_timer",0,1,100,shakey,{})
 		end
 		local f=LG.newFont("fonts/Kongtext Regular.ttf",90)
 		f:setFilter("nearest","nearest",0) --clean TEXT scaling

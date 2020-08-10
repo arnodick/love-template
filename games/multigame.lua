@@ -16,8 +16,8 @@ multigame.intro =
 		end
 
 		--TODO send in a menusettings table or something that has textbgcolor="orange" etc?
-		module.make(g.hud,EM.menu,"interactive",g.width/2,120,g.width-2,(#gamenames+2)*16,gamenames,"orange","dark_green","center",gamemakes,gameargs,g.options.controller)
-		module.make(g.hud.menu,EM.border,"orange","dark_green")
+		module.make(g,g.hud,EM.menu,"interactive",g.width/2,120,g.width-2,(#gamenames+2)*16,gamenames,"orange","dark_green","center",gamemakes,gameargs)
+		module.make(g,g.hud.menu,EM.border,"orange","dark_green")
 	end,
 
 	keypressed = function(g,key)

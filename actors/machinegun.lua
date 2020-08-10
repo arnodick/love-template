@@ -10,7 +10,7 @@ local function make(g,a,c,bc)
 	a.acc=0.015
 	a.snd=2
 	a.proj=EA.bullet
-	module.make(a,EM.item)
+	module.make(g,a,EM.item)
 end
 
 local function draw(a)

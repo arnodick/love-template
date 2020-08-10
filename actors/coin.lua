@@ -5,8 +5,8 @@ local function make(g,a,c,size,spr)
 	a.spr=spr or 113
 	a.sprinit=a.spr
 
-	module.make(a,EM.collectible)
-	module.make(a,EM.sound,6,"get")
+	module.make(g,a,EM.collectible)
+	module.make(g,a,EM.sound,6,"get")
 
 	a.d=math.randomfraction(math.pi*2)
 	a.vel=math.randomfraction(4)+4
@@ -39,7 +39,7 @@ local function control(g,a,gs)
 		local dist=vector.distance(a.x,a.y,p.x,p.y)
 		if dist<30 then
 			if not a.controller then
-				module.make(a,EM.controller,EMC.move,EMCI.ai,p)
+				module.make(g,a,EM.controller,EMC.move,EMCI.ai,p)
 			end
 			a.speed=8/dist
 		else

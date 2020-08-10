@@ -1,14 +1,14 @@
 local highscores={}
 
 --TODO g this all up
-highscores.make = function(m)
+highscores.make = function(g,m)
 	local scoretext={}
 	for i,v in ipairs(Game.scores) do
 		scoretext[i]=v.name.." "..v.score
 	end
 	m.text=scoretext
 	m.index=0
-	module.make(m,EM.border,"dark_purple","indigo")
+	module.make(g,m,EM.border,"dark_purple","indigo")
 end
 
 highscores.control = function(g,m)

@@ -16,7 +16,7 @@ topdown_tank.actor.control = function(a,m,gs)
 					if math.abs(controllerdifference)>math.abs(controllerdifference2) then
 						controllerdifference=controllerdifference2
 					end
-					module.make(a,EM.transition,easing.linear,"d",a.d,controllerdifference,math.abs(controllerdifference*10))
+					module.make(g,a,EM.transition,easing.linear,"d",a.d,controllerdifference,math.abs(controllerdifference*10))
 				end
 --]]
 				a.d=vector.direction(c.horizontal,-c.vertical)

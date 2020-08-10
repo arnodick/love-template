@@ -1,12 +1,12 @@
-local function make(m,menu_functions,menu_function_args)
+local function make(g,m,menu_functions,menu_function_args)
 	m.menu_functions=menu_functions
 	m.menu_function_args=menu_function_args
 	supper.print(m.menu_functions)
 	if m.text then
 		m.text.index=1
 	end
-	module.make(m,EM.controller,EMC.move,EMCI.keyboard)
-	--module.make(m,EM.controller,EMC.select,EMC.selects.gamepad_menu_select)
+	module.make(g,m,EM.controller,EMC.move,EMCI.keyboard)
+	--module.make(g,m,EM.controller,EMC.select,EMC.selects.gamepad_menu_select)
 end
 
 local function control(g,m,gs)
@@ -120,7 +120,7 @@ local function keyreleased(m,key)
 					end
 					if not l.unlock or (l.unlock and g.player.items[l.unlock]) then
 						if g.level.transition_out then
-							module.make(g.level,EM.transition,easing.linear,"transition_timer",0,1,240,m.menu_functions[i],m.menu_function_args[i],EM.transitions[g.level.transition_out])
+							module.make(g,g.level,EM.transition,easing.linear,"transition_timer",0,1,240,m.menu_functions[i],m.menu_function_args[i],EM.transitions[g.level.transition_out])
 						else
 							m.menu_functions[i](unpack(m.menu_function_args[i]))
 						end

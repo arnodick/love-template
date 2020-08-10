@@ -8,8 +8,8 @@ local function make(g,a,c)
 	a.spd=2
 
 	a.cost=3
-	module.make(a,EM.hitradius,4)
-	module.make(a,EM.item)
+	module.make(g,a,EM.hitradius,4)
+	module.make(g,a,EM.item)
 end
 
 local function control(g,a)

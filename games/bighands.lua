@@ -8,12 +8,6 @@ bighands.player =
 		local playernum=#g.players
 		print(playernum)
 
-		-- if #Joysticks>0 then
-		-- 	module.make(a,EM.controller,EMC.move,EMCI.gamepad,"vector",playernum)
-		-- 	module.make(a,EM.controller,EMC.aim,EMCI.gamepad,"vector",playernum)
-		-- 	module.make(a,EM.controller,EMC.action,EMCI.gamepad,"vector",playernum)
-		-- end
-
 		actor.make(g,EA.wand,a.x+20,a.y)
 
 --[[
@@ -38,7 +32,7 @@ bighands.gameplay =
 	make = function(g)
 		love.keyboard.setTextInput(false)
 		--local zoomchange=4-g.camera.zoom
-		--module.make(g.camera,EM.transition,easing.inOutSine,"zoom",g.camera.zoom,zoomchange,60)
+		--module.make(g,g.camera,EM.transition,easing.inOutSine,"zoom",g.camera.zoom,zoomchange,60)
 		level.make(g,1,Enums.modes.topdown_tank)
 		local m=g.level.map
 		actor.make(g,EA.witch,m.width-5,m.height/2-5)

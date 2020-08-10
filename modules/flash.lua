@@ -1,4 +1,4 @@
-local function make(a,m,variablename,flashvalue,startvalue,duration)
+local function make(g,a,m,variablename,flashvalue,startvalue,duration)
 	m.starttime=Game.timer
 	m.variablename=variablename
 	m.flashvalue=flashvalue

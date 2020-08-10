@@ -1,7 +1,7 @@
 --make this play a synth every frame
 --the synth it plays is input as {waveform= etc}
 --can add transition module to a synth to change its freq
-local function make(a,m,waveform,note,length,notes)
+local function make(g,a,m,waveform,note,length,notes)
 	m.waveform=waveform
 	m.note=note
 	m.length=length

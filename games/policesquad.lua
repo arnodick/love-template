@@ -17,7 +17,7 @@ policesquad.gameplay =
 	make = function(g)
 		love.keyboard.setTextInput(false)
 		-- --local zoomchange=4-g.camera.zoom
-		-- --module.make(g.camera,EM.transition,easing.inOutSine,"zoom",g.camera.zoom,zoomchange,60)
+		-- --module.make(g,g.camera,EM.transition,easing.inOutSine,"zoom",g.camera.zoom,zoomchange,60)
 		-- level.make(g,1,Enums.modes.topdown_tank)
 		-- local m=g.level.map
 		-- actor.make(g,EA.witch,m.width/2-5,m.height/2-5)
@@ -27,7 +27,7 @@ policesquad.gameplay =
  		if love.keyboard.isDown("lctrl") then
 			if key=='s' then
 				json.save("plcesqd.json",g.character)
-				module.make(g.hud,EM.menu,"text",100,100,200,200,g.character.name.." SAVED!","orange","dark_green")
+				module.make(g,g.hud,EM.menu,"text",100,100,200,200,g.character.name.." SAVED!","orange","dark_green")
 				local menu_destroy = function(m)
 					-- if (g.hud.menu) then
 					-- 	g.hud.menu=nil
@@ -38,7 +38,7 @@ policesquad.gameplay =
 					print("HUD MENU AFTER "..tostring(g.hud.menu))
 				end
 				print("MENU CREATED "..tostring(g.hud.menu))
-				module.make(g.hud.menu,EM.transition,easing.linear,"destroy",0,1,180,menu_destroy,g.hud,EM.transitions.destroy)
+				module.make(g,g.hud.menu,EM.transition,easing.linear,"destroy",0,1,180,menu_destroy,g.hud,EM.transitions.destroy)
 			end
 		elseif key=='escape' then
 			game.state.make(g,"title")

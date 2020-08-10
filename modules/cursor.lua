@@ -2,8 +2,7 @@ local cursor={}
 cursor.reticle={}
 cursor.editor={}
 
-cursor.make = function(a,c,t,snap)
-	local g=Game
+cursor.make = function(g,a,c,t,snap)
 	c.t=t
 	c.x=g.camera.x
 	c.y=g.camera.y

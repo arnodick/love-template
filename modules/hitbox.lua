@@ -1,4 +1,4 @@
-local function make(a,m,x,y,w,h)
+local function make(g,a,m,x,y,w,h)
 	m.x=x
 	m.y=y
 	m.w=w

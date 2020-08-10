@@ -1,3 +1,9 @@
+run into creature thatis in wrong game, actor can stil be made bc all are in same folder, but something about it glitches out. have to fix it by pressing button that switches to something that works
+
+pass in g to all module makes
+
+can game hnadle if there is no options file? create one if there is none?
+
 standardize controls so menus can always use keyboard or gamepad, player automatically get controller based on preferences
 	games can have individual settings for controller specifics, ie roguelike will have g.settings.controller.inputtype="digital" etc
 	fix up controller stuff so keyboard and gamepad use same inputs for id and inputtype

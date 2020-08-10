@@ -26,7 +26,7 @@ textfile.load = function(f)
 
 	for row in love.filesystem.lines(f) do
 		h=h+1
-		local cellwidth=textfile.loadbytes(data,row)z
+		local cellwidth=textfile.loadbytes(data,row)
 		if w==nil then
 			w=cellwidth
 		end

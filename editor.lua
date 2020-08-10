@@ -3,7 +3,7 @@ local editor={}
 editor.make = function(g)
 	g.editor={}
 	if g.level then
-		module.make(g.editor,"cursor","editor",true)
+		module.make(g,g.editor,"cursor","editor",true)
 	end
 end
 
@@ -20,7 +20,7 @@ editor.keypressed = function(g,key)
 	if love.keyboard.isDown('lctrl') then
 		if key=="s" then
 			love.keyboard.setTextInput(true)
-			module.make(g.hud,EM.menu,"text",100,100,200,200,{"type file name",""},"orange","dark_green")
+			module.make(g,g.hud,EM.menu,"text",100,100,200,200,{"type file name",""},"orange","dark_green")
 		elseif key=="e" then
 			map.erase(g.level.map)
 		end
