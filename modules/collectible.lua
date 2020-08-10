@@ -1,6 +1,7 @@
 local collectible={}
 
-collectible.control = function(g,a,gs)
+collectible.control = function(a,gs)
+	local g=Game
 	game.state.run(g.name,"collectible","control",g,a,gs)
 end
 

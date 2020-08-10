@@ -1,6 +1,6 @@
 text={}
 
-text.draw = function(g,m)
+text.draw = function(m)
 	if type(m.text)=="table" then
 		for i=1,#m.text do
 			local linealpha=1
