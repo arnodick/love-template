@@ -106,28 +106,28 @@ controller.assign = function(g,a,options,settings)
 	local inputtypesetting=settings.inputtype
 	local inputaimsetting=settings.inputaim
 
+	if a.controller then
+		a.controller=nil
+	end
 	module.make(g,a,EM.controller,EMC.move,EMCI[c],inputtypesetting)
+	print(c.." MOVE MADE")
 	if inputaimsetting then
-		print("C")
-		print(c)
 		if c=="keyboard" then
-			print("KEYBOARD MOUSE RETICLE")
 			module.make(g,a,EM.controller,EMC.action,EMCI.mouse)
 			module.make(g,a,EM.controller,EMC.aim,EMCI.mouse)
 			module.make(g,a,EM.cursor,"reticle")
+			print(c.." MOUSE RETICLE AIM AND ACTION MADE")
 		else
 			module.make(g,a,EM.controller,EMC.action,EMCI.gamepad)
 			module.make(g,a,EM.controller,EMC.aim,EMCI.gamepad)
+			print(c.." GAMEPAD AIM AND ACTION MADE")
 		end
 	else
 		module.make(g,a,EM.controller,EMC.action,EMCI[c])
+		print(c.." ACTION MADE")
 	end
 
 	--TODO reticle if keyboard and mouse and settings for reticle in gls
-end
-
-controller.unassign = function(g,a,options,settings)
-	--TODO CONTROLLER UNASSIGN
 end
 
 return controller

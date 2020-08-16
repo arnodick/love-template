@@ -378,7 +378,11 @@ end
 
 function json.load(filepath)
   --loads JSON formatted text from a file and returns a Lua table
-  return json.decode(love.filesystem.read(filepath))
+  local f=love.filesystem.read(filepath)
+  if f then
+    return json.decode(f)
+  end
+  return nil
 end
 
 function json.save(filename,t)

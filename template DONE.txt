@@ -1,4 +1,6 @@
 DONE
+can game hnadle if there is no options file? create one if there is none?
+pass in g to all module makes
 MODS have settings (ie vector vs digital controls) not games?
 flatten maps? ie instead of map[y][x] it would be map[x*y math magic here]
 	(y-1)*w+x ?

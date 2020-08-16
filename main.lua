@@ -86,36 +86,16 @@ function love.joystickadded(joystick)
 	local g=Game
 	table.insert(Joysticks,joystick)
 
-	--TODO pass this down through game to multigame to make controller on its hud menu rather than here
-
-	--TODO make a function that assigns controllers to player and menus from g.options?
-	--TODO CONTROLLER ASSIGN HERE
 	if g.options then
 		if g.options.controller then
 			if g.options.controller=="gamepad" then
 				local m=g.hud.menu
 				if m then
-					m.controller=nil
-					module.make(g,m,EM.controller,EMC.move,EMCI[g.options.controller],"digital")
-					module.make(g,m,EM.controller,EMC.action,EMCI[g.options.controller])
+					controller.assign(g,m,g.options,{inputtype="digital"})
 				end
 				local p=g.player
 				if p then
-					local inputtypesetting=nil
-					local gls=g.level.settings
-					if gls then
-						inputtypesetting=gls.inputtype
-					end
-					p.controller=nil
-					module.make(g,p,EM.controller,EMC.move,EMCI.gamepad,inputtypesetting)
-					module.make(g,p,EM.controller,EMC.action,EMCI.gamepad)
-					local inputaim=nil
-					if gls then
-						inputaim=gls.inputaim
-					end
-					if inputaim then
-						module.make(g,a,EM.controller,EMC.aim,EMCI.gamepad)
-					end
+					controller.assign(g,p,g.options,g.level.settings)
 				end
 			end
 		end
@@ -130,23 +110,39 @@ function love.joystickadded(joystick)
 	print("  "..b)
 	print("  "..c)
 
-	if g.options then
-		if g.options.controller then
-			if Joysticks[1] and g.options.controller=="gamepad" then
-				c=g.options.controller
-			end
-		end
-	end
+	-- if g.options then
+	-- 	if g.options.controller then
+	-- 		if Joysticks[1] and g.options.controller=="gamepad" then
+	-- 			c=g.options.controller
+	-- 		end
+	-- 	end
+	-- end
 end
 
 function love.joystickremoved(joystick)
+	local g=Game
 	local joyid=joystick:getID()
 	for i,v in ipairs(Joysticks) do
 		if v:getID()==joyid then
 			table.remove(Joysticks,i)
 		end
 	end
-	--TODO CONTROLLER UNASSIGN HERE
+	
+	--sets controllers for menus/player back to keyboard if gamepad disconnected
+	if g.options then
+		if g.options.controller then
+			if g.options.controller=="gamepad" then
+				local m=g.hud.menu
+				if m then
+					controller.assign(g,m,{controller="keyboard"},{inputtype="digital"})
+				end
+				local p=g.player
+				if p then
+					controller.assign(g,p,{controller="keyboard"},g.level.settings)
+				end
+			end
+		end
+	end
 end
 
 function love.draw(dt)

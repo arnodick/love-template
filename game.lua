@@ -107,6 +107,13 @@ game.make = function(t,gw,gh)
 	g.excludes={dawngame="dawngame",offgrid="offgrid",royalewe="royalewe"}
 
 	g.options=json.load("options.json")
+	if g.options==nil then
+		-- print("OPT NIL")
+		g.options={controller="keyboard"}
+		json.save("options.json",g.options)
+		-- print("SAVED NEW OPTIONS")
+	end
+
 
 --[[
 	g.window={}
