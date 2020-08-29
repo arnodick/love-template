@@ -33,7 +33,7 @@ spacetank9001.player =
 	draw = function(g,a)
 		--TODO put this in actor
 		if a.cursor then
-			cursor.draw(a.cursor)
+			cursor.draw(g,a.cursor)
 		end
 	end,
 

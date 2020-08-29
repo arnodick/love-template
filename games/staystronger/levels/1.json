@@ -2,6 +2,11 @@
 	"map":
 	{
 		"file":"rx",
+		"tile":
+		{
+			"width":10,
+			"height":10
+		},
 	},
 	"drawmodes":
 	[

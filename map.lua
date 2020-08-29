@@ -115,6 +115,7 @@ map.getcellcoords = function(m,x,y)--returns the cell coords of worldspace coord
 	return cx,cy
 end
 
+--TODO cell cleanup, should we input cell or not? make consistent with rest of stuff
 map.getcellraw = function(m,x,y,cell)
 	local cx,cy=x,y
 	if not cell then

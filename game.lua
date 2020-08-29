@@ -329,7 +329,7 @@ game.draw = function(g)
 
 			if g.editor then
 				if g.editor.cursor then
-					cursor.draw(g.editor.cursor)
+					cursor.draw(g,g.editor.cursor)
 				end
 			end
 			

@@ -70,6 +70,7 @@ staystronger.gameplay =
 		print(string.byte(a.char))
 		game.player.make(g,a,true)
 		actor.make(g,EA.rpg_character,2,2)
+		supper.print(g.level.map.actors)
 	end,
 
 	control = function(g)

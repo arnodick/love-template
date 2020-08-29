@@ -54,6 +54,9 @@ actor.make = function(g,t,x,y,d,vel,...)
 	--TODO in here do if inivalues.flags then flags.set(a,EF[flagname],...)
 
 	table.insert(g.actors,a)
+
+	game.state.run(g.level.modename,"actor","make",g,a)
+
 	return a
 end
 

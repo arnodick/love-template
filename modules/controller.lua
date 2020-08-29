@@ -1,6 +1,5 @@
 local controller={}
 
---TODO just input g here
 controller.make = function(g,a,cont,t,input,ai1,ai2)
 	-- print(a.t)
 	local controllertypename=EMC[t]
@@ -16,26 +15,7 @@ controller.make = function(g,a,cont,t,input,ai1,ai2)
 	--will this put inputtype onto controllers that don't need it? ie ai controllers
 	c.inputtype=ai1 or "vector"
 
-	--TODO just do this in game.make as well, but put settings into level, so no _G stuff
-	-- if controllertypename=="move" then
-	-- 	--TODO do we need ai1 here?
-	-- 	--will this put inputtype onto controllers that don't need it? ie ai controllers
-	-- 	c.inputtype=ai1 or "vector"
-
-	-- 	--TODO make ai1 _G[g.level.modename].settings input, also put settings into level when making
-	-- 	if g then
-	-- 		if g.level then
-	-- 			local settings=g.level.settings
-	-- 			if settings then
-	-- 				c.inputtype=settings.inputtype
-	-- 			end
-	-- 		end
-	-- 	end
-	-- end
-
-	-- print(c.input)
-
-	--what is this about? is every controller ending up with this?
+	--TODO what is this about? is every controller ending up with this?
 	if t==EMC["action"] then
 		module.make(g,c,EM.chance,ai1,ai2)
 	else
@@ -95,7 +75,6 @@ end
 
 --assigns a controller (either gamepad or keyboard) to a player or menu (or whatever) based on input options (default to gamepad or keyboard) and settings (input aim, digital vs vector, etc)
 controller.assign = function(g,a,options,settings)
-	--TODO this will do all the stuff that is in joystick added and player.make
 	local c="keyboard"
 	if options.controller then
 		if Joysticks[1] and options.controller=="gamepad" then

@@ -33,9 +33,9 @@ cursor.wheelmoved = function(g,c,x,y)
 	end
 end
 
-cursor.draw = function(c)
+cursor.draw = function(g,c)
 	if c.t then
-		cursor[c.t].draw(c)
+		cursor[c.t].draw(g,c)
 	end
 end
 
@@ -44,7 +44,7 @@ cursor.reticle.control = function(g,c,a)
 	c.y=c.y-a.vec[2]*a.vel*a.speed
 end
 
-cursor.reticle.draw = function(c)
+cursor.reticle.draw = function(g,c)
 	-- LG.rectangle("fill",c.x-4,c.y-4,16,16)
 	LG.draw(Sprites[1].spritesheet,Sprites[1].quads[254],c.x-4,c.y-4)
 end
@@ -80,7 +80,7 @@ cursor.editor.wheelmoved = function(g,c,x,y)
 end
 
 --TODO input Game into this
-cursor.editor.draw = function(c)
+cursor.editor.draw = function(g,c)
 	local g=Game
 	local l=g.level
 	local m=g.level.map
@@ -118,7 +118,7 @@ cursor.editor.draw = function(c)
 	end
 
 	local p=g.palette["red"]
-	p[4]=180--TODO this colour changey
+	p[4]=0.9
 	LG.setColor(p)
 	LG.draw(Sprites[1].spritesheet,Sprites[1].quads[254],cx,cy)
 	LG.setColor(g.palette["pure_white"])

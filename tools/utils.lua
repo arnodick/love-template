@@ -51,21 +51,22 @@ end
 --prints text with shadow, different colours, etc.
 --TODO needs work
 local function printformat(text,x,y,limit,align,c1,c2,alpha)
+	local g=Game
 	limit=limit or Game.width-x
 	align=align or "left"
 	alpha=alpha or 1
 	for xoff=-1,1 do
-		for yoff=1,1 do
-			local r,g,b=unpack(Game.palette[c2])
-			LG.setColor(r,g,b,alpha)--TODO WORK?
-			LG.printf(text,x+xoff*2,y+yoff*2,limit,align)
+		for yoff=-1,1 do
+			local r,gr,b=unpack(g.palette[c2])
+			LG.setColor(r,gr,b,alpha)--TODO WORK?
+			LG.printf(text,x+xoff,y+yoff,limit,align)
 
-			r,g,b=unpack(Game.palette[c1])
-			LG.setColor(r,g,b,alpha)
+			r,gr,b=unpack(g.palette[c1])
+			LG.setColor(r,gr,b,alpha)
 			LG.printf(text,x,y,limit,align)
 		end
 	end
-	LG.setColor(Game.palette["pure_white"])
+	LG.setColor(g.palette["pure_white"])
 end
 
 --returns the lightness value of a colour
