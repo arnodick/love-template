@@ -17,6 +17,7 @@ editor.control = function(g)
 end
 
 editor.keypressed = function(g,key)
+	local cellw,cellh=g.level.map.tile.width or 8,g.level.map.tile.height or 8
 	if love.keyboard.isDown('lctrl') then
 		if key=="s" then
 			love.keyboard.setTextInput(true)
@@ -31,13 +32,13 @@ editor.keypressed = function(g,key)
 			g.hud.menu=nil
 		end
 	elseif key=="up" then
-		g.camera.y=g.camera.y-8
+		g.camera.y=g.camera.y-cellh
 	elseif key=="down" then
-		g.camera.y=g.camera.y+8
+		g.camera.y=g.camera.y+cellh
 	elseif key=="left" then
-		g.camera.x=g.camera.x-8
+		g.camera.x=g.camera.x-cellw
 	elseif key=="right" then
-		g.camera.x=g.camera.x+8
+		g.camera.x=g.camera.x+cellw
 	elseif tonumber(key) then
 		local c=g.editor.cursor
 		map.setcellflag(g.level.map,c.x,c.y,tonumber(key),true)

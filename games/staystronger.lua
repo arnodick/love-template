@@ -3,6 +3,22 @@ local staystronger={}
 
 staystronger.make = function(g)
 	g.turn=0
+	g.width=200
+	g.height=140
+	g.rlfont=LG.newFont("fonts/Haeccity DW Bold.ttf",10)
+	-- g.rlfont=LG.newFont("fonts/O2.ttf",10)
+	-- g.rlfont=LG.newFont("fonts/unifont-10.0.07.ttf",8)
+	-- g.rlfont=LG.newFont("fonts/Haeccity DW.ttf",10)
+	LG.setFont(g.rlfont)
+
+	g.things={}
+	g.things[string.byte(".")] =
+	{
+		name="road",
+		colours={
+			{0.5,0.5,0.5}
+		}
+	}
 end
 
 -- staystronger.level={}
@@ -57,6 +73,15 @@ staystronger.player =
 	end,
 }
 
+staystronger.level = {
+	make = function(g,l,index)
+		local m=l.map
+		g.camera.x=m.width/2
+		g.camera.y=m.height/2
+	end
+}
+
+
 staystronger.gameplay =
 {
 	make = function(g)
@@ -69,8 +94,12 @@ staystronger.gameplay =
 		print(a.char)
 		print(string.byte(a.char))
 		game.player.make(g,a,true)
-		actor.make(g,EA.rpg_character,2,2)
-		supper.print(g.level.map.actors)
+		a.char='@'
+		a.colour={1,1,1}
+		local enemy=actor.make(g,EA.rpg_character,2,2)
+		enemy.char='$'
+		enemy.colour={0.5,0,0}
+		-- supper.print(g.level.map.actors)
 	end,
 
 	control = function(g)
@@ -83,6 +112,15 @@ staystronger.gameplay =
 		end
 	end,
 }
+
+staystronger.actor={}
+staystronger.actor.collision = function(g,a,c)
+	c.delete=true
+	local actormap=g.level.map.actors
+	if actormap then
+		map.setcellraw(actormap,c.x,c.y,0)
+	end
+end
 
 staystronger.title =
 {

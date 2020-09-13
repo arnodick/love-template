@@ -63,11 +63,6 @@ map.getxy = function(m,index)
 	return (index-1)%m.w+1,math.ceil(index/m.w)
 end
 
---sets an index of a map using x and y values to v
-map.setindex = function(m,x,y,v)
-	m[map.getindex(m,x,y)]=v
-end
-
 map.save = function(m,filename)
 	textfile.save(m,filename)
 end
@@ -88,11 +83,13 @@ end
 
 --TODO ALL maps should have w h width height, tile.width/height
 
+--TODO cell option
 map.inbounds = function(m,x,y)
-	local index=map.getindex(m,x,y)
+	-- local index=map.getindex(m,x,y)
 	if x>0 and x<=m.w then
 		if y>0 and y<=m.h then
-			return m[index]
+			-- return m[index]
+			return map.getcellraw(m,x,y,true)
 		end
 	end
 	return nil
@@ -124,6 +121,11 @@ map.getcellraw = function(m,x,y,cell)
 	return m[map.getindex(m,cx,cy)]
 end
 
+--sets an index of a map using x and y values to v
+map.setcellraw = function(m,x,y,v)
+	m[map.getindex(m,x,y)]=v
+end
+
 -- TODO world coords weirdness
 map.getcellvalue = function(m,x,y,cell)--takes world x,y coordinates and returns the value of the cell under those coordinates
 	local cx,cy=x,y
@@ -135,8 +137,8 @@ map.getcellvalue = function(m,x,y,cell)--takes world x,y coordinates and returns
 	return flags.strip(mval)
 end
 
-map.setcellvalue = function(m,x,y,v,worldcoords)--sets the value of a map cell in the low 16 bits while retaining the flags in the high 16 bits
-	if worldcoords then
+map.setcellvalue = function(m,x,y,v,cell)--sets the value of a map cell in the low 16 bits while retaining the flags in the high 16 bits
+	if not cell then
 		x,y=map.getcellcoords(m,x,y)
 	end
 
@@ -162,12 +164,6 @@ map.setcellflag = function(m,x,y,v,worldcoords)--sets a flag on the high 16 bits
 	m[index]=bit.bor(m[index],f)
 end
 
-map.erase = function(m)
-	for i,v in ipairs(m) do
-		m[i]=0
-	end
-end
-
 map.erasecellflags = function(m,x,y,worldcoords)
 	if worldcoords then
 		x,y=map.getcellcoords(m,x,y)
@@ -177,6 +173,12 @@ map.erasecellflags = function(m,x,y,worldcoords)
 	m[index]=flags.strip(m[index])
 end
 
+map.erase = function(m)
+	for i,v in ipairs(m) do
+		m[i]=0
+	end
+end
+
 generators.empty = function(m,w,h,x,y)
 	map.setcellvalue(m,x,y,0)
 end
@@ -184,7 +186,6 @@ end
 generators.walls = function(m,w,h,x,y)
 	if x==1 or x==w or y==1 or y==h then
 		map.setcellflag(m,x,y,EF.solid)
-		--map.setcellvalue(m,x,y,3)
 	end
 end
 
@@ -192,7 +193,7 @@ generators.random = function(m,w,h,x,y,args)
 	local pool=args.pool
 	local v=pool[love.math.random(#pool)]
 
-	map.setindex(m,x,y,v)
+	map.setcellraw(m,x,y,v)
 	--[[
 	if v==2 or v==3 or v==4 then
 		map.setcellflag(m,x,y,EF.animated)
@@ -201,7 +202,7 @@ generators.random = function(m,w,h,x,y,args)
 end
 
 generators.increment = function(m,w,h,x,y)
-	map.setindex(m,x,y,x+(y-1)*w)
+	map.setcellraw(m,x,y,x+(y-1)*w)
 end
 
 generators.solid = function(m,w,h,x,y,args)
@@ -301,7 +302,16 @@ end
 drawmodes.characters = function(m,x,y)
 	local tw,th=m.tile.width,m.tile.height
 	local value=map.getcellvalue(m,x,y,true)
-	LG.print(string.char(value),(x-1)*tw,(y-1)*th)
+	local g=Game
+	if g.things then
+		print(value)
+		local object=g.things[value]
+		if object then
+			LG.print({supper.random(object.colours),string.char(value)},(x-1)*tw,(y-1)*th)
+		end
+	else
+		LG.print(string.char(value),(x-1)*tw,(y-1)*th)
+	end
 end
 
 drawmodes.isometric = function(m,x,y)

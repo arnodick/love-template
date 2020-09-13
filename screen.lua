@@ -1,4 +1,7 @@
-local function update(g)
+local screen={}
+
+--TODO figure out what is going on in here, comment it
+screen.update = function(g)
 	local s={}
 	local gw,gh=g.width,g.height
 	s.width,s.height=LG.getDimensions()
@@ -24,12 +27,15 @@ local function update(g)
 
 
 	s.canvas=LG.newCanvas(gw,gh)
+	-- s.canvas=LG.newCanvas(s.width,s.height)
 	s.clear=true
 	g.screen=s
-	Shader:send("screenScale",s.scale)
+	if Shader then
+		Shader:send("screenScale",s.scale)
+	end
 end
 
-local function control(g,s,gs)
+screen.control = function(g,s,gs)
 	if s.shake>0 then
 		s.shake=s.shake-gs
 	end
@@ -44,7 +50,7 @@ local function control(g,s,gs)
 		
 		local tempcanvas=LG.newCanvas(g.width*s.pixelscale,g.height*s.pixelscale)
 		LG.setCanvas(tempcanvas)
-			LG.draw(g.canvas.background,0,0,0,s.pixelscale,s.pixelscale,xcamoff,ycamoff)
+			-- LG.draw(g.canvas.background,0,0,0,s.pixelscale,s.pixelscale,xcamoff,ycamoff)
 			if g.level then
 				if g.level.canvas then
 					LG.draw(g.level.canvas.background,0,0,0,s.pixelscale,s.pixelscale,xcamoff,ycamoff)
@@ -65,7 +71,7 @@ local function control(g,s,gs)
 					LG.clear()
 				end
 				xcamoff,ycamoff=g.camera.x-g.width/2,g.camera.y-g.height/2
-				LG.draw(g.canvas.background,0,0,0,s.pixelscale,s.pixelscale,xcamoff,ycamoff)
+				-- LG.draw(g.canvas.background,0,0,0,s.pixelscale,s.pixelscale,xcamoff,ycamoff)
 				if g.level then
 					if g.level.canvas then
 						LG.draw(g.level.canvas.background,0,0,0,s.pixelscale,s.pixelscale,xcamoff,ycamoff)
@@ -74,9 +80,13 @@ local function control(g,s,gs)
 				LG.draw(g.canvas.main,0,0,0,s.pixelscale,s.pixelscale)
 			--end
 		LG.setCanvas()
-		love.graphics.setShader(Shader)
-		LG.draw(s.canvas,x,y,0,scale,scale,g.width/2*s.pixelscale,g.height/2*s.pixelscale)
-		love.graphics.setShader()
+		if Shader then
+			love.graphics.setShader(Shader)
+			LG.draw(s.canvas,x,y,0,scale,scale,g.width/2*s.pixelscale,g.height/2*s.pixelscale)
+			love.graphics.setShader()
+		else
+			LG.draw(s.canvas,x,y,0,scale,scale,g.width/2*s.pixelscale,g.height/2*s.pixelscale)
+		end
 --[[
 		LG.draw(g.canvas.background,x,y,0,scale,scale,g.camera.x,g.camera.y)
 		if g.level then
@@ -91,8 +101,4 @@ local function control(g,s,gs)
 	--LG.draw(g.canvas.hud,g.camera.x,g.camera.y,0,1,1,0,0) --just like draws everything to the hud or whatever
 end
 
-return
-{
-	update = update,
-	control = control,
-}
+return screen

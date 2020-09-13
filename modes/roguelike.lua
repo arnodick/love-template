@@ -4,7 +4,7 @@ roguelike.level={}
 
 roguelike.actor.make = function(g,a)
 	local l=g.level
-	map.setindex(l.map.actors,a.x,a.y,a)
+	map.setcellraw(l.map.actors,a.x,a.y,a)
 end
 
 --TODO input g here, but not at the end
@@ -55,21 +55,31 @@ roguelike.actor.control = function(a,m,gs,g)
 				ydestfinal=ydest
 			end
 
+			print("\nACTOR: "..tostring(a))
 			if collx or colly then
-				print("\nWALL COLLISION: "..tostring(a))
-				run(EA[a.t],"collision",a)
-			else
-				local m=g.level.map.actors
-				if map.getcellraw(m,xdestfinal,ydestfinal,true)==0 then
-					a.x,a.y=xdestfinal,ydestfinal
-					map.setindex(m,xstart,ystart,0)
-					print("\nMAP START X: "..xstart.." Y: "..ystart..": "..tostring(map.getcellraw(m,xstart,ystart,true)))
-					map.setindex(m,a.x,a.y,a)
-					print("MAP DEST X: "..a.x.." Y: "..a.y..": "..tostring(map.getcellraw(m,a.x,a.y,true)))
+				if collx then
+					print(" WALL COLLISION WITH: "..ibx.." X: "..xdest.." Y: "..a.y)
 				else
-					print("\nACTOR COLLISION: "..tostring(a).." WITH "..tostring(map.getcellraw(m,xdestfinal,ydestfinal,true)))
+					print(" WALL COLLISION WITH: "..iby.." X: "..a.x.." Y: "..ydest)
+				end
+				-- run(EA[a.t],"collision",a)
+			else
+				local ma=g.level.map.actors
+				if map.getcellraw(ma,xdestfinal,ydestfinal,true)==0 then
+					a.x,a.y=xdestfinal,ydestfinal
+					map.setcellraw(ma,xstart,ystart,0)
+					
+					print("MAP START X: "..xstart.." Y: "..ystart)
+					map.setcellraw(ma,a.x,a.y,a)
+					print("MAP DEST X: "..a.x.." Y: "..a.y)
+				else
+					local ac=map.getcellraw(ma,xdestfinal,ydestfinal,true)
+					print("ACTOR COLLISION WITH "..tostring(ac))
+					game.state.run(g.name,"actor","collision",g,a,ac)
 				end
 			end
+		else
+			print(tostring(a).." OUT OF BOUNDS")
 		end
 		-- supper.print(m)
 	end
@@ -78,8 +88,10 @@ end
 roguelike.actor.draw = function(g,a)
 	if a.char then
 		local m=g.level.map
-		LG.setColor(100,200,100)--TODO
+		-- LG.setColor(100,200,100)--TODO
+		LG.setColor(a.colour)
 		LG.print(a.char,(a.x-1)*m.tile.width,(a.y-1)*m.tile.height)
+		LG.setColor(g.palette["pure_white"])
 	end
 end
 
@@ -92,7 +104,7 @@ roguelike.level.make = function(g,l)
 		l.map.actors={}
 		map.init(l.map.actors,l.map.w,l.map.h)
 		map.generate(l.map.actors,"empty")
-		supper.print(l.map.actors)
+		-- supper.print(l.map.actors)
 	end
 end
 

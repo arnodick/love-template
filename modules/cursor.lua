@@ -55,7 +55,7 @@ end
 
 cursor.editor.mousepressed = function(g,c,x,y,button)
 	if button==1 then
-		map.setcellvalue(g.level.map,c.x,c.y,c.value,true)
+		map.setcellvalue(g.level.map,c.x,c.y,c.value)
 		c.draw=true
 	elseif button==2 then
 		-- local map.getcellflags
