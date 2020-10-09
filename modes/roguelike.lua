@@ -2,9 +2,21 @@ local roguelike={}
 roguelike.actor={}
 roguelike.level={}
 
+roguelike.actor.drawcoords = function(g,a)
+	local m=g.level.map
+	local tw,th=m.tile.width,m.tile.height
+	local twh,thh=tw/2,th/2
+	a.draw={}
+	a.draw.x=(a.x-1)*tw+twh
+	a.draw.y=(a.y-1)*th+thh
+	a.draw.xoff=twh-1
+	a.draw.yoff=thh
+end
+
 roguelike.actor.make = function(g,a)
 	local l=g.level
 	map.setcellraw(l.map.actors,a.x,a.y,a)
+	roguelike.actor.drawcoords(g,a)
 end
 
 --TODO input g here, but not at the end
@@ -82,15 +94,14 @@ roguelike.actor.control = function(a,m,gs,g)
 			print(tostring(a).." OUT OF BOUNDS")
 		end
 		-- supper.print(m)
+		roguelike.actor.drawcoords(g,a)
 	end
 end
 
 roguelike.actor.draw = function(g,a)
 	if a.char then
-		local m=g.level.map
-		-- LG.setColor(100,200,100)--TODO
 		LG.setColor(a.colour)
-		LG.print(a.char,(a.x-1)*m.tile.width,(a.y-1)*m.tile.height)
+		LG.print(a.char,a.draw.x,a.draw.y,g.timer/20,1,1,a.draw.xoff,a.draw.yoff)
 		LG.setColor(g.palette["pure_white"])
 	end
 end

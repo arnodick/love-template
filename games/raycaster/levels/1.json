@@ -1,10 +1,10 @@
 {
 	"map":
 	{
-		"file":"maptest",
+		"file":"maptest3",
 	},
 	"drawmodes":
 	[
-		"numbers"
+		"grid"
 	]
 }

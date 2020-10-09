@@ -270,7 +270,8 @@ drawmodes.grid = function(m,x,y)
 		local r,gr,b=c[1],c[2],c[3]
 		-- LG.setColor(r,gr,b,120)
 		--TODO does this work w new color values?
-		LG.setColor(r,gr,b,0.47)
+		-- LG.setColor(r,gr,b,0.47)
+		LG.setColor(r,gr,b-y/10)
 
 		if x==1 then
 			local yh=y*th
@@ -304,10 +305,15 @@ drawmodes.characters = function(m,x,y)
 	local value=map.getcellvalue(m,x,y,true)
 	local g=Game
 	if g.things then
-		print(value)
+		-- print(value)
 		local object=g.things[value]
 		if object then
-			LG.print({supper.random(object.colours),string.char(value)},(x-1)*tw,(y-1)*th)
+			-- if value==46 then
+			-- 	LG.print({supper.random(object.colours),"·"},(x-1)*tw,(y-1)*th,0,1,1,3)
+			-- else
+			-- 	LG.print({supper.random(object.colours),string.char(value)},(x-1)*tw,(y-1)*th)
+			-- end
+			LG.print({supper.random(object.colours),g.charset[value]},(x-1)*tw,(y-1)*th)
 		end
 	else
 		LG.print(string.char(value),(x-1)*tw,(y-1)*th)
@@ -328,6 +334,12 @@ drawmodes.isometric = function(m,x,y)
 		LG.points(isox,isoy)
 	end	
 	--end
+end
+
+drawmodes.points = function(m,x,y)
+	if map.solid(m,x,y) then
+		love.graphics.points(x,y)
+	end
 end
 
 return map

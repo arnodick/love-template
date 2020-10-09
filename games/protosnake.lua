@@ -219,6 +219,7 @@ protosnake.gameplay =
 			h.hp.y=-g.height/2+6
 		end,
 
+		-- TODO take g.camera.x out of hear, just draw to g.canvas.hud then draw hud at camera's position
 		draw = function(g,h)
 			LG.setColor(g.palette[h.c])--TODO work nw col?
 

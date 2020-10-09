@@ -3,11 +3,12 @@ local screen={}
 --TODO figure out what is going on in here, comment it
 screen.update = function(g)
 	local s={}
-	local gw,gh=g.width,g.height
-	s.width,s.height=LG.getDimensions()
-	s.scale=math.floor(s.height/gh)
-	s.xoff=(s.width-gw*s.scale)/2
-	s.yoff=s.height%gh/2
+	local gw,gh=g.width,g.height--height and width in pixels of the game (usually 320x240)
+	s.width,s.height=LG.getDimensions()--gets the width and height of the window (NOT the game or screen) when game toggles between fullscreen screen.update is run again to get new dimensions
+	--TODO right now this only scales up based on the height of the game and screen, so for some game/window dimensions it will be weird
+	s.scale=math.floor(s.height/gh)--scales up the game's canvas(?) so that it takes up as much space as possible in the window
+	s.xoff=(s.width-gw*s.scale)/2--horizontally centres the screen's canvas(?) so when the window is larger than the game's dimensions (setting it to 0 will put the game's display at the left side of the window)
+	s.yoff=s.height%gh/2--same as xoff, but for vertical centre
 --[[
 	if s.width>=s.height then
 		s.scale=math.floor(s.height/gh)
@@ -19,16 +20,16 @@ screen.update = function(g)
 		s.yoff=s.width%gw/2
 	end
 --]]
-	s.pixelscale=1
+	s.pixelscale=1--this is used when doing pixelated transitions
 	s.shake=0
 
 	s.font=LG.newFont("fonts/Kongtext Regular.ttf",8)
 	--LG.setFont(s.font)
 
 
-	s.canvas=LG.newCanvas(gw,gh)
+	s.canvas=LG.newCanvas(gw,gh)--the screen's canvas is the size of the game's dimensions (usually 320x240)
 	-- s.canvas=LG.newCanvas(s.width,s.height)
-	s.clear=true
+	s.clear=true--this seems to be unused currently, but will set the screen's canvas to be cleared when no screen transition is happening
 	g.screen=s
 	if Shader then
 		Shader:send("screenScale",s.scale)
@@ -36,6 +37,10 @@ screen.update = function(g)
 end
 
 screen.control = function(g,s,gs)
+	--TODO put all calculations in here so they aren't happening in draw function
+end
+
+screen.draw = function(g,s,gs)
 	if s.shake>0 then
 		s.shake=s.shake-gs
 	end
@@ -45,7 +50,8 @@ screen.control = function(g,s,gs)
 	local y=(g.height*s.scale/2)+s.yoff
 	local scale=(s.scale/s.pixelscale)*g.camera.zoom
 
-	local xcamoff,ycamoff=g.camera.x-g.width/2,g.camera.y-g.height/2
+	--TODO can WE get rid of xcamoff,ycamoff?
+	local xcamoff,ycamoff=g.camera.x-g.width/2,g.camera.y-g.height/2--bc the background doesn't redraw, we must move it with the camera, these offsets follow the camera
 	if s.transition then
 		
 		local tempcanvas=LG.newCanvas(g.width*s.pixelscale,g.height*s.pixelscale)
@@ -64,20 +70,18 @@ screen.control = function(g,s,gs)
 		transition.control(s,s.transition)
 		s.pixelscale=math.clamp(s.pixelscale,0.1,1)
 	else
-		LG.setCanvas(s.canvas)
+		LG.setCanvas(s.canvas)--everything(?) is drawn to the screen's canvas, which is the height and width of the game (usually 320x240)
 			--local t=math.floor(g.timer/gs)%2 --this makes the game draw half as often, making it fake 30fps
 			--if t==0 then
 				if s.clear==true then
 					LG.clear()
 				end
-				xcamoff,ycamoff=g.camera.x-g.width/2,g.camera.y-g.height/2
-				-- LG.draw(g.canvas.background,0,0,0,s.pixelscale,s.pixelscale,xcamoff,ycamoff)
 				if g.level then
 					if g.level.canvas then
-						LG.draw(g.level.canvas.background,0,0,0,s.pixelscale,s.pixelscale,xcamoff,ycamoff)
+						LG.draw(g.level.canvas.background,-g.camera.x,-g.camera.y,0,1,1,-g.width/2,-g.height/2)
 					end
 				end
-				LG.draw(g.canvas.main,0,0,0,s.pixelscale,s.pixelscale)
+				LG.draw(g.canvas.main,0,0,0,1,1)
 			--end
 		LG.setCanvas()
 		if Shader then

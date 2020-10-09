@@ -201,6 +201,8 @@ game.control = function(g)
 	if not g.pause then --TODO figure out why pause is necessary
 		g.timer = g.timer + g.speed
 	end
+
+	-- screen.control(g,g.screen,g.speed)
 end
 
 game.keypressed = function(g,key,scancode,isrepeat)
@@ -256,9 +258,9 @@ end
 game.mousepressed = function(g,x,y,button)
 	game.state.run(g.name,g.state,"mousepressed",g,x,y,button)
 
-	if g.editor then
-		editor.mousepressed(g,x,y,button)
-	end
+	-- if g.editor then
+	-- 	editor.mousepressed(g,x,y,button)
+	-- end
 end
 
 game.mousemoved = function(g,x,y,dx,dy)
@@ -351,7 +353,7 @@ game.draw = function(g)
 	
 	LG.origin()
 
-	screen.control(g,g.screen,g.speed)
+	screen.draw(g,g.screen,g.speed)
 
 	-- love.graphics.setShader()
 end

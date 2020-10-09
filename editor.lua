@@ -8,10 +8,14 @@ editor.make = function(g)
 end
 
 editor.control = function(g)
-	if love.mouse.isDown(1) or love.mouse.isDown(2) then
-		local c=g.editor.cursor
-		if c then
+	local c=g.editor.cursor
+	if c then
+		if love.mouse.isDown(1) then
 			cursor.mousepressed(g,c,c.x,c.y,1)
+		elseif love.mouse.isDown(2) then
+			cursor.mousepressed(g,c,c.x,c.y,2)
+		elseif love.mouse.isDown(3) then
+			cursor.mousepressed(g,c,c.x,c.y,3)
 		end
 	end
 end

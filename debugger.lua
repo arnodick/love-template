@@ -135,17 +135,17 @@ debugger.update = function(g,d)
 		if g.editor then
 			if g.editor.cursor then
 				local m=g.level.map
-				local cx,cy=map.getcellcoords(m,g.editor.cursor.x,g.editor.cursor.y)
-				local mapcell=0
-
-				mapcell=map.getcellvalue(m,cx,cy)
+				-- local cx,cy=map.getcellcoords(m,g.editor.cursor.x,g.editor.cursor.y)
+				local mapcell=map.getcellraw(m,g.editor.cursor.x,g.editor.cursor.y)
 
 				table.insert(debuglist,"e cursor x "..g.editor.cursor.x)
 				table.insert(debuglist,"e cursor y "..g.editor.cursor.y)
 				table.insert(debuglist,"cell value "..map.getcellvalue(m,g.editor.cursor.x,g.editor.cursor.y))
 				-- table.insert(debuglist,"cell shitfed "..bit.rshift(mapcell,16))
-				table.insert(debuglist,"cell solid "..tostring(flags.get(mapcell,EF.solid,16)))
+				-- table.insert(debuglist,"cell solid "..tostring(flags.get(mapcell,EF.solid,16)))
+				table.insert(debuglist,"cell solid "..tostring(map.solid(mapcell)))
 
+				table.insert(debuglist,"e cursor draw "..tostring(g.editor.cursor.draw))
 				
 				local f=""
 				for i,v in ipairs(EF) do
@@ -182,6 +182,12 @@ debugger.draw = function(d)
 		local g=Game
 		LG.setCanvas(d.canvas) --sets drawing to the 1280 x 960 debug canvas
 		LG.clear() --cleans that messy ol canvas all up, makes it all fresh and new and good you know
+
+		-- if g.level then
+		-- 	if g.level.map then
+		-- 		map.draw(g.level.map,{"points"})
+		-- 	end
+		-- end
 
 		LG.setFont(d.font)
 		LG.setColor(g.palette["yellow"])

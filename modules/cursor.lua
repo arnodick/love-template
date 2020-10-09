@@ -51,6 +51,7 @@ end
 
 cursor.editor.make = function(c)
 	c.value=1
+	c.draw=false
 end
 
 cursor.editor.mousepressed = function(g,c,x,y,button)
@@ -72,9 +73,10 @@ end
 
 cursor.editor.wheelmoved = function(g,c,x,y)
 	local m=g.level.modename
-	local min,max=0,255--TODO maybe just make this 127?
+	local min,max=0,255
 	if m=="roguelike" then
-		max=127
+		min=1
+		max=#g.charset
 	end
 	c.value=math.clamp(c.value+y,min,max)
 end
@@ -97,7 +99,11 @@ cursor.editor.draw = function(g,c)
 		LG.setCanvas(g.level.canvas.background)
 			local xcamoff,ycamoff=g.camera.x-g.width/2,g.camera.y-g.height/2
 			LG.translate(xcamoff,ycamoff)
-				LG.draw(Sprites[1].spritesheet,Sprites[1].quads[c.value],cx,cy)
+				if l.modename=="roguelike" then
+					LG.print(g.charset[c.value],cx,cy)
+				else
+					LG.draw(Sprites[1].spritesheet,Sprites[1].quads[c.value],cx,cy)
+				end
 			LG.translate(-xcamoff,-ycamoff)
 		LG.setCanvas(g.canvas.main)
 		c.draw=false
@@ -112,7 +118,7 @@ cursor.editor.draw = function(g,c)
 	LG.print(c.value,cx+tw,cy+th)
 	-- LG.draw(Sprites[1].spritesheet,Sprites[1].quads[c.value],cx,cy)
 	if l.modename=="roguelike" then
-		LG.print(string.char(c.value),cx,cy)--for printing ascii characters
+		LG.print(g.charset[c.value],cx,cy)--for printing ascii characters
 	else
 		LG.draw(Sprites[1].spritesheet,Sprites[1].quads[c.value],cx,cy)
 	end

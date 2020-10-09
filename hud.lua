@@ -20,6 +20,14 @@ hud.draw = function(g,h,...)
 		_G[g.name][g.state].hud.draw(g,h,...)
 	end
 
+	if Debugger.debugging then
+		if g.level then
+			if g.level.map then
+				map.draw(g.level.map,"points")
+			end
+		end
+	end
+
 	if h.menu then
 		menu.draw(h.menu)
 	end
