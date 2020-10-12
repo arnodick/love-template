@@ -36,10 +36,14 @@ function love.load(args)
 end
 
 function love.update(dt)
-	game.control(Game)
+	local g=Game
+
+	game.control(g)
+
+	screen.control(g,g.screen,g.speed)
 
 	--TODO only do this if console is on? or better yet, only allow debugger to utrn on if console is on?
-	debugger.update(Game,Debugger)
+	debugger.update(g,Debugger)
 end
 
 function love.keypressed(key,scancode,isrepeat)
@@ -146,7 +150,11 @@ function love.joystickremoved(joystick)
 end
 
 function love.draw(dt)
-	game.draw(Game)
+	local g=Game
 
-	debugger.draw(Debugger)
+	game.draw(g)
+
+	screen.draw(g,g.screen,g.speed)
+
+	debugger.draw(g,Debugger)
 end

@@ -177,9 +177,8 @@ debugger.update = function(g,d)
 	end
 end
 
-debugger.draw = function(d)
+debugger.draw = function(g,d)
 	if d.debugging then
-		local g=Game
 		LG.setCanvas(d.canvas) --sets drawing to the 1280 x 960 debug canvas
 		LG.clear() --cleans that messy ol canvas all up, makes it all fresh and new and good you know
 

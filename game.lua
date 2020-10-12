@@ -201,8 +201,6 @@ game.control = function(g)
 	if not g.pause then --TODO figure out why pause is necessary
 		g.timer = g.timer + g.speed
 	end
-
-	-- screen.control(g,g.screen,g.speed)
 end
 
 game.keypressed = function(g,key,scancode,isrepeat)
@@ -318,6 +316,7 @@ game.draw = function(g)
 						l.bgdraw=false
 					end
 				end
+				--TODO can maybe get rid of this?
 				game.state.run(g.name,"level","draw",g,g.level)
 			end
 
@@ -352,8 +351,6 @@ game.draw = function(g)
 	end
 	
 	LG.origin()
-
-	screen.draw(g,g.screen,g.speed)
 
 	-- love.graphics.setShader()
 end
