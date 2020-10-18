@@ -51,11 +51,6 @@ screen.control = function(g,s,gs)
 		s.shake=s.shake-gs
 	end
 
-	s.draw.shake=love.math.random(-s.shake/4,s.shake/4)*s.scale
-	s.draw.x=(g.width*s.scale/2)+s.xoff+s.draw.shake
-	s.draw.y=(g.height*s.scale/2)+s.yoff
-	s.draw.scale=(s.scale/s.pixelscale)*g.camera.zoom
-
 	if s.transition then
 		transition.control(s,s.transition)
 		s.pixelscale=math.clamp(s.pixelscale,0.1,1)
@@ -63,6 +58,11 @@ screen.control = function(g,s,gs)
 	elseif s.draw.canvas~=s.canvas then
 		s.draw.canvas=s.canvas
 	end
+
+	s.draw.shake=love.math.random(-s.shake/4,s.shake/4)*s.scale
+	s.draw.x=(g.width*s.scale/2)+s.xoff+s.draw.shake
+	s.draw.y=(g.height*s.scale/2)+s.yoff
+	s.draw.scale=(s.scale/s.pixelscale)*g.camera.zoom
 end
 
 screen.draw = function(g,s,gs)
