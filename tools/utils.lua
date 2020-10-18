@@ -43,8 +43,9 @@ end
 --GRAPHICS
 --draws a box that can be rotated!
 local function drawbox(x,y,w,a)
+	local circlestuff=0.25*math.pi*2
 	for i=0,3 do
-		LG.line(x+math.cos(a+i*0.25*math.pi*2)*w/2,y+math.sin(a+i*0.25*math.pi*2)*w/2,x+math.cos(a+(i+1)*0.25*math.pi*2)*w/2,y+math.sin(a+(i+1)*0.25*math.pi*2)*w/2)
+		LG.line(x+math.cos(a+i*circlestuff)*w/2,y+math.sin(a+i*circlestuff)*w/2,x+math.cos(a+(i+1)*circlestuff)*w/2,y+math.sin(a+(i+1)*circlestuff)*w/2)
 	end
 end
 
@@ -52,7 +53,7 @@ end
 --TODO needs work
 local function printformat(text,x,y,limit,align,c1,c2,alpha)
 	local g=Game
-	limit=limit or Game.width-x
+	limit=limit or g.width-x
 	align=align or "left"
 	alpha=alpha or 1
 	for xoff=-1,1 do
