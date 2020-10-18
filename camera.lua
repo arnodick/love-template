@@ -1,14 +1,18 @@
-local function make(x,y)
+local camera={}
+
+camera.make = function(g,x,y)
 	local c={}
 	c.x=x
 	c.y=y
 	c.zoom=1
 	c.hit=0
+	c.center={}
+	c.center.x,c.center.y=g.width/2,g.height/2
 	return c
 	--TODO this should insert itself into Game.cameras, can have multiple cameras and jump around from one to another
 end
 
-local function control(c,gs)
+camera.control = function(c,gs)
 	if c.target then
 		c.x=c.target.x
 		c.y=c.target.y
@@ -17,8 +21,4 @@ local function control(c,gs)
 	end
 end
 
-return
-{
-	make = make,
-	control = control,
-}
+return camera

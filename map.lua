@@ -268,10 +268,9 @@ drawmodes.grid = function(m,x,y)
 		local tw,th=m.tile.width,m.tile.height
 		local c=g.palette[g.level.c or "white"]
 		local r,gr,b=c[1],c[2],c[3]
-		-- LG.setColor(r,gr,b,120)
 		--TODO does this work w new color values?
-		-- LG.setColor(r,gr,b,0.47)
-		LG.setColor(r,gr,b-y/10)
+		LG.setColor(r,gr,b,0.47)
+		-- LG.setColor(r,gr,b-y/10)
 
 		if x==1 then
 			local yh=y*th
