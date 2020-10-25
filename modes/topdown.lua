@@ -2,7 +2,7 @@ local topdown={}
 topdown.actor={}
 topdown.level={}
 
-topdown.actor.control = function(a,m,gs)
+topdown.actor.control = function(g,a,m,gs)
 	if a.controller then
 		local c=a.controller.move
 		if c then
@@ -10,8 +10,8 @@ topdown.actor.control = function(a,m,gs)
 			a.vel=vector.length(c.horizontal,c.vertical)
 		end
 	end
-	a.vec[1] = math.cos(a.d)
-	a.vec[2] = math.sin(a.d)
+	a.vec[1]=math.cos(a.d)
+	a.vec[2]=math.sin(a.d)
 
 	if a.inventory then
 		if #a.inventory>0 then
@@ -19,8 +19,6 @@ topdown.actor.control = function(a,m,gs)
 			item.use(a.inventory[1],gs,a,c.aim.horizontal,c.aim.vertical,c.action.use)
 		end
 	end
-
-	local g=Game
 
 	local xdest,ydest=a.x+a.vec[1]*a.vel*a.speed*gs,a.y-a.vec[2]*a.vel*a.speed*gs
 

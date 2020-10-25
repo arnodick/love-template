@@ -253,6 +253,11 @@ game.keyreleased = function(g,key)
 	game.state.run(g.name,g.state,"keyreleased",g,key)
 end
 
+--this is used in intro/title states to move to the enxt state, so all games use the same buttons
+game.keyconfirm = function(key)
+	return key=="space" or key=="return" or key=="z"
+end
+
 game.mousepressed = function(g,x,y,button)
 	game.state.run(g.name,g.state,"mousepressed",g,x,y,button)
 
@@ -293,6 +298,7 @@ game.draw = function(g)
 	LG.translate(-g.camera.x+g.width/2,-g.camera.y+g.height/2)
 	
 	local l=g.level
+	--TODO what the hell is goin on in here? i think it is all for offgrid
 	if not l or not l.transition or not l.transition.t then
 		LG.setCanvas(g.canvas.main) --sets drawing to the primary canvas that refreshes every frame
 			LG.clear() --cleans that messy ol canvas all up, makes it all fresh and new and good you know
@@ -308,7 +314,7 @@ game.draw = function(g)
 								LG.translate(xcamoff,ycamoff)
 
 								--TODO this should be l.map.drawmodes?
-								map.draw(l.map,l.drawmodes)
+								map.draw(g,l.map,l.drawmodes)
 								LG.translate(-xcamoff,-ycamoff)
 							end
 						end

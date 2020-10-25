@@ -65,7 +65,7 @@ bighands.gameplay =
 bighands.title =
 {
 	keypressed = function(g,key)
-		if key=="space" or key=="return" then
+		if game.keyconfirm(key) then
 			game.state.make(g,"gameplay")
 		elseif key=='escape' then
 			game.state.make(g,"intro")
@@ -88,7 +88,7 @@ bighands.title =
 bighands.intro =
 {
 	keypressed = function(g,key)
-		if key=="space" or key=="return" then
+		if game.keyconfirm(key) then
 			game.state.make(g,"title")
 		end
 	end,
@@ -115,7 +115,7 @@ bighands.item =
 				if p.controller.action.action and #p.inventory<1 then
 					if a.sound then
 						if a.sound.get then
-							sfx.play(a.sound.get)
+							sfx.play(g,a.sound.get)
 						end
 					end
 					a.flags=flags.set(a.flags,EF.persistent)

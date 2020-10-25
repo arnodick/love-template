@@ -2,7 +2,7 @@ local topdown_tank={}
 topdown_tank.actor={}
 topdown_tank.level={}
 
-topdown_tank.actor.control = function(a,m,gs)
+topdown_tank.actor.control = function(g,a,m,gs)
 	if a.controller then
 		local c=a.controller.move
 		if c then
@@ -39,7 +39,6 @@ topdown_tank.actor.control = function(a,m,gs)
 		end
 	end
 
-	local g=Game
 	local xcell,ycell=map.getcellcoords(m,a.x,a.y)
 	local xdest,ydest=a.x+a.vec[1]*a.vel*a.speed*gs,a.y-a.vec[2]*a.vel*a.speed*gs
 	local xcelldest,ycelldest=map.getcellcoords(m,xdest,ydest)

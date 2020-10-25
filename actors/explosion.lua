@@ -1,5 +1,5 @@
 local function make(g,a,c,size)
-	sfx.play(1,a.x,a.y)
+	sfx.play(g,1,a.x,a.y)
 	a.cinit=c or "white"
 	a.c=a.cinit
 	a.size=size or 20

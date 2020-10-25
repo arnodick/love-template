@@ -18,6 +18,8 @@ screen.update = function(g)
 	s.draw.x=(g.width*s.scale/2)+s.xoff+s.draw.shake
 	s.draw.y=(g.height*s.scale/2)+s.yoff
 	s.draw.scale=s.scale
+	s.draw.refresh=true--if this is true, game will be drawn to screen canvas, otherwise it will skip the draw, allowing for 30fps drawing, even tho game runs at 60
+	s.draw.clear=true--this seems to be unused currently, but will set the screen's canvas to be cleared when no screen transition is happening
 	--TODO s.draw.x=(g.width*s.scale/2)+s.xoff+shake
 --[[
 	if s.width>=s.height then
@@ -38,7 +40,6 @@ screen.update = function(g)
 	s.canvas=LG.newCanvas(gw,gh)--the screen's canvas is the size of the game's dimensions (usually 320x240)
 	s.draw.canvas=s.canvas--draw.canvas will almost always be s.canvas, unless there is a pixel transition happening, then it will be set to a temp canvas
 
-	s.clear=true--this seems to be unused currently, but will set the screen's canvas to be cleared when no screen transition is happening
 	g.screen=s
 	if Shader then
 		Shader:send("screenScale",s.scale)
@@ -46,6 +47,8 @@ screen.update = function(g)
 end
 
 screen.control = function(g,s,gs)
+
+	s.draw.refresh=(math.floor(g.timer/gs)%2)==0
 	--TODO put all calculations in here so they aren't happening in draw function
 	if s.shake>0 then
 		s.shake=s.shake-gs
@@ -53,7 +56,7 @@ screen.control = function(g,s,gs)
 
 	if s.transition then
 		transition.control(s,s.transition)
-		s.pixelscale=math.clamp(s.pixelscale,0.1,1)
+		s.pixelscale=math.clamp(s.pixelscale,0.1,1)--TODO do we need this? just get transition to clamp
 		s.draw.canvas=LG.newCanvas(g.width*s.pixelscale,g.height*s.pixelscale)
 	elseif s.draw.canvas~=s.canvas then
 		s.draw.canvas=s.canvas
@@ -67,19 +70,18 @@ end
 
 screen.draw = function(g,s,gs)
 	LG.setCanvas(s.draw.canvas)--everything(?) is drawn to the screen's canvas, which is the height and width of the game (usually 320x240)
-		--local t=math.floor(g.timer/gs)%2 --this makes the game draw half as often, making it fake 30fps
-		--if t==0 then
-		if s.clear==true then
-			LG.clear()
-		end
-		if g.level then
-			if g.level.canvas then
-				LG.draw(g.level.canvas.background,-g.camera.x*s.pixelscale,-g.camera.y*s.pixelscale,0,s.pixelscale,s.pixelscale,-g.camera.center.x,-g.camera.center.y)
-				-- LG.draw(g.level.canvas.background,-g.camera.x,-g.camera.y,0,1,1,-g.camera.center.x,-g.camera.center.y)
+		-- if s.draw.refresh then
+			if s.draw.clear==true then
+				LG.clear()
 			end
-		end
-		LG.draw(g.canvas.main,0,0,0,s.pixelscale,s.pixelscale)
-		--end
+			if g.level then
+				if g.level.canvas then
+					LG.draw(g.level.canvas.background,-g.camera.x*s.pixelscale,-g.camera.y*s.pixelscale,0,s.pixelscale,s.pixelscale,-g.camera.center.x,-g.camera.center.y)
+					-- LG.draw(g.level.canvas.background,-g.camera.x,-g.camera.y,0,1,1,-g.camera.center.x,-g.camera.center.y)
+				end
+			end
+			LG.draw(g.canvas.main,0,0,0,s.pixelscale,s.pixelscale)
+		-- end
 	LG.setCanvas()
 	if Shader then
 		love.graphics.setShader(Shader)

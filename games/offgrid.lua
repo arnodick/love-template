@@ -107,11 +107,10 @@ offgrid.level.city =
 				module.make(g,l,EM.transition,easing.linear,"transition_timer",0,1,240,music.play,{l.music},EM.transitions[l.transition_in])
 			elseif l.sound then
 				print("SOUND MAD")
-				module.make(g,l,EM.transition,easing.linear,"transition_timer",0,1,240,sfx.play,{l.sound},EM.transitions[l.transition_in])
+				module.make(g,l,EM.transition,easing.linear,"transition_timer",0,1,240,sfx.play,{g,l.sound},EM.transitions[l.transition_in])
 			elseif l.unlock_description and g.player.items[l.unlock_description_item] then
 				if l.unlock_sound then
-					--sfx.play(l.unlock_sound)
-					module.make(g,l,EM.transition,easing.linear,"transition_timer",0,1,240,sfx.play,{l.unlock_sound},EM.transitions[l.transition_in])
+					module.make(g,l,EM.transition,easing.linear,"transition_timer",0,1,240,sfx.play,{g,l.unlock_sound},EM.transitions[l.transition_in])
 				end
 			else
 				module.make(g,l,EM.transition,easing.linear,"transition_timer",0,1,240,nil,nil,EM.transitions[l.transition_in])
@@ -122,11 +121,10 @@ offgrid.level.city =
 				music.play(l.music)
 			elseif l.sound then
 				print("SOUND MADEEEE")
-				sfx.play(l.sound)
+				sfx.play(g,l.sound)
 			elseif l.unlock_description and g.player.items[l.unlock_description_item] then
 				if l.unlock_sound then
-					--sfx.play(l.unlock_sound)
-					sfx.play(l.unlock_sound)
+					sfx.play(g,l.unlock_sound)
 				end
 			end
 		end
@@ -182,7 +180,7 @@ offgrid.level.city =
 offgrid.level.word =
 {
 	make = function(g,l)
-		sfx.play(20)
+		sfx.play(g,20)
 		local m={}
 		m.text={}
 		m.arguments={}
@@ -400,7 +398,7 @@ offgrid.title =
 	end,
 
 	keypressed = function(g,key)
-		if key=="z" then
+		if game.keyconfirm(key) then
 			game.state.make(g,"gameplay")
 		elseif key=='escape' then
 			game.state.make(g,"intro")
@@ -438,7 +436,7 @@ offgrid.intro =
 	end,
 
 	keypressed = function(g,key)
-		if key=="z" then
+		if game.keyconfirm(key) then
 			game.state.make(g,"title")
 		end
 	end,
@@ -456,7 +454,7 @@ offgrid.intro =
 		end
 		if g.introstart==true then
 			g.introstart=false
-			sfx.play(22)
+			sfx.play(g,22)
 			module.make(g,g,EM.transition,easing.linear,"letter_timer",0,1,100,shakey,{})
 		end
 		local f=LG.newFont("fonts/Kongtext Regular.ttf",90)

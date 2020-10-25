@@ -118,14 +118,14 @@ spacetank9001.intro =
 
 	control = function(g)
 		if g.timer>=1140 then
-			sfx.play(2)
+			sfx.play(g,2)
 			game.state.make(g,"title")
 		end
 	end,
 
 	keypressed = function(g,key)
-		if key=='z' then
-			sfx.play(2)
+		if game.keyconfirm(key) then
+			sfx.play(g,2)
 			game.state.make(g,"title")
 		end
 	end,

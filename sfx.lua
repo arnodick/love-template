@@ -7,8 +7,7 @@ sfx.load = function(positional)
 	return s
 end
 
-sfx.play = function(index,x,y)
-	local g=Game
+sfx.play = function(g,index,x,y)
 	if not SFX.positional then
 		local source=SFX[index].source
 		if source then

@@ -67,15 +67,15 @@ map.save = function(m,filename)
 	textfile.save(m,filename)
 end
 
-map.draw = function(m,drawmode)
+map.draw = function(g,m,drawmode)
 	for y=1,m.h do
 		for x=1,m.w do
 			if type(drawmode)=="table" then
 				for i,v in ipairs(drawmode) do
-					drawmodes[v](m,x,y)
+					drawmodes[v](g,m,x,y)
 				end
 			else
-				drawmodes[drawmode](m,x,y)
+				drawmodes[drawmode](g,m,x,y)
 			end
 		end
 	end
@@ -262,9 +262,8 @@ generators.buildings = function(m,w,h,x,y,args)
 	end
 end
 
-drawmodes.grid = function(m,x,y)
+drawmodes.grid = function(g,m,x,y)
 	if x==1 or y==1 then
-		local g=Game
 		local tw,th=m.tile.width,m.tile.height
 		local c=g.palette[g.level.c or "white"]
 		local r,gr,b=c[1],c[2],c[3]
@@ -284,14 +283,14 @@ drawmodes.grid = function(m,x,y)
 	end
 end
 
-drawmodes.numbers = function(m,x,y)
+drawmodes.numbers = function(g,m,x,y)
 	local tw,th=m.tile.width,m.tile.height
 	-- local value=m[y][x]
 	local value=map.getcellvalue(m,x,y,true)--TODO getcellraw here instead?
 	LG.print(value,(x-1)*tw,(y-1)*th)
 end
 
-drawmodes.sprites = function(m,x,y)
+drawmodes.sprites = function(g,m,x,y)
 	local value=map.getcellvalue(m,x,y,true)
 	if value~=0 then--doing this because sprite 0 is all black and will overdraw other drawmodes
 		local s=Sprites[1]
@@ -299,10 +298,9 @@ drawmodes.sprites = function(m,x,y)
 	end
 end
 
-drawmodes.characters = function(m,x,y)
+drawmodes.characters = function(g,m,x,y)
 	local tw,th=m.tile.width,m.tile.height
 	local value=map.getcellvalue(m,x,y,true)
-	local g=Game
 	if g.things then
 		-- print(value)
 		local object=g.things[value]
@@ -312,6 +310,10 @@ drawmodes.characters = function(m,x,y)
 			-- else
 			-- 	LG.print({supper.random(object.colours),string.char(value)},(x-1)*tw,(y-1)*th)
 			-- end
+			if object.backgroundcolour then
+				LG.setColor(object.backgroundcolour)
+				LG.rectangle("fill",(x-1)*tw,(y-1)*th,tw,th)
+			end
 			LG.print({supper.random(object.colours),g.charset[value]},(x-1)*tw,(y-1)*th)
 		end
 	else
@@ -319,9 +321,9 @@ drawmodes.characters = function(m,x,y)
 	end
 end
 
-drawmodes.isometric = function(m,x,y)
+drawmodes.isometric = function(g,m,x,y)
 	local tw,th=m.tile.width,m.tile.height
-	local t=Game.timer
+	local t=g.timer
 
 	--if (y-1)*#m[y]+x<=t then
 	local isox,isoy=(x-1)*tw/2+m.width/2,(y-1)*th/4+m.height/2
@@ -335,7 +337,7 @@ drawmodes.isometric = function(m,x,y)
 	--end
 end
 
-drawmodes.points = function(m,x,y)
+drawmodes.points = function(g,m,x,y)
 	if map.solid(m,x,y) then
 		love.graphics.points(x,y)
 	end

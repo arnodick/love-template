@@ -20,7 +20,7 @@ roguelike.actor.make = function(g,a)
 end
 
 --TODO input g here, but not at the end
-roguelike.actor.control = function(a,m,gs,g)
+roguelike.actor.control = function(g,a,m,gs)
 	if g.step==true then
 		if a.controller then
 			local c=a.controller.move

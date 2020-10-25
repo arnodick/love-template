@@ -70,7 +70,7 @@ actor.control = function(g,a,gs)
 	
 	if g.level then
 		if g.level.mode then
-			game.state.run(g.level.modename,"actor","control",a,g.level.map,gs,g)
+			game.state.run(g.level.modename,"actor","control",g,a,g.level.map,gs)
 			-- run(g.level.modename,"control",a,g.level.map,gs,g)--TODO CLEAN THIS UP! input g first, can get map in there? ALSO, game.state.run(g.level.modename,"actor","control")
 		end
 	end
@@ -90,7 +90,7 @@ actor.control = function(g,a,gs)
 	end
 
 	if a.collectible then--if a IS a collectible, do its collectible stuff
-		collectible.control(a,gs)
+		collectible.control(g,a,gs)
 	end
 
 	if a.anglespeed then--TODO make angle module with speed and accel
@@ -175,14 +175,13 @@ actor.draw = function(g,a)
 	end
 end
 
-actor.damage = function(a,d)
-	local g=Game
+actor.damage = function(g,a,d)
 	if not a.delete then
 		--TODO game-specific
 		module.make(g,a,"flash","c","white",a.cinit,6)
 		if a.sound then
 			if a.sound.damage then
-				sfx.play(a.sound.damage,a.x,a.y)
+				sfx.play(g,a.sound.damage,a.x,a.y)
 			end
 		end
 
@@ -201,7 +200,7 @@ actor.damage = function(a,d)
 			end
 
 			if a.hp<1 then
-				--sfx.play(a.deathsnd,a.x,a.y)
+				--sfx.play(g,a.deathsnd,a.x,a.y)
 				a.delete=true
 
 				game.state.run(g.name,"actor","dead",g,a)

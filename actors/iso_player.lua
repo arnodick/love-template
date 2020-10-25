@@ -30,8 +30,7 @@ local function draw(a)
 end
 --]]
 
-local function damage(a)
-	local g=Game
+local function damage(g,a)
 	g.screen.pixeltrans=true
 	g.screen.pixelscale=0.1
 	g.screen.shake=20

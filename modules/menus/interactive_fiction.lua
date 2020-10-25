@@ -74,11 +74,11 @@ local function control(g,m,gs)
 	if m.transition then
 		transition.control(m,m.transition)
 		if m.text_trans-math.floor(m.text_trans)<0.1 then
-			sfx.play(16)
+			sfx.play(g,16)
 		end
 	--[[
 		if m.keysound then
-			sfx.play(16)
+			sfx.play(g,16)
 			m.keysound=false
 		elseif math.floor(m.text_trans)%4==0 then
 			m.keysound=true
@@ -88,17 +88,19 @@ local function control(g,m,gs)
 end
 
 local function keypressed(m,key)
+	local g=Game
 	if not m.transition then
 		if key=='z' then
-			sfx.play(13)
+			sfx.play(g,13)
 		end
 	end
 end
 
 local function keyreleased(m,key)
+	local g=Game
 	if not m.transition then
 		if key=='z' then
-			sfx.play(14)
+			sfx.play(g,14)
 			local i=m.text.index
 			print("INDEX: "..i)
 			if m.menu_functions[i] then

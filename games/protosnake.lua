@@ -320,7 +320,7 @@ protosnake.intro =
 	end,
 
 	keypressed = function(g,key)
-		if key=="space" or key=="return" or key=='z' then
+		if game.keyconfirm(key) then
 			game.state.make(g,"title")
 		end
 	end,
@@ -450,7 +450,7 @@ protosnake.item =
 					print(a.t)
 					if a.sound then
 						if a.sound.get then
-							sfx.play(a.sound.get,a.x,a.y)
+							sfx.play(g,a.sound.get,a.x,a.y)
 						end
 					end
 					--TODO only if user is player
@@ -485,7 +485,8 @@ protosnake.shopitem =
 					a.menu=nil
 					target.coin=target.coin-a.cost
 				else
-					sfx.play(11)
+					local g=Game
+					sfx.play(g,11)
 				end
 			end
 		else
@@ -513,7 +514,7 @@ protosnake.collectible =
 				end
 				if a.sound then
 					if a.sound.get then
-						sfx.play(a.sound.get,a.x,a.y)
+						sfx.play(g,a.sound.get,a.x,a.y)
 					end
 				end
 				actor.make(g,EA.collectibleget,a.x,a.y,math.pi/2,1,"pure_white",1,a.sprinit)

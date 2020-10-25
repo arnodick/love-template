@@ -1,4 +1,5 @@
 DONE
+make buttons more consistent ie enter or space or z for next menu?
 can game hnadle if there is no options file? create one if there is none?
 pass in g to all module makes
 MODS have settings (ie vector vs digital controls) not games?

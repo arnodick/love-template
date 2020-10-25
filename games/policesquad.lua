@@ -70,7 +70,7 @@ policesquad.gameplay =
 policesquad.title =
 {
 	keypressed = function(g,key)
-		if key=="space" or key=="return" then
+		if game.keyconfirm(key) then
 			game.state.make(g,"gameplay")
 		elseif key=='escape' then
 			game.state.make(g,"intro")
@@ -93,7 +93,7 @@ policesquad.title =
 policesquad.intro =
 {
 	keypressed = function(g,key)
-		if key=="space" or key=="return" then
+		if game.keyconfirm(key) then
 			game.state.make(g,"title")
 		end
 	end,
@@ -114,25 +114,9 @@ policesquad.actor = {}
 policesquad.item =
 {
 	control = function(g,a,gs)
-		-- local players=g.players
-		-- for i,p in ipairs(players) do
-		-- 	if actor.collision(a.x,a.y,p) then
-		-- 		if p.controller.action.action and #p.inventory<1 then
-		-- 			if a.sound then
-		-- 				if a.sound.get then
-		-- 					sfx.play(a.sound.get)
-		-- 				end
-		-- 			end
-		-- 			a.flags=flags.set(a.flags,EF.persistent)
-		-- 			table.insert(p.inventory,1,a)
-		-- 		end
-		-- 	end
-		-- end
 	end,
 
 	carry = function(a,user)
-		-- a.x=user.hand.x
-		-- a.y=user.hand.y
 	end,
 }
 

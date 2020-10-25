@@ -45,7 +45,7 @@ iso.gameplay =
 iso.title =
 {
 	keypressed = function(g,key)
-		if key=="space" or key=="return" then
+		if game.keyconfirm(key) then
 			game.state.make(g,"gameplay")
 		elseif key=='escape' then
 			game.state.make(g,"intro")
@@ -69,7 +69,7 @@ iso.title =
 iso.intro =
 {
 	keypressed = function(g,key)
-		if key=="space" or key=="return" then
+		if game.keyconfirm(key) then
 			game.state.make(g,"title")
 		end
 	end,

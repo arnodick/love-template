@@ -13,7 +13,7 @@ controls.bullet = function(g,a)
 			if not enemy.delete then
 				if actor.collision(a.x,a.y,enemy) then
 					a.delete=true
-					actor.damage(enemy,dam)
+					actor.damage(g,enemy,dam)
 				end
 			end
 		end

@@ -15,7 +15,7 @@ end
 local function control(g,a,gs)
 	if a.sfx==false then
 		if g.timer-a.delta>=20 then
-			sfx.play(9,a.x,a.y)
+			sfx.play(g,9,a.x,a.y)
 			a.sfx=true
 		end
 	end

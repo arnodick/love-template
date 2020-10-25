@@ -22,13 +22,13 @@ local function make(g,a,c,size,spr,hp)
 	module.make(g,a,EM.hitradius,8)
 	a.flags=flags.set(a.flags,EF.character,EF.enemy,EF.damageable, EF.shootable, EF.explosive)
 
-	sfx.play(12)
+	sfx.play(g,12)
 end
 
 local function control(g,a)
 	if actor.collision(a.x,a.y,a.target) then
-		actor.damage(a.target,8)
-		actor.damage(a,a.hp)
+		actor.damage(g,a.target,8)
+		actor.damage(g,a,a.hp)
 	end
 
 	if a.controller.move.target then
@@ -44,7 +44,7 @@ local function control(g,a)
 		local x=math.clamp(a.x+math.cos(dir)*dist,0,g.width)
 		local y=math.clamp(a.y+math.sin(dir)*dist,0,g.height)
 		module.make(g,a,EM.controller,EMC.move,EMCI.ai,x,y)
-		sfx.play(12)
+		sfx.play(g,12)
 	end
 
 	if g.player.hp<=0 then

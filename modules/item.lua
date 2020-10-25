@@ -25,13 +25,14 @@ item.carry = function(a,user)
 end
 
 item.use = function(a,gs,user,vx,vy,shoot)
+	local g=Game
 	a.angle=vector.direction(vx,vy)
 	a.vec[1]=math.cos(a.angle)
 	a.vec[2]=math.sin(a.angle)
 
 	if a.delta<=0 then
 		if shoot then
-			sfx.play(a.snd,a.x,a.y)
+			sfx.play(g,a.snd,a.x,a.y)
 			run(EA[a.t],"shoot",a,gs)
 			a.delta=a.rof
 		end

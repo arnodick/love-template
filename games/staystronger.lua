@@ -32,7 +32,8 @@ staystronger.make = function(g)
 		name="road",
 		colours={
 			{0.5,0.5,0.5}
-		}
+		},
+		backgroundcolour={0.1,0.7,0.3}
 	}
 end
 
@@ -142,7 +143,7 @@ end
 staystronger.title =
 {
 	keypressed = function(g,key)
-		if key=="space" or key=="return" then
+		if key=="space" or key=="return" or key=='z' then
 			game.state.make(g,"gameplay")
 		elseif key=='escape' then
 			game.state.make(g,"intro")
@@ -165,7 +166,7 @@ staystronger.title =
 staystronger.intro =
 {
 	keypressed = function(g,key)
-		if key=="space" or key=="return" then
+		if key=="space" or key=="return" or key=='z' then
 			game.state.make(g,"title")
 		end
 	end,

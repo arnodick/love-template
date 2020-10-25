@@ -40,7 +40,7 @@ local function control(g,a,gs)
 				--print(v.t)
 				--print(EA[v.t])
 				if flags.get(v.flags,EF.enemy) and v.hp then
-					actor.damage(v,v.hp)
+					actor.damage(g,v,v.hp)
 				elseif not flags.get(v.flags,EF.persistent) then
 					v.delete=true
 				end

@@ -83,7 +83,6 @@ end
 
 --TODO input Game into this
 cursor.editor.draw = function(g,c)
-	local g=Game
 	local l=g.level
 	local m=g.level.map
 	local tw,th=m.tile.width,m.tile.height

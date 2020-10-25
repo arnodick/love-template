@@ -28,7 +28,7 @@ raycaster.gameplay =
 raycaster.title =
 {
 	keypressed = function(g,key)
-		if key=="space" or key=="return" then
+		if game.keyconfirm(key) then
 			game.state.make(g,"gameplay")
 		elseif key=='escape' then
 			game.state.make(g,"intro")
@@ -52,7 +52,7 @@ raycaster.title =
 raycaster.intro =
 {
 	keypressed = function(g,key)
-		if key=="space" or key=="return" then
+		if game.keyconfirm(key) then
 			game.state.make(g,"title")
 		end
 	end,

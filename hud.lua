@@ -23,7 +23,7 @@ hud.draw = function(g,h,...)
 	if Debugger.debugging then
 		if g.level then
 			if g.level.map then
-				map.draw(g.level.map,"points")
+				map.draw(g,g.level.map,"points")
 			end
 		end
 	end

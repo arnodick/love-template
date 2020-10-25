@@ -1,7 +1,7 @@
 local isometric={}
 isometric.actor={}
 
-isometric.actor.control = function(a,gs)
+isometric.actor.control = function(g,a,gs)
 	if a.controller then
 		local c=a.controller.move
 		if c then
