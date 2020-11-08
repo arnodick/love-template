@@ -297,33 +297,28 @@ offgrid.level.makemoveoption = function(g,m,x,y,dir,index)
 --checks if a point on the map has a level in it
 --if so, puts that in the menu as an option
 
-	--TODO MAP FLATTEN
-	if g.map[y] then
-		if g.map[y][x] then	
-			local value=g.map[y][x]
-			if g.levels[value] then
-				local destination=g.levels[value].title
-				local make=true
-				if g.levels[value].restricted_entry_directions then
-					for i,v in ipairs(g.levels[value].restricted_entry_directions) do
-						if dir==v then
-							print("RESTRICTED")
-							make=false
-						end
+	if map.inbounds(g.map,x,y) then
+		local value=map.getcellvalue(g.map,x,y,true)
+		if g.levels[value] then
+			local destination=g.levels[value].title
+			local make=true
+			if g.levels[value].restricted_entry_directions then
+				for i,v in ipairs(g.levels[value].restricted_entry_directions) do
+					if dir==v then
+						print("RESTRICTED")
+						make=false
 					end
 				end
-				if make==true then
-					--this code sets what the menu option says, what it does, and the parameters for what it does
-					table.insert(m.text,"Go "..dir.." to "..destination)
-					table.insert(m.functions,offgrid.move)
-					table.insert(m.arguments,{g,x,y})
-				end
---[[
-				m.text[index]="Go "..dir.." to "..destination
-				m.functions[index]=offgrid.move
-				m.arguments[index]={g,x,y}
---]]
 			end
+			if make==true then
+				--this code sets what the menu option says, what it does, and the parameters for what it does
+				table.insert(m.text,"Go "..dir.." to "..destination)
+				table.insert(m.functions,offgrid.move)
+				table.insert(m.arguments,{g,x,y})
+			end
+			-- m.text[index]="Go "..dir.." to "..destination
+			-- m.functions[index]=offgrid.move
+			-- m.arguments[index]={g,x,y}
 		end
 	end
 end
@@ -366,7 +361,8 @@ offgrid.gameplay =
 		g.player.words={}
 		--g.player.words["protosnake"]="protosnake"
 		--g.player.items["protosnake"]="protosnake"
-		local levelindex=g.map[g.player.y][g.player.x]
+		-- local levelindex=g.map[g.player.y][g.player.x]
+		local levelindex=map.getindex(g.map,g.player.x,g.player.y)
 		level.make(g,levelindex)
 	end,
 
@@ -479,8 +475,8 @@ offgrid.intro =
 				LG.printformat("OFF THE GRID",0,0,g.width,"center","dark_gray","dark_gray",255)
 			LG.setCanvas(g.canvas.main)
 
-			print(g.canvas.buffer)
-			print(g.canvas.buffer.getDimensions(g.canvas.buffer))
+			-- print(g.canvas.buffer)
+			-- print(g.canvas.buffer.getDimensions(g.canvas.buffer))
 			--TODO because buffer is automatically made from size of game this fails, need to ahve bigger canvas, how big did offgrid make it before?
 			local imgdata=g.canvas.buffer:newImageData(1,1,0,0,640,320)
 			local iw,ih=imgdata:getWidth(),imgdata:getHeight()
@@ -521,7 +517,8 @@ offgrid.move = function(g,x,y)
 		music.stop(g.level.music)
 	end
 	g.player.x,g.player.y=x,y
-	local levelindex=g.map[y][x]
+	-- local levelindex=g.map[y][x]
+	local levelindex=map.getcellvalue(g.map,x,y,true)
 	print(levelindex)
 	level.make(g,levelindex)
 end

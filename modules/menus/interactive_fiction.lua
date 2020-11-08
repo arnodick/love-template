@@ -112,8 +112,8 @@ local function keyreleased(m,key)
 					local l={}
 					if i<5 then
 						if not m.back then
-							--TODO MAP FLATTEN is this possible any more?
-							l=g.levels[g.map[m.menu_function_args[i][3]][m.menu_function_args[i][2]]]
+							local mx,my=m.menu_function_args[i][2],m.menu_function_args[i][3]
+							l=g.levels[map.getcellvalue(g.map,mx,my,true)]
 						else
 							l=g.levels[m.back]
 						end
@@ -190,7 +190,8 @@ local function draw(m)
 				end
 			end
 			local c1,c2=m.c1,m.c2
-			local l=g.levels[g.map[mapy][mapx]]
+			-- local l=g.levels[g.map[mapy][mapx]]
+			local l=g.levels[map.getcellvalue(g.map,mapx,mapy,true)]
 			if l.unlock and not g.player.items[l.unlock] then
 				c1="black"
 			end

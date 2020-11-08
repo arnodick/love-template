@@ -87,8 +87,12 @@ game.make = function(t,gw,gh)
 		g.t=t
 		g.name=Enums.games[t]
 	end
-	g.width=gw or 320
-	g.height=gh or 240
+	-- g.width=gw or 320
+	-- g.height=gh or 240
+
+	--for OFFGRID
+	g.width=gw or 640
+	g.height=gh or 960
 
 	g.speed=1
 	g.pause=false
@@ -104,7 +108,8 @@ game.make = function(t,gw,gh)
 --]]
 	g.levels=supper.load("games/"..g.name.."/levels")
 	-- supper.print(g.levels)
-	g.excludes={dawngame="dawngame",offgrid="offgrid",royalewe="royalewe"}
+	-- g.excludes={dawngame="dawngame",offgrid="offgrid",royalewe="royalewe"}
+	g.excludes={dawngame="dawngame",royalewe="royalewe"}
 
 	g.options=json.load("options.json")
 	if g.options==nil then
