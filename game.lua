@@ -87,12 +87,13 @@ game.make = function(t,gw,gh)
 		g.t=t
 		g.name=Enums.games[t]
 	end
-	-- g.width=gw or 320
-	-- g.height=gh or 240
+	print(gw)
+	g.width=gw or 320
+	g.height=gh or 240
 
 	--for OFFGRID
-	g.width=gw or 640
-	g.height=gh or 960
+	-- g.width=gw or 640
+	-- g.height=gh or 960
 
 	g.speed=1
 	g.pause=false

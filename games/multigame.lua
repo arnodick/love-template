@@ -11,7 +11,11 @@ multigame.intro =
 			if g.excludes[v]==nil then
 				table.insert(gamenames,v)
 				table.insert(gamemakes,game.make)
-				table.insert(gameargs,{i})
+				if v=="offgrid" then
+					table.insert(gameargs,{i,640,960})
+				else
+					table.insert(gameargs,{i})
+				end
 			end
 		end
 

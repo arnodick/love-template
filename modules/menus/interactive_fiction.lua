@@ -5,7 +5,8 @@ local function make(g,m,menu_functions,menu_function_args)
 	if m.text then
 		m.text.index=1
 	end
-	module.make(g,m,EM.controller,EMC.move,EMCI.keyboard)
+	controller.assign(g,m,g.options,{inputtype="digital"})
+	-- module.make(g,m,EM.controller,EMC.move,EMCI.keyboard)
 	--module.make(g,m,EM.controller,EMC.select,EMC.selects.gamepad_menu_select)
 end
 
@@ -257,6 +258,7 @@ local function getindexfrompoint(m,x,y)
 	for i=1,#m.text do
 		if m.menu_function_args[i][2]==x and m.menu_function_args[i][3]==y then
 			m.text.index=i
+			print(m.text.index)
 		end
 	end
 end
