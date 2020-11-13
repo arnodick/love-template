@@ -20,6 +20,7 @@ local function make(a,m)
 	end
 	module.make(g,a,EM.synth,"sinus",440,60,{"B","G","D","C",})
 	--print("blocks: "..#m.blocks)
+	g.clear=false
 end
 
 local function control(a,m)

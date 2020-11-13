@@ -13,18 +13,18 @@ offgrid.make = function(g)
 	g.bufferscale=(ww/g.tile.width)/wh
 
 	g.chars={}
-	table.insert(g.chars," ")
-	table.insert(g.chars,"█")
-	table.insert(g.chars,"█")
-	table.insert(g.chars,"█")
-	table.insert(g.chars,"█")
-	table.insert(g.chars,"█")
-	table.insert(g.chars,"█")
-	table.insert(g.chars,"█")
-	table.insert(g.chars,"█")
-	table.insert(g.chars,"█")
-	table.insert(g.chars,"█")
---[[
+	-- table.insert(g.chars," ")
+	-- table.insert(g.chars,"█")
+	-- table.insert(g.chars,"█")
+	-- table.insert(g.chars,"█")
+	-- table.insert(g.chars,"█")
+	-- table.insert(g.chars,"█")
+	-- table.insert(g.chars,"█")
+	-- table.insert(g.chars,"█")
+	-- table.insert(g.chars,"█")
+	-- table.insert(g.chars,"█")
+	-- table.insert(g.chars,"█")
+
 	table.insert(g.chars," ")
 	table.insert(g.chars,"\\")
 	table.insert(g.chars,"/")
@@ -43,7 +43,7 @@ offgrid.make = function(g)
 	--table.insert(g.chars,"@")
 	table.insert(g.chars,"_")
 	table.insert(g.chars,"~")
---]]
+
 
 	local images=supper.load("images/offgrid","jpg")
 	g.images={}
@@ -289,6 +289,8 @@ offgrid.level.draw = function(g,l)
 		if l.menu then
 			menu.draw(l.menu)
 		end
+	else
+		run(EM.transitions[l.transition.t],"draw",g,l,l.transition)
 	end
 	offgrid.level[l.t].draw(g,l)
 end

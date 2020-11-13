@@ -86,6 +86,9 @@ debugger.update = function(g,d)
 		table.insert(debuglist,"screen p scale:"..g.screen.pixelscale)
 		-- table.insert(debuglist,"bg w:"..g.canvas.background:getWidth())
 		-- table.insert(debuglist,"bg h:"..g.canvas.background:getHeight())
+		for i,v in pairs(g.canvas) do
+			table.insert(debuglist,"canvas "..i.." w: "..v:getWidth().." h: "..v:getHeight())
+		end
 		table.insert(debuglist,"pause: "..tostring(g.pause))
 		if g.hud.menu then
 			table.insert(debuglist,"menu x:"..g.hud.menu.x)

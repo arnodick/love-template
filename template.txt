@@ -1,4 +1,7 @@
 EDITOR
+canvases in same place
+	canvases in debug
+
 clean up game.draw
 
 make new map (didn't we do this already?)

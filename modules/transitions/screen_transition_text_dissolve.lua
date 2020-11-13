@@ -12,6 +12,7 @@ local function make(a,m)
 		end
 	end
 	m.letters.maxsize=#m.letters
+	g.clear=false
 end
 
 local function control(a,m)

@@ -1,11 +1,10 @@
 local protosnake={}
 
 protosnake.make = function(g)
-	---[[
-	g.window={}
-    g.window.width=640
-    g.window.height=480
-	--]]
+	-- g.window={}
+ --    g.window.width=640
+ --    g.window.height=480
+
 	g.levelpath={}
 end
 

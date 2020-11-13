@@ -34,6 +34,7 @@ game.state.make = function(g,state)
 		LG.clear()
 	end
 	LG.setCanvas()
+	g.clear=true
 --[[
 	for i,v in pairs(SFX.sources) do
 		v:stop()
@@ -87,7 +88,7 @@ game.make = function(t,gw,gh)
 		g.t=t
 		g.name=Enums.games[t]
 	end
-	print(gw)
+
 	g.width=gw or 320
 	g.height=gh or 240
 
@@ -305,9 +306,11 @@ game.draw = function(g)
 	
 	local l=g.level
 	--TODO what the hell is goin on in here? i think it is all for offgrid
-	if not l or not l.transition or not l.transition.t then
+	-- if not l or not l.transition or not l.transition.t then
 		LG.setCanvas(g.canvas.main) --sets drawing to the primary canvas that refreshes every frame
-			LG.clear() --cleans that messy ol canvas all up, makes it all fresh and new and good you know
+			if g.clear then
+				LG.clear() --cleans that messy ol canvas all up, makes it all fresh and new and good you know
+			end
 
 			if l then
 				if l.drawmodes then
@@ -337,7 +340,7 @@ game.draw = function(g)
 					actor.draw(g,v)
 				end
 			end
-
+			--TODO or get rid of this one?
 			game.state.run(g.name,g.state,"draw",g)
 
 			if g.editor then
@@ -358,9 +361,9 @@ game.draw = function(g)
 				editor.draw(g)
 			end
 		LG.setCanvas() --sets drawing back to screen
-	else
-		run(EM.transitions[l.transition.t],"draw",g,l,l.transition)
-	end
+	-- else
+	-- 	run(EM.transitions[l.transition.t],"draw",g,l,l.transition)
+	-- end
 	
 	LG.origin()
 

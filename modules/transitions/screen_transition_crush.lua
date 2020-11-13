@@ -17,6 +17,7 @@ local function make(a,m)
 		table.remove(blocks,randblockindex)	
 	end
 	print("blocks: "..#m.blocks)
+	g.clear=false
 end
 
 local function control(a,m)

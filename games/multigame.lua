@@ -3,7 +3,10 @@ local multigame={}
 multigame.intro =
 {
 	make = function(g)
-		--excludes defined in game.make
+		g.window={}
+		g.window.width=640
+		g.window.height=480
+		--excludes defined in game.make so game can decide what to do when pressing escape
 		local gamenames={}
 		local gamemakes={}
 		local gameargs={}

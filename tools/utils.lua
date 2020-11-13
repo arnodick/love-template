@@ -72,7 +72,7 @@ end
 
 --returns the lightness value of a colour
 local function lightness(r,g,b)
-	r,g,b=r/255,g/255,b/255
+	-- r,g,b=r/255,g/255,b/255
 	max=math.max(r,g,b)
 	min=math.min(r,g,b)
 	return (max+min)/2
