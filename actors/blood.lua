@@ -61,8 +61,8 @@ local function draw(g,a)
 			if ix>tw and ix<cw-tw and iy>th and iy<ch-th then
 				local imgdata=g.canvas.main:newImageData(1,1,ix,iy,tw,th)
 				a.image=LG.newImage(imgdata)
-				--LG.drawtobackground(g.level.canvas.background,a.image,a.x,a.y,a.angle,a.scalex,a.scaley,(m.tile.width)/2,(m.tile.height)/2,230)
-				LG.drawtobackground(g.level.canvas.background,a.image,a.x,a.y,0,1,1,(tw)/2,(th)/2,210)
+				--LG.drawtobackground(g,g.level.canvas.background,a.image,a.x,a.y,a.angle,a.scalex,a.scaley,(m.tile.width)/2,(m.tile.height)/2,230)
+				LG.drawtobackground(g,g.level.canvas.background,a.image,a.x,a.y,0,1,1,(tw)/2,(th)/2,210)
 			end
 		end
 	end

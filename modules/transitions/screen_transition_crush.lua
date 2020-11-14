@@ -1,5 +1,4 @@
-local function make(a,m)
-	local g=Game
+local function make(g,a,m)
 	local gw=640
 	local gh=640
 	m.blocks={}

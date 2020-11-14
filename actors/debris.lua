@@ -22,7 +22,7 @@ local function draw(g,a)
 	if a.image then
 		LG.draw(a.image,a.x,a.y,a.angle,1,1,(m.tile.width)/2,(m.tile.height)/2)
 		if a.vel<=0 then
-			LG.drawtobackground(g.level.canvas.background,a.image,a.x,a.y,a.angle,1,1,(m.tile.width)/2,(m.tile.height)/2)
+			LG.drawtobackground(g,g.level.canvas.background,a.image,a.x,a.y,a.angle,1,1,(m.tile.width)/2,(m.tile.height)/2)
 		end
 	else
 		local xl,yl=math.cos(a.angle),math.sin(a.angle)

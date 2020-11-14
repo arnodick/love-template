@@ -234,7 +234,7 @@ offgrid.level.control = function(g,l)
 			menu.control(g,l.menu,1)
 		end
 	end
-	synth.control(l,l.synth)
+	synth.control(g,l,l.synth)
 
 --[[
 	local saw = denver.get({waveform='sawtooth', frequency="G", length=2})
@@ -259,7 +259,7 @@ offgrid.level.keypressed = function(g,l,key)
 	local glc = g.level
 	if not glc or not glc.transition then
 		if l.menu then
-			menu.keypressed(l.menu,key)
+			menu.keypressed(g,l.menu,key)
 		end
 --[[
 		if key=='x' then
@@ -273,7 +273,7 @@ offgrid.level.keyreleased = function(g,l,key)
 	local glc = g.level
 	if not glc or not glc.transition then
 		if l.menu then
-			menu.keyreleased(l.menu,key)
+			menu.keyreleased(g,l.menu,key)
 		end
 	end
 end
@@ -287,7 +287,7 @@ end
 offgrid.level.draw = function(g,l)
 	if not l.transition then
 		if l.menu then
-			menu.draw(l.menu)
+			menu.draw(g,l.menu)
 		end
 	else
 		run(EM.transitions[l.transition.t],"draw",g,l,l.transition)
@@ -416,7 +416,7 @@ offgrid.title =
 			LG.setFont(g.titlefont)
 		end
 		--LG.print("ARROWS keys and Z",g.width/2,g.height/2)
-		LG.printformat("ARROWS keys and Z",0,800,640,"center","white","dark_gray",100+math.sin(g.timer/10)*100)
+		LG.printformat(g,"ARROWS keys and Z",0,800,640,"center","white","dark_gray",100+math.sin(g.timer/10)*100)
 	end
 }
 
@@ -474,7 +474,7 @@ offgrid.intro =
 		if g.drawoffgrid==true then
 			LG.setCanvas(g.canvas.buffer)
 				LG.clear()
-				LG.printformat("OFF THE GRID",0,0,g.width,"center","dark_gray","dark_gray",255)
+				LG.printformat(g,"OFF THE GRID",0,0,g.width,"center","dark_gray","dark_gray",255)
 			LG.setCanvas(g.canvas.main)
 
 			-- print(g.canvas.buffer)
@@ -495,7 +495,7 @@ offgrid.intro =
 			love.graphics.draw(image,0,550,0,1,1)
 
 			LG.setFont(g.titlefont)
-			LG.printformat("press Z to start",0,800,640,"center","white","dark_gray",100+math.sin(g.timer/10)*100)
+			LG.printformat(g,"press Z to start",0,800,640,"center","white","dark_gray",100+math.sin(g.timer/10)*100)
 		end
 	end
 }

@@ -29,26 +29,25 @@ menu.control = function(g,m,gs)
 	end
 end
 
-menu.keypressed = function(m,key)
-	run(m.t,"keypressed",m,key)
+menu.keypressed = function(g,m,key)
+	run(m.t,"keypressed",g,m,key)
 end
 
-menu.keyreleased = function(m,key)
-	run(m.t,"keyreleased",m,key)
+menu.keyreleased = function(g,m,key)
+	run(m.t,"keyreleased",g,m,key)
 end
 
 menu.gamepadpressed = function(m,button)
 	run(m.t,"gamepadpressed",m,button)
 end
 
-menu.draw = function(m)
-	local g=Game
+menu.draw = function(g,m)
 	if m.border then
 		border.draw(m,m.border)
 	end
 	LG.setFont(m.font)
-	if not run(m.t,"draw",m) then
-		run("text","draw",m)
+	if not run(m.t,"draw",g,m) then
+		run("text","draw",g,m)
 	end
 	LG.setFont(g.font)
 ---[[

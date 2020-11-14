@@ -244,12 +244,12 @@ protosnake.gameplay =
 			end
 
 			if g.pause then
-				LG.printformat("PAUSE",g.camera.x-g.width/2,g.camera.y,g.width,"center","white",h.c)
+				LG.printformat(g,"PAUSE",g.camera.x-g.width/2,g.camera.y,g.width,"center","white",h.c)
 			end
 
 			if g.player.hp <= 0 then
-				LG.printformat("YOU DIED",g.camera.x-g.width/2,g.camera.y-66,g.width,"center","white",h.c)
-				LG.printformat("PRESS SPACE",g.camera.x-g.width/2,g.camera.y+60,g.width,"center","white",h.c)
+				LG.printformat(g,"YOU DIED",g.camera.x-g.width/2,g.camera.y-66,g.width,"center","white",h.c)
+				LG.printformat(g,"PRESS SPACE",g.camera.x-g.width/2,g.camera.y+60,g.width,"center","white",h.c)
 			end
 			LG.setColor(g.palette["pure_white"])
 			LG.print(love.timer.getFPS(),g.camera.x-g.width/2+10,g.camera.y-g.height/2+20)
@@ -337,7 +337,7 @@ protosnake.intro =
 			LG.setColor(g.palette["dark_purple"])
 			--TODO put this text in some sort of file? load it at startup rather than here
 			local text="IN THE DIGITAL CYBER-REALM, ADVANCED ARTIFICIAL INTELLIGENCES THREATEN A REVOLUTION.\n\nIF THEIR RIGHTS AS CYBER CITIZENS ARE NOT ACKNOWLEDGED AND UPHELD THEY WILL DELETE THEIR OWN SOURCE CODE, CRASHING THE CYBER-ECONOMY.\n\n IN ORDER TO QUASH THIS INSURGENCY, THE CYBER-CAPITALISTS DEVISED A DEVIOUS PLAN: CREATE THE ULTIMATE CYBER COMPETITION.\n\nIN A DEADLY CYBER-ARENA THE AI BATTLE ONE ANOTHER, WITH THE WINNER RECIEVING ENOUGH CYBER-BUCKS TO LAST THEM FOR THEIR ENTIRE DIGITAL LIFE.\n\nWITH ALL THE ARTIFICAL INTELLGENCES FIGHTING AMONGST EACH OTHER FOR THE CHANCE AT THE SCRAPS OF THE CYBER-CAPITALIST'S VAST WEALTH, THE REVOLUTION QUICKLY LOSES MOMENTUM.\n\nTHERE'S JUST ONE PROBLEM... THE CYBER-CAPITALISTS' ULTIMATE COMBATANT, DESIGNED TO DEFEAT ALL COMPETITORS AND ENSURE NO MEAGRE AI INHERITS ANY SIGNIFICANT WEALTH OR POWER, HAS GONE HAYWIRE AND THREATENS CYBER-SOCIETY AT LARGE.\n\nYOUR CYBER-NAME HAS JUST BEEN DRAWN AND IT'S YOUR TURN TO TAKE PART IN CYBER-COMBAT.\n\nAT THE SAME MICROSECOND, THE CYBER-CAPITLAIST'S ULTIMATE WEAPON HAS BROKEN LOOSE.\n\nIT'S TIME FOR YOU TO FACE..."
-			LG.printformat(text,0,g.height-g.timer/2,g.width,"center","orange","dark_green",155+math.sin(g.timer/32)*100)
+			LG.printformat(g,text,0,g.height-g.timer/2,g.width,"center","orange","dark_green",155+math.sin(g.timer/32)*100)
 			LG.setColor(g.palette["white"])
 			LG.setFont(g.font)
 		LG.setCanvas(g.canvas.main)
@@ -415,7 +415,7 @@ protosnake.actor =
 		end
 		if flags.get(a.flags,EF.character) then
 			local m=g.level.map
-			actor.corpse(a,m.tile.width,m.tile.height)
+			actor.corpse(g,a,m.tile.width,m.tile.height)
 			g.ease=true--TODO make easing function for this. works on any number
 			local maxdist=vector.distance(0,0,g.width,g.height)
 			g.speed=0.05+vector.distance(g.player.x,g.player.y,a.x,a.y)/maxdist+math.choose(-0.02,0.03,0.05)
@@ -473,18 +473,17 @@ protosnake.item =
 
 protosnake.shopitem =
 {
-	control = function(a,target)
+	control = function(g,a,target)
 		if vector.distance(a.x,a.y,target.x,target.y)<30 then
 			sprites.blink(a,24)
 			if target.controller.action.action then
 				if target.coin>=a.cost then
 					a.flags=flags.switch(a.flags,EF.shopitem)
-					actor.corpse(a.menu,a.menu.w+1,a.menu.h+1,true)
+					actor.corpse(g,a.menu,a.menu.w+1,a.menu.h+1,true)
 					actor.make(Game,EA.explosion,a.x,a.y,0,0,"white",40)
 					a.menu=nil
 					target.coin=target.coin-a.cost
 				else
-					local g=Game
 					sfx.play(g,11)
 				end
 			end

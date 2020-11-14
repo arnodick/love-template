@@ -1,9 +1,11 @@
-local function make(g,a,b,c1,c2)
+local border={}
+
+border.make = function(g,a,b,c1,c2)
 	b.c1=c1
 	b.c2=c2
 end
 
-local function draw(m,border)
+border.draw = function(m,border)
 	-- local alpha=230
 	local alpha=0.9
 
@@ -19,8 +21,4 @@ local function draw(m,border)
 	LG.rectangle("line",x,y,m.w,m.h)
 end
 
-return
-{
-	make = make,
-	draw = draw,
-}
+return border

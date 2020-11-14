@@ -51,8 +51,7 @@ end
 
 --prints text with shadow, different colours, etc.
 --TODO needs work
-local function printformat(text,x,y,limit,align,c1,c2,alpha)
-	local g=Game
+local function printformat(g,text,x,y,limit,align,c1,c2,alpha)
 	limit=limit or g.width-x
 	align=align or "left"
 	alpha=alpha or 1
@@ -72,7 +71,6 @@ end
 
 --returns the lightness value of a colour
 local function lightness(r,g,b)
-	-- r,g,b=r/255,g/255,b/255
 	max=math.max(r,g,b)
 	min=math.min(r,g,b)
 	return (max+min)/2
@@ -80,7 +78,6 @@ end
 
 --makes an image in ascii art
 local function textify(image,scale,chars,smallcanvas,bigcanvas,charw,charh)
-	--local g=Game
 	LG.setCanvas(smallcanvas)
 		LG.clear()
 		LG.draw(image,0,0,0,scale,scale)
@@ -103,9 +100,7 @@ local function textify(image,scale,chars,smallcanvas,bigcanvas,charw,charh)
 end
 
 --draws an image to the background canvas, which is not refreshed every frame
---TODO needs work, take g as input?
-local function drawtobackground(background,drawable,x,y,a,scale,scale,xoff,yoff,alpha)
-	local g=Game
+local function drawtobackground(g,background,drawable,x,y,a,scale,scale,xoff,yoff,alpha)
 	local xcamoff,ycamoff=g.camera.x-g.width/2,g.camera.y-g.height/2
 	LG.setCanvas(background)
 		if alpha then

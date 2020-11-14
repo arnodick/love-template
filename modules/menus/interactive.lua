@@ -24,7 +24,7 @@ interactive.control = function(g,m,gs)
 	end
 end
 
-interactive.keypressed = function(m,key)
+interactive.keypressed = function(g,m,key)
 	if key=='z' then
 		local i=m.text.index
 		if m.menu_functions[i] then

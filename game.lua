@@ -167,7 +167,7 @@ game.control = function(g)
 	
 	for i,v in ipairs(g.actors) do
 		if v.delete==true then
-			inventory.dead(v,v.inventory)
+			inventory.dead(g,v,v.inventory)
 			game.counters(g,v,-1)
 --[[
 			if v.name then
@@ -305,65 +305,60 @@ game.draw = function(g)
 	LG.translate(-g.camera.x+g.width/2,-g.camera.y+g.height/2)
 	
 	local l=g.level
-	--TODO what the hell is goin on in here? i think it is all for offgrid
-	-- if not l or not l.transition or not l.transition.t then
-		LG.setCanvas(g.canvas.main) --sets drawing to the primary canvas that refreshes every frame
-			if g.clear then
-				LG.clear() --cleans that messy ol canvas all up, makes it all fresh and new and good you know
-			end
+	LG.setCanvas(g.canvas.main) --sets drawing to the primary canvas that refreshes every frame
+		if g.clear then
+			LG.clear() --cleans that messy ol canvas all up, makes it all fresh and new and good you know
+		end
 
-			if l then
-				if l.drawmodes then
-					if l.bgdraw==true then--TODO move this up, should check this earlier
-						if l.canvas then
-							if l.canvas.background then
-								LG.setCanvas(l.canvas.background)
-								--LG.clear(190,10,136)
-								local xcamoff,ycamoff=g.camera.x-g.width/2,g.camera.y-g.height/2
-								LG.translate(xcamoff,ycamoff)
+		if l then
+			if l.drawmodes then
+				if l.bgdraw==true then--TODO move this up, should check this earlier
+					if l.canvas then
+						if l.canvas.background then
+							LG.setCanvas(l.canvas.background)
+							--LG.clear(190,10,136)
+							local xcamoff,ycamoff=g.camera.x-g.width/2,g.camera.y-g.height/2
+							LG.translate(xcamoff,ycamoff)
 
-								--TODO this should be l.map.drawmodes?
-								map.draw(g,l.map,l.drawmodes)
-								LG.translate(-xcamoff,-ycamoff)
-							end
+							--TODO this should be l.map.drawmodes?
+							map.draw(g,l.map,l.drawmodes)
+							LG.translate(-xcamoff,-ycamoff)
 						end
-						LG.setCanvas(g.canvas.main)
-						l.bgdraw=false
 					end
+					LG.setCanvas(g.canvas.main)
+					l.bgdraw=false
 				end
-				--TODO can maybe get rid of this?
-				game.state.run(g.name,"level","draw",g,g.level)
 			end
+			--TODO can maybe get rid of this?
+			game.state.run(g.name,"level","draw",g,g.level)
+		end
 
-			for i,v in ipairs(g.actors) do
-				if not v.delete then
-					actor.draw(g,v)
-				end
+		for i,v in ipairs(g.actors) do
+			if not v.delete then
+				actor.draw(g,v)
 			end
-			--TODO or get rid of this one?
-			game.state.run(g.name,g.state,"draw",g)
+		end
+		--TODO or get rid of this one?
+		game.state.run(g.name,g.state,"draw",g)
 
-			if g.editor then
-				if g.editor.cursor then
-					cursor.draw(g,g.editor.cursor)
-				end
+		if g.editor then
+			if g.editor.cursor then
+				cursor.draw(g,g.editor.cursor)
 			end
-			
-			LG.setCanvas(g.canvas.hud) --sets drawing to hud canvas, which draws OVER everything else
-			LG.clear()
-			if g.hud then
-					--NOTE do this to ahve cursor be affected by pixel effects!
-					--LG.setCanvas(g.canvas.hud) --sets drawing to hud canvas, which draws OVER everything else
-					--LG.clear()
-					hud.draw(g,g.hud)
-			end
-			if g.editor then
-				editor.draw(g)
-			end
-		LG.setCanvas() --sets drawing back to screen
-	-- else
-	-- 	run(EM.transitions[l.transition.t],"draw",g,l,l.transition)
-	-- end
+		end
+		
+		LG.setCanvas(g.canvas.hud) --sets drawing to hud canvas, which draws OVER everything else
+		LG.clear()
+		if g.hud then
+				--NOTE do this to ahve cursor be affected by pixel effects!
+				--LG.setCanvas(g.canvas.hud) --sets drawing to hud canvas, which draws OVER everything else
+				--LG.clear()
+				hud.draw(g,g.hud)
+		end
+		if g.editor then
+			editor.draw(g)
+		end
+	LG.setCanvas() --sets drawing back to screen
 	
 	LG.origin()
 

@@ -88,8 +88,7 @@ local function control(g,m,gs)
 	end
 end
 
-local function keypressed(m,key)
-	local g=Game
+local function keypressed(g,m,key)
 	if not m.transition then
 		if key=='z' then
 			sfx.play(g,13)
@@ -97,8 +96,7 @@ local function keypressed(m,key)
 	end
 end
 
-local function keyreleased(m,key)
-	local g=Game
+local function keyreleased(g,m,key)
 	if not m.transition then
 		if key=='z' then
 			sfx.play(g,14)
@@ -109,7 +107,6 @@ local function keyreleased(m,key)
 					m.menu_functions[i](unpack(m.menu_function_args[i]))
 				else
 					print("MENU INDEX: "..i)
-					local g=Game
 					local l={}
 					if i<5 then
 						if not m.back then
@@ -147,8 +144,7 @@ local function gamepadpressed(m,button)
 	end
 end
 
-local function draw(m)
-	local g=Game
+local function draw(g,m)
 	--local printwidth=8
 	if not m.back then
 		for i=1,#m.text do
@@ -196,19 +192,19 @@ local function draw(m)
 			if l.unlock and not g.player.items[l.unlock] then
 				c1="black"
 			end
-			--LG.printformat(m.text[i],points[1],points[2],m.w/printwidth,"center",c1,c2,linealpha)
-			LG.printformat(m.text[i],points[1],points[2],printwidth,"center",c1,c2,linealpha)
+			--LG.printformat(g,m.text[i],points[1],points[2],m.w/printwidth,"center",c1,c2,linealpha)
+			LG.printformat(g,m.text[i],points[1],points[2],printwidth,"center",c1,c2,linealpha)
 		end
 	else
 		local printwidth=120
 		if not m.wordlearned then
 			if m.text.index==1 then
-				LG.printformat(m.text[1],m.x-m.w/8-140,m.y-40,printwidth,"center",m.c1,m.c2,255)
+				LG.printformat(g,m.text[1],m.x-m.w/8-140,m.y-40,printwidth,"center",m.c1,m.c2,255)
 			else
-				LG.printformat(m.text[1],m.x-m.w/8-140,m.y-40,printwidth,"center",m.c1,m.c2,50)
+				LG.printformat(g,m.text[1],m.x-m.w/8-140,m.y-40,printwidth,"center",m.c1,m.c2,50)
 			end
 		elseif not m.transition then
-			LG.printformat(m.text[1],0,m.y,g.width,"center",m.c1,m.c2,255)
+			LG.printformat(g,m.text[1],0,m.y,g.width,"center",m.c1,m.c2,255)
 		end
 	end
 	if m.description then

@@ -16,7 +16,7 @@ topdown.actor.control = function(g,a,m,gs)
 	if a.inventory then
 		if #a.inventory>0 then
 			c=a.controller
-			item.use(a.inventory[1],gs,a,c.aim.horizontal,c.aim.vertical,c.action.use)
+			item.use(g,a.inventory[1],gs,a,c.aim.horizontal,c.aim.vertical,c.action.use)
 		end
 	end
 

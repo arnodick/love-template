@@ -33,8 +33,8 @@ topdown_tank.actor.control = function(g,a,m,gs)
 		if #a.inventory>0 then
 			c=a.controller
 			if c then
-				item.use(a.inventory[1],gs,a,math.cos(a.angle),math.sin(a.angle),c.action.use)--this makes wand point player's direction
-				--item.use(a.inventory[1],gs,a,c.aim.horizontal,c.aim.vertical,c.action.use)--this make wand point in its own independent direction
+				item.use(g,a.inventory[1],gs,a,math.cos(a.angle),math.sin(a.angle),c.action.use)--this makes wand point player's direction
+				--item.use(g,a.inventory[1],gs,a,c.aim.horizontal,c.aim.vertical,c.action.use)--this make wand point in its own independent direction
 			end
 		end
 	end

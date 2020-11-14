@@ -75,7 +75,7 @@ editor.wheelmoved = function(g,x,y)
 end
 
 editor.draw = function(g)
-	LG.printformat("EDITOR",g.camera.x-g.width/2,g.camera.y-15,g.width,"center","red","blue")
+	LG.printformat(g,"EDITOR",g.camera.x-g.width/2,g.camera.y-15,g.width,"center","red","blue")
 end
 
 return editor

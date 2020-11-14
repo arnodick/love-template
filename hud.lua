@@ -29,14 +29,14 @@ hud.draw = function(g,h,...)
 	end
 
 	if h.menu then
-		menu.draw(h.menu)
+		menu.draw(g,h.menu)
 	end
 end
 
 hud.keypressed = function(g,key)
 	local m=g.hud.menu
 	if m then
-		menu.keypressed(m,key)
+		menu.keypressed(g,m,key)
 	end
 end
 

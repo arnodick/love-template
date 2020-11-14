@@ -25,7 +25,7 @@ local function control(g,a)
 end
 
 local function draw(g,a)
-	--LG.drawtobackground(g.level.canvas.background,a.image,a.x,a.y,a.angle,1,1,(tw)/2,(th)/2)
+	--LG.drawtobackground(g,g.level.canvas.background,a.image,a.x,a.y,a.angle,1,1,(tw)/2,(th)/2)
 	local mw,mh=g.level.map.width,g.level.map.height
 	local tw,th=g.level.map.tile.width*a.scalex,g.level.map.tile.height*a.scaley
 --TODO put all this in drawtobackground
@@ -40,9 +40,9 @@ local function draw(g,a)
 			if ix>tw and ix<cw-tw and iy>th and iy<ch-th then
 				local imgdata=g.canvas.main:newImageData(1,1,ix,iy,tw,th)
 				a.image=LG.newImage(imgdata)
-				--LG.drawtobackground(g.level.canvas.background,a.image,a.x,a.y,a.angle,a.scalex,a.scaley,(m.tile.width)/2,(m.tile.height)/2,230)
-				--LG.drawtobackground(g.level.canvas.background,a.image,a.x,a.y,a.angle,1,1,(tw)/2,(th)/2,220)
-				LG.drawtobackground(g.level.canvas.background,a.image,a.x,a.y,0,1,1,(tw)/2,(th)/2,220)
+				--LG.drawtobackground(g,g.level.canvas.background,a.image,a.x,a.y,a.angle,a.scalex,a.scaley,(m.tile.width)/2,(m.tile.height)/2,230)
+				--LG.drawtobackground(g,g.level.canvas.background,a.image,a.x,a.y,a.angle,1,1,(tw)/2,(th)/2,220)
+				LG.drawtobackground(g,g.level.canvas.background,a.image,a.x,a.y,0,1,1,(tw)/2,(th)/2,220)
 			end
 		end
 	end

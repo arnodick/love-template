@@ -11,10 +11,10 @@ inventory.control = function(a,inv)
 	end
 end
 
-inventory.dead = function(a,inv)
+inventory.dead = function(g,a,inv)
 	if inv then
 		for i,v in ipairs(inv) do
-			item.drop(v,a)
+			item.drop(g,v,a)
 		end
 	end
 end

@@ -86,7 +86,7 @@ actor.control = function(g,a,gs)
 	end
 
 	if a.item then--if a IS an item, do its item stuff
-		item.control(a,gs)
+		item.control(g,a,gs)
 	end
 
 	if a.collectible then--if a IS a collectible, do its collectible stuff
@@ -133,7 +133,7 @@ actor.control = function(g,a,gs)
 
 	if flags.get(a.flags,EF.shopitem) then
 		--TODO this only works for single player right now
-		game.state.run(g.name,"shopitem","control",a,g.player)
+		game.state.run(g.name,"shopitem","control",g,a,g.player)
 	end
 
 	if a.inventory then
@@ -161,7 +161,7 @@ end
 
 actor.draw = function(g,a)
 	if a.menu then
-		menu.draw(a.menu)
+		menu.draw(g,a.menu)
 	end
 
 	if g.level then
@@ -246,8 +246,7 @@ actor.collision = function(x,y,enemy)--TODO something other than enemy here?
 	return false
 end
 
-actor.corpse = function(a,tw,th,hack)
-	local g=Game
+actor.corpse = function(g,a,tw,th,hack)
 	local dir=math.randomfraction(math.pi*2)
 	--local ix,iy=a.x-tw/2,a.y-th/2
 	--local ix,iy=a.x-tw/2-8,a.y-th/2-8

@@ -11,7 +11,7 @@ local function make(g,a,m,easing,variablename,startvalue,change,duration,complet
 	if m.t then
 		print("m.t "..m.t)
 		print("EM.transitions[m.t] "..EM.transitions[m.t])
-		run(EM.transitions[m.t],"make",a,m)
+		run(EM.transitions[m.t],"make",g,a,m)
 	end
 	a[m.variablename]=startvalue
 	--print(startvalue)

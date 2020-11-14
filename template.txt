@@ -1,6 +1,9 @@
 EDITOR
 canvases in same place
 	canvases in debug
+	don't remake new canvases if they are just going to be the same size
+
+game settings in json files? for game size, canvas size, etc.
 
 clean up game.draw
 

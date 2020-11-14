@@ -12,9 +12,8 @@ local function make(g,a,m,waveform,note,length,notes)
 	m.start=Game.timer
 end
 
-local function control(a,m)
+local function control(g,a,m)
 	if m then
-		local g=Game
 		if g.timer-m.start<=m.length then
 			local note=m.note
 			if m.notes then

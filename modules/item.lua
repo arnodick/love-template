@@ -15,8 +15,7 @@ item.make = function(g,a)
 	return a
 end
 
-item.control = function(a,gs)
-	local g=Game
+item.control = function(g,a,gs)
 	game.state.run(g.name,"item","control",g,a,gs)
 end
 
@@ -24,8 +23,7 @@ item.carry = function(a,user)
 	game.state.run(Game.name,"item","carry",a,user)
 end
 
-item.use = function(a,gs,user,vx,vy,shoot)
-	local g=Game
+item.use = function(g,a,gs,user,vx,vy,shoot)
 	a.angle=vector.direction(vx,vy)
 	a.vec[1]=math.cos(a.angle)
 	a.vec[2]=math.sin(a.angle)
@@ -45,8 +43,7 @@ item.pickup = function(g,a,user)
 	return game.state.run(g.name,"item","pickup",g,a,user)
 end
 
-item.drop = function(a,user)
-	local g=Game
+item.drop = function(g,a,user)
 	game.state.run(g.name,"item","drop",g,a,user)
 end
 
