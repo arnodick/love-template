@@ -306,11 +306,13 @@ game.draw = function(g)
 	
 	local l=g.level
 	LG.setCanvas(g.canvas.main) --sets drawing to the primary canvas that refreshes every frame
+		--TODO put clear somewhere better
 		if g.clear then
 			LG.clear() --cleans that messy ol canvas all up, makes it all fresh and new and good you know
 		end
 
 		if l then
+			--TODO should dramodes be in game mode?
 			if l.drawmodes then
 				if l.bgdraw==true then--TODO move this up, should check this earlier
 					if l.canvas then
@@ -322,11 +324,13 @@ game.draw = function(g)
 
 							--TODO this should be l.map.drawmodes?
 							map.draw(g,l.map,l.drawmodes)
-							LG.translate(-xcamoff,-ycamoff)
+							LG.translate(-xcamoff,-ycamoff)--TODO why?
 						end
 					end
 					LG.setCanvas(g.canvas.main)
 					l.bgdraw=false
+				else
+					map.draw(g,l.map,l.drawmodes)
 				end
 			end
 			--TODO can maybe get rid of this?
@@ -341,6 +345,7 @@ game.draw = function(g)
 		--TODO or get rid of this one?
 		game.state.run(g.name,g.state,"draw",g)
 
+		--TODO can this go down in other editor conditional, or will weird stuff happen?
 		if g.editor then
 			if g.editor.cursor then
 				cursor.draw(g,g.editor.cursor)
@@ -360,7 +365,7 @@ game.draw = function(g)
 		end
 	LG.setCanvas() --sets drawing back to screen
 	
-	LG.origin()
+	LG.origin()--TODO why?
 
 	-- love.graphics.setShader()
 end

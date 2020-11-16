@@ -1,10 +1,10 @@
 {
 	"map":
 	{
-		"file":"maptest3",
+		"file":"rayz",
 	},
 	"drawmodes":
 	[
-		"grid"
+		"sprites"
 	]
 }

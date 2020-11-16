@@ -7,7 +7,6 @@ topdown_tank.actor.control = function(g,a,m,gs)
 		local c=a.controller.move
 		if c then
 			if c.horizontal~=0 or c.vertical~=0 then
---[[
 				if not a.transition then
 					local controllerdirection=vector.direction(c.horizontal,-c.vertical)
 					local controllerdifference=controllerdirection-a.d
@@ -18,9 +17,9 @@ topdown_tank.actor.control = function(g,a,m,gs)
 					end
 					module.make(g,a,EM.transition,easing.linear,"d",a.d,controllerdifference,math.abs(controllerdifference*10))
 				end
---]]
-				a.d=vector.direction(c.horizontal,-c.vertical)
-				a.vel=vector.length(c.horizontal,c.vertical)
+
+				-- a.d=vector.direction(c.horizontal,-c.vertical)
+				-- a.vel=vector.length(c.horizontal,c.vertical)
 			else
 				a.vel=0
 			end

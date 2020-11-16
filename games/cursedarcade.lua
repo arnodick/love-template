@@ -1,17 +1,41 @@
-local raycaster={}
+local cursedarcade={}
 
-raycaster.make = function(g)
+cursedarcade.make = function(g)
 
 end
 
-raycaster.level={}
+cursedarcade.player={}
 
-raycaster.gameplay =
+cursedarcade.player.control = function(g,a)
+	a.rays={}
+	local x=1
+	for i=-1/2,1/2,0.01 do
+		local r=raycast.castray(g,a.x,a.y,a.d+i,30,0.1)
+		r.len=r.len*math.cos(i)
+		r.x=x
+		x=x+1
+		table.insert(a.rays,r)
+	end
+	local function raysort(a,b)
+		if a.len<b.len then
+			return true
+		else
+			return false
+		end
+	end
+	table.sort(a.rays,raysort)
+end
+
+cursedarcade.level={}
+
+cursedarcade.gameplay =
 {
 	make = function(g)
-		level.make(g,1,Enums.modes.topdown)
+		level.make(g,1,Enums.modes.raycast)
 		local m=g.level.map
-		actor.make(g,EA.template_actor,m.width/2-5,m.height/2-5)
+		local a=actor.make(g,EA.template_actor,m.width/2-5,m.height/2-5)
+		game.player.make(g,a,true)
+		-- g.clear=true
 	end,
 
 	keypressed = function(g,key)
@@ -21,11 +45,11 @@ raycaster.gameplay =
 	end,
 
 	draw = function(g)
-		LG.print("RAYCASTER GAEM_PLAY", g.width/2, g.height/2)
+		-- LG.print("RAYCASTER GAEM_PLAY", g.width/2, g.height/2)
 	end
 }
 
-raycaster.title =
+cursedarcade.title =
 {
 	keypressed = function(g,key)
 		if game.keyconfirm(key) then
@@ -49,7 +73,7 @@ raycaster.title =
 	end
 }
 
-raycaster.intro =
+cursedarcade.intro =
 {
 	keypressed = function(g,key)
 		if game.keyconfirm(key) then
@@ -68,7 +92,7 @@ raycaster.intro =
 	end
 }
 
-raycaster.option =
+cursedarcade.option =
 {
 	keypressed = function(g,key)
 		if key=='escape' then
@@ -87,4 +111,4 @@ raycaster.option =
 	end
 }
 
-return raycaster
+return cursedarcade

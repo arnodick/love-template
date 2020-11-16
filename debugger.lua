@@ -45,6 +45,9 @@ debugger.update = function(g,d)
 		if g.player then
 			table.insert(debuglist,"player x:"..g.player.x)
 			table.insert(debuglist,"player y:"..g.player.y)
+			if g.player.rays then
+				table.insert(debuglist,"player rays:"..#g.player.rays)
+			end
 			if g.level then
 				if g.level.map then
 					local xc,yc=map.getcellcoords(g.level.map,g.player.x,g.player.y)
