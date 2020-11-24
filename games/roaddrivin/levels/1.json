@@ -1,0 +1,25 @@
+{
+	"map":
+	{
+		"w":40,
+		"h":30,
+		"tile":
+		{
+			"width":8,
+			"height":8
+		},
+		"generators":
+		[
+			"country"
+		],
+		"args":
+		{
+			"pool":[1,1,1,1,2,3,4]
+		}
+		
+	},
+	"drawmodes":
+	[
+		"country"
+	]
+}
