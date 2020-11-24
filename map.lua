@@ -262,6 +262,15 @@ generators.buildings = function(m,w,h,x,y,args)
 	end
 end
 
+generators.country = function(m,w,h,x,y,args)
+	if x==1 and y==1 then
+		print("COUNTRY MAP GENERATED")
+		if args then
+			supper.print(args)
+		end
+	end
+end
+
 drawmodes.grid = function(g,m,x,y)
 	if x==1 or y==1 then
 		local tw,th=m.tile.width,m.tile.height
@@ -301,20 +310,27 @@ end
 drawmodes.characters = function(g,m,x,y)
 	local tw,th=m.tile.width,m.tile.height
 	local value=map.getcellvalue(m,x,y,true)
+
+	--TODO do a game-specifc function here? or mode specific? so object stuff is somewhere else, then just have one LG.print function here
 	if g.things then
 		-- print(value)
 		local object=g.things[value]
 		if object then
-			-- if value==46 then
-			-- 	LG.print({supper.random(object.colours),"·"},(x-1)*tw,(y-1)*th,0,1,1,3)
-			-- else
-			-- 	LG.print({supper.random(object.colours),string.char(value)},(x-1)*tw,(y-1)*th)
-			-- end
+			local char=g.charset[value]
+			if object.characters then
+				char=supper.random(object.characters)
+			end
 			if object.backgroundcolour then
 				LG.setColor(object.backgroundcolour)
 				LG.rectangle("fill",(x-1)*tw,(y-1)*th,tw,th)
 			end
-			LG.print({supper.random(object.colours),g.charset[value]},(x-1)*tw,(y-1)*th)
+			if object.font then
+				LG.setFont(object.font)
+			end
+			local twh,thh=tw/2,th/2
+			-- LG.print({supper.random(object.colours),char},(x-1)*tw+twh,(y-1)*th+thh,0,1,1,twh,thh)
+			LG.print({supper.random(object.colours),char},(x-1)*tw+twh,(y-1)*th+thh,0,1,1,twh,thh)
+			LG.setFont(g.rlfont)
 		end
 	else
 		LG.print(string.char(value),(x-1)*tw,(y-1)*th)
@@ -340,6 +356,41 @@ end
 drawmodes.points = function(g,m,x,y)
 	if map.solid(m,x,y) then
 		love.graphics.points(x,y)
+	end
+end
+
+drawmodes.border = function(g,m,x,y)
+	if x==m.w and y==m.h then
+		print("BORDER")
+		LG.setColor(g.palette["red"])
+		LG.rectangle("line",1,1,m.width-1,m.height-1)
+		LG.setColor(g.palette["pure_white"])
+	end
+end
+
+--TODO just do this in road drivin instead
+drawmodes.country = function(g,m,x,y,args)
+	--TODO MAKE ANOTHER CALL TO GENERATORS THAT ISN'T LOOPED FOR STUFF LIKE THIS
+	if x==1 and y==1 then
+		LG.setColor(g.palette["red"])
+		local p={
+			{x=50,y=50},
+			{x=250,y=50},
+			{x=250,y=200},
+			{x=50,y=200},
+			{x=50,y=50}
+		}
+		for i=1,4 do
+			love.graphics.line(p[i].x,p[i].y,p[i+1].x,p[i+1].y)
+		end
+	--TODO use vectors here
+		local xx,yy=50,50
+		local x2,y2=50
+		for i=1,100 do
+			love.graphics.points(xx,yy)
+			xx=xx+1
+			yy=yy+love.math.random(-1,1)
+		end
 	end
 end
 

@@ -314,7 +314,7 @@ game.draw = function(g)
 		if l then
 			--TODO should dramodes be in game mode?
 			if l.drawmodes then
-				if l.bgdraw==true then--TODO move this up, should check this earlier
+				if l.bgdraw==true then
 					if l.canvas then
 						if l.canvas.background then
 							LG.setCanvas(l.canvas.background)
@@ -329,8 +329,8 @@ game.draw = function(g)
 					end
 					LG.setCanvas(g.canvas.main)
 					l.bgdraw=false
-				else
-					map.draw(g,l.map,l.drawmodes)
+				-- else
+				-- 	map.draw(g,l.map,l.drawmodes)
 				end
 			end
 			--TODO can maybe get rid of this?

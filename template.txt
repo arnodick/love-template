@@ -1,4 +1,6 @@
 EDITOR
+
+make camera not zoom in screen, zoom in game so all of level can show up if zoom out, instead of just scaling screen canvas
 canvases in same place
 	canvases in debug
 	don't remake new canvases if they are just going to be the same size

@@ -65,7 +65,7 @@ screen.control = function(g,s,gs)
 	s.draw.shake=love.math.random(-s.shake/4,s.shake/4)*s.scale
 	s.draw.x=(g.width*s.scale/2)+s.xoff+s.draw.shake
 	s.draw.y=(g.height*s.scale/2)+s.yoff
-	s.draw.scale=(s.scale/s.pixelscale)*g.camera.zoom
+	s.draw.scale=(s.scale/s.pixelscale)*g.camera.zoom--TODO put camera.zoom somehers else, draw a section of canvas to a smaller canvas instead?
 end
 
 screen.draw = function(g,s,gs)

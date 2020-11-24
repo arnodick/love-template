@@ -54,6 +54,7 @@ debugger.update = function(g,d)
 					table.insert(debuglist,"player x cell:"..xc)
 					table.insert(debuglist,"player y cell:"..yc)
 				end
+				table.insert(debuglist,"bgdraw:"..tostring(g.level.bgdraw))
 			end
 			if g.player.d then
 			table.insert(debuglist,"player dir:"..g.player.d)

@@ -6,6 +6,7 @@ staystronger.make = function(g)
 	g.width=200
 	g.height=140
 	g.rlfont=LG.newFont("fonts/Haeccity DW Bold.ttf",10)
+	g.rlfont2=LG.newFont("fonts/Kongtext Regular.ttf",8)
 	-- g.rlfont=LG.newFont("fonts/O2.ttf",10)
 	-- g.rlfont=LG.newFont("fonts/unifont-10.0.07.ttf",8)
 	-- g.rlfont=LG.newFont("fonts/Haeccity DW.ttf",10)
@@ -33,7 +34,35 @@ staystronger.make = function(g)
 		colours={
 			{0.5,0.5,0.5}
 		},
-		backgroundcolour={0.1,0.7,0.3}
+		-- backgroundcolour={0.1,0.7,0.3}
+	}
+	g.things[g.charset["/"]] =
+	{
+		name="grass",
+		colours={
+			{0,   0.52,0.05},
+			{0.17,0.55,0   },
+			{0,   0.48,0.29},
+			{0,   0.62,0.29},
+			{0.08,0.38,0   },
+		},
+		characters={
+			"}","/","/","^","}"
+		},
+		chance={
+			true,true,false
+		},
+		font=g.rlfont2
+		-- backgroundcolour={0.1,0.7,0.3}
+	}
+	g.things[g.charset["I"]] =
+	{
+		name="pillar",
+		colours={
+			{0.25,0.25,0.25},
+		},
+		font=g.rlfont2
+		-- backgroundcolour={0.1,0.7,0.3}
 	}
 end
 
@@ -94,6 +123,19 @@ staystronger.level = {
 		local m=l.map
 		g.camera.x=m.width/2
 		g.camera.y=m.height/2
+
+		for i,v in ipairs(m) do
+			local x,y=map.getxy(m,i)
+			local value=map.getcellvalue(m,x,y,true)
+			local object=g.things[value]
+			if object then
+				if object.chance then
+					if not math.choose(unpack(object.chance)) then
+						map.setcellraw(m,x,y,0)
+					end
+				end
+			end
+		end
 	end
 }
 

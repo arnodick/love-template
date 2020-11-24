@@ -92,6 +92,11 @@ roguelike.actor.control = function(g,a,m,gs)
 			end
 		else
 			print(tostring(a).." OUT OF BOUNDS")
+			if collx then
+				print(" vertically")
+			else
+				print(" horizontally")
+			end
 		end
 		-- supper.print(m)
 		roguelike.actor.drawcoords(g,a)
@@ -101,7 +106,8 @@ end
 roguelike.actor.draw = function(g,a)
 	if a.char then
 		LG.setColor(a.colour)
-		LG.print(a.char,a.draw.x,a.draw.y,g.timer/20,1,1,a.draw.xoff,a.draw.yoff)
+		-- LG.print(a.char,a.draw.x,a.draw.y,g.timer/20,1,1,a.draw.xoff,a.draw.yoff)
+		LG.print(a.char,a.draw.x,a.draw.y,0,1,1,a.draw.xoff,a.draw.yoff)
 		LG.setColor(g.palette["pure_white"])
 	end
 end

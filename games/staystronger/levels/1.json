@@ -1,7 +1,7 @@
 {
 	"map":
 	{
-		"file":"rxx",
+		"file":"grass2",
 		"tile":
 		{
 			"width":10,
@@ -10,7 +10,7 @@
 	},
 	"drawmodes":
 	[
-		"grid",
-		"characters"
+		"characters",
+		"border"
 	]
 }

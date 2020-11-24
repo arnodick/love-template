@@ -1,5 +1,6 @@
 local raycast={}
 raycast.actor={}
+raycast.player={}
 raycast.level={}
 
 raycast.actor.control = function(g,a,m,gs)
@@ -113,6 +114,26 @@ raycast.actor.draw = function(g,a)
 	-- 	--end
 	-- 	end
 	-- end
+end
+
+raycast.player.control = function(g,a)
+	a.rays={}
+	local x=1
+	for i=-1/2,1/2,0.01 do
+		local r=raycast.castray(g,a.x,a.y,a.d+i,30,0.1)
+		r.len=r.len*math.cos(i)
+		r.x=x
+		x=x+1
+		table.insert(a.rays,r)
+	end
+	local function raysort(a,b)
+		if a.len<b.len then
+			return true
+		else
+			return false
+		end
+	end
+	table.sort(a.rays,raysort)
 end
 
 raycast.level.make = function(g,l)
