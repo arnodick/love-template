@@ -1,38 +1,51 @@
 --TODO maybe put this in math?
+local vector={}
 
-local function components(x,y,x2,y2)
+--TODO vector.vectors? return math.cos, math.sin of x and y vecs, normalize to 0 - 1 range
+
+vector.components = function(x,y,x2,y2)
 	return x2-x, y2-y
 end
 
-local function normalize(vx,vy)
+vector.normalize = function(vx,vy)
 	local l = vector.length(vx,vy)
 	return vx/l, vy/l
 end
 
-local function length(x,y)
+vector.length = function(x,y)
 	return math.sqrt(x^2+y^2)
 end
 
-local function distance(x,y,x2,y2)
+vector.distance = function(x,y,x2,y2)
 	local w,h = x2 - x, y2 - y
 	return vector.length(w,h)
 end
 
-local function direction(vx,vy)
+vector.direction = function(vx,vy)
+--TODO normalize to 0 - 1 range
+--TODO use modulo trick? https://stackoverflow.com/questions/1311049/how-to-map-atan2-to-degrees-0-360
+
 --this works with witchwizz
----[[
-	local hack=0
-	if vy<0 then
-		hack=math.pi*2
-	end
-	return math.atan2(vy,vx)+hack
---]]
+
+	-- local hack=0
+	-- if vy<0 then
+	-- 	hack=math.pi*2
+	-- end
+	-- return math.atan2(vy,vx)+hack
+
 	--NOTE this works with protosnake
-	--return math.atan2(vy,vx)
+	local dir=math.atan2(vy,vx)
+	if dir<0 then
+		-- print("DIR IS: "..dir)
+		dir=math.abs(dir+math.pi*2)
+		-- print("NEW DIR IS: "..dir)
+	end
+	return dir
+	-- return math.atan2(vy,vx)
 	--return math.clamp(math.atan2(vy,vx),0,math.pi*2,true)
 end
 
-local function mirror(vx,vy,hor)
+vector.mirror = function(vx,vy,hor)
 	hor = hor or true
 	if hor then
 		vx = -vx
@@ -42,12 +55,4 @@ local function mirror(vx,vy,hor)
 	return vx, vy
 end
 
-return
-{
-	components = components,
-	normalize = normalize,
-	length = length,
-	distance = distance,
-	direction = direction,
-	mirror = mirror,
-}
+return vector

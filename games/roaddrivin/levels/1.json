@@ -1,4 +1,5 @@
 {
+	"t":"country",
 	"map":
 	{
 		"w":40,
@@ -10,16 +11,7 @@
 		},
 		"generators":
 		[
-			"country"
-		],
-		"args":
-		{
-			"pool":[1,1,1,1,2,3,4]
-		}
-		
-	},
-	"drawmodes":
-	[
-		"country"
-	]
+			"empty"
+		]
+	}
 }
