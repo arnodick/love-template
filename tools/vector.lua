@@ -4,11 +4,11 @@ local vector={}
 --TODO vector.vectors? return math.cos, math.sin of x and y vecs, normalize to 0 - 1 range
 
 vector.components = function(x,y,x2,y2)
-	return x2-x, y2-y
+	return x2-x,y2-y
 end
 
 vector.normalize = function(vx,vy)
-	local l = vector.length(vx,vy)
+	local l=vector.length(vx,vy)
 	return vx/l, vy/l
 end
 
@@ -17,11 +17,12 @@ vector.length = function(x,y)
 end
 
 vector.distance = function(x,y,x2,y2)
-	local w,h = x2 - x, y2 - y
+	local w,h=x2-x,y2-y
 	return vector.length(w,h)
 end
 
 vector.direction = function(vx,vy)
+--TODO just do components in here?
 --TODO normalize to 0 - 1 range
 --TODO use modulo trick? https://stackoverflow.com/questions/1311049/how-to-map-atan2-to-degrees-0-360
 
@@ -46,13 +47,13 @@ vector.direction = function(vx,vy)
 end
 
 vector.mirror = function(vx,vy,hor)
-	hor = hor or true
+	hor=hor or true
 	if hor then
-		vx = -vx
+		vx=-vx
 	else
-		vy = -vy
+		vy=-vy
 	end
-	return vx, vy
+	return vx,vy
 end
 
 return vector

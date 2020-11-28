@@ -7,6 +7,8 @@ end
 roaddrivin.level={}
 roaddrivin.level.country = {
 	make = function(g,l)
+		l.filldraw=false
+		l.fillx,l.filly=0,1
 		local centrex,centrey=g.width/2,g.height/2
 		local amount=love.math.random(12,20)
 		local dirs={}
@@ -51,13 +53,21 @@ roaddrivin.level.country = {
 				if l.i<#l.p-1 then
 					l.i=l.i+1
 				else
-					l.bgdraw=false
+					l.filldraw=true
 				end
-				-- l.rand=0
-				-- l.p[l.i].x,l.p[l.i].y=l.destx,l.desty
-				-- l.destx,l.desty=l.p[l.i].x,l.p[l.i].y
-				-- l.dist=1
 			end
+
+			-- if l.filldraw==true then
+			-- 	if l.fillx<l.map.width then
+			-- 		l.fillx=l.fillx+1
+			-- 	elseif l.filly<l.map.height then
+			-- 		l.fillx=1
+			-- 		l.filly=l.filly+1
+			-- 	else
+			-- 		l.filldraw=false
+			-- 		l.bgdraw=false
+			-- 	end
+			-- end
 			-- local dist=vector.distance(l.p[l.i].x,l.p[l.i].y,l.p[l.i+1].x,l.p[l.i+1].y)
 			-- local dir=vector.direction(vector.components(l.p[l.i].x,l.p[l.i].y,l.p[l.i+1].x,l.p[l.i+1].y))
 			-- local vecx,vecy=math.cos(dir),math.sin(dir)
@@ -85,64 +95,44 @@ roaddrivin.level.country = {
 
 	draw = function(g,l)
 		if l then
+			local imgdata=l.canvas.background:newImageData()
 			if l.bgdraw==true then
 				if l.canvas then
 					if l.canvas.background then
 						LG.setCanvas(l.canvas.background)
-						-- local xcamoff,ycamoff=g.camera.x-g.width/2,g.camera.y-g.height/2
-						-- LG.translate(xcamoff,ycamoff)
-
-						LG.setColor(g.palette["red"])
-						love.graphics.points(l.destx,l.desty)
-						-- local p={
-						-- 	{x=50,y=50},
-						-- 	{x=250,y=66},
-						-- 	{x=199,y=137},
-						-- 	{x=206,y=219},
-						-- 	{x=45,y=193},
-						-- 	{x=50,y=50}
-						-- }
-						-- for i=1,#p-1 do
-						-- 	print("X1: "..p[i].x.." Y1: "..p[i].y.." X2: "..p[i+1].x.." Y2: "..p[i+1].y)
-						-- 	local dist=vector.distance(p[i].x,p[i].y,p[i+1].x,p[i+1].y)
-						-- 	print("DISTANCE: "..dist)
-						-- 	local dir=vector.direction(vector.components(p[i].x,p[i].y,p[i+1].x,p[i+1].y))
-						-- 	print("DIRECTION: "..dir)
-						-- 	local vecx,vecy=math.cos(dir),math.sin(dir)
-						-- 	print("VECX: "..vecx)
-						-- 	print("VECY: "..vecy)
-						-- 	local rand=0
-						-- 	local destx,desty=p[i].x,p[i].y
-						-- 	for d=1,dist do
-						-- 		rand=rand+love.math.random(-1,1)
-						-- 		destx,desty=p[i].x+d*vecx,p[i].y+d*vecy
-						-- 		if (dir>=-math.pi/4 and dir<math.pi/4) or (dir>=math.pi*3/4 and dir<math.pi+math.pi*1/4) then
-						-- 			desty=desty+rand	
-						-- 		else
-						-- 			destx=destx+rand
-						-- 		end
-						-- 		love.graphics.points(destx,desty)
-						-- 	end
-						-- 	print("\nFINAL DEST X: "..math.round(destx).." Y: "..math.round(desty))
-						-- 	print("EXPECTED DEST X: "..p[i+1].x.." Y: "..p[i+1].y.."\n")
-						-- 	-- love.graphics.line(p[i].x,p[i].y,p[i+1].x,p[i+1].y)
-						-- end
-					--TODO use vectors here
-						-- local xx,yy=50,50
-						-- local x2,y2=50
-						-- for i=1,100 do
-						-- 	love.graphics.points(xx,yy)
-						-- 	xx=xx+1
-						-- 	yy=yy+love.math.random(-1,1)
-						-- end
-						-- LG.translate(-xcamoff,-ycamoff)--TODO why?
+						if not l.filldraw then
+							LG.setColor(g.palette["red"])
+							love.graphics.points(l.destx,l.desty)
+						else
+							local col="blue"
+							for y=1,l.map.height do
+								for x=1,l.map.width do
+									local r,gr,b=imgdata:getPixel(x-1,y-1)
+									if r==0 and gr==0 and b==0 then
+										if x>1 then
+											local r2,gr2,b2=imgdata:getPixel(x-2,y-1)
+											if r2~=0 or gr2~=0 or b2~=0 then
+												if col=="blue" then
+													col="green"
+												else
+													col="blue"
+												end
+											end
+										end
+										LG.setColor(g.palette[col])
+										love.graphics.points(x,y)
+									end
+								end
+							end
+							l.filldraw=false
+							l.bgdraw=false
+						end
+						LG.setColor(g.palette["pure_white"])
 					end
 				end
 				LG.setCanvas(g.canvas.main)
-				-- l.bgdraw=false
 			end
-			local imgdata=l.canvas.background:newImageData()
-			imgdata:mapPixel(pixelmaps.sparkle)
+			-- imgdata:mapPixel(pixelmaps.squish)
 			local image=LG.newImage(imgdata)
 			LG.setCanvas(l.canvas.background)
 				love.graphics.draw(image,0,0,0,1,1,0,0,0,0)
