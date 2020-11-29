@@ -4,61 +4,82 @@ roaddrivin.make = function(g)
 
 end
 
+roaddrivin.getpixels = function(imgdata,x,y,dirx,diry)
+	local x,y=x-1,y-1
+	local r,gr,b=imgdata:getPixel(x,y)
+	local rh,grh,bh=imgdata:getPixel(x+dirx,y)
+	local rv,grv,bv=imgdata:getPixel(x,y+diry)
+	return r,gr,b,rh,grh,bh,rv,grv,bv
+end
+
 roaddrivin.fillthing = function(l,imgdata,x,y,dirx,diry)
 	local st={{x=x,y=y}}
-	local r,gr,b=imgdata:getPixel(st[#st].x-1,st[#st].y-1)
-	local rh,grh,bh=imgdata:getPixel(st[#st].x-1+dirx,st[#st].y-1)
-	local rv,grv,bv=imgdata:getPixel(st[#st].x-1,st[#st].y-1+diry)
+	local r,gr,b,rh,grh,bh,rv,grv,bv=roaddrivin.getpixels(imgdata,st[#st].x,st[#st].y,dirx,diry)
+	local belowcoloured=false
+	-- local r,gr,b=imgdata:getPixel(st[#st].x-1,st[#st].y-1)
+	-- local rh,grh,bh=imgdata:getPixel(st[#st].x-1+dirx,st[#st].y-1)
+	-- local rv,grv,bv=imgdata:getPixel(st[#st].x-1,st[#st].y-1+diry)
 
 	while #st>0 do
-		--if the current pixel is black, draw on it
-		if (r==0 and gr==0 and b==0) then
-			love.graphics.points(x,st[#st].y)
+		--check if current pixel is black, if so, color it
+		if r==0 and gr==0 and b==0 then
+			LG.points(x,st[#st].y)
 		end
 
-		--check below current pixel
-		-- local nexty=y+diry
-		-- r,gr,b=imgdata:getPixel(x-1,nexty-1)
-
-		--if pxiel below current is black, move down to pixel below and start again, put our new point in the stack
-		if (rv==0 and grv==0 and bv==0) then
-			
-			local newy=st[#st].y+diry
-			table.insert(st,{x=x,y=newy})
-			print("STACK INSERT x: "..st[#st].x.." y: "..st[#st].y)
-			r,gr,b=   imgdata:getPixel(st[#st].x-1,     st[#st].y-1)
-			rh,grh,bh=imgdata:getPixel(st[#st].x-1+dirx,st[#st].y-1)
-			rv,grv,bv=imgdata:getPixel(st[#st].x-1,     st[#st].y-1+diry)
-			love.graphics.points(x,st[#st].y)
-		--if pixel below is not black, then move to pixel to the left and start over
-		elseif (rh==0 and grh==0 and bh==0) then
-			-- local newx=st[#st].x+dirx
-			x=x+dirx
-			r,gr,b=imgdata:getPixel(x-1,st[#st].y-1)
-			rh,grh,bh=imgdata:getPixel(x-1+dirx,st[#st].y-1)
-			rv,grv,bv=imgdata:getPixel(x-1,st[#st].y-1+diry)
-			-- love.graphics.points(x,st[#st].y)
-		--if surounding pixels are all black, nowheres to go, so move back to last point in stack, pop last point from stack
-		else
-			-- if (r==0 and gr==0 and b==0) then
-			-- 	love.graphics.points(x,y)
+		if rh==0 and grh==0 and bh==0 then
+			-- if rv==0 and grv==0 and bv==0 and belowcoloured==true then
+			-- 	table.insert(st,{x=x,y=st[#st].y+diry})
+			-- 	-- r,gr,b,rh,grh,bh,rv,grv,bv=roaddrivin.getpixels(imgdata,x,st[#st].y,dirx,diry)
+			-- 	belowcoloured=false
 			-- end
-			-- x,y=st[#st].x,st[#st].y
-			print("STACK REMOVE x: "..st[#st].x.." y: "..st[#st].y)
-			table.remove(st)
-			x=st[#st].x
-			-- x=x+dirx
-			r,gr,b=   imgdata:getPixel(x-1,     st[#st].y-1)
-			rh,grh,bh=imgdata:getPixel(x-1+dirx,st[#st].y-1)
-			rv,grv,bv=imgdata:getPixel(x-1,     st[#st].y-1+diry)
-			-- love.graphics.points(x,st[#st].y)
-			
-			-- if (rh~=0 or grh~=0 or bh~=0) and (rv~=0 or grv~=0 or bv~=0) then
-			-- 	table.remove(st)
-			-- 	x,y=st[#st].x,st[#st].y
-			-- 	r,gr,b=imgdata:getPixel(x-1,y-1)
-			-- 	rh,grh,bh=imgdata:getPixel(x-1+dirx,y-1)
-			-- 	rv,grv,bv=imgdata:getPixel(x-1,y-1+diry)
+			-- else
+				-- print("HORIZONTAL")
+				x=x+dirx
+				print("HORIZONTAL x: "..x.." y: "..st[#st].y)
+				r,gr,b,rh,grh,bh,rv,grv,bv=roaddrivin.getpixels(imgdata,x,st[#st].y,dirx,diry)
+				-- if rv~=0 or grv~=0 or bv~=0 and belowcoloured==false then
+				-- 	belowcoloured=true
+				-- elseif rv==0 and grv==0 and bv==0 and belowcoloured==true then
+				-- 	table.insert(st,1,{x=x,y=st[#st].y})
+				-- 	belowcoloured=false
+				-- 	-- r,gr,b,rh,grh,bh,rv,grv,bv=roaddrivin.getpixels(imgdata,x,st[#st].y,dirx,diry)
+				-- end
+			-- end
+		--if we are surrounded by non-black pixels, remove the current point from the stack, reset x to match older stack value, get colour values on and around this new point
+		else
+			-- if rv==0 and grv==0 and bv==0 then
+			-- 	local newy=st[#st].y+diry
+			-- 	r,gr,b,rh,grh,bh,rv,grv,bv=roaddrivin.getpixels(imgdata,x,newy,dirx,diry)
+			-- 	if r==0 and gr==0 and b==0 then
+			-- 		table.insert(st,{x=x,y=newy})
+			-- 		print("INSERT x: "..st[#st].x.." y: "..st[#st].y)
+			-- 	end
+			-- else
+				--TODO think maybe problem is that we are going back to the last value in the stack and incrementing y
+				x=st[#st].x
+				local newy=st[#st].y+diry
+				r,gr,b,rh,grh,bh,rv,grv,bv=roaddrivin.getpixels(imgdata,x,newy,dirx,diry)
+				if r==0 and gr==0 and b==0 then
+					st[#st].y=newy
+					-- print("INSERT x: "..st[#st].x.." y: "..st[#st].y)
+				else
+					print("REMOVE x: "..st[#st].x.." y: "..st[#st].y)
+					table.remove(st)
+					if #st>0 then
+						x=st[#st].x
+						r,gr,b,rh,grh,bh,rv,grv,bv=roaddrivin.getpixels(imgdata,x,st[#st].y,dirx,diry)
+					end
+				end
+				
+				-- if #st>0 then
+				-- 	x=st[#st].x
+				-- 	r,gr,b,rh,grh,bh,rv,grv,bv=roaddrivin.getpixels(imgdata,x,st[#st].y,dirx,diry)
+				-- 	-- r,gr,b=imgdata:getPixel(x-1,st[#st].y-1)
+				-- 	-- rh,grh,bh=imgdata:getPixel(x-1+dirx,st[#st].y-1)
+				-- 	-- rv,grv,bv=imgdata:getPixel(x-1,st[#st].y-1+diry)
+				-- else
+				-- 	print("EMPTY")
+				-- end
 			-- end
 		end
 	end

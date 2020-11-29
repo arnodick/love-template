@@ -14,6 +14,33 @@ local function clamp(v,min,max,wrap)--TODO recursive clamp (what does this mean 
 	return v
 end
 
+
+local function floodfill(x,y,nodecolour,targetcolour,replacementcolour)
+	if targetcolour==replacementcolour then
+		return
+	elseif nodecolour~=targetcolour then
+		return
+	else
+		LG.points(x,y)
+		-- setcolor
+	end
+	floodfill(x,y+1,nodecolour,targetcolour,replacementcolour)
+	floodfill(x,y-1,nodecolour,targetcolour,replacementcolour)
+	floodfill(x-1,y,nodecolour,targetcolour,replacementcolour)
+	floodfill(x+1,y,nodecolour,targetcolour,replacementcolour)
+	return
+end
+
+Flood-fill (node, target-color, replacement-color):
+ 1. If target-color is equal to replacement-color, return.
+ 2. ElseIf the color of node is not equal to target-color, return.
+ 3. Else Set the color of node to replacement-color.
+ 4. Perform Flood-fill (one step to the south of node, target-color, replacement-color).
+    Perform Flood-fill (one step to the north of node, target-color, replacement-color).
+    Perform Flood-fill (one step to the west of node, target-color, replacement-color).
+    Perform Flood-fill (one step to the east of node, target-color, replacement-color).
+ 5. Return.
+
 --choose one value from an input of any amount of args
 local function choose(...)
 	local args={...}--make a table from all the args
