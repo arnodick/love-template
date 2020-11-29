@@ -89,7 +89,7 @@ end
 supper.contains = function(t,value)
 	for i,v in ipairs(t) do
 		if v==value then
-			return true
+			return true,i
 		end
 	end
 	return false

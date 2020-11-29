@@ -4,6 +4,66 @@ roaddrivin.make = function(g)
 
 end
 
+roaddrivin.fillthing = function(l,imgdata,x,y,dirx,diry)
+	local st={{x=x,y=y}}
+	local r,gr,b=imgdata:getPixel(st[#st].x-1,st[#st].y-1)
+	local rh,grh,bh=imgdata:getPixel(st[#st].x-1+dirx,st[#st].y-1)
+	local rv,grv,bv=imgdata:getPixel(st[#st].x-1,st[#st].y-1+diry)
+
+	while #st>0 do
+		--if the current pixel is black, draw on it
+		if (r==0 and gr==0 and b==0) then
+			love.graphics.points(x,st[#st].y)
+		end
+
+		--check below current pixel
+		-- local nexty=y+diry
+		-- r,gr,b=imgdata:getPixel(x-1,nexty-1)
+
+		--if pxiel below current is black, move down to pixel below and start again, put our new point in the stack
+		if (rv==0 and grv==0 and bv==0) then
+			
+			local newy=st[#st].y+diry
+			table.insert(st,{x=x,y=newy})
+			print("STACK INSERT x: "..st[#st].x.." y: "..st[#st].y)
+			r,gr,b=   imgdata:getPixel(st[#st].x-1,     st[#st].y-1)
+			rh,grh,bh=imgdata:getPixel(st[#st].x-1+dirx,st[#st].y-1)
+			rv,grv,bv=imgdata:getPixel(st[#st].x-1,     st[#st].y-1+diry)
+			love.graphics.points(x,st[#st].y)
+		--if pixel below is not black, then move to pixel to the left and start over
+		elseif (rh==0 and grh==0 and bh==0) then
+			-- local newx=st[#st].x+dirx
+			x=x+dirx
+			r,gr,b=imgdata:getPixel(x-1,st[#st].y-1)
+			rh,grh,bh=imgdata:getPixel(x-1+dirx,st[#st].y-1)
+			rv,grv,bv=imgdata:getPixel(x-1,st[#st].y-1+diry)
+			-- love.graphics.points(x,st[#st].y)
+		--if surounding pixels are all black, nowheres to go, so move back to last point in stack, pop last point from stack
+		else
+			-- if (r==0 and gr==0 and b==0) then
+			-- 	love.graphics.points(x,y)
+			-- end
+			-- x,y=st[#st].x,st[#st].y
+			print("STACK REMOVE x: "..st[#st].x.." y: "..st[#st].y)
+			table.remove(st)
+			x=st[#st].x
+			-- x=x+dirx
+			r,gr,b=   imgdata:getPixel(x-1,     st[#st].y-1)
+			rh,grh,bh=imgdata:getPixel(x-1+dirx,st[#st].y-1)
+			rv,grv,bv=imgdata:getPixel(x-1,     st[#st].y-1+diry)
+			-- love.graphics.points(x,st[#st].y)
+			
+			-- if (rh~=0 or grh~=0 or bh~=0) and (rv~=0 or grv~=0 or bv~=0) then
+			-- 	table.remove(st)
+			-- 	x,y=st[#st].x,st[#st].y
+			-- 	r,gr,b=imgdata:getPixel(x-1,y-1)
+			-- 	rh,grh,bh=imgdata:getPixel(x-1+dirx,y-1)
+			-- 	rv,grv,bv=imgdata:getPixel(x-1,y-1+diry)
+			-- end
+		end
+	end
+end
+
 roaddrivin.level={}
 roaddrivin.level.country = {
 	make = function(g,l)
@@ -104,26 +164,93 @@ roaddrivin.level.country = {
 							LG.setColor(g.palette["red"])
 							love.graphics.points(l.destx,l.desty)
 						else
-							local col="blue"
-							for y=1,l.map.height do
-								for x=1,l.map.width do
-									local r,gr,b=imgdata:getPixel(x-1,y-1)
-									if r==0 and gr==0 and b==0 then
-										if x>1 then
-											local r2,gr2,b2=imgdata:getPixel(x-2,y-1)
-											if r2~=0 or gr2~=0 or b2~=0 then
-												if col=="blue" then
-													col="green"
-												else
-													col="blue"
-												end
-											end
-										end
-										LG.setColor(g.palette[col])
-										love.graphics.points(x,y)
-									end
-								end
-							end
+							local x,y=l.map.width/2,l.map.height/2
+							-- local r,gr,b=imgdata:getPixel(x-1,y-1)
+							LG.setColor(g.palette["green"])
+							-- love.graphics.points(x,y)
+							roaddrivin.fillthing(l,imgdata,x,y,-1,1)
+
+							-- while r==0 and gr==0 and b==0 do
+							-- 	love.graphics.points(x,y)
+							-- 	local newx=x-1
+							-- 	local r2,gr2,b2=imgdata:getPixel(newx,y)
+							-- 	while r2==0 and gr2==0 and b2==0 do
+							-- 		love.graphics.points(newx,y+1)
+							-- 		newx=newx-1
+							-- 		r2,gr2,b2=imgdata:getPixel(newx,y)
+							-- 	end
+							-- 	x=x-1
+							-- 	r,gr,b=imgdata:getPixel(x-1,y-1)
+							-- 	if r~=0 or gr~=0 or b~=0 then
+							-- 		y=y+1
+							-- 		x=l.map.width/2
+							-- 		r,gr,b=imgdata:getPixel(x-1,y-1)
+							-- 	end
+							-- end
+							
+							-- local col="blue"
+							-- for y=1,l.map.height do
+							-- 	if col~="blue" then col="blue" end
+							-- 	local sw={}
+							-- 	for i=1,l.map.width-1 do--check the rest of this horizontal line of pixels for another non black pixel
+							-- 		local r3,gr3,b3=imgdata:getPixel(i,y-1)
+							-- 		if r3==0 and gr3==0 and b3==0 then--if current pixel is black
+							-- 			local r4,gr4,b4=imgdata:getPixel(i-1,y-1)
+							-- 			if r4~=0 or gr4~=0 or b4~=0 then--if previous pixel is not black
+							-- 				table.insert(sw,i)
+							-- 			end
+							-- 			-- if x<i then
+							-- 			-- 	if r3==0 and gr3==0 and b3==0 then
+							-- 			-- 		col="green"
+							-- 			-- 	end
+							-- 			-- else
+							-- 			-- 	col="blue"
+							-- 			-- end
+							-- 		end
+							-- 	end
+							-- 	for x=1,l.map.width do
+							-- 		-- local r,gr,b=imgdata:getPixel(x-1,y-1)
+							-- 		-- if r==0 and gr==0 and b==0 then--if current pixel is black
+							-- 		-- 	if x>1 then
+							-- 		-- 		local r2,gr2,b2=imgdata:getPixel(x-2,y-1)
+							-- 		-- 		if r2~=0 or gr2~=0 or b2~=0 then--then if previous pixel is not black, we've crossed a line
+							-- 		-- 			if col=="blue" then
+							-- 		-- 				-- local sw=false
+
+							-- 		-- 				-- if sw==true then
+							-- 		-- 				-- 	col="green"
+							-- 		-- 				-- end
+							-- 		-- 			end
+							-- 		-- 			-- if col=="blue" then
+							-- 		-- 			-- 	col="green"
+							-- 		-- 			-- else
+							-- 		-- 			-- 	col="blue"
+							-- 		-- 			-- end
+							-- 		-- 		end
+							-- 		-- 	end
+							-- 		-- 	LG.setColor(g.palette[col])
+							-- 		-- 	love.graphics.points(x,y)
+							-- 		-- end
+							-- 		local intersect,index=supper.contains(sw,x)
+							-- 		if intersect==true then
+							-- 			if #sw%2==0 and #sw>1 then--if amount of intersections is even
+							-- 				if index%2==1 then--then if this interesection
+							-- 		 			col="green"
+							-- 				else
+							-- 					col="blue"
+							-- 				end
+							-- 			else
+							-- 				if index%2==0 then
+							-- 		 			col="blue"
+							-- 				else
+							-- 					col="green"
+							-- 				end
+							-- 			end
+							-- 		end
+							-- 		LG.setColor(g.palette[col])
+							-- 		love.graphics.points(x,y)
+							-- 	end
+							-- end
 							l.filldraw=false
 							l.bgdraw=false
 						end
