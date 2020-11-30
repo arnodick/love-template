@@ -14,33 +14,6 @@ local function clamp(v,min,max,wrap)--TODO recursive clamp (what does this mean 
 	return v
 end
 
-
-local function floodfill(x,y,nodecolour,targetcolour,replacementcolour)
-	if targetcolour==replacementcolour then
-		return
-	elseif nodecolour~=targetcolour then
-		return
-	else
-		LG.points(x,y)
-		-- setcolor
-	end
-	floodfill(x,y+1,nodecolour,targetcolour,replacementcolour)
-	floodfill(x,y-1,nodecolour,targetcolour,replacementcolour)
-	floodfill(x-1,y,nodecolour,targetcolour,replacementcolour)
-	floodfill(x+1,y,nodecolour,targetcolour,replacementcolour)
-	return
-end
-
-Flood-fill (node, target-color, replacement-color):
- 1. If target-color is equal to replacement-color, return.
- 2. ElseIf the color of node is not equal to target-color, return.
- 3. Else Set the color of node to replacement-color.
- 4. Perform Flood-fill (one step to the south of node, target-color, replacement-color).
-    Perform Flood-fill (one step to the north of node, target-color, replacement-color).
-    Perform Flood-fill (one step to the west of node, target-color, replacement-color).
-    Perform Flood-fill (one step to the east of node, target-color, replacement-color).
- 5. Return.
-
 --choose one value from an input of any amount of args
 local function choose(...)
 	local args={...}--make a table from all the args
@@ -103,6 +76,36 @@ local function lightness(r,g,b)
 	return (max+min)/2
 end
 
+local function floodfill(imgdata,x,y)
+	local r,gr,b=imgdata:getPixel(x-1,y-1)
+	if love.graphics.coloursame({r,gr,b},{0,0,0}) then
+		LG.points(x,y)
+
+		local yd,yu,xl,xr=y+1,y-1,x-1,y+1
+		love.graphics.floodfill(imgdata,x,yu)
+		-- love.graphics.floodfill(imgdata,x,yd)
+		-- love.graphics.floodfill(imgdata,xl,y)
+		-- love.graphics.floodfill(imgdata,xr,y)
+	end
+end
+
+-- Flood-fill (node, target-color, replacement-color):
+--  1. If target-color is equal to replacement-color, return.
+--  2. ElseIf the color of node is not equal to target-color, return.
+--  3. Else Set the color of node to replacement-color.
+--  4. Perform Flood-fill (one step to the south of node, target-color, replacement-color).
+--     Perform Flood-fill (one step to the north of node, target-color, replacement-color).
+--     Perform Flood-fill (one step to the west of node, target-color, replacement-color).
+--     Perform Flood-fill (one step to the east of node, target-color, replacement-color).
+--  5. Return.
+
+local function coloursame(col1,col2)
+	if col1[1]==col2[1] and col1[2]==col2[2] and col1[3]==col2[3] then
+		return true
+	end
+	return false
+end
+
 --makes an image in ascii art
 local function textify(image,scale,chars,smallcanvas,bigcanvas,charw,charh)
 	LG.setCanvas(smallcanvas)
@@ -143,8 +146,10 @@ math.choose = choose
 math.randomfraction = randomfraction
 math.snap = snap
 math.round = round
+love.graphics.floodfill = floodfill
 love.graphics.drawbox = drawbox
 love.graphics.printformat = printformat
 love.graphics.lightness = lightness
+love.graphics.coloursame = coloursame
 love.graphics.textify = textify
 love.graphics.drawtobackground = drawtobackground

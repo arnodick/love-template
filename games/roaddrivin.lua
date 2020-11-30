@@ -12,78 +12,9 @@ roaddrivin.getpixels = function(imgdata,x,y,dirx,diry)
 	return r,gr,b,rh,grh,bh,rv,grv,bv
 end
 
-roaddrivin.fillthing = function(l,imgdata,x,y,dirx,diry)
-	local st={{x=x,y=y}}
-	local r,gr,b,rh,grh,bh,rv,grv,bv=roaddrivin.getpixels(imgdata,st[#st].x,st[#st].y,dirx,diry)
-	local belowcoloured=false
-	-- local r,gr,b=imgdata:getPixel(st[#st].x-1,st[#st].y-1)
-	-- local rh,grh,bh=imgdata:getPixel(st[#st].x-1+dirx,st[#st].y-1)
-	-- local rv,grv,bv=imgdata:getPixel(st[#st].x-1,st[#st].y-1+diry)
-
-	while #st>0 do
-		--check if current pixel is black, if so, color it
-		if r==0 and gr==0 and b==0 then
-			LG.points(x,st[#st].y)
-		end
-
-		if rh==0 and grh==0 and bh==0 then
-			-- if rv==0 and grv==0 and bv==0 and belowcoloured==true then
-			-- 	table.insert(st,{x=x,y=st[#st].y+diry})
-			-- 	-- r,gr,b,rh,grh,bh,rv,grv,bv=roaddrivin.getpixels(imgdata,x,st[#st].y,dirx,diry)
-			-- 	belowcoloured=false
-			-- end
-			-- else
-				-- print("HORIZONTAL")
-				x=x+dirx
-				print("HORIZONTAL x: "..x.." y: "..st[#st].y)
-				r,gr,b,rh,grh,bh,rv,grv,bv=roaddrivin.getpixels(imgdata,x,st[#st].y,dirx,diry)
-				-- if rv~=0 or grv~=0 or bv~=0 and belowcoloured==false then
-				-- 	belowcoloured=true
-				-- elseif rv==0 and grv==0 and bv==0 and belowcoloured==true then
-				-- 	table.insert(st,1,{x=x,y=st[#st].y})
-				-- 	belowcoloured=false
-				-- 	-- r,gr,b,rh,grh,bh,rv,grv,bv=roaddrivin.getpixels(imgdata,x,st[#st].y,dirx,diry)
-				-- end
-			-- end
-		--if we are surrounded by non-black pixels, remove the current point from the stack, reset x to match older stack value, get colour values on and around this new point
-		else
-			-- if rv==0 and grv==0 and bv==0 then
-			-- 	local newy=st[#st].y+diry
-			-- 	r,gr,b,rh,grh,bh,rv,grv,bv=roaddrivin.getpixels(imgdata,x,newy,dirx,diry)
-			-- 	if r==0 and gr==0 and b==0 then
-			-- 		table.insert(st,{x=x,y=newy})
-			-- 		print("INSERT x: "..st[#st].x.." y: "..st[#st].y)
-			-- 	end
-			-- else
-				--TODO think maybe problem is that we are going back to the last value in the stack and incrementing y
-				x=st[#st].x
-				local newy=st[#st].y+diry
-				r,gr,b,rh,grh,bh,rv,grv,bv=roaddrivin.getpixels(imgdata,x,newy,dirx,diry)
-				if r==0 and gr==0 and b==0 then
-					st[#st].y=newy
-					-- print("INSERT x: "..st[#st].x.." y: "..st[#st].y)
-				else
-					print("REMOVE x: "..st[#st].x.." y: "..st[#st].y)
-					table.remove(st)
-					if #st>0 then
-						x=st[#st].x
-						r,gr,b,rh,grh,bh,rv,grv,bv=roaddrivin.getpixels(imgdata,x,st[#st].y,dirx,diry)
-					end
-				end
-				
-				-- if #st>0 then
-				-- 	x=st[#st].x
-				-- 	r,gr,b,rh,grh,bh,rv,grv,bv=roaddrivin.getpixels(imgdata,x,st[#st].y,dirx,diry)
-				-- 	-- r,gr,b=imgdata:getPixel(x-1,st[#st].y-1)
-				-- 	-- rh,grh,bh=imgdata:getPixel(x-1+dirx,st[#st].y-1)
-				-- 	-- rv,grv,bv=imgdata:getPixel(x-1,st[#st].y-1+diry)
-				-- else
-				-- 	print("EMPTY")
-				-- end
-			-- end
-		end
-	end
-end
+-- roaddrivin.fillthing = function(l,imgdata,x,y,dirx,diry)
+-- 	love.graphics.floodfill(imgdata,x,y)
+-- end
 
 roaddrivin.level={}
 roaddrivin.level.country = {
@@ -176,20 +107,79 @@ roaddrivin.level.country = {
 
 	draw = function(g,l)
 		if l then
-			local imgdata=l.canvas.background:newImageData()
 			if l.bgdraw==true then
 				if l.canvas then
 					if l.canvas.background then
+						local imgdata=l.canvas.background:newImageData()
 						LG.setCanvas(l.canvas.background)
 						if not l.filldraw then
 							LG.setColor(g.palette["red"])
 							love.graphics.points(l.destx,l.desty)
 						else
-							local x,y=l.map.width/2,l.map.height/2
-							-- local r,gr,b=imgdata:getPixel(x-1,y-1)
-							LG.setColor(g.palette["green"])
+							-- local x,y=l.map.width/2,l.map.height/2
+							local red=g.palette["red"]
+							local blue=g.palette["blue"]
+							for y=1,l.map.height do
+								for x=1,l.map.width do
+									LG.setColor(blue)
+									local r,gr,b=imgdata:getPixel(x-1,y-1)
+									if love.graphics.coloursame({r,gr,b},{0,0,0}) then
+										local crosses=0
+										local distances={x,l.map.width-x,y,l.map.height-y}
+										table.sort(distances)
+										local start=distances[#distances]
+
+										local le,re,u,d=true,true,true,true
+										for i=start,1,-1 do
+											if le then
+												if x-i>0 and x-i<=l.map.width and y>0 and y<=l.map.height then
+													local lr=imgdata:getPixel(x-i-1,y-1)
+													if lr==1 then
+														crosses=crosses+1
+														le=false
+													end
+												end
+											end
+											if re then
+												if x+i>0 and x+i<=l.map.width and y>0 and y<=l.map.height then
+													local rr=imgdata:getPixel(x+i-1,y-1)
+													if rr==1 then
+														crosses=crosses+1
+														re=false
+													end
+												end
+											end
+											if u then
+												if x>0 and x<=l.map.width and y-i>0 and y-i<=l.map.height then
+													local ur=imgdata:getPixel(x-1,y-i-1)
+													if ur==1 then
+														crosses=crosses+1
+														u=false
+													end
+												end
+											end
+											if d then
+												if x>0 and x<=l.map.width and y+i>0 and y+i<=l.map.height then
+													local dr=imgdata:getPixel(x-1,y+i-1)
+													if dr==1 then
+														crosses=crosses+1
+														d=false
+													end
+												end
+											end
+											if crosses==4 then
+												LG.setColor(g.palette["green"])
+												-- break
+											end
+										end
+										LG.points(x,y)
+									end
+								end
+							end
+
+							-- love.graphics.floodfill(imgdata,x,y)
 							-- love.graphics.points(x,y)
-							roaddrivin.fillthing(l,imgdata,x,y,-1,1)
+							-- roaddrivin.fillthing(l,imgdata,x,y,-1,1)
 
 							-- while r==0 and gr==0 and b==0 do
 							-- 	love.graphics.points(x,y)
@@ -281,9 +271,9 @@ roaddrivin.level.country = {
 				LG.setCanvas(g.canvas.main)
 			end
 			-- imgdata:mapPixel(pixelmaps.squish)
-			local image=LG.newImage(imgdata)
-			LG.setCanvas(l.canvas.background)
-				love.graphics.draw(image,0,0,0,1,1,0,0,0,0)
+			-- local image=LG.newImage(imgdata)
+			-- LG.setCanvas(l.canvas.background)
+			-- 	love.graphics.draw(image,0,0,0,1,1,0,0,0,0)
 			LG.setCanvas(g.canvas.main)
 		end
 	end
