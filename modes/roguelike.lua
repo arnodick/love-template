@@ -46,7 +46,8 @@ roguelike.actor.control = function(g,a,m,gs)
 		end
 	
 		if flags.get(a.flags,EF.player) then
-			print("PLAYER VEC1 "..a.vec[1])
+			print("PLAYER VEC x "..a.vec[1])
+			print("PLAYER VEC y "..a.vec[2])
 		end
 		local xstart,ystart=a.x,a.y
 		local xdest,ydest=a.x+a.vec[1],a.y+a.vec[2]
@@ -67,13 +68,13 @@ roguelike.actor.control = function(g,a,m,gs)
 				ydestfinal=ydest
 			end
 
-			print("\nACTOR: "..tostring(a))
+			-- print("\nACTOR: "..tostring(a))
 			if collx or colly then
-				if collx then
-					print(" WALL COLLISION WITH: "..ibx.." X: "..xdest.." Y: "..a.y)
-				else
-					print(" WALL COLLISION WITH: "..iby.." X: "..a.x.." Y: "..ydest)
-				end
+				-- if collx then
+				-- 	print(" WALL COLLISION WITH: "..ibx.." X: "..xdest.." Y: "..a.y)
+				-- else
+				-- 	print(" WALL COLLISION WITH: "..iby.." X: "..a.x.." Y: "..ydest)
+				-- end
 				-- run(EA[a.t],"collision",a)
 			else
 				local ma=g.level.map.actors
@@ -81,9 +82,9 @@ roguelike.actor.control = function(g,a,m,gs)
 					a.x,a.y=xdestfinal,ydestfinal
 					map.setcellraw(ma,xstart,ystart,0)
 					
-					print("MAP START X: "..xstart.." Y: "..ystart)
+					-- print("MAP START X: "..xstart.." Y: "..ystart)
 					map.setcellraw(ma,a.x,a.y,a)
-					print("MAP DEST X: "..a.x.." Y: "..a.y)
+					-- print("MAP DEST X: "..a.x.." Y: "..a.y)
 				else
 					local ac=map.getcellraw(ma,xdestfinal,ydestfinal,true)
 					print("ACTOR COLLISION WITH "..tostring(ac))
@@ -92,10 +93,12 @@ roguelike.actor.control = function(g,a,m,gs)
 			end
 		else
 			print(tostring(a).." OUT OF BOUNDS")
-			if collx then
-				print(" vertically")
+			if a.vec[1]~=0 then
+				game.state.run(g.name,"level","outofbounds",g,a,true)
+				print(" horiz")
 			else
-				print(" horizontally")
+				game.state.run(g.name,"level","outofbounds",g,a,false)
+				print(" vert")
 			end
 		end
 		-- supper.print(m)
@@ -118,9 +121,14 @@ roguelike.level.make = function(g,l)
 	print(l.settings.inputtype)
 	-- TODO put this in roguelike? need to add mode.level.make to level.make?
 	if l.map then
+		-- print("MAKING ACTORS MAP")
 		l.map.actors={}
 		map.init(l.map.actors,l.map.w,l.map.h)
 		map.generate(l.map.actors,"empty")
+		-- if g.player then
+		-- 	print("PLAYER INIT")
+		-- 	-- map.setcellraw(l.map.actors,g.player.x,g.player.y,g.player)
+		-- end
 		-- supper.print(l.map.actors)
 	end
 end

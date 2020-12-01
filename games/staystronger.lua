@@ -139,6 +139,17 @@ staystronger.level = {
 	end
 }
 
+staystronger.level.outofbounds = function(g,a,hor)
+	if flags.get(a.flags,EF.player) then
+		print("YES")
+		a.x=5
+		a.y=5
+		level.make(g,2,Enums.modes.roguelike)
+	else
+		a.delete=true
+	end
+end
+
 
 staystronger.gameplay =
 {

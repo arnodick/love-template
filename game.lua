@@ -183,6 +183,8 @@ game.control = function(g)
 				end
 			end
 			if flags.get(v.flags,EF.player) then
+				-- print("PLAYER DELETE")
+				--TODO g.player=nil here?
 				for k,j in ipairs(g.players) do
 					if v==j then
 						table.remove(g.players,k)

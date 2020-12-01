@@ -84,9 +84,9 @@ screen.draw = function(g,s,gs)
 		-- end
 	LG.setCanvas()
 	if Shader then
-		love.graphics.setShader(Shader)
+		-- love.graphics.setShader(Shader)
 		LG.draw(s.draw.canvas,s.draw.x,s.draw.y,0,s.draw.scale,s.draw.scale,g.camera.center.x*s.pixelscale,g.camera.center.y*s.pixelscale)
-		love.graphics.setShader()
+		-- love.graphics.setShader()
 	else
 		LG.draw(s.draw.canvas,s.draw.x,s.draw.y,0,s.draw.scale,s.draw.scale,g.camera.center.x*s.pixelscale,g.camera.center.y*s.pixelscale)
 	end

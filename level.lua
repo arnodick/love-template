@@ -26,6 +26,7 @@ level.make = function(g,index,mode)
 			map.generate(l.map,l.map.generators)
 			-- supper.print(l.map)
 		end
+		--TODO don't remake canvas if don't need to, same size
 		l.canvas={background=LG.newCanvas(l.map.w*l.map.tile.width,l.map.h*l.map.tile.height)}
 		l.bgdraw=true
 	end

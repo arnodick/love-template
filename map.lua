@@ -369,29 +369,29 @@ drawmodes.border = function(g,m,x,y)
 end
 
 --TODO just do this in road drivin instead
-drawmodes.country = function(g,m,x,y,args)
-	--TODO MAKE ANOTHER CALL TO GENERATORS THAT ISN'T LOOPED FOR STUFF LIKE THIS
-	if x==1 and y==1 then
-		LG.setColor(g.palette["red"])
-		local p={
-			{x=50,y=50},
-			{x=250,y=50},
-			{x=250,y=200},
-			{x=50,y=200},
-			{x=50,y=50}
-		}
-		for i=1,4 do
-			love.graphics.line(p[i].x,p[i].y,p[i+1].x,p[i+1].y)
-		end
-	--TODO use vectors here
-		local xx,yy=50,50
-		local x2,y2=50
-		for i=1,100 do
-			love.graphics.points(xx,yy)
-			xx=xx+1
-			yy=yy+love.math.random(-1,1)
-		end
-	end
-end
+-- drawmodes.country = function(g,m,x,y,args)
+-- 	--TODO MAKE ANOTHER CALL TO GENERATORS THAT ISN'T LOOPED FOR STUFF LIKE THIS
+-- 	if x==1 and y==1 then
+-- 		LG.setColor(g.palette["red"])
+-- 		local p={
+-- 			{x=50,y=50},
+-- 			{x=250,y=50},
+-- 			{x=250,y=200},
+-- 			{x=50,y=200},
+-- 			{x=50,y=50}
+-- 		}
+-- 		for i=1,4 do
+-- 			love.graphics.line(p[i].x,p[i].y,p[i+1].x,p[i+1].y)
+-- 		end
+-- 	--TODO use vectors here
+-- 		local xx,yy=50,50
+-- 		local x2,y2=50
+-- 		for i=1,100 do
+-- 			love.graphics.points(xx,yy)
+-- 			xx=xx+1
+-- 			yy=yy+love.math.random(-1,1)
+-- 		end
+-- 	end
+-- end
 
 return map

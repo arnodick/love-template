@@ -1,5 +1,5 @@
 local function make()
-	ShaderTimer = 0
+	-- ShaderTimer = 0
 
  	return LG.newShader
 --[[
@@ -60,17 +60,17 @@ local function make()
 
 end
 
-local function control(shader,colour)
-	if ShaderTimer%3==0 then
-		shader:send("red", colour[1]/255)
-		shader:send("green", colour[2]/255)
-		shader:send("blue", colour[3]/255)
-	end
-	ShaderTimer =  ShaderTimer + 1
-end
+-- local function control(shader,colour)
+-- 	if ShaderTimer%3==0 then
+-- 		shader:send("red", colour[1]/255)
+-- 		shader:send("green", colour[2]/255)
+-- 		shader:send("blue", colour[3]/255)
+-- 	end
+-- 	ShaderTimer =  ShaderTimer + 1
+-- end
 
 return
 {
 	make = make,
-	control = control,
+	-- control = control,
 }
