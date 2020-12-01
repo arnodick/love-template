@@ -6,28 +6,6 @@ end
 
 roaddrivin.level={}
 
--- roaddrivin.level.cofunc = function()
--- 	while l.bgdraw==true do
--- 		print("CORUTINE")
--- 		local dir=vector.direction(vector.components(l.destx,l.desty,l.p[l.i+1].x,l.p[l.i+1].y))
--- 		local rand=math.randomfraction(math.pi/2)
--- 		rand=rand*math.choose(-1,1)
--- 		local vecx,vecy=math.cos(dir+rand),math.sin(dir+rand)
--- 		l.destx,l.desty=l.destx+vecx,l.desty+vecy
-		
--- 		if math.round(l.destx)==l.p[l.i+1].x and math.round(l.desty)==l.p[l.i+1].y then
--- 			if l.i<#l.p-1 then
--- 				l.i=l.i+1
--- 			else
--- 				print("OK")
--- 				l.bgdraw=false
--- 				--TODO do l.filldarw==true stuff in here, then use coroutines
--- 			end
--- 		end
--- 		coroutine.yield()
--- 	end
--- end
-
 roaddrivin.level.country = {
 	make = function(g,l)
 		-- l.filldraw=false
@@ -35,27 +13,17 @@ roaddrivin.level.country = {
 		local centrex,centrey=g.width/2,g.height/2
 		local amount=love.math.random(12,20)
 		local dirs={}
-		-- table.insert(dirs,0)
 		for i=1,amount do
-			-- local dist=love.math.random(50,300)
 			table.insert(dirs,math.randomfraction(math.pi*2))
 		end
 		table.sort(dirs)
 		l.p={}
 		for i,v in ipairs(dirs) do
 			local dist=love.math.random(20,100)
-			-- local dist=100
 			table.insert(l.p,{x=math.round(centrex+math.cos(v)*dist),y=math.round(centrey+math.sin(v)*dist)})
 		end
 		table.insert(l.p,l.p[1])
-		-- l.p={
-		-- 	{x=50,y=50},
-		-- 	{x=250,y=66},
-		-- 	{x=199,y=137},
-		-- 	{x=206,y=219},
-		-- 	{x=45,y=193},
-		-- 	{x=50,y=50}
-		-- }
+
 		l.i=1
 		l.destx,l.desty=l.p[l.i].x,l.p[l.i].y
 		l.imgdata=l.canvas.background:newImageData()
@@ -73,11 +41,15 @@ roaddrivin.level.country = {
 					else
 						print("OK")
 						l.bgdraw=false
-						--TODO do l.filldarw==true stuff in here, then use coroutines
+						coroutine.resume(l.co2)
+						--TODO do l.filldarw==true stuff in here
 					end
 				end
 				coroutine.yield()
 			end
+		end)
+		l.co2=coroutine.create(function()
+			print("co2")
 		end)
 		-- l.rand=0
 		-- l.dist=1
@@ -86,6 +58,10 @@ roaddrivin.level.country = {
 
 	control = function(g,l)
 		coroutine.resume(l.co)
+		local costatus=coroutine.status(l.co)
+		if costatus=="dead" then
+			level.make(g,1,Enums.modes.topdown)
+		end
 	end,
 
 	draw = function(g,l)
@@ -95,17 +71,21 @@ roaddrivin.level.country = {
 					if l.canvas.background then
 						LG.setCanvas(l.canvas.background)
 							local red=g.palette["red"]
-							-- LG.setColor(g.palette["red"])
-							-- love.graphics.points(l.destx,l.desty)
 							l.imgdata:setPixel(l.destx-1,l.desty-1,red[1],red[2],red[3])
 						LG.setColor(g.palette["pure_white"])
 					end
 				end
+				--TODO draw only first frame with all red pixels to the buffer. which won't change, so we can use it for colour ref on actual bg, which wil be changing from pixelmap
+				--then can say in pxelmap, if col==red do this pixelmap, but if green do this
+					--TODO need approximately value to convert between pixelmap colour value and lua. .3 == >0.29 and < 0.31?
 				LG.setCanvas(g.canvas.main)
 			end
 
 			--TODO do shaderinstead of this stuff so no memory leaks
-			l.imgdata:mapPixel(pixelmaps.squish)
+			-- l.imgdata:mapPixel(pixelmaps.squish)
+			-- l.imgdata:mapPixel(pixelmaps.sparkle)
+			-- l.imgdata:mapPixel(pixelmaps.melt)
+			l.imgdata:mapPixel(pixelmaps.unred)
 			local image=LG.newImage(l.imgdata)
 			LG.setCanvas(l.canvas.background)
 				love.graphics.draw(image,0,0,0,1,1)
