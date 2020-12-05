@@ -55,7 +55,7 @@ screen.control = function(g,s,gs)
 	end
 
 	if s.transition then
-		transition.control(s,s.transition)
+		transition.control(g,s,s.transition)
 		s.pixelscale=math.clamp(s.pixelscale,0.1,1)--TODO do we need this? just get transition to clamp
 		s.draw.canvas=LG.newCanvas(g.width*s.pixelscale,g.height*s.pixelscale)
 	elseif s.draw.canvas~=s.canvas then

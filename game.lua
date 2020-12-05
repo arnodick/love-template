@@ -160,10 +160,8 @@ game.control = function(g)
 			end
 		end
 	end
-	--if g.transition then
-	--	transition.control(g,g.transition)
-	--end
-	camera.control(g.camera,g.speed)
+
+	camera.control(g,g.camera,g.speed)
 	
 	for i,v in ipairs(g.actors) do
 		if v.delete==true then
@@ -199,7 +197,7 @@ game.control = function(g)
 		game.state.run(g.name,"level","control",g,l)
 
 		if l.transition then
-			transition.control(l,l.transition)
+			transition.control(g,l,l.transition)
 		end
 	end
 

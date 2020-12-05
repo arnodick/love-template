@@ -1,5 +1,9 @@
 EDITOR
 
+animation coroutine
+
+redo bad canvas image pixelmap stuff so no memory leaks
+
 make camera not zoom in screen, zoom in game so all of level can show up if zoom out, instead of just scaling screen canvas
 canvases in same place
 	canvases in debug

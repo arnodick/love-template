@@ -6,9 +6,32 @@ roguelike.actor.drawcoords = function(g,a)
 	local m=g.level.map
 	local tw,th=m.tile.width,m.tile.height
 	local twh,thh=tw/2,th/2
-	a.draw={}
-	a.draw.x=(a.x-1)*tw+twh
-	a.draw.y=(a.y-1)*th+thh
+	if not a.draw then
+		a.draw={}
+	end
+
+-- a.draw[anim.varname]=a.draw[anim.varname]+anim.amount
+
+	local xamount,yamount,xframe,yframe=0,0,0,0
+	if a.anim then
+		if a.anim.varname=="x" then
+			print("XXX")
+			xamount=tw*-a.anim.amount
+			if a.anim.frame then
+				print("DRAW FRAME: "..a.anim.frame)
+				xframe=a.anim.frame
+			end
+		elseif a.anim.varname=="y" then
+			yamount=th*-a.anim.amount
+			if a.anim.frame then
+				print("DRAW FRAME: "..a.anim.frame)
+				yframe=a.anim.frame
+			end
+		end
+	end
+	-- print(frame)
+	a.draw.x=(a.x-1)*tw+twh+(xamount+xframe)
+	a.draw.y=(a.y-1)*th+thh+(yamount+yframe)
 	a.draw.xoff=twh-1
 	a.draw.yoff=thh
 end
@@ -102,8 +125,8 @@ roguelike.actor.control = function(g,a,m,gs)
 			end
 		end
 		-- supper.print(m)
-		roguelike.actor.drawcoords(g,a)
 	end
+	roguelike.actor.drawcoords(g,a)
 end
 
 roguelike.actor.draw = function(g,a)

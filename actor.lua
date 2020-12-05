@@ -122,13 +122,13 @@ actor.control = function(g,a,gs)
 		if not a.transition then
 			module.make(g,a,EM.transition,easing.linear,"vel",a.vel,-a.vel,30)
 		else
-			transition.control(a,a.transition)
+			transition.control(g,a,a.transition)
 		end
 --]]
 	end
 
 	if a.transition then
-		transition.control(a,a.transition)
+		transition.control(g,a,a.transition)
 	end
 
 	if flags.get(a.flags,EF.shopitem) then

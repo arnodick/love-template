@@ -25,7 +25,7 @@ end
 menu.control = function(g,m,gs)
 	run(m.t,"control",g,m,gs)
 	if m.transition then
-		transition.control(m,m.transition)
+		transition.control(g,m,m.transition)
 	end
 end
 

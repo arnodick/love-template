@@ -429,7 +429,7 @@ offgrid.intro =
 
 	control = function(g)
 		if g.transition then
-			transition.control(g,g.transition)
+			transition.control(g,g,g.transition)
 		end
 	end,
 

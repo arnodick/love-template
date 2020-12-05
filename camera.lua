@@ -12,12 +12,12 @@ camera.make = function(g,x,y)
 	--TODO this should insert itself into Game.cameras, can have multiple cameras and jump around from one to another
 end
 
-camera.control = function(c,gs)
+camera.control = function(g,c,gs)
 	if c.target then
 		c.x=c.target.x
 		c.y=c.target.y
 	elseif c.transition then
-		transition.control(c,c.transition)
+		transition.control(g,c,c.transition)
 	end
 end
 

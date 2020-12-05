@@ -1,5 +1,7 @@
-local function make(g,a,m,easing,variablename,startvalue,change,duration,complete,complete_args,t)
-	m.starttime=Game.timer
+local transition={}
+
+transition.make = function(g,a,m,easing,variablename,startvalue,change,duration,complete,complete_args,t)
+	m.starttime=g.timer
 	m.easing=easing
 	m.variablename=variablename
 	m.startvalue=startvalue
@@ -18,8 +20,8 @@ local function make(g,a,m,easing,variablename,startvalue,change,duration,complet
 	--print(startvalue+change)
 end
 
-local function control(a,m)
-	local timeelapsed=Game.timer-m.starttime
+transition.control = function(g,a,m)
+	local timeelapsed=g.timer-m.starttime
 	a[m.variablename]=m.easing(timeelapsed,m.startvalue,m.change,m.duration)
 
 	-- print(a[m.variablename])
@@ -45,8 +47,4 @@ local function control(a,m)
 	end
 end
 
-return
-{
-	make = make,
-	control = control,
-}
+return transition

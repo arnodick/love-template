@@ -73,7 +73,7 @@ local function control(g,m,gs)
 	end
 
 	if m.transition then
-		transition.control(m,m.transition)
+		transition.control(g,m,m.transition)
 		if m.text_trans-math.floor(m.text_trans)<0.1 then
 			sfx.play(g,16)
 		end

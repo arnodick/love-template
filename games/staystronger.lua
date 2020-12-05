@@ -64,6 +64,22 @@ staystronger.make = function(g)
 		font=g.rlfont2
 		-- backgroundcolour={0.1,0.7,0.3}
 	}
+	g.lerp = coroutine.create(function(a,anim)
+		for i=anim.startframe,anim.length do
+			-- a.draw[anim.varname]=a.draw[anim.varname]+anim.amount
+			anim.frame=i
+			print("FRAME: "..anim.frame)
+			coroutine.yield()
+		end
+		g.anim=false
+
+		anim.varname=nil
+		anim.length=0
+		anim.frame=0
+		anim.length=0
+		anim.startframe=1
+		coroutine.yield()
+	end)
 end
 
 -- staystronger.level={}
@@ -97,17 +113,32 @@ staystronger.player =
 		g.step=false
 		if a.controller.move.horizontal~=0 then
 			if a.controller.move.last.horizontal==0 then
-				print(g.turn)
+				-- print(g.turn)
 				-- print(g.player.x)
 				g.step=true
+				g.anim=true
+				a.anim={varname="x",length=10,amount=1*a.controller.move.horizontal,frame=1,startframe=1}
 				g.turn=g.turn+1
 			end
 		elseif a.controller.move.vertical~=0 then
 			if a.controller.move.last.vertical==0 then
-				print(g.turn)
+				-- print(g.turn)
 				g.step=true
+				g.anim=true
+				a.anim={varname="y",length=10,amount=1*a.controller.move.vertical,frame=1,startframe=1}
 				g.turn=g.turn+1
 			end
+		end
+
+		if g.anim then
+			local cr=coroutine.resume(g.lerp,a,a.anim)
+			print(cr)
+			-- if cr==false then
+			-- 	print("HAPENED")
+			-- 	g.anim=false
+			-- 	a.anim=nil
+			-- 	-- g.step=true
+			-- end
 		end
 
 		if a.controller.action.use then
@@ -157,6 +188,7 @@ staystronger.gameplay =
 		-- level.make(g,1,Enums.modes.roguelike)
 		level.make(g,1,Enums.modes.roguelike)
 
+		g.anim=false
 		g.step=false
 
 		local a=actor.make(g,EA.rpg_character,g.level.map.w/2,g.level.map.h/2)
