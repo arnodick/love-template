@@ -10,28 +10,17 @@ roguelike.actor.drawcoords = function(g,a)
 		a.draw={}
 	end
 
--- a.draw[anim.varname]=a.draw[anim.varname]+anim.amount
-
-	local xamount,yamount,xframe,yframe=0,0,0,0
-	if a.anim then
-		if a.anim.varname=="x" then
-			print("XXX")
-			xamount=tw*-a.anim.amount
-			if a.anim.frame then
-				print("DRAW FRAME: "..a.anim.frame)
-				xframe=a.anim.frame
-			end
-		elseif a.anim.varname=="y" then
-			yamount=th*-a.anim.amount
-			if a.anim.frame then
-				print("DRAW FRAME: "..a.anim.frame)
-				yframe=a.anim.frame
-			end
-		end
+	--TODO put this in a.draw or a.anim or something so all games can have animations
+	local horanim,veranim=0,0
+	if a.horanim then
+		horanim=a.horanim
+	end
+	if a.veranim then
+		veranim=a.veranim
 	end
 	-- print(frame)
-	a.draw.x=(a.x-1)*tw+twh+(xamount+xframe)
-	a.draw.y=(a.y-1)*th+thh+(yamount+yframe)
+	a.draw.x=(a.x-1)*tw+twh+horanim
+	a.draw.y=(a.y-1)*th+thh+veranim
 	a.draw.xoff=twh-1
 	a.draw.yoff=thh
 end
@@ -42,7 +31,6 @@ roguelike.actor.make = function(g,a)
 	roguelike.actor.drawcoords(g,a)
 end
 
---TODO input g here, but not at the end
 roguelike.actor.control = function(g,a,m,gs)
 	if g.step==true then
 		if a.controller then
@@ -108,6 +96,11 @@ roguelike.actor.control = function(g,a,m,gs)
 					-- print("MAP START X: "..xstart.." Y: "..ystart)
 					map.setcellraw(ma,a.x,a.y,a)
 					-- print("MAP DEST X: "..a.x.." Y: "..a.y)
+					if a.vec[1]~=0 then
+						module.make(g,a,EM.transition,easing.linear,"horanim",m.tile.width*-a.vec[1],m.tile.width*a.vec[1],5)
+					else
+						module.make(g,a,EM.transition,easing.linear,"veranim",m.tile.width*-a.vec[2],m.tile.width*a.vec[2],5)
+					end
 				else
 					local ac=map.getcellraw(ma,xdestfinal,ydestfinal,true)
 					print("ACTOR COLLISION WITH "..tostring(ac))

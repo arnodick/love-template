@@ -24,6 +24,8 @@ transition.control = function(g,a,m)
 	local timeelapsed=g.timer-m.starttime
 	a[m.variablename]=m.easing(timeelapsed,m.startvalue,m.change,m.duration)
 
+	print(m.variablename.." "..a[m.variablename].." at: "..timeelapsed)
+
 	-- print(a[m.variablename])
 
 	if m.t then
@@ -43,6 +45,9 @@ transition.control = function(g,a,m)
 			end
 		end
 		a[m.variablename]=m.startvalue+m.change
+		-- if a.variablename=="horanim" or a.variablename=="veranim" then
+		-- 	a[variablename]=nil
+		-- end
 		a.transition=nil
 	end
 end
