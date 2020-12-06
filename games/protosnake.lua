@@ -392,7 +392,7 @@ protosnake.actor =
 		if a.tail then
 			if a.controller then
 				local c=a.controller.aim
-				tail.control(a.tail,gs,a,c.horizontal,c.vertical)
+				tail.control(g,a.tail,gs,a,c.horizontal,c.vertical)
 			end
 		end
 	end,

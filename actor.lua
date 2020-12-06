@@ -219,22 +219,22 @@ actor.damage = function(g,a,d)
 	end
 end
 
-actor.impulse = function(a,dir,vel,glitch)
-	glitch=glitch or false
-	local vecx=math.cos(a.d)
-	local vecy=math.sin(a.d)
-	local impx=math.cos(dir)
-	local impy=math.sin(dir)
+-- actor.impulse = function(a,dir,vel,glitch)
+-- 	glitch=glitch or false
+-- 	local vecx=math.cos(a.d)
+-- 	local vecy=math.sin(a.d)
+-- 	local impx=math.cos(dir)
+-- 	local impy=math.sin(dir)
 
-	if glitch then
-		impy = -impy
-	end
+-- 	if glitch then
+-- 		impy = -impy
+-- 	end
 
-	local outx,outy=vector.normalize(vecx+impx,vecy-impy)
-	local outvel=a.vel+vel
+-- 	local outx,outy=vector.normalize(vecx+impx,vecy-impy)
+-- 	local outvel=a.vel+vel
 	
-	return vector.direction(outx,outy), outvel
-end
+-- 	return vector.direction(outx,outy), outvel
+-- end
 
 actor.collision = function(x,y,enemy)--TODO something other than enemy here?
 	local dist=vector.distance(enemy.x,enemy.y,x,y)

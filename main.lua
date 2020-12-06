@@ -5,8 +5,8 @@ Enums=supper.load("","lua",{"images","gfx","fonts","sfx","maps","palettes","musi
 enums.constants(Enums)--constants derived from enums, they're shorthand so you can type EM instead of Enums.modules
 -- supper.print(Enums,"ENUMS")
 
-love.math.setRandomSeed(os.time())
---love.math.setRandomSeed(1)--for debuggin purposes
+-- love.math.setRandomSeed(os.time())
+love.math.setRandomSeed(1)--for debuggin purposes
 Debugger=debugger.make()
 love.keyboard.setKeyRepeat(false)
 love.keyboard.setTextInput(true)

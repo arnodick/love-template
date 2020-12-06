@@ -83,7 +83,8 @@ end
 
 --gives a random entry in any integer-indexed table
 supper.random = function(t)
-	return t[math.random(#t)]
+	--TODO if you're feeling fancy, pass in a function, default it to math if nil, so can pass in love.ath if you want
+	return t[love.math.random(#t)]
 end
 
 supper.contains = function(t,value)

@@ -10,7 +10,7 @@ local function control(g,a,gs)
 	for i,enemy in ipairs(g.actors) do
 		if flags.get(enemy.flags,EF.shootable) then
 			if not enemy.delete then
-				local ld=vector.direction(enemy.x-a.gx,enemy.y-a.gy)
+				local ld=vector.direction(a.gx,enemy.x,a.gy,enemy.y)
 				--TODO: fix this so that it doesnt jump from 0 to 1 when you try to check if ld is > gun angle
 				if ld>a.ga-0.02*math.pi*2 and ld<a.ga+0.02*math.pi*2 then
 					local dist=200
@@ -26,7 +26,7 @@ end
 
 local function draw(g,a)
 	local dist=vector.distance(a.gx,a.gy,a.x,a.y)
-	local dir=vector.direction(vector.components(a.gx,a.gy,a.x,a.y))
+	local dir=vector.direction(a.x,a.y,a.gx,a.gy)
 	for i=10,dist,5 do
 		local x,y=a.gx+math.cos(dir)*i,a.gy+math.sin(dir)*i
 		LG.circle("fill",x,y,6)

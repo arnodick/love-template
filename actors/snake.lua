@@ -65,7 +65,7 @@ end
 
 snake.draw = function(g,a)
 	if a.tail then
-		tail.draw(a.tail)
+		tail.draw(g,a.tail)
 	end
 end
 

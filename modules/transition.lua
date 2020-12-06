@@ -45,9 +45,6 @@ transition.control = function(g,a,m)
 			end
 		end
 		a[m.variablename]=m.startvalue+m.change
-		-- if a.variablename=="horanim" or a.variablename=="veranim" then
-		-- 	a[variablename]=nil
-		-- end
 		a.transition=nil
 	end
 end

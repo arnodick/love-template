@@ -25,6 +25,16 @@ roguelike.actor.drawcoords = function(g,a)
 	a.draw.yoff=thh
 end
 
+roguelike.actor.animate = function(g,a,anim)
+	a.animate=coroutine.create(function(g,a,anim)
+		for i=1,anim.length do
+			print("NOW")
+			a.horanim=g.level.map.tile.width*-a.vec[1]+0.5
+			coroutine.yield()
+		end
+	end)
+end
+
 roguelike.actor.make = function(g,a)
 	local l=g.level
 	map.setcellraw(l.map.actors,a.x,a.y,a)
@@ -97,6 +107,8 @@ roguelike.actor.control = function(g,a,m,gs)
 					map.setcellraw(ma,a.x,a.y,a)
 					-- print("MAP DEST X: "..a.x.." Y: "..a.y)
 					if a.vec[1]~=0 then
+						-- roguelike.actor.animate(g,a,{length=5})
+						-- coroutine.resume(a.animate,g,a,{length=5})
 						module.make(g,a,EM.transition,easing.linear,"horanim",m.tile.width*-a.vec[1],m.tile.width*a.vec[1],5)
 					else
 						module.make(g,a,EM.transition,easing.linear,"veranim",m.tile.width*-a.vec[2],m.tile.width*a.vec[2],5)

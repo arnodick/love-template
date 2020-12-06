@@ -13,7 +13,7 @@ local function make(g,a,t,c,len)
 	t.my=0
 end
 
-local function control(t,gs,a,vx,vy)
+local function control(g,t,gs,a,vx,vy)
 	t.angle=vector.direction(vx,vy)
 	t.vec[1]=math.cos(t.angle)
 	t.vec[2]=math.sin(t.angle)
@@ -26,9 +26,9 @@ local function control(t,gs,a,vx,vy)
 	if t.angle<1 or t.angle>(math.pi*2)-1 then
 		t.my=a.y
 	elseif t.angle>math.pi then
-		t.my=a.y-6-math.floor((Game.timer/a.animation.frames.speed)%a.animation.frames.frames)*4
+		t.my=a.y-6-math.floor((g.timer/a.animation.frames.speed)%a.animation.frames.frames)*4
 	else
-		t.my=a.y+8+math.floor((Game.timer/a.animation.frames.speed)%a.animation.frames.frames)*4
+		t.my=a.y+8+math.floor((g.timer/a.animation.frames.speed)%a.animation.frames.frames)*4
 	end
 	t.x=a.x+t.vec[1]*t.len
 	t.y=a.y+t.vec[2]*t.len
@@ -39,8 +39,8 @@ local function control(t,gs,a,vx,vy)
 	end
 end
 
-local function draw(t)
-	LG.setColor(Game.palette[t.c])--TODO WORK Y COLUR>
+local function draw(g,t)
+	LG.setColor(g.palette[t.c])--TODO WORK Y COLUR>
 	local curve=love.math.newBezierCurve(t.sx,t.sy,t.mx,t.my,t.x,t.y)
 	LG.line(curve:render(2))
 end

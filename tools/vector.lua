@@ -21,29 +21,21 @@ vector.distance = function(x,y,x2,y2)
 	return vector.length(w,h)
 end
 
-vector.direction = function(vx,vy)
+vector.direction = function(vx,vy,tx,ty)
 --TODO just do components in here?
 --TODO normalize to 0 - 1 range
 --TODO use modulo trick? https://stackoverflow.com/questions/1311049/how-to-map-atan2-to-degrees-0-360
+	if tx and ty then
+		vx,vy=vector.components(tx,ty,vx,vy)
+	end
 
---this works with witchwizz
-
-	-- local hack=0
-	-- if vy<0 then
-	-- 	hack=math.pi*2
-	-- end
-	-- return math.atan2(vy,vx)+hack
-
-	--NOTE this works with protosnake
 	local dir=math.atan2(vy,vx)
 	if dir<0 then
-		-- print("DIR IS: "..dir)
+		print("DIR IS: "..dir)
 		dir=math.abs(dir+math.pi*2)
-		-- print("NEW DIR IS: "..dir)
+		print("NEW DIR IS: "..dir)
 	end
 	return dir
-	-- return math.atan2(vy,vx)
-	--return math.clamp(math.atan2(vy,vx),0,math.pi*2,true)
 end
 
 vector.mirror = function(vx,vy,hor)
