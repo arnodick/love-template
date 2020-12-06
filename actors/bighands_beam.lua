@@ -10,7 +10,7 @@ local function control(g,a,gs)
 	for i,enemy in ipairs(g.actors) do
 		if flags.get(enemy.flags,EF.shootable) then
 			if not enemy.delete then
-				local ld=vector.direction(a.gx,enemy.x,a.gy,enemy.y)
+				local ld=vector.direction(enemy.x,enemy.y,a.gx,a.gy)
 				--TODO: fix this so that it doesnt jump from 0 to 1 when you try to check if ld is > gun angle
 				if ld>a.ga-0.02*math.pi*2 and ld<a.ga+0.02*math.pi*2 then
 					local dist=200

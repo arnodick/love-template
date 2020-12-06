@@ -3,13 +3,12 @@ local function move(a,c)
 	if c.target then
 		tarx,tary=c.target.x,c.target.y
 	end
-	local dir=vector.direction(a.x,a.y,tarx,tary)
+	local dir=vector.direction(a.x,a.y,tarx,tary)--TODO BACKWARDS!?
 	return math.cos(dir),math.sin(dir)
 end
 
 local function aim(a,c)
-	local dir=vector.direction(a.x,a.y,c.target.x,c.target.y)
-	-- local dir=vector.direction(c.target.x,c.target.y,a.x,a.y)--TODO why backwards?
+	local dir=vector.direction(a.x,a.y,c.target.x,c.target.y)--TODO BACKWARDS!?
 	return math.cos(dir),math.sin(dir)
 end
 

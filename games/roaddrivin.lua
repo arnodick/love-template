@@ -29,7 +29,8 @@ roaddrivin.level.country = {
 		l.imgdata=l.canvas.background:newImageData()
 		l.co=coroutine.create(function()
 			while l.bgdraw==true do
-				local dir=vector.direction(l.p[l.i+1].x,l.p[l.i+1].y,l.destx,l.desty)
+				local dir=vector.direction(l.destx,l.desty,l.p[l.i+1].x,l.p[l.i+1].y)
+				-- local dir=vector.direction(l.p[l.i+1].x,l.p[l.i+1].y,l.destx,l.desty)
 				local rand=math.randomfraction(math.pi/2)
 				rand=rand*math.choose(-1,1)
 				local vecx,vecy=math.cos(dir+rand),math.sin(dir+rand)

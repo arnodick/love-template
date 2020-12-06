@@ -94,7 +94,7 @@ raycast.actor.draw = function(g,a)
 	-- if a.spr then
 	-- 	local p=g.player
 	-- 	if p then
-	-- 	local dir=vector.direction(vector.components(a.x,a.y,p.x,p.y))
+	-- 	local dir=vector.direction(vector.components(p.x,p.y,a.x,a.y))
 	-- 	local dist=vector.distance(p.x,p.y,a.x,a.y)
 	-- 	local ray=raycast.castray(g,p.x,p.y,dir,dist,0.1)
 	-- 	--if ray.len>=dist*math.cos(dir-Player.d) then
