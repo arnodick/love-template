@@ -9,6 +9,7 @@ end
 
 local function aim(a,c)
 	local dir=vector.direction(a.x,a.y,c.target.x,c.target.y)
+	-- local dir=vector.direction(c.target.x,c.target.y,a.x,a.y)--TODO why backwards?
 	return math.cos(dir),math.sin(dir)
 end
 

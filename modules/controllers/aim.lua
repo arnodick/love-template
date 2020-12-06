@@ -8,6 +8,7 @@ end
 aim.control = function(a,c,gs,c1,c2)
 	if c.input==EMCI.mouse then
 		local dir=vector.direction(a.x,a.y,c1,c2)
+		-- local dir=vector.direction(c1,c2,a.x,a.y)--TODO why is this backwards? should be a.x,a.y,c1,c2
 		c1=math.cos(dir)
 		c2=math.sin(dir)
 	end

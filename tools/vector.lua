@@ -26,14 +26,15 @@ vector.direction = function(vx,vy,tx,ty)
 --TODO normalize to 0 - 1 range
 --TODO use modulo trick? https://stackoverflow.com/questions/1311049/how-to-map-atan2-to-degrees-0-360
 	if tx and ty then
-		vx,vy=vector.components(tx,ty,vx,vy)
+		-- vx,vy=vector.components(tx,ty,vx,vy)
+		vx,vy=vector.components(vx,vy,tx,ty)
 	end
 
 	local dir=math.atan2(vy,vx)
 	if dir<0 then
-		print("DIR IS: "..dir)
+		-- print("DIR IS: "..dir)
 		dir=math.abs(dir+math.pi*2)
-		print("NEW DIR IS: "..dir)
+		-- print("NEW DIR IS: "..dir)
 	end
 	return dir
 end
