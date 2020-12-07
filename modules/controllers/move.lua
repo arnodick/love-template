@@ -16,6 +16,7 @@ move.control = function(a,c,gs,c1,c2)
 	c.last.horizontal=c.horizontal
 
 	if c.last.vertical~=0 then
+		-- print("CON MOVE VER")
 		c.duration.vertical=c.duration.vertical+gs
 	else
 		c.duration.vertical=0

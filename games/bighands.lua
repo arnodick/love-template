@@ -35,7 +35,9 @@ bighands.gameplay =
 		--module.make(g,g.camera,EM.transition,easing.inOutSine,"zoom",g.camera.zoom,zoomchange,60)
 		level.make(g,1,Enums.modes.topdown_tank)
 		local m=g.level.map
-		actor.make(g,EA.witch,m.width-5,m.height/2-5)
+		local a=actor.make(g,EA.witch,m.width/2,m.height/2)
+		-- print(a)
+		game.player.make(g,a)
 	end,
 
 	keypressed = function(g,key)

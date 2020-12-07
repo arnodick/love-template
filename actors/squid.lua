@@ -46,8 +46,8 @@ local function control(g,a)
 				end
 				a.target=nil--don't worry about player any more, just get to safety
 			else--if player is too close and you're not cornered, BACK OFF
-				local playerdir=vector.direction(a.x,a.y,a.target.x,a.target.y)--TODO BACKWARDS!?
-				a.controller.move.target.x,a.controller.move.target.y=a.x-(math.cos(playerdir)*playerdist),a.y-(math.sin(playerdir)*playerdist)
+				local playerdir=vector.direction(a.target.x,a.target.y,a.x,a.y)
+				a.controller.move.target.x,a.controller.move.target.y=a.x+(math.cos(playerdir)*playerdist),a.y+(math.sin(playerdir)*playerdist)
 			end
 		else--if player is not close, then random jitter
 			local x,y=love.math.random(g.level.map.width),love.math.random(g.level.map.height)
