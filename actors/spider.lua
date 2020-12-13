@@ -64,9 +64,9 @@ local function draw(a)
 end
 --]]
 
-local function dead(a)
+local function dead(g,a)
 	for i=1,3 do
-		actor.make(Game,EA.coin,a.x,a.y)
+		actor.make(g,EA.coin,a.x,a.y)
 	end
 end
 

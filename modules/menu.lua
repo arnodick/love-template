@@ -43,7 +43,7 @@ end
 
 menu.draw = function(g,m)
 	if m.border then
-		border.draw(m,m.border)
+		border.draw(g,m,m.border)
 	end
 	LG.setFont(m.font)
 	if not run(m.t,"draw",g,m) then

@@ -52,9 +52,9 @@ local function control(g,a,gs)
 	if g.timer-a.delta>=120 then
 		a.deltimer = a.deltimer+gs
 		if a.deltimer<=80 then
-			sprites.blink(a,14)
+			sprites.blink(g,a,14)
 		else
-			sprites.blink(a,6)
+			sprites.blink(g,a,6)
 		end
 		if a.deltimer>=120 then
 			if a.vel==0 then

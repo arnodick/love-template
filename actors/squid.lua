@@ -46,7 +46,7 @@ local function control(g,a)
 				end
 				a.target=nil--don't worry about player any more, just get to safety
 			else--if player is too close and you're not cornered, BACK OFF
-				local playerdir=vector.direction(a.target.x,a.target.y,a.x,a.y)
+				local playerdir=vector.direction(a.target.x,a.target.y,a.x,a.y)--meant to be backwards so squid goes away
 				a.controller.move.target.x,a.controller.move.target.y=a.x+(math.cos(playerdir)*playerdist),a.y+(math.sin(playerdir)*playerdist)
 			end
 		else--if player is not close, then random jitter

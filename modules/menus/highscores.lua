@@ -3,7 +3,7 @@ local highscores={}
 --TODO g this all up
 highscores.make = function(g,m)
 	local scoretext={}
-	for i,v in ipairs(Game.scores) do
+	for i,v in ipairs(g.scores) do
 		scoretext[i]=v.name.." "..v.score
 	end
 	m.text=scoretext

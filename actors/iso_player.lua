@@ -36,7 +36,7 @@ local function damage(g,a)
 	g.screen.shake=20
 end
 
-local function dead(a)
+local function dead(g,a)
 
 end
 

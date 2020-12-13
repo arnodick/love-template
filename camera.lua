@@ -9,7 +9,7 @@ camera.make = function(g,x,y)
 	c.center={}
 	c.center.x,c.center.y=g.width/2,g.height/2
 	return c
-	--TODO this should insert itself into Game.cameras, can have multiple cameras and jump around from one to another
+	--TODO this should insert itself into g.cameras, can have multiple cameras and jump around from one to another
 end
 
 camera.control = function(g,c,gs)

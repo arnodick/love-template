@@ -25,18 +25,29 @@ roaddrivin.level.country = {
 		table.insert(l.p,l.p[1])
 
 		l.i=1
-		l.destx,l.desty=l.p[l.i].x,l.p[l.i].y
+		l.linedraw=true
+		l.line={0,0,0,0}
+		l.pixelx,l.pixely=l.p[l.i].x,l.p[l.i].y
 		l.imgdata=l.canvas.background:newImageData()
+
+		l.co0=coroutine.create(function()
+			for i,v in ipairs(l.p) do
+				l.line={centrex,centrey,v.x,v.y}
+				coroutine.yield()
+			end
+			l.linedraw=false
+			coroutine.resume(l.co)
+		end)
 		l.co=coroutine.create(function()
 			while l.bgdraw==true do
-				local dir=vector.direction(l.destx,l.desty,l.p[l.i+1].x,l.p[l.i+1].y)
-				-- local dir=vector.direction(l.p[l.i+1].x,l.p[l.i+1].y,l.destx,l.desty)
+				local destx,desty=l.p[l.i+1].x,l.p[l.i+1].y
+				local dir=vector.direction(l.pixelx,l.pixely,destx,desty)
 				local rand=math.randomfraction(math.pi/2)
 				rand=rand*math.choose(-1,1)
 				local vecx,vecy=math.cos(dir+rand),math.sin(dir+rand)
-				l.destx,l.desty=l.destx+vecx,l.desty+vecy
+				l.pixelx,l.pixely=l.pixelx+vecx,l.pixely+vecy
 				
-				if math.round(l.destx)==l.p[l.i+1].x and math.round(l.desty)==l.p[l.i+1].y then
+				if math.round(l.pixelx)==destx and math.round(l.pixely)==desty then
 					if l.i<#l.p-1 then
 						l.i=l.i+1
 					else
@@ -58,7 +69,12 @@ roaddrivin.level.country = {
 	end,
 
 	control = function(g,l)
-		coroutine.resume(l.co)
+		coroutine.resume(l.co0)
+		local co0status=coroutine.status(l.co0)
+		if co0status=="dead" then
+			coroutine.resume(l.co)
+		end
+		-- coroutine.resume(l.co)
 		local costatus=coroutine.status(l.co)
 		if costatus=="dead" then
 			level.make(g,1,Enums.modes.topdown)
@@ -71,8 +87,13 @@ roaddrivin.level.country = {
 				if l.canvas then
 					if l.canvas.background then
 						LG.setCanvas(l.canvas.background)
-							local red=g.palette["red"]
-							l.imgdata:setPixel(l.destx-1,l.desty-1,red[1],red[2],red[3])
+							if l.linedraw==true then
+								LG.line(unpack(l.line))
+								-- l.imgadata:setPixel()
+							else
+								local red=g.palette["red"]
+								l.imgdata:setPixel(l.pixelx-1,l.pixely-1,red[1],red[2],red[3])
+							end
 						LG.setColor(g.palette["pure_white"])
 					end
 				end

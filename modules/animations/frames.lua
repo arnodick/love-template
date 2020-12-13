@@ -6,8 +6,8 @@ local function make(anim,speed,frames)
 	anim.frames=frames
 end
 
-local function draw(anim)
-	return math.floor((Game.timer/anim.speed)%anim.frames)
+local function draw(g,anim)
+	return math.floor((g.timer/anim.speed)%anim.frames)
 end
 
 return

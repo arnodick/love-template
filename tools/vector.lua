@@ -28,6 +28,9 @@ vector.direction = function(vx,vy,tx,ty)
 	if tx and ty then
 		-- vx,vy=vector.components(tx,ty,vx,vy)
 		vx,vy=vector.components(vx,vy,tx,ty)
+	-- 	print("VECTOR COMP x: "..vx.." y: "..vy)
+	-- else
+	-- 	print("VECTOR x: "..vx.." y: "..vy)
 	end
 
 	local dir=math.atan2(vy,vx)

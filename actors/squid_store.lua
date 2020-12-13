@@ -41,9 +41,9 @@ local function control(g,a)
 	end
 end
 
-local function dead(a)
-	local zoomchange=-(Game.camera.zoom-1)
-	module.make(g,Game.camera,EM.transition,easing.inOutSine,"zoom",Game.camera.zoom,zoomchange,10)
+local function dead(g,a)
+	local zoomchange=-(g.camera.zoom-1)
+	module.make(g,g.camera,EM.transition,easing.inOutSine,"zoom",g.camera.zoom,zoomchange,10)
 end
 
 return

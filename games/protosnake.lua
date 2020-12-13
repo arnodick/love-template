@@ -148,8 +148,8 @@ protosnake.player =
 
 	dead = function(g,a)
 		g.speed=math.randomfraction(0.2)+0.25
-		--Game.speed=1
-		scores.update()
+		--g.speed=1
+		scores.update(g)
 	end,
 }
 
@@ -173,12 +173,12 @@ protosnake.gameplay =
 	keypressed = function(g,key)
 		if key=='space' then
 			if g.player.hp<=0 then
-				scores.save()
+				scores.save(g)
 				game.state.make(g,"gameplay")
 			end
 		elseif key=='escape' then
 			if g.hud.menu then
-				scores.save()
+				scores.save(g)
 			end
 			game.state.make(g,"title")
 		end
@@ -298,7 +298,8 @@ protosnake.title =
 		imgdata:mapPixel(pixelmaps.sparkle)
 		imgdata:mapPixel(pixelmaps.crush)
 		local image=LG.newImage(imgdata)
-		love.graphics.draw(image,0,0,0,1,1,0,0,0,0)
+		love.graphics.draw(image,0,0,0,1,1)
+		image:release()
 	--]]
 
 	end
@@ -309,6 +310,7 @@ protosnake.intro =
 	make = function(g)
 		g.hud.imgdata=love.image.newImageData(g.canvas.buffer:getWidth(),g.canvas.buffer:getHeight())
 		g.hud.font=LG.newFont("fonts/Kongtext Regular.ttf",20)
+		g.hud.imgdatatemp=love.image.newImageData(g.canvas.buffer:getWidth(),g.canvas.buffer:getHeight())
 		music.play(2)
 	end,
 
@@ -343,23 +345,24 @@ protosnake.intro =
 		LG.setCanvas(g.canvas.main)
 
 		local cw,ch=g.canvas.buffer:getWidth(),g.canvas.buffer:getHeight()
-		local imgdata=g.canvas.buffer:newImageData()
-		imgdata:mapPixel(pixelmaps.crush)
-		local iw,ih=imgdata:getWidth(),imgdata:getHeight()
+		g.hud.imgdatatemp=g.canvas.buffer:newImageData()--TODO this is causing mem leak
+		g.hud.imgdatatemp:mapPixel(pixelmaps.crush)
+		local iw,ih=g.hud.imgdatatemp:getWidth(),g.hud.imgdatatemp:getHeight()
 		local mid=math.floor(iw/2)
 		
-		for x = iw-1,0,-1 do
+		for x=iw-1,0,-1 do
 			local xoff=x-mid
-		    for y = ih-1,0,-1  do
+		    for y=ih-1,0,-1  do
 				local ynorm=y/ih
 				local xoffsquish=xoff*ynorm
 				local xsquish=math.clamp(math.floor(mid+xoffsquish),0,iw-1)
-				local r,gr,b,a = imgdata:getPixel(x,y)
+				local r,gr,b,a=g.hud.imgdatatemp:getPixel(x,y)
 				g.hud.imgdata:setPixel(xsquish,y,r,gr,b,a)
 		    end
 		end
 		local image=LG.newImage(g.hud.imgdata)
 		love.graphics.draw(image,g.width/2,g.height/2,math.sin(g.timer/100)/3,1,1,g.width/2,g.height/2,0,0)
+		image:release()
 	end,
 }
 
@@ -475,7 +478,7 @@ protosnake.shopitem =
 {
 	control = function(g,a,target)
 		if vector.distance(a.x,a.y,target.x,target.y)<30 then
-			sprites.blink(a,24)
+			sprites.blink(g,a,24)
 			if target.controller.action.action then
 				if target.coin>=a.cost then
 					a.flags=flags.switch(a.flags,EF.shopitem)
@@ -499,8 +502,8 @@ protosnake.collectible =
 		if not flags.get(a.flags,EF.shopitem) then
 			local p=g.player
 			if actor.collision(a.x,a.y,p) then
-				if p[EA[a.t] ] then
-					p[EA[a.t] ]=p[EA[a.t] ]+a.value
+				if p[EA[a.t]] then
+					p[EA[a.t]]=p[EA[a.t]]+a.value
 				end
 				for i,v in pairs(g.actors) do
 					if v.t==EA.coin then
@@ -516,7 +519,7 @@ protosnake.collectible =
 					end
 				end
 				actor.make(g,EA.collectibleget,a.x,a.y,math.pi/2,1,"pure_white",1,a.sprinit)
-				run(EA[a.t],"get",a,gs)
+				run(EA[a.t],"get",g,a,gs)
 				a.delete=true
 			end
 		end

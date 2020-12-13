@@ -9,7 +9,7 @@ local function make(g,a,m,waveform,note,length,notes)
 	if m.notes then
 		m.range=#m.notes
 	end
-	m.start=Game.timer
+	m.start=g.timer
 end
 
 local function control(g,a,m)

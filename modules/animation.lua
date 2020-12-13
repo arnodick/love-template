@@ -7,9 +7,9 @@ animation.make = function(g,a,m,t,...)
 end
 
 --TODO clean this up, use run?
-animation.draw = function(animname,anim)
+animation.draw = function(g,animname,anim)
 	if _G[animname]["draw"] then
-		return _G[animname]["draw"](anim)
+		return _G[animname]["draw"](g,anim)
 	end
 end
 

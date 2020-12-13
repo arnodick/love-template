@@ -105,7 +105,7 @@ actor.control = function(g,a,gs)
 	end
 
 	if a.flash then
-		flash.control(a,a.flash)
+		flash.control(g,a,a.flash)
 	end
 
 
@@ -213,7 +213,7 @@ actor.damage = function(g,a,d)
 					actor.make(g,EA.explosion,a.x,a.y,0,0,"white",20*(a.size))
 				end
 				
-				run(EA[a.t],"dead",a)
+				run(EA[a.t],"dead",g,a)
 			end
 		end
 	end
@@ -322,7 +322,7 @@ actor.twodimensional.draw = function(g,a)
 	end
 	LG.setColor(r,gr,b,alpha)--TODO COL
 	-- love.graphics.setShader(Shader)
-	sprites.draw(a)
+	sprites.draw(g,a)
 	-- love.graphics.setShader()
 
 --[[

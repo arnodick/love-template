@@ -30,10 +30,10 @@ scores.sort = function(s,descending)
 end
 
 --TODO input g here
-scores.update = function()
+scores.update = function(g)
 	local s=scores.load()
 
-	table.insert(s,{name="",score=Game.score})
+	table.insert(s,{name="",score=g.score})
 
 	scores.sort(s)
 
@@ -42,16 +42,16 @@ scores.update = function()
 			table.remove(s,i)
 		end
 	end
-	Game.scores=s
+	g.scores=s
 end
 
-scores.save = function()
-	for i,v in ipairs(Game.scores) do
+scores.save = function(g)
+	for i,v in ipairs(g.scores) do
 		if v.name=="" then
 			v.name="X"
 		end
 	end
-	json.save("scores.json",Game.scores)
+	json.save("scores.json",g.scores)
 end
 
 return scores

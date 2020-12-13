@@ -2,7 +2,7 @@ local item={}
 
 item.make = function(g,a)
 	a.angle=-0.79--TODO put this in actor.make
-	a.delta=0--NOTE need this bc actor.make sets delta to Game.timer, so any actor not spawning at Game.timer==0 can't shoot
+	a.delta=0--NOTE need this bc actor.make sets delta to g.timer, so any actor not spawning at g.timer==0 can't shoot
 	a.held=false
 	
 	module.make(g,a,EM.sound,10,"get")

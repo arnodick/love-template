@@ -17,8 +17,8 @@ palette.set = function(g,i)
 end
 
 --UNUSED
-palette.colourswap = function(c1,c2)
-	Game.palette[c1]=Game.palettes[Game.palettes.i][c2]
+palette.colourswap = function(g,c1,c2)
+	g.palette[c1]=g.palettes[g.palettes.i][c2]
 end
 
 --UNUSED

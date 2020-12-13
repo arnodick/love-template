@@ -18,15 +18,15 @@ sprites.load = function(spr,i)
 end
 
 --TODO this should maybe just go in actor? actor.draw with drawmode?
-sprites.draw = function(a)
+sprites.draw = function(g,a)
 	local spr=a.spr
 --[[
-	if Game.actordata[EA[a.t] ] then
-		spr=Game.actordata[EA[a.t] ].spr
+	if g.actordata[EA[a.t] ] then
+		spr=g.actordata[EA[a.t] ].spr
 	end
 --]]
 	if spr then
-		--local size=a.size or Game.actordata[EA[a.t]].size
+		--local size=a.size or g.actordata[EA[a.t]].size
 		local size=a.size or 1
 
 		local anim={}
@@ -34,7 +34,7 @@ sprites.draw = function(a)
 
 		if a.animation then
 			for k,v in pairs(a.animation) do
-				anim[k]=animation.draw(k,v)
+				anim[k]=animation.draw(g,k,v)
 			end
 		end
 
@@ -46,8 +46,8 @@ sprites.draw = function(a)
 	end
 end
 
-sprites.blink = function(a,spd)
-	if math.floor(Game.timer/spd)%2==0 then
+sprites.blink = function(g,a,spd)
+	if math.floor(g.timer/spd)%2==0 then
 		if a.spr then
 			a.spr=nil
 		end
