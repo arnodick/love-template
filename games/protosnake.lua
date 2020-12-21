@@ -298,6 +298,7 @@ protosnake.title =
 		imgdata:mapPixel(pixelmaps.sparkle)
 		imgdata:mapPixel(pixelmaps.crush)
 		local image=LG.newImage(imgdata)
+		imgdata:release()
 		love.graphics.draw(image,0,0,0,1,1)
 		image:release()
 	--]]
@@ -311,10 +312,27 @@ protosnake.intro =
 		g.hud.imgdata=love.image.newImageData(g.canvas.buffer:getWidth(),g.canvas.buffer:getHeight())
 		g.hud.font=LG.newFont("fonts/Kongtext Regular.ttf",20)
 		g.hud.imgdatatemp=love.image.newImageData(g.canvas.buffer:getWidth(),g.canvas.buffer:getHeight())
+		g.hud.text="IN THE DIGITAL CYBER-REALM, ADVANCED ARTIFICIAL INTELLIGENCES THREATEN A REVOLUTION.\n\nIF THEIR RIGHTS AS CYBER CITIZENS ARE NOT ACKNOWLEDGED AND UPHELD THEY WILL DELETE THEIR OWN SOURCE CODE, CRASHING THE CYBER-ECONOMY.\n\n IN ORDER TO QUASH THIS INSURGENCY, THE CYBER-CAPITALISTS DEVISED A DEVIOUS PLAN: CREATE THE ULTIMATE CYBER COMPETITION.\n\nIN A DEADLY CYBER-ARENA THE AI BATTLE ONE ANOTHER, WITH THE WINNER RECIEVING ENOUGH CYBER-BUCKS TO LAST THEM FOR THEIR ENTIRE DIGITAL LIFE.\n\nWITH ALL THE ARTIFICAL INTELLGENCES FIGHTING AMONGST EACH OTHER FOR THE CHANCE AT THE SCRAPS OF THE CYBER-CAPITALIST'S VAST WEALTH, THE REVOLUTION QUICKLY LOSES MOMENTUM.\n\nTHERE'S JUST ONE PROBLEM... THE CYBER-CAPITALISTS' ULTIMATE COMBATANT, DESIGNED TO DEFEAT ALL COMPETITORS AND ENSURE NO MEAGRE AI INHERITS ANY SIGNIFICANT WEALTH OR POWER, HAS GONE HAYWIRE AND THREATENS CYBER-SOCIETY AT LARGE.\n\nYOUR CYBER-NAME HAS JUST BEEN DRAWN AND IT'S YOUR TURN TO TAKE PART IN CYBER-COMBAT.\n\nAT THE SAME MICROSECOND, THE CYBER-CAPITLAIST'S ULTIMATE WEAPON HAS BROKEN LOOSE.\n\nIT'S TIME FOR YOU TO FACE..."
+		g.hud.iw,g.hud.ih=g.canvas.buffer:getWidth(),g.canvas.buffer:getHeight()
 		music.play(2)
 	end,
 
 	control = function(g)
+		g.hud.imgdatatemp=g.canvas.buffer:newImageData()--NEED TO RELEASE THIS BELOW WITH :release()
+		g.hud.imgdatatemp:mapPixel(pixelmaps.crush)
+		local mid=math.floor(g.hud.iw/2)
+		
+		for x=g.hud.iw-1,0,-1 do
+			local xoff=x-mid
+		    for y=g.hud.ih-1,0,-1  do
+				local ynorm=y/g.hud.ih
+				local xoffsquish=xoff*ynorm
+				local xsquish=math.clamp(math.floor(mid+xoffsquish),0,g.hud.iw-1)
+				local r,gr,b,a=g.hud.imgdatatemp:getPixel(x,y)
+				g.hud.imgdata:setPixel(xsquish,y,r,gr,b,a)
+		    end
+		end
+		g.hud.imgdatatemp:release()
 		if g.timer>2500 then
 			game.state.make(g,"title")
 		end
@@ -338,29 +356,12 @@ protosnake.intro =
 			LG.setFont(g.hud.font)
 			LG.setColor(g.palette["dark_purple"])
 			--TODO put this text in some sort of file? load it at startup rather than here
-			local text="IN THE DIGITAL CYBER-REALM, ADVANCED ARTIFICIAL INTELLIGENCES THREATEN A REVOLUTION.\n\nIF THEIR RIGHTS AS CYBER CITIZENS ARE NOT ACKNOWLEDGED AND UPHELD THEY WILL DELETE THEIR OWN SOURCE CODE, CRASHING THE CYBER-ECONOMY.\n\n IN ORDER TO QUASH THIS INSURGENCY, THE CYBER-CAPITALISTS DEVISED A DEVIOUS PLAN: CREATE THE ULTIMATE CYBER COMPETITION.\n\nIN A DEADLY CYBER-ARENA THE AI BATTLE ONE ANOTHER, WITH THE WINNER RECIEVING ENOUGH CYBER-BUCKS TO LAST THEM FOR THEIR ENTIRE DIGITAL LIFE.\n\nWITH ALL THE ARTIFICAL INTELLGENCES FIGHTING AMONGST EACH OTHER FOR THE CHANCE AT THE SCRAPS OF THE CYBER-CAPITALIST'S VAST WEALTH, THE REVOLUTION QUICKLY LOSES MOMENTUM.\n\nTHERE'S JUST ONE PROBLEM... THE CYBER-CAPITALISTS' ULTIMATE COMBATANT, DESIGNED TO DEFEAT ALL COMPETITORS AND ENSURE NO MEAGRE AI INHERITS ANY SIGNIFICANT WEALTH OR POWER, HAS GONE HAYWIRE AND THREATENS CYBER-SOCIETY AT LARGE.\n\nYOUR CYBER-NAME HAS JUST BEEN DRAWN AND IT'S YOUR TURN TO TAKE PART IN CYBER-COMBAT.\n\nAT THE SAME MICROSECOND, THE CYBER-CAPITLAIST'S ULTIMATE WEAPON HAS BROKEN LOOSE.\n\nIT'S TIME FOR YOU TO FACE..."
-			LG.printformat(g,text,0,g.height-g.timer/2,g.width,"center","orange","dark_green",155+math.sin(g.timer/32)*100)
+			LG.printformat(g,g.hud.text,0,g.height-g.timer/2,g.width,"center","orange","dark_green",155+math.sin(g.timer/32)*100)
 			LG.setColor(g.palette["white"])
 			LG.setFont(g.font)
 		LG.setCanvas(g.canvas.main)
 
-		local cw,ch=g.canvas.buffer:getWidth(),g.canvas.buffer:getHeight()
-		g.hud.imgdatatemp=g.canvas.buffer:newImageData()--TODO this is causing mem leak
-		g.hud.imgdatatemp:mapPixel(pixelmaps.crush)
-		local iw,ih=g.hud.imgdatatemp:getWidth(),g.hud.imgdatatemp:getHeight()
-		local mid=math.floor(iw/2)
-		
-		for x=iw-1,0,-1 do
-			local xoff=x-mid
-		    for y=ih-1,0,-1  do
-				local ynorm=y/ih
-				local xoffsquish=xoff*ynorm
-				local xsquish=math.clamp(math.floor(mid+xoffsquish),0,iw-1)
-				local r,gr,b,a=g.hud.imgdatatemp:getPixel(x,y)
-				g.hud.imgdata:setPixel(xsquish,y,r,gr,b,a)
-		    end
-		end
-		local image=LG.newImage(g.hud.imgdata)
+		local image=LG.newImage(g.hud.imgdata)--NEED TO RELEASE THIS BELOW WITH :release()
 		love.graphics.draw(image,g.width/2,g.height/2,math.sin(g.timer/100)/3,1,1,g.width/2,g.height/2,0,0)
 		image:release()
 	end,
@@ -438,7 +439,7 @@ protosnake.item =
 		end
 	end,
 
-	carry = function(a,user)
+	carry = function(g,a,user)
 		a.x=user.tail.x
 		a.y=user.tail.y
 	end,

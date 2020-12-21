@@ -127,7 +127,7 @@ bighands.item =
 		end	
 	end,
 
-	carry = function(a,user)
+	carry = function(g,a,user)
 		a.x=user.hand.x
 		a.y=user.hand.y
 	end,

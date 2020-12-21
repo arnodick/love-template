@@ -11,7 +11,7 @@ local function make(g,a,c,size,spr,hp)
 	module.make(g,a,EM.target,g.player)
 	
 	--TODO make this stuff into some sort of function?
-	local dir=vector.direction(a.x,a.y,a.target.x,a.target.y)--TODO BACKWARDS!?
+	local dir=vector.direction(a.x,a.y,a.target.x,a.target.y)
 	local dist=vector.distance(a.x,a.y,a.target.x,a.target.y)*1.5
 	local x=math.clamp(a.x+math.cos(dir)*dist,0,g.width)
 	local y=math.clamp(a.y+math.sin(dir)*dist,0,g.height)
@@ -39,7 +39,7 @@ local function control(g,a)
 		end
 	end
 	if not a.controller.move.target then
-		local dir=vector.direction(a.x,a.y,a.target.x,a.target.y)--TODO BACKWARDS!?
+		local dir=vector.direction(a.x,a.y,a.target.x,a.target.y)
 		local dist=vector.distance(a.x,a.y,a.target.x,a.target.y)*1.5
 		local x=math.clamp(a.x+math.cos(dir)*dist,0,g.width)
 		local y=math.clamp(a.y+math.sin(dir)*dist,0,g.height)

@@ -17,8 +17,8 @@ local function control(g,a)
 end
 --]]
 
-local function shoot(a)
-	local r=ray.cast(a.tip.x,a.tip.y,a.angle,250,1)
+local function shoot(g,a)
+	local r=ray.cast(g,a.tip.x,a.tip.y,a.angle,250,1)
 
 --[[
 	local dist=50
@@ -28,9 +28,9 @@ local function shoot(a)
 
 --[[
 	if lx<=0 then lx=1 end
-	if lx>=Game.width then lx=Game.width-1 end
+	if lx>=g.width then lx=g.width-1 end
 	if ly<=0 then ly=1 end
-	if ly>=Game.height then ly=Game.height-1 end
+	if ly>=g.height then ly=g.height-1 end
 --]]
 
 	lx=math.cos(r.d)*r.len

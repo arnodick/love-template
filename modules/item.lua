@@ -19,10 +19,11 @@ item.control = function(g,a,gs)
 	game.state.run(g.name,"item","control",g,a,gs)
 end
 
-item.carry = function(a,user)
-	game.state.run(Game.name,"item","carry",a,user)
+item.carry = function(g,a,user)
+	game.state.run(g.name,"item","carry",g,a,user)
 end
 
+--TODO get rid of shoot stuff, make it "using" or something?
 item.use = function(g,a,gs,user,vx,vy,shoot)
 	a.angle=vector.direction(vx,vy)
 	a.vec[1]=math.cos(a.angle)
@@ -31,7 +32,7 @@ item.use = function(g,a,gs,user,vx,vy,shoot)
 	if a.delta<=0 then
 		if shoot then
 			sfx.play(g,a.snd,a.x,a.y)
-			run(EA[a.t],"shoot",a,gs)
+			run(EA[a.t],"shoot",g,a,gs)
 			a.delta=a.rof
 		end
 	else 

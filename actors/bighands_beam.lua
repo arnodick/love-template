@@ -26,8 +26,8 @@ local function control(g,a,gs)
 end
 
 local function draw(g,a)
-	local dist=vector.distance(a.gx,a.gy,a.x,a.y)
-	--local dir=vector.direction(vector.components(a.x,a.y,a.gx,a.gy))
+	local dist=vector.distance(a.x,a.y,a.gx,a.gy)
+	--local dir=vector.direction(a.x,a.y,a.gx,a.gy)
 	local dir=a.ga
 	--LG.points(a.gx,a.gy,a.x,a.y)
 	

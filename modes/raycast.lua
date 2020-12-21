@@ -142,6 +142,7 @@ raycast.level.make = function(g,l)
 	print(l.settings.inputaim)
 end
 
+--TODO consolidate with ray.cast stuff
 raycast.castray = function(g,x,y,d,dist,step)
 	local ray={}
 	ray.d=d

@@ -22,7 +22,6 @@ vector.distance = function(x,y,x2,y2)
 end
 
 vector.direction = function(vx,vy,tx,ty)
---TODO just do components in here?
 --TODO normalize to 0 - 1 range
 --TODO use modulo trick? https://stackoverflow.com/questions/1311049/how-to-map-atan2-to-degrees-0-360
 	if tx and ty then

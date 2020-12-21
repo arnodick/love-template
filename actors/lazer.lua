@@ -12,13 +12,13 @@ local function draw(a)
 
 end
 
-local function shoot(a)
+local function shoot(g,a)
 	local dist=300
 	local lx,ly=a.x+a.vec[1]*dist,a.y+a.vec[2]*dist
 	if lx<=0 then lx=1 end
-	if lx>=Game.width then lx=Game.width-1 end
+	if lx>=g.width then lx=g.width-1 end
 	if ly<=0 then ly=1 end
-	if ly>=Game.height then ly=Game.height-1 end
+	if ly>=g.height then ly=g.height-1 end
 	actor.make(Game,a.proj,lx,ly,a.angle,0,"pure_white",a.x,a.y,a.angle)
 end
 

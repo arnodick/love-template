@@ -78,6 +78,7 @@ actor.control = function(g,a,gs)
 	--actordata
 	--if a.t then
 		--TODO if use multilevel tables for code libraries then this would have to do run("actor",EA[a.t],"control",g,a,gs)--actor's specific type control (ie snake.control)
+		--TODO get rid of this, just have actors in game's file definition, make enums there
 		run(EA[a.t],"control",g,a,gs)--actor's specific type control (ie snake.control)
 	--end
 
@@ -137,7 +138,7 @@ actor.control = function(g,a,gs)
 	end
 
 	if a.inventory then
-		inventory.control(a,a.inventory)
+		inventory.control(g,a,a.inventory)
 	end
 
 --[[

@@ -5,9 +5,9 @@ inventory.make = function(g,a,m,size)
 	m.max=size or 1
 end
 
-inventory.control = function(a,inv)
+inventory.control = function(g,a,inv)
 	for i,v in ipairs(inv) do
-		item.carry(v,a)
+		item.carry(g,v,a)
 	end
 end
 

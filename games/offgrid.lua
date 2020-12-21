@@ -492,7 +492,9 @@ offgrid.intro =
 			    end
 			end
 			local image=LG.newImage(imgdata)
+			imgdata:release()
 			love.graphics.draw(image,0,550,0,1,1)
+			image:release()
 
 			LG.setFont(g.titlefont)
 			LG.printformat(g,"press Z to start",0,800,640,"center","white","dark_gray",100+math.sin(g.timer/10)*100)

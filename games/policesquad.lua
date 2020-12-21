@@ -116,7 +116,7 @@ policesquad.item =
 	control = function(g,a,gs)
 	end,
 
-	carry = function(a,user)
+	carry = function(g,a,user)
 	end,
 }
 
