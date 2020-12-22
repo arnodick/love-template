@@ -4,6 +4,9 @@ animation coroutine
 
 redo bad canvas image pixelmap stuff so no memory leaks
 
+put actor stuff in individual game
+	at end of eg protosnake.actor.control have game.state.run(local actors.snake.run), only do this for games that need it
+
 make camera not zoom in screen, zoom in game so all of level can show up if zoom out, instead of just scaling screen canvas
 canvases in same place
 	canvases in debug

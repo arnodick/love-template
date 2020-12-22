@@ -425,6 +425,10 @@ offgrid.intro =
 	make = function(g)
 		g.introstart=true
 		g.drawoffgrid=false
+		g.stuff={}
+		g.yoff=-200
+		g.font2=LG.newFont("fonts/Kongtext Regular.ttf",90)
+		LG.setFont(g.font2)
 	end,
 
 	control = function(g)
@@ -455,21 +459,18 @@ offgrid.intro =
 			sfx.play(g,22)
 			module.make(g,g,EM.transition,easing.linear,"letter_timer",0,1,100,shakey,{})
 		end
-		local f=LG.newFont("fonts/Kongtext Regular.ttf",90)
-		f:setFilter("nearest","nearest",0) --clean TEXT scaling
-		LG.setFont(f)
+		LG.setFont(g.font2)
 
-		local yoff=-200
 		--LG.print("offgrid intro", g.width/2, g.height/2)
-		LG.print("O",g.width-(g.letter_timer*(g.width-20)),g.height/2+yoff)
-		LG.print("N",120,g.height/2*g.letter_timer+yoff)
-		LG.print("T",320,g.height-(g.letter_timer*g.height/2)+yoff)
-		LG.print("H",g.width-(g.letter_timer*(g.width-420)),g.height/2*g.letter_timer+yoff)
-		LG.print("E",520*g.letter_timer,g.height/2*g.letter_timer+yoff)
-		LG.print("G",120*g.letter_timer,g.height/2*g.letter_timer+100+yoff)
-		LG.print("R",220,g.height-(g.letter_timer*g.height/2)+100+yoff)
-		LG.print("I",g.width-(g.letter_timer*(g.width-320)),g.height/2*g.letter_timer+100+yoff)
-		LG.print("D",g.width-(g.letter_timer*(g.width-420)),g.height/2+100+yoff)
+		LG.print("O",g.width-(g.letter_timer*(g.width-20)),g.height/2+g.yoff)
+		LG.print("N",120,g.height/2*g.letter_timer+g.yoff)
+		LG.print("T",320,g.height-(g.letter_timer*g.height/2)+g.yoff)
+		LG.print("H",g.width-(g.letter_timer*(g.width-420)),g.height/2*g.letter_timer+g.yoff)
+		LG.print("E",520*g.letter_timer,g.height/2*g.letter_timer+g.yoff)
+		LG.print("G",120*g.letter_timer,g.height/2*g.letter_timer+100+g.yoff)
+		LG.print("R",220,g.height-(g.letter_timer*g.height/2)+100+g.yoff)
+		LG.print("I",g.width-(g.letter_timer*(g.width-320)),g.height/2*g.letter_timer+100+g.yoff)
+		LG.print("D",g.width-(g.letter_timer*(g.width-420)),g.height/2+100+g.yoff)
 
 		if g.drawoffgrid==true then
 			LG.setCanvas(g.canvas.buffer)

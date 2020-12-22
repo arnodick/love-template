@@ -19,6 +19,7 @@ end
 
 local function shoot(g,a)
 	local r=ray.cast(g,a.tip.x,a.tip.y,a.angle,250,1)
+	local r=ray.cast(g,a.tip.x,a.tip.y,a.angle,250,1)
 
 --[[
 	local dist=50
