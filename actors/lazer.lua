@@ -19,7 +19,7 @@ local function shoot(g,a)
 	if lx>=g.width then lx=g.width-1 end
 	if ly<=0 then ly=1 end
 	if ly>=g.height then ly=g.height-1 end
-	actor.make(Game,a.proj,lx,ly,a.angle,0,"pure_white",a.x,a.y,a.angle)
+	actor.make(g,a.proj,lx,ly,a.angle,0,"pure_white",a.x,a.y,a.angle)
 end
 
 return

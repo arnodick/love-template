@@ -1,5 +1,9 @@
 local protosnake={}
 
+-- local actors={}
+
+-- actors.snake={}
+
 protosnake.make = function(g)
 	-- g.window={}
  --    g.window.width=640
@@ -424,7 +428,7 @@ protosnake.actor =
 			local maxdist=vector.distance(0,0,g.width,g.height)
 			g.speed=0.05+vector.distance(g.player.x,g.player.y,a.x,a.y)/maxdist+math.choose(-0.02,0.03,0.05)
 			if a.drop then
-				drop.spawn(a,a.x,a.y)
+				drop.spawn(g,a,a.x,a.y)
 			end
 		end
 	end,
@@ -484,7 +488,7 @@ protosnake.shopitem =
 				if target.coin>=a.cost then
 					a.flags=flags.switch(a.flags,EF.shopitem)
 					actor.corpse(g,a.menu,a.menu.w+1,a.menu.h+1,true)
-					actor.make(Game,EA.explosion,a.x,a.y,0,0,"white",40)
+					actor.make(g,EA.explosion,a.x,a.y,0,0,"white",40)
 					a.menu=nil
 					target.coin=target.coin-a.cost
 				else

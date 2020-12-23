@@ -37,8 +37,8 @@ local function shoot(g,a)
 	lx=math.cos(r.d)*r.len
 	ly=math.sin(r.d)*r.len
 
-	--actor.make(Game,EA.bighands_beam,a.tip.x+lx,a.tip.y+ly,a.angle,0,a.tip.x,a.tip.y,a.angle)
-	actor.make(Game,EA.bighands_beam,a.tip.x+lx,a.tip.y+ly,r.d,0,a.tip.x,a.tip.y,r.d)
+	--actor.make(g,EA.bighands_beam,a.tip.x+lx,a.tip.y+ly,a.angle,0,a.tip.x,a.tip.y,a.angle)
+	actor.make(g,EA.bighands_beam,a.tip.x+lx,a.tip.y+ly,r.d,0,a.tip.x,a.tip.y,r.d)
 end
 
 return

@@ -73,7 +73,6 @@ types.digital = function(a,c,horizontal,vertical,moving)
 	end
 
 	-- if moving and flags.get(a.flags,EF.player) then
-	-- 	print("TURN "..Game.turn)
 	-- 	print("PLAYER HOR "..horizontal)
 	-- 	print("PLAYER VER "..vertical)
 	-- end

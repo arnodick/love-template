@@ -24,6 +24,9 @@ debugger.update = function(g,d)
 		if g.levels.index then
 			table.insert(debuglist,"Level:"..g.levels.index)
 		end
+		if g.turn then
+			table.insert(debuglist,"Turn:"..g.turn)
+		end
 		if g.cursor then
 			table.insert(debuglist,"cur x:"..g.cursor.x)
 			table.insert(debuglist,"cur y:"..g.cursor.y)

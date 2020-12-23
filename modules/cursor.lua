@@ -81,7 +81,6 @@ cursor.editor.wheelmoved = function(g,c,x,y)
 	c.value=math.clamp(c.value+y,min,max)
 end
 
---TODO input Game into this
 cursor.editor.draw = function(g,c)
 	local l=g.level
 	local m=g.level.map
