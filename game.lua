@@ -372,7 +372,7 @@ end
 
 game.counters = function(g,a,amount)
 	local c=g.counters
-	local actorname=EA[a.t]
+	local actorname=a.t
 	if not c[actorname] then
 		c[actorname]=0
 	end

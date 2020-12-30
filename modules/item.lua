@@ -32,7 +32,7 @@ item.use = function(g,a,gs,user,vx,vy,shoot)
 	if a.delta<=0 then
 		if shoot then
 			sfx.play(g,a.snd,a.x,a.y)
-			run(EA[a.t],"shoot",g,a,gs)
+			game.state.run(g.name,"actor","shoot",g,a,gs)
 			a.delta=a.rof
 		end
 	else 

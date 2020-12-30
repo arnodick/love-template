@@ -37,7 +37,8 @@ topdown.actor.control = function(g,a,m,gs)
 	end
 
 	if collx or colly then
-		run(EA[a.t],"collision",g,a)
+		-- run(EA[a.t],"collision",g,a)
+		game.state.run(g.name,"actor","collision",g,a)
 		if a.collisions then
 			collisions.run(g,a)
 		end

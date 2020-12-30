@@ -1,6 +1,8 @@
 EDITOR
 
 animation coroutine
+animation draw calcs, so draw stuff isn't being calculated in draw function
+	actor.draw.x, y, angle etc
 
 put actor stuff in individual game
 	at end of eg protosnake.actor.control have game.state.run(local actors.snake.run), only do this for games that need it

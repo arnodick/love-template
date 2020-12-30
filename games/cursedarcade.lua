@@ -5,7 +5,6 @@ cursedarcade.make = function(g)
 end
 
 cursedarcade.player={}
-
 cursedarcade.player.control = function(g,a)
 	a.rays={}
 	local x=1
@@ -26,6 +25,19 @@ cursedarcade.player.control = function(g,a)
 	table.sort(a.rays,raysort)
 end
 
+cursedarcade.actor={}
+cursedarcade.actor.make = function(g,a,c,size,spr,hp)
+	a.size=size or 1
+	a.spr=spr or 193
+	a.hp=hp or 8
+
+	module.make(g,a,EM.sound,4,"damage")
+	module.make(g,a,EM.hitradius,4)
+	module.make(g,a,EM.inventory,1)
+
+	a.flags=flags.set(a.flags,EF.damageable,EF.shootable)
+end
+
 cursedarcade.level={}
 
 cursedarcade.gameplay =
@@ -33,7 +45,7 @@ cursedarcade.gameplay =
 	make = function(g)
 		level.make(g,1,Enums.modes.raycast)
 		local m=g.level.map
-		local a=actor.make(g,EA.template_actor,m.width/2-5,m.height/2-5)
+		local a=actor.make(g,"template_actor",m.width/2-5,m.height/2-5)
 		game.player.make(g,a,true)
 		-- g.clear=true
 	end,

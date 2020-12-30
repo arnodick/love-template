@@ -10,8 +10,6 @@ iso.gameplay =
 {
 	make = function(g)
 		level.make(g,1,Enums.modes.isometric)
-
-		--g.player=actor.make(g,EA.iso_player,g.width/2,g.height/2)
 	end,
 
 	keypressed = function(g,key)

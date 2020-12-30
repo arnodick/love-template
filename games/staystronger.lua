@@ -159,14 +159,14 @@ staystronger.gameplay =
 
 		g.step=false
 
-		local a=actor.make(g,EA.rpg_character,g.level.map.w/2,g.level.map.h/2)
+		local a=actor.make(g,"rpg_character",g.level.map.w/2,g.level.map.h/2)
 		print(a.char)
 		print(string.byte(a.char))
 		game.player.make(g,a,true)
 		a.char='@'
 		-- a.char=g.charset[186]
 		a.colour={1,1,1}
-		local enemy=actor.make(g,EA.rpg_character,2,2)
+		local enemy=actor.make(g,"rpg_character",2,2)
 		enemy.char='$'
 		-- enemy.char=g.charset[221]
 		enemy.colour={0.5,0,0}
@@ -185,6 +185,15 @@ staystronger.gameplay =
 }
 
 staystronger.actor={}
+staystronger.actor.make = function(g,a,c,size,char,hp)
+	a.cinit=c or "dark_blue"
+	a.c=a.cinit or "blue"
+	a.size=size or 1
+	a.char=char or "X"
+	a.hp=hp or 8
+
+	a.flags=flags.set(a.flags,EF.damageable,EF.shootable,EF.explosive)
+end
 staystronger.actor.collision = function(g,a,c)
 	c.delete=true
 	local actormap=g.level.map.actors

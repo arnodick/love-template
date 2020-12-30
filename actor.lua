@@ -6,7 +6,6 @@ actor.load = function(g,name,x,y,d,angle,vel,c)
 	local a={}
 	supper.copy(a,g.actordata[name])
 
-	--a.t=EA[name]
 	a.name=name
 	a.x=x or love.math.random(319)
 	a.y=y or love.math.random(239)
@@ -43,13 +42,8 @@ actor.make = function(g,t,x,y,d,vel,...)
 	a.delta=g.timer
 	a.delete=false
 	a.flags = 0x0
-	run(EA[a.t],"make",g,a,...)--actor's specifc make function (ie snake.make)
+	game.state.run(g.name,"actor","make",g,a,...)
 	game.counters(g,a,1)
---[[
-	if flags.get(a.flags,EF.queue) then
-		g.actors[ EA[a.t].."s" ][ EA[a.t].."s" ]={}
-	end
---]]
 
 	--TODO in here do if inivalues.flags then flags.set(a,EF[flagname],...)
 
@@ -71,15 +65,9 @@ actor.control = function(g,a,gs)
 	if g.level then
 		if g.level.mode then
 			game.state.run(g.level.modename,"actor","control",g,a,g.level.map,gs)
-			-- run(g.level.modename,"control",a,g.level.map,gs,g)--TODO CLEAN THIS UP! input g first, can get map in there? ALSO, game.state.run(g.level.modename,"actor","control")
 		end
 	end
-
-	--actordata
-	--if a.t then
-		--TODO get rid of this, just have actors in game's file definition, make enums there
-		run(EA[a.t],"control",g,a,gs)--actor's specific type control (ie snake.control)
-	--end
+	game.state.run(g.name,"actor","control",g,a,gs)--TODO is it okay that this is here now, instead of farther down?
 
 	if a.controls then
 		controls.run(g,a,gs)
@@ -147,7 +135,7 @@ actor.control = function(g,a,gs)
 	end
 --]]
 
-	game.state.run(g.name,"actor","control",g,a,gs)
+	-- game.state.run(g.name,"actor","control",g,a,gs)--this is moved up farther now, is that okay?
 
 	local m=g.level.map
 	if a.x<-10
@@ -171,6 +159,8 @@ actor.draw = function(g,a)
 		end
 	end
 
+	-- game.state.run(g.name,"actor","draw",g,a)
+
 	if flags.get(a.flags,EF.player) then
 		game.player.draw(g,a)
 	end
@@ -178,8 +168,6 @@ end
 
 actor.damage = function(g,a,d)
 	if not a.delete then
-		--TODO game-specific
-		module.make(g,a,"flash","c","white",a.cinit,6)
 		if a.sound then
 			if a.sound.damage then
 				sfx.play(g,a.sound.damage,a.x,a.y)
@@ -189,7 +177,7 @@ actor.damage = function(g,a,d)
 		--TODO a lot of this stuff is game specific, or rather level specific (each level should have its own rules/"physics" and some games just have the same for every level, whereas games with different modes in different parts of the game will have different rules/physics in different levels)
 		if flags.get(a.flags,EF.damageable) then
 			a.hp=a.hp-d
-			run(EA[a.t],"damage",a)
+			-- run(EA[a.t],"damage",a)--TODO should game.state.run(g.name,"actor","damage",g,a,d) be here instead?
 			if flags.get(a.flags,EF.player) then
 				game.player.damage(g,a)
 			end
@@ -208,13 +196,8 @@ actor.damage = function(g,a,d)
 				if flags.get(a.flags,EF.player) then
 					game.player.dead(g,a)
 				end
-
-				--TODO sort of game-specific
-				if flags.get(a.flags,EF.explosive) then
-					actor.make(g,EA.explosion,a.x,a.y,0,0,"white",20*(a.size))
-				end
 				
-				run(EA[a.t],"dead",g,a)
+				-- run(EA[a.t],"dead",g,a)--TODO is it okay that game.state.run(g.name,"actor","dead",g,a) is not down here?
 			end
 		end
 	end
@@ -247,68 +230,6 @@ actor.collision = function(x,y,enemy)--TODO something other than enemy here?
 	return false
 end
 
-actor.corpse = function(g,a,tw,th,hack)
-	local dir=math.randomfraction(math.pi*2)
-	--local ix,iy=a.x-tw/2,a.y-th/2
-	--local ix,iy=a.x-tw/2-8,a.y-th/2-8
-	local ix,iy=a.x-tw/2-(g.camera.x-g.width/2),a.y-th/2-(g.camera.y-g.height/2)
-	local ix2,iy2=ix+tw,iy+th
-
-	if ix<0 then ix=0 end
-	if iy<0 then iy=0 end
-	if ix2>g.width then
-		local diff=ix2-g.width
-		tw=tw-diff
-	end
-	if iy2>g.height then
-		local diff=iy2-g.height
-		th=th-diff
-	end
-	
-	local body=actor.make(g,EA.debris,a.x,a.y)
-	body.decel=0.1
-	if not hack then
-		local choice=math.choose(1,2)
-		if choice==1 then
-			local imgdata=g.canvas.main:newImageData(1,1,ix,iy,tw,th)
-			body.image=LG.newImage(imgdata)
-		else
-			local imgdata=g.canvas.main:newImageData(1,1,ix,iy,tw/2,th)
-			body.image=LG.newImage(imgdata)
-			body.d=dir
-
-			local body2=actor.make(g,EA.debris,a.x,a.y)
-			body2.decel=0.1
-			local imgdata2=g.canvas.main:newImageData(1,1,ix+tw/2,iy,tw/2,th)
-			body2.image=LG.newImage(imgdata2)
-			body2.d=dir+math.randomfraction(0.5)-0.25
-		end
-	else
-		body.decel=0.2
-		local imgdata=g.canvas.main:newImageData(1,1,ix,iy,tw/2,th/2)
-		body.image=LG.newImage(imgdata)
-		body.d=math.randomfraction(math.pi*2)
-
-		local body2=actor.make(g,EA.debris,a.x,a.y)
-		body2.decel=0.2
-		local imgdata2=g.canvas.main:newImageData(1,1,ix+tw/2,iy+th/2,tw/2,th/2)
-		body2.image=LG.newImage(imgdata2)
-		body2.d=math.randomfraction(math.pi*2)
-
-		local body3=actor.make(g,EA.debris,a.x,a.y)
-		body3.decel=0.2
-		local imgdata3=g.canvas.main:newImageData(1,1,ix+tw/2,iy,tw/2,th/2)
-		body3.image=LG.newImage(imgdata3)
-		body3.d=math.randomfraction(math.pi*2)
-
-		local body4=actor.make(g,EA.debris,a.x,a.y)
-		body4.decel=0.2
-		local imgdata4=g.canvas.main:newImageData(1,1,ix,iy,tw/2,th/2)
-		body4.image=LG.newImage(imgdata4)
-		body4.d=math.randomfraction(math.pi*2)
-	end
-end
-
 actor.twodimensional.draw = function(g,a)
 --[[
 	run(EA[a.t],"predraw",a)
@@ -334,7 +255,8 @@ actor.twodimensional.draw = function(g,a)
 
 	--actordata
 	--if a.t then
-		run(EA[a.t],"draw",g,a)--actor's specific draw function (ie snake.draw)
+		-- run(a.t,"draw",g,a)--actor's specific draw function (ie snake.draw)
+		game.state.run(g.name,"actor","draw",g,a)
 	--end
 
 	if Debugger.debugging then

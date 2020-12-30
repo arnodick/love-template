@@ -111,12 +111,9 @@ debugger.update = function(g,d)
 			end
 		end
 		table.insert(debuglist,"level path: "..levelpathstring)
----[[
 		for i,v in pairs(g.counters) do
-			--table.insert(debuglist,i.." count: "..#g.counters[i])
 			table.insert(debuglist,i.." count: "..g.counters[i])
 		end
---]]
 --[[
 		for i,v in pairs(g.actordata) do
 			table.insert(debuglist,i.." count: "..v.count)

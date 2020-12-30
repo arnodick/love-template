@@ -4,6 +4,19 @@ template.make = function(g)
 
 end
 
+cursedarcade.actor={}
+cursedarcade.actor.make = function(g,a,c,size,spr,hp)
+	a.size=size or 1
+	a.spr=spr or 193
+	a.hp=hp or 8
+
+	module.make(g,a,EM.sound,4,"damage")
+	module.make(g,a,EM.hitradius,4)
+	module.make(g,a,EM.inventory,1)
+
+	a.flags=flags.set(a.flags,EF.damageable,EF.shootable)
+end
+
 template.level={}
 
 template.gameplay =
@@ -11,7 +24,7 @@ template.gameplay =
 	make = function(g)
 		level.make(g,1,Enums.modes.topdown)
 		local m=g.level.map
-		actor.make(g,EA.template_actor,m.width/2-5,m.height/2-5)
+		actor.make(g,"template_actor",m.width/2-5,m.height/2-5)
 	end,
 
 	keypressed = function(g,key)
