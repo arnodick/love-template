@@ -1,4 +1,12 @@
 DONE
+put actor stuff in individual game
+	at end of eg protosnake.actor.control have game.state.run(local actors.snake.run), only do this for games that need it
+	seems like protosnake is only game that actually uses game.actor.control, any others?
+	is it okay to move this up to where actortype.control is in actor?
+	what games have actors?
+		protosnake MOST IN HERE
+	have to change actortype.make and actortype.draw as well, damage, get (only in protosnake collectibe it seems), maybe dead too
+
 g in all/most functions
 redo bad canvas image pixelmap stuff so no memory leaks
 make buttons more consistent ie enter or space or z for next menu?

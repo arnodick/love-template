@@ -4,14 +4,6 @@ animation coroutine
 animation draw calcs, so draw stuff isn't being calculated in draw function
 	actor.draw.x, y, angle etc
 
-put actor stuff in individual game
-	at end of eg protosnake.actor.control have game.state.run(local actors.snake.run), only do this for games that need it
-	seems like protosnake is only game that actually uses game.actor.control, any others?
-	is it okay to move this up to where actortype.control is in actor?
-	what games have actors?
-		protosnake MOST IN HERE
-	have to change actortype.make and actortype.draw as well, damage, get (only in protosnake collectibe it seems), maybe dead too
-
 make camera not zoom in screen, zoom in game so all of level can show up if zoom out, instead of just scaling screen canvas
 canvases in same place
 	canvases in debug

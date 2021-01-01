@@ -1,7 +1,4 @@
 local function constants(e) --NOTE this function has side effects! makes global variables
-	if e.actors then
-		EA=e.actors
-	end
 	if e.modules then
 		EM=e.modules
 		if EM.menus then

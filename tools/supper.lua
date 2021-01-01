@@ -199,6 +199,30 @@ supper.load = function(dir,extensions,excludes)
 	return l
 end
 
+--creates and runs a series of coroutines
+supper.coroutines={}
+--takes any number of coroutines and inserts them into a table with an index counter that is used by supper.coroutines.control
+supper.coroutines.make = function(...)
+	local cors={...}
+	cors.i=1
+	return cors
+end
+--takes in a table of coroutines created by supper.coroutines.make and runs each one in the order they were inserted into supper.coroutines.make
+--if any of the coroutines are running, returns true, and when all coroutines in the cors table are done running, returns false
+supper.coroutines.control = function(cors)
+	local coindex=cors.i
+	if coindex<=#cors then
+		coroutine.resume(cors[coindex])
+		local costatus=coroutine.status(cors[coindex])
+		if costatus=="dead" then
+			cors.i=cors.i+1
+		end
+	else
+		return false
+	end
+	return true
+end
+
 -- Supper:
 -- Don't walk for your supper... RUN!
 

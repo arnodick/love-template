@@ -30,53 +30,46 @@ roaddrivin.level.country = {
 		l.pixelx,l.pixely=l.p[l.i].x,l.p[l.i].y
 		l.imgdata=l.canvas.background:newImageData()
 
-		l.co0=coroutine.create(function()
-			for i,v in ipairs(l.p) do
-				l.line={centrex,centrey,v.x,v.y}
-				coroutine.yield()
-			end
-			l.linedraw=false
-			coroutine.resume(l.co)
-		end)
-		l.co=coroutine.create(function()
-			while l.bgdraw==true do
-				local destx,desty=l.p[l.i+1].x,l.p[l.i+1].y
-				local dir=vector.direction(l.pixelx,l.pixely,destx,desty)
-				local rand=math.randomfraction(math.pi/2)
-				rand=rand*math.choose(-1,1)
-				local vecx,vecy=math.cos(dir+rand),math.sin(dir+rand)
-				l.pixelx,l.pixely=l.pixelx+vecx,l.pixely+vecy
-				
-				if math.round(l.pixelx)==destx and math.round(l.pixely)==desty then
-					if l.i<#l.p-1 then
-						l.i=l.i+1
-					else
-						print("OK")
-						l.bgdraw=false
-						coroutine.resume(l.co2)
-						--TODO do l.filldarw==true stuff in here
-					end
+		l.coroutines=supper.coroutines.make(
+			coroutine.create(function()
+				for i,v in ipairs(l.p) do
+					l.line={centrex,centrey,v.x,v.y}
+					coroutine.yield()
 				end
-				coroutine.yield()
-			end
-		end)
-		l.co2=coroutine.create(function()
-			print("co2")
-		end)
-		-- l.rand=0
-		-- l.dist=1
-		-- l.filldrawpoints={}
+				l.linedraw=false
+				-- coroutine.resume(l.co)
+			end),
+			coroutine.create(function()
+				while l.bgdraw==true do
+					local destx,desty=l.p[l.i+1].x,l.p[l.i+1].y
+					local dir=vector.direction(l.pixelx,l.pixely,destx,desty)
+					local rand=math.randomfraction(math.pi/2)
+					rand=rand*math.choose(-1,1)
+					local vecx,vecy=math.cos(dir+rand),math.sin(dir+rand)
+					l.pixelx,l.pixely=l.pixelx+vecx,l.pixely+vecy
+					
+					if math.round(l.pixelx)==destx and math.round(l.pixely)==desty then
+						if l.i<#l.p-1 then
+							l.i=l.i+1
+						else
+							print("OK")
+							l.bgdraw=false
+							-- coroutine.resume(l.co2)
+							--TODO do l.filldarw==true stuff in here
+						end
+					end
+					coroutine.yield()
+				end
+			end),
+			coroutine.create(function()
+				print("co2")
+			end)
+		)
 	end,
 
 	control = function(g,l)
-		coroutine.resume(l.co0)
-		local co0status=coroutine.status(l.co0)
-		if co0status=="dead" then
-			coroutine.resume(l.co)
-		end
-		-- coroutine.resume(l.co)
-		local costatus=coroutine.status(l.co)
-		if costatus=="dead" then
+		local running=supper.coroutines.control(l.coroutines)
+		if not running then
 			level.make(g,1,Enums.modes.topdown)
 		end
 	end,
