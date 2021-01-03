@@ -10,8 +10,7 @@ topdown.actor.control = function(g,a,m,gs)
 			a.vel=vector.length(c.horizontal,c.vertical)
 		end
 	end
-	a.vec[1]=math.cos(a.d)
-	a.vec[2]=math.sin(a.d)
+	a.vec={vector.vectors(a.d)}
 
 	if a.inventory then
 		if #a.inventory>0 then

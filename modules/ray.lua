@@ -6,7 +6,8 @@ ray.cast = function(g,x,y,d,dist,step)
 	r.d=d
 	for j=step,dist,step do
 		local m=g.level.map
-		local cell=map.getcellvalue(m,x+(math.cos(d)*j),y+(math.sin(d)*j))
+		local vx,vy=vector.vectors(d)
+		local cell=map.getcellvalue(m,x+vx*j,y+vy*j)
 		if cell then
 			--if cell~=0 then
 			if flags.get(cell,EF.solid,16) then

@@ -14,7 +14,7 @@ actor.load = function(g,name,x,y,d,angle,vel,c)
 	a.vel=vel or 0
 	a.c=c or 1
 	a.cinit=a.c
-	a.vec={math.cos(a.d),math.sin(a.d)}
+	a.vec={vector.vectors(a.d)}
 	a.speed=1
 	a.delta=g.timer
 	a.delete=false
@@ -36,7 +36,7 @@ actor.make = function(g,t,x,y,d,vel,...)
 	a.y=y or love.math.random(239)
 	a.d=d or 0
 	a.vel=vel or 0
-	a.vec={math.cos(a.d),math.sin(a.d)}
+	a.vec={vector.vectors(a.d)}
 	a.angle=0
 	a.speed=1
 	a.delta=g.timer
@@ -203,23 +203,6 @@ actor.damage = function(g,a,d)
 	end
 end
 
--- actor.impulse = function(a,dir,vel,glitch)
--- 	glitch=glitch or false
--- 	local vecx=math.cos(a.d)
--- 	local vecy=math.sin(a.d)
--- 	local impx=math.cos(dir)
--- 	local impy=math.sin(dir)
-
--- 	if glitch then
--- 		impy = -impy
--- 	end
-
--- 	local outx,outy=vector.normalize(vecx+impx,vecy-impy)
--- 	local outvel=a.vel+vel
-	
--- 	return vector.direction(outx,outy), outvel
--- end
-
 actor.collision = function(x,y,enemy)--TODO something other than enemy here?
 	local dist=vector.distance(enemy.x,enemy.y,x,y)
 	if enemy.hitradius then
@@ -234,7 +217,6 @@ actor.twodimensional.draw = function(g,a)
 --[[
 	run(EA[a.t],"predraw",a)
 --]]
-
 	local c=a.c or "pure_white"
 	--local c=a.c or g.actordata[EA[a.t]].c
 	local r,gr,b=unpack(g.palette[c])

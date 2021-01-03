@@ -26,8 +26,7 @@ end
 --TODO get rid of shoot stuff, make it "using" or something?
 item.use = function(g,a,gs,user,vx,vy,shoot)
 	a.angle=vector.direction(vx,vy)
-	a.vec[1]=math.cos(a.angle)
-	a.vec[2]=math.sin(a.angle)
+	a.vec={vector.vectors(a.angle)}
 
 	if a.delta<=0 then
 		if shoot then

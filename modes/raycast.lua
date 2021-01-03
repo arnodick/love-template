@@ -13,7 +13,7 @@ raycast.actor.control = function(g,a,m,gs)
 		end
 	end
 	a.vec[1]=math.cos(a.d)
-	a.vec[2]=-math.sin(a.d)
+	a.vec[2]=-math.sin(a.d)--TODO why negative here?
 	a.angle=a.d
 
 	-- if a.inventory then
@@ -40,7 +40,7 @@ raycast.actor.control = function(g,a,m,gs)
 	end
 
 	if collx or colly then
-		run(EA[a.t],"collision",g,a)
+		-- run(EA[a.t],"collision",g,a)
 		if a.collisions then
 			collisions.run(g,a)
 		end
@@ -84,8 +84,7 @@ raycast.actor.draw = function(g,a)
 	-- love.graphics.line(a.x,a.y,a.x+a.vec[1]*10,a.y+a.vec[2]*10)
 	for i=#a.rays,1,-1 do
 		love.graphics.setColor(1,i*0.05,1)
-		local vecx=math.cos(a.rays[i].d)
-		local vecy=math.sin(a.rays[i].d)
+		local vecx,vecy=vector.vectors(a.rays[i].d)
 		local len=a.rays[i].len
 		love.graphics.line(a.x,a.y,a.x+vecx*len,a.y+vecy*len)
 	end
@@ -121,7 +120,7 @@ raycast.player.control = function(g,a)
 	local x=1
 	for i=-1/2,1/2,0.01 do
 		local r=raycast.castray(g,a.x,a.y,a.d+i,30,0.1)
-		r.len=r.len*math.cos(i)
+		r.len=r.len*math.cos(i)--TODO why just cos here?
 		r.x=x
 		x=x+1
 		table.insert(a.rays,r)
@@ -147,17 +146,14 @@ raycast.castray = function(g,x,y,d,dist,step)
 	local ray={}
 	ray.d=d
 	for j=step,dist,step do
-		-- local cellx=math.floor(x+math.cos(d)*j)
-		-- local celly=math.floor(y+math.sin(d)*j)
 		local m=g.level.map
-		local cellx,celly=map.getcellcoords(m,x+math.cos(d)*j,y+math.sin(d)*j)
-		-- local cell=Map[celly][cellx]
+		local vx,vy=vector.vectors(d)
+		local cellx,celly=map.getcellcoords(m,x+vx*j,y+vy*j)
 		local cell=map.getcellraw(m,cellx,celly,true)
 		if cell then
-			-- if cell==1 then
 			if map.solid(cell) then
-				local xlast=x+math.cos(d)*(j-step)
-				local ylast=y+math.sin(d)*(j-step)
+				local xlast=x+vx*(j-step)
+				local ylast=y+vy*(j-step)
 				local ray2=raycast.castray(g,xlast,ylast,d,step,step/10)
 				ray.len=j+ray2.len
 				return ray

@@ -2,6 +2,9 @@
 local vector={}
 
 --TODO vector.vectors? return math.cos, math.sin of x and y vecs, normalize to 0 - 1 range
+vector.vectors = function(dir)
+	return math.cos(dir),math.sin(dir)
+end
 
 vector.components = function(x,y,x2,y2)
 	return x2-x,y2-y

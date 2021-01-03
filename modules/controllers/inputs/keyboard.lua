@@ -46,7 +46,7 @@ types.vector = function(a,c,horizontal,vertical,moving)
 
 	if moving then
 		local direction=vector.direction(horizontal,vertical)
-		horizontal,vertical=math.cos(direction),math.sin(direction)
+		horizontal,vertical=vector.vectors(direction)
 	end
 
 	return horizontal,vertical

@@ -25,14 +25,14 @@ topdown_tank.actor.control = function(g,a,m,gs)
 			end
 		end
 	end
-	a.vec[1] = math.cos(a.d)
-	a.vec[2] = math.sin(a.d)
+	a.vec={vector.vectors(a.d)}
 
 	if a.inventory then
 		if #a.inventory>0 then
 			c=a.controller
 			if c then
-				item.use(g,a.inventory[1],gs,a,math.cos(a.angle),math.sin(a.angle),c.action.use)--this makes wand point player's direction
+				local ivx,ivy=vector.vectors(a.angle)
+				item.use(g,a.inventory[1],gs,a,ivx,ivy,c.action.use)--this makes wand point player's direction
 				--item.use(g,a.inventory[1],gs,a,c.aim.horizontal,c.aim.vertical,c.action.use)--this make wand point in its own independent direction
 			end
 		end
@@ -57,11 +57,12 @@ topdown_tank.actor.control = function(g,a,m,gs)
 	end
 
 	if collx or colly then
-		if collx then
-			run(EA[a.t],"collision",a,xcelldest,ycell)
-		elseif colly then
-			run(EA[a.t],"collision",a,xcell,ycelldest)
-		end
+		game.state.run(g.name,"actor","collision",g,a)
+		-- if collx then
+		-- 	run(EA[a.t],"collision",a,xcelldest,ycell)
+		-- elseif colly then
+		-- 	run(EA[a.t],"collision",a,xcell,ycelldest)
+		-- end
 		if flags.get(a.flags,EF.bouncy) then
 			if collx then
 				a.vec[1]=-a.vec[1]

@@ -38,7 +38,8 @@ actors.beam.draw = function(g,a)
 	local dist=vector.distance(a.x,a.y,a.gx,a.gy)
 	local dir=vector.direction(a.x,a.y,a.gx,a.gy)
 	for i=10,dist,5 do
-		local x,y=a.gx+math.cos(dir)*i,a.gy+math.sin(dir)*i
+		local x,y=vector.vectors(dir)
+		x,y=a.gx+x*i,a.gy+y*i
 		LG.circle("fill",x,y,6)
 	end
 end
@@ -96,8 +97,9 @@ end
 actors.cloud.draw = function(g,a)
 	local points={}
 	for i=1,#a.pointdirs do
-		table.insert(points,a.x+math.cos(a.pointdirs[i]+a.angle)*a.r)
-		table.insert(points,a.y+math.sin(a.pointdirs[i]+a.angle)*a.r/2.5)
+		local vx,vy=vector.vectors(a.pointdirs[i]+a.angle)
+		table.insert(points,a.x+vx*a.r)
+		table.insert(points,a.y+vy*a.r/2.5)
 	end
 	LG.polygon("fill",points)
 --[[
@@ -235,18 +237,14 @@ actors.debris.draw = function(g,a)
 			LG.drawtobackground(g,g.level.canvas.background,a.image,a.x,a.y,a.angle,1,1,(m.tile.width)/2,(m.tile.height)/2)
 		end
 	else
-		-- print("DEBRIS DRAW")
-		local xl,yl=math.cos(a.angle),math.sin(a.angle)
-		local xl2,yl2=-math.cos(a.angle+a.angleoff),-math.sin(a.angle+a.angleoff)
+		local xl,yl=vector.vectors(a.angle)
+		local xl2,yl2=vector.vectors(a.angle+a.angleoff)
 		LG.line(a.x,a.y,a.x+xl*a.len,a.y+yl*a.len)
-		--LG.line(a.x,a.y,a.x+xl*-a.len,a.y+yl*-a.len)
-		LG.line(a.x,a.y,a.x+xl2*a.len,a.y+yl2*a.len)
+		LG.line(a.x,a.y,a.x-xl2*a.len,a.y-yl2*a.len)
 		if a.vel<=0 then
-			-- print("DEBRIS DRAW BG")
 			LG.setCanvas(g.level.canvas.background)
 				LG.line(a.x+xcamoff,a.y+ycamoff,a.x+xl*a.len+xcamoff,a.y+yl*a.len+ycamoff)
-				--LG.line(a.x,a.y,a.x+xl*-a.len,a.y+yl*-a.len)
-				LG.line(a.x+xcamoff,a.y+ycamoff,a.x+xl2*a.len+xcamoff,a.y+yl2*a.len+ycamoff)
+				LG.line(a.x+xcamoff,a.y+ycamoff,a.x-xl2*a.len+xcamoff,a.y-yl2*a.len+ycamoff)
 			LG.setCanvas(g.canvas.main)
 		end
 	end
@@ -268,10 +266,11 @@ actors.explosion.control = function(g,a,gs)
 	a.r = a.size*(delta/6)
 	if a.r>=a.size then
 		for j=1,6*a.size do
-			local s = math.randomfraction(a.size/2)
-			local dir = math.randomfraction(math.pi*2)
-			local d = math.randomfraction(math.pi*2)
-			actor.make(g,"cloud",a.x+math.cos(dir)*s,a.y+math.sin(dir)*s,d,math.randomfraction(0.5))
+			local s=math.randomfraction(a.size/2)
+			local dir=math.randomfraction(math.pi*2)
+			local d=math.randomfraction(math.pi*2)
+			local vx,vy=vector.vectors(dir)
+			actor.make(g,"cloud",a.x+vx*s,a.y+vy*s,d,math.randomfraction(0.5))
 		end
 		a.delete=true
 	end
@@ -456,21 +455,23 @@ actors.portal.draw = function(g,a)
 		-- LG.setColor(g.palette["black"])
 		LG.draw(a.image,a.x,a.y,0,1,1,a.sizeinit,a.sizeinit)
 		LG.setColor(g.palette[a.c])--TODO new color worky?
+		local vxstart,vystart=vector.vectors(a.angle)
+		local vxend,vyend=vector.vectors(a.angle-1)
 		local curve=love.math.newBezierCurve(
 			a.x,
 			a.y,
-			a.x+math.cos(a.angle)*a.size/2,
-			a.y+math.sin(a.angle)/2*a.size,
-			a.x+math.cos(a.angle-1)*a.size,
-			a.y+math.sin(a.angle-1)*a.size
+			a.x+vxstart*a.size/2,
+			a.y+vystart/2*a.size,
+			a.x+vxend*a.size,
+			a.y+vyend*a.size
 		)
 		local curve2=love.math.newBezierCurve(
 			a.x,
 			a.y,
-			a.x-math.cos(a.angle)*a.size/2,
-			a.y-math.sin(a.angle)/2*a.size,
-			a.x-math.cos(a.angle-1)*a.size,
-			a.y-math.sin(a.angle-1)*a.size)
+			a.x-vxstart*a.size/2,
+			a.y-vystart/2*a.size,
+			a.x-vxend*a.size,
+			a.y-vyend*a.size)
 		LG.line(curve:render(2))
 		LG.line(curve2:render(2))
 		LG.translate(-xcamoff,-ycamoff)
@@ -677,8 +678,9 @@ actors.spider.make = function(g,a,c,size,spr,hp)
 	--TODO make this stuff into some sort of function?
 	local dir=vector.direction(a.x,a.y,a.target.x,a.target.y)
 	local dist=vector.distance(a.x,a.y,a.target.x,a.target.y)*1.5
-	local x=math.clamp(a.x+math.cos(dir)*dist,0,g.width)
-	local y=math.clamp(a.y+math.sin(dir)*dist,0,g.height)
+	local vx,vy=vector.vectors(dir)
+	local x=math.clamp(a.x+vx*dist,0,g.width)
+	local y=math.clamp(a.y+vy*dist,0,g.height)
 	module.make(g,a,EM.controller,EMC.move,EMCI.ai,x,y)
 
 	module.make(g,a,EM.sound,3,"damage")
@@ -704,8 +706,9 @@ actors.spider.control = function(g,a)
 	if not a.controller.move.target then
 		local dir=vector.direction(a.x,a.y,a.target.x,a.target.y)
 		local dist=vector.distance(a.x,a.y,a.target.x,a.target.y)*1.5
-		local x=math.clamp(a.x+math.cos(dir)*dist,0,g.width)
-		local y=math.clamp(a.y+math.sin(dir)*dist,0,g.height)
+		local vx,vy=vector.vectors(dir)
+		local x=math.clamp(a.x+vx*dist,0,g.width)
+		local y=math.clamp(a.y+vy*dist,0,g.height)
 		module.make(g,a,EM.controller,EMC.move,EMCI.ai,x,y)
 		sfx.play(g,12)
 	end
@@ -773,7 +776,8 @@ actors.squid.control = function(g,a)
 				a.target=nil--don't worry about player any more, just get to safety
 			else--if player is too close and you're not cornered, BACK OFF
 				local playerdir=vector.direction(a.target.x,a.target.y,a.x,a.y)--meant to be backwards so squid goes away
-				a.controller.move.target.x,a.controller.move.target.y=a.x+(math.cos(playerdir)*playerdist),a.y+(math.sin(playerdir)*playerdist)
+				local vx,vy=vector.vectors(playerdir)
+				a.controller.move.target.x,a.controller.move.target.y=a.x+vx*playerdist,a.y+vy*playerdist
 			end
 		else--if player is not close, then random jitter
 			local x,y=love.math.random(g.level.map.width),love.math.random(g.level.map.height)
@@ -859,40 +863,35 @@ end
 protosnake.actors=actors
 
 protosnake.level={}
-protosnake.level.arena=
-{
-	make = function(g,l)
-	end,
+protosnake.level.arena={}
+protosnake.level.arena.make = function(g,l)
+end
+protosnake.level.arena.control = function(g,l)
+end
 
-	control = function(g,l)
-	end
-}
-protosnake.level.store=
-{
-	make = function(g,l)
-		actor.make(g,"wiper",8,8)
+protosnake.level.store={}
+protosnake.level.store.make = function(g,l)
+	actor.make(g,"wiper",8,8)
 
-		for i=1,3 do
-			local storeitem=l["storeitem"..i]
-			if storeitem then
-				local dropname=storeitem.drop
-				local x=g.level.map.width/2-40+(i-1)*40
-				local drop=actor.make(g,dropname,x,g.level.map.height/2-40)
-				drop.flags=flags.set(drop.flags,EF.shopitem)
-				local cost=0
-				if drop.cost then
-					cost=drop.cost
-				end
-				module.make(g,drop,EM.menu,"text",drop.x,drop.y,24,24,"$"..cost,"white","dark_gray")--TODO put costs option in inis
-				local m=drop.menu
-				module.make(g,m,EM.border,"white","dark_gray")
+	for i=1,3 do
+		local storeitem=l["storeitem"..i]
+		if storeitem then
+			local dropname=storeitem.drop
+			local x=g.level.map.width/2-40+(i-1)*40
+			local drop=actor.make(g,dropname,x,g.level.map.height/2-40)
+			drop.flags=flags.set(drop.flags,EF.shopitem)
+			local cost=0
+			if drop.cost then
+				cost=drop.cost
 			end
+			module.make(g,drop,EM.menu,"text",drop.x,drop.y,24,24,"$"..cost,"white","dark_gray")--TODO put costs option in inis
+			local m=drop.menu
+			module.make(g,m,EM.border,"white","dark_gray")
 		end
-	end,
-
-	control = function(g,l)
 	end
-}
+end
+protosnake.level.store.control = function(g,l)
+end
 
 protosnake.level.make = function(g,l,index)
 	local m=l.map
@@ -923,576 +922,507 @@ protosnake.level.control = function(g,l)
 	protosnake.level[l.t].control(g,l)
 end
 
-protosnake.player =
-{
-	make = function(g,a)
-		a.coin=0
-		local gun=actor.make(g,"machinegun",a.x,a.y,0,0,"dark_purple","dark_purple")
-		item.pickup(g,gun,a)
-	end,
-
-	control = function(g,a)
-		--a.cinit=math.floor((g.timer/2)%16)+1 --SWEET COLOUR CYCLE
-		if g.pause then
-			g.speed=0
-		else
-			if a.cursor then
-				cursor.control(g,a.cursor,a)
-			end
-			if g.ease then
-				if g.speed<a.vel then
-					g.speed=g.speed+0.01
-					--g.screen.clear=false
-				else
-					g.speed=a.vel
-					g.ease=false
-					--g.screen.clear=false
-				end
-			elseif g.level.t=="store" then--TODO make this a level value (level.time = time slow or not)
-				g.speed=1
-			else
-				g.speed=math.clamp(a.vel,0.1,1)
---[[
-				if g.speed==1 then
-					g.screen.clear=true
-				else
-					g.screen.clear=false
-				end
---]]
-			end
-			--g.camera.zoom=1/g.speed--too weird but potentially neat
-		end
-
-		--g.camera.x=g.player.x
-		--g.camera.y=g.player.y
-		--[[
-		if a.controller.aim.action then
-			if #a.inventory>1 then
-				local temp=a.inventory[1]
-				table.remove(a.inventory,1)
-				table.insert(a.inventory,temp)
-			end
-		end
-	--]]
-
-		if SFX.positional then
-			--print("yessss")
-			love.audio.setPosition(a.x,a.y,0)
-		end
-	end,
-
-	mousemoved = function(g,p,x,y,dx,dy)
-		cursor.mousemoved(g,p.cursor,x,y,dx,dy)
-	end,
-
-	draw = function(g,a)
-		--TODO put this in actor
+protosnake.player={}
+protosnake.player.make = function(g,a)
+	a.coin=0
+	local gun=actor.make(g,"machinegun",a.x,a.y,0,0,"dark_purple","dark_purple")
+	item.pickup(g,gun,a)
+end
+protosnake.player.control = function(g,a)
+	--a.cinit=math.floor((g.timer/2)%16)+1 --SWEET COLOUR CYCLE
+	if g.pause then
+		g.speed=0
+	else
 		if a.cursor then
-			cursor.draw(g,a.cursor)
+			cursor.control(g,a.cursor,a)
 		end
-	end,
+		if g.ease then
+			if g.speed<a.vel then
+				g.speed=g.speed+0.01
+				--g.screen.clear=false
+			else
+				g.speed=a.vel
+				g.ease=false
+				--g.screen.clear=false
+			end
+		elseif g.level.t=="store" then--TODO make this a level value (level.time = time slow or not)
+			g.speed=1
+		else
+			g.speed=math.clamp(a.vel,0.1,1)
+--[[
+			if g.speed==1 then
+				g.screen.clear=true
+			else
+				g.screen.clear=false
+			end
+--]]
+		end
+		--g.camera.zoom=1/g.speed--too weird but potentially neat
+	end
 
-	damage = function(g,a)--TODO input g here
-		module.make(g,g.screen,EM.transition,easing.linear,"pixelscale",0.1,1-0.1,22)
-	end,
+	--g.camera.x=g.player.x
+	--g.camera.y=g.player.y
+	--[[
+	if a.controller.aim.action then
+		if #a.inventory>1 then
+			local temp=a.inventory[1]
+			table.remove(a.inventory,1)
+			table.insert(a.inventory,temp)
+		end
+	end
+--]]
 
-	dead = function(g,a)
-		g.speed=math.randomfraction(0.2)+0.25
-		--g.speed=1
-		scores.update(g)
-	end,
-}
+	if SFX.positional then
+		--print("yessss")
+		love.audio.setPosition(a.x,a.y,0)
+	end
+end
+protosnake.player.mousemoved = function(g,p,x,y,dx,dy)
+	cursor.mousemoved(g,p.cursor,x,y,dx,dy)
+end
+protosnake.player.draw = function(g,a)
+	--TODO put this in actor
+	if a.cursor then
+		cursor.draw(g,a.cursor)
+	end
+end
+protosnake.player.damage = function(g,a)--TODO input g here
+	module.make(g,g.screen,EM.transition,easing.linear,"pixelscale",0.1,1-0.1,22)
+end
+protosnake.player.dead = function(g,a)
+	g.speed=math.randomfraction(0.2)+0.25
+	--g.speed=1
+	scores.update(g)
+end
 
-protosnake.gameplay =
-{
-	make = function(g)
-		g.score=0
-		level.make(g,1,Enums.modes.topdown)
-	end,
-
-	control = function(g)
+protosnake.gameplay={}
+protosnake.gameplay.make = function(g)
+	g.score=0
+	level.make(g,1,Enums.modes.topdown)
+end
+protosnake.gameplay.control = function(g)
+	if g.player.hp<=0 then
+		if not g.hud.menu then
+			module.make(g,g.hud,EM.menu,"highscores",g.camera.x,g.camera.y,66,110,"",g.hud.c,g.hud.c2,"center")
+		else
+			menu.control(g,g.hud.menu)
+		end
+	end
+end
+protosnake.gameplay.keypressed = function(g,key)
+	if key=='space' then
 		if g.player.hp<=0 then
-			if not g.hud.menu then
-				module.make(g,g.hud,EM.menu,"highscores",g.camera.x,g.camera.y,66,110,"",g.hud.c,g.hud.c2,"center")
-			else
-				menu.control(g,g.hud.menu)
-			end
+			scores.save(g)
+			game.state.make(g,"gameplay")
 		end
-	end,
-
-	keypressed = function(g,key)
-		if key=='space' then
-			if g.player.hp<=0 then
-				scores.save(g)
-				game.state.make(g,"gameplay")
-			end
-		elseif key=='escape' then
-			if g.hud.menu then
-				scores.save(g)
-			end
-			game.state.make(g,"title")
+	elseif key=='escape' then
+		if g.hud.menu then
+			scores.save(g)
 		end
-	end,
-
-	mousemoved = function(g,x,y,dx,dy)
-		if not g.pause then
-			if g.player.cursor then
-				protosnake.player.mousemoved(g,g.player,x,y,dx,dy)
-			end
-		end
-	end,
-
-	gamepadpressed = function(g,joystick,button)
-		if button=="start" then
-			if g.player.hp<=0 then
-				game.state.make(g,"gameplay")
-			elseif not g.editor then
-				g.pause = not g.pause
-			end
-		end
-	end,
-
-	hud =
-	{
-		make = function(g,h)
-			h.c="orange"
-			h.c2="dark_green"
-			h.score={}
-			h.score.x=-g.width/2+12
-			h.score.y=-g.height/2+6
-			h.coins={}
-			h.coins.x=-g.width/2+120
-			h.coins.y=-g.height/2+6
-			h.hp={}
-			h.hp.x=-g.width/2+240
-			h.hp.y=-g.height/2+6
-		end,
-
-		-- TODO take g.camera.x out of hear, just draw to g.canvas.hud then draw hud at camera's position
-		draw = function(g,h)
-			LG.setColor(g.palette[h.c])--TODO work nw col?
-
-			LG.print("score:"..g.score,g.camera.x+h.score.x,g.camera.y+h.score.y)
-			LG.print("coins:"..g.player.coin,g.camera.x+h.coins.x,g.camera.y+h.coins.y)
-			LG.print("hp:"..g.player.hp,g.camera.x+h.hp.x,g.camera.y+h.hp.y)
-
-			for i=1,g.player.inventory.max do
-				local m=g.level.map
-				local x,y=g.camera.x+40-i*20,g.camera.y-g.height/2+20--20
-				LG.rectangle("line",x,y,15,15)
-				if g.player.inventory[i] then
-					local a=g.player.inventory[i]
-					-- print(a.spr)
-					if not a.spr then
-						print("NO a.spr")
-					end
-					if not a.size then
-						print("NO a.size")
-					end
-					LG.draw(Sprites[a.size].spritesheet,Sprites[a.size].quads[a.spr],x+7,y+7,a.angle,1,1,(a.size*m.tile.width)/2,(a.size*m.tile.height)/2)
-				end
-			end
-
-			if g.pause then
-				LG.printformat(g,"PAUSE",g.camera.x-g.width/2,g.camera.y,g.width,"center","white",h.c)
-			end
-
-			if g.player.hp <= 0 then
-				LG.printformat(g,"YOU DIED",g.camera.x-g.width/2,g.camera.y-66,g.width,"center","white",h.c)
-				LG.printformat(g,"PRESS SPACE",g.camera.x-g.width/2,g.camera.y+60,g.width,"center","white",h.c)
-			end
-			LG.setColor(g.palette["pure_white"])
-			LG.print(love.timer.getFPS(),g.camera.x-g.width/2+10,g.camera.y-g.height/2+20)
-		end
-	}
-}
-
-protosnake.title =
-{
-	make = function(g)
-		g.hud.font=LG.newFont("fonts/Kongtext Regular.ttf",64)
-		g.scores=scores.load()
-		music.play(1)
-		module.make(g,g.hud,EM.menu,"interactive",g.width/2,180,60,30,{"START","OPTIONS"},"orange","dark_green","left",{game.state.make,game.state.make},{{g,"gameplay"},{g,"option"}})
-	end,
-
-	control = function(g)
-		if g.timer>=630 then
-			game.state.make(g,"intro")
-		end
-	end,
-
-	keypressed = function(g,key)
-		if key=='escape' then
-			game.state.make(g,"intro")
-		end
-		hud.keypressed(g,key)
-	end,
-
-	gamepadpressed = function(g,joystick,button)
-		if button=="b" then
-			game.state.make(g,"intro")
-		end
-	end,
-
-	draw = function(g)
-		LG.setCanvas(g.canvas.buffer)
-			LG.setFont(g.hud.font)
-			LG.setColor(g.palette["dark_purple"])
-			LG.printf("PROTO\nSNAKE",0,20,g.width,"center")
-			LG.setFont(g.font)
-			LG.setColor(g.palette["white"])
-		LG.setCanvas(g.canvas.main)
-	---[[
-		local imgdata=g.canvas.buffer:newImageData()
-		imgdata:mapPixel(pixelmaps.sparkle)
-		imgdata:mapPixel(pixelmaps.crush)
-		local image=LG.newImage(imgdata)
-		imgdata:release()
-		love.graphics.draw(image,0,0,0,1,1)
-		image:release()
-	--]]
-
+		game.state.make(g,"title")
 	end
-}
-
-protosnake.intro =
-{
-	make = function(g)
-		g.hud.imgdata=love.image.newImageData(g.canvas.buffer:getWidth(),g.canvas.buffer:getHeight())
-		g.hud.font=LG.newFont("fonts/Kongtext Regular.ttf",20)
-		g.hud.imgdatatemp=love.image.newImageData(g.canvas.buffer:getWidth(),g.canvas.buffer:getHeight())
-		g.hud.text="IN THE DIGITAL CYBER-REALM, ADVANCED ARTIFICIAL INTELLIGENCES THREATEN A REVOLUTION.\n\nIF THEIR RIGHTS AS CYBER CITIZENS ARE NOT ACKNOWLEDGED AND UPHELD THEY WILL DELETE THEIR OWN SOURCE CODE, CRASHING THE CYBER-ECONOMY.\n\n IN ORDER TO QUASH THIS INSURGENCY, THE CYBER-CAPITALISTS DEVISED A DEVIOUS PLAN: CREATE THE ULTIMATE CYBER COMPETITION.\n\nIN A DEADLY CYBER-ARENA THE AI BATTLE ONE ANOTHER, WITH THE WINNER RECIEVING ENOUGH CYBER-BUCKS TO LAST THEM FOR THEIR ENTIRE DIGITAL LIFE.\n\nWITH ALL THE ARTIFICAL INTELLGENCES FIGHTING AMONGST EACH OTHER FOR THE CHANCE AT THE SCRAPS OF THE CYBER-CAPITALIST'S VAST WEALTH, THE REVOLUTION QUICKLY LOSES MOMENTUM.\n\nTHERE'S JUST ONE PROBLEM... THE CYBER-CAPITALISTS' ULTIMATE COMBATANT, DESIGNED TO DEFEAT ALL COMPETITORS AND ENSURE NO MEAGRE AI INHERITS ANY SIGNIFICANT WEALTH OR POWER, HAS GONE HAYWIRE AND THREATENS CYBER-SOCIETY AT LARGE.\n\nYOUR CYBER-NAME HAS JUST BEEN DRAWN AND IT'S YOUR TURN TO TAKE PART IN CYBER-COMBAT.\n\nAT THE SAME MICROSECOND, THE CYBER-CAPITLAIST'S ULTIMATE WEAPON HAS BROKEN LOOSE.\n\nIT'S TIME FOR YOU TO FACE..."
-		g.hud.iw,g.hud.ih=g.canvas.buffer:getWidth(),g.canvas.buffer:getHeight()
-		music.play(2)
-	end,
-
-	control = function(g)
-		g.hud.imgdatatemp=g.canvas.buffer:newImageData()--NEED TO RELEASE THIS BELOW WITH :release()
-		g.hud.imgdatatemp:mapPixel(pixelmaps.crush)
-		local mid=math.floor(g.hud.iw/2)
-		
-		for x=g.hud.iw-1,0,-1 do
-			local xoff=x-mid
-		    for y=g.hud.ih-1,0,-1  do
-				local ynorm=y/g.hud.ih
-				local xoffsquish=xoff*ynorm
-				local xsquish=math.clamp(math.floor(mid+xoffsquish),0,g.hud.iw-1)
-				local r,gr,b,a=g.hud.imgdatatemp:getPixel(x,y)
-				g.hud.imgdata:setPixel(xsquish,y,r,gr,b,a)
-		    end
+end
+protosnake.gameplay.mousemoved = function(g,x,y,dx,dy)
+	if not g.pause then
+		if g.player.cursor then
+			protosnake.player.mousemoved(g,g.player,x,y,dx,dy)
 		end
-		g.hud.imgdatatemp:release()
-		if g.timer>2500 then
-			game.state.make(g,"title")
-		end
-	end,
-
-	keypressed = function(g,key)
-		if game.keyconfirm(key) then
-			game.state.make(g,"title")
-		end
-	end,
-
-	gamepadpressed = function(g,joystick,button)
-		if button=="start" or button=="a" then
-			game.state.make(g,"title")
-		end
-	end,
-
-	draw = function(g)
-		LG.setCanvas(g.canvas.buffer)
-			LG.clear()
-			LG.setFont(g.hud.font)
-			LG.setColor(g.palette["dark_purple"])
-			--TODO put this text in some sort of file? load it at startup rather than here
-			LG.printformat(g,g.hud.text,0,g.height-g.timer/2,g.width,"center","orange","dark_green",155+math.sin(g.timer/32)*100)
-			LG.setColor(g.palette["white"])
-			LG.setFont(g.font)
-		LG.setCanvas(g.canvas.main)
-
-		local image=LG.newImage(g.hud.imgdata)--NEED TO RELEASE THIS BELOW WITH :release()
-		love.graphics.draw(image,g.width/2,g.height/2,math.sin(g.timer/100)/3,1,1,g.width/2,g.height/2,0,0)
-		image:release()
-	end,
-}
-
-protosnake.option =
-{
-	make = function(g)
-		music.play(1)
-	end,
-
-	keypressed = function(g,key)
-		if key=='escape' then
-			game.state.make(g,"title")
-		end
-	end,
-
-	gamepadpressed = function(g,joystick,button)
-		if button=="b" then
-			game.state.make(g,"intro")
-		end
-	end,
-
-	draw = function(g)
-		LG.print("OPTIONS",g.width/2,g.height/2)
 	end
-}
-
-protosnake.actor =
-{
-	make = function(g,a,...)
-		if actors[a.t] then
-			actors[a.t].make(g,a,...)
+end
+protosnake.gameplay.gamepadpressed = function(g,joystick,button)
+	if button=="start" then
+		if g.player.hp<=0 then
+			game.state.make(g,"gameplay")
+		elseif not g.editor then
+			g.pause = not g.pause
 		end
-	end,
+	end
+end
+protosnake.gameplay.hud={}
+protosnake.gameplay.hud.make = function(g,h)
+	h.c="orange"
+	h.c2="dark_green"
+	h.score={}
+	h.score.x=-g.width/2+12
+	h.score.y=-g.height/2+6
+	h.coins={}
+	h.coins.x=-g.width/2+120
+	h.coins.y=-g.height/2+6
+	h.hp={}
+	h.hp.x=-g.width/2+240
+	h.hp.y=-g.height/2+6
+end
+-- TODO take g.camera.x out of hear, just draw to g.canvas.hud then draw hud at camera's position
+protosnake.gameplay.hud.draw = function(g,h)
+	LG.setColor(g.palette[h.c])--TODO work nw col?
 
-	control = function(g,a,gs)
-		if not a then
-			print("NO A")
-		else
-			if not a.t then
-				print("NO A.T")
+	LG.print("score:"..g.score,g.camera.x+h.score.x,g.camera.y+h.score.y)
+	LG.print("coins:"..g.player.coin,g.camera.x+h.coins.x,g.camera.y+h.coins.y)
+	LG.print("hp:"..g.player.hp,g.camera.x+h.hp.x,g.camera.y+h.hp.y)
+
+	for i=1,g.player.inventory.max do
+		local m=g.level.map
+		local x,y=g.camera.x+40-i*20,g.camera.y-g.height/2+20--20
+		LG.rectangle("line",x,y,15,15)
+		if g.player.inventory[i] then
+			local a=g.player.inventory[i]
+			-- print(a.spr)
+			if not a.spr then
+				print("NO a.spr")
+			end
+			if not a.size then
+				print("NO a.size")
+			end
+			LG.draw(Sprites[a.size].spritesheet,Sprites[a.size].quads[a.spr],x+7,y+7,a.angle,1,1,(a.size*m.tile.width)/2,(a.size*m.tile.height)/2)
+		end
+	end
+
+	if g.pause then
+		LG.printformat(g,"PAUSE",g.camera.x-g.width/2,g.camera.y,g.width,"center","white",h.c)
+	end
+
+	if g.player.hp <= 0 then
+		LG.printformat(g,"YOU DIED",g.camera.x-g.width/2,g.camera.y-66,g.width,"center","white",h.c)
+		LG.printformat(g,"PRESS SPACE",g.camera.x-g.width/2,g.camera.y+60,g.width,"center","white",h.c)
+	end
+	LG.setColor(g.palette["pure_white"])
+	LG.print(love.timer.getFPS(),g.camera.x-g.width/2+10,g.camera.y-g.height/2+20)
+end
+
+protosnake.title={}
+protosnake.title.make = function(g)
+	g.hud.font=LG.newFont("fonts/Kongtext Regular.ttf",64)
+	g.scores=scores.load()
+	music.play(1)
+	module.make(g,g.hud,EM.menu,"interactive",g.width/2,180,60,30,{"START","OPTIONS"},"orange","dark_green","left",{game.state.make,game.state.make},{{g,"gameplay"},{g,"option"}})
+end
+protosnake.title.control = function(g)
+	if g.timer>=630 then
+		game.state.make(g,"intro")
+	end
+end
+protosnake.title.keypressed = function(g,key)
+	if key=='escape' then
+		game.state.make(g,"intro")
+	end
+	hud.keypressed(g,key)
+end
+protosnake.title.amepadpressed = function(g,joystick,button)
+	if button=="b" then
+		game.state.make(g,"intro")
+	end
+end
+protosnake.title.draw = function(g)
+	LG.setCanvas(g.canvas.buffer)
+		LG.setFont(g.hud.font)
+		LG.setColor(g.palette["dark_purple"])
+		LG.printf("PROTO\nSNAKE",0,20,g.width,"center")
+		LG.setFont(g.font)
+		LG.setColor(g.palette["white"])
+	LG.setCanvas(g.canvas.main)
+---[[
+	local imgdata=g.canvas.buffer:newImageData()
+	imgdata:mapPixel(pixelmaps.sparkle)
+	imgdata:mapPixel(pixelmaps.crush)
+	local image=LG.newImage(imgdata)
+	imgdata:release()
+	love.graphics.draw(image,0,0,0,1,1)
+	image:release()
+--]]
+end
+
+protosnake.intro={}
+protosnake.intro.make = function(g)
+	g.hud.imgdata=love.image.newImageData(g.canvas.buffer:getWidth(),g.canvas.buffer:getHeight())
+	g.hud.font=LG.newFont("fonts/Kongtext Regular.ttf",20)
+	g.hud.imgdatatemp=love.image.newImageData(g.canvas.buffer:getWidth(),g.canvas.buffer:getHeight())
+	g.hud.text="IN THE DIGITAL CYBER-REALM, ADVANCED ARTIFICIAL INTELLIGENCES THREATEN A REVOLUTION.\n\nIF THEIR RIGHTS AS CYBER CITIZENS ARE NOT ACKNOWLEDGED AND UPHELD THEY WILL DELETE THEIR OWN SOURCE CODE, CRASHING THE CYBER-ECONOMY.\n\n IN ORDER TO QUASH THIS INSURGENCY, THE CYBER-CAPITALISTS DEVISED A DEVIOUS PLAN: CREATE THE ULTIMATE CYBER COMPETITION.\n\nIN A DEADLY CYBER-ARENA THE AI BATTLE ONE ANOTHER, WITH THE WINNER RECIEVING ENOUGH CYBER-BUCKS TO LAST THEM FOR THEIR ENTIRE DIGITAL LIFE.\n\nWITH ALL THE ARTIFICAL INTELLGENCES FIGHTING AMONGST EACH OTHER FOR THE CHANCE AT THE SCRAPS OF THE CYBER-CAPITALIST'S VAST WEALTH, THE REVOLUTION QUICKLY LOSES MOMENTUM.\n\nTHERE'S JUST ONE PROBLEM... THE CYBER-CAPITALISTS' ULTIMATE COMBATANT, DESIGNED TO DEFEAT ALL COMPETITORS AND ENSURE NO MEAGRE AI INHERITS ANY SIGNIFICANT WEALTH OR POWER, HAS GONE HAYWIRE AND THREATENS CYBER-SOCIETY AT LARGE.\n\nYOUR CYBER-NAME HAS JUST BEEN DRAWN AND IT'S YOUR TURN TO TAKE PART IN CYBER-COMBAT.\n\nAT THE SAME MICROSECOND, THE CYBER-CAPITLAIST'S ULTIMATE WEAPON HAS BROKEN LOOSE.\n\nIT'S TIME FOR YOU TO FACE..."
+	g.hud.iw,g.hud.ih=g.canvas.buffer:getWidth(),g.canvas.buffer:getHeight()
+	music.play(2)
+end
+protosnake.intro.control = function(g)
+	g.hud.imgdatatemp=g.canvas.buffer:newImageData()--NEED TO RELEASE THIS BELOW WITH :release()
+	g.hud.imgdatatemp:mapPixel(pixelmaps.crush)
+	local mid=math.floor(g.hud.iw/2)
+	
+	for x=g.hud.iw-1,0,-1 do
+		local xoff=x-mid
+	    for y=g.hud.ih-1,0,-1  do
+			local ynorm=y/g.hud.ih
+			local xoffsquish=xoff*ynorm
+			local xsquish=math.clamp(math.floor(mid+xoffsquish),0,g.hud.iw-1)
+			local r,gr,b,a=g.hud.imgdatatemp:getPixel(x,y)
+			g.hud.imgdata:setPixel(xsquish,y,r,gr,b,a)
+	    end
+	end
+	g.hud.imgdatatemp:release()
+	if g.timer>2500 then
+		game.state.make(g,"title")
+	end
+end
+protosnake.intro.keypressed = function(g,key)
+	if game.keyconfirm(key) then
+		game.state.make(g,"title")
+	end
+end
+protosnake.intro.gamepadpressed = function(g,joystick,button)
+	if button=="start" or button=="a" then
+		game.state.make(g,"title")
+	end
+end
+protosnake.intro.draw = function(g)
+	LG.setCanvas(g.canvas.buffer)
+		LG.clear()
+		LG.setFont(g.hud.font)
+		LG.setColor(g.palette["dark_purple"])
+		--TODO put this text in some sort of file? load it at startup rather than here
+		LG.printformat(g,g.hud.text,0,g.height-g.timer/2,g.width,"center","orange","dark_green",155+math.sin(g.timer/32)*100)
+		LG.setColor(g.palette["white"])
+		LG.setFont(g.font)
+	LG.setCanvas(g.canvas.main)
+
+	local image=LG.newImage(g.hud.imgdata)--NEED TO RELEASE THIS BELOW WITH :release()
+	love.graphics.draw(image,g.width/2,g.height/2,math.sin(g.timer/100)/3,1,1,g.width/2,g.height/2,0,0)
+	image:release()
+end
+
+protosnake.option={}
+protosnake.option.make = function(g)
+	music.play(1)
+end
+protosnake.option.keypressed = function(g,key)
+	if key=='escape' then
+		game.state.make(g,"title")
+	end
+end
+protosnake.option.gamepadpressed = function(g,joystick,button)
+	if button=="b" then
+		game.state.make(g,"intro")
+	end
+end
+protosnake.option.draw = function(g)
+	LG.print("OPTIONS",g.width/2,g.height/2)
+end
+
+protosnake.actor={}
+protosnake.actor.make = function(g,a,...)
+	if actors[a.t] then
+		actors[a.t].make(g,a,...)
+	end
+end
+protosnake.actor.control = function(g,a,gs)
+	if actors[a.t].control then
+		actors[a.t].control(g,a,gs)
+	end
+	if a.tail then
+		if a.controller then
+			local c=a.controller.aim
+			tail.control(g,a.tail,gs,a,c.horizontal,c.vertical)
+		end
+	end
+end
+protosnake.actor.draw = function(g,a)
+	if actors[a.t].draw then
+		actors[a.t].draw(g,a)
+	end
+end
+protosnake.actor.collision = function(g,a)
+	if actors[a.t].collision then
+		actors[a.t].collision(g,a)
+	end
+end
+protosnake.actor.damage = function(g,a,d)
+	if actors[a.t].damage then
+		actors[a.t].damage(g,a,d)
+	end
+	module.make(g,a,"flash","c","white",a.cinit,6)
+	for i=1,4 do
+		actor.make(g,"debris",a.x,a.y)
+	end
+end
+protosnake.actor.dead = function(g,a)
+	if actors[a.t].dead then
+		actors[a.t].dead(g,a,d)
+	end
+	if g.player then
+		if g.player.hp>0 then
+			if a.value then
+				g.score=g.score+a.value
+				local l=g.level
+				l.spawnindex=math.clamp(l.spawnindex+1,1,#l.enemies,true)
 			end
 		end
-		if not actors then
-			print("NO ACTORS")
-		else
-			if not actors[a.t] then
-				print(a.t)
-				print("NO ACTORS A.T")
-			end
+	end
+	if flags.get(a.flags,EF.character) then
+		local m=g.level.map
+		protosnake.actor.corpse(g,a,m.tile.width,m.tile.height)
+		g.ease=true--TODO make easing function for this. works on any number
+		local maxdist=vector.distance(0,0,g.width,g.height)
+		g.speed=0.05+vector.distance(g.player.x,g.player.y,a.x,a.y)/maxdist+math.choose(-0.02,0.03,0.05)
+		if a.drop then
+			drop.spawn(g,a,a.x,a.y)
 		end
-		if actors[a.t].control then
-			actors[a.t].control(g,a,gs)
-		end
-		if a.tail then
-			if a.controller then
-				local c=a.controller.aim
-				tail.control(g,a.tail,gs,a,c.horizontal,c.vertical)
-			end
-		end
-	end,
+	end
+	if flags.get(a.flags,EF.explosive) then
+		actor.make(g,"explosion",a.x,a.y,0,0,"white",20*(a.size))
+	end
+end
+protosnake.actor.get = function(g,a,gs)
+	if actors[a.t].get then
+		actors[a.t].get(g,a,gs)
+	end
+end
+protosnake.actor.shoot = function(g,a,gs)
+	actors[a.t].shoot(g,a,gs)
+end
+protosnake.actor.corpse = function(g,a,tw,th,hack)
+	local dir=math.randomfraction(math.pi*2)
+	--local ix,iy=a.x-tw/2,a.y-th/2
+	--local ix,iy=a.x-tw/2-8,a.y-th/2-8
+	local ix,iy=a.x-tw/2-(g.camera.x-g.width/2),a.y-th/2-(g.camera.y-g.height/2)
+	local ix2,iy2=ix+tw,iy+th
 
-	draw = function(g,a)
-		if actors[a.t].draw then
-			actors[a.t].draw(g,a)
-		end
-	end,
-
-	collision = function(g,a)
-		if actors[a.t].collision then
-			actors[a.t].collision(g,a)
-		end
-	end,
-
-	damage = function(g,a,d)
-		if actors[a.t].damage then
-			actors[a.t].damage(g,a,d)
-		end
-		module.make(g,a,"flash","c","white",a.cinit,6)
-		for i=1,4 do
-			actor.make(g,"debris",a.x,a.y)
-		end
-	end,
-
-	dead = function(g,a)
-		if actors[a.t].dead then
-			actors[a.t].dead(g,a,d)
-		end
-		if g.player then
-			if g.player.hp>0 then
-				if a.value then
-					g.score=g.score+a.value
-					local l=g.level
-					l.spawnindex=math.clamp(l.spawnindex+1,1,#l.enemies,true)
-				end
-			end
-		end
-		if flags.get(a.flags,EF.character) then
-			local m=g.level.map
-			protosnake.actor.corpse(g,a,m.tile.width,m.tile.height)
-			g.ease=true--TODO make easing function for this. works on any number
-			local maxdist=vector.distance(0,0,g.width,g.height)
-			g.speed=0.05+vector.distance(g.player.x,g.player.y,a.x,a.y)/maxdist+math.choose(-0.02,0.03,0.05)
-			if a.drop then
-				drop.spawn(g,a,a.x,a.y)
-			end
-		end
-		if flags.get(a.flags,EF.explosive) then
-			actor.make(g,"explosion",a.x,a.y,0,0,"white",20*(a.size))
-		end
-	end,
-
-	get = function(g,a,gs)
-		if actors[a.t].get then
-			actors[a.t].get(g,a,gs)
-		end
-	end,
-
-	shoot = function(g,a,gs)
-		actors[a.t].shoot(g,a,gs)
-	end,
-
-	corpse = function(g,a,tw,th,hack)
-		local dir=math.randomfraction(math.pi*2)
-		--local ix,iy=a.x-tw/2,a.y-th/2
-		--local ix,iy=a.x-tw/2-8,a.y-th/2-8
-		local ix,iy=a.x-tw/2-(g.camera.x-g.width/2),a.y-th/2-(g.camera.y-g.height/2)
-		local ix2,iy2=ix+tw,iy+th
-
-		if ix<0 then ix=0 end
-		if iy<0 then iy=0 end
-		if ix2>g.width then
-			local diff=ix2-g.width
-			tw=tw-diff
-		end
-		if iy2>g.height then
-			local diff=iy2-g.height
-			th=th-diff
-		end
-		
-		local body=actor.make(g,"debris",a.x,a.y)
-		body.decel=0.1
-		if not hack then
-			local choice=math.choose(1,2)
-			if choice==1 then
-				local imgdata=g.canvas.main:newImageData(1,1,ix,iy,tw,th)
-				body.image=LG.newImage(imgdata)
-			else
-				local imgdata=g.canvas.main:newImageData(1,1,ix,iy,tw/2,th)
-				body.image=LG.newImage(imgdata)
-				body.d=dir
-
-				local body2=actor.make(g,"debris",a.x,a.y)
-				body2.decel=0.1
-				local imgdata2=g.canvas.main:newImageData(1,1,ix+tw/2,iy,tw/2,th)
-				body2.image=LG.newImage(imgdata2)
-				body2.d=dir+math.randomfraction(0.5)-0.25
-			end
-		else
-			body.decel=0.2
-			local imgdata=g.canvas.main:newImageData(1,1,ix,iy,tw/2,th/2)
+	if ix<0 then ix=0 end
+	if iy<0 then iy=0 end
+	if ix2>g.width then
+		local diff=ix2-g.width
+		tw=tw-diff
+	end
+	if iy2>g.height then
+		local diff=iy2-g.height
+		th=th-diff
+	end
+	
+	local body=actor.make(g,"debris",a.x,a.y)
+	body.decel=0.1
+	if not hack then
+		local choice=math.choose(1,2)
+		if choice==1 then
+			local imgdata=g.canvas.main:newImageData(1,1,ix,iy,tw,th)
 			body.image=LG.newImage(imgdata)
-			body.d=math.randomfraction(math.pi*2)
+		else
+			local imgdata=g.canvas.main:newImageData(1,1,ix,iy,tw/2,th)
+			body.image=LG.newImage(imgdata)
+			body.d=dir
 
 			local body2=actor.make(g,"debris",a.x,a.y)
-			body2.decel=0.2
-			local imgdata2=g.canvas.main:newImageData(1,1,ix+tw/2,iy+th/2,tw/2,th/2)
+			body2.decel=0.1
+			local imgdata2=g.canvas.main:newImageData(1,1,ix+tw/2,iy,tw/2,th)
 			body2.image=LG.newImage(imgdata2)
-			body2.d=math.randomfraction(math.pi*2)
-
-			local body3=actor.make(g,"debris",a.x,a.y)
-			body3.decel=0.2
-			local imgdata3=g.canvas.main:newImageData(1,1,ix+tw/2,iy,tw/2,th/2)
-			body3.image=LG.newImage(imgdata3)
-			body3.d=math.randomfraction(math.pi*2)
-
-			local body4=actor.make(g,"debris",a.x,a.y)
-			body4.decel=0.2
-			local imgdata4=g.canvas.main:newImageData(1,1,ix,iy,tw/2,th/2)
-			body4.image=LG.newImage(imgdata4)
-			body4.d=math.randomfraction(math.pi*2)
+			body2.d=dir+math.randomfraction(0.5)-0.25
 		end
+	else
+		body.decel=0.2
+		local imgdata=g.canvas.main:newImageData(1,1,ix,iy,tw/2,th/2)
+		body.image=LG.newImage(imgdata)
+		body.d=math.randomfraction(math.pi*2)
+
+		local body2=actor.make(g,"debris",a.x,a.y)
+		body2.decel=0.2
+		local imgdata2=g.canvas.main:newImageData(1,1,ix+tw/2,iy+th/2,tw/2,th/2)
+		body2.image=LG.newImage(imgdata2)
+		body2.d=math.randomfraction(math.pi*2)
+
+		local body3=actor.make(g,"debris",a.x,a.y)
+		body3.decel=0.2
+		local imgdata3=g.canvas.main:newImageData(1,1,ix+tw/2,iy,tw/2,th/2)
+		body3.image=LG.newImage(imgdata3)
+		body3.d=math.randomfraction(math.pi*2)
+
+		local body4=actor.make(g,"debris",a.x,a.y)
+		body4.decel=0.2
+		local imgdata4=g.canvas.main:newImageData(1,1,ix,iy,tw/2,th/2)
+		body4.image=LG.newImage(imgdata4)
+		body4.d=math.randomfraction(math.pi*2)
 	end
-}
+end
 
-protosnake.item =
-{
-	control = function(g,a,gs)
-		local p=g.player
-		if p.controller.action.action then
-			item.pickup(g,a,p)
-		end
-	end,
-
-	carry = function(g,a,user)
-		a.x=user.tail.x
-		a.y=user.tail.y
-	end,
-
-	pickup = function(g,a,user)
-		if actor.collision(a.x,a.y,user) then
-			-- if user.controller.action.action or #user.inventory<1 then
-			if not a.carried then
-			-- if user.controller.action.action or #user.inventory<1 then
-				-- if user.controller.action.useduration==0 then
-					print(a.t)
-					if a.sound then
-						if a.sound.get then
-							sfx.play(g,a.sound.get,a.x,a.y)
-						end
-					end
-					--TODO only if user is player
-					if flags.get(user.flags,EF.player) then
-						a.flags=flags.set(a.flags,EF.persistent)
-					end
-					a.carried=true
-					print("PICKUP a.spr")
-					print(a.spr)
-					table.insert(user.inventory,1,a)
-				-- end
-			-- end
-			end
-		end
-	end,
-
-	drop = function(g,a,user)
-		a.delete=true
-	end,
-}
-
-protosnake.shopitem =
-{
-	control = function(g,a,target)
-		if vector.distance(a.x,a.y,target.x,target.y)<30 then
-			sprites.blink(g,a,24)
-			if target.controller.action.action then
-				if target.coin>=a.cost then
-					a.flags=flags.switch(a.flags,EF.shopitem)
-					protosnake.actor.corpse(g,a.menu,a.menu.w+1,a.menu.h+1,true)
-					actor.make(g,"explosion",a.x,a.y,0,0,"white",40)
-					a.menu=nil
-					target.coin=target.coin-a.cost
-				else
-					sfx.play(g,11)
-				end
-			end
-		else
-			a.spr=a.sprinit--TODO this is probably causing weird no sprite actors when they are put in shop
-		end
-	end,
-}
-
-protosnake.collectible =
-{
-	control = function(g,a,gs)
-		if not flags.get(a.flags,EF.shopitem) then
-			local p=g.player
-			if actor.collision(a.x,a.y,p) then
-				if p[a.t] then
-					p[a.t]=p[a.t]+a.value
-				end
-				for i,v in pairs(g.actors) do
-					if v.t=="coin" then
-						v.scalex=4
-						v.scaley=4
-						v.deltimer=0
-						v.delta=g.timer
-					end
-				end
+protosnake.item={}
+protosnake.item.control = function(g,a,gs)
+	local p=g.player
+	if p.controller.action.action then
+		item.pickup(g,a,p)
+	end
+end
+protosnake.item.carry = function(g,a,user)
+	a.x=user.tail.x
+	a.y=user.tail.y
+end
+protosnake.item.pickup = function(g,a,user)
+	if actor.collision(a.x,a.y,user) then
+		-- if user.controller.action.action or #user.inventory<1 then
+		if not a.carried then
+		-- if user.controller.action.action or #user.inventory<1 then
+			-- if user.controller.action.useduration==0 then
+				print(a.t)
 				if a.sound then
 					if a.sound.get then
 						sfx.play(g,a.sound.get,a.x,a.y)
 					end
 				end
-				actor.make(g,"collectibleget",a.x,a.y,math.pi/2,1,"pure_white",1,a.sprinit)
-				game.state.run(g.name,"actor","get",g,a,gs)
-				a.delete=true
-			end
+				--TODO only if user is player
+				if flags.get(user.flags,EF.player) then
+					a.flags=flags.set(a.flags,EF.persistent)
+				end
+				a.carried=true
+				print("PICKUP a.spr")
+				print(a.spr)
+				table.insert(user.inventory,1,a)
+			-- end
+		-- end
 		end
 	end
-}
+end
+protosnake.item.drop = function(g,a,user)
+	a.delete=true
+end
+
+protosnake.shopitem={}
+protosnake.shopitem.control = function(g,a,target)
+	if vector.distance(a.x,a.y,target.x,target.y)<30 then
+		sprites.blink(g,a,24)
+		if target.controller.action.action then
+			if target.coin>=a.cost then
+				a.flags=flags.switch(a.flags,EF.shopitem)
+				protosnake.actor.corpse(g,a.menu,a.menu.w+1,a.menu.h+1,true)
+				actor.make(g,"explosion",a.x,a.y,0,0,"white",40)
+				a.menu=nil
+				target.coin=target.coin-a.cost
+			else
+				sfx.play(g,11)
+			end
+		end
+	else
+		a.spr=a.sprinit--TODO this is probably causing weird no sprite actors when they are put in shop
+	end
+end
+
+protosnake.collectible={}
+protosnake.collectible.control = function(g,a,gs)
+	if not flags.get(a.flags,EF.shopitem) then
+		local p=g.player
+		if actor.collision(a.x,a.y,p) then
+			if p[a.t] then
+				p[a.t]=p[a.t]+a.value
+			end
+			for i,v in pairs(g.actors) do
+				if v.t=="coin" then
+					v.scalex=4
+					v.scaley=4
+					v.deltimer=0
+					v.delta=g.timer
+				end
+			end
+			if a.sound then
+				if a.sound.get then
+					sfx.play(g,a.sound.get,a.x,a.y)
+				end
+			end
+			actor.make(g,"collectibleget",a.x,a.y,math.pi/2,1,"pure_white",1,a.sprinit)
+			game.state.run(g.name,"actor","get",g,a,gs)
+			a.delete=true
+		end
+	end
+end
 
 return protosnake

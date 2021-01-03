@@ -82,62 +82,58 @@ end
 -- 	-- end
 -- end
 
-staystronger.player =
-{
-	make = function(g,a)
-	end,
+staystronger.player={}
+staystronger.player.make = function(g,a)
+end
+staystronger.player.control = function(g,a)
+	if SFX.positonal then
+		love.audio.setPosition(a.x,a.y,0)
+	end
 
-	control = function(g,a)
-		if SFX.positonal then
-			love.audio.setPosition(a.x,a.y,0)
+	-- print(g.step)
+
+	g.step=false
+	if a.controller.move.horizontal~=0 then
+		if a.controller.move.last.horizontal==0 then
+			-- print(g.turn)
+			-- print(g.player.x)
+			g.step=true
+			g.turn=g.turn+1
 		end
-
-		-- print(g.step)
-
-		g.step=false
-		if a.controller.move.horizontal~=0 then
-			if a.controller.move.last.horizontal==0 then
-				-- print(g.turn)
-				-- print(g.player.x)
-				g.step=true
-				g.turn=g.turn+1
-			end
-		elseif a.controller.move.vertical~=0 then
-			if a.controller.move.last.vertical==0 then
-				-- print(g.turn)
-				g.step=true
-				g.turn=g.turn+1
-			end
+	elseif a.controller.move.vertical~=0 then
+		if a.controller.move.last.vertical==0 then
+			-- print(g.turn)
+			g.step=true
+			g.turn=g.turn+1
 		end
+	end
 
-		if a.controller.action.use then
-			a.c="red"
-		else
-			a.c=a.cinit
-		end
-	end,
-}
+	if a.controller.action.use then
+		a.c="red"
+	else
+		a.c=a.cinit
+	end
+end
 
-staystronger.level = {
-	make = function(g,l,index)
-		local m=l.map
-		g.camera.x=m.width/2
-		g.camera.y=m.height/2
+staystronger.level={}
+staystronger.level.make = function(g,l,index)
+	local m=l.map
+	g.camera.x=m.width/2
+	g.camera.y=m.height/2
 
-		for i,v in ipairs(m) do
-			local x,y=map.getxy(m,i)
-			local value=map.getcellvalue(m,x,y,true)
-			local object=g.things[value]
-			if object then
-				if object.chance then
-					if not math.choose(unpack(object.chance)) then
-						map.setcellraw(m,x,y,0)
-					end
+	for i,v in ipairs(m) do
+		local x,y=map.getxy(m,i)
+		local value=map.getcellvalue(m,x,y,true)
+		local object=g.things[value]
+		if object then
+			if object.chance then
+				if not math.choose(unpack(object.chance)) then
+					map.setcellraw(m,x,y,0)
 				end
 			end
 		end
 	end
-}
+end
 
 staystronger.level.outofbounds = function(g,a,hor)
 	if flags.get(a.flags,EF.player) then
@@ -151,38 +147,34 @@ staystronger.level.outofbounds = function(g,a,hor)
 end
 
 
-staystronger.gameplay =
-{
-	make = function(g)
-		-- level.make(g,1,Enums.modes.roguelike)
-		level.make(g,1,Enums.modes.roguelike)
+staystronger.gameplay={}
+staystronger.gameplay.make = function(g)
+	-- level.make(g,1,Enums.modes.roguelike)
+	level.make(g,1,Enums.modes.roguelike)
 
-		g.step=false
+	g.step=false
 
-		local a=actor.make(g,"rpg_character",g.level.map.w/2,g.level.map.h/2)
-		print(a.char)
-		print(string.byte(a.char))
-		game.player.make(g,a,true)
-		a.char='@'
-		-- a.char=g.charset[186]
-		a.colour={1,1,1}
-		local enemy=actor.make(g,"rpg_character",2,2)
-		enemy.char='$'
-		-- enemy.char=g.charset[221]
-		enemy.colour={0.5,0,0}
-		-- supper.print(g.level.map.actors)
-	end,
-
-	control = function(g)
-		--g.step=false
-	end,
-
-	keypressed = function(g,key)
-		if key=='escape' then
-			game.state.make(g,"title")
-		end
-	end,
-}
+	local a=actor.make(g,"rpg_character",g.level.map.w/2,g.level.map.h/2)
+	print(a.char)
+	print(string.byte(a.char))
+	game.player.make(g,a,true)
+	a.char='@'
+	-- a.char=g.charset[186]
+	a.colour={1,1,1}
+	local enemy=actor.make(g,"rpg_character",2,2)
+	enemy.char='$'
+	-- enemy.char=g.charset[221]
+	enemy.colour={0.5,0,0}
+	-- supper.print(g.level.map.actors)
+end
+staystronger.gameplay.control = function(g)
+	--g.step=false
+end
+staystronger.gameplay.keypressed = function(g,key)
+	if key=='escape' then
+		game.state.make(g,"title")
+	end
+end
 
 staystronger.actor={}
 staystronger.actor.make = function(g,a,c,size,char,hp)
@@ -202,65 +194,53 @@ staystronger.actor.collision = function(g,a,c)
 	end
 end
 
-staystronger.title =
-{
-	keypressed = function(g,key)
-		if key=="space" or key=="return" or key=='z' then
-			game.state.make(g,"gameplay")
-		elseif key=='escape' then
-			game.state.make(g,"intro")
-		end
-	end,
-
-	gamepadpressed = function(g,joystick,button)
-		if button=="b" then
-			game.state.make(g,"intro")
-		elseif button=="a" then
-			game.state.make(g,"gameplay")
-		end
-	end,
-
-	draw = function(g)
-		LG.print("staystronger title", g.width/2, g.height/2)
+staystronger.title={}
+staystronger.title.keypressed = function(g,key)
+	if key=="space" or key=="return" or key=='z' then
+		game.state.make(g,"gameplay")
+	elseif key=='escape' then
+		game.state.make(g,"intro")
 	end
-}
-
-staystronger.intro =
-{
-	keypressed = function(g,key)
-		if key=="space" or key=="return" or key=='z' then
-			game.state.make(g,"title")
-		end
-	end,
-
-	gamepadpressed = function(g,joystick,button)
-		if button=="start" or button=="a" then
-			game.state.make(g,"title")
-		end
-	end,
-
-	draw = function(g)
-		LG.print("staystronger intro", g.width/2, g.height/2)
+end
+staystronger.title.gamepadpressed = function(g,joystick,button)
+	if button=="b" then
+		game.state.make(g,"intro")
+	elseif button=="a" then
+		game.state.make(g,"gameplay")
 	end
-}
+end
+staystronger.title.draw = function(g)
+	LG.print("staystronger title", g.width/2, g.height/2)
+end
 
-staystronger.option =
-{
-	keypressed = function(g,key)
-		if key=='escape' then
-			game.state.make(g,"title")
-		end
-	end,
-
-	gamepadpressed = function (g,joystick,button)
-		if button=="b" then
-			game.state.make(g,"intro")
-		end
-	end,
-
-	draw = function(g)
-		LG.print("staystronger options",g.width/2,g.height/2)
+staystronger.intro={}
+staystronger.intro.keypressed = function(g,key)
+	if key=="space" or key=="return" or key=='z' then
+		game.state.make(g,"title")
 	end
-}
+end
+staystronger.intro.gamepadpressed = function(g,joystick,button)
+	if button=="start" or button=="a" then
+		game.state.make(g,"title")
+	end
+end
+staystronger.intro.draw = function(g)
+	LG.print("staystronger intro", g.width/2, g.height/2)
+end
+
+staystronger.option={}
+staystronger.option.keypressed = function(g,key)
+	if key=='escape' then
+		game.state.make(g,"title")
+	end
+end
+staystronger.option.gamepadpressed = function (g,joystick,button)
+	if button=="b" then
+		game.state.make(g,"intro")
+	end
+end
+staystronger.option.draw = function(g)
+	LG.print("staystronger options",g.width/2,g.height/2)
+end
 
 return staystronger

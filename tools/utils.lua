@@ -44,8 +44,11 @@ end
 --draws a box that can be rotated!
 local function drawbox(x,y,w,a)
 	local circlestuff=0.25*math.pi*2
+	w=w/2
 	for i=0,3 do
-		LG.line(x+math.cos(a+i*circlestuff)*w/2,y+math.sin(a+i*circlestuff)*w/2,x+math.cos(a+(i+1)*circlestuff)*w/2,y+math.sin(a+(i+1)*circlestuff)*w/2)
+		local vxstart,vystart=vector.vectors(a+i*circlestuff)
+		local vxend,vyend=vector.vectors(a+(i+1)*circlestuff)
+		LG.line(x+vxstart*w,y+vystart*w,x+vxend*w,y+vyend*w)
 	end
 end
 

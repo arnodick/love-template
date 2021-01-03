@@ -9,8 +9,7 @@ isometric.actor.control = function(g,a,gs)
 			a.vel=vector.length(c.horizontal,c.vertical)
 		end
 	end
-	a.vec[1] = math.cos(a.d)
-	a.vec[2] = math.sin(a.d)
+	a.vec={vector.vectors(a.d)}
 
 	local xdest,ydest=a.x + a.vec[1]*a.vel*a.speed*gs,a.y - a.vec[2]*a.vel*a.speed*gs
 	a.x = xdest

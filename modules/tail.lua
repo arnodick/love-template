@@ -15,8 +15,7 @@ end
 
 local function control(g,t,gs,a,vx,vy)
 	t.angle=vector.direction(vx,vy)
-	t.vec[1]=math.cos(t.angle)
-	t.vec[2]=math.sin(t.angle)
+	t.vec={vector.vectors(t.angle)}
 
 	if t.len<t.leninit then
 		t.len = t.len + gs

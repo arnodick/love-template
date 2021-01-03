@@ -4,12 +4,12 @@ local function move(a,c)
 		tarx,tary=c.target.x,c.target.y
 	end
 	local dir=vector.direction(a.x,a.y,tarx,tary)
-	return math.cos(dir),math.sin(dir)
+	return vector.vectors(dir)
 end
 
 local function aim(a,c)
 	local dir=vector.direction(a.x,a.y,c.target.x,c.target.y)
-	return math.cos(dir),math.sin(dir)
+	return vector.vectors(dir)
 end
 
 local function action(a,c)

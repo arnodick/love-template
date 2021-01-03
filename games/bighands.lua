@@ -35,7 +35,8 @@ actors.bighands_beam.draw = function(g,a)
 	
 ---[[
 	for i=0,dist,2 do
-		local x,y=a.gx+math.cos(dir)*i,a.gy+math.sin(dir)*i
+		local vx,vy=vector.vectors(dir)
+		local x,y=a.gx+vx*i,a.gy+vy*i
 		LG.circle("fill",x,y,3)
 	end
 --]]
@@ -54,15 +55,17 @@ actors.wand.make = function(g,a,c,user)
 	module.make(g,a,EM.item)
 end
 actors.wand.control = function(g,a)
-	a.tip.x=a.x+(math.cos(a.angle)*a.l)
-	a.tip.y=a.y+(math.sin(a.angle)*a.l)
+	local vx,vy=vector.vectors(a.angle)
+	a.tip.x=a.x+vx*a.l
+	a.tip.y=a.y+vy*a.l
 end
 actors.wand.shoot = function(g,a)
 	local r=ray.cast(g,a.tip.x,a.tip.y,a.angle,250,1)
 	local r=ray.cast(g,a.tip.x,a.tip.y,a.angle,250,1)
 
-	lx=math.cos(r.d)*r.len
-	ly=math.sin(r.d)*r.len
+	local vx,vy=vector.vectors(r.d)
+	lx=vx*r.len
+	ly=vy*r.len
 
 	actor.make(g,"bighands_beam",a.tip.x+lx,a.tip.y+ly,r.d,0,a.tip.x,a.tip.y,r.d)
 end
@@ -76,8 +79,9 @@ actors.witch.make = function(g,a,c,size,spr,hp)
 	a.hp=hp or 8
 
 	a.hand={l=8,d=math.pi/4,x=0,y=0}
-	a.hand.x=a.x+(math.cos(a.d+a.hand.d)*a.hand.l)
-	a.hand.y=a.y+(math.sin(a.d+a.hand.d)*a.hand.l)
+	local vx,vy=vector.vectors(a.d+a.hand.d)
+	a.hand.x=a.x+vx*a.hand.l
+	a.hand.y=a.y+vy*a.hand.l
 
 	module.make(g,a,EM.sound,4,"damage")
 	module.make(g,a,EM.hitradius,4)
@@ -95,8 +99,9 @@ actors.witch.control = function(g,a)
 		a.controller=nil
 	end
 
-	a.hand.x=a.x+(math.cos(a.angle+a.hand.d)*a.hand.l)
-	a.hand.y=a.y+(math.sin(a.angle+a.hand.d)*a.hand.l)
+	local vx,vy=vector.vectors(a.angle+a.hand.d)
+	a.hand.x=a.x+vx*a.hand.l
+	a.hand.y=a.y+vy*a.hand.l
 
 	if a.controller then
 		local c=a.controller.move
@@ -131,137 +136,129 @@ actors.witch.control = function(g,a)
 	end
 end
 
+bighands.actor={}
+bighands.actor.make = function(g,a,...)
+	if actors[a.t] then
+		actors[a.t].make(g,a,...)
+	end
+end
+bighands.actor.control = function(g,a,gs)
+	if actors[a.t].control then
+		actors[a.t].control(g,a,gs)
+	end
+end
+bighands.actor.draw = function(g,a)
+	if actors[a.t].draw then
+		actors[a.t].draw(g,a)
+	end
+end
+
 bighands.level={}
 
-bighands.player =
-{
-	make = function(g,a)
-		local playernum=#g.players
-		print(playernum)
+bighands.player={}
+bighands.player.make = function(g,a)
+	local playernum=#g.players
+	print(playernum)
 
-		actor.make(g,"wand",a.x+20,a.y)
+	actor.make(g,"wand",a.x+20,a.y)
 
---[[
-		a.hand={l=8,d=math.pi/4,x=0,y=0}
-		a.hand.x=a.x+(math.cos(a.d+a.hand.d)*a.hand.l)
-		a.hand.y=a.y+(math.sin(a.d+a.hand.d)*a.hand.l)
---]]
-	end,
-
-	control = function(g,a)
-		g.camera.x=a.x
-		g.camera.y=a.y
-	end,
-}
+	-- a.hand={l=8,d=math.pi/4,x=0,y=0}
+	-- local vx,vy=vector.vectors(a.d+a.hand.d)
+	-- a.hand.x=a.x+vx*a.hand.l
+	-- a.hand.y=a.y+vy*a.hand.l
+end
+bighands.player.control = function(g,a)
+	g.camera.x=a.x
+	g.camera.y=a.y
+end
 
 bighands.make = function(g)
 
 end
 
-bighands.gameplay =
-{
-	make = function(g)
-		love.keyboard.setTextInput(false)
-		--local zoomchange=4-g.camera.zoom
-		--module.make(g,g.camera,EM.transition,easing.inOutSine,"zoom",g.camera.zoom,zoomchange,60)
-		level.make(g,1,Enums.modes.topdown_tank)
-		local m=g.level.map
-		local a=actor.make(g,"witch",m.width/2,m.height/2)
-		-- print(a)
-		game.player.make(g,a)
-	end,
-
-	keypressed = function(g,key)
-		if key=='escape' then
-			game.state.make(g,"title")
-		end
-	end,
-
-	gamepadpressed = function(g,joystick,button)
-		if button=="start" then
-			g.pause = not g.pause
-		elseif button=="a" then
-			--print(joystick:getID())
-			if #Joysticks>#g.players then
-				local m=g.level.map
-				local a=actor.make(g,"witch",m.width/2+5,m.height/2)
-				game.player.make(g,a)
-			end
-		end
-	end,
-
-	draw = function(g)
-		--LG.print("bighands gaem",g.width/2,g.height/2)
+bighands.gameplay={}
+bighands.gameplay.make = function(g)
+	love.keyboard.setTextInput(false)
+	--local zoomchange=4-g.camera.zoom
+	--module.make(g,g.camera,EM.transition,easing.inOutSine,"zoom",g.camera.zoom,zoomchange,60)
+	level.make(g,1,Enums.modes.topdown_tank)
+	local m=g.level.map
+	local a=actor.make(g,"witch",m.width/2,m.height/2)
+	-- print(a)
+	game.player.make(g,a)
+end
+bighands.gameplay.keypressed = function(g,key)
+	if key=='escape' then
+		game.state.make(g,"title")
 	end
-}
-
-bighands.title =
-{
-	keypressed = function(g,key)
-		if game.keyconfirm(key) then
-			game.state.make(g,"gameplay")
-		elseif key=='escape' then
-			game.state.make(g,"intro")
+end
+bighands.gameplay.gamepadpressed = function(g,joystick,button)
+	if button=="start" then
+		g.pause = not g.pause
+	elseif button=="a" then
+		--print(joystick:getID())
+		if #Joysticks>#g.players then
+			local m=g.level.map
+			local a=actor.make(g,"witch",m.width/2+5,m.height/2)
+			game.player.make(g,a)
 		end
-	end,
-
-	gamepadpressed = function(g,joystick,button)
-		if button=="start" or button=="a" then
-			game.state.make(g,"gameplay")
-		elseif button=="b" then
-			game.state.make(g,"intro")
-		end
-	end,
-
-	draw = function(g)
-		LG.print("bighands title", g.width/2, g.height/2)
 	end
-}
+end
 
-bighands.intro =
-{
-	keypressed = function(g,key)
-		if game.keyconfirm(key) then
-			game.state.make(g,"title")
-		end
-	end,
-
-	gamepadpressed = function(g,joystick,button)
-		if button=="start" or button=="a" then
-			game.state.make(g,"title")
-		end
-	end,
-
-	draw = function(g)
-		LG.print("bighands intro", g.width/2, g.height/2)
+bighands.title={}
+bighands.title.keypressed = function(g,key)
+	if game.keyconfirm(key) then
+		game.state.make(g,"gameplay")
+	elseif key=='escape' then
+		game.state.make(g,"intro")
 	end
-}
+end
+bighands.title.gamepadpressed = function(g,joystick,button)
+	if button=="start" or button=="a" then
+		game.state.make(g,"gameplay")
+	elseif button=="b" then
+		game.state.make(g,"intro")
+	end
+end
+bighands.title.draw = function(g)
+	LG.print("bighands title", g.width/2, g.height/2)
+end
 
-bighands.actor={}
+bighands.intro={}
+bighands.intro.keypressed = function(g,key)
+	if game.keyconfirm(key) then
+		game.state.make(g,"title")
+	end
+end
+bighands.intro.gamepadpressed = function(g,joystick,button)
+	if button=="start" or button=="a" then
+		game.state.make(g,"title")
+	end
+end
+bighands.intro.draw = function(g)
+	LG.print("bighands intro", g.width/2, g.height/2)
+end
 
-bighands.item =
-{
-	control = function(g,a,gs)
-		local players=g.players
-		for i,p in ipairs(players) do
-			if actor.collision(a.x,a.y,p) then
-				if p.controller.action.action and #p.inventory<1 then
-					if a.sound then
-						if a.sound.get then
-							sfx.play(g,a.sound.get)
-						end
+bighands.item={}
+bighands.item.control = function(g,a,gs)
+	local players=g.players
+	for i,p in ipairs(players) do
+		if actor.collision(a.x,a.y,p) then
+			if p.controller.action.action and #p.inventory<1 then
+				if a.sound then
+					if a.sound.get then
+						sfx.play(g,a.sound.get)
 					end
-					a.flags=flags.set(a.flags,EF.persistent)
-					table.insert(p.inventory,1,a)
 				end
+				a.flags=flags.set(a.flags,EF.persistent)
+				table.insert(p.inventory,1,a)
 			end
-		end	
-	end,
-
-	carry = function(g,a,user)
-		a.x=user.hand.x
-		a.y=user.hand.y
-	end,
-}
+		end
+	end	
+end
+bighands.item.carry = function(g,a,user)
+	a.x=user.hand.x
+	a.y=user.hand.y
+end
 
 return bighands
