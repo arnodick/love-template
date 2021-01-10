@@ -61,7 +61,6 @@ actors.wand.control = function(g,a)
 end
 actors.wand.shoot = function(g,a)
 	local r=ray.cast(g,a.tip.x,a.tip.y,a.angle,250,1)
-	local r=ray.cast(g,a.tip.x,a.tip.y,a.angle,250,1)
 
 	local vx,vy=vector.vectors(r.d)
 	lx=vx*r.len

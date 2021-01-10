@@ -95,7 +95,7 @@ raycast.actor.draw = function(g,a)
 	-- 	if p then
 	-- 	local dir=vector.direction(vector.components(p.x,p.y,a.x,a.y))
 	-- 	local dist=vector.distance(p.x,p.y,a.x,a.y)
-	-- 	local ray=raycast.castray(g,p.x,p.y,dir,dist,0.1)
+	-- 	local ray=ray.cast(g,p.x,p.y,dir,dist,0.1)
 	-- 	--if ray.len>=dist*math.cos(dir-Player.d) then
 	-- 		local anim=0
 	-- 		if a.anim then
@@ -119,7 +119,7 @@ raycast.player.control = function(g,a)
 	a.rays={}
 	local x=1
 	for i=-1/2,1/2,0.01 do
-		local r=raycast.castray(g,a.x,a.y,a.d+i,30,0.1)
+		local r=ray.cast(g,a.x,a.y,a.d+i,30,0.1)
 		r.len=r.len*math.cos(i)--TODO why just cos here?
 		r.x=x
 		x=x+1
@@ -139,29 +139,6 @@ raycast.level.make = function(g,l)
 	print("INPUT AIM")
 	l.settings={inputaim=true, inputretical=true}
 	print(l.settings.inputaim)
-end
-
---TODO consolidate with ray.cast stuff
-raycast.castray = function(g,x,y,d,dist,step)
-	local ray={}
-	ray.d=d
-	for j=step,dist,step do
-		local m=g.level.map
-		local vx,vy=vector.vectors(d)
-		local cellx,celly=map.getcellcoords(m,x+vx*j,y+vy*j)
-		local cell=map.getcellraw(m,cellx,celly,true)
-		if cell then
-			if map.solid(cell) then
-				local xlast=x+vx*(j-step)
-				local ylast=y+vy*(j-step)
-				local ray2=raycast.castray(g,xlast,ylast,d,step,step/10)
-				ray.len=j+ray2.len
-				return ray
-			end
-		end
-	end
-	ray.len=dist
-	return ray
 end
 
 return raycast

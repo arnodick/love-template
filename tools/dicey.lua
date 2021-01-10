@@ -1,9 +1,9 @@
 local dicey =
 {
-    _VERSION        = 'diecy v0.01',
+    _VERSION        = 'dicey v0.01',
     _DESCRIPTION    = 'A collection of dice rolling functions.',
     _LICENSE        = [[
-Copyright (c) 2017 Ashley Pringle
+Copyright (c) 2021 Ashley Pringle
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -39,6 +39,8 @@ dicey.roll = function(sides,printeach)
 	return r
 end
 
+--checks if a die roll is equal to or higher than a difficulty number, if so it is a success, if not a failure
+--failures and successes are added to counter in the d table
 dicey.success = function(d,result,difficulty,printeach)
 	local s="failed"
 	if result>=difficulty then
@@ -52,6 +54,8 @@ dicey.success = function(d,result,difficulty,printeach)
 	end
 end
 
+--creates a table d with success, failure, roll sum and result counts, then rolls a number of dice == count
+--TODO add difficult input, replace 4 in dicey.success below
 dicey.dice = function(sides,count,printeach)
 	local d={}
 	d.successes={}
@@ -85,6 +89,7 @@ dicey.dice = function(sides,count,printeach)
 	return d
 end
 
+--makes a table d with success, failure and roll sum counts, then runs a number dicey.dice sets equal to iterationcount
 dicey.iterate = function(iterationcount,sides,count,printeach)
 	local d={}
 	d.sum=0
