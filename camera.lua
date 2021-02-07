@@ -8,6 +8,7 @@ camera.make = function(g,x,y)
 	c.hit=0
 	c.center={}
 	c.center.x,c.center.y=g.width/2,g.height/2
+	c.zoom=1
 	return c
 	--TODO this should insert itself into g.cameras, can have multiple cameras and jump around from one to another
 end

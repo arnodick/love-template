@@ -88,6 +88,8 @@ debugger.update = function(g,d)
 --]]
 		table.insert(debuglist,"camx:"..g.camera.x)
 		table.insert(debuglist,"camy:"..g.camera.y)
+		table.insert(debuglist,"cam c x:"..g.camera.center.x)
+		table.insert(debuglist,"cam c y:"..g.camera.center.y)
 		table.insert(debuglist,"cam zoom:"..g.camera.zoom)
 		table.insert(debuglist,"screen scale:"..g.screen.scale)
 		table.insert(debuglist,"screen p scale:"..g.screen.pixelscale)

@@ -69,30 +69,35 @@ screen.control = function(g,s,gs)
 end
 
 screen.draw = function(g,s,gs)
+	local c=g.camera
+
 	LG.setCanvas(s.draw.canvas)--everything(?) is drawn to the screen's canvas, which is the height and width of the game (usually 320x240)
-		-- if s.draw.refresh then
+		-- if s.draw.refresh then		
 			if s.draw.clear==true then
 				LG.clear()
 			end
 			if g.level then
 				if g.level.canvas then
-					LG.draw(g.level.canvas.background,-g.camera.x*s.pixelscale,-g.camera.y*s.pixelscale,0,s.pixelscale,s.pixelscale,-g.camera.center.x,-g.camera.center.y)
-					-- LG.draw(g.level.canvas.background,-g.camera.x,-g.camera.y,0,1,1,-g.camera.center.x,-g.camera.center.y)
+					--TODO put pxielscale stuff below when s.draw.canvas is drawn?
+					-- LG.draw(g.level.canvas.background,-c.x*s.pixelscale,-c.y*s.pixelscale,0,s.pixelscale,s.pixelscale,-c.center.x,-c.center.y)
+					-- LG.draw(g.level.canvas.background,0,0,0,c.zoom*s.pixelscale,c.zoom*s.pixelscale,c.x*s.pixelscale-c.center.x/c.zoom,c.y*s.pixelscale-c.center.y/c.zoom)
+					LG.draw(g.level.canvas.background,0,0,0,c.zoom,c.zoom,c.x-c.center.x/c.zoom,c.y-c.center.y/c.zoom)
 				end
 			end
-			LG.draw(g.canvas.main,0,0,0,s.pixelscale,s.pixelscale)
+			-- LG.draw(g.canvas.main,0,0,0,s.pixelscale,s.pixelscale)
+			LG.draw(g.canvas.main,g.width/2,g.height/2,0,c.zoom,c.zoom,g.width/2,g.height/2)
 		-- end
 	LG.setCanvas()
 	if Shader then
 		-- love.graphics.setShader(Shader)
-		LG.draw(s.draw.canvas,s.draw.x,s.draw.y,0,s.draw.scale,s.draw.scale,g.camera.center.x*s.pixelscale,g.camera.center.y*s.pixelscale)
+		LG.draw(s.draw.canvas,s.draw.x,s.draw.y,0,s.draw.scale,s.draw.scale,c.center.x*s.pixelscale,c.center.y*s.pixelscale)
 		-- love.graphics.setShader()
 	else
-		LG.draw(s.draw.canvas,s.draw.x,s.draw.y,0,s.draw.scale,s.draw.scale,g.camera.center.x*s.pixelscale,g.camera.center.y*s.pixelscale)
+		LG.draw(s.draw.canvas,s.draw.x,s.draw.y,0,s.draw.scale,s.draw.scale,c.center.x*s.pixelscale,c.center.y*s.pixelscale)
 	end
 
-	LG.draw(g.canvas.hud,(g.width*s.scale/2)+s.xoff,(g.height*s.scale/2)+s.yoff,0,s.scale,s.scale,g.camera.center.x,g.camera.center.y) --just like draws everything to the hud or whatever
-	--LG.draw(g.canvas.hud,g.camera.x,g.camera.y,0,1,1,0,0) --just like draws everything to the hud or whatever
+	LG.draw(g.canvas.hud,(g.width*s.scale/2)+s.xoff,(g.height*s.scale/2)+s.yoff,0,s.scale,s.scale,c.center.x,c.center.y) --just like draws everything to the hud or whatever
+	--LG.draw(g.canvas.hud,c.x,c.y,0,1,1,0,0) --just like draws everything to the hud or whatever
 end
 
 return screen
